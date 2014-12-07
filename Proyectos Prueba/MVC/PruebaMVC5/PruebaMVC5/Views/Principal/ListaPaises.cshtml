@@ -3,25 +3,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Lista ViewBag</h4>
-
-<lu>
+<div class="list-group">
+    
+    <h4 class="list-group-item-heading">Lista ViewBag</h4> 
+    <br/>
     @foreach (var item in ViewBag.Lista)
     {
-        <li>
+        <p class="list-group-item-text">
             @item
-        </li>
+        </p>
     }
-</lu>
+    <br/>
 
-<h4>Lista ViewData</h4>
-
-<lu>
-    @foreach (var item in (List<string>) ViewData["ListaVD"])
+    <h4 class="list-group-item-heading">Lista ViewData</h4>
+    @foreach (var item in (List<string>)ViewData["ListaVD"])
     {
-        <li>
+        <p class="list-group-item-text">
             @item
-        </li>
+        </p>
     }
-</lu>
-
+    
+    <br/>
+    
+    <h4 class="list-group-item-text">Lista de String</h4>
+    @foreach (var item in (List<string>) ViewData["ListaString"])
+    {
+        <p class=" list-group-item-text">
+            @item
+        </p>
+    }
+    
+    <br/>
+    <br/>
+    
+    @Html.ActionLink("Regresar", "ListaDepartamentos","Principal")
+</div>
