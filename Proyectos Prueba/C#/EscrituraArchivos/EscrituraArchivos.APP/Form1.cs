@@ -18,12 +18,28 @@ namespace EscrituraArchivos.APP
         {
             InitializeComponent();
         }
-
-        private void btn_ListarDocs_Click(object sender, EventArgs e)
+        
+        private void btn_CreaDirectorio_Click(object sender, EventArgs e)
         {
-            var gA = new GestionArchivos();
-            var texto = gA.CreaDirectorio();
-            textBox1.Text = texto;
+            try
+            {
+                const string path = @"Datos";
+                System.IO.Directory.CreateDirectory(path);
+                textBox1.Text = @"Se creo Carpeta Nuevo";
+            }
+            catch (Exception er)
+            {
+                MuestraExcepcion(er);
+            }
+        }
+
+        private void MuestraExcepcion(Exception error)
+        {
+            textBox1.Text = string.Empty;
+            textBox1.Text += @"\nFuente: " + error.Source;
+            textBox1.Text += @"\nMensage: " + error.Message;
+            textBox1.Text += @"\nExcepcion: " + error.InnerException;
+            textBox1.Text += @"\nPila: " + error.StackTrace;
         }
     }
 }
