@@ -108,5 +108,23 @@ namespace EscrituraArchivos.APP
                 MuestraExcepcion(err);
             }
         }
+
+        private void btn_AgregarLineaGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var wrt = new StreamWriter(Directory.GetCurrentDirectory() + "\\Datos\\" + "SavedList.txt", true);
+                foreach (var item in textBox1.Lines)
+                {
+                    wrt.WriteLine(item);
+                }
+
+                wrt.Close();
+            }
+            catch (Exception err)
+            {
+                MuestraExcepcion(err);
+            }
+        }
     }
 }

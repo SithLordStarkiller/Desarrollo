@@ -33,6 +33,8 @@
             this.btn_CreaDirectorio = new System.Windows.Forms.Button();
             this.btn_GuardaTextoArchivo = new System.Windows.Forms.Button();
             this.btn_LeerArchivo = new System.Windows.Forms.Button();
+            this.btn_AgregarLineaGuardar = new System.Windows.Forms.Button();
+            this.btn_EcryptarArchivo = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
@@ -83,11 +85,32 @@
             this.btn_LeerArchivo.UseVisualStyleBackColor = true;
             this.btn_LeerArchivo.Click += new System.EventHandler(this.btn_LeerArchivo_Click);
             // 
+            // btn_AgregarLineaGuardar
+            // 
+            this.btn_AgregarLineaGuardar.Location = new System.Drawing.Point(769, 128);
+            this.btn_AgregarLineaGuardar.Name = "btn_AgregarLineaGuardar";
+            this.btn_AgregarLineaGuardar.Size = new System.Drawing.Size(223, 23);
+            this.btn_AgregarLineaGuardar.TabIndex = 5;
+            this.btn_AgregarLineaGuardar.Text = "Añadir Texto a Archivo";
+            this.btn_AgregarLineaGuardar.UseVisualStyleBackColor = true;
+            this.btn_AgregarLineaGuardar.Click += new System.EventHandler(this.btn_AgregarLineaGuardar_Click);
+            // 
+            // btn_EcryptarArchivo
+            // 
+            this.btn_EcryptarArchivo.Location = new System.Drawing.Point(769, 158);
+            this.btn_EcryptarArchivo.Name = "btn_EcryptarArchivo";
+            this.btn_EcryptarArchivo.Size = new System.Drawing.Size(223, 23);
+            this.btn_EcryptarArchivo.TabIndex = 6;
+            this.btn_EcryptarArchivo.Text = "Encryptar Archivo";
+            this.btn_EcryptarArchivo.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 513);
+            this.Controls.Add(this.btn_EcryptarArchivo);
+            this.Controls.Add(this.btn_AgregarLineaGuardar);
             this.Controls.Add(this.btn_LeerArchivo);
             this.Controls.Add(this.btn_GuardaTextoArchivo);
             this.Controls.Add(this.btn_CreaDirectorio);
@@ -107,6 +130,8 @@
         private System.Windows.Forms.Button btn_CreaDirectorio;
         private System.Windows.Forms.Button btn_GuardaTextoArchivo;
         private System.Windows.Forms.Button btn_LeerArchivo;
+        private System.Windows.Forms.Button btn_AgregarLineaGuardar;
+        private System.Windows.Forms.Button btn_EcryptarArchivo;
     }
 }
 
