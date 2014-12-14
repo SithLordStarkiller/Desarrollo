@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
 using Universidad.Entidades;
+using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.AplicacionAdministrativa.Vistas
 {
@@ -10,11 +11,13 @@ namespace Universidad.AplicacionAdministrativa.Vistas
     {
         private readonly Form _padre;
         private readonly US_USUARIOS _usuario;
+        private readonly Sesion _sesion;
 
-        public Inicio(Form padre,US_USUARIOS usuario)
+        public Inicio(Form padre,US_USUARIOS usuario,Sesion sesion)
         {
             _padre = padre;
             _usuario = usuario;
+            _sesion = sesion;
             InitializeComponent();
             CargarArbol(); 
         }
@@ -37,7 +40,7 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            var persona = new SVC_LoginAdministrativos();
+            var persona = new SVC_LoginAdministrativos(_sesion);
 
 
             persona.ObtenNombreCompleto(_usuario);

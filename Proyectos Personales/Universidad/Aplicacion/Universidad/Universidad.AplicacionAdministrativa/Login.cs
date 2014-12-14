@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using Universidad.AplicacionAdministrativa.Vistas;
-using Universidad.Controlador;
-using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
 using Universidad.Entidades;
+using Universidad.Entidades.ControlUsuario;
 
 
 namespace Universidad.AplicacionAdministrativa
@@ -12,9 +11,11 @@ namespace Universidad.AplicacionAdministrativa
     public partial class FORM_Login : Form
     {
         private US_USUARIOS _login;
+        private readonly Sesion _sesion;
 
-        public FORM_Login()
+        public FORM_Login(Sesion sesion)
         {
+            this._sesion = sesion;
             InitializeComponent();
         }
 
@@ -30,7 +31,7 @@ namespace Universidad.AplicacionAdministrativa
                 var usuario = "ecruzlagunes";//TXB_Usuario.Text;
                 var contrasena = "A@141516182235";//TXB_Contrasena.Text;
 
-                var Login = new SVC_LoginAdministrativos();
+                var Login = new SVC_LoginAdministrativos(_sesion);
 
                 Login.LoginAdministrativo(usuario, contrasena);
                 Login.LoginAdministrativosFinalizado += Login_LoginAdministrativosFinalizado;
@@ -38,7 +39,8 @@ namespace Universidad.AplicacionAdministrativa
             }
             catch (Exception exception)
             {
-                MessageBox.Show((exception.InnerException).ToString());
+                throw;
+                //MessageBox.Show((exception.InnerException).ToString());
             }
         }
 
@@ -52,7 +54,7 @@ namespace Universidad.AplicacionAdministrativa
                 {
                     case 1:
                     {
-                        var fromInicio = new Inicio(this, _login);
+                        var fromInicio = new Inicio(this, _login,_sesion);
                         Hide();
                         fromInicio.Show();
                     }

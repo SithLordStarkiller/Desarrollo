@@ -30,6 +30,14 @@ namespace Universidad.Controlador.SVR_Login {
         System.IAsyncResult BeginObtenPersona(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState);
         
         string EndObtenPersona(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/Funciona", ReplyAction="http://tempuri.org/IS_Login/FuncionaResponse")]
+        bool Funciona();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_Login/Funciona", ReplyAction="http://tempuri.org/IS_Login/FuncionaResponse")]
+        System.IAsyncResult BeginFunciona(System.AsyncCallback callback, object asyncState);
+        
+        bool EndFunciona(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -76,6 +84,25 @@ namespace Universidad.Controlador.SVR_Login {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FuncionaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public FuncionaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class S_LoginClient : System.ServiceModel.ClientBase<Universidad.Controlador.SVR_Login.IS_Login>, Universidad.Controlador.SVR_Login.IS_Login {
         
         private BeginOperationDelegate onBeginLoginAdministradorDelegate;
@@ -89,6 +116,12 @@ namespace Universidad.Controlador.SVR_Login {
         private EndOperationDelegate onEndObtenPersonaDelegate;
         
         private System.Threading.SendOrPostCallback onObtenPersonaCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFuncionaDelegate;
+        
+        private EndOperationDelegate onEndFuncionaDelegate;
+        
+        private System.Threading.SendOrPostCallback onFuncionaCompletedDelegate;
         
         public S_LoginClient() {
         }
@@ -112,6 +145,8 @@ namespace Universidad.Controlador.SVR_Login {
         public event System.EventHandler<LoginAdministradorCompletedEventArgs> LoginAdministradorCompleted;
         
         public event System.EventHandler<ObtenPersonaCompletedEventArgs> ObtenPersonaCompleted;
+        
+        public event System.EventHandler<FuncionaCompletedEventArgs> FuncionaCompleted;
         
         public string LoginAdministrador(string Usuario, string Contrasena) {
             return base.Channel.LoginAdministrador(Usuario, Contrasena);
@@ -213,6 +248,54 @@ namespace Universidad.Controlador.SVR_Login {
             }
             base.InvokeAsync(this.onBeginObtenPersonaDelegate, new object[] {
                         usuario}, this.onEndObtenPersonaDelegate, this.onObtenPersonaCompletedDelegate, userState);
+        }
+        
+        public bool Funciona() {
+            return base.Channel.Funciona();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFunciona(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFunciona(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndFunciona(System.IAsyncResult result) {
+            return base.Channel.EndFunciona(result);
+        }
+        
+        private System.IAsyncResult OnBeginFunciona(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginFunciona(callback, asyncState);
+        }
+        
+        private object[] OnEndFunciona(System.IAsyncResult result) {
+            bool retVal = this.EndFunciona(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnFuncionaCompleted(object state) {
+            if ((this.FuncionaCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FuncionaCompleted(this, new FuncionaCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FuncionaAsync() {
+            this.FuncionaAsync(null);
+        }
+        
+        public void FuncionaAsync(object userState) {
+            if ((this.onBeginFuncionaDelegate == null)) {
+                this.onBeginFuncionaDelegate = new BeginOperationDelegate(this.OnBeginFunciona);
+            }
+            if ((this.onEndFuncionaDelegate == null)) {
+                this.onEndFuncionaDelegate = new EndOperationDelegate(this.OnEndFunciona);
+            }
+            if ((this.onFuncionaCompletedDelegate == null)) {
+                this.onFuncionaCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFuncionaCompleted);
+            }
+            base.InvokeAsync(this.onBeginFuncionaDelegate, null, this.onEndFuncionaDelegate, this.onFuncionaCompletedDelegate, userState);
         }
     }
 }

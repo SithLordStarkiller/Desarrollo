@@ -27,5 +27,10 @@ namespace Universidad.ServidorInterno.Login_S
             var jPersona = JsonConvert.SerializeObject(persona);
             return jPersona;
         }
+
+        public bool Funciona()
+        {
+            return true;
+        }
     }
 }
