@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Universidad.AplicacionAdministrativa
@@ -32,17 +28,17 @@ namespace Universidad.AplicacionAdministrativa
                 }
             }
 
-            catch (System.Reflection.TargetInvocationException er)
+            catch (System.Reflection.TargetInvocationException)
             {
                 CreaWizard();
             }
 
-            catch (UriFormatException er)
+            catch (UriFormatException)
             {
                 CreaWizard();
             }
 
-            catch (ArgumentNullException er)
+            catch (ArgumentNullException)
             {
                 CreaWizard();
             }
