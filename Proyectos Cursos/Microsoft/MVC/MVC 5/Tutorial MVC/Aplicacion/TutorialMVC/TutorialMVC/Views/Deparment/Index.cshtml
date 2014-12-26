@@ -1,0 +1,22 @@
+﻿@using TutorialMVC.Models;
+@model IEnumerable <Cat_Department>
+@{
+    ViewBag.Title = "Deparment list";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <h2>Deparment list</h2>
+    
+    <br/>
+    <ul>
+        @foreach (var item in @Model)
+        {
+            <li>
+                @Html.ActionLink(item.NameDeparment, "Details", new { idDeparment = item.IdDeparment})
+            </li>
+        }
+    </ul>
+</div>
+
+

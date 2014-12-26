@@ -40,14 +40,14 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
         private void Inicio_Load(object sender, EventArgs e)
         {
+            var gestioncatalogos = new SVC_GestionCatalogos(_sesion);
             var persona = new SVC_LoginAdministrativos(_sesion);
-
 
             persona.ObtenNombreCompleto(_usuario);
             persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado; 
 
             if (_usuario.ID_TIPO_USUARIO == null) return;
-            var tipoUsuario = SVC_GestionCatalogos.ClassInstance.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
+            var tipoUsuario = gestioncatalogos.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
 
             LBL_Tipo_Usuario.Text = tipoUsuario.TIPO_USUARIO;
         }

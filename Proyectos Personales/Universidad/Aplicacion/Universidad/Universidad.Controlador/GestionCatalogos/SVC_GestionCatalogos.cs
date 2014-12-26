@@ -9,6 +9,7 @@ using Universidad.Controlador;
 using Universidad.Controlador.SRV_GestionCatalogos;
 using Universidad.Entidades;
 using System.ServiceModel;
+using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.Controlador.GestionCatalogos
 {
@@ -18,19 +19,10 @@ namespace Universidad.Controlador.GestionCatalogos
 
         private S_GestionCatalogosClient S_GestionCatalogos = null;
 
-        /// <summary>
-        /// Instancia de la clace SVC_GestionCatalogos
-        /// </summary>
-       private static readonly SVC_GestionCatalogos _classInstance = new SVC_GestionCatalogos();
-
-        public static SVC_GestionCatalogos ClassInstance
+        public SVC_GestionCatalogos(Sesion sesion)
         {
-            get { return _classInstance; }
-        }
-
-        public SVC_GestionCatalogos()
-        {
-            S_GestionCatalogos = new S_GestionCatalogosClient();
+            var configServicios = new Controlador.ControladorServicios();
+            S_GestionCatalogos = new S_GestionCatalogosClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"GestionCatalogos/", "S_GestionCatalogos.svc"));
         }
 
         public System.EventHandler Logeo_Finalizado = null;
