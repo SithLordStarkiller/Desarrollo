@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ExamenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CAT_AREANEGOCIO">
+          <Key>
+            <PropertyRef Name="IDAREANEGOCIO" />
+          </Key>
+          <Property Name="IDAREANEGOCIO" Type="int" Nullable="false" />
+          <Property Name="NOMBREAREANEGOCIO" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PER_PERSONAS">
+          <Key>
+            <PropertyRef Name="IDPERSONA" />
+          </Key>
+          <Property Name="IDPERSONA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDAREANEGOCIO" Type="int" />
+          <Property Name="NOMBRES" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="APELLIDOPATERNO" Type="varchar" MaxLength="100" />
+          <Property Name="APELLIDOMATERNO" Type="varchar" MaxLength="100" />
+          <Property Name="CORREOELECTRONICO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_APLICACIONNES">
+          <Key>
+            <PropertyRef Name="IDPAGINAPADRE" />
+          </Key>
+          <Property Name="IDPAGINAPADRE" Type="int" Nullable="false" />
+          <Property Name="IDPAGINAHIJO" Type="int" />
+          <Property Name="IDAREANEGOCIO" Type="int" />
+          <Property Name="NOMBREPAGINA" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PER_PERS_REFERENCE_CAT_AREA">
+          <End Role="CAT_AREANEGOCIO" Type="Self.CAT_AREANEGOCIO" Multiplicity="0..1" />
+          <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_AREANEGOCIO">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Principal>
+            <Dependent Role="PER_PERSONAS">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_APLI_REFERENCE_CAT_AREA">
+          <End Role="CAT_AREANEGOCIO" Type="Self.CAT_AREANEGOCIO" Multiplicity="0..1" />
+          <End Role="SIS_APLICACIONNES" Type="Self.SIS_APLICACIONNES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_AREANEGOCIO">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Principal>
+            <Dependent Role="SIS_APLICACIONNES">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_APLI_REFERENCE_SIS_APLI">
+          <End Role="SIS_APLICACIONNES" Type="Self.SIS_APLICACIONNES" Multiplicity="0..1" />
+          <End Role="SIS_APLICACIONNES1" Type="Self.SIS_APLICACIONNES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIS_APLICACIONNES">
+              <PropertyRef Name="IDPAGINAPADRE" />
+            </Principal>
+            <Dependent Role="SIS_APLICACIONNES1">
+              <PropertyRef Name="IDPAGINAHIJO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamenModelStoreContainer">
+          <EntitySet Name="CAT_AREANEGOCIO" EntityType="Self.CAT_AREANEGOCIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PER_PERSONAS" EntityType="Self.PER_PERSONAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIS_APLICACIONNES" EntityType="Self.SIS_APLICACIONNES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_CAT_AREA" Association="Self.FK_PER_PERS_REFERENCE_CAT_AREA">
+            <End Role="CAT_AREANEGOCIO" EntitySet="CAT_AREANEGOCIO" />
+            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_APLI_REFERENCE_CAT_AREA" Association="Self.FK_SIS_APLI_REFERENCE_CAT_AREA">
+            <End Role="CAT_AREANEGOCIO" EntitySet="CAT_AREANEGOCIO" />
+            <End Role="SIS_APLICACIONNES" EntitySet="SIS_APLICACIONNES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_APLI_REFERENCE_SIS_APLI" Association="Self.FK_SIS_APLI_REFERENCE_SIS_APLI">
+            <End Role="SIS_APLICACIONNES" EntitySet="SIS_APLICACIONNES" />
+            <End Role="SIS_APLICACIONNES1" EntitySet="SIS_APLICACIONNES" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CAT_AREANEGOCIO">
+          <Key>
+            <PropertyRef Name="IDAREANEGOCIO" />
+          </Key>
+          <Property Name="IDAREANEGOCIO" Type="Int32" Nullable="false" />
+          <Property Name="NOMBREAREANEGOCIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PER_PERSONAS" Relationship="Self.FK_PER_PERS_REFERENCE_CAT_AREA" FromRole="CAT_AREANEGOCIO" ToRole="PER_PERSONAS" />
+          <NavigationProperty Name="SIS_APLICACIONNES" Relationship="ExamenModel.FK_SIS_APLI_REFERENCE_CAT_AREA" FromRole="CAT_AREANEGOCIO" ToRole="SIS_APLICACIONNES" />
+        </EntityType>
+        <EntityType Name="PER_PERSONAS">
+          <Key>
+            <PropertyRef Name="IDPERSONA" />
+          </Key>
+          <Property Name="IDPERSONA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDAREANEGOCIO" Type="Int32" />
+          <Property Name="NOMBRES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="APELLIDOPATERNO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOMATERNO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CORREOELECTRONICO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="CAT_AREANEGOCIO" Relationship="Self.FK_PER_PERS_REFERENCE_CAT_AREA" FromRole="PER_PERSONAS" ToRole="CAT_AREANEGOCIO" />
+        </EntityType>
+        <Association Name="FK_PER_PERS_REFERENCE_CAT_AREA">
+          <End Role="CAT_AREANEGOCIO" Type="Self.CAT_AREANEGOCIO" Multiplicity="0..1" />
+          <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_AREANEGOCIO">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Principal>
+            <Dependent Role="PER_PERSONAS">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CAT_AREANEGOCIO" EntityType="Self.CAT_AREANEGOCIO" />
+          <EntitySet Name="PER_PERSONAS" EntityType="Self.PER_PERSONAS" />
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_CAT_AREA" Association="Self.FK_PER_PERS_REFERENCE_CAT_AREA">
+            <End Role="CAT_AREANEGOCIO" EntitySet="CAT_AREANEGOCIO" />
+            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+          </AssociationSet>
+          <EntitySet Name="SIS_APLICACIONNES" EntityType="ExamenModel.SIS_APLICACIONNES" />
+          <AssociationSet Name="FK_SIS_APLI_REFERENCE_CAT_AREA" Association="ExamenModel.FK_SIS_APLI_REFERENCE_CAT_AREA">
+            <End Role="CAT_AREANEGOCIO" EntitySet="CAT_AREANEGOCIO" />
+            <End Role="SIS_APLICACIONNES" EntitySet="SIS_APLICACIONNES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_APLI_REFERENCE_SIS_APLI" Association="ExamenModel.FK_SIS_APLI_REFERENCE_SIS_APLI">
+            <End Role="SIS_APLICACIONNES" EntitySet="SIS_APLICACIONNES" />
+            <End Role="SIS_APLICACIONNES1" EntitySet="SIS_APLICACIONNES" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SIS_APLICACIONNES">
+          <Key>
+            <PropertyRef Name="IDPAGINAPADRE" />
+          </Key>
+          <Property Name="IDPAGINAPADRE" Type="Int32" Nullable="false" />
+          <Property Name="IDPAGINAHIJO" Type="Int32" />
+          <Property Name="IDAREANEGOCIO" Type="Int32" />
+          <Property Name="NOMBREPAGINA" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CAT_AREANEGOCIO" Relationship="ExamenModel.FK_SIS_APLI_REFERENCE_CAT_AREA" FromRole="SIS_APLICACIONNES" ToRole="CAT_AREANEGOCIO" />
+          <NavigationProperty Name="SIS_APLICACIONNES1" Relationship="ExamenModel.FK_SIS_APLI_REFERENCE_SIS_APLI" FromRole="SIS_APLICACIONNES" ToRole="SIS_APLICACIONNES1" />
+          <NavigationProperty Name="SIS_APLICACIONNES2" Relationship="ExamenModel.FK_SIS_APLI_REFERENCE_SIS_APLI" FromRole="SIS_APLICACIONNES1" ToRole="SIS_APLICACIONNES" />
+        </EntityType>
+        <Association Name="FK_SIS_APLI_REFERENCE_CAT_AREA">
+          <End Type="ExamenModel.CAT_AREANEGOCIO" Role="CAT_AREANEGOCIO" Multiplicity="0..1" />
+          <End Type="ExamenModel.SIS_APLICACIONNES" Role="SIS_APLICACIONNES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAT_AREANEGOCIO">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Principal>
+            <Dependent Role="SIS_APLICACIONNES">
+              <PropertyRef Name="IDAREANEGOCIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_APLI_REFERENCE_SIS_APLI">
+          <End Type="ExamenModel.SIS_APLICACIONNES" Role="SIS_APLICACIONNES" Multiplicity="0..1" />
+          <End Type="ExamenModel.SIS_APLICACIONNES" Role="SIS_APLICACIONNES1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIS_APLICACIONNES">
+              <PropertyRef Name="IDPAGINAPADRE" />
+            </Principal>
+            <Dependent Role="SIS_APLICACIONNES1">
+              <PropertyRef Name="IDPAGINAHIJO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExamenModelStoreContainer" CdmEntityContainer="ExamenEntities">
+          <EntitySetMapping Name="CAT_AREANEGOCIO">
+            <EntityTypeMapping TypeName="ExamenModel.CAT_AREANEGOCIO">
+              <MappingFragment StoreEntitySet="CAT_AREANEGOCIO">
+                <ScalarProperty Name="IDAREANEGOCIO" ColumnName="IDAREANEGOCIO" />
+                <ScalarProperty Name="NOMBREAREANEGOCIO" ColumnName="NOMBREAREANEGOCIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PER_PERSONAS">
+            <EntityTypeMapping TypeName="ExamenModel.PER_PERSONAS">
+              <MappingFragment StoreEntitySet="PER_PERSONAS">
+                <ScalarProperty Name="IDPERSONA" ColumnName="IDPERSONA" />
+                <ScalarProperty Name="IDAREANEGOCIO" ColumnName="IDAREANEGOCIO" />
+                <ScalarProperty Name="NOMBRES" ColumnName="NOMBRES" />
+                <ScalarProperty Name="APELLIDOPATERNO" ColumnName="APELLIDOPATERNO" />
+                <ScalarProperty Name="APELLIDOMATERNO" ColumnName="APELLIDOMATERNO" />
+                <ScalarProperty Name="CORREOELECTRONICO" ColumnName="CORREOELECTRONICO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_APLICACIONNES">
+            <EntityTypeMapping TypeName="ExamenModel.SIS_APLICACIONNES">
+              <MappingFragment StoreEntitySet="SIS_APLICACIONNES">
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="NOMBREPAGINA" ColumnName="NOMBREPAGINA" />
+                <ScalarProperty Name="IDAREANEGOCIO" ColumnName="IDAREANEGOCIO" />
+                <ScalarProperty Name="IDPAGINAHIJO" ColumnName="IDPAGINAHIJO" />
+                <ScalarProperty Name="IDPAGINAPADRE" ColumnName="IDPAGINAPADRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
