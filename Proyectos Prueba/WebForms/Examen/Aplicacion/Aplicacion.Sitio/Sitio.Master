@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Sitio.master.cs" Inherits="Aplicacion.Sitio.Sitio" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Aplicacion Principal</title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div id="Header">
+            <div id="HorizontalBar">
+                <asp:Label runat="server" ID="lblTituloAplicacion" Text="Sistema de Administracion"></asp:Label>
+            </div>
+            <div id="Title">
+                <br />
+                <div id="AreaTrabajo">
+                    <asp:Label runat="server" ID="lblAreaNegocio"></asp:Label>
+                </div>
+                <div id="CorreoElectronico">
+                    <asp:Label runat="server" ID="lblCorreoElectronico" />
+                </div>
+            </div>
+        </div>
+        <div id="Main">
+            <div id="ColummnLeft">
+                <asp:TreeView runat="server" ID="trvDirecctorio"/>
+            </div>
+            <div id="ColummnCenter">
+                <asp:ContentPlaceHolder ID="ContenidoPrincipal" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div id="Copyright">
+            copyright &copy;
+        </div>
+        
+    </form>
+</body>
+</html>
