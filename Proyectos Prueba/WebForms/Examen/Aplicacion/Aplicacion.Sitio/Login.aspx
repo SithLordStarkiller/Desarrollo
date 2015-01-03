@@ -9,6 +9,8 @@
 <body style="align-content: center;">
     <form id="form1" runat="server">
         <div style="align-content: center;">
+            <asp:ScriptManager runat="server" ID="UpdatePanel1"/>
+
             <fieldset>
                 <table>
                     <tr>
@@ -21,8 +23,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            contraseña
+                        <td>contraseña
                         </td>
                         <td>
                             <asp:TextBox runat="server" ID="txbContrasena" TextMode="Password"></asp:TextBox>
@@ -33,7 +34,7 @@
                             <asp:Label runat="server" ID="lblErrorLogin" Text="Error en Login" Visible="False"></asp:Label>
                         </td>
                         <td>
-                            <asp:Button runat="server" ID="btnLogin" OnClick="btnLogin_OnClick" Text="Login"/>
+                            <asp:Button runat="server" ID="btnLogin" OnClick="btnLogin_OnClick" Text="Login" />
                         </td>
                     </tr>
                 </table>

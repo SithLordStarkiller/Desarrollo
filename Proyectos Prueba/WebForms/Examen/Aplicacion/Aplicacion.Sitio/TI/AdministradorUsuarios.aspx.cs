@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace Aplicacion.Sitio.TI
 {
-    public partial class AdministracionUsuarios : System.Web.UI.Page
+    public partial class AdministradorUsuarios : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -14,7 +14,11 @@ namespace Aplicacion.Sitio
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (IsPostBack) return;
+            if (Session["UserInfo"] != null)
+            {
+                Response.Redirect("index.aspx");
+            }
         }
 
         protected void btnLogin_OnClick(object sender, EventArgs e)
@@ -27,18 +31,19 @@ namespace Aplicacion.Sitio
                 
                 if (empleado != null)
                 {
-                    var jEmpleado = JsonConvert.SerializeObject(empleado);
-                    Response.Redirect("index.aspx?Token=" + jEmpleado);
+                    Session["UserInfo"] = empleado;
+                    Response.Redirect("index.aspx");
                 }
                 else
                 {
                     lblErrorLogin.Visible = true;
                 }
             }
-            catch (Exception)
+            catch (Exception err)
             {
-                
-                throw;
+                ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page),
+                            "Mensaje",
+                            "alert('Error en el sistema');", true);
             }
         }
     }

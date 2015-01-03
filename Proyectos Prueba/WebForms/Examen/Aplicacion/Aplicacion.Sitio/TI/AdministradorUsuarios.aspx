@@ -1,13 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdministracionUsuarios.aspx.cs" Inherits="Aplicacion.Sitio.TI.AdministracionUsuarios" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Sitio.Master" AutoEventWireup="true" CodeBehind="AdministradorUsuarios.aspx.cs" Inherits="Aplicacion.Sitio.TI.AdministradorUsuarios" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContenidoPrincipal" runat="server">
         <div>
             <fieldset>
                 <table>
@@ -43,12 +37,7 @@
                             <asp:TextBox runat="server" ID="txbContrasena"></asp:TextBox>
                         </td>
                     </tr>
-                    <tr>
-                        <asp:ListBox runat="server" ID="lbx"/>
-                    </tr>
                 </table>
             </fieldset>
         </div>
-    </form>
-</body>
-</html>
+</asp:Content>
