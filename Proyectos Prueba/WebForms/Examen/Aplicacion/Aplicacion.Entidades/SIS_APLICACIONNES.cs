@@ -14,19 +14,12 @@ namespace Aplicacion.Entidades
     
     public partial class SIS_APLICACIONNES
     {
-        public SIS_APLICACIONNES()
-        {
-            this.SIS_APLICACIONNES1 = new HashSet<SIS_APLICACIONNES>();
-        }
-    
+        public int IDPAGINA { get; set; }
         public int IDPAGINAPADRE { get; set; }
-        public Nullable<int> IDPAGINAHIJO { get; set; }
         public Nullable<int> IDAREANEGOCIO { get; set; }
         public string NOMBREPAGINA { get; set; }
         public string URL { get; set; }
     
         public virtual CAT_AREANEGOCIO CAT_AREANEGOCIO { get; set; }
-        public virtual ICollection<SIS_APLICACIONNES> SIS_APLICACIONNES1 { get; set; }
-        public virtual SIS_APLICACIONNES SIS_APLICACIONNES2 { get; set; }
     }
 }

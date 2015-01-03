@@ -29,8 +29,7 @@ namespace Aplicacion.AccesoDatos
             using (var r = new Repositorio<CAT_AREANEGOCIO>())
             {
                 return  r.TablaCompleta();
-            }
-            
+            }   
         }
     }
 }
