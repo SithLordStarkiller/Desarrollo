@@ -4,9 +4,6 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContenidoPrincipal" runat="server">
     <div>
-        
-        <fieldset>
-            index
-        </fieldset>
+        index
     </div>
 </asp:Content>

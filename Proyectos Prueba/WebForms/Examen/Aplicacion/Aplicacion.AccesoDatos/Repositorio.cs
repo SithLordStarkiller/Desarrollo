@@ -26,32 +26,32 @@ namespace Aplicacion.AccesoDatos
 
         public TEntity Agregar(TEntity agregar)
         {
-            TEntity Resultado = null;
+            TEntity resultado;
 
             try
             {
                 EntitySet.Add(agregar);
                 _contexto.SaveChanges();
-                Resultado = agregar;
+                resultado = agregar;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return Resultado;
+            return resultado;
         }
 
         public bool Eliminar(TEntity elminar)
         {
-            bool Resultado = false;
+            bool resultado;
 
             try
             {
 
                 EntitySet.Attach(elminar);
                 EntitySet.Remove(elminar);
-                Resultado = _contexto.SaveChanges() > 0;
+                resultado = _contexto.SaveChanges() > 0;
 
             }
             catch (Exception ex)
@@ -59,73 +59,73 @@ namespace Aplicacion.AccesoDatos
                 throw ex;
             }
 
-            return Resultado;
+            return resultado;
         }
 
         public bool Actualizar(TEntity actualizar)
         {
-            bool Resultado = false;
+            bool resultado;
 
             try
             {
                 EntitySet.Attach(actualizar);
                 _contexto.Entry<TEntity>(actualizar).State = EntityState.Modified;
-                Resultado = _contexto.SaveChanges() > 0;
+                resultado = _contexto.SaveChanges() > 0;
 
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return Resultado;
+            return resultado;
         }
 
         public TEntity Extraer(System.Linq.Expressions.Expression<Func<TEntity, bool>> criterio)
         {
-            TEntity Resultado = null;
+            TEntity resultado;
 
             try
             {
-                Resultado = EntitySet.FirstOrDefault(criterio);
+                resultado = EntitySet.FirstOrDefault(criterio);
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return Resultado;
+            return resultado;
         }
 
         public List<TEntity> Filtro(System.Linq.Expressions.Expression<Func<TEntity, bool>> criterio)
         {
-            List<TEntity> Resultado = null;
+            List<TEntity> resultado;
 
             try
             {
-                Resultado = EntitySet.Where(criterio).ToList();
+                resultado = EntitySet.Where(criterio).ToList();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return Resultado;
+            return resultado;
         }
         
         public List<TEntity> TablaCompleta()
         {
-            List<TEntity> Resultado = null;
+            List<TEntity> resultado;
 
             try
             {
-                Resultado = EntitySet.ToList();
+                resultado = EntitySet.ToList();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
-            return Resultado;
+            return resultado;
         }
 
         public void Dispose()

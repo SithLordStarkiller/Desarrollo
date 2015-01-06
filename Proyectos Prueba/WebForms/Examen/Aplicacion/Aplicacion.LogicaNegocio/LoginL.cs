@@ -12,15 +12,17 @@ namespace Aplicacion.LogicaNegocio
     {
         public PER_PERSONAS LoginPersonas(string correoElectronico, string contrasena)
         {
-            var accesoDatos = new LoginA();
-
-            return accesoDatos.LoginPersonas(correoElectronico, contrasena);
+            return new LoginA().LoginPersonas(correoElectronico, contrasena);
         }
 
         public List<CAT_AREANEGOCIO> ListarAreanegocios()
         {
-            var accesoDatos = new LoginA();
-            return accesoDatos.ListaAreaNegocios();
+            return new LoginA().ListaAreaNegocios();
+        }
+
+        public void NuevoUsuario(PER_PERSONAS empleado)
+        {
+            new LoginA().NuevoUsuario(empleado);
         }
     }
 }

@@ -7,90 +7,90 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Aplicacion.Sitio {
+namespace Aplicacion.Sitio.TI {
     
     
-    public partial class Sitio {
+    public partial class AltaUsuarios {
         
         /// <summary>
-        /// head control.
+        /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// form1 control.
+        /// txbNombre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.TextBox txbNombre;
         
         /// <summary>
-        /// lblTituloAplicacion control.
+        /// txbAPaterno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTituloAplicacion;
+        protected global::System.Web.UI.WebControls.TextBox txbAPaterno;
         
         /// <summary>
-        /// lblAreaNegocio control.
+        /// txbAMaterno control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAreaNegocio;
+        protected global::System.Web.UI.WebControls.TextBox txbAMaterno;
         
         /// <summary>
-        /// lblCorreoElectronico control.
+        /// txbCorreoElectronico control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCorreoElectronico;
+        protected global::System.Web.UI.WebControls.TextBox txbCorreoElectronico;
         
         /// <summary>
-        /// trvDirecctorio control.
+        /// txbContrasena control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView trvDirecctorio;
+        protected global::System.Web.UI.WebControls.TextBox txbContrasena;
         
         /// <summary>
-        /// lnkCerrarSesion control.
+        /// txbContrasenaConfimada control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button lnkCerrarSesion;
+        protected global::System.Web.UI.WebControls.TextBox txbContrasenaConfimada;
         
         /// <summary>
-        /// clientScriptManager control.
+        /// ddlAreaNegocio control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager clientScriptManager;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAreaNegocio;
         
         /// <summary>
-        /// ContenidoPrincipal control.
+        /// btnRegistrar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContenidoPrincipal;
+        protected global::System.Web.UI.WebControls.Button btnRegistrar;
     }
 }

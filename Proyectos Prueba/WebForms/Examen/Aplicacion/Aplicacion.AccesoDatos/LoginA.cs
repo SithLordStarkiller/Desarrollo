@@ -28,8 +28,17 @@ namespace Aplicacion.AccesoDatos
         {
             using (var r = new Repositorio<CAT_AREANEGOCIO>())
             {
-                return  r.TablaCompleta();
-            }   
+                return r.TablaCompleta();
+            }
+        }
+
+        public void NuevoUsuario(PER_PERSONAS persona)
+        {
+
+            using (var r = new Repositorio<PER_PERSONAS>())
+            {
+                var nuevo = r.Agregar(persona);
+            }
         }
     }
 }

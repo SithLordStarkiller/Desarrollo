@@ -26,21 +26,50 @@ namespace Aplicacion.Sitio
                 if (areaNegocio != null) lblAreaNegocio.Text = "Area de negocio " + areaNegocio.NOMBREAREANEGOCIO;
                 lblCorreoElectronico.Text = "Bienvenido " + _persona.CORREOELECTRONICO;
 
-                var listaAplicacion = new MenusL().ListaAplicacionness().Where(r => r.IDAREANEGOCIO == _persona.IDAREANEGOCIO).ToList();
-
-                foreach (var nodo in listaAplicacion.Select(sisAplicacionnes => new TreeNode(sisAplicacionnes.NOMBREPAGINA)
-                {
-                    NavigateUrl = sisAplicacionnes.URL
-                        
-                }))
-                {
-                    trvDirecctorio.Nodes.Add(nodo);
-                }
+                CargarMenu();
             }
             else
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect(Environment.CurrentDirectory + "Login.aspx");
             }
+        }
+
+        private void CargarMenu()
+        {
+            var listaAplicacion = new MenusL().ListaAplicacionness().Where(r => r.IDAREANEGOCIO == _persona.IDAREANEGOCIO && r.IDPAGINAPADRE == 0).ToList();
+
+            trvDirecctorio.Nodes.Clear();
+
+            //Exprecion normal
+            foreach (var item in listaAplicacion)
+            {
+                var padre = new TreeNode(item.NOMBREPAGINA) { NavigateUrl = item.URL };
+                padre = InsertaHijo(item, padre);
+                trvDirecctorio.Nodes.Add(padre);
+            }
+            trvDirecctorio.CollapseAll();
+        }
+
+        private static TreeNode InsertaHijo(SIS_APLICACIONNES item, TreeNode padre)
+        {
+
+            var listaHijos = new MenusL().ListaAplicacionness().Where(r => r.IDPAGINAPADRE == item.IDPAGINA).ToList();
+
+            //Ejemplo sin linq
+            foreach (var subItem in listaHijos)
+            {
+                if (subItem.IDPAGINAPADRE != 0)
+                {
+                    var hijo = new TreeNode(subItem.NOMBREPAGINA)
+                    {
+                        NavigateUrl= subItem.URL
+                    };
+                    hijo = InsertaHijo(subItem, hijo);
+                    padre.ChildNodes.Add(hijo);
+                }
+            }
+
+            return padre;
         }
     }
 }
