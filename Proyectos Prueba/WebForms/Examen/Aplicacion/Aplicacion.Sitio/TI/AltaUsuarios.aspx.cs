@@ -38,6 +38,13 @@ namespace Aplicacion.Sitio.TI
                     };
 
                     new LoginL().NuevoUsuario(persona);
+
+                    ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page),
+                           "Mensaje",
+                           "alert('Se agrago nuevo usuario');", true);
+                    
+                    txbNombre.Text = string.Empty;
+                    txbAPaterno.Text = string.Empty;
                 }
                 catch (Exception err)
                 {

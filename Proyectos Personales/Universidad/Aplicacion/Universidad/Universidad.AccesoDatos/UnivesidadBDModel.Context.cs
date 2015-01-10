@@ -44,8 +44,9 @@ namespace Universidad.AccesoDatos
         public DbSet<PER_MEDIOS_ELECTRONICOS> PER_MEDIOS_ELECTRONICOS { get; set; }
         public DbSet<PER_PERSONAS> PER_PERSONAS { get; set; }
         public DbSet<PRO_PROFESORES> PRO_PROFESORES { get; set; }
-        public DbSet<SIS_AADM_MENUS> SIS_AADM_MENUS { get; set; }
-        public DbSet<SIS_CAT_TABLAS> SIS_CAT_TABLAS { get; set; }
+        public DbSet<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
+        public DbSet<SIS_AADM_ARBOLMENUS> SIS_AADM_ARBOLMENUS { get; set; }
+        public DbSet<SIS_CAT_TABPAGES> SIS_CAT_TABPAGES { get; set; }
         public DbSet<US_CAT_ESTATUS_USUARIO> US_CAT_ESTATUS_USUARIO { get; set; }
         public DbSet<US_CAT_NIVEL_USUARIO> US_CAT_NIVEL_USUARIO { get; set; }
         public DbSet<US_CAT_TIPO_USUARIO> US_CAT_TIPO_USUARIO { get; set; }

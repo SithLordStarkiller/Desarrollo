@@ -39,14 +39,14 @@
                     <td>Contraseña
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txbContrasena"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txbContrasena" TextMode="Password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>Confirma Contraseña
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="txbContrasenaConfimada"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="txbContrasenaConfimada" TextMode="Password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>

@@ -35,6 +35,7 @@
             this.LBL_Contraseña = new System.Windows.Forms.Label();
             this.TXB_Usuario = new System.Windows.Forms.TextBox();
             this.TXB_Contrasena = new System.Windows.Forms.TextBox();
+            this.ckbRecordarSesion = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // LBL_Titulo
@@ -49,7 +50,7 @@
             // 
             // BTN_Login
             // 
-            this.BTN_Login.Location = new System.Drawing.Point(112, 131);
+            this.BTN_Login.Location = new System.Drawing.Point(112, 163);
             this.BTN_Login.Name = "BTN_Login";
             this.BTN_Login.Size = new System.Drawing.Size(75, 23);
             this.BTN_Login.TabIndex = 2;
@@ -59,7 +60,7 @@
             // 
             // BTN_Salir
             // 
-            this.BTN_Salir.Location = new System.Drawing.Point(286, 131);
+            this.BTN_Salir.Location = new System.Drawing.Point(286, 163);
             this.BTN_Salir.Name = "BTN_Salir";
             this.BTN_Salir.Size = new System.Drawing.Size(75, 23);
             this.BTN_Salir.TabIndex = 3;
@@ -100,11 +101,22 @@
             this.TXB_Contrasena.TabIndex = 7;
             this.TXB_Contrasena.UseSystemPasswordChar = true;
             // 
+            // ckbRecordarSesion
+            // 
+            this.ckbRecordarSesion.AutoSize = true;
+            this.ckbRecordarSesion.Location = new System.Drawing.Point(276, 129);
+            this.ckbRecordarSesion.Name = "ckbRecordarSesion";
+            this.ckbRecordarSesion.Size = new System.Drawing.Size(105, 17);
+            this.ckbRecordarSesion.TabIndex = 8;
+            this.ckbRecordarSesion.Text = "Recordar Sesion";
+            this.ckbRecordarSesion.UseVisualStyleBackColor = true;
+            // 
             // FORM_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 176);
+            this.ClientSize = new System.Drawing.Size(475, 214);
+            this.Controls.Add(this.ckbRecordarSesion);
             this.Controls.Add(this.TXB_Contrasena);
             this.Controls.Add(this.TXB_Usuario);
             this.Controls.Add(this.LBL_Contraseña);
@@ -129,6 +141,7 @@
         private System.Windows.Forms.Label LBL_Contraseña;
         private System.Windows.Forms.TextBox TXB_Usuario;
         private System.Windows.Forms.TextBox TXB_Contrasena;
+        private System.Windows.Forms.CheckBox ckbRecordarSesion;
 
 
     }

@@ -6,15 +6,16 @@
 <head runat="server">
     <title></title>
 </head>
-<body style="align-content: center;">
+<body style="align-content: center; background-color: white;">
     <form id="form1" runat="server">
-        <div style="align-content: center;">
+        <div style="align-content: center; width: 50%; margin: auto;">
             <asp:ScriptManager runat="server" ID="UpdatePanel1"/>
-
-            <fieldset>
+            <br/>
+            <br/>
+            <fieldset style="background-color: royalblue; text-align: center; margin: auto;">
                 <table>
                     <tr>
-                        <td>Login</td>
+                        <td colspan=2 style="text-align:center;"><h3>Login</h3></td>
                     </tr>
                     <tr>
                         <td>Correo Elecronico</td>
@@ -23,7 +24,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>contraseña
+                        <td>
+                            contraseña
                         </td>
                         <td>
                             <asp:TextBox runat="server" ID="txbContrasena" TextMode="Password"></asp:TextBox>

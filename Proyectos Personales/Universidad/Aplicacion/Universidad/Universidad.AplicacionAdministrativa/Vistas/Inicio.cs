@@ -44,12 +44,13 @@ namespace Universidad.AplicacionAdministrativa.Vistas
             var persona = new SVC_LoginAdministrativos(_sesion);
 
             persona.ObtenNombreCompleto(_usuario);
-            persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado; 
 
             if (_usuario.ID_TIPO_USUARIO == null) return;
             var tipoUsuario = gestioncatalogos.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
 
             LBL_Tipo_Usuario.Text = tipoUsuario.TIPO_USUARIO;
+
+            persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado; 
         }
 
         private void Persona_ObtenNombreCompletoFinalizado(PER_PERSONAS usuario)

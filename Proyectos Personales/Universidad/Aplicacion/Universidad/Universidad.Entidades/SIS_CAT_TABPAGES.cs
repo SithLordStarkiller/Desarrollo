@@ -12,22 +12,17 @@ namespace Universidad.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class SIS_AADM_MENUS
+    public partial class SIS_CAT_TABPAGES
     {
-        public SIS_AADM_MENUS()
+        public SIS_CAT_TABPAGES()
         {
-            this.SIS_AADM_MENUS1 = new HashSet<SIS_AADM_MENUS>();
+            this.SIS_AADM_APLICACIONES = new HashSet<SIS_AADM_APLICACIONES>();
         }
     
-        public int ID_MENU { get; set; }
-        public Nullable<int> ID_MENU_PADRE { get; set; }
-        public string TIPOSUSUARIOS { get; set; }
-        public string NIVELES { get; set; }
-        public string NOMBRENODO { get; set; }
+        public int IDTABPAGES { get; set; }
+        public string RUTATAB { get; set; }
         public string NOMBRETABPAGE { get; set; }
-        public string RUTA { get; set; }
     
-        public virtual ICollection<SIS_AADM_MENUS> SIS_AADM_MENUS1 { get; set; }
-        public virtual SIS_AADM_MENUS SIS_AADM_MENUS2 { get; set; }
+        public virtual ICollection<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
     }
 }

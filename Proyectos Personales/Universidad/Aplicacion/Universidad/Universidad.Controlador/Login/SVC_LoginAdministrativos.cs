@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Universidad.Controlador.SVR_Login;
 using Universidad.Entidades;
@@ -15,7 +10,7 @@ namespace Universidad.Controlador.Login
     {
         #region Propiedades de la clase
 
-        private S_LoginClient _servicio;
+        private readonly S_LoginClient _servicio;
 
         public SVC_LoginAdministrativos(Sesion sesion)
         {

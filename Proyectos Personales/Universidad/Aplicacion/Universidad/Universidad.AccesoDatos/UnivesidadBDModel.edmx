@@ -189,25 +189,32 @@
           <Property Name="ID_PER_LINKID" Type="int" Nullable="false" />
           <Property Name="ID_PROFESOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
-        <EntityType Name="SIS_AADM_MENUS">
+        <EntityType Name="SIS_AADM_APLICACIONES">
           <Key>
-            <PropertyRef Name="ID_MENU" />
+            <PropertyRef Name="IDAPLICACIONES" />
           </Key>
-          <Property Name="ID_MENU" Type="int" Nullable="false" />
-          <Property Name="ID_MENU_PADRE" Type="int" />
-          <Property Name="TIPOSUSUARIOS" Type="varchar" MaxLength="100" />
-          <Property Name="NIVELES" Type="varchar" MaxLength="100" />
-          <Property Name="NOMBRENODO" Type="varchar" MaxLength="100" />
-          <Property Name="NOMBRETABPAGE" Type="varchar" MaxLength="100" />
-          <Property Name="RUTA" Type="varchar(max)" />
+          <Property Name="IDAPLICACIONES" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDMENU" Type="int" />
+          <Property Name="IDTABPAGES" Type="int" />
+          <Property Name="ID_NIVEL_USUARIO" Type="int" />
+          <Property Name="ID_TIPO_USUARIO" Type="int" />
         </EntityType>
-        <EntityType Name="SIS_CAT_TABLAS">
+        <EntityType Name="SIS_AADM_ARBOLMENUS">
           <Key>
-            <PropertyRef Name="ID_TABLA" />
+            <PropertyRef Name="IDMENU" />
           </Key>
-          <Property Name="ID_TABLA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NOMBRE_TABLA" Type="varchar" MaxLength="100" />
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" />
+          <Property Name="IDMENU" Type="int" Nullable="false" />
+          <Property Name="NOMBRENODO" Type="varchar" MaxLength="100" />
+          <Property Name="RUTA" Type="varchar(max)" />
+          <Property Name="IDMENUPADRE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SIS_CAT_TABPAGES">
+          <Key>
+            <PropertyRef Name="IDTABPAGES" />
+          </Key>
+          <Property Name="IDTABPAGES" Type="int" Nullable="false" />
+          <Property Name="RUTATAB" Type="varchar" MaxLength="100" />
+          <Property Name="NOMBRETABPAGE" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="US_CAT_ESTATUS_USUARIO">
           <Key>
@@ -331,14 +338,50 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SIS_AADM_REFERENCE_SIS_AADM">
-          <End Role="SIS_AADM_MENUS" Type="Self.SIS_AADM_MENUS" Multiplicity="0..1" />
-          <End Role="SIS_AADM_MENUS1" Type="Self.SIS_AADM_MENUS" Multiplicity="*" />
+          <End Role="SIS_AADM_ARBOLMENUS" Type="Self.SIS_AADM_ARBOLMENUS" Multiplicity="0..1" />
+          <End Role="SIS_AADM_APLICACIONES" Type="Self.SIS_AADM_APLICACIONES" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SIS_AADM_MENUS">
-              <PropertyRef Name="ID_MENU" />
+            <Principal Role="SIS_AADM_ARBOLMENUS">
+              <PropertyRef Name="IDMENU" />
             </Principal>
-            <Dependent Role="SIS_AADM_MENUS1">
-              <PropertyRef Name="ID_MENU_PADRE" />
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="IDMENU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_AADM_REFERENCE_SIS_CAT_">
+          <End Role="SIS_CAT_TABPAGES" Type="Self.SIS_CAT_TABPAGES" Multiplicity="0..1" />
+          <End Role="SIS_AADM_APLICACIONES" Type="Self.SIS_AADM_APLICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIS_CAT_TABPAGES">
+              <PropertyRef Name="IDTABPAGES" />
+            </Principal>
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="IDTABPAGES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_AADM_REFERENCE_US_CAT_N">
+          <End Role="US_CAT_NIVEL_USUARIO" Type="Self.US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
+          <End Role="SIS_AADM_APLICACIONES" Type="Self.SIS_AADM_APLICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_NIVEL_USUARIO">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_AADM_REFERENCE_US_CAT_T">
+          <End Role="US_CAT_TIPO_USUARIO" Type="Self.US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
+          <End Role="SIS_AADM_APLICACIONES" Type="Self.SIS_AADM_APLICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_TIPO_USUARIO">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -541,8 +584,9 @@
           <EntitySet Name="PER_MEDIOS_ELECTRONICOS" EntityType="Self.PER_MEDIOS_ELECTRONICOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_PERSONAS" EntityType="Self.PER_PERSONAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRO_PROFESORES" EntityType="Self.PRO_PROFESORES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIS_AADM_MENUS" EntityType="Self.SIS_AADM_MENUS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SIS_CAT_TABLAS" EntityType="Self.SIS_CAT_TABLAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="Self.SIS_AADM_APLICACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="Self.SIS_AADM_ARBOLMENUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIS_CAT_TABPAGES" EntityType="Self.SIS_CAT_TABPAGES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_ESTATUS_USUARIO" EntityType="Self.US_CAT_ESTATUS_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_NIVEL_USUARIO" EntityType="Self.US_CAT_NIVEL_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_TIPO_USUARIO" EntityType="Self.US_CAT_TIPO_USUARIO" Schema="dbo" store:Type="Tables" />
@@ -573,8 +617,20 @@
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
           <AssociationSet Name="FK_SIS_AADM_REFERENCE_SIS_AADM" Association="Self.FK_SIS_AADM_REFERENCE_SIS_AADM">
-            <End Role="SIS_AADM_MENUS" EntitySet="SIS_AADM_MENUS" />
-            <End Role="SIS_AADM_MENUS1" EntitySet="SIS_AADM_MENUS" />
+            <End Role="SIS_AADM_ARBOLMENUS" EntitySet="SIS_AADM_ARBOLMENUS" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_AADM_REFERENCE_SIS_CAT_" Association="Self.FK_SIS_AADM_REFERENCE_SIS_CAT_">
+            <End Role="SIS_CAT_TABPAGES" EntitySet="SIS_CAT_TABPAGES" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_N" Association="Self.FK_SIS_AADM_REFERENCE_US_CAT_N">
+            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_T" Association="Self.FK_SIS_AADM_REFERENCE_US_CAT_T">
+            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
           </AssociationSet>
           <AssociationSet Name="Reference_10" Association="Self.Reference_10">
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
@@ -660,8 +716,9 @@
           <EntitySet Name="PER_MEDIOS_ELECTRONICOS" EntityType="UniversidadDBModel.PER_MEDIOS_ELECTRONICOS" />
           <EntitySet Name="PER_PERSONAS" EntityType="UniversidadDBModel.PER_PERSONAS" />
           <EntitySet Name="PRO_PROFESORES" EntityType="UniversidadDBModel.PRO_PROFESORES" />
-          <EntitySet Name="SIS_AADM_MENUS" EntityType="UniversidadDBModel.SIS_AADM_MENUS" />
-          <EntitySet Name="SIS_CAT_TABLAS" EntityType="UniversidadDBModel.SIS_CAT_TABLAS" />
+          <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="UniversidadDBModel.SIS_AADM_APLICACIONES" />
+          <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="UniversidadDBModel.SIS_AADM_ARBOLMENUS" />
+          <EntitySet Name="SIS_CAT_TABPAGES" EntityType="UniversidadDBModel.SIS_CAT_TABPAGES" />
           <EntitySet Name="US_CAT_ESTATUS_USUARIO" EntityType="UniversidadDBModel.US_CAT_ESTATUS_USUARIO" />
           <EntitySet Name="US_CAT_NIVEL_USUARIO" EntityType="UniversidadDBModel.US_CAT_NIVEL_USUARIO" />
           <EntitySet Name="US_CAT_TIPO_USUARIO" EntityType="UniversidadDBModel.US_CAT_TIPO_USUARIO" />
@@ -736,8 +793,20 @@
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
           <AssociationSet Name="FK_SIS_AADM_REFERENCE_SIS_AADM" Association="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_AADM">
-            <End Role="SIS_AADM_MENUS" EntitySet="SIS_AADM_MENUS" />
-            <End Role="SIS_AADM_MENUS1" EntitySet="SIS_AADM_MENUS" />
+            <End Role="SIS_AADM_ARBOLMENUS" EntitySet="SIS_AADM_ARBOLMENUS" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_AADM_REFERENCE_SIS_CAT_" Association="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_CAT_">
+            <End Role="SIS_CAT_TABPAGES" EntitySet="SIS_CAT_TABPAGES" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_N" Association="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_N">
+            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_T" Association="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T">
+            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
+            <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
           </AssociationSet>
           <AssociationSet Name="Reference_11" Association="UniversidadDBModel.Reference_11">
             <End Role="US_CAT_ESTATUS_USUARIO" EntitySet="US_CAT_ESTATUS_USUARIO" />
@@ -973,27 +1042,38 @@
           <Property Name="ID_PROFESOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="CLA_CLASES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF" FromRole="PRO_PROFESORES" ToRole="CLA_CLASES" />
         </EntityType>
-        <EntityType Name="SIS_AADM_MENUS">
+        <EntityType Name="SIS_AADM_APLICACIONES">
           <Key>
-            <PropertyRef Name="ID_MENU" />
+            <PropertyRef Name="IDAPLICACIONES" />
           </Key>
-          <Property Name="ID_MENU" Type="Int32" Nullable="false" />
-          <Property Name="ID_MENU_PADRE" Type="Int32" />
-          <Property Name="TIPOSUSUARIOS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NIVELES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRENODO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRETABPAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="RUTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SIS_AADM_MENUS1" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_AADM" FromRole="SIS_AADM_MENUS" ToRole="SIS_AADM_MENUS1" />
-          <NavigationProperty Name="SIS_AADM_MENUS2" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_AADM" FromRole="SIS_AADM_MENUS1" ToRole="SIS_AADM_MENUS" />
+          <Property Name="IDAPLICACIONES" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDMENU" Type="Int32" />
+          <Property Name="IDTABPAGES" Type="Int32" />
+          <Property Name="ID_NIVEL_USUARIO" Type="Int32" />
+          <Property Name="ID_TIPO_USUARIO" Type="Int32" />
+          <NavigationProperty Name="SIS_AADM_ARBOLMENUS" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_AADM" FromRole="SIS_AADM_APLICACIONES" ToRole="SIS_AADM_ARBOLMENUS" />
+          <NavigationProperty Name="SIS_CAT_TABPAGES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_CAT_" FromRole="SIS_AADM_APLICACIONES" ToRole="SIS_CAT_TABPAGES" />
+          <NavigationProperty Name="US_CAT_NIVEL_USUARIO" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_N" FromRole="SIS_AADM_APLICACIONES" ToRole="US_CAT_NIVEL_USUARIO" />
+          <NavigationProperty Name="US_CAT_TIPO_USUARIO" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T" FromRole="SIS_AADM_APLICACIONES" ToRole="US_CAT_TIPO_USUARIO" />
         </EntityType>
-        <EntityType Name="SIS_CAT_TABLAS">
+        <EntityType Name="SIS_AADM_ARBOLMENUS">
           <Key>
-            <PropertyRef Name="ID_TABLA" />
+            <PropertyRef Name="IDMENU" />
           </Key>
-          <Property Name="ID_TABLA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOMBRE_TABLA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IDMENU" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRENODO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IDMENUPADRE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_AADM" FromRole="SIS_AADM_ARBOLMENUS" ToRole="SIS_AADM_APLICACIONES" />
+        </EntityType>
+        <EntityType Name="SIS_CAT_TABPAGES">
+          <Key>
+            <PropertyRef Name="IDTABPAGES" />
+          </Key>
+          <Property Name="IDTABPAGES" Type="Int32" Nullable="false" />
+          <Property Name="RUTATAB" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRETABPAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_CAT_" FromRole="SIS_CAT_TABPAGES" ToRole="SIS_AADM_APLICACIONES" />
         </EntityType>
         <EntityType Name="US_CAT_ESTATUS_USUARIO">
           <Key>
@@ -1011,6 +1091,7 @@
           <Property Name="ID_NIVEL_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NIVEL_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_N" FromRole="US_CAT_NIVEL_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_12" FromRole="US_CAT_NIVEL_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_CAT_TIPO_USUARIO">
@@ -1020,6 +1101,7 @@
           <Property Name="ID_TIPO_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TIPO_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T" FromRole="US_CAT_TIPO_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_10" FromRole="US_CAT_TIPO_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_HISTORIAL">
@@ -1258,14 +1340,50 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SIS_AADM_REFERENCE_SIS_AADM">
-          <End Type="UniversidadDBModel.SIS_AADM_MENUS" Role="SIS_AADM_MENUS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.SIS_AADM_MENUS" Role="SIS_AADM_MENUS1" Multiplicity="*" />
+          <End Type="UniversidadDBModel.SIS_AADM_ARBOLMENUS" Role="SIS_AADM_ARBOLMENUS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_AADM_APLICACIONES" Role="SIS_AADM_APLICACIONES" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="SIS_AADM_MENUS">
-              <PropertyRef Name="ID_MENU" />
+            <Principal Role="SIS_AADM_ARBOLMENUS">
+              <PropertyRef Name="IDMENU" />
             </Principal>
-            <Dependent Role="SIS_AADM_MENUS1">
-              <PropertyRef Name="ID_MENU_PADRE" />
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="IDMENU" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_AADM_REFERENCE_SIS_CAT_">
+          <End Type="UniversidadDBModel.SIS_CAT_TABPAGES" Role="SIS_CAT_TABPAGES" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_AADM_APLICACIONES" Role="SIS_AADM_APLICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIS_CAT_TABPAGES">
+              <PropertyRef Name="IDTABPAGES" />
+            </Principal>
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="IDTABPAGES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_AADM_REFERENCE_US_CAT_N">
+          <End Type="UniversidadDBModel.US_CAT_NIVEL_USUARIO" Role="US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_AADM_APLICACIONES" Role="SIS_AADM_APLICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_NIVEL_USUARIO">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_AADM_REFERENCE_US_CAT_T">
+          <End Type="UniversidadDBModel.US_CAT_TIPO_USUARIO" Role="US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_AADM_APLICACIONES" Role="SIS_AADM_APLICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_TIPO_USUARIO">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1520,25 +1638,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SIS_AADM_MENUS">
-            <EntityTypeMapping TypeName="UniversidadDBModel.SIS_AADM_MENUS">
-              <MappingFragment StoreEntitySet="SIS_AADM_MENUS">
-                <ScalarProperty Name="RUTA" ColumnName="RUTA" />
-                <ScalarProperty Name="NOMBRETABPAGE" ColumnName="NOMBRETABPAGE" />
-                <ScalarProperty Name="NOMBRENODO" ColumnName="NOMBRENODO" />
-                <ScalarProperty Name="NIVELES" ColumnName="NIVELES" />
-                <ScalarProperty Name="TIPOSUSUARIOS" ColumnName="TIPOSUSUARIOS" />
-                <ScalarProperty Name="ID_MENU_PADRE" ColumnName="ID_MENU_PADRE" />
-                <ScalarProperty Name="ID_MENU" ColumnName="ID_MENU" />
+          <EntitySetMapping Name="SIS_AADM_APLICACIONES">
+            <EntityTypeMapping TypeName="UniversidadDBModel.SIS_AADM_APLICACIONES">
+              <MappingFragment StoreEntitySet="SIS_AADM_APLICACIONES">
+                <ScalarProperty Name="ID_TIPO_USUARIO" ColumnName="ID_TIPO_USUARIO" />
+                <ScalarProperty Name="ID_NIVEL_USUARIO" ColumnName="ID_NIVEL_USUARIO" />
+                <ScalarProperty Name="IDTABPAGES" ColumnName="IDTABPAGES" />
+                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
+                <ScalarProperty Name="IDAPLICACIONES" ColumnName="IDAPLICACIONES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SIS_CAT_TABLAS">
-            <EntityTypeMapping TypeName="UniversidadDBModel.SIS_CAT_TABLAS">
-              <MappingFragment StoreEntitySet="SIS_CAT_TABLAS">
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="NOMBRE_TABLA" ColumnName="NOMBRE_TABLA" />
-                <ScalarProperty Name="ID_TABLA" ColumnName="ID_TABLA" />
+          <EntitySetMapping Name="SIS_AADM_ARBOLMENUS">
+            <EntityTypeMapping TypeName="UniversidadDBModel.SIS_AADM_ARBOLMENUS">
+              <MappingFragment StoreEntitySet="SIS_AADM_ARBOLMENUS">
+                <ScalarProperty Name="IDMENUPADRE" ColumnName="IDMENUPADRE" />
+                <ScalarProperty Name="RUTA" ColumnName="RUTA" />
+                <ScalarProperty Name="NOMBRENODO" ColumnName="NOMBRENODO" />
+                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_CAT_TABPAGES">
+            <EntityTypeMapping TypeName="UniversidadDBModel.SIS_CAT_TABPAGES">
+              <MappingFragment StoreEntitySet="SIS_CAT_TABPAGES">
+                <ScalarProperty Name="NOMBRETABPAGE" ColumnName="NOMBRETABPAGE" />
+                <ScalarProperty Name="RUTATAB" ColumnName="RUTATAB" />
+                <ScalarProperty Name="IDTABPAGES" ColumnName="IDTABPAGES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

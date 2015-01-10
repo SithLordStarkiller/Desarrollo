@@ -23,7 +23,7 @@ namespace Aplicacion.Sitio
 
                 var areaNegocio = (new LoginL()).ListarAreanegocios().FirstOrDefault(r => r.IDAREANEGOCIO == _persona.IDAREANEGOCIO);
 
-                if (areaNegocio != null) lblAreaNegocio.Text = "Area de negocio " + areaNegocio.NOMBREAREANEGOCIO;
+                if (areaNegocio != null) lblAreaNegocio.Text = "Area de negocio: " + areaNegocio.NOMBREAREANEGOCIO;
                 lblCorreoElectronico.Text = "Bienvenido " + _persona.CORREOELECTRONICO;
 
                 CargarMenu();
@@ -70,6 +70,19 @@ namespace Aplicacion.Sitio
             }
 
             return padre;
+        }
+
+        protected void lnkCerrarSesion_Click(object sender, EventArgs e)
+        {
+            if (Session["UserInfo"] != null && Session["UserInfo"].ToString() != string.Empty)
+            {
+                HttpContext.Current.Cache.Remove(Session["UserInfo"].ToString());
+            }
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("Login.aspx");
+
         }
     }
 }

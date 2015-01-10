@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     07/01/2015 11:10:19 p. m.                    */
+/* Created on:     08/01/2015 11:47:27 a. m.                    */
 /*==============================================================*/
 
 
@@ -97,29 +97,29 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_AADM')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_AADM')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_SIS_AADM
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_CAT_')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_CAT_')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_SIS_CAT_
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_N')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_N')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_US_CAT_N
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_T')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_T')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_US_CAT_T
 go
 
@@ -237,16 +237,16 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SIS_AADM_ALICACIONES')
+           where  id = object_id('SIS_AADM_APLICACIONES')
             and   type = 'U')
-   drop table SIS_AADM_ALICACIONES
+   drop table SIS_AADM_APLICACIONES
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SIS_AADM_MENUS')
+           where  id = object_id('SIS_AADM_ARBOLMENUS')
             and   type = 'U')
-   drop table SIS_AADM_MENUS
+   drop table SIS_AADM_ARBOLMENUS
 go
 
 if exists (select 1
@@ -449,27 +449,27 @@ create table PRO_PROFESOR (
 go
 
 /*==============================================================*/
-/* Table: SIS_AADM_ALICACIONES                                  */
+/* Table: SIS_AADM_APLICACIONES                                 */
 /*==============================================================*/
-create table SIS_AADM_ALICACIONES (
-   IDMENUS              int                  identity,
+create table SIS_AADM_APLICACIONES (
+   IDAPLICACIONES       int                  identity,
    IDMENU               int                  null,
    IDTABPAGES           int                  null,
    ID_NIVEL_USUARIO     int                  null,
    ID_TIPO_USUARIO      int                  null,
-   constraint PK_SIS_AADM_ALICACIONES primary key (IDMENUS)
+   constraint PK_SIS_AADM_APLICACIONES primary key (IDAPLICACIONES)
 )
 go
 
 /*==============================================================*/
-/* Table: SIS_AADM_MENUS                                        */
+/* Table: SIS_AADM_ARBOLMENUS                                   */
 /*==============================================================*/
-create table SIS_AADM_MENUS (
+create table SIS_AADM_ARBOLMENUS (
    IDMENU               int                  not null,
    NOMBRENODO           varchar(100)         null,
    RUTA                 varchar(MAX)         null,
    IDMENUPADRE          int                  not null,
-   constraint PK_SIS_AADM_MENUS primary key (IDMENU)
+   constraint PK_SIS_AADM_ARBOLMENUS primary key (IDMENU)
 )
 go
 
@@ -609,22 +609,22 @@ alter table PRO_PROFESOR
       references PER_PERSONAS (ID_PERSONA, ID_PER_LINKID)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_SIS_AADM foreign key (IDMENU)
-      references SIS_AADM_MENUS (IDMENU)
+      references SIS_AADM_ARBOLMENUS (IDMENU)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_SIS_CAT_ foreign key (IDTABPAGES)
       references SIS_CAT_TABPAGES (IDTABPAGES)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_US_CAT_N foreign key (ID_NIVEL_USUARIO)
       references US_CAT_NIVEL_USUARIO (ID_NIVEL_USUARIO)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_US_CAT_T foreign key (ID_TIPO_USUARIO)
       references US_CAT_TIPO_USUARIO (ID_TIPO_USUARIO)
 go
