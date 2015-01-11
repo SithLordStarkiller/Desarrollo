@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Universidad.Entidades" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="US_USUARIOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CONTRASENA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ESTATUS_USUARIOS" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_HISTORIAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_NIVEL_USUARIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_USUARIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_USUARIO" type="xs:int" />
+      <xs:element minOccurs="0" name="PER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+      <xs:element minOccurs="0" name="USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="US_CAT_ESTATUS_USUARIO" nillable="true" type="tns:US_CAT_ESTATUS_USUARIO" />
+      <xs:element minOccurs="0" name="US_CAT_NIVEL_USUARIO" nillable="true" type="tns:US_CAT_NIVEL_USUARIO" />
+      <xs:element minOccurs="0" name="US_CAT_TIPO_USUARIO" nillable="true" type="tns:US_CAT_TIPO_USUARIO" />
+      <xs:element minOccurs="0" name="US_HISTORIAL" nillable="true" type="tns:US_HISTORIAL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="US_USUARIOS" nillable="true" type="tns:US_USUARIOS" />
+  <xs:complexType name="ArrayOfPER_PERSONAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PER_PERSONAS" nillable="true" type="tns:PER_PERSONAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+  <xs:complexType name="PER_PERSONAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="A_MATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="A_PATERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CURP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CVE_NACIONALIDAD" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DIR_DIRECCIONES" nillable="true" type="tns:DIR_DIRECCIONES" />
+      <xs:element minOccurs="0" name="FECHA_NAC" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_DIRECCION" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_MEDIOS_ELECTRONICOS" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_PER_LINKID" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TELEFONOS" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_PERSONA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_USUARIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IMSS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE_COMPLETO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_CAT_NACIONALIDAD" nillable="true" type="tns:PER_CAT_NACIONALIDAD" />
+      <xs:element minOccurs="0" name="PER_CAT_TELEFONOS" nillable="true" type="tns:PER_CAT_TELEFONOS" />
+      <xs:element minOccurs="0" name="PER_CAT_TIPO_PERSONA" nillable="true" type="tns:PER_CAT_TIPO_PERSONA" />
+      <xs:element minOccurs="0" name="PER_MEDIOS_ELECTRONICOS" nillable="true" type="tns:PER_MEDIOS_ELECTRONICOS" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SEXO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="US_USUARIOS" nillable="true" type="tns:US_USUARIOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PER_PERSONAS" nillable="true" type="tns:PER_PERSONAS" />
+  <xs:complexType name="DIR_DIRECCIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CALLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIR_CAT_CODIGO_POSTAL" nillable="true" type="tns:DIR_CAT_CODIGO_POSTAL" />
+      <xs:element minOccurs="0" name="DIR_CAT_DELG_MUNICIPIO" nillable="true" type="tns:DIR_CAT_DELG_MUNICIPIO" />
+      <xs:element minOccurs="0" name="DIR_CAT_ESTADO" nillable="true" type="tns:DIR_CAT_ESTADO" />
+      <xs:element minOccurs="0" name="ID_CP" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_DELG_MUNICIPIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_DIRECCION" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_ESTADO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NO_EXT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NO_INT" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+      <xs:element minOccurs="0" name="REFERENCIAS" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DIR_DIRECCIONES" nillable="true" type="tns:DIR_DIRECCIONES" />
+  <xs:complexType name="DIR_CAT_CODIGO_POSTAL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CODIGO_POSTAL" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="DIR_CAT_DELG_MUNICIPIO" nillable="true" type="tns:DIR_CAT_DELG_MUNICIPIO" />
+      <xs:element minOccurs="0" name="DIR_CAT_ESTADO" nillable="true" type="tns:DIR_CAT_ESTADO" />
+      <xs:element minOccurs="0" name="DIR_DIRECCIONES" nillable="true" type="tns:ArrayOfDIR_DIRECCIONES" />
+      <xs:element minOccurs="0" name="ID_CP" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_DELG_MUNICIPIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_ESTADO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NOMBRE_COLONIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIPO_COLONIA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DIR_CAT_CODIGO_POSTAL" nillable="true" type="tns:DIR_CAT_CODIGO_POSTAL" />
+  <xs:complexType name="DIR_CAT_DELG_MUNICIPIO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIR_CAT_CODIGO_POSTAL" nillable="true" type="tns:ArrayOfDIR_CAT_CODIGO_POSTAL" />
+      <xs:element minOccurs="0" name="DIR_CAT_ESTADO" nillable="true" type="tns:DIR_CAT_ESTADO" />
+      <xs:element minOccurs="0" name="DIR_DIRECCIONES" nillable="true" type="tns:ArrayOfDIR_DIRECCIONES" />
+      <xs:element minOccurs="0" name="ID_DELG_MUNICIPIO" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_ESTADO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NOMBRE_DELG_MUNICIPIO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DIR_CAT_DELG_MUNICIPIO" nillable="true" type="tns:DIR_CAT_DELG_MUNICIPIO" />
+  <xs:complexType name="ArrayOfDIR_CAT_CODIGO_POSTAL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DIR_CAT_CODIGO_POSTAL" nillable="true" type="tns:DIR_CAT_CODIGO_POSTAL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDIR_CAT_CODIGO_POSTAL" nillable="true" type="tns:ArrayOfDIR_CAT_CODIGO_POSTAL" />
+  <xs:complexType name="DIR_CAT_ESTADO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIR_CAT_CODIGO_POSTAL" nillable="true" type="tns:ArrayOfDIR_CAT_CODIGO_POSTAL" />
+      <xs:element minOccurs="0" name="DIR_CAT_DELG_MUNICIPIO" nillable="true" type="tns:ArrayOfDIR_CAT_DELG_MUNICIPIO" />
+      <xs:element minOccurs="0" name="DIR_DIRECCIONES" nillable="true" type="tns:ArrayOfDIR_DIRECCIONES" />
+      <xs:element minOccurs="0" name="ID_ESTADO" type="xs:int" />
+      <xs:element minOccurs="0" name="NOMBRE_ESTADO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DIR_CAT_ESTADO" nillable="true" type="tns:DIR_CAT_ESTADO" />
+  <xs:complexType name="ArrayOfDIR_CAT_DELG_MUNICIPIO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DIR_CAT_DELG_MUNICIPIO" nillable="true" type="tns:DIR_CAT_DELG_MUNICIPIO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDIR_CAT_DELG_MUNICIPIO" nillable="true" type="tns:ArrayOfDIR_CAT_DELG_MUNICIPIO" />
+  <xs:complexType name="ArrayOfDIR_DIRECCIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DIR_DIRECCIONES" nillable="true" type="tns:DIR_DIRECCIONES" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDIR_DIRECCIONES" nillable="true" type="tns:ArrayOfDIR_DIRECCIONES" />
+  <xs:complexType name="PER_CAT_NACIONALIDAD">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CVE_NACIONALIDAD" type="xs:int" />
+      <xs:element minOccurs="0" name="NOMBRE_PAIS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PER_CAT_NACIONALIDAD" nillable="true" type="tns:PER_CAT_NACIONALIDAD" />
+  <xs:complexType name="PER_CAT_TELEFONOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FAX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TELEFONOS" type="xs:int" />
+      <xs:element minOccurs="0" name="PER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+      <xs:element minOccurs="0" name="TELEFONO_CELULAR_PERSONAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO_CELULAR_TRABAJO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO_FIJO_DOMICILIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO_FIJO_TRABAJO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PER_CAT_TELEFONOS" nillable="true" type="tns:PER_CAT_TELEFONOS" />
+  <xs:complexType name="PER_CAT_TIPO_PERSONA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DESCRIPCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TIPO_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="PER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+      <xs:element minOccurs="0" name="TIPO_PERSONA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PER_CAT_TIPO_PERSONA" nillable="true" type="tns:PER_CAT_TIPO_PERSONA" />
+  <xs:complexType name="PER_MEDIOS_ELECTRONICOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CORREO_ELECTRONICO_PERSONAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CORREO_ELECTRONICO_UNIVERSIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FACEBOOK" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MEDIOS_ELECTRONICOS" type="xs:int" />
+      <xs:element minOccurs="0" name="PER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+      <xs:element minOccurs="0" name="TWITTER" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PER_MEDIOS_ELECTRONICOS" nillable="true" type="tns:PER_MEDIOS_ELECTRONICOS" />
+  <xs:complexType name="US_CAT_ESTATUS_USUARIO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DESCRIPCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ESTATUS_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ESTATUS_USUARIOS" type="xs:int" />
+      <xs:element minOccurs="0" name="US_USUARIOS" nillable="true" type="tns:ArrayOfUS_USUARIOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="US_CAT_ESTATUS_USUARIO" nillable="true" type="tns:US_CAT_ESTATUS_USUARIO" />
+  <xs:complexType name="ArrayOfUS_USUARIOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="US_USUARIOS" nillable="true" type="tns:US_USUARIOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUS_USUARIOS" nillable="true" type="tns:ArrayOfUS_USUARIOS" />
+  <xs:complexType name="US_CAT_NIVEL_USUARIO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DESCRIPCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_NIVEL_USUARIO" type="xs:int" />
+      <xs:element minOccurs="0" name="NIVEL_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SIS_AADM_APLICACIONES" nillable="true" type="tns:ArrayOfSIS_AADM_APLICACIONES" />
+      <xs:element minOccurs="0" name="US_USUARIOS" nillable="true" type="tns:ArrayOfUS_USUARIOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="US_CAT_NIVEL_USUARIO" nillable="true" type="tns:US_CAT_NIVEL_USUARIO" />
+  <xs:complexType name="ArrayOfSIS_AADM_APLICACIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SIS_AADM_APLICACIONES" nillable="true" type="tns:SIS_AADM_APLICACIONES" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSIS_AADM_APLICACIONES" nillable="true" type="tns:ArrayOfSIS_AADM_APLICACIONES" />
+  <xs:complexType name="SIS_AADM_APLICACIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDAPLICACIONES" type="xs:int" />
+      <xs:element minOccurs="0" name="IDMENU" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IDTABPAGES" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_NIVEL_USUARIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_TIPO_USUARIO" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SIS_AADM_ARBOLMENUS" nillable="true" type="tns:SIS_AADM_ARBOLMENUS" />
+      <xs:element minOccurs="0" name="SIS_CAT_TABPAGES" nillable="true" type="tns:SIS_CAT_TABPAGES" />
+      <xs:element minOccurs="0" name="US_CAT_NIVEL_USUARIO" nillable="true" type="tns:US_CAT_NIVEL_USUARIO" />
+      <xs:element minOccurs="0" name="US_CAT_TIPO_USUARIO" nillable="true" type="tns:US_CAT_TIPO_USUARIO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SIS_AADM_APLICACIONES" nillable="true" type="tns:SIS_AADM_APLICACIONES" />
+  <xs:complexType name="SIS_AADM_ARBOLMENUS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDMENU" type="xs:int" />
+      <xs:element minOccurs="0" name="IDMENUPADRE" type="xs:int" />
+      <xs:element minOccurs="0" name="NOMBRENODO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RUTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SIS_AADM_APLICACIONES" nillable="true" type="tns:ArrayOfSIS_AADM_APLICACIONES" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SIS_AADM_ARBOLMENUS" nillable="true" type="tns:SIS_AADM_ARBOLMENUS" />
+  <xs:complexType name="SIS_CAT_TABPAGES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDTABPAGES" type="xs:int" />
+      <xs:element minOccurs="0" name="NOMBRETABPAGE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RUTATAB" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SIS_AADM_APLICACIONES" nillable="true" type="tns:ArrayOfSIS_AADM_APLICACIONES" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SIS_CAT_TABPAGES" nillable="true" type="tns:SIS_CAT_TABPAGES" />
+  <xs:complexType name="US_CAT_TIPO_USUARIO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DESCRIPCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TIPO_USUARIO" type="xs:int" />
+      <xs:element minOccurs="0" name="SIS_AADM_APLICACIONES" nillable="true" type="tns:ArrayOfSIS_AADM_APLICACIONES" />
+      <xs:element minOccurs="0" name="TIPO_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="US_USUARIOS" nillable="true" type="tns:ArrayOfUS_USUARIOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="US_CAT_TIPO_USUARIO" nillable="true" type="tns:US_CAT_TIPO_USUARIO" />
+  <xs:complexType name="US_HISTORIAL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FECHA_CAMBIOCONTRASENA_ULTIMO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FECHA_ULTIMA_CESION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_HISTORIAL" type="xs:int" />
+      <xs:element minOccurs="0" name="ULTIMA_CONTRASENA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="US_USUARIOS" nillable="true" type="tns:ArrayOfUS_USUARIOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="US_HISTORIAL" nillable="true" type="tns:US_HISTORIAL" />
+</xs:schema>

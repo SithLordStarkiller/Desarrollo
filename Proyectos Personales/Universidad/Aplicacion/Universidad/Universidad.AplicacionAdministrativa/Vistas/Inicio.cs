@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
+using Universidad.Controlador.MenuSistema;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
@@ -12,30 +16,62 @@ namespace Universidad.AplicacionAdministrativa.Vistas
         private readonly Form _padre;
         private readonly US_USUARIOS _usuario;
         private readonly Sesion _sesion;
+        private List<MenuSistemaE> _listaSistema;
+        private List<SIS_AADM_ARBOLMENUS> _listaArbol; 
 
         public Inicio(Form padre,US_USUARIOS usuario,Sesion sesion)
         {
             _padre = padre;
             _usuario = usuario;
             _sesion = sesion;
+
             InitializeComponent();
             CargarArbol(); 
         }
 
         private void CargarArbol()
         {
-            TRV_Menu.Nodes.Add("Catalogos");
+            var menuSistema = new SvcMenuSistemaC(_sesion);
+            menuSistema.MenuArbol();
+            menuSistema.MenuSistema(_usuario);
 
-            TRV_Menu.Nodes[0].Nodes.Add("Net-informations.com");
-            TRV_Menu.Nodes[0].Nodes[0].Nodes.Add("CLR");
+            menuSistema.MenuArbolFinalizado += menuSistema_MenuArbolFinalizado;
+            menuSistema.MenuSistemaFinalizado += menuSistema_MenuSistemaFinalizado;
+        }
 
-            TRV_Menu.Nodes[0].Nodes.Add("Vb.net-informations.com");
-            TRV_Menu.Nodes[0].Nodes[1].Nodes.Add("String Tutorial");
-            TRV_Menu.Nodes[0].Nodes[1].Nodes.Add("Excel Tutorial");
+        void menuSistema_MenuArbolFinalizado(List<SIS_AADM_ARBOLMENUS> lista)
+        {
+            _listaArbol = lista;
 
-            TRV_Menu.Nodes[0].Nodes.Add("Csharp.net-informations.com");
-            TRV_Menu.Nodes[0].Nodes[2].Nodes.Add("ADO.NET");
-            TRV_Menu.Nodes[0].Nodes[2].Nodes[0].Nodes.Add("Dataset");
+            foreach (var item in _listaArbol)
+            {
+                var padre = new TreeNode(item.NOMBRENODO) { Tag = item };
+                padre = InsertaHijo(item, padre);
+                TRV_Menu.Nodes.Add(padre);
+            }
+        }
+
+        void menuSistema_MenuSistemaFinalizado(List<MenuSistemaE> lista)
+        {
+            _listaSistema = lista;
+        }
+
+        private TreeNode InsertaHijo(SIS_AADM_ARBOLMENUS item, TreeNode padre)
+        {
+
+            var listaHijos = _listaArbol.Where(r => r.IDMENUPADRE == item.IDMENU);
+
+            foreach (var subItem in listaHijos)
+            {
+                if (subItem.IDMENUPADRE != 0)
+                {
+                    var hijo = new TreeNode(subItem.NOMBRENODO);
+                    hijo = InsertaHijo(subItem, hijo);
+                    padre.Nodes.Add(hijo);
+                }
+            }
+
+            return padre;
         }
 
         private void Inicio_Load(object sender, EventArgs e)
@@ -61,6 +97,21 @@ namespace Universidad.AplicacionAdministrativa.Vistas
         private void Inicio_FormClosing(object sender, FormClosingEventArgs e)
         {
             _padre.Close();
+        }
+
+        private void TRV_Menu_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var c = ((SIS_AADM_ARBOLMENUS)((TreeView)sender).SelectedNode.Tag);
+            var listaPage = _listaSistema.Where(a => a.IdMenuHijo == c.IDMENU && a.IdMenuPadre == c.IDMENUPADRE).ToList();
+            tbcContenido.TabPages.Clear();
+
+            foreach (var item in listaPage)
+            {
+                var tabPage = new TabPage(item.NombreTabPage) { BackColor = Color.White };
+                //var contro1 = new UserControl1();
+                //tabPage.Controls.Add(contro1);
+                tbcContenido.TabPages.Add(tabPage);
+            }
         }
     }
 }

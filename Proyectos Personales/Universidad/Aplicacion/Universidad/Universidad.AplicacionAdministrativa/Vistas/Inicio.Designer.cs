@@ -37,14 +37,11 @@
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cerrarSesionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TRV_Menu = new System.Windows.Forms.TreeView();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbcContenido = new System.Windows.Forms.TabControl();
             this.LBL_Nombre_Usuario = new System.Windows.Forms.Label();
             this.LBL_Tipo_Usuario = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -114,36 +111,15 @@
             this.TRV_Menu.Name = "TRV_Menu";
             this.TRV_Menu.Size = new System.Drawing.Size(216, 636);
             this.TRV_Menu.TabIndex = 3;
+            this.TRV_Menu.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TRV_Menu_AfterSelect);
             // 
-            // tabControl1
+            // tbcContenido
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(222, 76);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(989, 590);
-            this.tabControl1.TabIndex = 4;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(981, 564);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "TAB_Principal";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(981, 564);
-            this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tbcContenido.Location = new System.Drawing.Point(222, 76);
+            this.tbcContenido.Name = "tbcContenido";
+            this.tbcContenido.SelectedIndex = 0;
+            this.tbcContenido.Size = new System.Drawing.Size(989, 590);
+            this.tbcContenido.TabIndex = 4;
             // 
             // LBL_Nombre_Usuario
             // 
@@ -171,7 +147,7 @@
             this.ClientSize = new System.Drawing.Size(1228, 688);
             this.Controls.Add(this.LBL_Tipo_Usuario);
             this.Controls.Add(this.LBL_Nombre_Usuario);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tbcContenido);
             this.Controls.Add(this.TRV_Menu);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.statusStrip1);
@@ -187,7 +163,6 @@
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -203,10 +178,8 @@
         private System.Windows.Forms.ToolStripMenuItem archviToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.TreeView TRV_Menu;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabControl tbcContenido;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label LBL_Nombre_Usuario;
         private System.Windows.Forms.Label LBL_Tipo_Usuario;
     }

@@ -54,7 +54,7 @@ namespace Universidad.AplicacionAdministrativa
             {
                 _usuario = "ecruzlagunes";//TXB_Usuario.Text;
                 _contrasena = "A@141516182235";//TXB_Contrasena.Text;
-                _inicioAutomatico = _sesion.RecordarSesion == false ? ckbRecordarSesion.Checked ;
+                _inicioAutomatico = _sesion.RecordarSesion && (!ckbRecordarSesion.Checked);
 
                 var login = new SVC_LoginAdministrativos(_sesion);
 
