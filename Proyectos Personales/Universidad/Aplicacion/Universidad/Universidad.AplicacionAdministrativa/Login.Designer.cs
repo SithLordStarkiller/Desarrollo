@@ -36,6 +36,7 @@
             this.TXB_Usuario = new System.Windows.Forms.TextBox();
             this.TXB_Contrasena = new System.Windows.Forms.TextBox();
             this.ckbRecordarSesion = new System.Windows.Forms.CheckBox();
+            this.ckbRecodarDatos = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // LBL_Titulo
@@ -50,7 +51,7 @@
             // 
             // BTN_Login
             // 
-            this.BTN_Login.Location = new System.Drawing.Point(112, 163);
+            this.BTN_Login.Location = new System.Drawing.Point(145, 163);
             this.BTN_Login.Name = "BTN_Login";
             this.BTN_Login.Size = new System.Drawing.Size(75, 23);
             this.BTN_Login.TabIndex = 2;
@@ -60,7 +61,7 @@
             // 
             // BTN_Salir
             // 
-            this.BTN_Salir.Location = new System.Drawing.Point(286, 163);
+            this.BTN_Salir.Location = new System.Drawing.Point(306, 163);
             this.BTN_Salir.Name = "BTN_Salir";
             this.BTN_Salir.Size = new System.Drawing.Size(75, 23);
             this.BTN_Salir.TabIndex = 3;
@@ -104,18 +105,29 @@
             // ckbRecordarSesion
             // 
             this.ckbRecordarSesion.AutoSize = true;
-            this.ckbRecordarSesion.Location = new System.Drawing.Point(276, 129);
+            this.ckbRecordarSesion.Location = new System.Drawing.Point(286, 129);
             this.ckbRecordarSesion.Name = "ckbRecordarSesion";
             this.ckbRecordarSesion.Size = new System.Drawing.Size(105, 17);
             this.ckbRecordarSesion.TabIndex = 8;
             this.ckbRecordarSesion.Text = "Recordar Sesion";
             this.ckbRecordarSesion.UseVisualStyleBackColor = true;
             // 
+            // ckbRecodarDatos
+            // 
+            this.ckbRecodarDatos.AutoSize = true;
+            this.ckbRecodarDatos.Location = new System.Drawing.Point(145, 129);
+            this.ckbRecodarDatos.Name = "ckbRecodarDatos";
+            this.ckbRecodarDatos.Size = new System.Drawing.Size(127, 17);
+            this.ckbRecodarDatos.TabIndex = 9;
+            this.ckbRecodarDatos.Text = "Recordar Contraseña";
+            this.ckbRecodarDatos.UseVisualStyleBackColor = true;
+            // 
             // FORM_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(475, 214);
+            this.Controls.Add(this.ckbRecodarDatos);
             this.Controls.Add(this.ckbRecordarSesion);
             this.Controls.Add(this.TXB_Contrasena);
             this.Controls.Add(this.TXB_Usuario);
@@ -142,6 +154,7 @@
         private System.Windows.Forms.TextBox TXB_Usuario;
         private System.Windows.Forms.TextBox TXB_Contrasena;
         private System.Windows.Forms.CheckBox ckbRecordarSesion;
+        private System.Windows.Forms.CheckBox ckbRecodarDatos;
 
 
     }

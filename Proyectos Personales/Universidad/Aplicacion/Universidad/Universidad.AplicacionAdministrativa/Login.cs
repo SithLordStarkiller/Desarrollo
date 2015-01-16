@@ -14,12 +14,14 @@ namespace Universidad.AplicacionAdministrativa
         private readonly Sesion _sesion;
         private string _contrasena, _usuario;
         private bool _inicioAutomatico;
+        private bool _recordarDatos;
 
         public FORM_Login(Sesion sesion)
         {
             _sesion = sesion;
 
             if (_sesion == null) return;
+
             if (sesion.RecordarSesion)
             {
 
@@ -43,6 +45,13 @@ namespace Universidad.AplicacionAdministrativa
 
         private void FORM_Login_Load(object sender, EventArgs e)
         {
+            if (_sesion.RecordarContrasena)
+            {
+                TXB_Usuario.Text = _sesion.Usuario;
+                TXB_Contrasena.Text = _sesion.Contrasena;
+                _recordarDatos = ckbRecodarDatos.Checked = true;
+            }
+
             TopMost = true;
             Focus();
             Show();
@@ -54,7 +63,8 @@ namespace Universidad.AplicacionAdministrativa
             {
                 _usuario = "ecruzlagunes";//TXB_Usuario.Text;
                 _contrasena = "A@141516182235";//TXB_Contrasena.Text;
-                _inicioAutomatico = _sesion.RecordarSesion && (!ckbRecordarSesion.Checked);
+                _inicioAutomatico = !_sesion.RecordarSesion && ckbRecordarSesion.Checked;
+                _recordarDatos = ckbRecodarDatos.Checked;
 
                 var login = new SVC_LoginAdministrativos(_sesion);
 
@@ -63,8 +73,7 @@ namespace Universidad.AplicacionAdministrativa
             }
             catch (Exception exception)
             {
-                throw;
-                //MessageBox.Show((exception.InnerException).ToString());
+                new Excepcion(exception).Show();
             }
         }
 
@@ -77,22 +86,46 @@ namespace Universidad.AplicacionAdministrativa
                 switch (_login.ID_ESTATUS_USUARIOS)
                 {
                     case 1:
-                    {
-                        _sesion.Usuario = string.IsNullOrEmpty(_usuario) ? _sesion.Usuario : _usuario;
-                        _sesion.Contrasena = string.IsNullOrEmpty(_contrasena) ? _sesion.Contrasena : _contrasena;
-                        _sesion.RecordarSesion = _sesion.RecordarSesion != true;
-                        new GestionSesion().ActualizaArchivo(_sesion);
-                        var fromInicio = new Inicio(this, _login,_sesion);
-                        Hide();
-                        fromInicio.Show();
-                    }
+                        {
+                            _sesion.Usuario = string.IsNullOrEmpty(_usuario) ? _sesion.Usuario : _usuario;
+                            _sesion.Contrasena = string.IsNullOrEmpty(_contrasena) ? _sesion.Contrasena : _contrasena;
+                            _sesion.RecordarSesion = _inicioAutomatico;
+                            _sesion.RecordarContrasena = _recordarDatos;
+                            new GestionSesion().ActualizaArchivo(_sesion);
+                            var fromInicio = new Inicio(this, _login, _sesion);
+                            Hide();
+                            fromInicio.Show();
+                        }
+                        break;
+
+                    case 2:
+                        {
+                            MessageBox.Show(text: @"la cuenta del usuario " + _sesion.Usuario + @" se encuentra suspendida por favor informe al administrador del sistema",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Exclamation);
+                            _sesion.RecordarSesion = false;
+                            _sesion.RecordarContrasena = false;
+                            new GestionSesion().ActualizaArchivo(_sesion);
+                            Dispose();
+                        }
+                        break;
+                    case 3:
+                        {
+                            MessageBox.Show(text: @"la cuenta del usuario " + _sesion.Usuario + @" se encuentra cancelada por favor verifique el precedimiento de activacion de la cuenta con administracion",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Error);
+                            _sesion.RecordarSesion = false;
+                            _sesion.RecordarContrasena = false;
+                            new GestionSesion().ActualizaArchivo(_sesion);
+                            Dispose();
+                        }
                         break;
                 }
             }
 
             else
             {
-                MessageBox.Show(text: @"El usuario o contraseña no son valido favor de verificar",
+                MessageBox.Show(text: @"El usuario o contraseña no son correctos favor de verificar",
                     caption: @"Error al verificar Login", buttons: MessageBoxButtons.OK,
                     icon: MessageBoxIcon.Information);
             }
