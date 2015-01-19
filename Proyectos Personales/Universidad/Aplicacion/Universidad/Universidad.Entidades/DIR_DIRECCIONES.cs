@@ -14,23 +14,18 @@ namespace Universidad.Entidades
     
     public partial class DIR_DIRECCIONES
     {
-        public DIR_DIRECCIONES()
-        {
-            this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
-        }
-    
-        public int ID_DIRECCION { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public Nullable<int> ID_DELG_MUNICIPIO { get; set; }
-        public Nullable<int> ID_CP { get; set; }
+        public int IDDIRECCION { get; set; }
+        public Nullable<int> IDESTADO { get; set; }
+        public Nullable<int> IDDELGMUNICIPIO { get; set; }
+        public Nullable<int> IDCOLONIA { get; set; }
+        public Nullable<int> IDMUNICIPIO { get; set; }
         public string CALLE { get; set; }
-        public Nullable<int> NO_EXT { get; set; }
-        public Nullable<int> NO_INT { get; set; }
+        public Nullable<int> NOEXT { get; set; }
+        public Nullable<int> NOINT { get; set; }
         public string REFERENCIAS { get; set; }
     
-        public virtual DIR_CAT_CODIGO_POSTAL DIR_CAT_CODIGO_POSTAL { get; set; }
+        public virtual DIR_CAT_COLONIAS DIR_CAT_COLONIAS { get; set; }
         public virtual DIR_CAT_DELG_MUNICIPIO DIR_CAT_DELG_MUNICIPIO { get; set; }
         public virtual DIR_CAT_ESTADO DIR_CAT_ESTADO { get; set; }
-        public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }
 }

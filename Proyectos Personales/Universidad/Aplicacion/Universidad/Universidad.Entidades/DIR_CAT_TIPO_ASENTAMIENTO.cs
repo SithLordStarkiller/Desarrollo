@@ -12,15 +12,16 @@ namespace Universidad.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ALU_HORARIO
+    public partial class DIR_CAT_TIPO_ASENTAMIENTO
     {
-        public int ID_HORARIO { get; set; }
-        public Nullable<int> ID_MATERIA_2 { get; set; }
-        public Nullable<int> ID_MATERIA_3 { get; set; }
-        public Nullable<int> ID_MATERIA_4 { get; set; }
-        public Nullable<int> ID_MATERIA_5 { get; set; }
-        public Nullable<int> ID_MATERIA_6 { get; set; }
-        public Nullable<int> ID_MATERIA_7 { get; set; }
-        public Nullable<int> ID_MATERIO_8 { get; set; }
+        public DIR_CAT_TIPO_ASENTAMIENTO()
+        {
+            this.DIR_CAT_COLONIAS = new HashSet<DIR_CAT_COLONIAS>();
+        }
+    
+        public int IDTIPOASENTAMIENTO { get; set; }
+        public string TIPOASENTAMIENTO { get; set; }
+    
+        public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
     }
 }

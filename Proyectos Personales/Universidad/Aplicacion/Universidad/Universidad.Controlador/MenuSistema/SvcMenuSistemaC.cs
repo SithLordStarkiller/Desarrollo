@@ -44,6 +44,7 @@ namespace Universidad.Controlador.MenuSistema
 
         #endregion
 
+        #region TraeMenuArbol
 
         public delegate void MenuArbolArgs(List<SIS_AADM_ARBOLMENUS> lista);
 
@@ -63,5 +64,7 @@ namespace Universidad.Controlador.MenuSistema
 
             MenuArbolFinalizado(lista);
         }
+
+        #endregion
     }
 }

@@ -12,18 +12,16 @@ namespace Universidad.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class CAR_CAT_CARRERAS
+    public partial class DIR_CAT_TIPO_ZONA
     {
-        public CAR_CAT_CARRERAS()
+        public DIR_CAT_TIPO_ZONA()
         {
-            this.CLA_CLASES = new HashSet<CLA_CLASES>();
-            this.MAT_CAT_MATERIAS = new HashSet<MAT_CAT_MATERIAS>();
+            this.DIR_CAT_COLONIAS = new HashSet<DIR_CAT_COLONIAS>();
         }
     
-        public int ID_CARRERA { get; set; }
-        public string NOMBRE_CARRERA { get; set; }
+        public int IDTIPOZONA { get; set; }
+        public string TIPOZONA { get; set; }
     
-        public virtual ICollection<CLA_CLASES> CLA_CLASES { get; set; }
-        public virtual ICollection<MAT_CAT_MATERIAS> MAT_CAT_MATERIAS { get; set; }
+        public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
     }
 }

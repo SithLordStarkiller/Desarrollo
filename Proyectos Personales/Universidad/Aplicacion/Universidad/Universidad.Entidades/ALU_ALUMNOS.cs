@@ -14,12 +14,10 @@ namespace Universidad.Entidades
     
     public partial class ALU_ALUMNOS
     {
-        public int ID_PERSONA { get; set; }
-        public int ID_PER_LINKID { get; set; }
-        public int ID_ALUMNO { get; set; }
-        public Nullable<int> ID_ACTIVIDADES_EC { get; set; }
-        public Nullable<int> ID_DEPORTES { get; set; }
-        public Nullable<int> ID_CARRERA { get; set; }
-        public Nullable<int> ID_PLAN_CARRERA { get; set; }
+        public int IDALUMNO { get; set; }
+        public Nullable<int> IDACTIVIDADESEC { get; set; }
+        public Nullable<int> IDDEPORTES { get; set; }
+        public Nullable<int> IDCARRERA { get; set; }
+        public Nullable<int> IDPLANCARRERA { get; set; }
     }
 }

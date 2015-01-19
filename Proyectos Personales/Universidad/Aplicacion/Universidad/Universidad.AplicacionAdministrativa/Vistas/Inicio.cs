@@ -107,9 +107,19 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
             foreach (var item in listaPage)
             {
+                var control = new UserControl();
+
+                switch (item.IdTabPage)
+                {
+                    case 6:
+                    {
+                        control = new Controles.ControPersonas.AltaPersona();
+                    }
+                        break;
+                }
+                
                 var tabPage = new TabPage(item.NombreTabPage) { BackColor = Color.White };
-                //var contro1 = new UserControl1();
-                //tabPage.Controls.Add(contro1);
+                tabPage.Controls.Add(control);
                 tbcContenido.TabPages.Add(tabPage);
             }
         }

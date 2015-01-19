@@ -37,6 +37,7 @@
             this.txb_MensageExcepcion.Location = new System.Drawing.Point(12, 21);
             this.txb_MensageExcepcion.Multiline = true;
             this.txb_MensageExcepcion.Name = "txb_MensageExcepcion";
+            this.txb_MensageExcepcion.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txb_MensageExcepcion.Size = new System.Drawing.Size(559, 114);
             this.txb_MensageExcepcion.TabIndex = 0;
             // 

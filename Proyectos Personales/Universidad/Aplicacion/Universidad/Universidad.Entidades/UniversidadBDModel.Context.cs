@@ -26,23 +26,19 @@ namespace Universidad.Entidades
         }
     
         public DbSet<ALU_ALUMNOS> ALU_ALUMNOS { get; set; }
-        public DbSet<ALU_HORARIO> ALU_HORARIO { get; set; }
         public DbSet<ALU_KARDEX> ALU_KARDEX { get; set; }
-        public DbSet<CAR_CAT_CARRERAS> CAR_CAT_CARRERAS { get; set; }
-        public DbSet<CLA_CAT_HORAS> CLA_CAT_HORAS { get; set; }
-        public DbSet<CLA_CLASES> CLA_CLASES { get; set; }
-        public DbSet<CLA_HOR_CLASES> CLA_HOR_CLASES { get; set; }
-        public DbSet<DIR_CAT_CODIGO_POSTAL> DIR_CAT_CODIGO_POSTAL { get; set; }
+        public DbSet<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
         public DbSet<DIR_CAT_DELG_MUNICIPIO> DIR_CAT_DELG_MUNICIPIO { get; set; }
         public DbSet<DIR_CAT_ESTADO> DIR_CAT_ESTADO { get; set; }
+        public DbSet<DIR_CAT_TIPO_ASENTAMIENTO> DIR_CAT_TIPO_ASENTAMIENTO { get; set; }
+        public DbSet<DIR_CAT_TIPO_ZONA> DIR_CAT_TIPO_ZONA { get; set; }
         public DbSet<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }
-        public DbSet<MAT_CAT_MATERIAS> MAT_CAT_MATERIAS { get; set; }
         public DbSet<PER_CAT_NACIONALIDAD> PER_CAT_NACIONALIDAD { get; set; }
         public DbSet<PER_CAT_TELEFONOS> PER_CAT_TELEFONOS { get; set; }
         public DbSet<PER_CAT_TIPO_PERSONA> PER_CAT_TIPO_PERSONA { get; set; }
         public DbSet<PER_MEDIOS_ELECTRONICOS> PER_MEDIOS_ELECTRONICOS { get; set; }
         public DbSet<PER_PERSONAS> PER_PERSONAS { get; set; }
-        public DbSet<PRO_PROFESORES> PRO_PROFESORES { get; set; }
+        public DbSet<PRO_PROFESOR> PRO_PROFESOR { get; set; }
         public DbSet<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
         public DbSet<SIS_AADM_ARBOLMENUS> SIS_AADM_ARBOLMENUS { get; set; }
         public DbSet<SIS_CAT_TABPAGES> SIS_CAT_TABPAGES { get; set; }

@@ -12,20 +12,24 @@ namespace Universidad.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class DIR_CAT_CODIGO_POSTAL
+    public partial class DIR_CAT_COLONIAS
     {
-        public DIR_CAT_CODIGO_POSTAL()
+        public DIR_CAT_COLONIAS()
         {
             this.DIR_DIRECCIONES = new HashSet<DIR_DIRECCIONES>();
         }
     
-        public int ID_CP { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public Nullable<int> ID_DELG_MUNICIPIO { get; set; }
-        public Nullable<int> CODIGO_POSTAL { get; set; }
-        public string NOMBRE_COLONIA { get; set; }
-        public string TIPO_COLONIA { get; set; }
+        public int IDCOLONIA { get; set; }
+        public Nullable<int> IDESTADO { get; set; }
+        public Nullable<int> IDDELGMUNICIPIO { get; set; }
+        public Nullable<int> IDTIPOASENTAMIENTO { get; set; }
+        public Nullable<int> IDTIPOZONA { get; set; }
+        public Nullable<int> IDMUNICIPIO { get; set; }
+        public Nullable<int> CODIGOPOSTAL { get; set; }
+        public string NOMBRECOLONIA { get; set; }
     
+        public virtual DIR_CAT_TIPO_ASENTAMIENTO DIR_CAT_TIPO_ASENTAMIENTO { get; set; }
+        public virtual DIR_CAT_TIPO_ZONA DIR_CAT_TIPO_ZONA { get; set; }
         public virtual DIR_CAT_ESTADO DIR_CAT_ESTADO { get; set; }
         public virtual DIR_CAT_DELG_MUNICIPIO DIR_CAT_DELG_MUNICIPIO { get; set; }
         public virtual ICollection<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }

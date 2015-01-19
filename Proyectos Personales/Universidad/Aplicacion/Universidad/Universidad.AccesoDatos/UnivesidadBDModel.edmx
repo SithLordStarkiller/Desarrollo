@@ -7,30 +7,13 @@
     <Schema Namespace="UniversidadDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ALU_ALUMNOS">
           <Key>
-            <PropertyRef Name="ID_PERSONA" />
-            <PropertyRef Name="ID_PER_LINKID" />
-            <PropertyRef Name="ID_ALUMNO" />
+            <PropertyRef Name="IDALUMNO" />
           </Key>
-          <Property Name="ID_PERSONA" Type="int" Nullable="false" />
-          <Property Name="ID_PER_LINKID" Type="int" Nullable="false" />
-          <Property Name="ID_ALUMNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_ACTIVIDADES_EC" Type="int" />
-          <Property Name="ID_DEPORTES" Type="int" />
-          <Property Name="ID_CARRERA" Type="int" />
-          <Property Name="ID_PLAN_CARRERA" Type="int" />
-        </EntityType>
-        <EntityType Name="ALU_HORARIO">
-          <Key>
-            <PropertyRef Name="ID_HORARIO" />
-          </Key>
-          <Property Name="ID_HORARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_MATERIA_2" Type="int" />
-          <Property Name="ID_MATERIA_3" Type="int" />
-          <Property Name="ID_MATERIA_4" Type="int" />
-          <Property Name="ID_MATERIA_5" Type="int" />
-          <Property Name="ID_MATERIA_6" Type="int" />
-          <Property Name="ID_MATERIA_7" Type="int" />
-          <Property Name="ID_MATERIO_8" Type="int" />
+          <Property Name="IDALUMNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDACTIVIDADESEC" Type="int" />
+          <Property Name="IDDEPORTES" Type="int" />
+          <Property Name="IDCARRERA" Type="int" />
+          <Property Name="IDPLANCARRERA" Type="int" />
         </EntityType>
         <EntityType Name="ALU_KARDEX">
           <Key>
@@ -38,87 +21,81 @@
           </Key>
           <Property Name="ID_KARDEX" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CAR_CAT_CARRERAS">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CEPOMEX">
+          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_asenta" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_tipo_asenta" Type="nvarchar" MaxLength="255" />
+          <Property Name="D_mnpio" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_estado" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_ciudad" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_CP" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_estado" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_oficina" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_CP" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_tipo_asenta" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_mnpio" Type="nvarchar" MaxLength="255" />
+          <Property Name="id_asenta_cpcons" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_zona" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_cve_ciudad" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
+        <EntityType Name="DIR_CAT_COLONIAS">
           <Key>
-            <PropertyRef Name="ID_CARRERA" />
+            <PropertyRef Name="IDCOLONIA" />
           </Key>
-          <Property Name="ID_CARRERA" Type="int" Nullable="false" />
-          <Property Name="NOMBRE_CARRERA" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <EntityType Name="CLA_CAT_HORAS">
-          <Key>
-            <PropertyRef Name="ID_HORAS" />
-          </Key>
-          <Property Name="ID_HORAS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="COLUMN_2" Type="char" MaxLength="10" />
-        </EntityType>
-        <EntityType Name="CLA_CLASES">
-          <Key>
-            <PropertyRef Name="ID_CLASE" />
-          </Key>
-          <Property Name="ID_CLASE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_MATERIA" Type="int" />
-          <Property Name="ID_CARRERA" Type="int" />
-          <Property Name="ID_PERSONA" Type="int" />
-          <Property Name="ID_PER_LINKID" Type="int" />
-          <Property Name="ID_PROFESOR" Type="int" />
-          <Property Name="ID_HORARIO_CLASE" Type="int" />
-          <Property Name="NO_VACANTES" Type="int" />
-        </EntityType>
-        <EntityType Name="CLA_HOR_CLASES">
-          <Key>
-            <PropertyRef Name="ID_HORARIO_CLASE" />
-          </Key>
-          <Property Name="ID_HORARIO_CLASE" Type="int" Nullable="false" />
-          <Property Name="H_LUNES" Type="date" />
-          <Property Name="S_LUNES" Type="int" />
-        </EntityType>
-        <EntityType Name="DIR_CAT_CODIGO_POSTAL">
-          <Key>
-            <PropertyRef Name="ID_CP" />
-          </Key>
-          <Property Name="ID_CP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_ESTADO" Type="int" />
-          <Property Name="ID_DELG_MUNICIPIO" Type="int" />
-          <Property Name="CODIGO_POSTAL" Type="int" />
-          <Property Name="NOMBRE_COLONIA" Type="varchar" MaxLength="50" />
-          <Property Name="TIPO_COLONIA" Type="varchar" MaxLength="50" />
+          <Property Name="IDCOLONIA" Type="int" Nullable="false" />
+          <Property Name="IDESTADO" Type="int" />
+          <Property Name="IDDELGMUNICIPIO" Type="int" />
+          <Property Name="IDTIPOASENTAMIENTO" Type="int" />
+          <Property Name="IDTIPOZONA" Type="int" />
+          <Property Name="IDMUNICIPIO" Type="int" />
+          <Property Name="CODIGOPOSTAL" Type="int" />
+          <Property Name="NOMBRECOLONIA" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="DIR_CAT_DELG_MUNICIPIO">
           <Key>
-            <PropertyRef Name="ID_DELG_MUNICIPIO" />
+            <PropertyRef Name="IDDELGMUNICIPIO" />
           </Key>
-          <Property Name="ID_DELG_MUNICIPIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_ESTADO" Type="int" />
-          <Property Name="NOMBRE_DELG_MUNICIPIO" Type="varchar" MaxLength="50" />
+          <Property Name="IDDELGMUNICIPIO" Type="int" Nullable="false" />
+          <Property Name="IDESTADO" Type="int" />
+          <Property Name="IDMUNICIPIO" Type="int" />
+          <Property Name="NOMBREDELGMUNICIPIO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="DIR_CAT_ESTADO">
           <Key>
-            <PropertyRef Name="ID_ESTADO" />
+            <PropertyRef Name="IDESTADO" />
           </Key>
-          <Property Name="ID_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NOMBRE_ESTADO" Type="varchar" MaxLength="20" />
+          <Property Name="IDESTADO" Type="int" Nullable="false" />
+          <Property Name="NOMBREESTADO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ASENTAMIENTO">
+          <Key>
+            <PropertyRef Name="IDTIPOASENTAMIENTO" />
+          </Key>
+          <Property Name="IDTIPOASENTAMIENTO" Type="int" Nullable="false" />
+          <Property Name="TIPOASENTAMIENTO" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ZONA">
+          <Key>
+            <PropertyRef Name="IDTIPOZONA" />
+          </Key>
+          <Property Name="IDTIPOZONA" Type="int" Nullable="false" />
+          <Property Name="TIPOZONA" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="DIR_DIRECCIONES">
           <Key>
-            <PropertyRef Name="ID_DIRECCION" />
+            <PropertyRef Name="IDDIRECCION" />
           </Key>
-          <Property Name="ID_DIRECCION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_ESTADO" Type="int" />
-          <Property Name="ID_DELG_MUNICIPIO" Type="int" />
-          <Property Name="ID_CP" Type="int" />
+          <Property Name="IDDIRECCION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDESTADO" Type="int" />
+          <Property Name="IDDELGMUNICIPIO" Type="int" />
+          <Property Name="IDCOLONIA" Type="int" />
+          <Property Name="IDMUNICIPIO" Type="int" />
           <Property Name="CALLE" Type="varchar" MaxLength="100" />
-          <Property Name="NO_EXT" Type="int" />
-          <Property Name="NO_INT" Type="int" />
+          <Property Name="NOEXT" Type="int" />
+          <Property Name="NOINT" Type="int" />
           <Property Name="REFERENCIAS" Type="varchar" MaxLength="150" />
-        </EntityType>
-        <EntityType Name="MAT_CAT_MATERIAS">
-          <Key>
-            <PropertyRef Name="ID_MATERIA" />
-          </Key>
-          <Property Name="ID_MATERIA" Type="int" Nullable="false" />
-          <Property Name="ID_CARRERA" Type="int" />
-          <Property Name="NOMBRE_MATERIA" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PER_CAT_NACIONALIDAD">
           <Key>
@@ -163,7 +140,7 @@
           </Key>
           <Property Name="ID_PERSONA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_PER_LINKID" Type="int" Nullable="false" />
-          <Property Name="ID_DIRECCION" Type="int" />
+          <Property Name="IDDIRECCION" Type="int" />
           <Property Name="CVE_NACIONALIDAD" Type="int" />
           <Property Name="ID_TELEFONOS" Type="int" />
           <Property Name="ID_TIPO_PERSONA" Type="int" />
@@ -179,15 +156,13 @@
           <Property Name="RFC" Type="varchar" MaxLength="30" />
           <Property Name="IMSS" Type="varchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="PRO_PROFESORES">
+        <EntityType Name="PRO_PROFESOR">
           <Key>
-            <PropertyRef Name="ID_PERSONA" />
-            <PropertyRef Name="ID_PER_LINKID" />
-            <PropertyRef Name="ID_PROFESOR" />
+            <PropertyRef Name="IDPROFESOR" />
           </Key>
-          <Property Name="ID_PERSONA" Type="int" Nullable="false" />
-          <Property Name="ID_PER_LINKID" Type="int" Nullable="false" />
-          <Property Name="ID_PROFESOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPROFESOR" Type="int" Nullable="false" />
+          <Property Name="ID_PERSONA" Type="int" />
+          <Property Name="ID_PER_LINKID" Type="int" />
         </EntityType>
         <EntityType Name="SIS_AADM_APLICACIONES">
           <Key>
@@ -220,7 +195,7 @@
           <Key>
             <PropertyRef Name="ID_ESTATUS_USUARIOS" />
           </Key>
-          <Property Name="ID_ESTATUS_USUARIOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ESTATUS_USUARIOS" Type="int" Nullable="false" />
           <Property Name="ESTATUS_USUARIO" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
@@ -228,7 +203,7 @@
           <Key>
             <PropertyRef Name="ID_NIVEL_USUARIO" />
           </Key>
-          <Property Name="ID_NIVEL_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_NIVEL_USUARIO" Type="int" Nullable="false" />
           <Property Name="NIVEL_USUARIO" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" Nullable="false" />
         </EntityType>
@@ -236,7 +211,7 @@
           <Key>
             <PropertyRef Name="ID_TIPO_USUARIO" />
           </Key>
-          <Property Name="ID_TIPO_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_TIPO_USUARIO" Type="int" Nullable="false" />
           <Property Name="TIPO_USUARIO" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="150" />
         </EntityType>
@@ -261,67 +236,27 @@
           <Property Name="USUARIO" Type="varchar" MaxLength="50" />
           <Property Name="CONTRASENA" Type="varchar" MaxLength="30" />
         </EntityType>
-        <Association Name="FK_CLA_CLAS_REFERENCE_CAR_CAT_">
-          <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="0..1" />
-          <End Role="CLA_CLASES" Type="Self.CLA_CLASES" Multiplicity="*" />
+        <Association Name="FK_DIR_CAT__COLONIAS__DIR_CAT_">
+          <End Role="DIR_CAT_TIPO_ASENTAMIENTO" Type="Self.DIR_CAT_TIPO_ASENTAMIENTO" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAR_CAT_CARRERAS">
-              <PropertyRef Name="ID_CARRERA" />
+            <Principal Role="DIR_CAT_TIPO_ASENTAMIENTO">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
             </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_CARRERA" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_CLA_HOR_">
-          <End Role="CLA_HOR_CLASES" Type="Self.CLA_HOR_CLASES" Multiplicity="0..1" />
-          <End Role="CLA_CLASES" Type="Self.CLA_CLASES" Multiplicity="*" />
+        <Association Name="FK_DIR_CAT__REFERENCE_DIR_CAT_">
+          <End Role="DIR_CAT_TIPO_ZONA" Type="Self.DIR_CAT_TIPO_ZONA" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CLA_HOR_CLASES">
-              <PropertyRef Name="ID_HORARIO_CLASE" />
+            <Principal Role="DIR_CAT_TIPO_ZONA">
+              <PropertyRef Name="IDTIPOZONA" />
             </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_HORARIO_CLASE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-          <End Role="MAT_CAT_MATERIAS" Type="Self.MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Role="CLA_CLASES" Type="Self.CLA_CLASES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="ID_MATERIA" />
-            </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_MATERIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_PRO_PROF">
-          <End Role="PRO_PROFESORES" Type="Self.PRO_PROFESORES" Multiplicity="0..1" />
-          <End Role="CLA_CLASES" Type="Self.CLA_CLASES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRO_PROFESORES">
-              <PropertyRef Name="ID_PERSONA" />
-              <PropertyRef Name="ID_PER_LINKID" />
-              <PropertyRef Name="ID_PROFESOR" />
-            </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_PERSONA" />
-              <PropertyRef Name="ID_PER_LINKID" />
-              <PropertyRef Name="ID_PROFESOR" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MAT_CAT__REFERENCE_CAR_CAT_">
-          <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="0..1" />
-          <End Role="MAT_CAT_MATERIAS" Type="Self.MAT_CAT_MATERIAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CAR_CAT_CARRERAS">
-              <PropertyRef Name="ID_CARRERA" />
-            </Principal>
-            <Dependent Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="ID_CARRERA" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOZONA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -334,6 +269,20 @@
             </Principal>
             <Dependent Role="PER_PERSONAS">
               <PropertyRef Name="ID_MEDIOS_ELECTRONICOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRO_PROF_REFERENCE_PER_PERS">
+          <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="0..1" />
+          <End Role="PRO_PROFESOR" Type="Self.PRO_PROFESOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PER_PERSONAS">
+              <PropertyRef Name="ID_PERSONA" />
+              <PropertyRef Name="ID_PER_LINKID" />
+            </Principal>
+            <Dependent Role="PRO_PROFESOR">
+              <PropertyRef Name="ID_PERSONA" />
+              <PropertyRef Name="ID_PER_LINKID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -385,42 +334,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Reference_10">
-          <End Role="US_CAT_TIPO_USUARIO" Type="Self.US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
-          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="US_CAT_TIPO_USUARIO">
-              <PropertyRef Name="ID_TIPO_USUARIO" />
-            </Principal>
-            <Dependent Role="US_USUARIOS">
-              <PropertyRef Name="ID_TIPO_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Reference_11">
-          <End Role="US_CAT_ESTATUS_USUARIO" Type="Self.US_CAT_ESTATUS_USUARIO" Multiplicity="0..1" />
-          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="US_CAT_ESTATUS_USUARIO">
-              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
-            </Principal>
-            <Dependent Role="US_USUARIOS">
-              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Reference_12">
-          <End Role="US_CAT_NIVEL_USUARIO" Type="Self.US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
-          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="US_CAT_NIVEL_USUARIO">
-              <PropertyRef Name="ID_NIVEL_USUARIO" />
-            </Principal>
-            <Dependent Role="US_USUARIOS">
-              <PropertyRef Name="ID_NIVEL_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Reference_13">
           <End Role="US_HISTORIAL" Type="Self.US_HISTORIAL" Multiplicity="0..1" />
           <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
@@ -435,13 +348,13 @@
         </Association>
         <Association Name="Reference_26">
           <End Role="DIR_CAT_ESTADO" Type="Self.DIR_CAT_ESTADO" Multiplicity="0..1" />
-          <End Role="DIR_CAT_CODIGO_POSTAL" Type="Self.DIR_CAT_CODIGO_POSTAL" Multiplicity="*" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_ESTADO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Principal>
-            <Dependent Role="DIR_CAT_CODIGO_POSTAL">
-              <PropertyRef Name="ID_ESTADO" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -450,10 +363,10 @@
           <End Role="DIR_CAT_DELG_MUNICIPIO" Type="Self.DIR_CAT_DELG_MUNICIPIO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_ESTADO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Principal>
             <Dependent Role="DIR_CAT_DELG_MUNICIPIO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -462,22 +375,22 @@
           <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_ESTADO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Principal>
             <Dependent Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Reference_29">
           <End Role="DIR_CAT_DELG_MUNICIPIO" Type="Self.DIR_CAT_DELG_MUNICIPIO" Multiplicity="0..1" />
-          <End Role="DIR_CAT_CODIGO_POSTAL" Type="Self.DIR_CAT_CODIGO_POSTAL" Multiplicity="*" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_DELG_MUNICIPIO">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Principal>
-            <Dependent Role="DIR_CAT_CODIGO_POSTAL">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -486,22 +399,22 @@
           <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_DELG_MUNICIPIO">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Principal>
             <Dependent Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Reference_32">
-          <End Role="DIR_CAT_CODIGO_POSTAL" Type="Self.DIR_CAT_CODIGO_POSTAL" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="0..1" />
           <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DIR_CAT_CODIGO_POSTAL">
-              <PropertyRef Name="ID_CP" />
+            <Principal Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDCOLONIA" />
             </Principal>
             <Dependent Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_CP" />
+              <PropertyRef Name="IDCOLONIA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -526,18 +439,6 @@
             </Principal>
             <Dependent Role="PER_PERSONAS">
               <PropertyRef Name="ID_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Reference_6">
-          <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="0..1" />
-          <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_DIRECCION" />
-            </Principal>
-            <Dependent Role="PER_PERSONAS">
-              <PropertyRef Name="ID_DIRECCION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -567,23 +468,19 @@
         </Association>
         <EntityContainer Name="UniversidadDBModelStoreContainer">
           <EntitySet Name="ALU_ALUMNOS" EntityType="Self.ALU_ALUMNOS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ALU_HORARIO" EntityType="Self.ALU_HORARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ALU_KARDEX" EntityType="Self.ALU_KARDEX" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CAR_CAT_CARRERAS" EntityType="Self.CAR_CAT_CARRERAS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CLA_CAT_HORAS" EntityType="Self.CLA_CAT_HORAS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CLA_CLASES" EntityType="Self.CLA_CLASES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CLA_HOR_CLASES" EntityType="Self.CLA_HOR_CLASES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DIR_CAT_CODIGO_POSTAL" EntityType="Self.DIR_CAT_CODIGO_POSTAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_COLONIAS" EntityType="Self.DIR_CAT_COLONIAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_CAT_DELG_MUNICIPIO" EntityType="Self.DIR_CAT_DELG_MUNICIPIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_CAT_ESTADO" EntityType="Self.DIR_CAT_ESTADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_TIPO_ASENTAMIENTO" EntityType="Self.DIR_CAT_TIPO_ASENTAMIENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_TIPO_ZONA" EntityType="Self.DIR_CAT_TIPO_ZONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_DIRECCIONES" EntityType="Self.DIR_DIRECCIONES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="MAT_CAT_MATERIAS" EntityType="Self.MAT_CAT_MATERIAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_CAT_NACIONALIDAD" EntityType="Self.PER_CAT_NACIONALIDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_CAT_TELEFONOS" EntityType="Self.PER_CAT_TELEFONOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_CAT_TIPO_PERSONA" EntityType="Self.PER_CAT_TIPO_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_MEDIOS_ELECTRONICOS" EntityType="Self.PER_MEDIOS_ELECTRONICOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_PERSONAS" EntityType="Self.PER_PERSONAS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PRO_PROFESORES" EntityType="Self.PRO_PROFESORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRO_PROFESOR" EntityType="Self.PRO_PROFESOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="Self.SIS_AADM_APLICACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="Self.SIS_AADM_ARBOLMENUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_CAT_TABPAGES" EntityType="Self.SIS_CAT_TABPAGES" Schema="dbo" store:Type="Tables" />
@@ -592,29 +489,21 @@
           <EntitySet Name="US_CAT_TIPO_USUARIO" EntityType="Self.US_CAT_TIPO_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_HISTORIAL" EntityType="Self.US_HISTORIAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_USUARIOS" EntityType="Self.US_USUARIOS" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_CAR_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_CAR_CAT_">
-            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
+          <AssociationSet Name="FK_DIR_CAT__COLONIAS__DIR_CAT_" Association="Self.FK_DIR_CAT__COLONIAS__DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ASENTAMIENTO" EntitySet="DIR_CAT_TIPO_ASENTAMIENTO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_CLA_HOR_" Association="Self.FK_CLA_CLAS_REFERENCE_CLA_HOR_">
-            <End Role="CLA_HOR_CLASES" EntitySet="CLA_HOR_CLASES" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_PRO_PROF" Association="Self.FK_CLA_CLAS_REFERENCE_PRO_PROF">
-            <End Role="PRO_PROFESORES" EntitySet="PRO_PROFESORES" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MAT_CAT__REFERENCE_CAR_CAT_" Association="Self.FK_MAT_CAT__REFERENCE_CAR_CAT_">
-            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
+          <AssociationSet Name="FK_DIR_CAT__REFERENCE_DIR_CAT_" Association="Self.FK_DIR_CAT__REFERENCE_DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ZONA" EntitySet="DIR_CAT_TIPO_ZONA" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_MEDI" Association="Self.FK_PER_PERS_REFERENCE_PER_MEDI">
             <End Role="PER_MEDIOS_ELECTRONICOS" EntitySet="PER_MEDIOS_ELECTRONICOS" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRO_PROF_REFERENCE_PER_PERS" Association="Self.FK_PRO_PROF_REFERENCE_PER_PERS">
+            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+            <End Role="PRO_PROFESOR" EntitySet="PRO_PROFESOR" />
           </AssociationSet>
           <AssociationSet Name="FK_SIS_AADM_REFERENCE_SIS_AADM" Association="Self.FK_SIS_AADM_REFERENCE_SIS_AADM">
             <End Role="SIS_AADM_ARBOLMENUS" EntitySet="SIS_AADM_ARBOLMENUS" />
@@ -632,25 +521,13 @@
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
             <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
           </AssociationSet>
-          <AssociationSet Name="Reference_10" Association="Self.Reference_10">
-            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-          </AssociationSet>
-          <AssociationSet Name="Reference_11" Association="Self.Reference_11">
-            <End Role="US_CAT_ESTATUS_USUARIO" EntitySet="US_CAT_ESTATUS_USUARIO" />
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-          </AssociationSet>
-          <AssociationSet Name="Reference_12" Association="Self.Reference_12">
-            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-          </AssociationSet>
           <AssociationSet Name="Reference_13" Association="Self.Reference_13">
             <End Role="US_HISTORIAL" EntitySet="US_HISTORIAL" />
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
           </AssociationSet>
           <AssociationSet Name="Reference_26" Association="Self.Reference_26">
             <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
-            <End Role="DIR_CAT_CODIGO_POSTAL" EntitySet="DIR_CAT_CODIGO_POSTAL" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_27" Association="Self.Reference_27">
             <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
@@ -662,14 +539,14 @@
           </AssociationSet>
           <AssociationSet Name="Reference_29" Association="Self.Reference_29">
             <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
-            <End Role="DIR_CAT_CODIGO_POSTAL" EntitySet="DIR_CAT_CODIGO_POSTAL" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_31" Association="Self.Reference_31">
             <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
             <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
           </AssociationSet>
           <AssociationSet Name="Reference_32" Association="Self.Reference_32">
-            <End Role="DIR_CAT_CODIGO_POSTAL" EntitySet="DIR_CAT_CODIGO_POSTAL" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
             <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
           </AssociationSet>
           <AssociationSet Name="Reference_33" Association="Self.Reference_33">
@@ -678,10 +555,6 @@
           </AssociationSet>
           <AssociationSet Name="Reference_34" Association="Self.Reference_34">
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
-          </AssociationSet>
-          <AssociationSet Name="Reference_6" Association="Self.Reference_6">
-            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_8" Association="Self.Reference_8">
@@ -699,23 +572,19 @@
       <Schema Namespace="UniversidadDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="UniversidadBDEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="ALU_ALUMNOS" EntityType="UniversidadDBModel.ALU_ALUMNOS" />
-          <EntitySet Name="ALU_HORARIO" EntityType="UniversidadDBModel.ALU_HORARIO" />
           <EntitySet Name="ALU_KARDEX" EntityType="UniversidadDBModel.ALU_KARDEX" />
-          <EntitySet Name="CAR_CAT_CARRERAS" EntityType="UniversidadDBModel.CAR_CAT_CARRERAS" />
-          <EntitySet Name="CLA_CAT_HORAS" EntityType="UniversidadDBModel.CLA_CAT_HORAS" />
-          <EntitySet Name="CLA_CLASES" EntityType="UniversidadDBModel.CLA_CLASES" />
-          <EntitySet Name="CLA_HOR_CLASES" EntityType="UniversidadDBModel.CLA_HOR_CLASES" />
-          <EntitySet Name="DIR_CAT_CODIGO_POSTAL" EntityType="UniversidadDBModel.DIR_CAT_CODIGO_POSTAL" />
+          <EntitySet Name="DIR_CAT_COLONIAS" EntityType="UniversidadDBModel.DIR_CAT_COLONIAS" />
           <EntitySet Name="DIR_CAT_DELG_MUNICIPIO" EntityType="UniversidadDBModel.DIR_CAT_DELG_MUNICIPIO" />
           <EntitySet Name="DIR_CAT_ESTADO" EntityType="UniversidadDBModel.DIR_CAT_ESTADO" />
+          <EntitySet Name="DIR_CAT_TIPO_ASENTAMIENTO" EntityType="UniversidadDBModel.DIR_CAT_TIPO_ASENTAMIENTO" />
+          <EntitySet Name="DIR_CAT_TIPO_ZONA" EntityType="UniversidadDBModel.DIR_CAT_TIPO_ZONA" />
           <EntitySet Name="DIR_DIRECCIONES" EntityType="UniversidadDBModel.DIR_DIRECCIONES" />
-          <EntitySet Name="MAT_CAT_MATERIAS" EntityType="UniversidadDBModel.MAT_CAT_MATERIAS" />
           <EntitySet Name="PER_CAT_NACIONALIDAD" EntityType="UniversidadDBModel.PER_CAT_NACIONALIDAD" />
           <EntitySet Name="PER_CAT_TELEFONOS" EntityType="UniversidadDBModel.PER_CAT_TELEFONOS" />
           <EntitySet Name="PER_CAT_TIPO_PERSONA" EntityType="UniversidadDBModel.PER_CAT_TIPO_PERSONA" />
           <EntitySet Name="PER_MEDIOS_ELECTRONICOS" EntityType="UniversidadDBModel.PER_MEDIOS_ELECTRONICOS" />
           <EntitySet Name="PER_PERSONAS" EntityType="UniversidadDBModel.PER_PERSONAS" />
-          <EntitySet Name="PRO_PROFESORES" EntityType="UniversidadDBModel.PRO_PROFESORES" />
+          <EntitySet Name="PRO_PROFESOR" EntityType="UniversidadDBModel.PRO_PROFESOR" />
           <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="UniversidadDBModel.SIS_AADM_APLICACIONES" />
           <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="UniversidadDBModel.SIS_AADM_ARBOLMENUS" />
           <EntitySet Name="SIS_CAT_TABPAGES" EntityType="UniversidadDBModel.SIS_CAT_TABPAGES" />
@@ -724,36 +593,24 @@
           <EntitySet Name="US_CAT_TIPO_USUARIO" EntityType="UniversidadDBModel.US_CAT_TIPO_USUARIO" />
           <EntitySet Name="US_HISTORIAL" EntityType="UniversidadDBModel.US_HISTORIAL" />
           <EntitySet Name="US_USUARIOS" EntityType="UniversidadDBModel.US_USUARIOS" />
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_">
-            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
+          <AssociationSet Name="FK_DIR_CAT__COLONIAS__DIR_CAT_" Association="UniversidadDBModel.FK_DIR_CAT__COLONIAS__DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ASENTAMIENTO" EntitySet="DIR_CAT_TIPO_ASENTAMIENTO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
-          <AssociationSet Name="FK_MAT_CAT__REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_">
-            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_CLA_HOR_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CLA_HOR_">
-            <End Role="CLA_HOR_CLASES" EntitySet="CLA_HOR_CLASES" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_PRO_PROF" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF">
-            <End Role="PRO_PROFESORES" EntitySet="PRO_PROFESORES" />
-            <End Role="CLA_CLASES" EntitySet="CLA_CLASES" />
+          <AssociationSet Name="FK_DIR_CAT__REFERENCE_DIR_CAT_" Association="UniversidadDBModel.FK_DIR_CAT__REFERENCE_DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ZONA" EntitySet="DIR_CAT_TIPO_ZONA" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_26" Association="UniversidadDBModel.Reference_26">
             <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
-            <End Role="DIR_CAT_CODIGO_POSTAL" EntitySet="DIR_CAT_CODIGO_POSTAL" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_29" Association="UniversidadDBModel.Reference_29">
             <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
-            <End Role="DIR_CAT_CODIGO_POSTAL" EntitySet="DIR_CAT_CODIGO_POSTAL" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_32" Association="UniversidadDBModel.Reference_32">
-            <End Role="DIR_CAT_CODIGO_POSTAL" EntitySet="DIR_CAT_CODIGO_POSTAL" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
             <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
           </AssociationSet>
           <AssociationSet Name="Reference_27" Association="UniversidadDBModel.Reference_27">
@@ -767,10 +624,6 @@
           <AssociationSet Name="Reference_28" Association="UniversidadDBModel.Reference_28">
             <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
             <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
-          </AssociationSet>
-          <AssociationSet Name="Reference_6" Association="UniversidadDBModel.Reference_6">
-            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
-            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
           <AssociationSet Name="Reference_8" Association="UniversidadDBModel.Reference_8">
             <End Role="PER_CAT_NACIONALIDAD" EntitySet="PER_CAT_NACIONALIDAD" />
@@ -787,6 +640,10 @@
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_MEDI" Association="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_MEDI">
             <End Role="PER_MEDIOS_ELECTRONICOS" EntitySet="PER_MEDIOS_ELECTRONICOS" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRO_PROF_REFERENCE_PER_PERS" Association="UniversidadDBModel.FK_PRO_PROF_REFERENCE_PER_PERS">
+            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+            <End Role="PRO_PROFESOR" EntitySet="PRO_PROFESOR" />
           </AssociationSet>
           <AssociationSet Name="Reference_34" Association="UniversidadDBModel.Reference_34">
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
@@ -808,18 +665,6 @@
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
             <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
           </AssociationSet>
-          <AssociationSet Name="Reference_11" Association="UniversidadDBModel.Reference_11">
-            <End Role="US_CAT_ESTATUS_USUARIO" EntitySet="US_CAT_ESTATUS_USUARIO" />
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-          </AssociationSet>
-          <AssociationSet Name="Reference_12" Association="UniversidadDBModel.Reference_12">
-            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-          </AssociationSet>
-          <AssociationSet Name="Reference_10" Association="UniversidadDBModel.Reference_10">
-            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-          </AssociationSet>
           <AssociationSet Name="Reference_13" Association="UniversidadDBModel.Reference_13">
             <End Role="US_HISTORIAL" EntitySet="US_HISTORIAL" />
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
@@ -827,30 +672,13 @@
         </EntityContainer>
         <EntityType Name="ALU_ALUMNOS">
           <Key>
-            <PropertyRef Name="ID_PERSONA" />
-            <PropertyRef Name="ID_PER_LINKID" />
-            <PropertyRef Name="ID_ALUMNO" />
+            <PropertyRef Name="IDALUMNO" />
           </Key>
-          <Property Name="ID_PERSONA" Type="Int32" Nullable="false" />
-          <Property Name="ID_PER_LINKID" Type="Int32" Nullable="false" />
-          <Property Name="ID_ALUMNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_ACTIVIDADES_EC" Type="Int32" />
-          <Property Name="ID_DEPORTES" Type="Int32" />
-          <Property Name="ID_CARRERA" Type="Int32" />
-          <Property Name="ID_PLAN_CARRERA" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ALU_HORARIO">
-          <Key>
-            <PropertyRef Name="ID_HORARIO" />
-          </Key>
-          <Property Name="ID_HORARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_MATERIA_2" Type="Int32" />
-          <Property Name="ID_MATERIA_3" Type="Int32" />
-          <Property Name="ID_MATERIA_4" Type="Int32" />
-          <Property Name="ID_MATERIA_5" Type="Int32" />
-          <Property Name="ID_MATERIA_6" Type="Int32" />
-          <Property Name="ID_MATERIA_7" Type="Int32" />
-          <Property Name="ID_MATERIO_8" Type="Int32" />
+          <Property Name="IDALUMNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDACTIVIDADESEC" Type="Int32" />
+          <Property Name="IDDEPORTES" Type="Int32" />
+          <Property Name="IDCARRERA" Type="Int32" />
+          <Property Name="IDPLANCARRERA" Type="Int32" />
         </EntityType>
         <EntityType Name="ALU_KARDEX">
           <Key>
@@ -858,109 +686,78 @@
           </Key>
           <Property Name="ID_KARDEX" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="CAR_CAT_CARRERAS">
+        <EntityType Name="DIR_CAT_COLONIAS">
           <Key>
-            <PropertyRef Name="ID_CARRERA" />
+            <PropertyRef Name="IDCOLONIA" />
           </Key>
-          <Property Name="ID_CARRERA" Type="Int32" Nullable="false" />
-          <Property Name="NOMBRE_CARRERA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CLA_CLASES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="CLA_CLASES" />
-          <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="MAT_CAT_MATERIAS" />
-        </EntityType>
-        <EntityType Name="CLA_CAT_HORAS">
-          <Key>
-            <PropertyRef Name="ID_HORAS" />
-          </Key>
-          <Property Name="ID_HORAS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="COLUMN_2" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-        </EntityType>
-        <EntityType Name="CLA_CLASES">
-          <Key>
-            <PropertyRef Name="ID_CLASE" />
-          </Key>
-          <Property Name="ID_CLASE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_MATERIA" Type="Int32" />
-          <Property Name="ID_CARRERA" Type="Int32" />
-          <Property Name="ID_PERSONA" Type="Int32" />
-          <Property Name="ID_PER_LINKID" Type="Int32" />
-          <Property Name="ID_PROFESOR" Type="Int32" />
-          <Property Name="ID_HORARIO_CLASE" Type="Int32" />
-          <Property Name="NO_VACANTES" Type="Int32" />
-          <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_" FromRole="CLA_CLASES" ToRole="CAR_CAT_CARRERAS" />
-          <NavigationProperty Name="CLA_HOR_CLASES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CLA_HOR_" FromRole="CLA_CLASES" ToRole="CLA_HOR_CLASES" />
-          <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_" FromRole="CLA_CLASES" ToRole="MAT_CAT_MATERIAS" />
-          <NavigationProperty Name="PRO_PROFESORES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF" FromRole="CLA_CLASES" ToRole="PRO_PROFESORES" />
-        </EntityType>
-        <EntityType Name="CLA_HOR_CLASES">
-          <Key>
-            <PropertyRef Name="ID_HORARIO_CLASE" />
-          </Key>
-          <Property Name="ID_HORARIO_CLASE" Type="Int32" Nullable="false" />
-          <Property Name="H_LUNES" Type="DateTime" Precision="0" />
-          <Property Name="S_LUNES" Type="Int32" />
-          <NavigationProperty Name="CLA_CLASES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CLA_HOR_" FromRole="CLA_HOR_CLASES" ToRole="CLA_CLASES" />
-        </EntityType>
-        <EntityType Name="DIR_CAT_CODIGO_POSTAL">
-          <Key>
-            <PropertyRef Name="ID_CP" />
-          </Key>
-          <Property Name="ID_CP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_ESTADO" Type="Int32" />
-          <Property Name="ID_DELG_MUNICIPIO" Type="Int32" />
-          <Property Name="CODIGO_POSTAL" Type="Int32" />
-          <Property Name="NOMBRE_COLONIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TIPO_COLONIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="UniversidadDBModel.Reference_26" FromRole="DIR_CAT_CODIGO_POSTAL" ToRole="DIR_CAT_ESTADO" />
-          <NavigationProperty Name="DIR_CAT_DELG_MUNICIPIO" Relationship="UniversidadDBModel.Reference_29" FromRole="DIR_CAT_CODIGO_POSTAL" ToRole="DIR_CAT_DELG_MUNICIPIO" />
-          <NavigationProperty Name="DIR_DIRECCIONES" Relationship="UniversidadDBModel.Reference_32" FromRole="DIR_CAT_CODIGO_POSTAL" ToRole="DIR_DIRECCIONES" />
+          <Property Name="IDCOLONIA" Type="Int32" Nullable="false" />
+          <Property Name="IDESTADO" Type="Int32" />
+          <Property Name="IDDELGMUNICIPIO" Type="Int32" />
+          <Property Name="IDTIPOASENTAMIENTO" Type="Int32" />
+          <Property Name="IDTIPOZONA" Type="Int32" />
+          <Property Name="IDMUNICIPIO" Type="Int32" />
+          <Property Name="CODIGOPOSTAL" Type="Int32" />
+          <Property Name="NOMBRECOLONIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_TIPO_ASENTAMIENTO" Relationship="UniversidadDBModel.FK_DIR_CAT__COLONIAS__DIR_CAT_" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_TIPO_ASENTAMIENTO" />
+          <NavigationProperty Name="DIR_CAT_TIPO_ZONA" Relationship="UniversidadDBModel.FK_DIR_CAT__REFERENCE_DIR_CAT_" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_TIPO_ZONA" />
+          <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="UniversidadDBModel.Reference_26" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_ESTADO" />
+          <NavigationProperty Name="DIR_CAT_DELG_MUNICIPIO" Relationship="UniversidadDBModel.Reference_29" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_DELG_MUNICIPIO" />
+          <NavigationProperty Name="DIR_DIRECCIONES" Relationship="UniversidadDBModel.Reference_32" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_DIRECCIONES" />
         </EntityType>
         <EntityType Name="DIR_CAT_DELG_MUNICIPIO">
           <Key>
-            <PropertyRef Name="ID_DELG_MUNICIPIO" />
+            <PropertyRef Name="IDDELGMUNICIPIO" />
           </Key>
-          <Property Name="ID_DELG_MUNICIPIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_ESTADO" Type="Int32" />
-          <Property Name="NOMBRE_DELG_MUNICIPIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DIR_CAT_CODIGO_POSTAL" Relationship="UniversidadDBModel.Reference_29" FromRole="DIR_CAT_DELG_MUNICIPIO" ToRole="DIR_CAT_CODIGO_POSTAL" />
+          <Property Name="IDDELGMUNICIPIO" Type="Int32" Nullable="false" />
+          <Property Name="IDESTADO" Type="Int32" />
+          <Property Name="IDMUNICIPIO" Type="Int32" />
+          <Property Name="NOMBREDELGMUNICIPIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="UniversidadDBModel.Reference_29" FromRole="DIR_CAT_DELG_MUNICIPIO" ToRole="DIR_CAT_COLONIAS" />
           <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="UniversidadDBModel.Reference_27" FromRole="DIR_CAT_DELG_MUNICIPIO" ToRole="DIR_CAT_ESTADO" />
           <NavigationProperty Name="DIR_DIRECCIONES" Relationship="UniversidadDBModel.Reference_31" FromRole="DIR_CAT_DELG_MUNICIPIO" ToRole="DIR_DIRECCIONES" />
         </EntityType>
         <EntityType Name="DIR_CAT_ESTADO">
           <Key>
-            <PropertyRef Name="ID_ESTADO" />
+            <PropertyRef Name="IDESTADO" />
           </Key>
-          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOMBRE_ESTADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DIR_CAT_CODIGO_POSTAL" Relationship="UniversidadDBModel.Reference_26" FromRole="DIR_CAT_ESTADO" ToRole="DIR_CAT_CODIGO_POSTAL" />
+          <Property Name="IDESTADO" Type="Int32" Nullable="false" />
+          <Property Name="NOMBREESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="UniversidadDBModel.Reference_26" FromRole="DIR_CAT_ESTADO" ToRole="DIR_CAT_COLONIAS" />
           <NavigationProperty Name="DIR_CAT_DELG_MUNICIPIO" Relationship="UniversidadDBModel.Reference_27" FromRole="DIR_CAT_ESTADO" ToRole="DIR_CAT_DELG_MUNICIPIO" />
           <NavigationProperty Name="DIR_DIRECCIONES" Relationship="UniversidadDBModel.Reference_28" FromRole="DIR_CAT_ESTADO" ToRole="DIR_DIRECCIONES" />
         </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ASENTAMIENTO">
+          <Key>
+            <PropertyRef Name="IDTIPOASENTAMIENTO" />
+          </Key>
+          <Property Name="IDTIPOASENTAMIENTO" Type="Int32" Nullable="false" />
+          <Property Name="TIPOASENTAMIENTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="UniversidadDBModel.FK_DIR_CAT__COLONIAS__DIR_CAT_" FromRole="DIR_CAT_TIPO_ASENTAMIENTO" ToRole="DIR_CAT_COLONIAS" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ZONA">
+          <Key>
+            <PropertyRef Name="IDTIPOZONA" />
+          </Key>
+          <Property Name="IDTIPOZONA" Type="Int32" Nullable="false" />
+          <Property Name="TIPOZONA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="UniversidadDBModel.FK_DIR_CAT__REFERENCE_DIR_CAT_" FromRole="DIR_CAT_TIPO_ZONA" ToRole="DIR_CAT_COLONIAS" />
+        </EntityType>
         <EntityType Name="DIR_DIRECCIONES">
           <Key>
-            <PropertyRef Name="ID_DIRECCION" />
+            <PropertyRef Name="IDDIRECCION" />
           </Key>
-          <Property Name="ID_DIRECCION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_ESTADO" Type="Int32" />
-          <Property Name="ID_DELG_MUNICIPIO" Type="Int32" />
-          <Property Name="ID_CP" Type="Int32" />
+          <Property Name="IDDIRECCION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDESTADO" Type="Int32" />
+          <Property Name="IDDELGMUNICIPIO" Type="Int32" />
+          <Property Name="IDCOLONIA" Type="Int32" />
+          <Property Name="IDMUNICIPIO" Type="Int32" />
           <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NO_EXT" Type="Int32" />
-          <Property Name="NO_INT" Type="Int32" />
+          <Property Name="NOEXT" Type="Int32" />
+          <Property Name="NOINT" Type="Int32" />
           <Property Name="REFERENCIAS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DIR_CAT_CODIGO_POSTAL" Relationship="UniversidadDBModel.Reference_32" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_CODIGO_POSTAL" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="UniversidadDBModel.Reference_32" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_COLONIAS" />
           <NavigationProperty Name="DIR_CAT_DELG_MUNICIPIO" Relationship="UniversidadDBModel.Reference_31" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_DELG_MUNICIPIO" />
           <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="UniversidadDBModel.Reference_28" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_ESTADO" />
-          <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.Reference_6" FromRole="DIR_DIRECCIONES" ToRole="PER_PERSONAS" />
-        </EntityType>
-        <EntityType Name="MAT_CAT_MATERIAS">
-          <Key>
-            <PropertyRef Name="ID_MATERIA" />
-          </Key>
-          <Property Name="ID_MATERIA" Type="Int32" Nullable="false" />
-          <Property Name="ID_CARRERA" Type="Int32" />
-          <Property Name="NOMBRE_MATERIA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CAR_CAT_CARRERAS" />
-          <NavigationProperty Name="CLA_CLASES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CLA_CLASES" />
         </EntityType>
         <EntityType Name="PER_CAT_NACIONALIDAD">
           <Key>
@@ -1009,7 +806,7 @@
           </Key>
           <Property Name="ID_PERSONA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_PER_LINKID" Type="Int32" Nullable="false" />
-          <Property Name="ID_DIRECCION" Type="Int32" />
+          <Property Name="IDDIRECCION" Type="Int32" />
           <Property Name="CVE_NACIONALIDAD" Type="Int32" />
           <Property Name="ID_TELEFONOS" Type="Int32" />
           <Property Name="ID_TIPO_PERSONA" Type="Int32" />
@@ -1024,23 +821,21 @@
           <Property Name="CURP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="RFC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="IMSS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="DIR_DIRECCIONES" Relationship="UniversidadDBModel.Reference_6" FromRole="PER_PERSONAS" ToRole="DIR_DIRECCIONES" />
           <NavigationProperty Name="PER_CAT_NACIONALIDAD" Relationship="UniversidadDBModel.Reference_8" FromRole="PER_PERSONAS" ToRole="PER_CAT_NACIONALIDAD" />
           <NavigationProperty Name="PER_CAT_TELEFONOS" Relationship="UniversidadDBModel.Reference_9" FromRole="PER_PERSONAS" ToRole="PER_CAT_TELEFONOS" />
           <NavigationProperty Name="PER_CAT_TIPO_PERSONA" Relationship="UniversidadDBModel.Reference_33" FromRole="PER_PERSONAS" ToRole="PER_CAT_TIPO_PERSONA" />
           <NavigationProperty Name="PER_MEDIOS_ELECTRONICOS" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_MEDI" FromRole="PER_PERSONAS" ToRole="PER_MEDIOS_ELECTRONICOS" />
+          <NavigationProperty Name="PRO_PROFESOR" Relationship="UniversidadDBModel.FK_PRO_PROF_REFERENCE_PER_PERS" FromRole="PER_PERSONAS" ToRole="PRO_PROFESOR" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_34" FromRole="PER_PERSONAS" ToRole="US_USUARIOS" />
         </EntityType>
-        <EntityType Name="PRO_PROFESORES">
+        <EntityType Name="PRO_PROFESOR">
           <Key>
-            <PropertyRef Name="ID_PERSONA" />
-            <PropertyRef Name="ID_PER_LINKID" />
-            <PropertyRef Name="ID_PROFESOR" />
+            <PropertyRef Name="IDPROFESOR" />
           </Key>
-          <Property Name="ID_PERSONA" Type="Int32" Nullable="false" />
-          <Property Name="ID_PER_LINKID" Type="Int32" Nullable="false" />
-          <Property Name="ID_PROFESOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="CLA_CLASES" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF" FromRole="PRO_PROFESORES" ToRole="CLA_CLASES" />
+          <Property Name="IDPROFESOR" Type="Int32" Nullable="false" />
+          <Property Name="ID_PERSONA" Type="Int32" />
+          <Property Name="ID_PER_LINKID" Type="Int32" />
+          <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.FK_PRO_PROF_REFERENCE_PER_PERS" FromRole="PRO_PROFESOR" ToRole="PER_PERSONAS" />
         </EntityType>
         <EntityType Name="SIS_AADM_APLICACIONES">
           <Key>
@@ -1079,30 +874,27 @@
           <Key>
             <PropertyRef Name="ID_ESTATUS_USUARIOS" />
           </Key>
-          <Property Name="ID_ESTATUS_USUARIOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ESTATUS_USUARIOS" Type="Int32" Nullable="false" />
           <Property Name="ESTATUS_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_11" FromRole="US_CAT_ESTATUS_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_CAT_NIVEL_USUARIO">
           <Key>
             <PropertyRef Name="ID_NIVEL_USUARIO" />
           </Key>
-          <Property Name="ID_NIVEL_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_NIVEL_USUARIO" Type="Int32" Nullable="false" />
           <Property Name="NIVEL_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_N" FromRole="US_CAT_NIVEL_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
-          <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_12" FromRole="US_CAT_NIVEL_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_CAT_TIPO_USUARIO">
           <Key>
             <PropertyRef Name="ID_TIPO_USUARIO" />
           </Key>
-          <Property Name="ID_TIPO_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_TIPO_USUARIO" Type="Int32" Nullable="false" />
           <Property Name="TIPO_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T" FromRole="US_CAT_TIPO_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
-          <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_10" FromRole="US_CAT_TIPO_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_HISTORIAL">
           <Key>
@@ -1126,108 +918,65 @@
           <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CONTRASENA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.Reference_34" FromRole="US_USUARIOS" ToRole="PER_PERSONAS" />
-          <NavigationProperty Name="US_CAT_ESTATUS_USUARIO" Relationship="UniversidadDBModel.Reference_11" FromRole="US_USUARIOS" ToRole="US_CAT_ESTATUS_USUARIO" />
-          <NavigationProperty Name="US_CAT_NIVEL_USUARIO" Relationship="UniversidadDBModel.Reference_12" FromRole="US_USUARIOS" ToRole="US_CAT_NIVEL_USUARIO" />
-          <NavigationProperty Name="US_CAT_TIPO_USUARIO" Relationship="UniversidadDBModel.Reference_10" FromRole="US_USUARIOS" ToRole="US_CAT_TIPO_USUARIO" />
           <NavigationProperty Name="US_HISTORIAL" Relationship="UniversidadDBModel.Reference_13" FromRole="US_USUARIOS" ToRole="US_HISTORIAL" />
         </EntityType>
-        <Association Name="FK_CLA_CLAS_REFERENCE_CAR_CAT_">
-          <End Type="UniversidadDBModel.CAR_CAT_CARRERAS" Role="CAR_CAT_CARRERAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.CLA_CLASES" Role="CLA_CLASES" Multiplicity="*" />
+        <Association Name="FK_DIR_CAT__COLONIAS__DIR_CAT_">
+          <End Type="UniversidadDBModel.DIR_CAT_TIPO_ASENTAMIENTO" Role="DIR_CAT_TIPO_ASENTAMIENTO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAR_CAT_CARRERAS">
-              <PropertyRef Name="ID_CARRERA" />
+            <Principal Role="DIR_CAT_TIPO_ASENTAMIENTO">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
             </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_CARRERA" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MAT_CAT__REFERENCE_CAR_CAT_">
-          <End Type="UniversidadDBModel.CAR_CAT_CARRERAS" Role="CAR_CAT_CARRERAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.MAT_CAT_MATERIAS" Role="MAT_CAT_MATERIAS" Multiplicity="*" />
+        <Association Name="FK_DIR_CAT__REFERENCE_DIR_CAT_">
+          <End Type="UniversidadDBModel.DIR_CAT_TIPO_ZONA" Role="DIR_CAT_TIPO_ZONA" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="CAR_CAT_CARRERAS">
-              <PropertyRef Name="ID_CARRERA" />
+            <Principal Role="DIR_CAT_TIPO_ZONA">
+              <PropertyRef Name="IDTIPOZONA" />
             </Principal>
-            <Dependent Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="ID_CARRERA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_CLA_HOR_">
-          <End Type="UniversidadDBModel.CLA_HOR_CLASES" Role="CLA_HOR_CLASES" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.CLA_CLASES" Role="CLA_CLASES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CLA_HOR_CLASES">
-              <PropertyRef Name="ID_HORARIO_CLASE" />
-            </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_HORARIO_CLASE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-          <End Type="UniversidadDBModel.MAT_CAT_MATERIAS" Role="MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.CLA_CLASES" Role="CLA_CLASES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="ID_MATERIA" />
-            </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_MATERIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_PRO_PROF">
-          <End Type="UniversidadDBModel.PRO_PROFESORES" Role="PRO_PROFESORES" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.CLA_CLASES" Role="CLA_CLASES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PRO_PROFESORES">
-              <PropertyRef Name="ID_PERSONA" />
-              <PropertyRef Name="ID_PER_LINKID" />
-              <PropertyRef Name="ID_PROFESOR" />
-            </Principal>
-            <Dependent Role="CLA_CLASES">
-              <PropertyRef Name="ID_PERSONA" />
-              <PropertyRef Name="ID_PER_LINKID" />
-              <PropertyRef Name="ID_PROFESOR" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOZONA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Reference_26">
           <End Type="UniversidadDBModel.DIR_CAT_ESTADO" Role="DIR_CAT_ESTADO" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.DIR_CAT_CODIGO_POSTAL" Role="DIR_CAT_CODIGO_POSTAL" Multiplicity="*" />
+          <End Type="UniversidadDBModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_ESTADO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Principal>
-            <Dependent Role="DIR_CAT_CODIGO_POSTAL">
-              <PropertyRef Name="ID_ESTADO" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Reference_29">
           <End Type="UniversidadDBModel.DIR_CAT_DELG_MUNICIPIO" Role="DIR_CAT_DELG_MUNICIPIO" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.DIR_CAT_CODIGO_POSTAL" Role="DIR_CAT_CODIGO_POSTAL" Multiplicity="*" />
+          <End Type="UniversidadDBModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_DELG_MUNICIPIO">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Principal>
-            <Dependent Role="DIR_CAT_CODIGO_POSTAL">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="Reference_32">
-          <End Type="UniversidadDBModel.DIR_CAT_CODIGO_POSTAL" Role="DIR_CAT_CODIGO_POSTAL" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DIR_CAT_CODIGO_POSTAL">
-              <PropertyRef Name="ID_CP" />
+            <Principal Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDCOLONIA" />
             </Principal>
             <Dependent Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_CP" />
+              <PropertyRef Name="IDCOLONIA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1236,10 +985,10 @@
           <End Type="UniversidadDBModel.DIR_CAT_DELG_MUNICIPIO" Role="DIR_CAT_DELG_MUNICIPIO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_ESTADO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Principal>
             <Dependent Role="DIR_CAT_DELG_MUNICIPIO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1248,10 +997,10 @@
           <End Type="UniversidadDBModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_DELG_MUNICIPIO">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Principal>
             <Dependent Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_DELG_MUNICIPIO" />
+              <PropertyRef Name="IDDELGMUNICIPIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1260,22 +1009,10 @@
           <End Type="UniversidadDBModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DIR_CAT_ESTADO">
-              <PropertyRef Name="ID_ESTADO" />
+              <PropertyRef Name="IDESTADO" />
             </Principal>
             <Dependent Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_ESTADO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Reference_6">
-          <End Type="UniversidadDBModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.PER_PERSONAS" Role="PER_PERSONAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DIR_DIRECCIONES">
-              <PropertyRef Name="ID_DIRECCION" />
-            </Principal>
-            <Dependent Role="PER_PERSONAS">
-              <PropertyRef Name="ID_DIRECCION" />
+              <PropertyRef Name="IDESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1324,6 +1061,20 @@
             </Principal>
             <Dependent Role="PER_PERSONAS">
               <PropertyRef Name="ID_MEDIOS_ELECTRONICOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRO_PROF_REFERENCE_PER_PERS">
+          <End Type="UniversidadDBModel.PER_PERSONAS" Role="PER_PERSONAS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.PRO_PROFESOR" Role="PRO_PROFESOR" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PER_PERSONAS">
+              <PropertyRef Name="ID_PERSONA" />
+              <PropertyRef Name="ID_PER_LINKID" />
+            </Principal>
+            <Dependent Role="PRO_PROFESOR">
+              <PropertyRef Name="ID_PERSONA" />
+              <PropertyRef Name="ID_PER_LINKID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1387,42 +1138,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Reference_11">
-          <End Type="UniversidadDBModel.US_CAT_ESTATUS_USUARIO" Role="US_CAT_ESTATUS_USUARIO" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="US_CAT_ESTATUS_USUARIO">
-              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
-            </Principal>
-            <Dependent Role="US_USUARIOS">
-              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Reference_12">
-          <End Type="UniversidadDBModel.US_CAT_NIVEL_USUARIO" Role="US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="US_CAT_NIVEL_USUARIO">
-              <PropertyRef Name="ID_NIVEL_USUARIO" />
-            </Principal>
-            <Dependent Role="US_USUARIOS">
-              <PropertyRef Name="ID_NIVEL_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="Reference_10">
-          <End Type="UniversidadDBModel.US_CAT_TIPO_USUARIO" Role="US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="US_CAT_TIPO_USUARIO">
-              <PropertyRef Name="ID_TIPO_USUARIO" />
-            </Principal>
-            <Dependent Role="US_USUARIOS">
-              <PropertyRef Name="ID_TIPO_USUARIO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="Reference_13">
           <End Type="UniversidadDBModel.US_HISTORIAL" Role="US_HISTORIAL" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
@@ -1444,27 +1159,11 @@
           <EntitySetMapping Name="ALU_ALUMNOS">
             <EntityTypeMapping TypeName="UniversidadDBModel.ALU_ALUMNOS">
               <MappingFragment StoreEntitySet="ALU_ALUMNOS">
-                <ScalarProperty Name="ID_PLAN_CARRERA" ColumnName="ID_PLAN_CARRERA" />
-                <ScalarProperty Name="ID_CARRERA" ColumnName="ID_CARRERA" />
-                <ScalarProperty Name="ID_DEPORTES" ColumnName="ID_DEPORTES" />
-                <ScalarProperty Name="ID_ACTIVIDADES_EC" ColumnName="ID_ACTIVIDADES_EC" />
-                <ScalarProperty Name="ID_ALUMNO" ColumnName="ID_ALUMNO" />
-                <ScalarProperty Name="ID_PER_LINKID" ColumnName="ID_PER_LINKID" />
-                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ALU_HORARIO">
-            <EntityTypeMapping TypeName="UniversidadDBModel.ALU_HORARIO">
-              <MappingFragment StoreEntitySet="ALU_HORARIO">
-                <ScalarProperty Name="ID_MATERIO_8" ColumnName="ID_MATERIO_8" />
-                <ScalarProperty Name="ID_MATERIA_7" ColumnName="ID_MATERIA_7" />
-                <ScalarProperty Name="ID_MATERIA_6" ColumnName="ID_MATERIA_6" />
-                <ScalarProperty Name="ID_MATERIA_5" ColumnName="ID_MATERIA_5" />
-                <ScalarProperty Name="ID_MATERIA_4" ColumnName="ID_MATERIA_4" />
-                <ScalarProperty Name="ID_MATERIA_3" ColumnName="ID_MATERIA_3" />
-                <ScalarProperty Name="ID_MATERIA_2" ColumnName="ID_MATERIA_2" />
-                <ScalarProperty Name="ID_HORARIO" ColumnName="ID_HORARIO" />
+                <ScalarProperty Name="IDPLANCARRERA" ColumnName="IDPLANCARRERA" />
+                <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
+                <ScalarProperty Name="IDDEPORTES" ColumnName="IDDEPORTES" />
+                <ScalarProperty Name="IDACTIVIDADESEC" ColumnName="IDACTIVIDADESEC" />
+                <ScalarProperty Name="IDALUMNO" ColumnName="IDALUMNO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1475,71 +1174,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CAR_CAT_CARRERAS">
-            <EntityTypeMapping TypeName="UniversidadDBModel.CAR_CAT_CARRERAS">
-              <MappingFragment StoreEntitySet="CAR_CAT_CARRERAS">
-                <ScalarProperty Name="NOMBRE_CARRERA" ColumnName="NOMBRE_CARRERA" />
-                <ScalarProperty Name="ID_CARRERA" ColumnName="ID_CARRERA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CLA_CAT_HORAS">
-            <EntityTypeMapping TypeName="UniversidadDBModel.CLA_CAT_HORAS">
-              <MappingFragment StoreEntitySet="CLA_CAT_HORAS">
-                <ScalarProperty Name="COLUMN_2" ColumnName="COLUMN_2" />
-                <ScalarProperty Name="ID_HORAS" ColumnName="ID_HORAS" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CLA_CLASES">
-            <EntityTypeMapping TypeName="UniversidadDBModel.CLA_CLASES">
-              <MappingFragment StoreEntitySet="CLA_CLASES">
-                <ScalarProperty Name="NO_VACANTES" ColumnName="NO_VACANTES" />
-                <ScalarProperty Name="ID_HORARIO_CLASE" ColumnName="ID_HORARIO_CLASE" />
-                <ScalarProperty Name="ID_PROFESOR" ColumnName="ID_PROFESOR" />
-                <ScalarProperty Name="ID_PER_LINKID" ColumnName="ID_PER_LINKID" />
-                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
-                <ScalarProperty Name="ID_CARRERA" ColumnName="ID_CARRERA" />
-                <ScalarProperty Name="ID_MATERIA" ColumnName="ID_MATERIA" />
-                <ScalarProperty Name="ID_CLASE" ColumnName="ID_CLASE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CLA_HOR_CLASES">
-            <EntityTypeMapping TypeName="UniversidadDBModel.CLA_HOR_CLASES">
-              <MappingFragment StoreEntitySet="CLA_HOR_CLASES">
-                <ScalarProperty Name="S_LUNES" ColumnName="S_LUNES" />
-                <ScalarProperty Name="H_LUNES" ColumnName="H_LUNES" />
-                <ScalarProperty Name="ID_HORARIO_CLASE" ColumnName="ID_HORARIO_CLASE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DIR_CAT_CODIGO_POSTAL">
-            <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_CODIGO_POSTAL">
-              <MappingFragment StoreEntitySet="DIR_CAT_CODIGO_POSTAL">
-                <ScalarProperty Name="TIPO_COLONIA" ColumnName="TIPO_COLONIA" />
-                <ScalarProperty Name="NOMBRE_COLONIA" ColumnName="NOMBRE_COLONIA" />
-                <ScalarProperty Name="CODIGO_POSTAL" ColumnName="CODIGO_POSTAL" />
-                <ScalarProperty Name="ID_DELG_MUNICIPIO" ColumnName="ID_DELG_MUNICIPIO" />
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
-                <ScalarProperty Name="ID_CP" ColumnName="ID_CP" />
+          <EntitySetMapping Name="DIR_CAT_COLONIAS">
+            <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_COLONIAS">
+              <MappingFragment StoreEntitySet="DIR_CAT_COLONIAS">
+                <ScalarProperty Name="NOMBRECOLONIA" ColumnName="NOMBRECOLONIA" />
+                <ScalarProperty Name="CODIGOPOSTAL" ColumnName="CODIGOPOSTAL" />
+                <ScalarProperty Name="IDMUNICIPIO" ColumnName="IDMUNICIPIO" />
+                <ScalarProperty Name="IDTIPOZONA" ColumnName="IDTIPOZONA" />
+                <ScalarProperty Name="IDTIPOASENTAMIENTO" ColumnName="IDTIPOASENTAMIENTO" />
+                <ScalarProperty Name="IDDELGMUNICIPIO" ColumnName="IDDELGMUNICIPIO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+                <ScalarProperty Name="IDCOLONIA" ColumnName="IDCOLONIA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DIR_CAT_DELG_MUNICIPIO">
             <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_DELG_MUNICIPIO">
               <MappingFragment StoreEntitySet="DIR_CAT_DELG_MUNICIPIO">
-                <ScalarProperty Name="NOMBRE_DELG_MUNICIPIO" ColumnName="NOMBRE_DELG_MUNICIPIO" />
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
-                <ScalarProperty Name="ID_DELG_MUNICIPIO" ColumnName="ID_DELG_MUNICIPIO" />
+                <ScalarProperty Name="NOMBREDELGMUNICIPIO" ColumnName="NOMBREDELGMUNICIPIO" />
+                <ScalarProperty Name="IDMUNICIPIO" ColumnName="IDMUNICIPIO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+                <ScalarProperty Name="IDDELGMUNICIPIO" ColumnName="IDDELGMUNICIPIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DIR_CAT_ESTADO">
             <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_ESTADO">
               <MappingFragment StoreEntitySet="DIR_CAT_ESTADO">
-                <ScalarProperty Name="NOMBRE_ESTADO" ColumnName="NOMBRE_ESTADO" />
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="NOMBREESTADO" ColumnName="NOMBREESTADO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_TIPO_ASENTAMIENTO">
+            <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_TIPO_ASENTAMIENTO">
+              <MappingFragment StoreEntitySet="DIR_CAT_TIPO_ASENTAMIENTO">
+                <ScalarProperty Name="TIPOASENTAMIENTO" ColumnName="TIPOASENTAMIENTO" />
+                <ScalarProperty Name="IDTIPOASENTAMIENTO" ColumnName="IDTIPOASENTAMIENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_TIPO_ZONA">
+            <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_TIPO_ZONA">
+              <MappingFragment StoreEntitySet="DIR_CAT_TIPO_ZONA">
+                <ScalarProperty Name="TIPOZONA" ColumnName="TIPOZONA" />
+                <ScalarProperty Name="IDTIPOZONA" ColumnName="IDTIPOZONA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1547,22 +1226,14 @@
             <EntityTypeMapping TypeName="UniversidadDBModel.DIR_DIRECCIONES">
               <MappingFragment StoreEntitySet="DIR_DIRECCIONES">
                 <ScalarProperty Name="REFERENCIAS" ColumnName="REFERENCIAS" />
-                <ScalarProperty Name="NO_INT" ColumnName="NO_INT" />
-                <ScalarProperty Name="NO_EXT" ColumnName="NO_EXT" />
+                <ScalarProperty Name="NOINT" ColumnName="NOINT" />
+                <ScalarProperty Name="NOEXT" ColumnName="NOEXT" />
                 <ScalarProperty Name="CALLE" ColumnName="CALLE" />
-                <ScalarProperty Name="ID_CP" ColumnName="ID_CP" />
-                <ScalarProperty Name="ID_DELG_MUNICIPIO" ColumnName="ID_DELG_MUNICIPIO" />
-                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
-                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MAT_CAT_MATERIAS">
-            <EntityTypeMapping TypeName="UniversidadDBModel.MAT_CAT_MATERIAS">
-              <MappingFragment StoreEntitySet="MAT_CAT_MATERIAS">
-                <ScalarProperty Name="NOMBRE_MATERIA" ColumnName="NOMBRE_MATERIA" />
-                <ScalarProperty Name="ID_CARRERA" ColumnName="ID_CARRERA" />
-                <ScalarProperty Name="ID_MATERIA" ColumnName="ID_MATERIA" />
+                <ScalarProperty Name="IDMUNICIPIO" ColumnName="IDMUNICIPIO" />
+                <ScalarProperty Name="IDCOLONIA" ColumnName="IDCOLONIA" />
+                <ScalarProperty Name="IDDELGMUNICIPIO" ColumnName="IDDELGMUNICIPIO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+                <ScalarProperty Name="IDDIRECCION" ColumnName="IDDIRECCION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1623,18 +1294,18 @@
                 <ScalarProperty Name="ID_TIPO_PERSONA" ColumnName="ID_TIPO_PERSONA" />
                 <ScalarProperty Name="ID_TELEFONOS" ColumnName="ID_TELEFONOS" />
                 <ScalarProperty Name="CVE_NACIONALIDAD" ColumnName="CVE_NACIONALIDAD" />
-                <ScalarProperty Name="ID_DIRECCION" ColumnName="ID_DIRECCION" />
+                <ScalarProperty Name="IDDIRECCION" ColumnName="IDDIRECCION" />
                 <ScalarProperty Name="ID_PER_LINKID" ColumnName="ID_PER_LINKID" />
                 <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PRO_PROFESORES">
-            <EntityTypeMapping TypeName="UniversidadDBModel.PRO_PROFESORES">
-              <MappingFragment StoreEntitySet="PRO_PROFESORES">
-                <ScalarProperty Name="ID_PROFESOR" ColumnName="ID_PROFESOR" />
+          <EntitySetMapping Name="PRO_PROFESOR">
+            <EntityTypeMapping TypeName="UniversidadDBModel.PRO_PROFESOR">
+              <MappingFragment StoreEntitySet="PRO_PROFESOR">
                 <ScalarProperty Name="ID_PER_LINKID" ColumnName="ID_PER_LINKID" />
                 <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
+                <ScalarProperty Name="IDPROFESOR" ColumnName="IDPROFESOR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

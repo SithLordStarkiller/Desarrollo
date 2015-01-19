@@ -16,15 +16,15 @@ namespace Universidad.Entidades
     {
         public DIR_CAT_ESTADO()
         {
-            this.DIR_CAT_CODIGO_POSTAL = new HashSet<DIR_CAT_CODIGO_POSTAL>();
+            this.DIR_CAT_COLONIAS = new HashSet<DIR_CAT_COLONIAS>();
             this.DIR_CAT_DELG_MUNICIPIO = new HashSet<DIR_CAT_DELG_MUNICIPIO>();
             this.DIR_DIRECCIONES = new HashSet<DIR_DIRECCIONES>();
         }
     
-        public int ID_ESTADO { get; set; }
-        public string NOMBRE_ESTADO { get; set; }
+        public int IDESTADO { get; set; }
+        public string NOMBREESTADO { get; set; }
     
-        public virtual ICollection<DIR_CAT_CODIGO_POSTAL> DIR_CAT_CODIGO_POSTAL { get; set; }
+        public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
         public virtual ICollection<DIR_CAT_DELG_MUNICIPIO> DIR_CAT_DELG_MUNICIPIO { get; set; }
         public virtual ICollection<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }
     }

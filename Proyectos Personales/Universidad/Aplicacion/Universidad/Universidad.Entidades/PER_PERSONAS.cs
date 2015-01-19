@@ -14,9 +14,14 @@ namespace Universidad.Entidades
     
     public partial class PER_PERSONAS
     {
+        public PER_PERSONAS()
+        {
+            this.PRO_PROFESOR = new HashSet<PRO_PROFESOR>();
+        }
+    
         public int ID_PERSONA { get; set; }
         public int ID_PER_LINKID { get; set; }
-        public Nullable<int> ID_DIRECCION { get; set; }
+        public Nullable<int> IDDIRECCION { get; set; }
         public Nullable<int> CVE_NACIONALIDAD { get; set; }
         public Nullable<int> ID_TELEFONOS { get; set; }
         public Nullable<int> ID_TIPO_PERSONA { get; set; }
@@ -32,11 +37,11 @@ namespace Universidad.Entidades
         public string RFC { get; set; }
         public string IMSS { get; set; }
     
-        public virtual DIR_DIRECCIONES DIR_DIRECCIONES { get; set; }
         public virtual PER_CAT_NACIONALIDAD PER_CAT_NACIONALIDAD { get; set; }
         public virtual PER_CAT_TELEFONOS PER_CAT_TELEFONOS { get; set; }
         public virtual PER_CAT_TIPO_PERSONA PER_CAT_TIPO_PERSONA { get; set; }
         public virtual PER_MEDIOS_ELECTRONICOS PER_MEDIOS_ELECTRONICOS { get; set; }
+        public virtual ICollection<PRO_PROFESOR> PRO_PROFESOR { get; set; }
         public virtual US_USUARIOS US_USUARIOS { get; set; }
     }
 }

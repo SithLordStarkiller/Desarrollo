@@ -1,20 +1,34 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     07/01/2015 11:10:19 p. m.                    */
+/* Created on:     16/01/2015 11:54:36 p. m.                    */
 /*==============================================================*/
 
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('DIR_CAT_CODIGO_POSTAL') and o.name = 'Reference_26')
-alter table DIR_CAT_CODIGO_POSTAL
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'FK_DIR_CAT__COLONIAS__DIR_CAT_')
+alter table DIR_CAT_COLONIAS
+   drop constraint FK_DIR_CAT__COLONIAS__DIR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'FK_DIR_CAT__REFERENCE_DIR_CAT_')
+alter table DIR_CAT_COLONIAS
+   drop constraint FK_DIR_CAT__REFERENCE_DIR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'Reference_26')
+alter table DIR_CAT_COLONIAS
    drop constraint Reference_26
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('DIR_CAT_CODIGO_POSTAL') and o.name = 'Reference_29')
-alter table DIR_CAT_CODIGO_POSTAL
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'Reference_29')
+alter table DIR_CAT_COLONIAS
    drop constraint Reference_29
 go
 
@@ -97,29 +111,29 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_AADM')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_AADM')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_SIS_AADM
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_CAT_')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_SIS_CAT_')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_SIS_CAT_
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_N')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_N')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_US_CAT_N
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_AADM_ALICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_T')
-alter table SIS_AADM_ALICACIONES
+   where r.fkeyid = object_id('SIS_AADM_APLICACIONES') and o.name = 'FK_SIS_AADM_REFERENCE_US_CAT_T')
+alter table SIS_AADM_APLICACIONES
    drop constraint FK_SIS_AADM_REFERENCE_US_CAT_T
 go
 
@@ -167,9 +181,9 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('DIR_CAT_CODIGO_POSTAL')
+           where  id = object_id('DIR_CAT_COLONIAS')
             and   type = 'U')
-   drop table DIR_CAT_CODIGO_POSTAL
+   drop table DIR_CAT_COLONIAS
 go
 
 if exists (select 1
@@ -184,6 +198,20 @@ if exists (select 1
            where  id = object_id('DIR_CAT_ESTADO')
             and   type = 'U')
    drop table DIR_CAT_ESTADO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_TIPO_ACENTAMIENTO')
+            and   type = 'U')
+   drop table DIR_CAT_TIPO_ACENTAMIENTO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_TIPO_ZONA')
+            and   type = 'U')
+   drop table DIR_CAT_TIPO_ZONA
 go
 
 if exists (select 1
@@ -237,16 +265,16 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SIS_AADM_ALICACIONES')
+           where  id = object_id('SIS_AADM_APLICACIONES')
             and   type = 'U')
-   drop table SIS_AADM_ALICACIONES
+   drop table SIS_AADM_APLICACIONES
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SIS_AADM_MENUS')
+           where  id = object_id('SIS_AADM_ARBOLMENUS')
             and   type = 'U')
-   drop table SIS_AADM_MENUS
+   drop table SIS_AADM_ARBOLMENUS
 go
 
 if exists (select 1
@@ -314,16 +342,18 @@ create table ALU_KARDEX (
 go
 
 /*==============================================================*/
-/* Table: DIR_CAT_CODIGO_POSTAL                                 */
+/* Table: DIR_CAT_COLONIAS                                      */
 /*==============================================================*/
-create table DIR_CAT_CODIGO_POSTAL (
-   ID_CP                int                  identity,
-   ID_ESTADO            int                  null,
-   ID_DELG_MUNICIPIO    int                  null,
-   CODIGO_POSTAL        int                  null,
-   NOMBRE_COLONIA       varchar(50)          null,
-   TIPO_COLONIA         varchar(50)          null,
-   constraint PK_DIR_CAT_CODIGO_POSTAL primary key (ID_CP)
+create table DIR_CAT_COLONIAS (
+   IDCOLONIA            int                  identity,
+   IDESTADO             int                  null,
+   IDDELGMUNICIPIO      int                  null,
+   IDTIPOACENTAMIENTO   int                  null,
+   IDTIPOZONA           int                  null,
+   CODIGOPOSTAL         int                  null,
+   NOMBRECOLONIA        varchar(100)         null,
+   TIPOCOLONIA          varchar(100)         null,
+   constraint PK_DIR_CAT_COLONIAS primary key (IDCOLONIA)
 )
 go
 
@@ -331,10 +361,10 @@ go
 /* Table: DIR_CAT_DELG_MUNICIPIO                                */
 /*==============================================================*/
 create table DIR_CAT_DELG_MUNICIPIO (
-   ID_DELG_MUNICIPIO    int                  identity,
-   ID_ESTADO            int                  null,
-   NOMBRE_DELG_MUNICIPIO varchar(50)          null,
-   constraint PK_DIR_CAT_DELG_MUNICIPIO primary key (ID_DELG_MUNICIPIO)
+   IDDELGMUNICIPIO      int                  identity,
+   IDESTADO             int                  null,
+   NOMBREDELGMUNICIPIO  varchar(50)          null,
+   constraint PK_DIR_CAT_DELG_MUNICIPIO primary key (IDDELGMUNICIPIO)
 )
 go
 
@@ -342,9 +372,30 @@ go
 /* Table: DIR_CAT_ESTADO                                        */
 /*==============================================================*/
 create table DIR_CAT_ESTADO (
-   ID_ESTADO            int                  identity,
-   NOMBRE_ESTADO        varchar(20)          null,
-   constraint PK_DIR_CAT_ESTADO primary key (ID_ESTADO)
+   IDESTADO             int                  identity,
+   NOMBREESTADO         varchar(50)          null,
+   NOMBREESTADOOFICIAL  varchar(50)          null,
+   constraint PK_DIR_CAT_ESTADO primary key (IDESTADO)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_TIPO_ACENTAMIENTO                             */
+/*==============================================================*/
+create table DIR_CAT_TIPO_ACENTAMIENTO (
+   IDTIPOACENTAMIENTO   int                  not null,
+   TIPOACENTAMIENTO     varchar(100)         not null,
+   constraint PK_DIR_CAT_TIPO_ACENTAMIENTO primary key (IDTIPOACENTAMIENTO)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_TIPO_ZONA                                     */
+/*==============================================================*/
+create table DIR_CAT_TIPO_ZONA (
+   IDTIPOZONA           int                  not null,
+   TIPOZONA             varchar(100)         null,
+   constraint PK_DIR_CAT_TIPO_ZONA primary key (IDTIPOZONA)
 )
 go
 
@@ -352,15 +403,15 @@ go
 /* Table: DIR_DIRECCIONES                                       */
 /*==============================================================*/
 create table DIR_DIRECCIONES (
-   ID_DIRECCION         int                  identity,
-   ID_ESTADO            int                  null,
-   ID_DELG_MUNICIPIO    int                  null,
-   ID_CP                int                  null,
+   IDDIRECCION          int                  identity,
+   IDESTADO             int                  null,
+   IDDELGMUNICIPIO      int                  null,
+   IDCOLONIA            int                  null,
    CALLE                varchar(100)         null,
-   NO_EXT               int                  null,
-   NO_INT               int                  null,
+   NOEXT                int                  null,
+   NOINT                int                  null,
    REFERENCIAS          varchar(150)         null,
-   constraint PK_DIR_DIRECCIONES primary key (ID_DIRECCION)
+   constraint PK_DIR_DIRECCIONES primary key (IDDIRECCION)
 )
 go
 
@@ -418,7 +469,7 @@ go
 create table PER_PERSONAS (
    ID_PERSONA           int                  identity,
    ID_PER_LINKID        int                  not null,
-   ID_DIRECCION         int                  null,
+   IDDIRECCION          int                  null,
    CVE_NACIONALIDAD     int                  null,
    ID_TELEFONOS         int                  null,
    ID_TIPO_PERSONA      int                  null,
@@ -449,27 +500,27 @@ create table PRO_PROFESOR (
 go
 
 /*==============================================================*/
-/* Table: SIS_AADM_ALICACIONES                                  */
+/* Table: SIS_AADM_APLICACIONES                                 */
 /*==============================================================*/
-create table SIS_AADM_ALICACIONES (
-   IDMENUS              int                  identity,
+create table SIS_AADM_APLICACIONES (
+   IDAPLICACIONES       int                  identity,
    IDMENU               int                  null,
    IDTABPAGES           int                  null,
    ID_NIVEL_USUARIO     int                  null,
    ID_TIPO_USUARIO      int                  null,
-   constraint PK_SIS_AADM_ALICACIONES primary key (IDMENUS)
+   constraint PK_SIS_AADM_APLICACIONES primary key (IDAPLICACIONES)
 )
 go
 
 /*==============================================================*/
-/* Table: SIS_AADM_MENUS                                        */
+/* Table: SIS_AADM_ARBOLMENUS                                   */
 /*==============================================================*/
-create table SIS_AADM_MENUS (
+create table SIS_AADM_ARBOLMENUS (
    IDMENU               int                  not null,
    NOMBRENODO           varchar(100)         null,
    RUTA                 varchar(MAX)         null,
    IDMENUPADRE          int                  not null,
-   constraint PK_SIS_AADM_MENUS primary key (IDMENU)
+   constraint PK_SIS_AADM_ARBOLMENUS primary key (IDMENU)
 )
 go
 
@@ -544,34 +595,44 @@ create table US_USUARIOS (
 )
 go
 
-alter table DIR_CAT_CODIGO_POSTAL
-   add constraint Reference_26 foreign key (ID_ESTADO)
-      references DIR_CAT_ESTADO (ID_ESTADO)
+alter table DIR_CAT_COLONIAS
+   add constraint FK_DIR_CAT__COLONIAS__DIR_CAT_ foreign key (IDTIPOACENTAMIENTO)
+      references DIR_CAT_TIPO_ACENTAMIENTO (IDTIPOACENTAMIENTO)
 go
 
-alter table DIR_CAT_CODIGO_POSTAL
-   add constraint Reference_29 foreign key (ID_DELG_MUNICIPIO)
-      references DIR_CAT_DELG_MUNICIPIO (ID_DELG_MUNICIPIO)
+alter table DIR_CAT_COLONIAS
+   add constraint FK_DIR_CAT__REFERENCE_DIR_CAT_ foreign key (IDTIPOZONA)
+      references DIR_CAT_TIPO_ZONA (IDTIPOZONA)
+go
+
+alter table DIR_CAT_COLONIAS
+   add constraint Reference_26 foreign key (IDESTADO)
+      references DIR_CAT_ESTADO (IDESTADO)
+go
+
+alter table DIR_CAT_COLONIAS
+   add constraint Reference_29 foreign key (IDDELGMUNICIPIO)
+      references DIR_CAT_DELG_MUNICIPIO (IDDELGMUNICIPIO)
 go
 
 alter table DIR_CAT_DELG_MUNICIPIO
-   add constraint Reference_27 foreign key (ID_ESTADO)
-      references DIR_CAT_ESTADO (ID_ESTADO)
+   add constraint Reference_27 foreign key (IDESTADO)
+      references DIR_CAT_ESTADO (IDESTADO)
 go
 
 alter table DIR_DIRECCIONES
-   add constraint Reference_28 foreign key (ID_ESTADO)
-      references DIR_CAT_ESTADO (ID_ESTADO)
+   add constraint Reference_28 foreign key (IDESTADO)
+      references DIR_CAT_ESTADO (IDESTADO)
 go
 
 alter table DIR_DIRECCIONES
-   add constraint Reference_31 foreign key (ID_DELG_MUNICIPIO)
-      references DIR_CAT_DELG_MUNICIPIO (ID_DELG_MUNICIPIO)
+   add constraint Reference_31 foreign key (IDDELGMUNICIPIO)
+      references DIR_CAT_DELG_MUNICIPIO (IDDELGMUNICIPIO)
 go
 
 alter table DIR_DIRECCIONES
-   add constraint Reference_32 foreign key (ID_CP)
-      references DIR_CAT_CODIGO_POSTAL (ID_CP)
+   add constraint Reference_32 foreign key (IDCOLONIA)
+      references DIR_CAT_COLONIAS (IDCOLONIA)
 go
 
 alter table PER_PERSONAS
@@ -590,8 +651,8 @@ alter table PER_PERSONAS
 go
 
 alter table PER_PERSONAS
-   add constraint Reference_6 foreign key (ID_DIRECCION)
-      references DIR_DIRECCIONES (ID_DIRECCION)
+   add constraint Reference_6 foreign key (IDDIRECCION)
+      references DIR_DIRECCIONES (IDDIRECCION)
 go
 
 alter table PER_PERSONAS
@@ -609,22 +670,22 @@ alter table PRO_PROFESOR
       references PER_PERSONAS (ID_PERSONA, ID_PER_LINKID)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_SIS_AADM foreign key (IDMENU)
-      references SIS_AADM_MENUS (IDMENU)
+      references SIS_AADM_ARBOLMENUS (IDMENU)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_SIS_CAT_ foreign key (IDTABPAGES)
       references SIS_CAT_TABPAGES (IDTABPAGES)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_US_CAT_N foreign key (ID_NIVEL_USUARIO)
       references US_CAT_NIVEL_USUARIO (ID_NIVEL_USUARIO)
 go
 
-alter table SIS_AADM_ALICACIONES
+alter table SIS_AADM_APLICACIONES
    add constraint FK_SIS_AADM_REFERENCE_US_CAT_T foreign key (ID_TIPO_USUARIO)
       references US_CAT_TIPO_USUARIO (ID_TIPO_USUARIO)
 go

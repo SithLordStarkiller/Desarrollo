@@ -12,17 +12,12 @@ namespace Universidad.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class PRO_PROFESORES
+    public partial class PRO_PROFESOR
     {
-        public PRO_PROFESORES()
-        {
-            this.CLA_CLASES = new HashSet<CLA_CLASES>();
-        }
+        public int IDPROFESOR { get; set; }
+        public Nullable<int> ID_PERSONA { get; set; }
+        public Nullable<int> ID_PER_LINKID { get; set; }
     
-        public int ID_PERSONA { get; set; }
-        public int ID_PER_LINKID { get; set; }
-        public int ID_PROFESOR { get; set; }
-    
-        public virtual ICollection<CLA_CLASES> CLA_CLASES { get; set; }
+        public virtual PER_PERSONAS PER_PERSONAS { get; set; }
     }
 }
