@@ -17,5 +17,8 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         string ObtenCatTipoUsuario(int Id_tipoUsuario);
+
+        [OperationContract]
+        string ObtenCatalogoNacionalidades();
     }
 }

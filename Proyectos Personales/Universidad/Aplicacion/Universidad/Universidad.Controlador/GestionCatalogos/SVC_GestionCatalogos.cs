@@ -17,12 +17,12 @@ namespace Universidad.Controlador.GestionCatalogos
     {
         #region Propiedades de la clase
 
-        private S_GestionCatalogosClient S_GestionCatalogos = null;
+        private readonly S_GestionCatalogosClient _servicio = null;
 
         public SVC_GestionCatalogos(Sesion sesion)
         {
             var configServicios = new Controlador.ControladorServicios();
-            S_GestionCatalogos = new S_GestionCatalogosClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"GestionCatalogos/", "S_GestionCatalogos.svc"));
+            _servicio = new S_GestionCatalogosClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"GestionCatalogos/", "S_GestionCatalogos.svc"));
         }
 
         public System.EventHandler Logeo_Finalizado = null;
@@ -35,7 +35,7 @@ namespace Universidad.Controlador.GestionCatalogos
         /// <returns>Regresa una lista con todos los registros de la tabla US_CAT_TIPO_USUARIO</returns>
         public List<US_CAT_TIPO_USUARIO> ObtenCatNivelUsuarios()
         {
-            var JLista = S_GestionCatalogos.ObtenTablaUsCatTipoUsuarios();
+            var JLista = _servicio.ObtenTablaUsCatTipoUsuarios();
 
             var listaCatNivelUsuarios =
                 Newtonsoft.Json.JsonConvert.DeserializeObject<List<US_CAT_TIPO_USUARIO>>(JLista);
@@ -44,11 +44,34 @@ namespace Universidad.Controlador.GestionCatalogos
 
         public US_CAT_TIPO_USUARIO ObtenTipoUsuario(int Id_TipoUsuario)
         {
-            var JObject = S_GestionCatalogos.ObtenCatTipoUsuario(Id_TipoUsuario);
+            var JObject = _servicio.ObtenCatTipoUsuario(Id_TipoUsuario);
 
             var TipoUsuario = JsonConvert.DeserializeObject<US_CAT_TIPO_USUARIO>(JObject);
             
             return TipoUsuario;
         }
+
+        #region Obten catalogos nacionalidades
+
+        public delegate void ObtenCatNacionalidadArgs(List<PER_CAT_NACIONALIDAD> lista);
+
+        public event ObtenCatNacionalidadArgs ObtenCatNacionalidadFinalizado;
+        
+        public void ObtenCatNacionalidad()
+        {
+            _servicio.ObtenCatalogoNacionalidadesCompleted += _servicio_ObtenCatalogoNacionalidadesCompleted;
+            _servicio.ObtenCatalogoNacionalidadesAsync();
+        }
+
+        private void _servicio_ObtenCatalogoNacionalidadesCompleted(object sender, ObtenCatalogoNacionalidadesCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var persona = JsonConvert.DeserializeObject<List<PER_CAT_NACIONALIDAD>>(resultado);
+            ObtenCatNacionalidadFinalizado(persona);
+        }
+
+        #endregion
     }
 }

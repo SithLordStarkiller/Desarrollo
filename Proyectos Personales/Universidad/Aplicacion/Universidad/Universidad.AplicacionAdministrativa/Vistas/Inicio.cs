@@ -113,7 +113,7 @@ namespace Universidad.AplicacionAdministrativa.Vistas
                 {
                     case 6:
                     {
-                        control = new Controles.ControPersonas.AltaPersona();
+                        control = new Controles.ControPersonas.AltaPersona(_sesion);
                     }
                         break;
                 }

@@ -32,6 +32,7 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
         #endregion
 
         #region Metodos de Extraccion
+
         public List<US_CAT_TIPO_USUARIO> ObtenListaCatTiposUsuario()
         {
             return Gestion_CAT_Tipos_Usuario.ClassInstance.ObtenListaCatTiposUsuario();
@@ -40,6 +41,11 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
         public US_CAT_TIPO_USUARIO ObtenTipoUsuario(int Id_Tipo_Usuario)
         {
             return Gestion_CAT_Tipos_Usuario.ClassInstance.ObtenCatTipoUsuario(Id_Tipo_Usuario);
+        }
+
+        public List<PER_CAT_NACIONALIDAD> ObtenNacionalidades()
+        {
+            return new GestionCatNacionalidadA().ObtenNacionalidadLinq();
         }
 
         #endregion

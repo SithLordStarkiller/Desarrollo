@@ -18,17 +18,15 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         public string ObtenTablaUsCatTipoUsuarios()
         {
             var Lista = Universidad.LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
-            string JLista = Newtonsoft.Json.JsonConvert.SerializeObject(Lista);
+            var JLista = Newtonsoft.Json.JsonConvert.SerializeObject(Lista);
             return JLista;
         }
 
-        //public US_CAT_TIPO_USUARIO InsertaCatTipoUsuario(US_CAT_TIPO_USUARIO registroCatTipoUsuario,
-        //    string NombreUsuario)
-        //{
-        //    return
-        //        LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.InsertaRegistroCatTipoUsuario(
-        //            registroCatTipoUsuario, NombreUsuario);
-        //}
+        public string ObtenCatalogoNacionalidades()
+        {
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenNacionalidades();
+            return JsonConvert.SerializeObject(lista);
+        }
 
         public string ObtenCatTipoUsuario(int Id_TipoUsuario)
         {
