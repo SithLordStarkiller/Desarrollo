@@ -37,6 +37,7 @@ namespace Universidad.AccesoDatos
         public DbSet<PER_CAT_NACIONALIDAD> PER_CAT_NACIONALIDAD { get; set; }
         public DbSet<PER_CAT_TELEFONOS> PER_CAT_TELEFONOS { get; set; }
         public DbSet<PER_CAT_TIPO_PERSONA> PER_CAT_TIPO_PERSONA { get; set; }
+        public DbSet<PER_FOTOGRAFIA> PER_FOTOGRAFIA { get; set; }
         public DbSet<PER_MEDIOS_ELECTRONICOS> PER_MEDIOS_ELECTRONICOS { get; set; }
         public DbSet<PER_PERSONAS> PER_PERSONAS { get; set; }
         public DbSet<PRO_PROFESOR> PRO_PROFESOR { get; set; }

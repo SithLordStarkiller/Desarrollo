@@ -92,8 +92,6 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 
         public PER_PERSONAS ObtenPersonaLinq(US_USUARIOS usuario)
         {
-            PER_PERSONAS persona;
-
             using (var aux = new Repositorio<PER_PERSONAS>())
             {
                 return aux.Extraer(per => per.ID_USUARIO == usuario.ID_USUARIO);
