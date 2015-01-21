@@ -73,5 +73,28 @@ namespace Universidad.Controlador.GestionCatalogos
         }
 
         #endregion
+
+        #region Obten catalogos tipo Persona
+
+        public delegate void ObtenCatTipoPersonaArgs(List<PER_CAT_TIPO_PERSONA> lista);
+
+        public event ObtenCatTipoPersonaArgs ObtenCatTipoPersonaFinalizado;
+
+        public void ObtenCatTipoPersona()
+        {
+            _servicio.ObtenCatTipoPersonaCompleted += _servicio_ObtenCatTipoPersonaCompleted;
+            _servicio.ObtenCatTipoPersonaAsync();
+        }
+
+        private void _servicio_ObtenCatTipoPersonaCompleted(object sender, ObtenCatTipoPersonaCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = JsonConvert.DeserializeObject<List<PER_CAT_TIPO_PERSONA>>(resultado);
+            ObtenCatTipoPersonaFinalizado(lista);
+        }
+
+        #endregion
     }
 }
