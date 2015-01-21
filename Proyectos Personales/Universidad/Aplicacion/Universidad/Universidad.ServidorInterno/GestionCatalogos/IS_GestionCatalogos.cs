@@ -20,5 +20,8 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         string ObtenCatalogoNacionalidades();
+
+        [OperationContract]
+        string ObtenCatTipoPersona();
     }
 }

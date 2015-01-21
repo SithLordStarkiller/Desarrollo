@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using Newtonsoft.Json;
 using Universidad.Entidades;
-using Universidad.LogicaNegocios.GestionCatalogos;
+using Universidad.LogicaNegocios;
 
 
 namespace Universidad.ServidorInterno.GestionCatalogos
@@ -17,8 +17,8 @@ namespace Universidad.ServidorInterno.GestionCatalogos
     {
         public string ObtenTablaUsCatTipoUsuarios()
         {
-            var Lista = Universidad.LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
-            var JLista = Newtonsoft.Json.JsonConvert.SerializeObject(Lista);
+            var Lista = LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
+            var JLista = JsonConvert.SerializeObject(Lista);
             return JLista;
         }
 
@@ -35,6 +35,12 @@ namespace Universidad.ServidorInterno.GestionCatalogos
             string JObject = JsonConvert.SerializeObject(TipoUsuario);
 
             return JObject;
+        }
+
+        public string ObtenCatTipoPersona()
+        {
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatTipoPersona();
+            return JsonConvert.SerializeObject(lista);
         }
     }
 }
