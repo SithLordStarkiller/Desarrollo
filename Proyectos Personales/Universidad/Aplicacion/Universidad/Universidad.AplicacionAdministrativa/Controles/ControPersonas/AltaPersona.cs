@@ -32,6 +32,17 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             var servicio = new SVC_GestionCatalogos(_sesion);
             servicio.ObtenCatNacionalidad();
             servicio.ObtenCatNacionalidadFinalizado += servicios_ObtenCatNacionalidadFinalizado;
+
+            servicio.ObtenCatTipoPersona();
+            servicio.ObtenCatTipoPersonaFinalizado += servicio_ObtenCatTipoPersonaFinalizado; 
+        }
+
+        private void servicio_ObtenCatTipoPersonaFinalizado(List<PER_CAT_TIPO_PERSONA> lista)
+        {
+            cbxTipoPersona.ValueMember = "ID_TIPO_PERSONA";
+            cbxTipoPersona.DisplayMember = "TIPO_PERSONA";
+            cbxTipoPersona.DataSource = lista;
+            cbxTipoPersona.SelectedValue = 1;
         }
 
         private void servicios_ObtenCatNacionalidadFinalizado(List<PER_CAT_NACIONALIDAD> lista)
@@ -46,6 +57,11 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         {
             var fecha = Convert.ToDateTime(mcrFechaNacimiento.SelectionStart);
             tbxApellidoM.Text = fecha.ToString("d");
+        }
+
+        private void txbCodigoPostal_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

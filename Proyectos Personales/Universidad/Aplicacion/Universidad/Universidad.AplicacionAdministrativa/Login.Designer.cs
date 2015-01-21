@@ -137,6 +137,7 @@
             this.Controls.Add(this.BTN_Login);
             this.Controls.Add(this.LBL_Titulo);
             this.Name = "FORM_Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Universidad";
             this.Load += new System.EventHandler(this.FORM_Login_Load);
             this.ResumeLayout(false);
