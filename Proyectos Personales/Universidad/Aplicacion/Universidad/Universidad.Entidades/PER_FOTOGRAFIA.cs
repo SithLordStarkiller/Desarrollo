@@ -12,10 +12,19 @@ namespace Universidad.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class PRO_PROFESOR
+    public partial class PER_FOTOGRAFIA
     {
-        public int IDPROFESOR { get; set; }
-        public Nullable<int> ID_PERSONA { get; set; }
-        public Nullable<int> ID_PER_LINKID { get; set; }
+        public PER_FOTOGRAFIA()
+        {
+            this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
+        }
+    
+        public int IDFOTO { get; set; }
+        public string NOMBRE { get; set; }
+        public string EXTENCION { get; set; }
+        public byte[] FOTOGRAFIA { get; set; }
+        public Nullable<long> LONGITUD { get; set; }
+    
+        public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }
 }
