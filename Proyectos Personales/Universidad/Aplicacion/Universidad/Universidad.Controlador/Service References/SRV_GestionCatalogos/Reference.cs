@@ -38,6 +38,14 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         System.IAsyncResult BeginObtenCatalogoNacionalidades(System.AsyncCallback callback, object asyncState);
         
         string EndObtenCatalogoNacionalidades(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersonaResponse")]
+        string ObtenCatTipoPersona();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersonaResponse")]
+        System.IAsyncResult BeginObtenCatTipoPersona(System.AsyncCallback callback, object asyncState);
+        
+        string EndObtenCatTipoPersona(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -103,6 +111,25 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenCatTipoPersonaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenCatTipoPersonaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class S_GestionCatalogosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos>, Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos {
         
         private BeginOperationDelegate onBeginObtenTablaUsCatTipoUsuariosDelegate;
@@ -122,6 +149,12 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         private EndOperationDelegate onEndObtenCatalogoNacionalidadesDelegate;
         
         private System.Threading.SendOrPostCallback onObtenCatalogoNacionalidadesCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginObtenCatTipoPersonaDelegate;
+        
+        private EndOperationDelegate onEndObtenCatTipoPersonaDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenCatTipoPersonaCompletedDelegate;
         
         public S_GestionCatalogosClient() {
         }
@@ -147,6 +180,8 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         public event System.EventHandler<ObtenCatTipoUsuarioCompletedEventArgs> ObtenCatTipoUsuarioCompleted;
         
         public event System.EventHandler<ObtenCatalogoNacionalidadesCompletedEventArgs> ObtenCatalogoNacionalidadesCompleted;
+        
+        public event System.EventHandler<ObtenCatTipoPersonaCompletedEventArgs> ObtenCatTipoPersonaCompleted;
         
         public string ObtenTablaUsCatTipoUsuarios() {
             return base.Channel.ObtenTablaUsCatTipoUsuarios();
@@ -292,6 +327,54 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
                 this.onObtenCatalogoNacionalidadesCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCatalogoNacionalidadesCompleted);
             }
             base.InvokeAsync(this.onBeginObtenCatalogoNacionalidadesDelegate, null, this.onEndObtenCatalogoNacionalidadesDelegate, this.onObtenCatalogoNacionalidadesCompletedDelegate, userState);
+        }
+        
+        public string ObtenCatTipoPersona() {
+            return base.Channel.ObtenCatTipoPersona();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenCatTipoPersona(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenCatTipoPersona(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndObtenCatTipoPersona(System.IAsyncResult result) {
+            return base.Channel.EndObtenCatTipoPersona(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenCatTipoPersona(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginObtenCatTipoPersona(callback, asyncState);
+        }
+        
+        private object[] OnEndObtenCatTipoPersona(System.IAsyncResult result) {
+            string retVal = this.EndObtenCatTipoPersona(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenCatTipoPersonaCompleted(object state) {
+            if ((this.ObtenCatTipoPersonaCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenCatTipoPersonaCompleted(this, new ObtenCatTipoPersonaCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenCatTipoPersonaAsync() {
+            this.ObtenCatTipoPersonaAsync(null);
+        }
+        
+        public void ObtenCatTipoPersonaAsync(object userState) {
+            if ((this.onBeginObtenCatTipoPersonaDelegate == null)) {
+                this.onBeginObtenCatTipoPersonaDelegate = new BeginOperationDelegate(this.OnBeginObtenCatTipoPersona);
+            }
+            if ((this.onEndObtenCatTipoPersonaDelegate == null)) {
+                this.onEndObtenCatTipoPersonaDelegate = new EndOperationDelegate(this.OnEndObtenCatTipoPersona);
+            }
+            if ((this.onObtenCatTipoPersonaCompletedDelegate == null)) {
+                this.onObtenCatTipoPersonaCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCatTipoPersonaCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenCatTipoPersonaDelegate, null, this.onEndObtenCatTipoPersonaDelegate, this.onObtenCatTipoPersonaCompletedDelegate, userState);
         }
     }
 }
