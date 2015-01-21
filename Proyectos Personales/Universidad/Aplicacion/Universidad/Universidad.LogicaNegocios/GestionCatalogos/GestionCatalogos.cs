@@ -48,6 +48,11 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
             return new GestionCatNacionalidadA().ObtenNacionalidadLinq();
         }
 
+        public List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona()
+        {
+            return new GestionCatTipoPersona().ObtenCatTipoPersonaLinq();
+        }
+
         #endregion
     }
 }
