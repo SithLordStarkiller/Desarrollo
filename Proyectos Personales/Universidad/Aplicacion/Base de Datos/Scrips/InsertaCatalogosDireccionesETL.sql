@@ -30,7 +30,7 @@ ROW_NUMBER() OVER(order by c_estado,c_mnpio)
 ,c.c_tipo_asenta
 ,DCTZ.IDTIPOZONA
 ,c.c_mnpio
-,c.d_CP
+,c.d_codigo
 ,c.d_asenta
  FROM CEPOMEX AS C
  INNER JOIN DIR_CAT_DELG_MUNICIPIO AS DCDM ON c.c_estado = DCDM.IDESTADO and c.c_mnpio = DCDM.IDMUNICIPIO

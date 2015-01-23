@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AltaPersona));
             this.tbcRegistroPersonal = new System.Windows.Forms.TabControl();
             this.tbpDatosPersonales = new System.Windows.Forms.TabPage();
             this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
@@ -112,7 +114,13 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.vspCamara2 = new AForge.Controls.VideoSourcePlayer();
+            this.vspCamara = new AForge.Controls.VideoSourcePlayer();
+            this.lblDispositivos = new System.Windows.Forms.Label();
+            this.lblResolucionCamara = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.erpError = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpCuidado = new System.Windows.Forms.ErrorProvider(this.components);
+            this.erpCorrecto = new System.Windows.Forms.ErrorProvider(this.components);
             this.tbcRegistroPersonal.SuspendLayout();
             this.tbpDatosPersonales.SuspendLayout();
             this.tbpDireccion.SuspendLayout();
@@ -125,6 +133,9 @@
             this.gbImagen.SuspendLayout();
             this.Camaras.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFotografia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpError)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCuidado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCorrecto)).BeginInit();
             this.SuspendLayout();
             // 
             // tbcRegistroPersonal
@@ -225,6 +236,7 @@
             this.tbxNss.Name = "tbxNss";
             this.tbxNss.Size = new System.Drawing.Size(276, 20);
             this.tbxNss.TabIndex = 14;
+            this.tbxNss.Validating += new System.ComponentModel.CancelEventHandler(this.tbxNss_Validating);
             // 
             // tbxRfc
             // 
@@ -232,6 +244,7 @@
             this.tbxRfc.Name = "tbxRfc";
             this.tbxRfc.Size = new System.Drawing.Size(276, 20);
             this.tbxRfc.TabIndex = 13;
+            this.tbxRfc.Validating += new System.ComponentModel.CancelEventHandler(this.tbxRfc_Validating);
             // 
             // lblRfc
             // 
@@ -248,6 +261,7 @@
             this.tbxCurp.Name = "tbxCurp";
             this.tbxCurp.Size = new System.Drawing.Size(276, 20);
             this.tbxCurp.TabIndex = 11;
+            this.tbxCurp.Validating += new System.ComponentModel.CancelEventHandler(this.tbxCurp_Validating);
             // 
             // lblCurp
             // 
@@ -293,6 +307,7 @@
             this.tbxApellidoM.Name = "tbxApellidoM";
             this.tbxApellidoM.Size = new System.Drawing.Size(245, 20);
             this.tbxApellidoM.TabIndex = 5;
+            this.tbxApellidoM.Validating += new System.ComponentModel.CancelEventHandler(this.tbxApellidoM_Validating);
             // 
             // lblApellidoM
             // 
@@ -309,6 +324,7 @@
             this.tbxApellidoP.Name = "tbxApellidoP";
             this.tbxApellidoP.Size = new System.Drawing.Size(245, 20);
             this.tbxApellidoP.TabIndex = 3;
+            this.tbxApellidoP.Validating += new System.ComponentModel.CancelEventHandler(this.tbxApellidoP_Validating);
             // 
             // lblApellidoP
             // 
@@ -325,6 +341,7 @@
             this.txbNombre.Name = "txbNombre";
             this.txbNombre.Size = new System.Drawing.Size(245, 20);
             this.txbNombre.TabIndex = 1;
+            this.txbNombre.Validating += new System.ComponentModel.CancelEventHandler(this.txbNombre_Validating);
             // 
             // lblNombre
             // 
@@ -718,7 +735,6 @@
             // 
             // gbFoto
             // 
-            this.gbFoto.Controls.Add(this.vspCamara2);
             this.gbFoto.Controls.Add(this.gbCargarFoto);
             this.gbFoto.Controls.Add(this.gbImagen);
             this.gbFoto.Controls.Add(this.Camaras);
@@ -812,6 +828,10 @@
             // 
             // Camaras
             // 
+            this.Camaras.Controls.Add(this.label1);
+            this.Camaras.Controls.Add(this.lblResolucionCamara);
+            this.Camaras.Controls.Add(this.lblDispositivos);
+            this.Camaras.Controls.Add(this.vspCamara);
             this.Camaras.Controls.Add(this.cbxResolucion);
             this.Camaras.Controls.Add(this.cbxSnapshot);
             this.Camaras.Controls.Add(this.btnActualizaDispositivos);
@@ -829,17 +849,17 @@
             // cbxResolucion
             // 
             this.cbxResolucion.FormattingEnabled = true;
-            this.cbxResolucion.Location = new System.Drawing.Point(286, 90);
+            this.cbxResolucion.Location = new System.Drawing.Point(286, 84);
             this.cbxResolucion.Name = "cbxResolucion";
-            this.cbxResolucion.Size = new System.Drawing.Size(187, 21);
+            this.cbxResolucion.Size = new System.Drawing.Size(190, 21);
             this.cbxResolucion.TabIndex = 9;
             // 
             // cbxSnapshot
             // 
             this.cbxSnapshot.FormattingEnabled = true;
-            this.cbxSnapshot.Location = new System.Drawing.Point(286, 136);
+            this.cbxSnapshot.Location = new System.Drawing.Point(285, 138);
             this.cbxSnapshot.Name = "cbxSnapshot";
-            this.cbxSnapshot.Size = new System.Drawing.Size(187, 21);
+            this.cbxSnapshot.Size = new System.Drawing.Size(188, 21);
             this.cbxSnapshot.TabIndex = 8;
             // 
             // btnActualizaDispositivos
@@ -883,7 +903,7 @@
             // cbxCamaraDisp
             // 
             this.cbxCamaraDisp.FormattingEnabled = true;
-            this.cbxCamaraDisp.Location = new System.Drawing.Point(286, 44);
+            this.cbxCamaraDisp.Location = new System.Drawing.Point(286, 35);
             this.cbxCamaraDisp.Name = "cbxCamaraDisp";
             this.cbxCamaraDisp.Size = new System.Drawing.Size(187, 21);
             this.cbxCamaraDisp.TabIndex = 1;
@@ -925,17 +945,58 @@
             this.btnLimpiar.TabIndex = 3;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // vspCamara2
+            // vspCamara
             // 
-            this.vspCamara2.AutoSizeControl = true;
-            this.vspCamara2.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.vspCamara2.ForeColor = System.Drawing.Color.DarkRed;
-            this.vspCamara2.Location = new System.Drawing.Point(305, 71);
-            this.vspCamara2.Name = "vspCamara2";
-            this.vspCamara2.Size = new System.Drawing.Size(322, 242);
-            this.vspCamara2.TabIndex = 11;
-            this.vspCamara2.VideoSource = null;
+            this.vspCamara.Location = new System.Drawing.Point(15, 20);
+            this.vspCamara.Name = "vspCamara";
+            this.vspCamara.Size = new System.Drawing.Size(254, 241);
+            this.vspCamara.TabIndex = 10;
+            this.vspCamara.Text = "vspCamara";
+            this.vspCamara.VideoSource = null;
+            // 
+            // lblDispositivos
+            // 
+            this.lblDispositivos.AutoSize = true;
+            this.lblDispositivos.Location = new System.Drawing.Point(283, 19);
+            this.lblDispositivos.Name = "lblDispositivos";
+            this.lblDispositivos.Size = new System.Drawing.Size(120, 13);
+            this.lblDispositivos.TabIndex = 11;
+            this.lblDispositivos.Text = "Dispositivos Dsiponibles";
+            // 
+            // lblResolucionCamara
+            // 
+            this.lblResolucionCamara.AutoSize = true;
+            this.lblResolucionCamara.Location = new System.Drawing.Point(283, 68);
+            this.lblResolucionCamara.Name = "lblResolucionCamara";
+            this.lblResolucionCamara.Size = new System.Drawing.Size(102, 13);
+            this.lblResolucionCamara.TabIndex = 12;
+            this.lblResolucionCamara.Text = "Elige una resolucion";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(283, 122);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Resolucion fotografia";
+            // 
+            // erpError
+            // 
+            this.erpError.ContainerControl = this;
+            this.erpError.Icon = ((System.Drawing.Icon)(resources.GetObject("erpError.Icon")));
+            // 
+            // erpCuidado
+            // 
+            this.erpCuidado.ContainerControl = this;
+            this.erpCuidado.Icon = ((System.Drawing.Icon)(resources.GetObject("erpCuidado.Icon")));
+            // 
+            // erpCorrecto
+            // 
+            this.erpCorrecto.ContainerControl = this;
+            this.erpCorrecto.Icon = ((System.Drawing.Icon)(resources.GetObject("erpCorrecto.Icon")));
             // 
             // AltaPersona
             // 
@@ -965,7 +1026,11 @@
             this.gbImagen.ResumeLayout(false);
             this.gbImagen.PerformLayout();
             this.Camaras.ResumeLayout(false);
+            this.Camaras.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pcbFotografia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpError)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCuidado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.erpCorrecto)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1057,7 +1122,13 @@
         private System.Windows.Forms.Button btnActualizaDispositivos;
         private System.Windows.Forms.ComboBox cbxSnapshot;
         private System.Windows.Forms.ComboBox cbxResolucion;
-        private AForge.Controls.VideoSourcePlayer vspCamara2;
+        private AForge.Controls.VideoSourcePlayer vspCamara;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblResolucionCamara;
+        private System.Windows.Forms.Label lblDispositivos;
+        private System.Windows.Forms.ErrorProvider erpError;
+        private System.Windows.Forms.ErrorProvider erpCuidado;
+        private System.Windows.Forms.ErrorProvider erpCorrecto;
 
     }
 }

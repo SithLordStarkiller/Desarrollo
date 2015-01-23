@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Universidad.Controlador.GestionCatalogos;
@@ -23,7 +24,6 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private VideoCaptureDevice videoDevice;
         private VideoCapabilities[] videoCapabilities;
         private VideoCapabilities[] snapshotCapabilities;
-        //private SnapshotForm _snapshotForm;
 
 
         public AltaPersona(Sesion sesion)
@@ -50,55 +50,9 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
 
             //ActualizaDispositivos();
-
-            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-
-            if (videoDevices.Count != 0)
-            {
-                // add all devices to combo
-                foreach (FilterInfo device in videoDevices)
-                {
-                    cbxCamaraDisp.Items.Add(device.Name);
-                }
-            }
-            else
-            {
-                cbxCamaraDisp.Items.Add("No DirectShow devices found");
-            }
-
-            cbxCamaraDisp.SelectedIndex = 0;
-
-
         }
 
-        private void ActualizaDispositivos()
-        {
-
-            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-
-            if (videoDevices.Count < 0)
-            {
-
-                btnActivar.Enabled = false;
-                btnDetener.Enabled = false;
-                btnTomarFoto.Enabled = false;
-                rbCamara.Enabled = false;
-            }
-            else
-            {
-                foreach (FilterInfo item in videoDevices)
-                {
-                    cbxCamaraDisp.Items.Add(item.Name);
-                }
-
-                cbxCamaraDisp.SelectedIndex = 0;
-
-                btnActivar.Enabled = true;
-                btnDetener.Enabled = true;
-                btnTomarFoto.Enabled = true;
-                rbCamara.Enabled = true;
-            }
-        }
+        
 
         private void servicio_ObtenCatTipoPersonaFinalizado(List<PER_CAT_TIPO_PERSONA> lista)
         {
@@ -118,13 +72,55 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            var fecha = Convert.ToDateTime(dtpFechaNacimiento.Value);
-            tbxApellidoM.Text = fecha.ToString("d");
         }
 
         private void txbCodigoPostal_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #region WebCam
+
+        private void ActualizaDispositivos()
+        {
+
+            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+            if (videoDevices.Count < 0)
+            {
+
+                btnActivar.Enabled = false;
+                btnDetener.Enabled = false;
+                btnTomarFoto.Enabled = false;
+                rbCamara.Enabled = false;
+            }
+            else
+            {
+                if (videoDevices.Count != 0)
+                {
+                    // add all devices to combo
+                    foreach (FilterInfo device in videoDevices)
+                    {
+                        cbxCamaraDisp.Items.Add(device.Name);
+                    }
+                }
+                else
+                {
+                    cbxCamaraDisp.Items.Add("No DirectShow devices found");
+                }
+
+                cbxCamaraDisp.SelectedIndex = 0;
+
+                btnActivar.Enabled = true;
+                btnDetener.Enabled = true;
+                btnTomarFoto.Enabled = true;
+                rbCamara.Enabled = true;
+            }
         }
 
         private void btnActivar_Click(object sender, EventArgs e)
@@ -144,8 +140,8 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 }
 
 
-                vspCamara2.VideoSource = videoDevice;
-                vspCamara2.Start();
+                vspCamara.VideoSource = videoDevice;
+                vspCamara.Start();
             }
         }
 
@@ -190,11 +186,12 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 this.Cursor = Cursors.Default;
             }
         }
+
         private void videoDevice_SnapshotFrame(object sender, NewFrameEventArgs eventArgs)
         {
             Console.WriteLine(eventArgs.Frame.Size);
 
-            ShowSnapshot((Bitmap)eventArgs.Frame.Clone());
+            ShowSnapshot((Bitmap) eventArgs.Frame.Clone());
         }
 
         private void ShowSnapshot(Bitmap snapshot)
@@ -218,7 +215,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void btnDetener_Click(object sender, EventArgs e)
         {
-            vspCamara2.SignalToStop();
+            vspCamara.SignalToStop();
         }
 
         private void cbxCamaraDisp_SelectedIndexChanged(object sender, EventArgs e)
@@ -230,5 +227,126 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 EnumeratedSupportedFrameSizes(videoDevice);
             }
         }
+
+#endregion
+
+        #region Validaciones
+        private void txbNombre_Validating(object sender, CancelEventArgs e)
+        {
+            ValidaNombre(sender, e);
+        }
+
+        private void tbxApellidoP_Validating(object sender, CancelEventArgs e)
+        {
+            ValidaNombre(sender, e);
+        }
+
+        private void tbxApellidoM_Validating(object sender, CancelEventArgs e)
+        {
+            ValidaNombre(sender, e);
+        }
+
+        private void ValidaNombre(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"^[A-Za-z]*$");
+            var textbox = (TextBox) sender;
+
+            if (cadenaPermitida.IsMatch(textbox.Text) && textbox.Text != string.Empty && textbox.Text.Length <= 30)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "Correcto");
+            }
+            else if (cadenaPermitida.IsMatch(textbox.Text) && textbox.Text.Length >= 30)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "El texto ingresado es muy largo");
+                erpCorrecto.SetError(textbox, "");
+            }
+            else if (!cadenaPermitida.IsMatch(textbox.Text))
+            {
+                erpError.SetError(textbox, "Solo se permiten letras");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "");
+            }
+        }
+
+        private void tbxCurp_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida =
+                new Regex(
+                    "^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$");
+
+            if (cadenaPermitida.IsMatch(tbxCurp.Text) && tbxCurp.Text != string.Empty)
+            {
+                erpError.SetError(tbxCurp, "");
+                erpCuidado.SetError(tbxCurp, "");
+                erpCorrecto.SetError(tbxCurp, "Correcto");
+            }
+            else if (string.IsNullOrEmpty(tbxCurp.Text))
+            {
+                erpError.SetError(tbxCurp, "");
+                erpCuidado.SetError(tbxCurp, "Es recomendable ingresar el CURP");
+                erpCorrecto.SetError(tbxCurp, "");
+            }
+            else if (!cadenaPermitida.IsMatch(tbxCurp.Text))
+            {
+                erpError.SetError(tbxCurp, "El Formato del CURP es incorreto");
+                erpCuidado.SetError(tbxCurp, "");
+                erpCorrecto.SetError(tbxCurp, "");
+            }
+        }
+
+        private void tbxRfc_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida =
+                new Regex("^[A-Z]{4}([0-9]{2})(1[0-2]|0[1-9])([0-3][0-9])([ -]?)([A-Z0-9]{3,4})$");
+
+            if (cadenaPermitida.IsMatch(tbxRfc.Text) && tbxRfc.Text != string.Empty)
+            {
+                erpError.SetError(tbxRfc, "");
+                erpCuidado.SetError(tbxRfc, "");
+                erpCorrecto.SetError(tbxRfc, "Correcto");
+            }
+            else if (string.IsNullOrEmpty(tbxRfc.Text))
+            {
+                erpError.SetError(tbxRfc, "");
+                erpCuidado.SetError(tbxRfc, "Es recomendable ingresar el RFC");
+                erpCorrecto.SetError(tbxRfc, "");
+            }
+            else if (!cadenaPermitida.IsMatch(tbxRfc.Text))
+            {
+                erpError.SetError(tbxRfc, "El Formato del RFC es incorreto");
+                erpCuidado.SetError(tbxRfc, "");
+                erpCorrecto.SetError(tbxRfc, "");
+            }
+        }
+
+        private void tbxNss_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida =
+                new Regex("^[0-9]{11}$");
+
+            if (cadenaPermitida.IsMatch(tbxNss.Text) && tbxNss.Text != string.Empty)
+            {
+                erpError.SetError(tbxNss, "");
+                erpCuidado.SetError(tbxNss, "");
+                erpCorrecto.SetError(tbxNss, "Correcto");
+            }
+            else if (string.IsNullOrEmpty(tbxNss.Text))
+            {
+                erpError.SetError(tbxNss, "");
+                erpCuidado.SetError(tbxNss, "Es recomendable ingresar el Numero de seguro social");
+                erpCorrecto.SetError(tbxNss, "");
+            }
+            else if (!cadenaPermitida.IsMatch(tbxNss.Text))
+            {
+                erpError.SetError(tbxNss, "El Formato del NSS es incorreto suele ser de once digitos");
+                erpCuidado.SetError(tbxNss, "");
+                erpCorrecto.SetError(tbxNss, "");
+            }
+        }
+
+        #endregion
     }
 }

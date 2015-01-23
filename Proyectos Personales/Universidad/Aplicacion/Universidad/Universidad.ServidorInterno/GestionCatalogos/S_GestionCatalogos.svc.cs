@@ -42,5 +42,12 @@ namespace Universidad.ServidorInterno.GestionCatalogos
             var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatTipoPersona();
             return JsonConvert.SerializeObject(lista);
         }
+
+        public string ObtenColoniasPorCpLinq(int codigoPostal)
+        {
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObteObtenColoniasPorCp(codigoPostal);
+            return JsonConvert.SerializeObject(lista);
+        }
+
     }
 }

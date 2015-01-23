@@ -53,6 +53,15 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
             return new GestionCatTipoPersona().ObtenCatTipoPersonaLinq();
         }
 
+        #region Gestion de catalogos Direcciones
+
+        public List<DIR_CAT_DELG_MUNICIPIO> ObteObtenColoniasPorCp(int codigoPostal)
+        {
+            return new GestionCatDirecciones().ObtenDelgMunicipiosLinq(codigoPostal);
+        }
+
+        #endregion
+
         #endregion
     }
 }
