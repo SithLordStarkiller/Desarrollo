@@ -30,6 +30,7 @@
         {
             this.tbcRegistroPersonal = new System.Windows.Forms.TabControl();
             this.tbpDatosPersonales = new System.Windows.Forms.TabPage();
+            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.cbxTipoPersona = new System.Windows.Forms.ComboBox();
             this.lblTipoPersona = new System.Windows.Forms.Label();
             this.lblNacionalidad = new System.Windows.Forms.Label();
@@ -91,27 +92,27 @@
             this.lblTelFijoDomicilio = new System.Windows.Forms.Label();
             this.tbpFotografia = new System.Windows.Forms.TabPage();
             this.gbFoto = new System.Windows.Forms.GroupBox();
+            this.gbCargarFoto = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.rbCamara = new System.Windows.Forms.RadioButton();
+            this.rbImagen = new System.Windows.Forms.RadioButton();
+            this.gbImagen = new System.Windows.Forms.GroupBox();
+            this.btnBuscarImagen = new System.Windows.Forms.Button();
+            this.lblRutaImagen = new System.Windows.Forms.Label();
+            this.tbxRutaImagen = new System.Windows.Forms.TextBox();
+            this.Camaras = new System.Windows.Forms.GroupBox();
+            this.cbxResolucion = new System.Windows.Forms.ComboBox();
+            this.cbxSnapshot = new System.Windows.Forms.ComboBox();
+            this.btnActualizaDispositivos = new System.Windows.Forms.Button();
+            this.btnDetener = new System.Windows.Forms.Button();
+            this.btnTomarFoto = new System.Windows.Forms.Button();
+            this.btnActivar = new System.Windows.Forms.Button();
+            this.cbxCamaraDisp = new System.Windows.Forms.ComboBox();
             this.pcbFotografia = new System.Windows.Forms.PictureBox();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.dtpFechaNacimiento = new System.Windows.Forms.DateTimePicker();
-            this.cbxCamaraDisp = new System.Windows.Forms.ComboBox();
-            this.lblCamDisponibles = new System.Windows.Forms.Label();
-            this.Camaras = new System.Windows.Forms.GroupBox();
-            this.vspCamara = new AForge.Controls.VideoSourcePlayer();
-            this.btnActivar = new System.Windows.Forms.Button();
-            this.btnDetener = new System.Windows.Forms.Button();
-            this.btnTomarFoto = new System.Windows.Forms.Button();
-            this.gbImagen = new System.Windows.Forms.GroupBox();
-            this.tbxRutaImagen = new System.Windows.Forms.TextBox();
-            this.lblRutaImagen = new System.Windows.Forms.Label();
-            this.btnBuscarImagen = new System.Windows.Forms.Button();
-            this.rbCamara = new System.Windows.Forms.RadioButton();
-            this.rbImagen = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
-            this.gbCargarFoto = new System.Windows.Forms.GroupBox();
-            this.btnActualizaDispositivos = new System.Windows.Forms.Button();
+            this.vspCamara2 = new AForge.Controls.VideoSourcePlayer();
             this.tbcRegistroPersonal.SuspendLayout();
             this.tbpDatosPersonales.SuspendLayout();
             this.tbpDireccion.SuspendLayout();
@@ -120,10 +121,10 @@
             this.gbTelefonos.SuspendLayout();
             this.tbpFotografia.SuspendLayout();
             this.gbFoto.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pcbFotografia)).BeginInit();
-            this.Camaras.SuspendLayout();
-            this.gbImagen.SuspendLayout();
             this.gbCargarFoto.SuspendLayout();
+            this.gbImagen.SuspendLayout();
+            this.Camaras.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pcbFotografia)).BeginInit();
             this.SuspendLayout();
             // 
             // tbcRegistroPersonal
@@ -167,6 +168,13 @@
             this.tbpDatosPersonales.TabIndex = 0;
             this.tbpDatosPersonales.Text = "Datos Personales";
             this.tbpDatosPersonales.UseVisualStyleBackColor = true;
+            // 
+            // dtpFechaNacimiento
+            // 
+            this.dtpFechaNacimiento.Location = new System.Drawing.Point(200, 249);
+            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
+            this.dtpFechaNacimiento.Size = new System.Drawing.Size(244, 20);
+            this.dtpFechaNacimiento.TabIndex = 23;
             // 
             // cbxTipoPersona
             // 
@@ -710,6 +718,7 @@
             // 
             // gbFoto
             // 
+            this.gbFoto.Controls.Add(this.vspCamara2);
             this.gbFoto.Controls.Add(this.gbCargarFoto);
             this.gbFoto.Controls.Add(this.gbImagen);
             this.gbFoto.Controls.Add(this.Camaras);
@@ -720,6 +729,165 @@
             this.gbFoto.TabIndex = 0;
             this.gbFoto.TabStop = false;
             this.gbFoto.Text = "Fotografia";
+            // 
+            // gbCargarFoto
+            // 
+            this.gbCargarFoto.Controls.Add(this.button1);
+            this.gbCargarFoto.Controls.Add(this.rbCamara);
+            this.gbCargarFoto.Controls.Add(this.rbImagen);
+            this.gbCargarFoto.Location = new System.Drawing.Point(24, 310);
+            this.gbCargarFoto.Name = "gbCargarFoto";
+            this.gbCargarFoto.Size = new System.Drawing.Size(374, 57);
+            this.gbCargarFoto.TabIndex = 8;
+            this.gbCargarFoto.TabStop = false;
+            this.gbCargarFoto.Text = "Cargar Fotografia";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(243, 19);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(113, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Cargar Fotografia";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // rbCamara
+            // 
+            this.rbCamara.AutoSize = true;
+            this.rbCamara.Location = new System.Drawing.Point(16, 22);
+            this.rbCamara.Name = "rbCamara";
+            this.rbCamara.Size = new System.Drawing.Size(61, 17);
+            this.rbCamara.TabIndex = 5;
+            this.rbCamara.TabStop = true;
+            this.rbCamara.Text = "Camara";
+            this.rbCamara.UseVisualStyleBackColor = true;
+            // 
+            // rbImagen
+            // 
+            this.rbImagen.AutoSize = true;
+            this.rbImagen.Location = new System.Drawing.Point(104, 22);
+            this.rbImagen.Name = "rbImagen";
+            this.rbImagen.Size = new System.Drawing.Size(113, 17);
+            this.rbImagen.TabIndex = 6;
+            this.rbImagen.TabStop = true;
+            this.rbImagen.Text = "Archivo de imagen";
+            this.rbImagen.UseVisualStyleBackColor = true;
+            // 
+            // gbImagen
+            // 
+            this.gbImagen.Controls.Add(this.btnBuscarImagen);
+            this.gbImagen.Controls.Add(this.lblRutaImagen);
+            this.gbImagen.Controls.Add(this.tbxRutaImagen);
+            this.gbImagen.Location = new System.Drawing.Point(418, 285);
+            this.gbImagen.Name = "gbImagen";
+            this.gbImagen.Size = new System.Drawing.Size(491, 82);
+            this.gbImagen.TabIndex = 4;
+            this.gbImagen.TabStop = false;
+            this.gbImagen.Text = "Fotografia";
+            // 
+            // btnBuscarImagen
+            // 
+            this.btnBuscarImagen.Location = new System.Drawing.Point(398, 41);
+            this.btnBuscarImagen.Name = "btnBuscarImagen";
+            this.btnBuscarImagen.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscarImagen.TabIndex = 2;
+            this.btnBuscarImagen.Text = "Buscar";
+            this.btnBuscarImagen.UseVisualStyleBackColor = true;
+            // 
+            // lblRutaImagen
+            // 
+            this.lblRutaImagen.AutoSize = true;
+            this.lblRutaImagen.Location = new System.Drawing.Point(12, 47);
+            this.lblRutaImagen.Name = "lblRutaImagen";
+            this.lblRutaImagen.Size = new System.Drawing.Size(82, 13);
+            this.lblRutaImagen.TabIndex = 1;
+            this.lblRutaImagen.Text = "Ruta de imagen";
+            // 
+            // tbxRutaImagen
+            // 
+            this.tbxRutaImagen.Location = new System.Drawing.Point(100, 44);
+            this.tbxRutaImagen.Name = "tbxRutaImagen";
+            this.tbxRutaImagen.Size = new System.Drawing.Size(292, 20);
+            this.tbxRutaImagen.TabIndex = 0;
+            // 
+            // Camaras
+            // 
+            this.Camaras.Controls.Add(this.cbxResolucion);
+            this.Camaras.Controls.Add(this.cbxSnapshot);
+            this.Camaras.Controls.Add(this.btnActualizaDispositivos);
+            this.Camaras.Controls.Add(this.btnDetener);
+            this.Camaras.Controls.Add(this.btnTomarFoto);
+            this.Camaras.Controls.Add(this.btnActivar);
+            this.Camaras.Controls.Add(this.cbxCamaraDisp);
+            this.Camaras.Location = new System.Drawing.Point(418, 12);
+            this.Camaras.Name = "Camaras";
+            this.Camaras.Size = new System.Drawing.Size(491, 267);
+            this.Camaras.TabIndex = 3;
+            this.Camaras.TabStop = false;
+            this.Camaras.Text = "Camaras";
+            // 
+            // cbxResolucion
+            // 
+            this.cbxResolucion.FormattingEnabled = true;
+            this.cbxResolucion.Location = new System.Drawing.Point(286, 90);
+            this.cbxResolucion.Name = "cbxResolucion";
+            this.cbxResolucion.Size = new System.Drawing.Size(187, 21);
+            this.cbxResolucion.TabIndex = 9;
+            // 
+            // cbxSnapshot
+            // 
+            this.cbxSnapshot.FormattingEnabled = true;
+            this.cbxSnapshot.Location = new System.Drawing.Point(286, 136);
+            this.cbxSnapshot.Name = "cbxSnapshot";
+            this.cbxSnapshot.Size = new System.Drawing.Size(187, 21);
+            this.cbxSnapshot.TabIndex = 8;
+            // 
+            // btnActualizaDispositivos
+            // 
+            this.btnActualizaDispositivos.Location = new System.Drawing.Point(286, 177);
+            this.btnActualizaDispositivos.Name = "btnActualizaDispositivos";
+            this.btnActualizaDispositivos.Size = new System.Drawing.Size(187, 23);
+            this.btnActualizaDispositivos.TabIndex = 7;
+            this.btnActualizaDispositivos.Text = "Actualiza Dispositivos";
+            this.btnActualizaDispositivos.UseVisualStyleBackColor = true;
+            // 
+            // btnDetener
+            // 
+            this.btnDetener.Location = new System.Drawing.Point(383, 206);
+            this.btnDetener.Name = "btnDetener";
+            this.btnDetener.Size = new System.Drawing.Size(91, 23);
+            this.btnDetener.TabIndex = 5;
+            this.btnDetener.Text = "Detener";
+            this.btnDetener.UseVisualStyleBackColor = true;
+            this.btnDetener.Click += new System.EventHandler(this.btnDetener_Click);
+            // 
+            // btnTomarFoto
+            // 
+            this.btnTomarFoto.Location = new System.Drawing.Point(286, 235);
+            this.btnTomarFoto.Name = "btnTomarFoto";
+            this.btnTomarFoto.Size = new System.Drawing.Size(187, 26);
+            this.btnTomarFoto.TabIndex = 6;
+            this.btnTomarFoto.Text = "Tomar Fotografia";
+            this.btnTomarFoto.UseVisualStyleBackColor = true;
+            // 
+            // btnActivar
+            // 
+            this.btnActivar.Location = new System.Drawing.Point(286, 206);
+            this.btnActivar.Name = "btnActivar";
+            this.btnActivar.Size = new System.Drawing.Size(91, 23);
+            this.btnActivar.TabIndex = 4;
+            this.btnActivar.Text = "Activar";
+            this.btnActivar.UseVisualStyleBackColor = true;
+            this.btnActivar.Click += new System.EventHandler(this.btnActivar_Click);
+            // 
+            // cbxCamaraDisp
+            // 
+            this.cbxCamaraDisp.FormattingEnabled = true;
+            this.cbxCamaraDisp.Location = new System.Drawing.Point(286, 44);
+            this.cbxCamaraDisp.Name = "cbxCamaraDisp";
+            this.cbxCamaraDisp.Size = new System.Drawing.Size(187, 21);
+            this.cbxCamaraDisp.TabIndex = 1;
+            this.cbxCamaraDisp.SelectedIndexChanged += new System.EventHandler(this.cbxCamaraDisp_SelectedIndexChanged);
             // 
             // pcbFotografia
             // 
@@ -758,171 +926,16 @@
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
             // 
-            // dtpFechaNacimiento
+            // vspCamara2
             // 
-            this.dtpFechaNacimiento.Location = new System.Drawing.Point(200, 249);
-            this.dtpFechaNacimiento.Name = "dtpFechaNacimiento";
-            this.dtpFechaNacimiento.Size = new System.Drawing.Size(244, 20);
-            this.dtpFechaNacimiento.TabIndex = 23;
-            // 
-            // cbxCamaraDisp
-            // 
-            this.cbxCamaraDisp.FormattingEnabled = true;
-            this.cbxCamaraDisp.Location = new System.Drawing.Point(267, 47);
-            this.cbxCamaraDisp.Name = "cbxCamaraDisp";
-            this.cbxCamaraDisp.Size = new System.Drawing.Size(187, 21);
-            this.cbxCamaraDisp.TabIndex = 1;
-            // 
-            // lblCamDisponibles
-            // 
-            this.lblCamDisponibles.AutoSize = true;
-            this.lblCamDisponibles.Location = new System.Drawing.Point(301, 19);
-            this.lblCamDisponibles.Name = "lblCamDisponibles";
-            this.lblCamDisponibles.Size = new System.Drawing.Size(105, 13);
-            this.lblCamDisponibles.TabIndex = 2;
-            this.lblCamDisponibles.Text = "Camaras Disponibles";
-            // 
-            // Camaras
-            // 
-            this.Camaras.Controls.Add(this.btnActualizaDispositivos);
-            this.Camaras.Controls.Add(this.btnTomarFoto);
-            this.Camaras.Controls.Add(this.btnDetener);
-            this.Camaras.Controls.Add(this.btnActivar);
-            this.Camaras.Controls.Add(this.vspCamara);
-            this.Camaras.Controls.Add(this.lblCamDisponibles);
-            this.Camaras.Controls.Add(this.cbxCamaraDisp);
-            this.Camaras.Location = new System.Drawing.Point(432, 31);
-            this.Camaras.Name = "Camaras";
-            this.Camaras.Size = new System.Drawing.Size(477, 225);
-            this.Camaras.TabIndex = 3;
-            this.Camaras.TabStop = false;
-            this.Camaras.Text = "Camaras";
-            // 
-            // vspCamara
-            // 
-            this.vspCamara.Location = new System.Drawing.Point(15, 25);
-            this.vspCamara.Name = "vspCamara";
-            this.vspCamara.Size = new System.Drawing.Size(216, 187);
-            this.vspCamara.TabIndex = 3;
-            this.vspCamara.VideoSource = null;
-            // 
-            // btnActivar
-            // 
-            this.btnActivar.Location = new System.Drawing.Point(267, 125);
-            this.btnActivar.Name = "btnActivar";
-            this.btnActivar.Size = new System.Drawing.Size(75, 23);
-            this.btnActivar.TabIndex = 4;
-            this.btnActivar.Text = "Activar";
-            this.btnActivar.UseVisualStyleBackColor = true;
-            this.btnActivar.Click += new System.EventHandler(this.btnActivar_Click);
-            // 
-            // btnDetener
-            // 
-            this.btnDetener.Location = new System.Drawing.Point(379, 125);
-            this.btnDetener.Name = "btnDetener";
-            this.btnDetener.Size = new System.Drawing.Size(75, 23);
-            this.btnDetener.TabIndex = 5;
-            this.btnDetener.Text = "Detener";
-            this.btnDetener.UseVisualStyleBackColor = true;
-            this.btnDetener.Click += new System.EventHandler(this.btnDetener_Click);
-            // 
-            // btnTomarFoto
-            // 
-            this.btnTomarFoto.Location = new System.Drawing.Point(267, 164);
-            this.btnTomarFoto.Name = "btnTomarFoto";
-            this.btnTomarFoto.Size = new System.Drawing.Size(187, 48);
-            this.btnTomarFoto.TabIndex = 6;
-            this.btnTomarFoto.Text = "Tomar Fotografia";
-            this.btnTomarFoto.UseVisualStyleBackColor = true;
-            // 
-            // gbImagen
-            // 
-            this.gbImagen.Controls.Add(this.btnBuscarImagen);
-            this.gbImagen.Controls.Add(this.lblRutaImagen);
-            this.gbImagen.Controls.Add(this.tbxRutaImagen);
-            this.gbImagen.Location = new System.Drawing.Point(432, 263);
-            this.gbImagen.Name = "gbImagen";
-            this.gbImagen.Size = new System.Drawing.Size(477, 104);
-            this.gbImagen.TabIndex = 4;
-            this.gbImagen.TabStop = false;
-            this.gbImagen.Text = "Fotografia";
-            // 
-            // tbxRutaImagen
-            // 
-            this.tbxRutaImagen.Location = new System.Drawing.Point(100, 44);
-            this.tbxRutaImagen.Name = "tbxRutaImagen";
-            this.tbxRutaImagen.Size = new System.Drawing.Size(273, 20);
-            this.tbxRutaImagen.TabIndex = 0;
-            // 
-            // lblRutaImagen
-            // 
-            this.lblRutaImagen.AutoSize = true;
-            this.lblRutaImagen.Location = new System.Drawing.Point(12, 47);
-            this.lblRutaImagen.Name = "lblRutaImagen";
-            this.lblRutaImagen.Size = new System.Drawing.Size(82, 13);
-            this.lblRutaImagen.TabIndex = 1;
-            this.lblRutaImagen.Text = "Ruta de imagen";
-            // 
-            // btnBuscarImagen
-            // 
-            this.btnBuscarImagen.Location = new System.Drawing.Point(379, 42);
-            this.btnBuscarImagen.Name = "btnBuscarImagen";
-            this.btnBuscarImagen.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscarImagen.TabIndex = 2;
-            this.btnBuscarImagen.Text = "Buscar";
-            this.btnBuscarImagen.UseVisualStyleBackColor = true;
-            // 
-            // rbCamara
-            // 
-            this.rbCamara.AutoSize = true;
-            this.rbCamara.Location = new System.Drawing.Point(16, 22);
-            this.rbCamara.Name = "rbCamara";
-            this.rbCamara.Size = new System.Drawing.Size(61, 17);
-            this.rbCamara.TabIndex = 5;
-            this.rbCamara.TabStop = true;
-            this.rbCamara.Text = "Camara";
-            this.rbCamara.UseVisualStyleBackColor = true;
-            // 
-            // rbImagen
-            // 
-            this.rbImagen.AutoSize = true;
-            this.rbImagen.Location = new System.Drawing.Point(104, 22);
-            this.rbImagen.Name = "rbImagen";
-            this.rbImagen.Size = new System.Drawing.Size(113, 17);
-            this.rbImagen.TabIndex = 6;
-            this.rbImagen.TabStop = true;
-            this.rbImagen.Text = "Archivo de imagen";
-            this.rbImagen.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(243, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Cargar Fotografia";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // gbCargarFoto
-            // 
-            this.gbCargarFoto.Controls.Add(this.button1);
-            this.gbCargarFoto.Controls.Add(this.rbCamara);
-            this.gbCargarFoto.Controls.Add(this.rbImagen);
-            this.gbCargarFoto.Location = new System.Drawing.Point(24, 310);
-            this.gbCargarFoto.Name = "gbCargarFoto";
-            this.gbCargarFoto.Size = new System.Drawing.Size(374, 57);
-            this.gbCargarFoto.TabIndex = 8;
-            this.gbCargarFoto.TabStop = false;
-            this.gbCargarFoto.Text = "Cargar Fotografia";
-            // 
-            // btnActualizaDispositivos
-            // 
-            this.btnActualizaDispositivos.Location = new System.Drawing.Point(267, 83);
-            this.btnActualizaDispositivos.Name = "btnActualizaDispositivos";
-            this.btnActualizaDispositivos.Size = new System.Drawing.Size(187, 23);
-            this.btnActualizaDispositivos.TabIndex = 7;
-            this.btnActualizaDispositivos.Text = "Actualiza Dispositivos";
-            this.btnActualizaDispositivos.UseVisualStyleBackColor = true;
+            this.vspCamara2.AutoSizeControl = true;
+            this.vspCamara2.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.vspCamara2.ForeColor = System.Drawing.Color.DarkRed;
+            this.vspCamara2.Location = new System.Drawing.Point(305, 71);
+            this.vspCamara2.Name = "vspCamara2";
+            this.vspCamara2.Size = new System.Drawing.Size(322, 242);
+            this.vspCamara2.TabIndex = 11;
+            this.vspCamara2.VideoSource = null;
             // 
             // AltaPersona
             // 
@@ -947,13 +960,12 @@
             this.gbTelefonos.PerformLayout();
             this.tbpFotografia.ResumeLayout(false);
             this.gbFoto.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pcbFotografia)).EndInit();
-            this.Camaras.ResumeLayout(false);
-            this.Camaras.PerformLayout();
-            this.gbImagen.ResumeLayout(false);
-            this.gbImagen.PerformLayout();
             this.gbCargarFoto.ResumeLayout(false);
             this.gbCargarFoto.PerformLayout();
+            this.gbImagen.ResumeLayout(false);
+            this.gbImagen.PerformLayout();
+            this.Camaras.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pcbFotografia)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1030,7 +1042,6 @@
         private System.Windows.Forms.PictureBox pcbFotografia;
         private System.Windows.Forms.DateTimePicker dtpFechaNacimiento;
         private System.Windows.Forms.GroupBox Camaras;
-        private System.Windows.Forms.Label lblCamDisponibles;
         private System.Windows.Forms.ComboBox cbxCamaraDisp;
         private System.Windows.Forms.GroupBox gbCargarFoto;
         private System.Windows.Forms.Button button1;
@@ -1043,8 +1054,10 @@
         private System.Windows.Forms.Button btnTomarFoto;
         private System.Windows.Forms.Button btnDetener;
         private System.Windows.Forms.Button btnActivar;
-        private AForge.Controls.VideoSourcePlayer vspCamara;
         private System.Windows.Forms.Button btnActualizaDispositivos;
+        private System.Windows.Forms.ComboBox cbxSnapshot;
+        private System.Windows.Forms.ComboBox cbxResolucion;
+        private AForge.Controls.VideoSourcePlayer vspCamara2;
 
     }
 }
