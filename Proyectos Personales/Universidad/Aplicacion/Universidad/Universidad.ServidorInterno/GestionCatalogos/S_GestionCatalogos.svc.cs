@@ -43,7 +43,7 @@ namespace Universidad.ServidorInterno.GestionCatalogos
             return JsonConvert.SerializeObject(lista);
         }
 
-        public string ObtenColoniasPorCpLinq(int codigoPostal)
+        public string ObtenColoniasPorCp(int codigoPostal)
         {
             var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObteObtenColoniasPorCp(codigoPostal);
             return JsonConvert.SerializeObject(lista);

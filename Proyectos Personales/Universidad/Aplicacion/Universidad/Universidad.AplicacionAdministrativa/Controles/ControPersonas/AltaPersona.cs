@@ -19,6 +19,11 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
     public partial class AltaPersona : UserControl
     {
         private readonly Sesion _sesion;
+        private readonly SVC_GestionCatalogos _servicioCatalogos;
+
+        private List<DIR_CAT_COLONIAS> _listaColonias;
+        private List<DIR_CAT_ESTADO> _lisaEstados;
+        private List<DIR_CAT_DELG_MUNICIPIO> _listaMunicipios; 
 
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoDevice;
@@ -29,6 +34,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         public AltaPersona(Sesion sesion)
         {
             _sesion = sesion;
+            _servicioCatalogos = new SVC_GestionCatalogos(_sesion);
             InitializeComponent();
         }
 
@@ -40,13 +46,12 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxSexo.SelectedIndex = 0;
 
             rbImagen.Select();
+            
+            _servicioCatalogos.ObtenCatNacionalidad();
+            _servicioCatalogos.ObtenCatNacionalidadFinalizado += servicios_ObtenCatNacionalidadFinalizado;
 
-            var servicio = new SVC_GestionCatalogos(_sesion);
-            servicio.ObtenCatNacionalidad();
-            servicio.ObtenCatNacionalidadFinalizado += servicios_ObtenCatNacionalidadFinalizado;
-
-            servicio.ObtenCatTipoPersona();
-            servicio.ObtenCatTipoPersonaFinalizado += servicio_ObtenCatTipoPersonaFinalizado;
+            _servicioCatalogos.ObtenCatTipoPersona();
+            _servicioCatalogos.ObtenCatTipoPersonaFinalizado += servicio_ObtenCatTipoPersonaFinalizado;
 
 
             //ActualizaDispositivos();
@@ -74,8 +79,19 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         {
         }
 
-        private void txbCodigoPostal_TextChanged(object sender, EventArgs e)
+        private void btnBuscarCp_Click(object sender, EventArgs e)
         {
+            _servicioCatalogos.ObtenColoniasPorCpPersona(Convert.ToInt32(txbCodigoPostal.Text));
+            _servicioCatalogos.ObtenColoniasPorCpFinalizado += _servicioCatalogos_ObtenColoniasPorCpFinalizado;
+        }
+
+        private void _servicioCatalogos_ObtenColoniasPorCpFinalizado(List<DIR_CAT_COLONIAS> lista)
+        {
+            _listaColonias = lista;
+
+            cbxColonia.ValueMember = "IDCOLONIA";
+            cbxColonia.DisplayMember = "NOMBRECOLONIA";
+            cbxColonia.DataSource = lista;
 
         }
 
@@ -348,5 +364,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         }
 
         #endregion
+
+        
     }
 }

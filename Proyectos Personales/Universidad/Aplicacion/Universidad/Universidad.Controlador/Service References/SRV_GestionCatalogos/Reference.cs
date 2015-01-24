@@ -46,6 +46,14 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         System.IAsyncResult BeginObtenCatTipoPersona(System.AsyncCallback callback, object asyncState);
         
         string EndObtenCatTipoPersona(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCp", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCpResponse")]
+        string ObtenColoniasPorCp(int codigoPostal);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCp", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCpResponse")]
+        System.IAsyncResult BeginObtenColoniasPorCp(int codigoPostal, System.AsyncCallback callback, object asyncState);
+        
+        string EndObtenColoniasPorCp(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -130,6 +138,25 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenColoniasPorCpCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenColoniasPorCpCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class S_GestionCatalogosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos>, Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos {
         
         private BeginOperationDelegate onBeginObtenTablaUsCatTipoUsuariosDelegate;
@@ -155,6 +182,12 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         private EndOperationDelegate onEndObtenCatTipoPersonaDelegate;
         
         private System.Threading.SendOrPostCallback onObtenCatTipoPersonaCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginObtenColoniasPorCpDelegate;
+        
+        private EndOperationDelegate onEndObtenColoniasPorCpDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenColoniasPorCpCompletedDelegate;
         
         public S_GestionCatalogosClient() {
         }
@@ -182,6 +215,8 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         public event System.EventHandler<ObtenCatalogoNacionalidadesCompletedEventArgs> ObtenCatalogoNacionalidadesCompleted;
         
         public event System.EventHandler<ObtenCatTipoPersonaCompletedEventArgs> ObtenCatTipoPersonaCompleted;
+        
+        public event System.EventHandler<ObtenColoniasPorCpCompletedEventArgs> ObtenColoniasPorCpCompleted;
         
         public string ObtenTablaUsCatTipoUsuarios() {
             return base.Channel.ObtenTablaUsCatTipoUsuarios();
@@ -375,6 +410,56 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
                 this.onObtenCatTipoPersonaCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCatTipoPersonaCompleted);
             }
             base.InvokeAsync(this.onBeginObtenCatTipoPersonaDelegate, null, this.onEndObtenCatTipoPersonaDelegate, this.onObtenCatTipoPersonaCompletedDelegate, userState);
+        }
+        
+        public string ObtenColoniasPorCp(int codigoPostal) {
+            return base.Channel.ObtenColoniasPorCp(codigoPostal);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenColoniasPorCp(int codigoPostal, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenColoniasPorCp(codigoPostal, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndObtenColoniasPorCp(System.IAsyncResult result) {
+            return base.Channel.EndObtenColoniasPorCp(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenColoniasPorCp(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int codigoPostal = ((int)(inValues[0]));
+            return this.BeginObtenColoniasPorCp(codigoPostal, callback, asyncState);
+        }
+        
+        private object[] OnEndObtenColoniasPorCp(System.IAsyncResult result) {
+            string retVal = this.EndObtenColoniasPorCp(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenColoniasPorCpCompleted(object state) {
+            if ((this.ObtenColoniasPorCpCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenColoniasPorCpCompleted(this, new ObtenColoniasPorCpCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenColoniasPorCpAsync(int codigoPostal) {
+            this.ObtenColoniasPorCpAsync(codigoPostal, null);
+        }
+        
+        public void ObtenColoniasPorCpAsync(int codigoPostal, object userState) {
+            if ((this.onBeginObtenColoniasPorCpDelegate == null)) {
+                this.onBeginObtenColoniasPorCpDelegate = new BeginOperationDelegate(this.OnBeginObtenColoniasPorCp);
+            }
+            if ((this.onEndObtenColoniasPorCpDelegate == null)) {
+                this.onEndObtenColoniasPorCpDelegate = new EndOperationDelegate(this.OnEndObtenColoniasPorCp);
+            }
+            if ((this.onObtenColoniasPorCpCompletedDelegate == null)) {
+                this.onObtenColoniasPorCpCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenColoniasPorCpCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenColoniasPorCpDelegate, new object[] {
+                        codigoPostal}, this.onEndObtenColoniasPorCpDelegate, this.onObtenColoniasPorCpCompletedDelegate, userState);
         }
     }
 }

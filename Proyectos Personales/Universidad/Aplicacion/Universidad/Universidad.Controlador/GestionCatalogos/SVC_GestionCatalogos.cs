@@ -96,5 +96,28 @@ namespace Universidad.Controlador.GestionCatalogos
         }
 
         #endregion
+
+        #region Obten Colonias por codigo postal
+
+        public delegate void ObtenColoniasPorCpArgs(List<DIR_CAT_COLONIAS> lista);
+
+        public event ObtenColoniasPorCpArgs ObtenColoniasPorCpFinalizado;
+
+        public void ObtenColoniasPorCpPersona(int codigoPostal)
+        {
+            _servicio.ObtenColoniasPorCpCompleted +=_servicio_ObtenColoniasPorCpCompleted;
+            _servicio.ObtenColoniasPorCpAsync(codigoPostal);
+        }
+
+        private void _servicio_ObtenColoniasPorCpCompleted(object sender, ObtenColoniasPorCpCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
+            ObtenColoniasPorCpFinalizado(lista);
+        }
+
+        #endregion
     }
 }

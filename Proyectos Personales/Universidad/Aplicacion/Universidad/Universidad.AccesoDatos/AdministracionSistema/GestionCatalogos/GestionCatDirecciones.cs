@@ -13,9 +13,9 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
 
         public List<DIR_CAT_COLONIAS> ObtenColoniasPorCpLinq(int codigoPostal)
         {
-            using (var Aux = new Repositorio<DIR_CAT_COLONIAS>())
+            using (var aux = new Repositorio<DIR_CAT_COLONIAS>())
             {
-                return Aux.Filtro(r => r.CODIGOPOSTAL == codigoPostal);
+                return aux.Filtro(r => r.CODIGOPOSTAL == codigoPostal);
             }
         }
 

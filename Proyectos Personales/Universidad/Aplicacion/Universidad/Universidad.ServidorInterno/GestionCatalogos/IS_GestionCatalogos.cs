@@ -23,5 +23,8 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         string ObtenCatTipoPersona();
+
+        [OperationContract]
+        string ObtenColoniasPorCp(int codigoPostal);
     }
 }

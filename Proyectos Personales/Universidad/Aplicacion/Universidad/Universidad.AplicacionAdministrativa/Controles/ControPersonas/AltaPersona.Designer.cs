@@ -121,6 +121,7 @@
             this.erpError = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCuidado = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCorrecto = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnBuscarCp = new System.Windows.Forms.Button();
             this.tbcRegistroPersonal.SuspendLayout();
             this.tbpDatosPersonales.SuspendLayout();
             this.tbpDireccion.SuspendLayout();
@@ -354,6 +355,7 @@
             // 
             // tbpDireccion
             // 
+            this.tbpDireccion.Controls.Add(this.btnBuscarCp);
             this.tbpDireccion.Controls.Add(this.txbCalle);
             this.tbpDireccion.Controls.Add(this.tbxReferencias);
             this.tbpDireccion.Controls.Add(this.lblReferencias);
@@ -422,9 +424,8 @@
             // 
             this.txbCodigoPostal.Location = new System.Drawing.Point(641, 88);
             this.txbCodigoPostal.Name = "txbCodigoPostal";
-            this.txbCodigoPostal.Size = new System.Drawing.Size(221, 20);
+            this.txbCodigoPostal.Size = new System.Drawing.Size(135, 20);
             this.txbCodigoPostal.TabIndex = 11;
-            this.txbCodigoPostal.TextChanged += new System.EventHandler(this.txbCodigoPostal_TextChanged);
             // 
             // lblCodigoPostal
             // 
@@ -998,6 +999,16 @@
             this.erpCorrecto.ContainerControl = this;
             this.erpCorrecto.Icon = ((System.Drawing.Icon)(resources.GetObject("erpCorrecto.Icon")));
             // 
+            // btnBuscarCp
+            // 
+            this.btnBuscarCp.Location = new System.Drawing.Point(787, 86);
+            this.btnBuscarCp.Name = "btnBuscarCp";
+            this.btnBuscarCp.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscarCp.TabIndex = 17;
+            this.btnBuscarCp.Text = "Buscar CP";
+            this.btnBuscarCp.UseVisualStyleBackColor = true;
+            this.btnBuscarCp.Click += new System.EventHandler(this.btnBuscarCp_Click);
+            // 
             // AltaPersona
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1129,6 +1140,7 @@
         private System.Windows.Forms.ErrorProvider erpError;
         private System.Windows.Forms.ErrorProvider erpCuidado;
         private System.Windows.Forms.ErrorProvider erpCorrecto;
+        private System.Windows.Forms.Button btnBuscarCp;
 
     }
 }
