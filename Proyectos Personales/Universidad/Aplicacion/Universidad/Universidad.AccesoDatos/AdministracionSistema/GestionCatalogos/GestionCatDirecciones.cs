@@ -27,7 +27,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
             }
         }
 
-        public List<DIR_CAT_DELG_MUNICIPIO> ObtenDelgMunicipiosLinq(int estado)
+        public List<DIR_CAT_DELG_MUNICIPIO> ObtenCatMunicipiosLinq(int estado)
         {
             using (var aux = new Repositorio<DIR_CAT_DELG_MUNICIPIO>())
             {
@@ -35,7 +35,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
             }
         }
 
-        public List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio)
+        public List<DIR_CAT_COLONIAS> ObtenColoniasLinq(int estado, int municipio)
         {
             using (var aux = new Repositorio<DIR_CAT_COLONIAS>())
             {

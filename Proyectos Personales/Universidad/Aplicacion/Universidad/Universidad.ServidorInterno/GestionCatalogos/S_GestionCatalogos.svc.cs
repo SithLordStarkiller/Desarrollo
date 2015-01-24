@@ -45,7 +45,25 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         public string ObtenColoniasPorCp(int codigoPostal)
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObteObtenColoniasPorCp(codigoPostal);
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColoniasPorCp(codigoPostal);
+            return JsonConvert.SerializeObject(lista);
+        }
+
+        public string ObtenCatEstados()
+        {
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatEstados();
+            return JsonConvert.SerializeObject(lista);
+        }
+
+        public string ObtenMunicipios(int estado)
+        {
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatMunicipios(estado);
+            return JsonConvert.SerializeObject(lista);
+        }
+
+        public string ObtenColonias(int estado, int municipio)
+        {
+            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColonias(estado, municipio);
             return JsonConvert.SerializeObject(lista);
         }
 

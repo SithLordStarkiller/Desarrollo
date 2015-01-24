@@ -26,5 +26,14 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         string ObtenColoniasPorCp(int codigoPostal);
+
+        [OperationContract]
+        string ObtenCatEstados();
+
+        [OperationContract]
+        string ObtenMunicipios(int estado);
+
+        [OperationContract]
+        string ObtenColonias(int estado, int municipio);
     }
 }

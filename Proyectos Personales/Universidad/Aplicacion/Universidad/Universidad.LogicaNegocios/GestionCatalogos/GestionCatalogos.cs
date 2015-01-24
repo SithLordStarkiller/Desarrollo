@@ -55,7 +55,22 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
 
         #region Gestion de catalogos Direcciones
 
-        public List<DIR_CAT_COLONIAS> ObteObtenColoniasPorCp(int codigoPostal)
+        public List<DIR_CAT_ESTADO> ObtenCatEstados()
+        {
+            return new GestionCatDirecciones().ObtenCatEstadosLinq();
+        }
+
+        public List<DIR_CAT_DELG_MUNICIPIO> ObtenCatMunicipios(int estado)
+        {
+            return new GestionCatDirecciones().ObtenCatMunicipiosLinq(estado);
+        }
+
+        public List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio)
+        {
+            return new GestionCatDirecciones().ObtenColoniasLinq(estado, municipio);
+        }
+
+        public List<DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal)
         {
             return new GestionCatDirecciones().ObtenColoniasPorCpLinq(codigoPostal);
         }

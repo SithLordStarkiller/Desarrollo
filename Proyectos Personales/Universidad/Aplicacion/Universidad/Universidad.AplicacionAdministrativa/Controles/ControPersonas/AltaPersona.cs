@@ -95,6 +95,11 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         }
 
+        private void cbxEstado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
 
@@ -364,6 +369,8 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         }
 
         #endregion
+
+        
 
         
     }

@@ -53,6 +53,7 @@
             this.txbNombre = new System.Windows.Forms.TextBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.tbpDireccion = new System.Windows.Forms.TabPage();
+            this.btnBuscarCp = new System.Windows.Forms.Button();
             this.txbCalle = new System.Windows.Forms.TextBox();
             this.tbxReferencias = new System.Windows.Forms.TextBox();
             this.lblReferencias = new System.Windows.Forms.Label();
@@ -103,6 +104,10 @@
             this.lblRutaImagen = new System.Windows.Forms.Label();
             this.tbxRutaImagen = new System.Windows.Forms.TextBox();
             this.Camaras = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblResolucionCamara = new System.Windows.Forms.Label();
+            this.lblDispositivos = new System.Windows.Forms.Label();
+            this.vspCamara = new AForge.Controls.VideoSourcePlayer();
             this.cbxResolucion = new System.Windows.Forms.ComboBox();
             this.cbxSnapshot = new System.Windows.Forms.ComboBox();
             this.btnActualizaDispositivos = new System.Windows.Forms.Button();
@@ -114,14 +119,9 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
-            this.vspCamara = new AForge.Controls.VideoSourcePlayer();
-            this.lblDispositivos = new System.Windows.Forms.Label();
-            this.lblResolucionCamara = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.erpError = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCuidado = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCorrecto = new System.Windows.Forms.ErrorProvider(this.components);
-            this.btnBuscarCp = new System.Windows.Forms.Button();
             this.tbcRegistroPersonal.SuspendLayout();
             this.tbpDatosPersonales.SuspendLayout();
             this.tbpDireccion.SuspendLayout();
@@ -380,6 +380,16 @@
             this.tbpDireccion.Text = "Direccion";
             this.tbpDireccion.UseVisualStyleBackColor = true;
             // 
+            // btnBuscarCp
+            // 
+            this.btnBuscarCp.Location = new System.Drawing.Point(787, 86);
+            this.btnBuscarCp.Name = "btnBuscarCp";
+            this.btnBuscarCp.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscarCp.TabIndex = 17;
+            this.btnBuscarCp.Text = "Buscar CP";
+            this.btnBuscarCp.UseVisualStyleBackColor = true;
+            this.btnBuscarCp.Click += new System.EventHandler(this.btnBuscarCp_Click);
+            // 
             // txbCalle
             // 
             this.txbCalle.Location = new System.Drawing.Point(194, 208);
@@ -502,6 +512,7 @@
             this.cbxEstado.Name = "cbxEstado";
             this.cbxEstado.Size = new System.Drawing.Size(221, 21);
             this.cbxEstado.TabIndex = 1;
+            this.cbxEstado.SelectedIndexChanged += new System.EventHandler(this.cbxEstado_SelectedIndexChanged);
             // 
             // lblEstado
             // 
@@ -847,6 +858,42 @@
             this.Camaras.TabStop = false;
             this.Camaras.Text = "Camaras";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(283, 122);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Resolucion fotografia";
+            // 
+            // lblResolucionCamara
+            // 
+            this.lblResolucionCamara.AutoSize = true;
+            this.lblResolucionCamara.Location = new System.Drawing.Point(283, 68);
+            this.lblResolucionCamara.Name = "lblResolucionCamara";
+            this.lblResolucionCamara.Size = new System.Drawing.Size(102, 13);
+            this.lblResolucionCamara.TabIndex = 12;
+            this.lblResolucionCamara.Text = "Elige una resolucion";
+            // 
+            // lblDispositivos
+            // 
+            this.lblDispositivos.AutoSize = true;
+            this.lblDispositivos.Location = new System.Drawing.Point(283, 19);
+            this.lblDispositivos.Name = "lblDispositivos";
+            this.lblDispositivos.Size = new System.Drawing.Size(120, 13);
+            this.lblDispositivos.TabIndex = 11;
+            this.lblDispositivos.Text = "Dispositivos Dsiponibles";
+            // 
+            // vspCamara
+            // 
+            this.vspCamara.Location = new System.Drawing.Point(15, 20);
+            this.vspCamara.Name = "vspCamara";
+            this.vspCamara.Size = new System.Drawing.Size(254, 241);
+            this.vspCamara.TabIndex = 10;
+            this.vspCamara.Text = "vspCamara";
+            this.vspCamara.VideoSource = null;
+            // 
             // cbxResolucion
             // 
             this.cbxResolucion.FormattingEnabled = true;
@@ -948,42 +995,6 @@
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
-            // vspCamara
-            // 
-            this.vspCamara.Location = new System.Drawing.Point(15, 20);
-            this.vspCamara.Name = "vspCamara";
-            this.vspCamara.Size = new System.Drawing.Size(254, 241);
-            this.vspCamara.TabIndex = 10;
-            this.vspCamara.Text = "vspCamara";
-            this.vspCamara.VideoSource = null;
-            // 
-            // lblDispositivos
-            // 
-            this.lblDispositivos.AutoSize = true;
-            this.lblDispositivos.Location = new System.Drawing.Point(283, 19);
-            this.lblDispositivos.Name = "lblDispositivos";
-            this.lblDispositivos.Size = new System.Drawing.Size(120, 13);
-            this.lblDispositivos.TabIndex = 11;
-            this.lblDispositivos.Text = "Dispositivos Dsiponibles";
-            // 
-            // lblResolucionCamara
-            // 
-            this.lblResolucionCamara.AutoSize = true;
-            this.lblResolucionCamara.Location = new System.Drawing.Point(283, 68);
-            this.lblResolucionCamara.Name = "lblResolucionCamara";
-            this.lblResolucionCamara.Size = new System.Drawing.Size(102, 13);
-            this.lblResolucionCamara.TabIndex = 12;
-            this.lblResolucionCamara.Text = "Elige una resolucion";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(283, 122);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Resolucion fotografia";
-            // 
             // erpError
             // 
             this.erpError.ContainerControl = this;
@@ -998,16 +1009,6 @@
             // 
             this.erpCorrecto.ContainerControl = this;
             this.erpCorrecto.Icon = ((System.Drawing.Icon)(resources.GetObject("erpCorrecto.Icon")));
-            // 
-            // btnBuscarCp
-            // 
-            this.btnBuscarCp.Location = new System.Drawing.Point(787, 86);
-            this.btnBuscarCp.Name = "btnBuscarCp";
-            this.btnBuscarCp.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscarCp.TabIndex = 17;
-            this.btnBuscarCp.Text = "Buscar CP";
-            this.btnBuscarCp.UseVisualStyleBackColor = true;
-            this.btnBuscarCp.Click += new System.EventHandler(this.btnBuscarCp_Click);
             // 
             // AltaPersona
             // 
