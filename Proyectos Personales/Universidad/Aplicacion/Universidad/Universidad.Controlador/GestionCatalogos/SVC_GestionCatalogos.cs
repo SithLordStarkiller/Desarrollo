@@ -47,7 +47,7 @@ namespace Universidad.Controlador.GestionCatalogos
             var JObject = _servicio.ObtenCatTipoUsuario(Id_TipoUsuario);
 
             var TipoUsuario = JsonConvert.DeserializeObject<US_CAT_TIPO_USUARIO>(JObject);
-            
+
             return TipoUsuario;
         }
 
@@ -56,7 +56,7 @@ namespace Universidad.Controlador.GestionCatalogos
         public delegate void ObtenCatNacionalidadArgs(List<PER_CAT_NACIONALIDAD> lista);
 
         public event ObtenCatNacionalidadArgs ObtenCatNacionalidadFinalizado;
-        
+
         public void ObtenCatNacionalidad()
         {
             _servicio.ObtenCatalogoNacionalidadesCompleted += _servicio_ObtenCatalogoNacionalidadesCompleted;
@@ -105,7 +105,7 @@ namespace Universidad.Controlador.GestionCatalogos
 
         public void ObtenColoniasPorCpPersona(int codigoPostal)
         {
-            _servicio.ObtenColoniasPorCpCompleted +=_servicio_ObtenColoniasPorCpCompleted;
+            _servicio.ObtenColoniasPorCpCompleted += _servicio_ObtenColoniasPorCpCompleted;
             _servicio.ObtenColoniasPorCpAsync(codigoPostal);
         }
 
@@ -117,6 +117,76 @@ namespace Universidad.Controlador.GestionCatalogos
             var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
             ObtenColoniasPorCpFinalizado(lista);
         }
+
+        #endregion
+
+        #region Obten Estados
+
+        public delegate void ObtenCatEstadosArgs(List<DIR_CAT_ESTADO> lista);
+
+        public event ObtenCatEstadosArgs ObtenCatEstadosFinalizado;
+
+        public void ObtenCatEstados()
+        {
+            _servicio.ObtenCatEstadosCompleted += _servicio_ObtenCatEstadosCompleted;
+            _servicio.ObtenCatEstadosAsync();
+        }
+
+        private void _servicio_ObtenCatEstadosCompleted(object sender, ObtenCatEstadosCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_ESTADO>>(resultado);
+            ObtenCatEstadosFinalizado(lista);
+        }
+
+        #endregion
+
+        #region Obten Municipios
+
+        public delegate void ObtenMunicipiosArgs(List<DIR_CAT_DELG_MUNICIPIO> lista);
+
+        public event ObtenMunicipiosArgs ObtenMunicipiosFinalizado;
+
+        public void ObtenMunicipios(int estado)
+        {
+            _servicio.ObtenMunicipiosCompleted += _servicio_ObtenMunicipiosCompleted;
+            _servicio.ObtenMunicipiosAsync(estado);
+        }
+
+        private void _servicio_ObtenMunicipiosCompleted(object sender, ObtenMunicipiosCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_DELG_MUNICIPIO>>(resultado);
+            ObtenMunicipiosFinalizado(lista);
+        }
+
+        #endregion
+
+        #region Obten Colonias
+
+        public delegate void ObtenColoniasArgs(List<DIR_CAT_COLONIAS> lista);
+
+        public event ObtenColoniasArgs ObtenColoniasFinalizado;
+
+        public void ObtenColonias(int estado, int municipio)
+        {
+            _servicio.ObtenColoniasCompleted += _servicio_ObtenColoniasCompleted;
+            _servicio.ObtenColoniasAsync(estado, municipio);
+        }
+
+        private void _servicio_ObtenColoniasCompleted(object sender, ObtenColoniasCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
+            ObtenColoniasFinalizado(lista);
+        }
+
 
         #endregion
     }

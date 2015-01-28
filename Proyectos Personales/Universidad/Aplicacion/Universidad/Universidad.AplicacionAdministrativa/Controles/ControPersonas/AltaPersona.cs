@@ -22,15 +22,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private readonly SVC_GestionCatalogos _servicioCatalogos;
 
         private List<DIR_CAT_COLONIAS> _listaColonias;
-        private List<DIR_CAT_ESTADO> _lisaEstados;
-        private List<DIR_CAT_DELG_MUNICIPIO> _listaMunicipios; 
+        private List<DIR_CAT_ESTADO> _listaEstados;
+        private List<DIR_CAT_DELG_MUNICIPIO> _listaMunicipios;
+
+        public delegate void MunicipioCargado(int seleccion);
+        private event MunicipioCargado MunicipiosCargados;
 
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoDevice;
         private VideoCapabilities[] videoCapabilities;
         private VideoCapabilities[] snapshotCapabilities;
 
-
+        public void MunicipiosCargadospAsync(int seleccion)
+        {
+            MunicipiosCargados(seleccion);
+        }
         public AltaPersona(Sesion sesion)
         {
             _sesion = sesion;
@@ -46,18 +52,31 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxSexo.SelectedIndex = 0;
 
             rbImagen.Select();
-            
+
             _servicioCatalogos.ObtenCatNacionalidad();
             _servicioCatalogos.ObtenCatNacionalidadFinalizado += servicios_ObtenCatNacionalidadFinalizado;
 
             _servicioCatalogos.ObtenCatTipoPersona();
             _servicioCatalogos.ObtenCatTipoPersonaFinalizado += servicio_ObtenCatTipoPersonaFinalizado;
 
+            _servicioCatalogos.ObtenCatEstados();
+            _servicioCatalogos.ObtenCatEstadosFinalizado += _servicioCatalogos_ObtenCatEstadosFinalizado;
+
+            cbxMunicipio.Enabled = false;
+            cbxColonia.Enabled = false;
+
 
             //ActualizaDispositivos();
         }
 
-        
+        private void _servicioCatalogos_ObtenCatEstadosFinalizado(List<DIR_CAT_ESTADO> lista)
+        {
+            _listaEstados = lista;
+            cbxEstado.ValueMember = "IDESTADO";
+            cbxEstado.DisplayMember = "NOMBREESTADO";
+            cbxEstado.DataSource = _listaEstados;
+        }
+
 
         private void servicio_ObtenCatTipoPersonaFinalizado(List<PER_CAT_TIPO_PERSONA> lista)
         {
@@ -87,17 +106,56 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void _servicioCatalogos_ObtenColoniasPorCpFinalizado(List<DIR_CAT_COLONIAS> lista)
         {
-            _listaColonias = lista;
+            _listaColonias = lista.OrderBy(r => r.NOMBRECOLONIA).ToList();
 
             cbxColonia.ValueMember = "IDCOLONIA";
             cbxColonia.DisplayMember = "NOMBRECOLONIA";
-            cbxColonia.DataSource = lista;
+            cbxColonia.DataSource = _listaColonias;
 
+            var estado = _listaColonias.First().IDESTADO;
+            var municipio = _listaColonias.First().IDMUNICIPIO;
+            this.MunicipiosCargadospAsync((int)municipio);
+            cbxColonia.Enabled = true;
+            cbxEstado.SelectedValue = estado;
+            ActualizaMunicipio();
         }
 
-        private void cbxEstado_SelectedIndexChanged(object sender, EventArgs e)
+        private void ActualizaMunicipio()
         {
+            _servicioCatalogos.ObtenMunicipios(Convert.ToInt32(cbxEstado.SelectedValue));
+            _servicioCatalogos.ObtenMunicipiosFinalizado += _servicioCatalogos_ObtenMunicipiosFinalizado;
+        }
 
+        private void ActualizaColonia()
+        {
+            _servicioCatalogos.ObtenColonias(Convert.ToInt32(cbxEstado.SelectedValue), Convert.ToInt32(cbxMunicipio.SelectedValue));
+            _servicioCatalogos.ObtenColoniasFinalizado += _servicioCatalogos_ObtenColoniasFinalizado;
+        }
+
+        private void _servicioCatalogos_ObtenColoniasFinalizado(List<DIR_CAT_COLONIAS> lista)
+        {
+            _listaColonias = lista.OrderBy(r => r.NOMBRECOLONIA).ToList();
+            cbxColonia.ValueMember = "IDCOLONIA";
+            cbxColonia.DisplayMember = "NOMBRECOLONIA";
+            cbxColonia.DataSource = _listaColonias;
+            cbxColonia.Enabled = true;
+
+            
+        }
+
+        private void AltaPersona_MunicipiosCargados(int seleccion)
+        {
+            cbxMunicipio.SelectedValue = seleccion;
+        }
+
+        private void _servicioCatalogos_ObtenMunicipiosFinalizado(List<DIR_CAT_DELG_MUNICIPIO> lista)
+        {
+            _listaMunicipios = lista;
+            cbxMunicipio.ValueMember = "IDMUNICIPIO";
+            cbxMunicipio.DisplayMember = "NOMBREDELGMUNICIPIO";
+            cbxMunicipio.DataSource = _listaMunicipios;
+            cbxMunicipio.Enabled = true;
+            MunicipiosCargados += AltaPersona_MunicipiosCargados;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
@@ -212,7 +270,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         {
             Console.WriteLine(eventArgs.Frame.Size);
 
-            ShowSnapshot((Bitmap) eventArgs.Frame.Clone());
+            ShowSnapshot((Bitmap)eventArgs.Frame.Clone());
         }
 
         private void ShowSnapshot(Bitmap snapshot)
@@ -249,7 +307,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             }
         }
 
-#endregion
+        #endregion
 
         #region Validaciones
         private void txbNombre_Validating(object sender, CancelEventArgs e)
@@ -270,7 +328,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private void ValidaNombre(object sender, CancelEventArgs e)
         {
             var cadenaPermitida = new Regex(@"^[A-Za-z]*$");
-            var textbox = (TextBox) sender;
+            var textbox = (TextBox)sender;
 
             if (cadenaPermitida.IsMatch(textbox.Text) && textbox.Text != string.Empty && textbox.Text.Length <= 30)
             {
@@ -370,8 +428,22 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         #endregion
 
-        
+        private void cbxEstado_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ActualizaMunicipio();
+        }
 
-        
+        private void cbxMunicipio_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            ActualizaColonia();
+        }
+
+        private void cbxColonia_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var idColonia = (int)cbxColonia.SelectedValue;
+
+            var colonia = _listaColonias.SingleOrDefault(r => r.IDCOLONIA == idColonia);
+            if (colonia != null) txbCodigoPostal.Text = colonia.CODIGOPOSTAL.ToString();
+        }
     }
 }

@@ -36,6 +36,24 @@
   <wsdl:message name="IS_GestionCatalogos_ObtenColoniasPorCp_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenColoniasPorCpResponse" />
   </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCatEstados_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatEstados" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCatEstados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatEstadosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenMunicipios_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenMunicipios" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenMunicipios_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenMunicipiosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenColonias_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenColonias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenColonias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenColoniasResponse" />
+  </wsdl:message>
   <wsdl:portType name="IS_GestionCatalogos">
     <wsdl:operation name="ObtenTablaUsCatTipoUsuarios">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios" message="tns:IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_InputMessage" />
@@ -56,6 +74,18 @@
     <wsdl:operation name="ObtenColoniasPorCp">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCp" message="tns:IS_GestionCatalogos_ObtenColoniasPorCp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCpResponse" message="tns:IS_GestionCatalogos_ObtenColoniasPorCp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatEstados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstados" message="tns:IS_GestionCatalogos_ObtenCatEstados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstadosResponse" message="tns:IS_GestionCatalogos_ObtenCatEstados_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenMunicipios">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipios" message="tns:IS_GestionCatalogos_ObtenMunicipios_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipiosResponse" message="tns:IS_GestionCatalogos_ObtenMunicipios_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenColonias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenColonias" message="tns:IS_GestionCatalogos_ObtenColonias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasResponse" message="tns:IS_GestionCatalogos_ObtenColonias_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_GestionCatalogos" type="tns:IS_GestionCatalogos">
@@ -98,6 +128,33 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenColoniasPorCp">
       <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatEstados">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstados" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenMunicipios">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenColonias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenColonias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -416,7 +416,7 @@
             // 
             // tbxNoExt
             // 
-            this.tbxNoExt.Location = new System.Drawing.Point(190, 270);
+            this.tbxNoExt.Location = new System.Drawing.Point(194, 270);
             this.tbxNoExt.Name = "tbxNoExt";
             this.tbxNoExt.Size = new System.Drawing.Size(53, 20);
             this.tbxNoExt.TabIndex = 13;
@@ -448,7 +448,7 @@
             // 
             // tbxNoInt
             // 
-            this.tbxNoInt.Location = new System.Drawing.Point(364, 270);
+            this.tbxNoInt.Location = new System.Drawing.Point(362, 270);
             this.tbxNoInt.Name = "tbxNoInt";
             this.tbxNoInt.Size = new System.Drawing.Size(53, 20);
             this.tbxNoInt.TabIndex = 9;
@@ -487,6 +487,7 @@
             this.cbxColonia.Name = "cbxColonia";
             this.cbxColonia.Size = new System.Drawing.Size(221, 21);
             this.cbxColonia.TabIndex = 4;
+            this.cbxColonia.SelectionChangeCommitted += new System.EventHandler(this.cbxColonia_SelectionChangeCommitted);
             // 
             // cbxMunicipio
             // 
@@ -495,6 +496,7 @@
             this.cbxMunicipio.Name = "cbxMunicipio";
             this.cbxMunicipio.Size = new System.Drawing.Size(221, 21);
             this.cbxMunicipio.TabIndex = 3;
+            this.cbxMunicipio.SelectionChangeCommitted += new System.EventHandler(this.cbxMunicipio_SelectionChangeCommitted);
             // 
             // lblMunicipio
             // 
@@ -512,7 +514,7 @@
             this.cbxEstado.Name = "cbxEstado";
             this.cbxEstado.Size = new System.Drawing.Size(221, 21);
             this.cbxEstado.TabIndex = 1;
-            this.cbxEstado.SelectedIndexChanged += new System.EventHandler(this.cbxEstado_SelectedIndexChanged);
+            this.cbxEstado.SelectionChangeCommitted += new System.EventHandler(this.cbxEstado_SelectionChangeCommitted);
             // 
             // lblEstado
             // 
