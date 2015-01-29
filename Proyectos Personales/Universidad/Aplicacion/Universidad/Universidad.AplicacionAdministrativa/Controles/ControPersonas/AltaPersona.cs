@@ -18,6 +18,57 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 {
     public partial class AltaPersona : UserControl
     {
+        public class CustomEventArgs : EventArgs
+        {
+            public CustomEventArgs(string s)
+            {
+                message = s;
+            }
+            private string message;
+
+            public string Message
+            {
+                get { return message; }
+                set { message = value; }
+            }
+        }
+
+        private class Publisher
+        {
+
+            // Declare the event using EventHandler<T>
+            public event EventHandler<CustomEventArgs> RaiseCustomEvent;
+
+            public void DoSomething()
+            {
+                // Write some code that does something useful here
+                // then raise the event. You can also raise an event
+                // before you execute a block of code.
+                OnRaiseCustomEvent(new CustomEventArgs("Did something"));
+
+            }
+
+            // Wrap event invocations inside a protected virtual method
+            // to allow derived classes to override the event invocation behavior
+            protected virtual void OnRaiseCustomEvent(CustomEventArgs e)
+            {
+                // Make a temporary copy of the event to avoid possibility of
+                // a race condition if the last subscriber unsubscribes
+                // immediately after the null check and before the event is raised.
+                EventHandler<CustomEventArgs> handler = RaiseCustomEvent;
+
+                // Event will be null if there are no subscribers
+                if (handler != null)
+                {
+                    // Format the string to send inside the CustomEventArgs parameter
+                    e.Message += String.Format(" at {0}", DateTime.Now.ToString());
+
+                    // Use the () operator to raise the event.
+                    handler(this, e);
+                }
+            }
+        }
+
         private readonly Sesion _sesion;
         private readonly SVC_GestionCatalogos _servicioCatalogos;
 
@@ -25,18 +76,14 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private List<DIR_CAT_ESTADO> _listaEstados;
         private List<DIR_CAT_DELG_MUNICIPIO> _listaMunicipios;
 
-        public delegate void MunicipioCargado(int seleccion);
-        private event MunicipioCargado MunicipiosCargados;
+        //public delegate void SeleccionEventArgs;
+        //private event SeleccionEventArgs MunicipiosCargados;
 
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoDevice;
         private VideoCapabilities[] videoCapabilities;
         private VideoCapabilities[] snapshotCapabilities;
 
-        public void MunicipiosCargadospAsync(int seleccion)
-        {
-            MunicipiosCargados(seleccion);
-        }
         public AltaPersona(Sesion sesion)
         {
             _sesion = sesion;
@@ -114,9 +161,12 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
             var estado = _listaColonias.First().IDESTADO;
             var municipio = _listaColonias.First().IDMUNICIPIO;
-            this.MunicipiosCargadospAsync((int)municipio);
-            cbxColonia.Enabled = true;
+
             cbxEstado.SelectedValue = estado;
+            cbxColonia.Enabled = true;
+
+            new SeleccionEventArgs().Seleccion = (int)municipio;
+
             ActualizaMunicipio();
         }
 
@@ -140,7 +190,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxColonia.DataSource = _listaColonias;
             cbxColonia.Enabled = true;
 
-            
+
         }
 
         private void AltaPersona_MunicipiosCargados(int seleccion)
@@ -155,7 +205,6 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxMunicipio.DisplayMember = "NOMBREDELGMUNICIPIO";
             cbxMunicipio.DataSource = _listaMunicipios;
             cbxMunicipio.Enabled = true;
-            MunicipiosCargados += AltaPersona_MunicipiosCargados;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
