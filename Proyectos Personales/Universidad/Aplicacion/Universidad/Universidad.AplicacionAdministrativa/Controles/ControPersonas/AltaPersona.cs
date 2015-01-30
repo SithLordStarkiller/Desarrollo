@@ -165,7 +165,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxEstado.SelectedValue = estado;
             cbxColonia.Enabled = true;
 
-            new SeleccionEventArgs().Seleccion = (int)municipio;
+            //new SeleccionEventArgs().Seleccion = (int)municipio;
 
             ActualizaMunicipio();
         }
