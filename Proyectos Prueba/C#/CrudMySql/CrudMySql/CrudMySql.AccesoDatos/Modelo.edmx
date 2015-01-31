@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="worldModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="us_cat_rol">
+          <Key>
+            <PropertyRef Name="IDROL" />
+          </Key>
+          <Property Name="IDROL" Type="int" Nullable="false" />
+          <Property Name="NOMBREROL" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="us_usuarios">
+          <Key>
+            <PropertyRef Name="IDUSUARIO" />
+          </Key>
+          <Property Name="IDUSUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDROL" Type="int" />
+          <Property Name="NOMBRECOMPLETO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FECHANACIMIENTO" Type="date" Nullable="false" />
+          <Property Name="SEXO" Type="varchar" MaxLength="10" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_REFERENCE_1">
+          <End Role="us_cat_rol" Type="Self.us_cat_rol" Multiplicity="0..1" />
+          <End Role="us_usuarios" Type="Self.us_usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="us_cat_rol">
+              <PropertyRef Name="IDROL" />
+            </Principal>
+            <Dependent Role="us_usuarios">
+              <PropertyRef Name="IDROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="worldModelStoreContainer">
+          <EntitySet Name="us_cat_rol" EntityType="Self.us_cat_rol" Schema="crudmysql" store:Type="Tables" />
+          <EntitySet Name="us_usuarios" EntityType="Self.us_usuarios" Schema="crudmysql" store:Type="Tables" />
+          <AssociationSet Name="FK_REFERENCE_1" Association="Self.FK_REFERENCE_1">
+            <End Role="us_cat_rol" EntitySet="us_cat_rol" />
+            <End Role="us_usuarios" EntitySet="us_usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="worldModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="worldEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="us_cat_rol" EntityType="worldModel.us_cat_rol" />
+          <EntitySet Name="us_usuarios" EntityType="worldModel.us_usuarios" />
+          <AssociationSet Name="FK_REFERENCE_1" Association="worldModel.FK_REFERENCE_1">
+            <End Role="us_cat_rol" EntitySet="us_cat_rol" />
+            <End Role="us_usuarios" EntitySet="us_usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="us_cat_rol">
+          <Key>
+            <PropertyRef Name="IDROL" />
+          </Key>
+          <Property Name="IDROL" Type="Int32" Nullable="false" />
+          <Property Name="NOMBREROL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="us_usuarios" Relationship="worldModel.FK_REFERENCE_1" FromRole="us_cat_rol" ToRole="us_usuarios" />
+        </EntityType>
+        <EntityType Name="us_usuarios">
+          <Key>
+            <PropertyRef Name="IDUSUARIO" />
+          </Key>
+          <Property Name="IDUSUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDROL" Type="Int32" />
+          <Property Name="NOMBRECOMPLETO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FECHANACIMIENTO" Type="DateTime" Nullable="false" />
+          <Property Name="SEXO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="USUARIO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CONTRASENA" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="us_cat_rol" Relationship="worldModel.FK_REFERENCE_1" FromRole="us_usuarios" ToRole="us_cat_rol" />
+        </EntityType>
+        <Association Name="FK_REFERENCE_1">
+          <End Type="worldModel.us_cat_rol" Role="us_cat_rol" Multiplicity="0..1" />
+          <End Type="worldModel.us_usuarios" Role="us_usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="us_cat_rol">
+              <PropertyRef Name="IDROL" />
+            </Principal>
+            <Dependent Role="us_usuarios">
+              <PropertyRef Name="IDROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="worldModelStoreContainer" CdmEntityContainer="worldEntities">
+          <EntitySetMapping Name="us_cat_rol">
+            <EntityTypeMapping TypeName="worldModel.us_cat_rol">
+              <MappingFragment StoreEntitySet="us_cat_rol">
+                <ScalarProperty Name="NOMBREROL" ColumnName="NOMBREROL" />
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="us_usuarios">
+            <EntityTypeMapping TypeName="worldModel.us_usuarios">
+              <MappingFragment StoreEntitySet="us_usuarios">
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="FECHANACIMIENTO" ColumnName="FECHANACIMIENTO" />
+                <ScalarProperty Name="NOMBRECOMPLETO" ColumnName="NOMBRECOMPLETO" />
+                <ScalarProperty Name="IDROL" ColumnName="IDROL" />
+                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
