@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Universidad.AplicacionAdministrativa.Vistas;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Entidades.ControlUsuario;
 using Universidad.Entidades;
@@ -16,59 +17,10 @@ using AForge.Video.DirectShow;
 
 namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 {
+    
     public partial class AltaPersona : UserControl
     {
-        public class CustomEventArgs : EventArgs
-        {
-            public CustomEventArgs(string s)
-            {
-                message = s;
-            }
-            private string message;
-
-            public string Message
-            {
-                get { return message; }
-                set { message = value; }
-            }
-        }
-
-        private class Publisher
-        {
-
-            // Declare the event using EventHandler<T>
-            public event EventHandler<CustomEventArgs> RaiseCustomEvent;
-
-            public void DoSomething()
-            {
-                // Write some code that does something useful here
-                // then raise the event. You can also raise an event
-                // before you execute a block of code.
-                OnRaiseCustomEvent(new CustomEventArgs("Did something"));
-
-            }
-
-            // Wrap event invocations inside a protected virtual method
-            // to allow derived classes to override the event invocation behavior
-            protected virtual void OnRaiseCustomEvent(CustomEventArgs e)
-            {
-                // Make a temporary copy of the event to avoid possibility of
-                // a race condition if the last subscriber unsubscribes
-                // immediately after the null check and before the event is raised.
-                EventHandler<CustomEventArgs> handler = RaiseCustomEvent;
-
-                // Event will be null if there are no subscribers
-                if (handler != null)
-                {
-                    // Format the string to send inside the CustomEventArgs parameter
-                    e.Message += String.Format(" at {0}", DateTime.Now.ToString());
-
-                    // Use the () operator to raise the event.
-                    handler(this, e);
-                }
-            }
-        }
-
+        private Evento Eventos;
         private readonly Sesion _sesion;
         private readonly SVC_GestionCatalogos _servicioCatalogos;
 
@@ -153,19 +105,23 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void _servicioCatalogos_ObtenColoniasPorCpFinalizado(List<DIR_CAT_COLONIAS> lista)
         {
-            _listaColonias = lista.OrderBy(r => r.NOMBRECOLONIA).ToList();
+            _listaColonias = lista;
+            var colonia = lista.OrderBy(r => r.NOMBRECOLONIA).ToList();
 
             cbxColonia.ValueMember = "IDCOLONIA";
             cbxColonia.DisplayMember = "NOMBRECOLONIA";
             cbxColonia.DataSource = _listaColonias;
 
-            var estado = _listaColonias.First().IDESTADO;
-            var municipio = _listaColonias.First().IDMUNICIPIO;
+            var estado = colonia.First().IDESTADO;
+            cbxEstado.SelectedIndex = (int)estado;
+            var municipio = colonia.First().IDMUNICIPIO;
+
+            Eventos = new Evento();
+            Eventos.Inicia((int)municipio);
+            Eventos.AlfinalizarActualizacion += Eventos_AlfinalizarActualizacion;
 
             cbxEstado.SelectedValue = estado;
             cbxColonia.Enabled = true;
-
-            //new SeleccionEventArgs().Seleccion = (int)municipio;
 
             ActualizaMunicipio();
         }
@@ -205,6 +161,12 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxMunicipio.DisplayMember = "NOMBREDELGMUNICIPIO";
             cbxMunicipio.DataSource = _listaMunicipios;
             cbxMunicipio.Enabled = true;
+            Eventos.Finalizado();
+        }
+
+        private void Eventos_AlfinalizarActualizacion(int cbx)
+        {
+            cbxMunicipio.SelectedValue = cbx;
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

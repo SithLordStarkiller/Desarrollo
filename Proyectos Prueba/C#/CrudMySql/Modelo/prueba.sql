@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     31/01/2015 06:47:44 a. m.                    */
+/* Created on:     03/02/2015 10:14:33 a. m.                    */
 /*==============================================================*/
 
 
@@ -23,11 +23,13 @@ create table US_CAT_ROL
 /*==============================================================*/
 create table US_USUARIOS
 (
-   IDUSUARIO            int not null,
+   IDUSUARIO            int not null auto_increment,
    IDROL                int,
    NOMBRECOMPLETO       varchar(100) not null,
    FECHANACIMIENTO      date not null,
    SEXO                 varchar(10),
+   USUARIO              varchar(20) not null,
+   CONTRASENA           varchar(20) not null,
    primary key (IDUSUARIO)
 );
 
