@@ -116,6 +116,8 @@ namespace Universidad.Controlador.GestionCatalogos
             var resultado = e.Result;
             var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
             ObtenColoniasPorCpFinalizado(lista);
+
+            _servicio.ObtenColoniasPorCpCompleted -= _servicio_ObtenColoniasPorCpCompleted;
         }
 
         #endregion

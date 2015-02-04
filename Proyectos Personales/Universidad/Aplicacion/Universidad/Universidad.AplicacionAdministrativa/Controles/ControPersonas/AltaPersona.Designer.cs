@@ -396,6 +396,7 @@
             this.txbCalle.Name = "txbCalle";
             this.txbCalle.Size = new System.Drawing.Size(221, 20);
             this.txbCalle.TabIndex = 16;
+            this.txbCalle.Validating += new System.ComponentModel.CancelEventHandler(this.txbCalle_Validating);
             // 
             // tbxReferencias
             // 
@@ -420,6 +421,7 @@
             this.tbxNoExt.Name = "tbxNoExt";
             this.tbxNoExt.Size = new System.Drawing.Size(53, 20);
             this.tbxNoExt.TabIndex = 13;
+            this.tbxNoExt.Validating += new System.ComponentModel.CancelEventHandler(this.tbxNoExt_Validating);
             // 
             // lblNoExt
             // 

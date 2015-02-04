@@ -17,19 +17,16 @@ using AForge.Video.DirectShow;
 
 namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 {
-    
+
     public partial class AltaPersona : UserControl
     {
-        private Evento Eventos;
+        private Evento _eventos;
         private readonly Sesion _sesion;
         private readonly SVC_GestionCatalogos _servicioCatalogos;
 
         private List<DIR_CAT_COLONIAS> _listaColonias;
         private List<DIR_CAT_ESTADO> _listaEstados;
         private List<DIR_CAT_DELG_MUNICIPIO> _listaMunicipios;
-
-        //public delegate void SeleccionEventArgs;
-        //private event SeleccionEventArgs MunicipiosCargados;
 
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoDevice;
@@ -105,25 +102,39 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void _servicioCatalogos_ObtenColoniasPorCpFinalizado(List<DIR_CAT_COLONIAS> lista)
         {
-            _listaColonias = lista;
-            var colonia = lista.OrderBy(r => r.NOMBRECOLONIA).ToList();
+            if (!lista.Any())
+            {
+                MessageBox.Show(text: @"No se encontro el codigo postal",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Error);
+            }
 
-            cbxColonia.ValueMember = "IDCOLONIA";
-            cbxColonia.DisplayMember = "NOMBRECOLONIA";
-            cbxColonia.DataSource = _listaColonias;
+            else
+            {
+                _listaColonias = lista;
+                var colonia = lista.OrderBy(r => r.NOMBRECOLONIA).ToList();
 
-            var estado = colonia.First().IDESTADO;
-            cbxEstado.SelectedIndex = (int)estado;
-            var municipio = colonia.First().IDMUNICIPIO;
+                cbxColonia.ValueMember = "IDCOLONIA";
+                cbxColonia.DisplayMember = "NOMBRECOLONIA";
+                _listaColonias.OrderBy(r => r.NOMBRECOLONIA);
+                cbxColonia.DataSource = _listaColonias;
 
-            Eventos = new Evento();
-            Eventos.Inicia((int)municipio);
-            Eventos.AlfinalizarActualizacion += Eventos_AlfinalizarActualizacion;
+                var estado = colonia.First().IDESTADO;
+                cbxEstado.SelectedIndex = (int)estado;
+                var municipio = colonia.First().IDMUNICIPIO;
 
-            cbxEstado.SelectedValue = estado;
-            cbxColonia.Enabled = true;
+                _eventos = new Evento();
+                _eventos.Inicia((int)municipio);
+                _eventos.AlfinalizarActualizacion += Eventos_AlfinalizarActualizacion;
 
-            ActualizaMunicipio();
+                cbxEstado.SelectedValue = estado;
+                cbxColonia.Enabled = true;
+
+                ActualizaMunicipio();
+            }
+
+
+            _servicioCatalogos.ObtenColoniasPorCpFinalizado -= _servicioCatalogos_ObtenColoniasPorCpFinalizado;
         }
 
         private void ActualizaMunicipio()
@@ -149,11 +160,6 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         }
 
-        private void AltaPersona_MunicipiosCargados(int seleccion)
-        {
-            cbxMunicipio.SelectedValue = seleccion;
-        }
-
         private void _servicioCatalogos_ObtenMunicipiosFinalizado(List<DIR_CAT_DELG_MUNICIPIO> lista)
         {
             _listaMunicipios = lista;
@@ -161,7 +167,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             cbxMunicipio.DisplayMember = "NOMBREDELGMUNICIPIO";
             cbxMunicipio.DataSource = _listaMunicipios;
             cbxMunicipio.Enabled = true;
-            Eventos.Finalizado();
+            _eventos.Finalizado();
         }
 
         private void Eventos_AlfinalizarActualizacion(int cbx)
@@ -321,6 +327,9 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         #endregion
 
         #region Validaciones
+
+        #region Validacion Datos peronales
+
         private void txbNombre_Validating(object sender, CancelEventArgs e)
         {
             ValidaNombre(sender, e);
@@ -436,6 +445,55 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpCorrecto.SetError(tbxNss, "");
             }
         }
+
+        #endregion
+
+        #region Validacion Direcciones
+
+        private void txbCalle_Validating(object sender, CancelEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+
+            if (textbox.Text != string.Empty && textbox.Text.Length <= 100)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "Correcto");
+            }
+            else if (textbox.Text.Length >= 5)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "El texto ingresado es muy largo");
+                erpCorrecto.SetError(textbox, "");
+            }
+            else if (string.IsNullOrEmpty(textbox.Text))
+            {
+                erpError.SetError(textbox, "Se debe ingresar l direccion");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "");
+            }
+        }
+
+        private void tbxNoExt_Validating(object sender, CancelEventArgs e)
+        {
+            var textbox = (TextBox)sender;
+
+            if (textbox.Text != string.Empty && textbox.Text.Length <= 10)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "Correcto");
+            }
+
+            else if (string.IsNullOrEmpty(textbox.Text))
+            {
+                erpError.SetError(textbox, "Se debe ingresar el No Exterior");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "");
+            }
+        }
+
+        #endregion
 
         #endregion
 
