@@ -29,18 +29,7 @@ namespace Universidad.Controlador.GestionCatalogos
 
         #endregion
 
-        /// <summary>
-        /// Este metodo Obtine una lista completa con todos los registros de la tabla US_CAT_TIPO_USUARIO del servidor interno 
-        /// </summary>
-        /// <returns>Regresa una lista con todos los registros de la tabla US_CAT_TIPO_USUARIO</returns>
-        public List<US_CAT_TIPO_USUARIO> ObtenCatNivelUsuarios()
-        {
-            var JLista = _servicio.ObtenTablaUsCatTipoUsuarios();
-
-            var listaCatNivelUsuarios =
-                Newtonsoft.Json.JsonConvert.DeserializeObject<List<US_CAT_TIPO_USUARIO>>(JLista);
-            return listaCatNivelUsuarios;
-        }
+        #region Obten Tipo de Usuario
 
         public US_CAT_TIPO_USUARIO ObtenTipoUsuario(int Id_TipoUsuario)
         {
@@ -50,6 +39,8 @@ namespace Universidad.Controlador.GestionCatalogos
 
             return TipoUsuario;
         }
+
+        #endregion
 
         #region Obten catalogos nacionalidades
 
@@ -70,6 +61,8 @@ namespace Universidad.Controlador.GestionCatalogos
             var resultado = e.Result;
             var persona = JsonConvert.DeserializeObject<List<PER_CAT_NACIONALIDAD>>(resultado);
             ObtenCatNacionalidadFinalizado(persona);
+
+            _servicio.ObtenCatalogoNacionalidadesCompleted -= _servicio_ObtenCatalogoNacionalidadesCompleted;
         }
 
         #endregion
@@ -93,6 +86,8 @@ namespace Universidad.Controlador.GestionCatalogos
             var resultado = e.Result;
             var lista = JsonConvert.DeserializeObject<List<PER_CAT_TIPO_PERSONA>>(resultado);
             ObtenCatTipoPersonaFinalizado(lista);
+
+            _servicio.ObtenCatTipoPersonaCompleted -= _servicio_ObtenCatTipoPersonaCompleted;
         }
 
         #endregion
@@ -141,6 +136,8 @@ namespace Universidad.Controlador.GestionCatalogos
             var resultado = e.Result;
             var lista = JsonConvert.DeserializeObject<List<DIR_CAT_ESTADO>>(resultado);
             ObtenCatEstadosFinalizado(lista);
+
+            _servicio.ObtenCatEstadosCompleted -= _servicio_ObtenCatEstadosCompleted;
         }
 
         #endregion
@@ -164,6 +161,7 @@ namespace Universidad.Controlador.GestionCatalogos
             var resultado = e.Result;
             var lista = JsonConvert.DeserializeObject<List<DIR_CAT_DELG_MUNICIPIO>>(resultado);
             ObtenMunicipiosFinalizado(lista);
+            _servicio.ObtenMunicipiosCompleted -= _servicio_ObtenMunicipiosCompleted;
         }
 
         #endregion
@@ -187,6 +185,7 @@ namespace Universidad.Controlador.GestionCatalogos
             var resultado = e.Result;
             var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
             ObtenColoniasFinalizado(lista);
+            _servicio.ObtenColoniasCompleted -= _servicio_ObtenColoniasCompleted;
         }
 
 

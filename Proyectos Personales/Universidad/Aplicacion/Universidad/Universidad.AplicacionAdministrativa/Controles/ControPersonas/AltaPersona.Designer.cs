@@ -454,6 +454,7 @@
             this.tbxNoInt.Name = "tbxNoInt";
             this.tbxNoInt.Size = new System.Drawing.Size(53, 20);
             this.tbxNoInt.TabIndex = 9;
+            this.tbxNoInt.Validating += new System.ComponentModel.CancelEventHandler(this.tbxNoInt_Validating);
             // 
             // lblNoInt
             // 
