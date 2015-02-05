@@ -54,6 +54,13 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         }
 
+        private void btnVerificarCorreo_Click(object sender, EventArgs e)
+        {
+            var usuario = tbxCorreoUniversidad.Text;
+            
+
+        }
+
         #endregion
 
         #region Operaciones Datos personales
@@ -577,9 +584,16 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             var cadenaPermitida = new Regex(@"\(?\d{2}\)?-? *\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
+
         private void tbxCelTrabajo_Validating(object sender, CancelEventArgs e)
         {
             var cadenaPermitida = new Regex(@"\(?\d{2}\)?-? *\d{3}-? *-?\d{4}");
+            ValidaTelefonos(sender, e, cadenaPermitida);
+        }
+
+        private void tbxFax_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
 
@@ -606,6 +620,13 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpCorrecto.SetError(textbox, "");
             }
         }
+
+        #endregion
+
+        
+
+        #region Validacion Medios Electronicos
+
 
         #endregion
 

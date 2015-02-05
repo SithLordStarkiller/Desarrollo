@@ -587,6 +587,7 @@
             this.btnVerificarCorreo.TabIndex = 6;
             this.btnVerificarCorreo.Text = "Verificar";
             this.btnVerificarCorreo.UseVisualStyleBackColor = true;
+            this.btnVerificarCorreo.Click += new System.EventHandler(this.btnVerificarCorreo_Click);
             // 
             // lblDominio
             // 
@@ -666,6 +667,7 @@
             this.tbxFax.Name = "tbxFax";
             this.tbxFax.Size = new System.Drawing.Size(252, 20);
             this.tbxFax.TabIndex = 9;
+            this.tbxFax.Validating += new System.ComponentModel.CancelEventHandler(this.tbxFax_Validating);
             // 
             // lblFax
             // 
