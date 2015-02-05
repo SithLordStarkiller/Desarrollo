@@ -44,7 +44,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         #endregion
 
-        #region Operaciones del Registro 
+        #region Operaciones del Registro
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -53,7 +53,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         {
 
         }
-        
+
         #endregion
 
         #region Operaciones Datos personales
@@ -553,6 +553,56 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpCuidado.SetError(textbox,
                     "Es recomendable que se ingresar el No Interior" + Environment.NewLine +
                     "En caso de no contar con una puede dejarlo en blanco");
+                erpCorrecto.SetError(textbox, "");
+            }
+        }
+
+        #endregion
+
+        #region Telefonos
+
+        private void tbxTelFijoDomicilio_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"\d{3}-? *-?\d{4}");
+            ValidaTelefonos(sender, e, cadenaPermitida);
+        }
+        private void tbxTelFijoTrabajo_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"\d{3}-? *-?\d{4}");
+            ValidaTelefonos(sender, e, cadenaPermitida);
+        }
+
+        private void tbxTelCelPersonal_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"\(?\d{2}\)?-? *\d{3}-? *-?\d{4}");
+            ValidaTelefonos(sender, e, cadenaPermitida);
+        }
+        private void tbxCelTrabajo_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"\(?\d{2}\)?-? *\d{3}-? *-?\d{4}");
+            ValidaTelefonos(sender, e, cadenaPermitida);
+        }
+
+        private void ValidaTelefonos(object sender, CancelEventArgs e, Regex cadenaPermitida)
+        {
+            var textbox = (TextBox)sender;
+
+            if (cadenaPermitida.IsMatch(textbox.Text))
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "Correcto");
+            }
+            else if (textbox.Text.Length == 0)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "Es recomendable ingresar un telefono");
+                erpCorrecto.SetError(textbox, "");
+            }
+            else if (!cadenaPermitida.IsMatch(textbox.Text))
+            {
+                erpError.SetError(textbox, "Solo se permiten letras");
+                erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "");
             }
         }

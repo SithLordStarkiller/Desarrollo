@@ -682,6 +682,7 @@
             this.tbxCelTrabajo.Name = "tbxCelTrabajo";
             this.tbxCelTrabajo.Size = new System.Drawing.Size(252, 20);
             this.tbxCelTrabajo.TabIndex = 7;
+            this.tbxCelTrabajo.Validating += new System.ComponentModel.CancelEventHandler(this.tbxCelTrabajo_Validating);
             // 
             // lblCelTrabajo
             // 
@@ -698,6 +699,7 @@
             this.tbxTelCelPersonal.Name = "tbxTelCelPersonal";
             this.tbxTelCelPersonal.Size = new System.Drawing.Size(252, 20);
             this.tbxTelCelPersonal.TabIndex = 5;
+            this.tbxTelCelPersonal.Validating += new System.ComponentModel.CancelEventHandler(this.tbxTelCelPersonal_Validating);
             // 
             // lblCelPersonal
             // 
@@ -714,6 +716,7 @@
             this.tbxTelFijoTrabajo.Name = "tbxTelFijoTrabajo";
             this.tbxTelFijoTrabajo.Size = new System.Drawing.Size(252, 20);
             this.tbxTelFijoTrabajo.TabIndex = 3;
+            this.tbxTelFijoTrabajo.Validating += new System.ComponentModel.CancelEventHandler(this.tbxTelFijoTrabajo_Validating);
             // 
             // lblTelFijoTrabajo
             // 
@@ -730,6 +733,7 @@
             this.tbxTelFijoDomicilio.Name = "tbxTelFijoDomicilio";
             this.tbxTelFijoDomicilio.Size = new System.Drawing.Size(252, 20);
             this.tbxTelFijoDomicilio.TabIndex = 1;
+            this.tbxTelFijoDomicilio.Validating += new System.ComponentModel.CancelEventHandler(this.tbxTelFijoDomicilio_Validating);
             // 
             // lblTelFijoDomicilio
             // 
