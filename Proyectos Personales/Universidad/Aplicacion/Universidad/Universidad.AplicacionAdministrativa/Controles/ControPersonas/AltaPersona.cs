@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -37,6 +38,14 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private VideoCapabilities[] videoCapabilities;
         private VideoCapabilities[] snapshotCapabilities;
 
+        private PER_PERSONAS _personaDatos;
+        private DIR_DIRECCIONES _personaDireccion;
+        private PER_CAT_TELEFONOS _personaTelefonos;
+        private PER_MEDIOS_ELECTRONICOS _personaMediosElectronicos;
+        private PER_FOTOGRAFIA _personaFotografia;
+        private byte[] _fotografiaBinarios;
+        private string _nombreFotografia;
+
         public AltaPersona(Sesion sesion)
         {
             _sesion = sesion;
@@ -44,51 +53,6 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             _serviciosPersonas = new SvcPersonas(_sesion);
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Operaciones del Registro
-
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-        }
-        private void btnLimpiar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnVerificarCorreo_Click(object sender, EventArgs e)
-        {
-            var usuario = tbxCorreoUniversidad.Text + lblDominio.Text;
-            _serviciosPersonas.ExisteCorreoUniversidad(usuario);
-            _serviciosPersonas.ExisteCorreoUniversidadFinalizado += _serviciosPersonas_ExisteCorreoUniversidad;
-        }
-
-        private void _serviciosPersonas_ExisteCorreoUniversidad(bool existeCorreo)
-        {
-            if (existeCorreo)
-            {
-                MessageBox.Show(text: @"El correo no esta disponible",
-                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
-                        icon: MessageBoxIcon.Information);
-                tbxCorreoUniversidad.ForeColor = Color.Red;
-            }
-            else
-            {
-                MessageBox.Show(text: @"El correo esta disponible",
-                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
-                        icon: MessageBoxIcon.Information);
-                tbxCorreoUniversidad.ForeColor = Color.ForestGreen;
-            }
-
-            _serviciosPersonas.ExisteCorreoUniversidadFinalizado -= _serviciosPersonas_ExisteCorreoUniversidad;
-        }
-
-
-        #endregion
-
-        #region Operaciones Datos personales
-
         private void AltaPersona_Load(object sender, EventArgs e)
         {
             dtpFechaNacimiento.MaxDate = DateTime.Now;
@@ -109,10 +73,43 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
             cbxMunicipio.Enabled = false;
             cbxColonia.Enabled = false;
+            rbCamara.Enabled = false;
+            rbImagen.Enabled = false;
+            btnCargarFotografia.Enabled = false;
+            btnTomarFoto.Enabled = false;
 
 
-            //ActualizaDispositivos();
+            ActualizaDispositivos();
         }
+
+        #endregion
+
+        #region Operaciones del Registro
+
+        private PER_PERSONAS ObtenDatosPersonas()
+        {
+            return null;
+        }
+
+        private PER_FOTOGRAFIA InsertaFotografia()
+        {
+            return null;
+        }
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            var idFotografia = 
+            ObtenDatosPersonas();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
+
+        #region Operaciones Datos personales
 
         private void servicio_ObtenCatTipoPersonaFinalizado(List<PER_CAT_TIPO_PERSONA> lista)
         {
@@ -161,6 +158,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                         caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
                         icon: MessageBoxIcon.Error);
                 txbCodigoPostal.ForeColor = Color.Red;
+                btnRegistrar.Enabled = false;
             }
 
             else
@@ -187,6 +185,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 ActualizaMunicipio();
 
                 txbCodigoPostal.ForeColor = Color.ForestGreen;
+                btnRegistrar.Enabled = true;
             }
 
 
@@ -250,6 +249,118 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             var colonia = _listaColonias.SingleOrDefault(r => r.IDCOLONIA == idColonia);
             if (colonia != null) txbCodigoPostal.Text = colonia.CODIGOPOSTAL.ToString();
             txbCodigoPostal.ForeColor = Color.ForestGreen;
+            btnRegistrar.Enabled = true;
+        }
+
+        #endregion
+
+        #region Operacion Medios Electronicos
+
+        private void btnVerificarCorreo_Click(object sender, EventArgs e)
+        {
+            var usuario = tbxCorreoUniversidad.Text + lblDominio.Text;
+            _serviciosPersonas.ExisteCorreoUniversidad(usuario);
+            _serviciosPersonas.ExisteCorreoUniversidadFinalizado += _serviciosPersonas_ExisteCorreoUniversidad;
+        }
+
+        private void _serviciosPersonas_ExisteCorreoUniversidad(bool existeCorreo)
+        {
+            if (existeCorreo)
+            {
+                MessageBox.Show(text: @"El correo no esta disponible",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
+                tbxCorreoUniversidad.ForeColor = Color.Red;
+
+                btnRegistrar.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show(text: @"El correo esta disponible",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
+                tbxCorreoUniversidad.ForeColor = Color.ForestGreen;
+
+                btnRegistrar.Enabled = true;
+            }
+
+            _serviciosPersonas.ExisteCorreoUniversidadFinalizado -= _serviciosPersonas_ExisteCorreoUniversidad;
+        }
+
+        #endregion
+
+        #region Operaciones Fotografia
+
+        #region Cargar imagen
+
+        private void btnBuscarImagen_Click(object sender, EventArgs e)
+        {
+            ofdRutaFotografia.ShowDialog();
+        }
+
+        private void ofdRutaFotografia_FileOk(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                var ruta = ((OpenFileDialog)sender).FileName;
+                tbxRutaImagen.Text = ruta;
+                var imagen = Image.FromFile(ruta);
+                pcbFotografia.Image = imagen;
+                var archivoStream = new MemoryStream();
+                pcbFotografia.Image.Save(archivoStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                _fotografiaBinarios = new byte[archivoStream.Length];
+
+                btnCargarFotografia.Enabled = true;
+                rbImagen.Enabled = true;
+                rbImagen.Select();
+
+                var diagonal = 0;
+                int i;
+
+                for (i = 0; i < ruta.Length; i++)
+                {
+                    var caracter = ruta[i];
+                    if (caracter == '\\')
+                        diagonal = i;
+                }
+
+                ruta = ruta.Remove(0, diagonal + 1);
+
+                var punto = 0;
+
+                for (i = 0; i < ruta.Length; i++)
+                {
+                    var caracter = ruta[i];
+                    if (caracter == '.')
+                        punto = i;
+                }
+                var extencion = ruta.Length - punto;
+
+                _nombreFotografia = ruta.Remove(punto, extencion);
+
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(@"El archivo no es valido");
+            }
+        }
+
+        private void btnCargarFotografia_Click(object sender, EventArgs e)
+        {
+            if (rbImagen.Enabled && rbImagen.Checked)
+            {
+                _personaFotografia = new PER_FOTOGRAFIA
+                {
+                    EXTENCION = System.Drawing.Imaging.ImageFormat.Jpeg.ToString(),
+                    FOTOGRAFIA = _fotografiaBinarios,
+                    LONGITUD = _fotografiaBinarios.Length,
+                    NOMBRE = _nombreFotografia
+                };
+            }
+            else if (rbCamara.Enabled && rbCamara.Checked)
+            {
+
+            }
         }
 
         #endregion
@@ -288,8 +399,6 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
                 btnActivar.Enabled = true;
                 btnDetener.Enabled = true;
-                btnTomarFoto.Enabled = true;
-                rbCamara.Enabled = true;
             }
         }
 
@@ -397,6 +506,12 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 EnumeratedSupportedFrameSizes(videoDevice);
             }
         }
+        private void btnActualizaDispositivos_Click(object sender, EventArgs e)
+        {
+            ActualizaDispositivos();
+        }
+
+        #endregion
 
         #endregion
 
@@ -429,6 +544,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "Correcto");
+                btnRegistrar.Enabled = true;
             }
             else if (cadenaPermitida.IsMatch(textbox.Text) && textbox.Text.Length >= 30)
             {
@@ -441,6 +557,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "Solo se permiten letras");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -455,18 +572,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(tbxCurp, "");
                 erpCuidado.SetError(tbxCurp, "");
                 erpCorrecto.SetError(tbxCurp, "Correcto");
+                btnRegistrar.Enabled = true;
             }
             else if (string.IsNullOrEmpty(tbxCurp.Text))
             {
                 erpError.SetError(tbxCurp, "");
                 erpCuidado.SetError(tbxCurp, "Es recomendable ingresar el CURP");
                 erpCorrecto.SetError(tbxCurp, "");
+                btnRegistrar.Enabled = true;
             }
             else if (!cadenaPermitida.IsMatch(tbxCurp.Text))
             {
                 erpError.SetError(tbxCurp, "El Formato del CURP es incorreto");
                 erpCuidado.SetError(tbxCurp, "");
                 erpCorrecto.SetError(tbxCurp, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -480,18 +600,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(tbxRfc, "");
                 erpCuidado.SetError(tbxRfc, "");
                 erpCorrecto.SetError(tbxRfc, "Correcto");
+                btnRegistrar.Enabled = true;
             }
             else if (string.IsNullOrEmpty(tbxRfc.Text))
             {
                 erpError.SetError(tbxRfc, "");
                 erpCuidado.SetError(tbxRfc, "Es recomendable ingresar el RFC");
                 erpCorrecto.SetError(tbxRfc, "");
+                btnRegistrar.Enabled = true;
             }
             else if (!cadenaPermitida.IsMatch(tbxRfc.Text))
             {
                 erpError.SetError(tbxRfc, "El Formato del RFC es incorreto");
                 erpCuidado.SetError(tbxRfc, "");
                 erpCorrecto.SetError(tbxRfc, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -505,18 +628,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(tbxNss, "");
                 erpCuidado.SetError(tbxNss, "");
                 erpCorrecto.SetError(tbxNss, "Correcto");
+                btnRegistrar.Enabled = true;
             }
             else if (string.IsNullOrEmpty(tbxNss.Text))
             {
                 erpError.SetError(tbxNss, "");
                 erpCuidado.SetError(tbxNss, "Es recomendable ingresar el Numero de seguro social");
                 erpCorrecto.SetError(tbxNss, "");
+                btnRegistrar.Enabled = true;
             }
             else if (!cadenaPermitida.IsMatch(tbxNss.Text))
             {
                 erpError.SetError(tbxNss, "El Formato del NSS es incorreto suele ser de once digitos");
                 erpCuidado.SetError(tbxNss, "");
                 erpCorrecto.SetError(tbxNss, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -533,18 +659,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "Correcto");
+                btnRegistrar.Enabled = true;
             }
-            else if (textbox.Text.Length >= 5)
+            else if (textbox.Text.Length >= 50)
             {
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "El texto ingresado es muy largo");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = false;
             }
             else if (string.IsNullOrEmpty(textbox.Text))
             {
                 erpError.SetError(textbox, "Se debe ingresar la calle");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -557,6 +686,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "Correcto");
+                btnRegistrar.Enabled = true;
             }
 
             else if (string.IsNullOrEmpty(textbox.Text))
@@ -564,6 +694,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "Se debe ingresar el No Exterior");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -576,6 +707,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "Correcto");
+                btnRegistrar.Enabled = true;
             }
 
             else if (string.IsNullOrEmpty(textbox.Text))
@@ -585,6 +717,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                     "Es recomendable que se ingresar el No Interior" + Environment.NewLine +
                     "En caso de no contar con una puede dejarlo en blanco");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = true;
             }
         }
 
@@ -594,30 +727,30 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void tbxTelFijoDomicilio_Validating(object sender, CancelEventArgs e)
         {
-            var cadenaPermitida = new Regex(@"\d{3}-? *-?\d{4}");
+            var cadenaPermitida = new Regex(@"\(?\d{2,3}\)?-? *\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
         private void tbxTelFijoTrabajo_Validating(object sender, CancelEventArgs e)
         {
-            var cadenaPermitida = new Regex(@"\d{3}-? *-?\d{4}");
+            var cadenaPermitida = new Regex(@"\(?\d{2,3}\)?-? *\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
 
         private void tbxTelCelPersonal_Validating(object sender, CancelEventArgs e)
         {
-            var cadenaPermitida = new Regex(@"\(?\d{2}\)?-? *\d{3}-? *-?\d{4}");
+            var cadenaPermitida = new Regex(@"\(?\d{2,3}\)?-? *\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
 
         private void tbxCelTrabajo_Validating(object sender, CancelEventArgs e)
         {
-            var cadenaPermitida = new Regex(@"\(?\d{2}\)?-? *\d{3}-? *-?\d{4}");
+            var cadenaPermitida = new Regex(@"\(?\d{2,3}\)?-? *\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
 
         private void tbxFax_Validating(object sender, CancelEventArgs e)
         {
-            var cadenaPermitida = new Regex(@"\d{3}-? *-?\d{4}");
+            var cadenaPermitida = new Regex(@"\(?\d{2,3}\)?-? *\d{3}-? *-?\d{4}");
             ValidaTelefonos(sender, e, cadenaPermitida);
         }
 
@@ -630,18 +763,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "Correcto");
+                btnRegistrar.Enabled = true;
             }
             else if (textbox.Text.Length == 0)
             {
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "Es recomendable ingresar un telefono");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = true;
             }
             else if (!cadenaPermitida.IsMatch(textbox.Text))
             {
                 erpError.SetError(textbox, "Solo se permiten letras");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = false;
             }
         }
 
@@ -659,18 +795,21 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "Correcto");
+                btnRegistrar.Enabled = true;
             }
             else if (textbox.Text.Length == 0)
             {
                 erpError.SetError(textbox, "");
                 erpCuidado.SetError(textbox, "Es recomendable ingresar el correo electronico personal");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = true;
             }
             else if (!cadenaPermitida.IsMatch(textbox.Text))
             {
                 erpError.SetError(textbox, "El correo no es valido");
                 erpCuidado.SetError(textbox, "");
                 erpCorrecto.SetError(textbox, "");
+                btnRegistrar.Enabled = false;
             }
         }
 

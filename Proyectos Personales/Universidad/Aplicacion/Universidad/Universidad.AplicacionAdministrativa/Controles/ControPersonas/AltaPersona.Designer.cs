@@ -96,7 +96,7 @@
             this.tbpFotografia = new System.Windows.Forms.TabPage();
             this.gbFoto = new System.Windows.Forms.GroupBox();
             this.gbCargarFoto = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCargarFotografia = new System.Windows.Forms.Button();
             this.rbCamara = new System.Windows.Forms.RadioButton();
             this.rbImagen = new System.Windows.Forms.RadioButton();
             this.gbImagen = new System.Windows.Forms.GroupBox();
@@ -122,6 +122,7 @@
             this.erpError = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCuidado = new System.Windows.Forms.ErrorProvider(this.components);
             this.erpCorrecto = new System.Windows.Forms.ErrorProvider(this.components);
+            this.ofdRutaFotografia = new System.Windows.Forms.OpenFileDialog();
             this.tbcRegistroPersonal.SuspendLayout();
             this.tbpDatosPersonales.SuspendLayout();
             this.tbpDireccion.SuspendLayout();
@@ -772,7 +773,7 @@
             // 
             // gbCargarFoto
             // 
-            this.gbCargarFoto.Controls.Add(this.button1);
+            this.gbCargarFoto.Controls.Add(this.btnCargarFotografia);
             this.gbCargarFoto.Controls.Add(this.rbCamara);
             this.gbCargarFoto.Controls.Add(this.rbImagen);
             this.gbCargarFoto.Location = new System.Drawing.Point(24, 310);
@@ -782,14 +783,15 @@
             this.gbCargarFoto.TabStop = false;
             this.gbCargarFoto.Text = "Cargar Fotografia";
             // 
-            // button1
+            // btnCargarFotografia
             // 
-            this.button1.Location = new System.Drawing.Point(243, 19);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(113, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Cargar Fotografia";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCargarFotografia.Location = new System.Drawing.Point(243, 19);
+            this.btnCargarFotografia.Name = "btnCargarFotografia";
+            this.btnCargarFotografia.Size = new System.Drawing.Size(113, 23);
+            this.btnCargarFotografia.TabIndex = 7;
+            this.btnCargarFotografia.Text = "Cargar Fotografia";
+            this.btnCargarFotografia.UseVisualStyleBackColor = true;
+            this.btnCargarFotografia.Click += new System.EventHandler(this.btnCargarFotografia_Click);
             // 
             // rbCamara
             // 
@@ -833,6 +835,7 @@
             this.btnBuscarImagen.TabIndex = 2;
             this.btnBuscarImagen.Text = "Buscar";
             this.btnBuscarImagen.UseVisualStyleBackColor = true;
+            this.btnBuscarImagen.Click += new System.EventHandler(this.btnBuscarImagen_Click);
             // 
             // lblRutaImagen
             // 
@@ -930,6 +933,7 @@
             this.btnActualizaDispositivos.TabIndex = 7;
             this.btnActualizaDispositivos.Text = "Actualiza Dispositivos";
             this.btnActualizaDispositivos.UseVisualStyleBackColor = true;
+            this.btnActualizaDispositivos.Click += new System.EventHandler(this.btnActualizaDispositivos_Click);
             // 
             // btnDetener
             // 
@@ -974,6 +978,7 @@
             this.pcbFotografia.Location = new System.Drawing.Point(24, 31);
             this.pcbFotografia.Name = "pcbFotografia";
             this.pcbFotografia.Size = new System.Drawing.Size(374, 268);
+            this.pcbFotografia.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pcbFotografia.TabIndex = 0;
             this.pcbFotografia.TabStop = false;
             // 
@@ -1021,6 +1026,10 @@
             // 
             this.erpCorrecto.ContainerControl = this;
             this.erpCorrecto.Icon = ((System.Drawing.Icon)(resources.GetObject("erpCorrecto.Icon")));
+            // 
+            // ofdRutaFotografia
+            // 
+            this.ofdRutaFotografia.FileOk += new System.ComponentModel.CancelEventHandler(this.ofdRutaFotografia_FileOk);
             // 
             // AltaPersona
             // 
@@ -1133,7 +1142,7 @@
         private System.Windows.Forms.GroupBox Camaras;
         private System.Windows.Forms.ComboBox cbxCamaraDisp;
         private System.Windows.Forms.GroupBox gbCargarFoto;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCargarFotografia;
         private System.Windows.Forms.RadioButton rbCamara;
         private System.Windows.Forms.RadioButton rbImagen;
         private System.Windows.Forms.GroupBox gbImagen;
@@ -1154,6 +1163,7 @@
         private System.Windows.Forms.ErrorProvider erpCuidado;
         private System.Windows.Forms.ErrorProvider erpCorrecto;
         private System.Windows.Forms.Button btnBuscarCp;
+        private System.Windows.Forms.OpenFileDialog ofdRutaFotografia;
 
     }
 }
