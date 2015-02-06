@@ -12,7 +12,7 @@ namespace Universidad.LogicaNegocios.Personas
     {
         public bool ExisteCorreoUniversidad(string correo)
         {
-            return new MediosElectronicos().ExisteCorreoUniversidad(correo);
+            return new AccesoDatos.Personas.MediosElectronicos().ExisteCorreoUniversidadLinq(correo);
         }
     }
 }

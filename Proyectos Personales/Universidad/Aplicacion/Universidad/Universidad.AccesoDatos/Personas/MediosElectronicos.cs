@@ -20,7 +20,7 @@ namespace Universidad.AccesoDatos.Personas
                 lista = aux.Filtro(r => r.CORREO_ELECTRONICO_UNIVERSIDAD == correo);
             }
 
-            return lista != null;
+            return lista.Count != 0;
         }
     }
 }

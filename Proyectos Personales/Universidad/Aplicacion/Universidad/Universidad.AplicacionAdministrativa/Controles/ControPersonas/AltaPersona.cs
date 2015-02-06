@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Universidad.AplicacionAdministrativa.Vistas;
 using Universidad.Controlador.GestionCatalogos;
+using Universidad.Controlador.Personas;
 using Universidad.Entidades.ControlUsuario;
 using Universidad.Entidades;
 using AForge.Video;
@@ -25,6 +26,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private Evento _eventos;
         private readonly Sesion _sesion;
         private readonly SVC_GestionCatalogos _servicioCatalogos;
+        private readonly SvcPersonas _serviciosPersonas;
 
         private List<DIR_CAT_COLONIAS> _listaColonias;
         private List<DIR_CAT_ESTADO> _listaEstados;
@@ -39,6 +41,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         {
             _sesion = sesion;
             _servicioCatalogos = new SVC_GestionCatalogos(_sesion);
+            _serviciosPersonas = new SvcPersonas(_sesion);
             InitializeComponent();
         }
 
@@ -56,10 +59,31 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void btnVerificarCorreo_Click(object sender, EventArgs e)
         {
-            var usuario = tbxCorreoUniversidad.Text;
-            
-
+            var usuario = tbxCorreoUniversidad.Text + lblDominio.Text;
+            _serviciosPersonas.ExisteCorreoUniversidad(usuario);
+            _serviciosPersonas.ExisteCorreoUniversidadFinalizado += _serviciosPersonas_ExisteCorreoUniversidad;
         }
+
+        private void _serviciosPersonas_ExisteCorreoUniversidad(bool existeCorreo)
+        {
+            if (existeCorreo)
+            {
+                MessageBox.Show(text: @"El correo no esta disponible",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
+                tbxCorreoUniversidad.ForeColor = Color.Red;
+            }
+            else
+            {
+                MessageBox.Show(text: @"El correo esta disponible",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
+                tbxCorreoUniversidad.ForeColor = Color.ForestGreen;
+            }
+
+            _serviciosPersonas.ExisteCorreoUniversidadFinalizado -= _serviciosPersonas_ExisteCorreoUniversidad;
+        }
+
 
         #endregion
 
@@ -623,10 +647,32 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         #endregion
 
-        
-
         #region Validacion Medios Electronicos
 
+        private void txbCorreoPersonal_Validating(object sender, CancelEventArgs e)
+        {
+            var cadenaPermitida = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            var textbox = (TextBox)sender;
+
+            if (cadenaPermitida.IsMatch(textbox.Text))
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "Correcto");
+            }
+            else if (textbox.Text.Length == 0)
+            {
+                erpError.SetError(textbox, "");
+                erpCuidado.SetError(textbox, "Es recomendable ingresar el correo electronico personal");
+                erpCorrecto.SetError(textbox, "");
+            }
+            else if (!cadenaPermitida.IsMatch(textbox.Text))
+            {
+                erpError.SetError(textbox, "El correo no es valido");
+                erpCuidado.SetError(textbox, "");
+                erpCorrecto.SetError(textbox, "");
+            }
+        }
 
         #endregion
 

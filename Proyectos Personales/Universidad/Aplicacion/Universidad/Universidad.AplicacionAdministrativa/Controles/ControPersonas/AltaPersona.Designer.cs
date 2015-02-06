@@ -578,6 +578,7 @@
             this.txbCorreoPersonal.Name = "txbCorreoPersonal";
             this.txbCorreoPersonal.Size = new System.Drawing.Size(371, 20);
             this.txbCorreoPersonal.TabIndex = 7;
+            this.txbCorreoPersonal.Validating += new System.ComponentModel.CancelEventHandler(this.txbCorreoPersonal_Validating);
             // 
             // btnVerificarCorreo
             // 
