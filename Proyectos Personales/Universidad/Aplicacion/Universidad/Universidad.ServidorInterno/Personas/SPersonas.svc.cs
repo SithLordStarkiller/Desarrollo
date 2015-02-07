@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using Universidad.Entidades;
 using Universidad.LogicaNegocios;
 using Universidad.LogicaNegocios.Personas;
 
@@ -16,6 +17,11 @@ namespace Universidad.ServidorInterno.Personas
         public bool ExisteCorreoUniversidad(string correo)
         {
             return new MediosElectronicos().ExisteCorreoUniversidad(correo);
+        }
+
+        public PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+        {
+            return new MediosElectronicos().InsertaMediosElectronicos(mediosElectronicos);
         }
     }
 }

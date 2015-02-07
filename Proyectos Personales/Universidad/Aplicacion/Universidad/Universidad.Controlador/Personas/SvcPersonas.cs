@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Universidad.Controlador.SVRPersonas;
+using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.Controlador.Personas
@@ -39,6 +40,27 @@ namespace Universidad.Controlador.Personas
             var resultado = e.Result;
             ExisteCorreoUniversidadFinalizado(resultado);
             _servicio.ExisteCorreoUniversidadCompleted -= _servicio_ExisteCorreoUniversidadCompleted;
+        }
+
+        #endregion
+
+        #region Inserta medios electronicos
+
+        public delegate void InsertaMediosElectronicosArgs(PER_MEDIOS_ELECTRONICOS mediosElectronicos);
+
+        public event InsertaMediosElectronicosArgs InsertaMediosElectronicosFinalizado;
+
+        public void InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+        {
+            _servicio.InsertaMediosElectronicosCompleted +=_servicio_InsertaMediosElectronicosCompleted;
+            _servicio.InsertaMediosElectronicosAsync(mediosElectronicos);
+        }
+
+        private void _servicio_InsertaMediosElectronicosCompleted(object sender, InsertaMediosElectronicosCompletedEventArgs e)
+        {
+            var resultado = e.Result;
+            InsertaMediosElectronicosFinalizado(resultado);
+            _servicio.InsertaMediosElectronicosCompleted -= _servicio_InsertaMediosElectronicosCompleted;
         }
 
         #endregion

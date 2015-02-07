@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using Universidad.Entidades;
 
 namespace Universidad.ServidorInterno.Personas
 {
@@ -13,5 +14,8 @@ namespace Universidad.ServidorInterno.Personas
     {
         [OperationContract]
         bool ExisteCorreoUniversidad(string correo);
+
+        [OperationContract]
+        PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos);
     }
 }

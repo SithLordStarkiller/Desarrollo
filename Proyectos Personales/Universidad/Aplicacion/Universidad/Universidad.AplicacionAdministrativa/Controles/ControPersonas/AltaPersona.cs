@@ -91,15 +91,26 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             return null;
         }
 
-        private PER_FOTOGRAFIA InsertaFotografia()
+        private void InsertaMediosElectronicos()
         {
-            return null;
+            _personaMediosElectronicos = new PER_MEDIOS_ELECTRONICOS()
+            {
+                CORREO_ELECTRONICO_UNIVERSIDAD = tbxCorreoUniversidad.Text + lblDominio.Text,
+                CORREO_ELECTRONICO_PERSONAL = txbCorreoPersonal.Text,
+                TWITTER = string.IsNullOrWhiteSpace(tbxTwitter.Text) ? null : tbxTwitter.Text,
+                FACEBOOK = string.IsNullOrWhiteSpace(tbxFacebook.Text) ? null : tbxFacebook.Text
+            };
+
+            _serviciosPersonas.InsertaMediosElectronicos(_personaMediosElectronicos);
+            _serviciosPersonas.InsertaMediosElectronicosFinalizado += delegate(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+            {
+                _personaMediosElectronicos = mediosElectronicos;
+            };
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            var idFotografia = 
-            ObtenDatosPersonas();
+            InsertaMediosElectronicos();
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)

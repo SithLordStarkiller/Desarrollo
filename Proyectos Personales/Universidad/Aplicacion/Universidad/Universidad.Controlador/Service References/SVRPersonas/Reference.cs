@@ -22,6 +22,14 @@ namespace Universidad.Controlador.SVRPersonas {
         System.IAsyncResult BeginExisteCorreoUniversidad(string correo, System.AsyncCallback callback, object asyncState);
         
         bool EndExisteCorreoUniversidad(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
+        Universidad.Entidades.PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
+        System.IAsyncResult BeginInsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos, System.AsyncCallback callback, object asyncState);
+        
+        Universidad.Entidades.PER_MEDIOS_ELECTRONICOS EndInsertaMediosElectronicos(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,6 +57,25 @@ namespace Universidad.Controlador.SVRPersonas {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class InsertaMediosElectronicosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public InsertaMediosElectronicosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Universidad.Entidades.PER_MEDIOS_ELECTRONICOS)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SPersonasClient : System.ServiceModel.ClientBase<Universidad.Controlador.SVRPersonas.ISPersonas>, Universidad.Controlador.SVRPersonas.ISPersonas {
         
         private BeginOperationDelegate onBeginExisteCorreoUniversidadDelegate;
@@ -56,6 +83,12 @@ namespace Universidad.Controlador.SVRPersonas {
         private EndOperationDelegate onEndExisteCorreoUniversidadDelegate;
         
         private System.Threading.SendOrPostCallback onExisteCorreoUniversidadCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginInsertaMediosElectronicosDelegate;
+        
+        private EndOperationDelegate onEndInsertaMediosElectronicosDelegate;
+        
+        private System.Threading.SendOrPostCallback onInsertaMediosElectronicosCompletedDelegate;
         
         public SPersonasClient() {
         }
@@ -77,6 +110,8 @@ namespace Universidad.Controlador.SVRPersonas {
         }
         
         public event System.EventHandler<ExisteCorreoUniversidadCompletedEventArgs> ExisteCorreoUniversidadCompleted;
+        
+        public event System.EventHandler<InsertaMediosElectronicosCompletedEventArgs> InsertaMediosElectronicosCompleted;
         
         public bool ExisteCorreoUniversidad(string correo) {
             return base.Channel.ExisteCorreoUniversidad(correo);
@@ -126,6 +161,56 @@ namespace Universidad.Controlador.SVRPersonas {
             }
             base.InvokeAsync(this.onBeginExisteCorreoUniversidadDelegate, new object[] {
                         correo}, this.onEndExisteCorreoUniversidadDelegate, this.onExisteCorreoUniversidadCompletedDelegate, userState);
+        }
+        
+        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
+            return base.Channel.InsertaMediosElectronicos(mediosElectronicos);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginInsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginInsertaMediosElectronicos(mediosElectronicos, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS EndInsertaMediosElectronicos(System.IAsyncResult result) {
+            return base.Channel.EndInsertaMediosElectronicos(result);
+        }
+        
+        private System.IAsyncResult OnBeginInsertaMediosElectronicos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos = ((Universidad.Entidades.PER_MEDIOS_ELECTRONICOS)(inValues[0]));
+            return this.BeginInsertaMediosElectronicos(mediosElectronicos, callback, asyncState);
+        }
+        
+        private object[] OnEndInsertaMediosElectronicos(System.IAsyncResult result) {
+            Universidad.Entidades.PER_MEDIOS_ELECTRONICOS retVal = this.EndInsertaMediosElectronicos(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnInsertaMediosElectronicosCompleted(object state) {
+            if ((this.InsertaMediosElectronicosCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.InsertaMediosElectronicosCompleted(this, new InsertaMediosElectronicosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
+            this.InsertaMediosElectronicosAsync(mediosElectronicos, null);
+        }
+        
+        public void InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos, object userState) {
+            if ((this.onBeginInsertaMediosElectronicosDelegate == null)) {
+                this.onBeginInsertaMediosElectronicosDelegate = new BeginOperationDelegate(this.OnBeginInsertaMediosElectronicos);
+            }
+            if ((this.onEndInsertaMediosElectronicosDelegate == null)) {
+                this.onEndInsertaMediosElectronicosDelegate = new EndOperationDelegate(this.OnEndInsertaMediosElectronicos);
+            }
+            if ((this.onInsertaMediosElectronicosCompletedDelegate == null)) {
+                this.onInsertaMediosElectronicosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnInsertaMediosElectronicosCompleted);
+            }
+            base.InvokeAsync(this.onBeginInsertaMediosElectronicosDelegate, new object[] {
+                        mediosElectronicos}, this.onEndInsertaMediosElectronicosDelegate, this.onInsertaMediosElectronicosCompletedDelegate, userState);
         }
     }
 }

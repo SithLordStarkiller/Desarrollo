@@ -22,5 +22,13 @@ namespace Universidad.AccesoDatos.Personas
 
             return lista.Count != 0;
         }
+
+        public PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicosLinq(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+        {
+            using (var r = new Repositorio<PER_MEDIOS_ELECTRONICOS>())
+            {
+                return r.Agregar(mediosElectronicos);
+            }
+        }
     }
 }

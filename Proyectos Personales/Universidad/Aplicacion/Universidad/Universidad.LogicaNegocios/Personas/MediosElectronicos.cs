@@ -14,5 +14,10 @@ namespace Universidad.LogicaNegocios.Personas
         {
             return new AccesoDatos.Personas.MediosElectronicos().ExisteCorreoUniversidadLinq(correo);
         }
+
+        public PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+        {
+            return new AccesoDatos.Personas.MediosElectronicos().InsertaMediosElectronicosLinq(mediosElectronicos);
+        }
     }
 }
