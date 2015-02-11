@@ -30,5 +30,18 @@ namespace Universidad.AccesoDatos.Personas
                 return r.Agregar(mediosElectronicos);
             }
         }
+
+        public Task<PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosLinqAsync(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+        {
+            return Task.Run(() =>
+            {
+                {
+                    using (var r = new Repositorio<PER_MEDIOS_ELECTRONICOS>())
+                    {
+                        return r.Agregar(mediosElectronicos);
+                    }
+                }
+            });
+        }
     }
 }

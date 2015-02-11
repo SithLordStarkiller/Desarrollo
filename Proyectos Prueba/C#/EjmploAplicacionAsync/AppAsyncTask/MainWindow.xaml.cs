@@ -25,7 +25,7 @@ namespace AppAsyncTask
             InitializeComponent();
         }
 
-        private Task<IEnumerable<String>> ObtenerArchivosAsync()
+        private Task<List<String>> ObtenerArchivosAsync()
         {
             return Task.Run(() =>
             {
@@ -33,7 +33,7 @@ namespace AppAsyncTask
                 var archivos = from archivo in
                                    System.IO.Directory.GetFiles(@"C:\Windows\System32")
                                select archivo;
-                return archivos;
+                return archivos.ToList();
             });
         }
 
