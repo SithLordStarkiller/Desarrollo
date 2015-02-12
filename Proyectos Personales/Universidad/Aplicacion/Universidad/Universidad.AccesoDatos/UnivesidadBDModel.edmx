@@ -149,7 +149,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <PropertyRef Name="ID_PER_LINKID" />
           </Key>
           <Property Name="ID_PERSONA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_PER_LINKID" Type="int" Nullable="false" />
+          <Property Name="ID_PER_LINKID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDDIRECCION" Type="int" />
           <Property Name="CVE_NACIONALIDAD" Type="int" />
           <Property Name="ID_TELEFONOS" Type="int" />
@@ -162,6 +162,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="A_MATERNO" Type="varchar" MaxLength="50" />
           <Property Name="NOMBRE_COMPLETO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="FECHA_NAC" Type="datetime" Nullable="false" />
+          <Property Name="FECHAINGRESO" Type="datetime" Nullable="false" />
           <Property Name="SEXO" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="CURP" Type="varchar" MaxLength="30" />
           <Property Name="RFC" Type="varchar" MaxLength="30" />
@@ -848,7 +849,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <PropertyRef Name="ID_PER_LINKID" />
           </Key>
           <Property Name="ID_PERSONA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_PER_LINKID" Type="Int32" Nullable="false" />
+          <Property Name="ID_PER_LINKID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDDIRECCION" Type="Int32" />
           <Property Name="CVE_NACIONALIDAD" Type="Int32" />
           <Property Name="ID_TELEFONOS" Type="Int32" />
@@ -861,6 +862,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="A_MATERNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="NOMBRE_COMPLETO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FECHA_NAC" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FECHAINGRESO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="SEXO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="CURP" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="RFC" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
@@ -1349,6 +1351,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
                 <ScalarProperty Name="RFC" ColumnName="RFC" />
                 <ScalarProperty Name="CURP" ColumnName="CURP" />
                 <ScalarProperty Name="SEXO" ColumnName="SEXO" />
+                <ScalarProperty Name="FECHAINGRESO" ColumnName="FECHAINGRESO" />
                 <ScalarProperty Name="FECHA_NAC" ColumnName="FECHA_NAC" />
                 <ScalarProperty Name="NOMBRE_COMPLETO" ColumnName="NOMBRE_COMPLETO" />
                 <ScalarProperty Name="A_MATERNO" ColumnName="A_MATERNO" />

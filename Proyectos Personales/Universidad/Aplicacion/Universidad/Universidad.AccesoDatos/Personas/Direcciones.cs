@@ -18,5 +18,16 @@ namespace Universidad.AccesoDatos.Personas
                 return r.Agregar(direcciones);
             }
         }
+
+        public Task<DIR_DIRECCIONES> InsertaDireccionesLinqAsync(DIR_DIRECCIONES direcciones)
+        {
+            return Task.Run(() =>
+            {
+                using (var r = new Repositorio<DIR_DIRECCIONES>())
+                {
+                    return r.Agregar(direcciones);
+                }
+            });
+        }
     }
 }

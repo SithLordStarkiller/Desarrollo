@@ -15,7 +15,7 @@ namespace Universidad.Entidades
     public partial class PER_PERSONAS
     {
         public int ID_PERSONA { get; set; }
-        public int ID_PER_LINKID { get; set; }
+        public string ID_PER_LINKID { get; set; }
         public Nullable<int> IDDIRECCION { get; set; }
         public Nullable<int> CVE_NACIONALIDAD { get; set; }
         public Nullable<int> ID_TELEFONOS { get; set; }
@@ -28,6 +28,7 @@ namespace Universidad.Entidades
         public string A_MATERNO { get; set; }
         public string NOMBRE_COMPLETO { get; set; }
         public System.DateTime FECHA_NAC { get; set; }
+        public System.DateTime FECHAINGRESO { get; set; }
         public string SEXO { get; set; }
         public string CURP { get; set; }
         public string RFC { get; set; }

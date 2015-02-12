@@ -1,4 +1,5 @@
 ﻿
+using System.Threading.Tasks;
 using Universidad.Entidades;
 
 namespace Universidad.AccesoDatos.Personas
@@ -7,12 +8,24 @@ namespace Universidad.AccesoDatos.Personas
     {
         private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
 
-        public PER_CAT_TELEFONOS InsertaDireccionesLinq(PER_CAT_TELEFONOS personaTelefonos)
+        public PER_CAT_TELEFONOS InsertaTelefonosLinq(PER_CAT_TELEFONOS personaTelefonos)
         {
             using (var r = new Repositorio<PER_CAT_TELEFONOS>())
             {
                 return r.Agregar(personaTelefonos);
             }
         }
+
+         public Task<PER_CAT_TELEFONOS> InsertaDireccionesLinqAsync(PER_CAT_TELEFONOS personaTelefonos)
+         {
+             return Task.Run(() =>
+             {
+                 using (var r = new Repositorio<PER_CAT_TELEFONOS>())
+                 {
+                     return r.Agregar(personaTelefonos);
+                 }
+             });
+         }
+        
     }
 }

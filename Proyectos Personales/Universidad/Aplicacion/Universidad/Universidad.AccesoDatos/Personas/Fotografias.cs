@@ -18,5 +18,16 @@ namespace Universidad.AccesoDatos.Personas
                 return r.Agregar(personaFotografia);
             }
         }
+
+        public Task<PER_FOTOGRAFIA> InsertaFotografiaLinqAsync(PER_FOTOGRAFIA personaFotografia)
+        {
+            return Task.Run(() =>
+            {
+                using (var r = new Repositorio<PER_FOTOGRAFIA>())
+                {
+                    return r.Agregar(personaFotografia);
+                }
+            });
+        }
     }
 }

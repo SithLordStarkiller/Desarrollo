@@ -25,9 +25,10 @@ namespace Universidad.ServidorInterno.Personas
         }
 
         public PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos,
-            PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona)
+            PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona,DIR_DIRECCIONES personaDirecciones)
         {
-            return new Persona().InsertarPersona(personaTelefonos, personaMediosElectronicos, personaFotografia, persona);
+            return new Persona().InsertarPersona(personaTelefonos, personaMediosElectronicos, personaFotografia, persona,
+                personaDirecciones);
         }
     }
 }
