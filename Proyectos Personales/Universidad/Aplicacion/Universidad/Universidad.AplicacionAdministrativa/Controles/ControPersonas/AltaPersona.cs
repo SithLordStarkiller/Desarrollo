@@ -88,6 +88,9 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private async void btnRegistrar_Click(object sender, EventArgs e)
         {
+            var barraProgreso = (((StatusStrip)((Form)(this).Parent.Parent.Parent.GetContainerControl()).Controls["StatusStrip1"])).Items["tspProgreso"] as ToolStripProgressBar;
+            var labelStatus = (((StatusStrip)((Form)(this).Parent.Parent.Parent.GetContainerControl()).Controls["StatusStrip1"])).Items["tsslInformacion"] as ToolStripStatusLabel;
+
             try
             {
                 var msgResultado = MessageBox.Show(text: @"Esta seguro que decea guardar este usuario",
@@ -98,18 +101,36 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 {
                     case DialogResult.Yes:
 
+                        labelStatus.Text = @"Guardando Datos";
+                        barraProgreso.Maximum = 100;
+                        barraProgreso.Minimum = 1;
+                        barraProgreso.Value = 1;
+                        barraProgreso.Visible = true;
+
+                        barraProgreso.Value = 10;
                         CapturaDatosPersona();
+
+                        barraProgreso.Value = 20;
                         CapturaDireccionPersona();
+
+                        barraProgreso.Value = 30;
                         CapturaTelefonosPersona();
+
+                        barraProgreso.Value = 40;
                         CapturaMediosElectronicos();
 
+
+                        barraProgreso.Value = 70;
                         _personaDatos = await _serviciosPersonas.InsertarPersona(_personaTelefonos, _personaMediosElectronicos,
                             _personaFotografia, _personaDatos, _personaDireccion);
 
+                        barraProgreso.Value = 100;
                         MessageBox.Show(text: @"Se guardaron lo datos correctamente" + Environment.NewLine + @"La clave de identificacion es: " + _personaDatos.ID_PER_LINKID,
                           caption: @"Informacion al usuario", buttons: MessageBoxButtons.OK,
                           icon: MessageBoxIcon.Information);
-
+                        Limpiar();
+                        barraProgreso.Visible = false;
+                        labelStatus.Text = string.Empty;
                         break;
 
                     case DialogResult.No:
@@ -125,18 +146,62 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 MessageBox.Show(text: @"Error al guardar datos",
                           caption: @"Error de usuario", buttons: MessageBoxButtons.OK,
                           icon: MessageBoxIcon.Error);
-                btnRegistrar.Enabled = true;
             }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
+            Limpiar();
+        }
 
+
+        private void Limpiar()
+        {
+            txbNombre.Text = string.Empty;
+            tbxApellidoP.Text = string.Empty;
+            tbxApellidoM.Text = string.Empty;
+            tbxCurp.Text = string.Empty;
+            tbxRfc.Text = string.Empty;
+            tbxNss.Text = string.Empty;
+            dtpFechaNacimiento.Value = DateTime.Now.Date;
+            cbxNacionalidad.SelectedValue = 117;
+            cbxTipoPersona.SelectedValue = 1;
+
+            cbxEstado.SelectedValue = 1;
+            cbxMunicipio.DataSource = null;
+            cbxMunicipio.Enabled = false;
+            cbxColonia.DataSource = null;
+            cbxColonia.Enabled = false;
+            txbCodigoPostal.Text = string.Empty;
+            txbCodigoPostal.ForeColor = Color.Black;
+            txbCalle.Text = string.Empty;
+            tbxNoExt.Text = string.Empty;
+            tbxNoInt.Text = string.Empty;
+            tbxReferencias.Text = string.Empty;
+
+            tbxTelCelPersonal.Text = string.Empty;
+            tbxTelFijoDomicilio.Text = string.Empty;
+            tbxTelFijoTrabajo.Text = string.Empty;
+            tbxCelTrabajo.Text = string.Empty;
+            tbxFax.Text = string.Empty;
+
+            tbxCorreoUniversidad.Text = string.Empty;
+            tbxCorreoUniversidad.ForeColor = Color.Black;
+            txbCorreoPersonal.Text = string.Empty;
+            tbxFacebook.Text = string.Empty;
+            tbxTwitter.Text = string.Empty;
+
+            btnCargarFotografia.Enabled = false;
+            btnTomarFoto.Enabled = false;
+            rbCamara.Enabled = rbImagen.Enabled = false;
+            pcbFotografia.Image = null;
+
+            btnRegistrar.Enabled = false;
         }
 
         private void CapturaDatosPersona()
         {
-            _personaDatos= new PER_PERSONAS
+            _personaDatos = new PER_PERSONAS
             {
                 NOMBRE = txbNombre.Text,
                 A_PATERNO = tbxApellidoP.Text,
@@ -153,7 +218,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void CapturaDireccionPersona()
         {
-            _personaDireccion=new DIR_DIRECCIONES
+            _personaDireccion = new DIR_DIRECCIONES
             {
                 IDESTADO = Convert.ToInt32(cbxEstado.SelectedValue),
                 IDMUNICIPIO = Convert.ToInt32(cbxMunicipio.SelectedValue),
@@ -167,19 +232,19 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private void CapturaTelefonosPersona()
         {
-            _personaTelefonos=new PER_CAT_TELEFONOS
+            _personaTelefonos = new PER_CAT_TELEFONOS
             {
-                TELEFONO_FIJO_DOMICILIO = tbxTelFijoTrabajo.Text,
+                TELEFONO_FIJO_DOMICILIO = tbxTelFijoDomicilio.Text,
                 TELEFONO_FIJO_TRABAJO = tbxTelFijoTrabajo.Text,
                 TELEFONO_CELULAR_PERSONAL = tbxTelCelPersonal.Text,
-                TELEFONO_CELULAR_TRABAJO = tbxTelFijoTrabajo.Text,
+                TELEFONO_CELULAR_TRABAJO = tbxCelTrabajo.Text,
                 FAX = tbxFax.Text
             };
         }
 
         private void CapturaMediosElectronicos()
         {
-            _personaMediosElectronicos=new PER_MEDIOS_ELECTRONICOS
+            _personaMediosElectronicos = new PER_MEDIOS_ELECTRONICOS
             {
                 CORREO_ELECTRONICO_PERSONAL = txbCorreoPersonal.Text,
                 CORREO_ELECTRONICO_UNIVERSIDAD = tbxCorreoUniversidad.Text + lblDominio.Text,

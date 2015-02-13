@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.tsslInformacion = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tspProgreso = new System.Windows.Forms.ToolStripProgressBar();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archviToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,24 +47,23 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripProgressBar1});
+            this.tsslInformacion,
+            this.tspProgreso});
             this.statusStrip1.Location = new System.Drawing.Point(0, 666);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1228, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // tsslInformacion
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.tsslInformacion.Name = "tsslInformacion";
+            this.tsslInformacion.Size = new System.Drawing.Size(0, 17);
             // 
-            // toolStripProgressBar1
+            // tspProgreso
             // 
-            this.toolStripProgressBar1.Name = "toolStripProgressBar1";
-            this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
+            this.tspProgreso.Name = "tspProgreso";
+            this.tspProgreso.Size = new System.Drawing.Size(100, 16);
             // 
             // splitter1
             // 
@@ -171,8 +170,8 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.ToolStripStatusLabel tsslInformacion;
+        private System.Windows.Forms.ToolStripProgressBar tspProgreso;
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archviToolStripMenuItem;

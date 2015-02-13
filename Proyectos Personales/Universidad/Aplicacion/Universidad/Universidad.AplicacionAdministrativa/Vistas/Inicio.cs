@@ -26,7 +26,10 @@ namespace Universidad.AplicacionAdministrativa.Vistas
             _sesion = sesion;
 
             InitializeComponent();
-            CargarArbol(); 
+            CargarArbol();
+
+            tspProgreso.Visible = false;
+            tsslInformacion.Visible = false;
         }
 
         private void CargarArbol()
