@@ -11,11 +11,36 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLCargarCEPOMEX"
   DTS:PackageType="5"
-  DTS:VersionBuild="23"
-  DTS:VersionGUID="{1F49AAA2-047D-4066-B032-40DC18F5FFBF}">
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{31E0246D-6E2E-43D5-BC01-2750F2529E57}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DR5Q402\MSSQLSERVER2014.Universidad.sa]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F12822D6-E273-49A0-826D-86E3370CF076}"
+      DTS:ObjectName="DR5Q402\MSSQLSERVER2014.Universidad.sa">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DR5Q402\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA4rQ4EeZCYkWU4ycTZXy+TgAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACua0AIqEBNHbGWep4EZLiO8BEOaoiFc+qJUq2ZE81KzQAAAAAOgAAAAAIAACAAAADGdS6gu5nwAU/adnCH+P9bxIEjyZhaQTQNHKpae3hdgCAAAAAFqqfm8FSl+a4Sm95X0OaBn+xVixcDuRa5tfP5IX/UAEAAAABh/vAKk9aHUii2BYqRTRcCt+0mcObhLREJtDW8P+w/GAeu8p9jlpSpnW5ZlzJ04BMJy9uc67FAT87RnTCTgDrg</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Excel Connection Manager 1]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{B0844CF0-B62B-400B-B92F-0D60E9C4335C}"
+      DTS:ObjectName="Excel Connection Manager 1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Catalogos Sepomex\CPdescarga.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[InsertaCatalogosDireccionesETL.sql]"
       DTS:CreationName="FILE"
@@ -43,12 +68,7 @@
       DTS:ObjectName="STARKILLER\MSSQLSERVER2014.Universidad.sa1">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=STARKILLER\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAsIarKNlVXU28PsVY8W11jwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABGc/WMe+rPRfl1xUbziLpHkMf/lYmx88cIj6HoulN+0gAAAAAOgAAAAAIAACAAAABCz0ZkUciFR9d9U3/IiXQo8aHp9MB8QvZogvzbfdvf6iAAAAAIe24XPS3xSb64WJpe/g9+f4AwRm3DtNrF7ltPBMKbSEAAAACCsNzf8wBZiY0FOtpE6wO72HxO2KtemDBVRqcvfwhAmIxKTddui+HNlJUKGLlaq+/TEA0zVZBNtLe/rOPPVXcx</DTS:Password>
-        </DTS:ConnectionManager>
+          DTS:ConnectionString="Data Source=STARKILLER\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -67,7 +87,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
+          SQLTask:Connection="{F12822D6-E273-49A0-826D-86E3370CF076}"
           SQLTask:SqlStatementSource="DELETE FROM CEPOMEX&#xA;&#xA;SET IDENTITY_INSERT DIR_DIRECCIONES ON&#xA;   insert into DIR_DIRECCIONES (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES_R&#xA;      SET IDENTITY_INSERT DIR_DIRECCIONES OFF&#xA;&#x9;  drop table DIR_DIRECCIONES_R" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -84,7 +104,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
+          SQLTask:Connection="{F12822D6-E273-49A0-826D-86E3370CF076}"
           SQLTask:SqlStmtSourceType="FileConnection"
           SQLTask:SqlStatementSource="InsertaCatalogosDireccionesETL.sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
@@ -102,7 +122,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
+          SQLTask:Connection="{F12822D6-E273-49A0-826D-86E3370CF076}"
           SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDDELGMUNICIPIO      int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                int                  null,&#xA;   NOINT                int                  null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;   DELETE FROM DIR_DIRECCIONES&#xA;&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
@@ -163,8 +183,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Aguascalientes.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager 1]"
+                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager 1]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1342,8 +1362,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Aguascalientes.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -1602,8 +1622,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C BCN.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -1862,8 +1882,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C BCS.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2122,8 +2142,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Campeche.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2382,8 +2402,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Chiapas.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2642,8 +2662,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Chihuahua.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2902,8 +2922,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Coahuila.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3162,8 +3182,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Colima.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3422,8 +3442,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Distrito Federal.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3682,8 +3702,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Durango.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3942,8 +3962,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Edo Mexico.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4202,8 +4222,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Guanajuato.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4462,8 +4482,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Guerrero.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4722,8 +4742,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Hidalgo.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4982,8 +5002,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Jalisco.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5242,8 +5262,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Michoacan.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5502,8 +5522,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Morelos.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5762,8 +5782,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Nayarit.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6022,8 +6042,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Nuevo Leon.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6282,8 +6302,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Oaxaca.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6542,8 +6562,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Puebla.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6802,8 +6822,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Queretaro.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7062,8 +7082,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Quintana Roo.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7322,8 +7342,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Sanluis Potosi.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7582,8 +7602,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Sinaloa.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7842,8 +7862,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Sonora.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8102,8 +8122,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Tabasco.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8362,8 +8382,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Tamaulipas.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8622,8 +8642,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Tlaxcala.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8882,8 +8902,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Veracruz.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -9142,8 +9162,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Yucatan.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -9402,8 +9422,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Zacatecas.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -22355,6 +22375,14 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Llenar CEPOMEX\C Tabasco">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Llenar CEPOMEX\Chihuahua">
     <Properties>
       <Property>
@@ -22377,6 +22405,14 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar CEPOMEX\C Michoacan">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar CEPOMEX\C Tlaxcala">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -22419,6 +22455,14 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar CEPOMEX\C Nayarit">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar CEPOMEX\C Yucatan">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -22651,6 +22695,14 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
+    design-time-name="Package\Llenar CEPOMEX\C Sonora">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
     design-time-name="Package\Llenar CEPOMEX\Queretaro">
     <Properties>
       <Property>
@@ -22673,6 +22725,14 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar CEPOMEX\C Jalisco">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar CEPOMEX\C Tamaulipas">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -22715,6 +22775,14 @@
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\Llenar CEPOMEX\C Morelos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Llenar CEPOMEX\C Veracruz">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>

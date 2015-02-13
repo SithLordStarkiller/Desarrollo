@@ -14,8 +14,15 @@ namespace Universidad.Entidades
     
     public partial class US_CAT_ESTATUS_USUARIO
     {
+        public US_CAT_ESTATUS_USUARIO()
+        {
+            this.US_USUARIOS = new HashSet<US_USUARIOS>();
+        }
+    
         public int ID_ESTATUS_USUARIOS { get; set; }
         public string ESTATUS_USUARIO { get; set; }
         public string DESCRIPCION { get; set; }
+    
+        public virtual ICollection<US_USUARIOS> US_USUARIOS { get; set; }
     }
 }

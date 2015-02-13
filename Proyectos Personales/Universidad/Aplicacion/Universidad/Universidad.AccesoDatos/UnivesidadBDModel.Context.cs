@@ -26,8 +26,6 @@ namespace Universidad.AccesoDatos
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<ALU_ALUMNOS> ALU_ALUMNOS { get; set; }
-        public DbSet<ALU_KARDEX> ALU_KARDEX { get; set; }
         public DbSet<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
         public DbSet<DIR_CAT_DELG_MUNICIPIO> DIR_CAT_DELG_MUNICIPIO { get; set; }
         public DbSet<DIR_CAT_ESTADO> DIR_CAT_ESTADO { get; set; }
@@ -40,7 +38,6 @@ namespace Universidad.AccesoDatos
         public DbSet<PER_FOTOGRAFIA> PER_FOTOGRAFIA { get; set; }
         public DbSet<PER_MEDIOS_ELECTRONICOS> PER_MEDIOS_ELECTRONICOS { get; set; }
         public DbSet<PER_PERSONAS> PER_PERSONAS { get; set; }
-        public DbSet<PRO_PROFESOR> PRO_PROFESOR { get; set; }
         public DbSet<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
         public DbSet<SIS_AADM_ARBOLMENUS> SIS_AADM_ARBOLMENUS { get; set; }
         public DbSet<SIS_CAT_TABPAGES> SIS_CAT_TABPAGES { get; set; }

@@ -28,6 +28,9 @@ namespace Universidad.Entidades
         public string CONTRASENA { get; set; }
     
         public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
+        public virtual US_CAT_ESTATUS_USUARIO US_CAT_ESTATUS_USUARIO { get; set; }
+        public virtual US_CAT_NIVEL_USUARIO US_CAT_NIVEL_USUARIO { get; set; }
+        public virtual US_CAT_TIPO_USUARIO US_CAT_TIPO_USUARIO { get; set; }
         public virtual US_HISTORIAL US_HISTORIAL { get; set; }
     }
 }

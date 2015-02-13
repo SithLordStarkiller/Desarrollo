@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     16/01/2015 11:54:36 p. m.                    */
+/* Created on:     13/02/2015 01:18:00 p. m.                    */
 /*==============================================================*/
 
 
@@ -69,6 +69,13 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PER_PERSONAS') and o.name = 'FK_PER_PERS_REFERENCE_PER_FOTO')
+alter table PER_PERSONAS
+   drop constraint FK_PER_PERS_REFERENCE_PER_FOTO
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('PER_PERSONAS') and o.name = 'Reference_33')
 alter table PER_PERSONAS
    drop constraint Reference_33
@@ -100,13 +107,6 @@ if exists (select 1
    where r.fkeyid = object_id('PER_PERSONAS') and o.name = 'Reference_9')
 alter table PER_PERSONAS
    drop constraint Reference_9
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('PRO_PROFESOR') and o.name = 'FK_PRO_PROF_REFERENCE_PER_PERS')
-alter table PRO_PROFESOR
-   drop constraint FK_PRO_PROF_REFERENCE_PER_PERS
 go
 
 if exists (select 1
@@ -167,20 +167,6 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('ALU_ALUMNOS')
-            and   type = 'U')
-   drop table ALU_ALUMNOS
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('ALU_KARDEX')
-            and   type = 'U')
-   drop table ALU_KARDEX
-go
-
-if exists (select 1
-            from  sysobjects
            where  id = object_id('DIR_CAT_COLONIAS')
             and   type = 'U')
    drop table DIR_CAT_COLONIAS
@@ -202,9 +188,9 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('DIR_CAT_TIPO_ACENTAMIENTO')
+           where  id = object_id('DIR_CAT_TIPO_ASENTAMIENTO')
             and   type = 'U')
-   drop table DIR_CAT_TIPO_ACENTAMIENTO
+   drop table DIR_CAT_TIPO_ASENTAMIENTO
 go
 
 if exists (select 1
@@ -244,6 +230,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('PER_FOTOGRAFIA')
+            and   type = 'U')
+   drop table PER_FOTOGRAFIA
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('PER_MEDIOS_ELECTRONICOS')
             and   type = 'U')
    drop table PER_MEDIOS_ELECTRONICOS
@@ -254,13 +247,6 @@ if exists (select 1
            where  id = object_id('PER_PERSONAS')
             and   type = 'U')
    drop table PER_PERSONAS
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('PRO_PROFESOR')
-            and   type = 'U')
-   drop table PRO_PROFESOR
 go
 
 if exists (select 1
@@ -320,39 +306,17 @@ if exists (select 1
 go
 
 /*==============================================================*/
-/* Table: ALU_ALUMNOS                                           */
-/*==============================================================*/
-create table ALU_ALUMNOS (
-   IDALUMNO             int                  identity,
-   IDACTIVIDADESEC      int                  null,
-   IDDEPORTES           int                  null,
-   IDCARRERA            int                  null,
-   IDPLANCARRERA        int                  null,
-   constraint PK_ALU_ALUMNOS primary key (IDALUMNO)
-)
-go
-
-/*==============================================================*/
-/* Table: ALU_KARDEX                                            */
-/*==============================================================*/
-create table ALU_KARDEX (
-   ID_KARDEX            int                  not null,
-   constraint PK_ALU_KARDEX primary key (ID_KARDEX)
-)
-go
-
-/*==============================================================*/
 /* Table: DIR_CAT_COLONIAS                                      */
 /*==============================================================*/
 create table DIR_CAT_COLONIAS (
-   IDCOLONIA            int                  identity,
+   IDCOLONIA            int                  not null,
    IDESTADO             int                  null,
    IDDELGMUNICIPIO      int                  null,
-   IDTIPOACENTAMIENTO   int                  null,
+   IDTIPOASENTAMIENTO   int                  null,
    IDTIPOZONA           int                  null,
+   IDMUNICIPIO          int                  null,
    CODIGOPOSTAL         int                  null,
    NOMBRECOLONIA        varchar(100)         null,
-   TIPOCOLONIA          varchar(100)         null,
    constraint PK_DIR_CAT_COLONIAS primary key (IDCOLONIA)
 )
 go
@@ -361,8 +325,9 @@ go
 /* Table: DIR_CAT_DELG_MUNICIPIO                                */
 /*==============================================================*/
 create table DIR_CAT_DELG_MUNICIPIO (
-   IDDELGMUNICIPIO      int                  identity,
+   IDDELGMUNICIPIO      int                  not null,
    IDESTADO             int                  null,
+   IDMUNICIPIO          int                  null,
    NOMBREDELGMUNICIPIO  varchar(50)          null,
    constraint PK_DIR_CAT_DELG_MUNICIPIO primary key (IDDELGMUNICIPIO)
 )
@@ -372,20 +337,19 @@ go
 /* Table: DIR_CAT_ESTADO                                        */
 /*==============================================================*/
 create table DIR_CAT_ESTADO (
-   IDESTADO             int                  identity,
+   IDESTADO             int                  not null,
    NOMBREESTADO         varchar(50)          null,
-   NOMBREESTADOOFICIAL  varchar(50)          null,
    constraint PK_DIR_CAT_ESTADO primary key (IDESTADO)
 )
 go
 
 /*==============================================================*/
-/* Table: DIR_CAT_TIPO_ACENTAMIENTO                             */
+/* Table: DIR_CAT_TIPO_ASENTAMIENTO                             */
 /*==============================================================*/
-create table DIR_CAT_TIPO_ACENTAMIENTO (
-   IDTIPOACENTAMIENTO   int                  not null,
-   TIPOACENTAMIENTO     varchar(100)         not null,
-   constraint PK_DIR_CAT_TIPO_ACENTAMIENTO primary key (IDTIPOACENTAMIENTO)
+create table DIR_CAT_TIPO_ASENTAMIENTO (
+   IDTIPOASENTAMIENTO   int                  not null,
+   TIPOASENTAMIENTO     varchar(100)         not null,
+   constraint PK_DIR_CAT_TIPO_ASENTAMIENTO primary key (IDTIPOASENTAMIENTO)
 )
 go
 
@@ -406,10 +370,11 @@ create table DIR_DIRECCIONES (
    IDDIRECCION          int                  identity,
    IDESTADO             int                  null,
    IDDELGMUNICIPIO      int                  null,
+   IDMUNICIPIO          int                  null,
    IDCOLONIA            int                  null,
    CALLE                varchar(100)         null,
-   NOEXT                int                  null,
-   NOINT                int                  null,
+   NOEXT                varchar(30)          null,
+   NOINT                varchar(30)          null,
    REFERENCIAS          varchar(150)         null,
    constraint PK_DIR_DIRECCIONES primary key (IDDIRECCION)
 )
@@ -443,10 +408,23 @@ go
 /* Table: PER_CAT_TIPO_PERSONA                                  */
 /*==============================================================*/
 create table PER_CAT_TIPO_PERSONA (
-   ID_TIPO_PERSONA      int                  identity,
+   ID_TIPO_PERSONA      int                  not null,
    TIPO_PERSONA         varchar(50)          null,
    DESCRIPCION          varchar(50)          null,
    constraint PK_PER_CAT_TIPO_PERSONA primary key (ID_TIPO_PERSONA)
+)
+go
+
+/*==============================================================*/
+/* Table: PER_FOTOGRAFIA                                        */
+/*==============================================================*/
+create table PER_FOTOGRAFIA (
+   IDFOTO               int                  identity,
+   NOMBRE               varchar(250)         null,
+   EXTENCION            varchar(10)          null,
+   FOTOGRAFIA           varbinary(MAX)       null,
+   LONGITUD             bigint               null,
+   constraint PK_PER_FOTOGRAFIA primary key (IDFOTO)
 )
 go
 
@@ -468,34 +446,25 @@ go
 /*==============================================================*/
 create table PER_PERSONAS (
    ID_PERSONA           int                  identity,
-   ID_PER_LINKID        int                  not null,
+   ID_PER_LINKID        varchar(50)          not null,
    IDDIRECCION          int                  null,
    CVE_NACIONALIDAD     int                  null,
    ID_TELEFONOS         int                  null,
    ID_TIPO_PERSONA      int                  null,
    ID_USUARIO           int                  null,
    ID_MEDIOS_ELECTRONICOS int                  null,
+   IDFOTO               int                  null,
    NOMBRE               varchar(50)          not null,
    A_PATERNO            varchar(50)          null,
    A_MATERNO            varchar(50)          null,
    NOMBRE_COMPLETO      varchar(100)         not null,
    FECHA_NAC            datetime             not null,
+   FECHAINGRESO         datetime             not null,
    SEXO                 varchar(20)          not null,
    CURP                 varchar(30)          null,
    RFC                  varchar(30)          null,
    IMSS                 varchar(20)          null,
    constraint PK_PER_PERSONAS primary key (ID_PERSONA, ID_PER_LINKID)
-)
-go
-
-/*==============================================================*/
-/* Table: PRO_PROFESOR                                          */
-/*==============================================================*/
-create table PRO_PROFESOR (
-   IDPROFESOR           int                  not null,
-   ID_PERSONA           int                  null,
-   ID_PER_LINKID        int                  null,
-   constraint PK_PRO_PROFESOR primary key (IDPROFESOR)
 )
 go
 
@@ -539,7 +508,7 @@ go
 /* Table: US_CAT_ESTATUS_USUARIO                                */
 /*==============================================================*/
 create table US_CAT_ESTATUS_USUARIO (
-   ID_ESTATUS_USUARIOS  int                  identity,
+   ID_ESTATUS_USUARIOS  int                  not null,
    ESTATUS_USUARIO      varchar(30)          not null,
    DESCRIPCION          varchar(150)         not null,
    constraint PK_US_CAT_ESTATUS_USUARIO primary key (ID_ESTATUS_USUARIOS)
@@ -550,7 +519,7 @@ go
 /* Table: US_CAT_NIVEL_USUARIO                                  */
 /*==============================================================*/
 create table US_CAT_NIVEL_USUARIO (
-   ID_NIVEL_USUARIO     int                  identity,
+   ID_NIVEL_USUARIO     int                  not null,
    NIVEL_USUARIO        varchar(30)          not null,
    DESCRIPCION          varchar(150)         not null,
    constraint PK_US_CAT_NIVEL_USUARIO primary key (ID_NIVEL_USUARIO)
@@ -561,7 +530,7 @@ go
 /* Table: US_CAT_TIPO_USUARIO                                   */
 /*==============================================================*/
 create table US_CAT_TIPO_USUARIO (
-   ID_TIPO_USUARIO      int                  identity,
+   ID_TIPO_USUARIO      int                  not null,
    TIPO_USUARIO         varchar(30)          not null,
    DESCRIPCION          varchar(150)         null,
    constraint PK_US_CAT_TIPO_USUARIO primary key (ID_TIPO_USUARIO)
@@ -596,8 +565,8 @@ create table US_USUARIOS (
 go
 
 alter table DIR_CAT_COLONIAS
-   add constraint FK_DIR_CAT__COLONIAS__DIR_CAT_ foreign key (IDTIPOACENTAMIENTO)
-      references DIR_CAT_TIPO_ACENTAMIENTO (IDTIPOACENTAMIENTO)
+   add constraint FK_DIR_CAT__COLONIAS__DIR_CAT_ foreign key (IDTIPOASENTAMIENTO)
+      references DIR_CAT_TIPO_ASENTAMIENTO (IDTIPOASENTAMIENTO)
 go
 
 alter table DIR_CAT_COLONIAS
@@ -641,6 +610,11 @@ alter table PER_PERSONAS
 go
 
 alter table PER_PERSONAS
+   add constraint FK_PER_PERS_REFERENCE_PER_FOTO foreign key (IDFOTO)
+      references PER_FOTOGRAFIA (IDFOTO)
+go
+
+alter table PER_PERSONAS
    add constraint Reference_33 foreign key (ID_TIPO_PERSONA)
       references PER_CAT_TIPO_PERSONA (ID_TIPO_PERSONA)
 go
@@ -663,11 +637,6 @@ go
 alter table PER_PERSONAS
    add constraint Reference_9 foreign key (ID_TELEFONOS)
       references PER_CAT_TELEFONOS (ID_TELEFONOS)
-go
-
-alter table PRO_PROFESOR
-   add constraint FK_PRO_PROF_REFERENCE_PER_PERS foreign key (ID_PERSONA, ID_PER_LINKID)
-      references PER_PERSONAS (ID_PERSONA, ID_PER_LINKID)
 go
 
 alter table SIS_AADM_APLICACIONES

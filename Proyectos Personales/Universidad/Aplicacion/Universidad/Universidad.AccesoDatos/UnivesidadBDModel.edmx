@@ -5,41 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UniversidadDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ALU_ALUMNOS">
-          <Key>
-            <PropertyRef Name="IDALUMNO" />
-          </Key>
-          <Property Name="IDALUMNO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDACTIVIDADESEC" Type="int" />
-          <Property Name="IDDEPORTES" Type="int" />
-          <Property Name="IDCARRERA" Type="int" />
-          <Property Name="IDPLANCARRERA" Type="int" />
-        </EntityType>
-        <EntityType Name="ALU_KARDEX">
-          <Key>
-            <PropertyRef Name="ID_KARDEX" />
-          </Key>
-          <Property Name="ID_KARDEX" Type="int" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="CEPOMEX">
-          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" />
-          <Property Name="d_asenta" Type="nvarchar" MaxLength="255" />
-          <Property Name="d_tipo_asenta" Type="nvarchar" MaxLength="255" />
-          <Property Name="D_mnpio" Type="nvarchar" MaxLength="255" />
-          <Property Name="d_estado" Type="nvarchar" MaxLength="255" />
-          <Property Name="d_ciudad" Type="nvarchar" MaxLength="255" />
-          <Property Name="d_CP" Type="nvarchar" MaxLength="255" />
-          <Property Name="c_estado" Type="nvarchar" MaxLength="255" />
-          <Property Name="c_oficina" Type="nvarchar" MaxLength="255" />
-          <Property Name="c_CP" Type="nvarchar" MaxLength="255" />
-          <Property Name="c_tipo_asenta" Type="nvarchar" MaxLength="255" />
-          <Property Name="c_mnpio" Type="nvarchar" MaxLength="255" />
-          <Property Name="id_asenta_cpcons" Type="nvarchar" MaxLength="255" />
-          <Property Name="d_zona" Type="nvarchar" MaxLength="255" />
-          <Property Name="c_cve_ciudad" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="DIR_CAT_COLONIAS">
           <Key>
             <PropertyRef Name="IDCOLONIA" />
@@ -168,14 +133,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="RFC" Type="varchar" MaxLength="30" />
           <Property Name="IMSS" Type="varchar" MaxLength="20" />
         </EntityType>
-        <EntityType Name="PRO_PROFESOR">
-          <Key>
-            <PropertyRef Name="IDPROFESOR" />
-          </Key>
-          <Property Name="IDPROFESOR" Type="int" Nullable="false" />
-          <Property Name="ID_PERSONA" Type="int" />
-          <Property Name="ID_PER_LINKID" Type="int" />
-        </EntityType>
         <EntityType Name="SIS_AADM_APLICACIONES">
           <Key>
             <PropertyRef Name="IDAPLICACIONES" />
@@ -272,6 +229,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_PER_FOTO">
+          <End Role="PER_FOTOGRAFIA" Type="Self.PER_FOTOGRAFIA" Multiplicity="0..1" />
+          <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PER_FOTOGRAFIA">
+              <PropertyRef Name="IDFOTO" />
+            </Principal>
+            <Dependent Role="PER_PERSONAS">
+              <PropertyRef Name="IDFOTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PER_PERS_REFERENCE_PER_MEDI">
           <End Role="PER_MEDIOS_ELECTRONICOS" Type="Self.PER_MEDIOS_ELECTRONICOS" Multiplicity="0..1" />
           <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="*" />
@@ -329,6 +298,42 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Principal>
             <Dependent Role="SIS_AADM_APLICACIONES">
               <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_10">
+          <End Role="US_CAT_TIPO_USUARIO" Type="Self.US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
+          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_TIPO_USUARIO">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_11">
+          <End Role="US_CAT_ESTATUS_USUARIO" Type="Self.US_CAT_ESTATUS_USUARIO" Multiplicity="0..1" />
+          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_ESTATUS_USUARIO">
+              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_12">
+          <End Role="US_CAT_NIVEL_USUARIO" Type="Self.US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
+          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_NIVEL_USUARIO">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -477,8 +482,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="UniversidadDBModelStoreContainer">
-          <EntitySet Name="ALU_ALUMNOS" EntityType="Self.ALU_ALUMNOS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ALU_KARDEX" EntityType="Self.ALU_KARDEX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_CAT_COLONIAS" EntityType="Self.DIR_CAT_COLONIAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_CAT_DELG_MUNICIPIO" EntityType="Self.DIR_CAT_DELG_MUNICIPIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_CAT_ESTADO" EntityType="Self.DIR_CAT_ESTADO" Schema="dbo" store:Type="Tables" />
@@ -491,7 +494,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="PER_FOTOGRAFIA" EntityType="Self.PER_FOTOGRAFIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_MEDIOS_ELECTRONICOS" EntityType="Self.PER_MEDIOS_ELECTRONICOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_PERSONAS" EntityType="Self.PER_PERSONAS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PRO_PROFESOR" EntityType="Self.PRO_PROFESOR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="Self.SIS_AADM_APLICACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="Self.SIS_AADM_ARBOLMENUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_CAT_TABPAGES" EntityType="Self.SIS_CAT_TABPAGES" Schema="dbo" store:Type="Tables" />
@@ -507,6 +509,10 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <AssociationSet Name="FK_DIR_CAT__REFERENCE_DIR_CAT_" Association="Self.FK_DIR_CAT__REFERENCE_DIR_CAT_">
             <End Role="DIR_CAT_TIPO_ZONA" EntitySet="DIR_CAT_TIPO_ZONA" />
             <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_FOTO" Association="Self.FK_PER_PERS_REFERENCE_PER_FOTO">
+            <End Role="PER_FOTOGRAFIA" EntitySet="PER_FOTOGRAFIA" />
+            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_MEDI" Association="Self.FK_PER_PERS_REFERENCE_PER_MEDI">
             <End Role="PER_MEDIOS_ELECTRONICOS" EntitySet="PER_MEDIOS_ELECTRONICOS" />
@@ -527,6 +533,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_T" Association="Self.FK_SIS_AADM_REFERENCE_US_CAT_T">
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
             <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_10" Association="Self.Reference_10">
+            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_11" Association="Self.Reference_11">
+            <End Role="US_CAT_ESTATUS_USUARIO" EntitySet="US_CAT_ESTATUS_USUARIO" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_12" Association="Self.Reference_12">
+            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
           </AssociationSet>
           <AssociationSet Name="Reference_13" Association="Self.Reference_13">
             <End Role="US_HISTORIAL" EntitySet="US_HISTORIAL" />
@@ -582,8 +600,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
     <edmx:ConceptualModels>
       <Schema Namespace="UniversidadDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="UniversidadBDEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="ALU_ALUMNOS" EntityType="UniversidadDBModel.ALU_ALUMNOS" />
-          <EntitySet Name="ALU_KARDEX" EntityType="UniversidadDBModel.ALU_KARDEX" />
           <EntitySet Name="DIR_CAT_COLONIAS" EntityType="UniversidadDBModel.DIR_CAT_COLONIAS" />
           <EntitySet Name="DIR_CAT_DELG_MUNICIPIO" EntityType="UniversidadDBModel.DIR_CAT_DELG_MUNICIPIO" />
           <EntitySet Name="DIR_CAT_ESTADO" EntityType="UniversidadDBModel.DIR_CAT_ESTADO" />
@@ -596,7 +612,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="PER_FOTOGRAFIA" EntityType="UniversidadDBModel.PER_FOTOGRAFIA" />
           <EntitySet Name="PER_MEDIOS_ELECTRONICOS" EntityType="UniversidadDBModel.PER_MEDIOS_ELECTRONICOS" />
           <EntitySet Name="PER_PERSONAS" EntityType="UniversidadDBModel.PER_PERSONAS" />
-          <EntitySet Name="PRO_PROFESOR" EntityType="UniversidadDBModel.PRO_PROFESOR" />
           <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="UniversidadDBModel.SIS_AADM_APLICACIONES" />
           <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="UniversidadDBModel.SIS_AADM_ARBOLMENUS" />
           <EntitySet Name="SIS_CAT_TABPAGES" EntityType="UniversidadDBModel.SIS_CAT_TABPAGES" />
@@ -653,6 +668,10 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <End Role="PER_CAT_TIPO_PERSONA" EntitySet="PER_CAT_TIPO_PERSONA" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_FOTO" Association="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_FOTO">
+            <End Role="PER_FOTOGRAFIA" EntitySet="PER_FOTOGRAFIA" />
+            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
+          </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_MEDI" Association="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_MEDI">
             <End Role="PER_MEDIOS_ELECTRONICOS" EntitySet="PER_MEDIOS_ELECTRONICOS" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
@@ -677,27 +696,23 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
             <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
           </AssociationSet>
+          <AssociationSet Name="Reference_11" Association="UniversidadDBModel.Reference_11">
+            <End Role="US_CAT_ESTATUS_USUARIO" EntitySet="US_CAT_ESTATUS_USUARIO" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_12" Association="UniversidadDBModel.Reference_12">
+            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_10" Association="UniversidadDBModel.Reference_10">
+            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          </AssociationSet>
           <AssociationSet Name="Reference_13" Association="UniversidadDBModel.Reference_13">
             <End Role="US_HISTORIAL" EntitySet="US_HISTORIAL" />
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ALU_ALUMNOS">
-          <Key>
-            <PropertyRef Name="IDALUMNO" />
-          </Key>
-          <Property Name="IDALUMNO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDACTIVIDADESEC" Type="Int32" />
-          <Property Name="IDDEPORTES" Type="Int32" />
-          <Property Name="IDCARRERA" Type="Int32" />
-          <Property Name="IDPLANCARRERA" Type="Int32" />
-        </EntityType>
-        <EntityType Name="ALU_KARDEX">
-          <Key>
-            <PropertyRef Name="ID_KARDEX" />
-          </Key>
-          <Property Name="ID_KARDEX" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="DIR_CAT_COLONIAS">
           <Key>
             <PropertyRef Name="IDCOLONIA" />
@@ -810,6 +825,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="EXTENCION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="FOTOGRAFIA" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="LONGITUD" Type="Int64" />
+          <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_FOTO" FromRole="PER_FOTOGRAFIA" ToRole="PER_PERSONAS" />
         </EntityType>
         <EntityType Name="PER_MEDIOS_ELECTRONICOS">
           <Key>
@@ -850,16 +866,9 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <NavigationProperty Name="PER_CAT_NACIONALIDAD" Relationship="UniversidadDBModel.Reference_8" FromRole="PER_PERSONAS" ToRole="PER_CAT_NACIONALIDAD" />
           <NavigationProperty Name="PER_CAT_TELEFONOS" Relationship="UniversidadDBModel.Reference_9" FromRole="PER_PERSONAS" ToRole="PER_CAT_TELEFONOS" />
           <NavigationProperty Name="PER_CAT_TIPO_PERSONA" Relationship="UniversidadDBModel.Reference_33" FromRole="PER_PERSONAS" ToRole="PER_CAT_TIPO_PERSONA" />
+          <NavigationProperty Name="PER_FOTOGRAFIA" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_FOTO" FromRole="PER_PERSONAS" ToRole="PER_FOTOGRAFIA" />
           <NavigationProperty Name="PER_MEDIOS_ELECTRONICOS" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_MEDI" FromRole="PER_PERSONAS" ToRole="PER_MEDIOS_ELECTRONICOS" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_34" FromRole="PER_PERSONAS" ToRole="US_USUARIOS" />
-        </EntityType>
-        <EntityType Name="PRO_PROFESOR">
-          <Key>
-            <PropertyRef Name="IDPROFESOR" />
-          </Key>
-          <Property Name="IDPROFESOR" Type="Int32" Nullable="false" />
-          <Property Name="ID_PERSONA" Type="Int32" />
-          <Property Name="ID_PER_LINKID" Type="Int32" />
         </EntityType>
         <EntityType Name="SIS_AADM_APLICACIONES">
           <Key>
@@ -901,6 +910,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="ID_ESTATUS_USUARIOS" Type="Int32" Nullable="false" />
           <Property Name="ESTATUS_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_11" FromRole="US_CAT_ESTATUS_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_CAT_NIVEL_USUARIO">
           <Key>
@@ -910,6 +920,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="NIVEL_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_N" FromRole="US_CAT_NIVEL_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
+          <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_12" FromRole="US_CAT_NIVEL_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_CAT_TIPO_USUARIO">
           <Key>
@@ -919,6 +930,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="TIPO_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T" FromRole="US_CAT_TIPO_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
+          <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_10" FromRole="US_CAT_TIPO_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_HISTORIAL">
           <Key>
@@ -942,6 +954,9 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CONTRASENA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.Reference_34" FromRole="US_USUARIOS" ToRole="PER_PERSONAS" />
+          <NavigationProperty Name="US_CAT_ESTATUS_USUARIO" Relationship="UniversidadDBModel.Reference_11" FromRole="US_USUARIOS" ToRole="US_CAT_ESTATUS_USUARIO" />
+          <NavigationProperty Name="US_CAT_NIVEL_USUARIO" Relationship="UniversidadDBModel.Reference_12" FromRole="US_USUARIOS" ToRole="US_CAT_NIVEL_USUARIO" />
+          <NavigationProperty Name="US_CAT_TIPO_USUARIO" Relationship="UniversidadDBModel.Reference_10" FromRole="US_USUARIOS" ToRole="US_CAT_TIPO_USUARIO" />
           <NavigationProperty Name="US_HISTORIAL" Relationship="UniversidadDBModel.Reference_13" FromRole="US_USUARIOS" ToRole="US_HISTORIAL" />
         </EntityType>
         <Association Name="FK_DIR_CAT__COLONIAS__DIR_CAT_">
@@ -1088,6 +1103,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_PER_FOTO">
+          <End Type="UniversidadDBModel.PER_FOTOGRAFIA" Role="PER_FOTOGRAFIA" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.PER_PERSONAS" Role="PER_PERSONAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PER_FOTOGRAFIA">
+              <PropertyRef Name="IDFOTO" />
+            </Principal>
+            <Dependent Role="PER_PERSONAS">
+              <PropertyRef Name="IDFOTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PER_PERS_REFERENCE_PER_MEDI">
           <End Type="UniversidadDBModel.PER_MEDIOS_ELECTRONICOS" Role="PER_MEDIOS_ELECTRONICOS" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.PER_PERSONAS" Role="PER_PERSONAS" Multiplicity="*" />
@@ -1160,6 +1187,42 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Reference_11">
+          <End Type="UniversidadDBModel.US_CAT_ESTATUS_USUARIO" Role="US_CAT_ESTATUS_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_ESTATUS_USUARIO">
+              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="ID_ESTATUS_USUARIOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_12">
+          <End Type="UniversidadDBModel.US_CAT_NIVEL_USUARIO" Role="US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_NIVEL_USUARIO">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_10">
+          <End Type="UniversidadDBModel.US_CAT_TIPO_USUARIO" Role="US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_TIPO_USUARIO">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Reference_13">
           <End Type="UniversidadDBModel.US_HISTORIAL" Role="US_HISTORIAL" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
@@ -1178,24 +1241,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UniversidadDBModelStoreContainer" CdmEntityContainer="UniversidadBDEntities">
-          <EntitySetMapping Name="ALU_ALUMNOS">
-            <EntityTypeMapping TypeName="UniversidadDBModel.ALU_ALUMNOS">
-              <MappingFragment StoreEntitySet="ALU_ALUMNOS">
-                <ScalarProperty Name="IDPLANCARRERA" ColumnName="IDPLANCARRERA" />
-                <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
-                <ScalarProperty Name="IDDEPORTES" ColumnName="IDDEPORTES" />
-                <ScalarProperty Name="IDACTIVIDADESEC" ColumnName="IDACTIVIDADESEC" />
-                <ScalarProperty Name="IDALUMNO" ColumnName="IDALUMNO" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ALU_KARDEX">
-            <EntityTypeMapping TypeName="UniversidadDBModel.ALU_KARDEX">
-              <MappingFragment StoreEntitySet="ALU_KARDEX">
-                <ScalarProperty Name="ID_KARDEX" ColumnName="ID_KARDEX" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DIR_CAT_COLONIAS">
             <EntityTypeMapping TypeName="UniversidadDBModel.DIR_CAT_COLONIAS">
               <MappingFragment StoreEntitySet="DIR_CAT_COLONIAS">
@@ -1332,15 +1377,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
                 <ScalarProperty Name="IDDIRECCION" ColumnName="IDDIRECCION" />
                 <ScalarProperty Name="ID_PER_LINKID" ColumnName="ID_PER_LINKID" />
                 <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PRO_PROFESOR">
-            <EntityTypeMapping TypeName="UniversidadDBModel.PRO_PROFESOR">
-              <MappingFragment StoreEntitySet="PRO_PROFESOR">
-                <ScalarProperty Name="ID_PER_LINKID" ColumnName="ID_PER_LINKID" />
-                <ScalarProperty Name="ID_PERSONA" ColumnName="ID_PERSONA" />
-                <ScalarProperty Name="IDPROFESOR" ColumnName="IDPROFESOR" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
