@@ -8,111 +8,40 @@ using Universidad.Entidades;
 
 namespace Universidad.LogicaNegocios.Personas
 {
-    public class EventoOperaciones : EventArgs
-    {
-        private readonly PER_PERSONAS Persona;
-        private DIR_DIRECCIONES _direccion;
-        private bool _direccionFinalizado;
-        private PER_MEDIOS_ELECTRONICOS _mediosElectronicos;
-        private bool _mediosElectronicosFinalizado = false;
-        private PER_CAT_TELEFONOS _telefonos;
-        private bool _telefonosFinalizado;
-        private PER_FOTOGRAFIA _fotografia;
-        private bool _fotografiaFinalizado;
-
-        public delegate void EventoHandler(PER_CAT_TELEFONOS personaTelefonos,
-            PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones);
-        public event EventoHandler AlfinalizarOperaciones;
-
-        public EventoOperaciones(PER_PERSONAS persona)
-        {
-            Persona = persona;
-        }
-
-        public void DireccionesCompleto(DIR_DIRECCIONES direcciones)
-        {
-            _direccion = direcciones;
-            _direccionFinalizado = true;
-        }
-
-        public void MediosEletronicosCompleto(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
-        {
-            this._mediosElectronicos = mediosElectronicos;
-            _mediosElectronicosFinalizado = true;
-        }
-
-        public void TelefonosCompleto(PER_CAT_TELEFONOS telefonos)
-        {
-            _telefonos = telefonos;
-            _telefonosFinalizado = true;
-        }
-
-        public void FotografiasCompleto(PER_FOTOGRAFIA fotografia)
-        {
-            _fotografia = fotografia;
-            _fotografiaFinalizado = true;
-        }
-
-        public void Finalizado()
-        {
-            if (_direccionFinalizado && _mediosElectronicosFinalizado && _telefonosFinalizado && _fotografiaFinalizado)
-                AlfinalizarOperaciones(_telefonos,_mediosElectronicos,_fotografia,Persona,_direccion);
-        }
-    }
     public class Persona
     {
-        private EventoOperaciones _evento;
         public PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos,
             PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones)
         {
-            _evento = new EventoOperaciones(persona);
-            _evento.AlfinalizarOperaciones += _evento_AlfinalizarOperaciones;
-            return null;
-        }
+            var taskTelefonos = Task<PER_CAT_TELEFONOS>.Factory.StartNew(() => new Telefonos().InsertaTelefonosLinq(personaTelefonos));
+            var taskMediosElectronicos = Task<PER_MEDIOS_ELECTRONICOS>.Factory.StartNew(() => new AccesoDatos.Personas.MediosElectronicos().InsertaMediosElectronicosLinq(personaMediosElectronicos));
+            var taskFotografia = Task<PER_FOTOGRAFIA>.Factory.StartNew(() => new Fotografias().InsertaFotografiaLinq(personaFotografia));
+            var taskDirecciones = Task<DIR_DIRECCIONES>.Factory.StartNew(() => new Direcciones().InsertaDireccionesLinq(personaDirecciones));
 
-        void _evento_AlfinalizarOperaciones(PER_CAT_TELEFONOS personaTelefonos, PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones)
-        {
+            var resultados = new Task[] { taskTelefonos, taskMediosElectronicos, taskFotografia, taskDirecciones };
+
+            Task.WaitAll(resultados);
+
+            personaTelefonos = ((Task<PER_CAT_TELEFONOS>)resultados[0]).Result;
+            personaMediosElectronicos = ((Task<PER_MEDIOS_ELECTRONICOS>)resultados[1]).Result;
+            personaFotografia = ((Task<PER_FOTOGRAFIA>)resultados[2]).Result;
+            personaDirecciones = ((Task<DIR_DIRECCIONES>)resultados[3]).Result;
+
             persona.IDDIRECCION = personaDirecciones.IDDIRECCION;
             persona.IDFOTO = personaFotografia.IDFOTO;
             persona.ID_MEDIOS_ELECTRONICOS = personaMediosElectronicos.ID_MEDIOS_ELECTRONICOS;
             persona.ID_TELEFONOS = personaTelefonos.ID_TELEFONOS;
-            var cve = persona.A_PATERNO[0] + persona.A_MATERNO[0] + persona.NOMBRE[0] + persona.SEXO[0] +
-                            DateTime.Now.Day.ToString("D") + DateTime.Now.Month.ToString("D") +
-                            DateTime.Now.Year.ToString("D")+persona.SEXO[0] + persona.ID_TIPO_PERSONA;
-            
+            var datos = (persona.A_PATERNO.ToCharArray())[0] + (persona.A_MATERNO.ToCharArray())[0] + (persona.NOMBRE.ToCharArray())[0] + (persona.SEXO.ToCharArray())[0];
+            var fRegistro = DateTime.Now.Day.ToString("D") + DateTime.Now.Month.ToString("D") +
+                            DateTime.Now.Year.ToString("D");
+            var cve = datos + fRegistro + persona.ID_TIPO_PERSONA;
+            persona.NOMBRE_COMPLETO = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
             persona.ID_PER_LINKID = cve;
             persona.FECHAINGRESO = DateTime.Now;
 
-        }
+            persona = new AccesoDatos.Personas.Personas().InsertaPersonaLinq(persona);
 
-        public async void InsertaPersonasDirecciones(DIR_DIRECCIONES personaDirecciones)
-        {
-            var personaDireccion = await new AccesoDatos.Personas.Direcciones().InsertaDireccionesLinqAsync(personaDirecciones);
-            _evento.DireccionesCompleto(personaDireccion);
-            _evento.Finalizado();
-        }
-
-        public async void InsertaPersonaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
-        {
-            var personaMediosElectronicos =
-                await
-                    new AccesoDatos.Personas.MediosElectronicos().InsertaMediosElectronicosLinqAsync(mediosElectronicos);
-            _evento.MediosEletronicosCompleto(personaMediosElectronicos);
-            _evento.Finalizado();
-        }
-
-        public async void InsetaPersonaTelefonos(PER_CAT_TELEFONOS personaTelefonos)
-        {
-            var personaTelefono = await new AccesoDatos.Personas.Telefonos().InsertaDireccionesLinqAsync(personaTelefonos);
-            _evento.TelefonosCompleto(personaTelefono);
-            _evento.Finalizado();
-        }
-
-        public async void InsertaPersonaFoto(PER_FOTOGRAFIA personaFotografia)
-        {
-            var personaFoto = await new AccesoDatos.Personas.Fotografias().InsertaFotografiaLinqAsync(personaFotografia);
-            _evento.FotografiasCompleto(personaFoto);
-            _evento.Finalizado();
+            return persona;
         }
     }
 }

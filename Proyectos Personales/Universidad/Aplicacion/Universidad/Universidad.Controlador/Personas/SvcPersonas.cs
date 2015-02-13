@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Universidad.Controlador.SVRPersonas;
 using Universidad.Entidades;
@@ -15,54 +16,29 @@ namespace Universidad.Controlador.Personas
 
         private readonly SPersonasClient _servicio;
 
-        public SvcPersonas (Sesion sesion)
+        public SvcPersonas(Sesion sesion)
         {
             var configServicios = new Controlador.ControladorServicios();
-            _servicio = new SPersonasClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"Personas/", "SPersonas.svc"));
-        }
-        
-        #endregion
-
-        #region Operacion de ExisteCorreoUniversidad
-
-        public delegate void ExisteCorreoUniversidadArgs(bool existeCorreo);
-
-        public event ExisteCorreoUniversidadArgs ExisteCorreoUniversidadFinalizado;
-
-        public void ExisteCorreoUniversidad(string correo)
-        {
-            _servicio.ExisteCorreoUniversidadCompleted +=_servicio_ExisteCorreoUniversidadCompleted;
-            _servicio.ExisteCorreoUniversidadAsync(correo);
-        }
-
-        private void _servicio_ExisteCorreoUniversidadCompleted(object sender, ExisteCorreoUniversidadCompletedEventArgs e)
-        {
-            var resultado = e.Result;
-            ExisteCorreoUniversidadFinalizado(resultado);
-            _servicio.ExisteCorreoUniversidadCompleted -= _servicio_ExisteCorreoUniversidadCompleted;
+            _servicio = new SPersonasClient(configServicios.ObtenBasicHttpBinding(),
+                configServicios.ObtenEndpointAddress(sesion, @"Personas/", "SPersonas.svc"));
         }
 
         #endregion
 
-        #region Inserta medios electronicos
-
-        public delegate void InsertaMediosElectronicosArgs(PER_MEDIOS_ELECTRONICOS mediosElectronicos);
-
-        public event InsertaMediosElectronicosArgs InsertaMediosElectronicosFinalizado;
-
-        public void InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+        public Task<bool> ExisteCorreoUniversidad(string correo)
         {
-            _servicio.InsertaMediosElectronicosCompleted +=_servicio_InsertaMediosElectronicosCompleted;
-            _servicio.InsertaMediosElectronicosAsync(mediosElectronicos);
+            return Task.Run(() => _servicio.ExisteCorreoUniversidadAsync(correo));
         }
 
-        private void _servicio_InsertaMediosElectronicosCompleted(object sender, InsertaMediosElectronicosCompletedEventArgs e)
+        public Task<PER_PERSONAS> InsertarPersona(PER_CAT_TELEFONOS personaTelefonos,
+            PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona,
+            DIR_DIRECCIONES personaDirecciones)
         {
-            var resultado = e.Result;
-            InsertaMediosElectronicosFinalizado(resultado);
-            _servicio.InsertaMediosElectronicosCompleted -= _servicio_InsertaMediosElectronicosCompleted;
+            return
+                Task.Run(
+                    () =>
+                        _servicio.InsertarPersonaAsync(personaTelefonos, personaMediosElectronicos, personaFotografia,
+                            persona, personaDirecciones));
         }
-
-        #endregion
     }
 }

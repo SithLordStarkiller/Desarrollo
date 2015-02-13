@@ -77,7 +77,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             rbImagen.Enabled = false;
             btnCargarFotografia.Enabled = false;
             btnTomarFoto.Enabled = false;
-
+            btnRegistrar.Enabled = false;
 
             ActualizaDispositivos();
         }
@@ -86,36 +86,106 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         #region Operaciones del Registro
 
-        private PER_PERSONAS ObtenDatosPersonas()
+        private async void btnRegistrar_Click(object sender, EventArgs e)
         {
-            return null;
-        }
-
-        private void InsertaMediosElectronicos()
-        {
-            _personaMediosElectronicos = new PER_MEDIOS_ELECTRONICOS()
+            try
             {
-                CORREO_ELECTRONICO_UNIVERSIDAD = tbxCorreoUniversidad.Text + lblDominio.Text,
-                CORREO_ELECTRONICO_PERSONAL = txbCorreoPersonal.Text,
-                TWITTER = string.IsNullOrWhiteSpace(tbxTwitter.Text) ? null : tbxTwitter.Text,
-                FACEBOOK = string.IsNullOrWhiteSpace(tbxFacebook.Text) ? null : tbxFacebook.Text
-            };
+                var msgResultado = MessageBox.Show(text: @"Esta seguro que decea guardar este usuario",
+                          caption: @"Informacion al usuario", buttons: MessageBoxButtons.YesNo,
+                          icon: MessageBoxIcon.Warning);
 
-            _serviciosPersonas.InsertaMediosElectronicos(_personaMediosElectronicos);
-            _serviciosPersonas.InsertaMediosElectronicosFinalizado += delegate(PER_MEDIOS_ELECTRONICOS mediosElectronicos)
+                switch (msgResultado)
+                {
+                    case DialogResult.Yes:
+
+                        CapturaDatosPersona();
+                        CapturaDireccionPersona();
+                        CapturaTelefonosPersona();
+                        CapturaMediosElectronicos();
+
+                        _personaDatos = await _serviciosPersonas.InsertarPersona(_personaTelefonos, _personaMediosElectronicos,
+                            _personaFotografia, _personaDatos, _personaDireccion);
+
+                        MessageBox.Show(text: @"Se guardaron lo datos correctamente" + Environment.NewLine + @"La clave de identificacion es: " + _personaDatos.ID_PER_LINKID,
+                          caption: @"Informacion al usuario", buttons: MessageBoxButtons.OK,
+                          icon: MessageBoxIcon.Information);
+
+                        break;
+
+                    case DialogResult.No:
+                        break;
+                }
+
+                btnRegistrar.Enabled = true;
+
+            }
+
+            catch (Exception)
             {
-                _personaMediosElectronicos = mediosElectronicos;
-            };
-        }
-
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-            InsertaMediosElectronicos();
+                MessageBox.Show(text: @"Error al guardar datos",
+                          caption: @"Error de usuario", buttons: MessageBoxButtons.OK,
+                          icon: MessageBoxIcon.Error);
+                btnRegistrar.Enabled = true;
+            }
         }
 
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CapturaDatosPersona()
+        {
+            _personaDatos= new PER_PERSONAS
+            {
+                NOMBRE = txbNombre.Text,
+                A_PATERNO = tbxApellidoP.Text,
+                A_MATERNO = tbxApellidoM.Text,
+                FECHA_NAC = dtpFechaNacimiento.Value,
+                SEXO = cbxSexo.Text,
+                CURP = tbxCurp.Text,
+                RFC = tbxRfc.Text,
+                IMSS = tbxNss.Text,
+                CVE_NACIONALIDAD = Convert.ToInt32(cbxNacionalidad.SelectedValue),
+                ID_TIPO_PERSONA = Convert.ToInt32(cbxTipoPersona.SelectedValue)
+            };
+        }
+
+        private void CapturaDireccionPersona()
+        {
+            _personaDireccion=new DIR_DIRECCIONES
+            {
+                IDESTADO = Convert.ToInt32(cbxEstado.SelectedValue),
+                IDMUNICIPIO = Convert.ToInt32(cbxMunicipio.SelectedValue),
+                IDCOLONIA = Convert.ToInt32(cbxColonia.SelectedValue),
+                CALLE = txbCalle.Text,
+                NOEXT = tbxNoExt.Text,
+                NOINT = tbxNoInt.Text,
+                REFERENCIAS = tbxReferencias.Text
+            };
+        }
+
+        private void CapturaTelefonosPersona()
+        {
+            _personaTelefonos=new PER_CAT_TELEFONOS
+            {
+                TELEFONO_FIJO_DOMICILIO = tbxTelFijoTrabajo.Text,
+                TELEFONO_FIJO_TRABAJO = tbxTelFijoTrabajo.Text,
+                TELEFONO_CELULAR_PERSONAL = tbxTelCelPersonal.Text,
+                TELEFONO_CELULAR_TRABAJO = tbxTelFijoTrabajo.Text,
+                FAX = tbxFax.Text
+            };
+        }
+
+        private void CapturaMediosElectronicos()
+        {
+            _personaMediosElectronicos=new PER_MEDIOS_ELECTRONICOS
+            {
+                CORREO_ELECTRONICO_PERSONAL = txbCorreoPersonal.Text,
+                CORREO_ELECTRONICO_UNIVERSIDAD = tbxCorreoUniversidad.Text + lblDominio.Text,
+                FACEBOOK = tbxFacebook.Text,
+                TWITTER = tbxTwitter.Text
+            };
         }
 
         #endregion
@@ -267,35 +337,30 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         #region Operacion Medios Electronicos
 
-        private void btnVerificarCorreo_Click(object sender, EventArgs e)
+        private async void btnVerificarCorreo_Click(object sender, EventArgs e)
         {
-            var usuario = tbxCorreoUniversidad.Text + lblDominio.Text;
-            _serviciosPersonas.ExisteCorreoUniversidad(usuario);
-            _serviciosPersonas.ExisteCorreoUniversidadFinalizado += _serviciosPersonas_ExisteCorreoUniversidad;
-        }
+            btnVerificarCorreo.Enabled = false;
+            var existe = await _serviciosPersonas.ExisteCorreoUniversidad(tbxCorreoUniversidad.Text + lblDominio.Text);
+            btnVerificarCorreo.Enabled = true;
 
-        private void _serviciosPersonas_ExisteCorreoUniversidad(bool existeCorreo)
-        {
-            if (existeCorreo)
+            if (existe)
             {
-                MessageBox.Show(text: @"El correo no esta disponible",
-                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
-                        icon: MessageBoxIcon.Information);
                 tbxCorreoUniversidad.ForeColor = Color.Red;
 
+                MessageBox.Show(text: @"Ya hay un correo identico elige otro",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Error);
                 btnRegistrar.Enabled = false;
             }
             else
             {
-                MessageBox.Show(text: @"El correo esta disponible",
-                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
-                        icon: MessageBoxIcon.Information);
                 tbxCorreoUniversidad.ForeColor = Color.ForestGreen;
 
+                MessageBox.Show(text: @"El correo electronico esta disponible",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
                 btnRegistrar.Enabled = true;
             }
-
-            _serviciosPersonas.ExisteCorreoUniversidadFinalizado -= _serviciosPersonas_ExisteCorreoUniversidad;
         }
 
         #endregion
@@ -372,6 +437,11 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             {
 
             }
+
+            MessageBox.Show(text: rbImagen.Checked ? @"Se Guardo la imagen del Archivo" : @"Se Guardo la imagen de la camara",
+                        caption: @"Informe de usuario", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Information);
+            btnRegistrar.Enabled = true;
         }
 
         #endregion

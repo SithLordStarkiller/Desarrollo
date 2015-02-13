@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading.Tasks;
 using Universidad.Entidades;
 using Universidad.LogicaNegocios;
 using Universidad.LogicaNegocios.Personas;
@@ -25,10 +26,12 @@ namespace Universidad.ServidorInterno.Personas
         }
 
         public PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos,
-            PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona,DIR_DIRECCIONES personaDirecciones)
+            PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona,
+            DIR_DIRECCIONES personaDirecciones)
         {
             return new Persona().InsertarPersona(personaTelefonos, personaMediosElectronicos, personaFotografia, persona,
                 personaDirecciones);
         }
+
     }
 }

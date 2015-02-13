@@ -38,7 +38,6 @@ namespace Universidad.Entidades
         public virtual PER_CAT_NACIONALIDAD PER_CAT_NACIONALIDAD { get; set; }
         public virtual PER_CAT_TELEFONOS PER_CAT_TELEFONOS { get; set; }
         public virtual PER_CAT_TIPO_PERSONA PER_CAT_TIPO_PERSONA { get; set; }
-        public virtual PER_FOTOGRAFIA PER_FOTOGRAFIA { get; set; }
         public virtual PER_MEDIOS_ELECTRONICOS PER_MEDIOS_ELECTRONICOS { get; set; }
         public virtual US_USUARIOS US_USUARIOS { get; set; }
     }

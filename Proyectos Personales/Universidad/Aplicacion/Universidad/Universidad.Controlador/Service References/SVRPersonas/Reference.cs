@@ -18,18 +18,20 @@ namespace Universidad.Controlador.SVRPersonas {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad", ReplyAction="http://tempuri.org/ISPersonas/ExisteCorreoUniversidadResponse")]
         bool ExisteCorreoUniversidad(string correo);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad", ReplyAction="http://tempuri.org/ISPersonas/ExisteCorreoUniversidadResponse")]
-        System.IAsyncResult BeginExisteCorreoUniversidad(string correo, System.AsyncCallback callback, object asyncState);
-        
-        bool EndExisteCorreoUniversidad(System.IAsyncResult result);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad", ReplyAction="http://tempuri.org/ISPersonas/ExisteCorreoUniversidadResponse")]
+        System.Threading.Tasks.Task<bool> ExisteCorreoUniversidadAsync(string correo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
         Universidad.Entidades.PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
-        System.IAsyncResult BeginInsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos);
         
-        Universidad.Entidades.PER_MEDIOS_ELECTRONICOS EndInsertaMediosElectronicos(System.IAsyncResult result);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertarPersona", ReplyAction="http://tempuri.org/ISPersonas/InsertarPersonaResponse")]
+        Universidad.Entidades.PER_PERSONAS InsertarPersona(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertarPersona", ReplyAction="http://tempuri.org/ISPersonas/InsertarPersonaResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> InsertarPersonaAsync(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -38,57 +40,7 @@ namespace Universidad.Controlador.SVRPersonas {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ExisteCorreoUniversidadCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public ExisteCorreoUniversidadCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public bool Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class InsertaMediosElectronicosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public InsertaMediosElectronicosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((Universidad.Entidades.PER_MEDIOS_ELECTRONICOS)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SPersonasClient : System.ServiceModel.ClientBase<Universidad.Controlador.SVRPersonas.ISPersonas>, Universidad.Controlador.SVRPersonas.ISPersonas {
-        
-        private BeginOperationDelegate onBeginExisteCorreoUniversidadDelegate;
-        
-        private EndOperationDelegate onEndExisteCorreoUniversidadDelegate;
-        
-        private System.Threading.SendOrPostCallback onExisteCorreoUniversidadCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginInsertaMediosElectronicosDelegate;
-        
-        private EndOperationDelegate onEndInsertaMediosElectronicosDelegate;
-        
-        private System.Threading.SendOrPostCallback onInsertaMediosElectronicosCompletedDelegate;
         
         public SPersonasClient() {
         }
@@ -109,108 +61,28 @@ namespace Universidad.Controlador.SVRPersonas {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<ExisteCorreoUniversidadCompletedEventArgs> ExisteCorreoUniversidadCompleted;
-        
-        public event System.EventHandler<InsertaMediosElectronicosCompletedEventArgs> InsertaMediosElectronicosCompleted;
-        
         public bool ExisteCorreoUniversidad(string correo) {
             return base.Channel.ExisteCorreoUniversidad(correo);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginExisteCorreoUniversidad(string correo, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginExisteCorreoUniversidad(correo, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public bool EndExisteCorreoUniversidad(System.IAsyncResult result) {
-            return base.Channel.EndExisteCorreoUniversidad(result);
-        }
-        
-        private System.IAsyncResult OnBeginExisteCorreoUniversidad(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string correo = ((string)(inValues[0]));
-            return this.BeginExisteCorreoUniversidad(correo, callback, asyncState);
-        }
-        
-        private object[] OnEndExisteCorreoUniversidad(System.IAsyncResult result) {
-            bool retVal = this.EndExisteCorreoUniversidad(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnExisteCorreoUniversidadCompleted(object state) {
-            if ((this.ExisteCorreoUniversidadCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.ExisteCorreoUniversidadCompleted(this, new ExisteCorreoUniversidadCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void ExisteCorreoUniversidadAsync(string correo) {
-            this.ExisteCorreoUniversidadAsync(correo, null);
-        }
-        
-        public void ExisteCorreoUniversidadAsync(string correo, object userState) {
-            if ((this.onBeginExisteCorreoUniversidadDelegate == null)) {
-                this.onBeginExisteCorreoUniversidadDelegate = new BeginOperationDelegate(this.OnBeginExisteCorreoUniversidad);
-            }
-            if ((this.onEndExisteCorreoUniversidadDelegate == null)) {
-                this.onEndExisteCorreoUniversidadDelegate = new EndOperationDelegate(this.OnEndExisteCorreoUniversidad);
-            }
-            if ((this.onExisteCorreoUniversidadCompletedDelegate == null)) {
-                this.onExisteCorreoUniversidadCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnExisteCorreoUniversidadCompleted);
-            }
-            base.InvokeAsync(this.onBeginExisteCorreoUniversidadDelegate, new object[] {
-                        correo}, this.onEndExisteCorreoUniversidadDelegate, this.onExisteCorreoUniversidadCompletedDelegate, userState);
+        public System.Threading.Tasks.Task<bool> ExisteCorreoUniversidadAsync(string correo) {
+            return base.Channel.ExisteCorreoUniversidadAsync(correo);
         }
         
         public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
             return base.Channel.InsertaMediosElectronicos(mediosElectronicos);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginInsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginInsertaMediosElectronicos(mediosElectronicos, callback, asyncState);
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
+            return base.Channel.InsertaMediosElectronicosAsync(mediosElectronicos);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS EndInsertaMediosElectronicos(System.IAsyncResult result) {
-            return base.Channel.EndInsertaMediosElectronicos(result);
+        public Universidad.Entidades.PER_PERSONAS InsertarPersona(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones) {
+            return base.Channel.InsertarPersona(personaTelefonos, personaMediosElectronicos, personaFotografia, persona, personaDirecciones);
         }
         
-        private System.IAsyncResult OnBeginInsertaMediosElectronicos(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos = ((Universidad.Entidades.PER_MEDIOS_ELECTRONICOS)(inValues[0]));
-            return this.BeginInsertaMediosElectronicos(mediosElectronicos, callback, asyncState);
-        }
-        
-        private object[] OnEndInsertaMediosElectronicos(System.IAsyncResult result) {
-            Universidad.Entidades.PER_MEDIOS_ELECTRONICOS retVal = this.EndInsertaMediosElectronicos(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnInsertaMediosElectronicosCompleted(object state) {
-            if ((this.InsertaMediosElectronicosCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.InsertaMediosElectronicosCompleted(this, new InsertaMediosElectronicosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
-            this.InsertaMediosElectronicosAsync(mediosElectronicos, null);
-        }
-        
-        public void InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos, object userState) {
-            if ((this.onBeginInsertaMediosElectronicosDelegate == null)) {
-                this.onBeginInsertaMediosElectronicosDelegate = new BeginOperationDelegate(this.OnBeginInsertaMediosElectronicos);
-            }
-            if ((this.onEndInsertaMediosElectronicosDelegate == null)) {
-                this.onEndInsertaMediosElectronicosDelegate = new EndOperationDelegate(this.OnEndInsertaMediosElectronicos);
-            }
-            if ((this.onInsertaMediosElectronicosCompletedDelegate == null)) {
-                this.onInsertaMediosElectronicosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnInsertaMediosElectronicosCompleted);
-            }
-            base.InvokeAsync(this.onBeginInsertaMediosElectronicosDelegate, new object[] {
-                        mediosElectronicos}, this.onEndInsertaMediosElectronicosDelegate, this.onInsertaMediosElectronicosCompletedDelegate, userState);
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> InsertarPersonaAsync(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones) {
+            return base.Channel.InsertarPersonaAsync(personaTelefonos, personaMediosElectronicos, personaFotografia, persona, personaDirecciones);
         }
     }
 }

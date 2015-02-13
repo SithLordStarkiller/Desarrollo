@@ -19,6 +19,12 @@
   <wsdl:message name="ISPersonas_InsertaMediosElectronicos_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertaMediosElectronicosResponse" />
   </wsdl:message>
+  <wsdl:message name="ISPersonas_InsertarPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarPersona" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_InsertarPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarPersonaResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISPersonas">
     <wsdl:operation name="ExisteCorreoUniversidad">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad" message="tns:ISPersonas_ExisteCorreoUniversidad_InputMessage" />
@@ -27,6 +33,10 @@
     <wsdl:operation name="InsertaMediosElectronicos">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos" message="tns:ISPersonas_InsertaMediosElectronicos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse" message="tns:ISPersonas_InsertaMediosElectronicos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/InsertarPersona" message="tns:ISPersonas_InsertarPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/InsertarPersonaResponse" message="tns:ISPersonas_InsertarPersona_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISPersonas" type="tns:ISPersonas">
@@ -42,6 +52,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertaMediosElectronicos">
       <soap:operation soapAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarPersona">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/InsertarPersona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

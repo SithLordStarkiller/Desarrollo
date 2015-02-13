@@ -11,7 +11,7 @@ namespace Universidad.AccesoDatos.Personas
     {
         private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
 
-        public PER_PERSONAS InsertaFotografiaLinq(PER_PERSONAS persona)
+        public PER_PERSONAS InsertaPersonaLinq(PER_PERSONAS persona)
         {
             using (var r = new Repositorio<PER_PERSONAS>())
             {

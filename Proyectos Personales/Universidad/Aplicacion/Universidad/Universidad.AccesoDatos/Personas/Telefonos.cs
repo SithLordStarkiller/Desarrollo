@@ -16,7 +16,7 @@ namespace Universidad.AccesoDatos.Personas
             }
         }
 
-         public Task<PER_CAT_TELEFONOS> InsertaDireccionesLinqAsync(PER_CAT_TELEFONOS personaTelefonos)
+         public Task<PER_CAT_TELEFONOS> InsertaTelefonosLinqAsync(PER_CAT_TELEFONOS personaTelefonos)
          {
              return Task.Run(() =>
              {

@@ -128,9 +128,9 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <PropertyRef Name="IDFOTO" />
           </Key>
           <Property Name="IDFOTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NOMBRE" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="EXTENCION" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="FOTOGRAFIA" Type="varbinary(max)" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="250" />
+          <Property Name="EXTENCION" Type="varchar" MaxLength="10" />
+          <Property Name="FOTOGRAFIA" Type="varbinary(max)" />
           <Property Name="LONGITUD" Type="bigint" />
         </EntityType>
         <EntityType Name="PER_MEDIOS_ELECTRONICOS">
@@ -269,18 +269,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Principal>
             <Dependent Role="DIR_CAT_COLONIAS">
               <PropertyRef Name="IDTIPOZONA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PER_PERS_REFERENCE_PER_FOTO">
-          <End Role="PER_FOTOGRAFIA" Type="Self.PER_FOTOGRAFIA" Multiplicity="0..1" />
-          <End Role="PER_PERSONAS" Type="Self.PER_PERSONAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PER_FOTOGRAFIA">
-              <PropertyRef Name="IDFOTO" />
-            </Principal>
-            <Dependent Role="PER_PERSONAS">
-              <PropertyRef Name="IDFOTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -520,10 +508,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <End Role="DIR_CAT_TIPO_ZONA" EntitySet="DIR_CAT_TIPO_ZONA" />
             <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
           </AssociationSet>
-          <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_FOTO" Association="Self.FK_PER_PERS_REFERENCE_PER_FOTO">
-            <End Role="PER_FOTOGRAFIA" EntitySet="PER_FOTOGRAFIA" />
-            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
-          </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_MEDI" Association="Self.FK_PER_PERS_REFERENCE_PER_MEDI">
             <End Role="PER_MEDIOS_ELECTRONICOS" EntitySet="PER_MEDIOS_ELECTRONICOS" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
@@ -667,10 +651,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           </AssociationSet>
           <AssociationSet Name="Reference_33" Association="UniversidadDBModel.Reference_33">
             <End Role="PER_CAT_TIPO_PERSONA" EntitySet="PER_CAT_TIPO_PERSONA" />
-            <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_FOTO" Association="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_FOTO">
-            <End Role="PER_FOTOGRAFIA" EntitySet="PER_FOTOGRAFIA" />
             <End Role="PER_PERSONAS" EntitySet="PER_PERSONAS" />
           </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_MEDI" Association="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_MEDI">
@@ -826,11 +806,10 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <PropertyRef Name="IDFOTO" />
           </Key>
           <Property Name="IDFOTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="EXTENCION" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="FOTOGRAFIA" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="NOMBRE" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="EXTENCION" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FOTOGRAFIA" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="LONGITUD" Type="Int64" />
-          <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_FOTO" FromRole="PER_FOTOGRAFIA" ToRole="PER_PERSONAS" />
         </EntityType>
         <EntityType Name="PER_MEDIOS_ELECTRONICOS">
           <Key>
@@ -871,7 +850,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <NavigationProperty Name="PER_CAT_NACIONALIDAD" Relationship="UniversidadDBModel.Reference_8" FromRole="PER_PERSONAS" ToRole="PER_CAT_NACIONALIDAD" />
           <NavigationProperty Name="PER_CAT_TELEFONOS" Relationship="UniversidadDBModel.Reference_9" FromRole="PER_PERSONAS" ToRole="PER_CAT_TELEFONOS" />
           <NavigationProperty Name="PER_CAT_TIPO_PERSONA" Relationship="UniversidadDBModel.Reference_33" FromRole="PER_PERSONAS" ToRole="PER_CAT_TIPO_PERSONA" />
-          <NavigationProperty Name="PER_FOTOGRAFIA" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_FOTO" FromRole="PER_PERSONAS" ToRole="PER_FOTOGRAFIA" />
           <NavigationProperty Name="PER_MEDIOS_ELECTRONICOS" Relationship="UniversidadDBModel.FK_PER_PERS_REFERENCE_PER_MEDI" FromRole="PER_PERSONAS" ToRole="PER_MEDIOS_ELECTRONICOS" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_34" FromRole="PER_PERSONAS" ToRole="US_USUARIOS" />
         </EntityType>
@@ -1107,18 +1085,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Principal>
             <Dependent Role="PER_PERSONAS">
               <PropertyRef Name="ID_TIPO_PERSONA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PER_PERS_REFERENCE_PER_FOTO">
-          <End Type="UniversidadDBModel.PER_FOTOGRAFIA" Role="PER_FOTOGRAFIA" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.PER_PERSONAS" Role="PER_PERSONAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PER_FOTOGRAFIA">
-              <PropertyRef Name="IDFOTO" />
-            </Principal>
-            <Dependent Role="PER_PERSONAS">
-              <PropertyRef Name="IDFOTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

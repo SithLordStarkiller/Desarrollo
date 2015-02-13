@@ -14,17 +14,10 @@ namespace Universidad.Entidades
     
     public partial class PER_FOTOGRAFIA
     {
-        public PER_FOTOGRAFIA()
-        {
-            this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
-        }
-    
         public int IDFOTO { get; set; }
         public string NOMBRE { get; set; }
         public string EXTENCION { get; set; }
         public byte[] FOTOGRAFIA { get; set; }
         public Nullable<long> LONGITUD { get; set; }
-    
-        public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }
 }
