@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Iniciar sesión" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Universidad.WebAdministrativa.Account.Login" %>
+﻿<%@ Page Title="Iniciar sesión" Async="true" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Universidad.WebAdministrativa.Account.Login" %>
 <%@ Register Src="~/Account/OpenAuthProviders.ascx" TagPrefix="uc" TagName="OpenAuthProviders" %>
 
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
@@ -7,7 +7,7 @@
     </hgroup>
     <section id="loginForm">
         <h2>Utilice una cuenta local para iniciar sesión.</h2>
-        <asp:Login runat="server" ViewStateMode="Disabled" RenderOuterTable="false">
+        <asp:Login runat="server" ViewStateMode="Disabled" RenderOuterTable="false" ID="lLogin">
             <LayoutTemplate>
                 <p class="validation-summary-errors">
                     <asp:Literal runat="server" ID="FailureText" />
@@ -30,7 +30,7 @@
                             <asp:Label runat="server" AssociatedControlID="RememberMe" CssClass="checkbox">¿Recordar cuenta?</asp:Label>
                         </li>
                     </ol>
-                    <asp:Button runat="server" CommandName="Login" Text="Iniciar sesión" />
+                    <asp:Button runat="server" CommandName="Login" Text="Iniciar sesión" ID="btnIniciarSesion" OnClick="btnIniciarSesion_Click"/>
                 </fieldset>
             </LayoutTemplate>
         </asp:Login>
