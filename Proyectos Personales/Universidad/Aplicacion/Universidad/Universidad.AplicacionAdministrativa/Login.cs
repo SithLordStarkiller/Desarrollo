@@ -51,8 +51,6 @@ namespace Universidad.AplicacionAdministrativa
                 TXB_Contrasena.Text = _sesion.Contrasena;
                 _recordarDatos = ckbRecodarDatos.Checked = true;
             }
-
-            TopMost = true;
             Focus();
             Show();
         }

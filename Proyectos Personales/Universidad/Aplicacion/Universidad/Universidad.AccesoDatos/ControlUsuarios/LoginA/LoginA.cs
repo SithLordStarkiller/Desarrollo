@@ -39,19 +39,19 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 
         #region Metodos de Extraccion
 
-        public US_USUARIOS LoginAdministrador(string Nombre, string Contrasena)
+        public US_USUARIOS LoginAdministradorLinq(string nombre, string contrasena)
         {
-            US_USUARIOS Usuario = null; 
+            US_USUARIOS usuario = null; 
 
-            using (var Aux = new Repositorio<US_USUARIOS> ())
+            using (var aux = new Repositorio<US_USUARIOS> ())
             {
-                Usuario = Aux.Extraer(r => r.USUARIO == Nombre && r.CONTRASENA == Contrasena);
+                usuario = aux.Extraer(r => r.USUARIO == nombre && r.CONTRASENA == contrasena);
             }
 
-            return Usuario;
+            return usuario;
         }
 
-        public US_USUARIOS LoginAdministradoresTSQL(string Nombre, string Contrasena)
+        public US_USUARIOS LoginAdministradoresTSql(string nombre, string contrasena)
         {
             const string executesqlstr = "SELECT TOP 1 * FROM US_USUARIOS WHERE USUARIO = @Usuario AND CONTRASENA = @Contrasena";
             var resultado = new US_USUARIOS();
@@ -59,8 +59,8 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
             try
             {
                 var para = new SqlParameter[] { 
-                    new SqlParameter("@Usuario",Nombre),
-                    new SqlParameter("@Contrasena",Contrasena)                    
+                    new SqlParameter("@Usuario",nombre),
+                    new SqlParameter("@Contrasena",contrasena)                    
                 };
                 var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.Text, executesqlstr, para);
 
