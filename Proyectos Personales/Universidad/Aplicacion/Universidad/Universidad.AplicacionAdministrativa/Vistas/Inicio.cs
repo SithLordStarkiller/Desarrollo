@@ -17,9 +17,9 @@ namespace Universidad.AplicacionAdministrativa.Vistas
         private readonly US_USUARIOS _usuario;
         private readonly Sesion _sesion;
         private List<MenuSistemaE> _listaSistema;
-        private List<SIS_AADM_ARBOLMENUS> _listaArbol; 
+        private List<SIS_AADM_ARBOLMENUS> _listaArbol;
 
-        public Inicio(Form padre,US_USUARIOS usuario,Sesion sesion)
+        public Inicio(Form padre, US_USUARIOS usuario, Sesion sesion)
         {
             _padre = padre;
             _usuario = usuario;
@@ -89,7 +89,7 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
             LBL_Tipo_Usuario.Text = tipoUsuario.TIPO_USUARIO;
 
-            persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado; 
+            persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado;
         }
 
         private void Persona_ObtenNombreCompletoFinalizado(PER_PERSONAS usuario)
@@ -115,12 +115,17 @@ namespace Universidad.AplicacionAdministrativa.Vistas
                 switch (item.IdTabPage)
                 {
                     case 6:
-                    {
-                        control = new Controles.ControPersonas.AltaPersona(_sesion);
-                    }
+                        {
+                            control = new Controles.ControPersonas.AltaPersona(_sesion);
+                        }
+                        break;
+                    case 7:
+                        {
+                            control = new Controles.ControPersonas.EditarPersona();
+                        }
                         break;
                 }
-                
+
                 var tabPage = new TabPage(item.NombreTabPage) { BackColor = Color.White };
                 tabPage.Controls.Add(control);
                 tbcContenido.TabPages.Add(tabPage);

@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Universidad.AplicacionAdministrativa.Vistas.Sistema
+namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 {
-    public partial class GestionCatalogos : Form
+    public partial class EditarPersona : UserControl
     {
-        public GestionCatalogos()
+        public EditarPersona()
         {
             InitializeComponent();
         }
