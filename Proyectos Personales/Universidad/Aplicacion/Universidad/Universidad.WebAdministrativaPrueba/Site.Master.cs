@@ -30,10 +30,6 @@ namespace Universidad.WebAdministrativaPrueba
         protected void Page_Load(object sender, EventArgs e)
         {
         }
-
-        protected void lsLogOff_OnLoggingOut(object sender, LoginCancelEventArgs e)
-        {
-        }
     }
 
 }
