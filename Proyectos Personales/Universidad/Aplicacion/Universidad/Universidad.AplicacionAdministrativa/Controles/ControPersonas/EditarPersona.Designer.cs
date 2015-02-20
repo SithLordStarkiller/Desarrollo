@@ -36,10 +36,9 @@
             this.lblInicioFechaRegistro = new System.Windows.Forms.Label();
             this.lblFinalFechaRegistro = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.lblFechaNacimiento = new System.Windows.Forms.Label();
             this.lblRol = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.btnBuscar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblNombreCompleto
@@ -60,15 +59,15 @@
             // 
             // tbxClave
             // 
-            this.tbxClave.Location = new System.Drawing.Point(101, 82);
+            this.tbxClave.Location = new System.Drawing.Point(797, 44);
             this.tbxClave.Name = "tbxClave";
-            this.tbxClave.Size = new System.Drawing.Size(152, 20);
+            this.tbxClave.Size = new System.Drawing.Size(168, 20);
             this.tbxClave.TabIndex = 3;
             // 
             // lblClave
             // 
             this.lblClave.AutoSize = true;
-            this.lblClave.Location = new System.Drawing.Point(4, 85);
+            this.lblClave.Location = new System.Drawing.Point(716, 47);
             this.lblClave.Name = "lblClave";
             this.lblClave.Size = new System.Drawing.Size(34, 13);
             this.lblClave.TabIndex = 4;
@@ -76,7 +75,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(417, 44);
+            this.dateTimePicker1.Location = new System.Drawing.Point(667, 83);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 5;
@@ -84,7 +83,7 @@
             // lblInicioFechaRegistro
             // 
             this.lblInicioFechaRegistro.AutoSize = true;
-            this.lblInicioFechaRegistro.Location = new System.Drawing.Point(277, 47);
+            this.lblInicioFechaRegistro.Location = new System.Drawing.Point(527, 85);
             this.lblInicioFechaRegistro.Name = "lblInicioFechaRegistro";
             this.lblInicioFechaRegistro.Size = new System.Drawing.Size(121, 13);
             this.lblInicioFechaRegistro.TabIndex = 6;
@@ -93,7 +92,7 @@
             // lblFinalFechaRegistro
             // 
             this.lblFinalFechaRegistro.AutoSize = true;
-            this.lblFinalFechaRegistro.Location = new System.Drawing.Point(277, 85);
+            this.lblFinalFechaRegistro.Location = new System.Drawing.Point(154, 85);
             this.lblFinalFechaRegistro.Name = "lblFinalFechaRegistro";
             this.lblFinalFechaRegistro.Size = new System.Drawing.Size(118, 13);
             this.lblFinalFechaRegistro.TabIndex = 8;
@@ -101,24 +100,15 @@
             // 
             // dateTimePicker2
             // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(417, 82);
+            this.dateTimePicker2.Location = new System.Drawing.Point(280, 83);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker2.TabIndex = 7;
             // 
-            // lblFechaNacimiento
-            // 
-            this.lblFechaNacimiento.AutoSize = true;
-            this.lblFechaNacimiento.Location = new System.Drawing.Point(649, 85);
-            this.lblFechaNacimiento.Name = "lblFechaNacimiento";
-            this.lblFechaNacimiento.Size = new System.Drawing.Size(93, 13);
-            this.lblFechaNacimiento.TabIndex = 9;
-            this.lblFechaNacimiento.Text = "Fecha Nacimiento";
-            // 
             // lblRol
             // 
             this.lblRol.AutoSize = true;
-            this.lblRol.Location = new System.Drawing.Point(649, 47);
+            this.lblRol.Location = new System.Drawing.Point(361, 47);
             this.lblRol.Name = "lblRol";
             this.lblRol.Size = new System.Drawing.Size(23, 13);
             this.lblRol.TabIndex = 10;
@@ -127,26 +117,27 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(765, 44);
+            this.comboBox1.Location = new System.Drawing.Point(431, 44);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(200, 21);
             this.comboBox1.TabIndex = 11;
             // 
-            // dateTimePicker3
+            // btnBuscar
             // 
-            this.dateTimePicker3.Location = new System.Drawing.Point(765, 82);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker3.TabIndex = 12;
+            this.btnBuscar.Location = new System.Drawing.Point(301, 132);
+            this.btnBuscar.Name = "btnBuscar";
+            this.btnBuscar.Size = new System.Drawing.Size(75, 23);
+            this.btnBuscar.TabIndex = 12;
+            this.btnBuscar.Text = "Buscar";
+            this.btnBuscar.UseVisualStyleBackColor = true;
             // 
             // EditarPersona
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dateTimePicker3);
+            this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.lblRol);
-            this.Controls.Add(this.lblFechaNacimiento);
             this.Controls.Add(this.lblFinalFechaRegistro);
             this.Controls.Add(this.dateTimePicker2);
             this.Controls.Add(this.lblInicioFechaRegistro);
@@ -172,10 +163,9 @@
         private System.Windows.Forms.Label lblInicioFechaRegistro;
         private System.Windows.Forms.Label lblFinalFechaRegistro;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.Label lblFechaNacimiento;
         private System.Windows.Forms.Label lblRol;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker3;
+        private System.Windows.Forms.Button btnBuscar;
 
     }
 }
