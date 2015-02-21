@@ -41,9 +41,12 @@ namespace Universidad.WebAdministrativaPrueba
 
         private void Login_LoginAdministrativosFinalizado(Entidades.US_USUARIOS usuario)
         {
-            Session["Usuario"] = usuario;
-            Session["Sesion"] = _sesion;
-            Response.Redirect("Default.aspx");
+            if (usuario != null)
+            {
+                Session["Usuario"] = usuario;
+                Session["Sesion"] = _sesion;
+                Response.Redirect("Default.aspx");
+            }
         }
     }
 }

@@ -9,7 +9,8 @@
 
 </head>
 <body >
-    <div id="loginbox" style="margin-top: 100px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+   <%-- class="mainbox col-md-3 col-md-offset-4 col-sm-4 col-sm-offset-2"--%>
+    <div id="loginbox" style="margin-top: 100px;" class="mainbox col-md-4 col-md-offset-4">
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="panel-title">Login</div>
@@ -18,21 +19,21 @@
 
             <div style="padding-top: 30px" class="panel-body">
 
-                <div style="display: none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+                <div style="display: none" id="login-alert" class="alert alert-danger col-sm-4"></div>
 
                 <form runat="server" id="loginform" class="form-horizontal" role="form">
 
-                    <div style="margin-bottom: 25px; top: 0px; left: 0px;" class="input-group col-md-12">
+                    <div style="margin-bottom: 25px; top: 0px; left: 0px;" class="input-group col-md-8 col-md-offset-2">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <asp:TextBox runat="server" ID="tbxUsuario" type="text" class="form-control" name="username" value="" placeholder="Usuario" />
+                        <asp:TextBox runat="server" ID="tbxUsuario" type="text" class="form-control col-lg-8" name="username" value="" placeholder="Usuario" />
                     </div>
 
-                    <div style="margin-bottom: 25px" class="input-group col-md-12">
+                    <div style="margin-bottom: 25px" class="input-group col-md-8 col-md-offset-2">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <asp:TextBox runat="server" ID="tbxContrasena" type="password" class="form-control" name="password" placeholder="Contraseña" />
+                        <asp:TextBox runat="server" ID="tbxContrasena" type="password" class="form-control col-lg-8 text" name="password" placeholder="Contraseña" />
                     </div>
 
-                    <div class="input-group">
+                    <div class="input-group col-lg-8">
                         <div class="checkbox">
                             <label>
                                 <asp:CheckBox runat="server" id="cbxRecordarContrasena" type="checkbox" name="Recordar Contraseña" value="1" Text="Recordar contraseña"/>
@@ -41,7 +42,7 @@
                     </div>
 
                     <div style="margin-top: 10px; float:right;" class="form-group">
-                        <div class="col-sm-12 controls">
+                        <div class="col-sm-6 controls">
                             <asp:Button runat="server" id="btnLogin" href="#" class="btn btn-success" Text="Log in" OnClick="btnLogin_OnClick"></asp:Button>
                         </div>
                     </div>

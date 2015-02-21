@@ -28,7 +28,7 @@
                 <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
             </p>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-5">
             <h2>Web Hosting</h2>
             <p>
                 You can easily find a web hosting company that offers the right mix of features and price for your applications.
@@ -38,5 +38,6 @@
             </p>
         </div>
     </div>
+
 
 </asp:Content>
