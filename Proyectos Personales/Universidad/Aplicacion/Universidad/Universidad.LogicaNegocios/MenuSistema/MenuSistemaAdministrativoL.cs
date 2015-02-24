@@ -21,5 +21,10 @@ namespace Universidad.LogicaNegocios.MenuSistema
         {
             return new MenuSistemaAdministrativoA().TrerMenusLinq(usuario);
         }
+
+        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
+        {
+            return new MenuSistemaAdministrativoA().TraeArbolMenuWadmLinq(usuario);
+        }
     }
 }

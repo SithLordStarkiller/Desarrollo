@@ -31,13 +31,24 @@ namespace Universidad.Controlador.GestionCatalogos
 
         #region Obten Tipo de Usuario
 
-        public US_CAT_TIPO_USUARIO ObtenTipoUsuario(int Id_TipoUsuario)
+        public delegate void ObtenTipoUsuarioArgs(US_CAT_TIPO_USUARIO tipoUsuario);
+
+        public event ObtenTipoUsuarioArgs ObtenTipoUsuarioFinalizado;
+
+        public void ObtenTipoUsuario(int idTipoPersona)
         {
-            var JObject = _servicio.ObtenCatTipoUsuario(Id_TipoUsuario);
+            _servicio.ObtenCatTipoUsuarioAsync(idTipoPersona);
+            _servicio.ObtenCatTipoUsuarioCompleted += _servicio_ObtenCatTipoUsuarioCompleted;
+        }
 
-            var TipoUsuario = JsonConvert.DeserializeObject<US_CAT_TIPO_USUARIO>(JObject);
+        private void _servicio_ObtenCatTipoUsuarioCompleted(object sender, ObtenCatTipoUsuarioCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
 
-            return TipoUsuario;
+            var resultado = e.Result;
+            var tipoUsuario = JsonConvert.DeserializeObject<US_CAT_TIPO_USUARIO>(resultado);
+            ObtenTipoUsuarioFinalizado(tipoUsuario);
+            _servicio.ObtenCatTipoUsuarioCompleted -= _servicio_ObtenCatTipoUsuarioCompleted;
         }
 
         #endregion

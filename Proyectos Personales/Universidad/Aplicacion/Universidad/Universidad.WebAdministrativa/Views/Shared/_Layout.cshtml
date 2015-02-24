@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad - @ViewBag.Title</title>
+    <link href="~/Content/Sites.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    
+    <link href="/Content/dropdown/dropdown.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/Content/default.advanced.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <label class="navbar-right navbar-text text-center text-info">Bienvenido @ViewBag.Nombre</label>
+            </div>
+            <div class="navbar" id="navBar">
+                <lu class="nav navbar-nav navbar-right">
+                    <li>
+                        <label  Class="navbar-text navbar-header" >@ViewBag.TipoUsuario</label>
+                    </li>
+                    <li></li>
+                    <li>
+                        <button Class="btn navbar-btn btn-warning">Cerrar Sesion</button>
+                    </li>
+                </lu>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <br />
+        <br />
+        <br />
+        <br />
+        @Html.Action("ObtenArbolMenu","Home")
+        @*@Html.Partial("_MenuArbol")*@
+        <br/>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p align="left">&copy; @DateTime.Now.Year - Ferakusoft &copy;</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

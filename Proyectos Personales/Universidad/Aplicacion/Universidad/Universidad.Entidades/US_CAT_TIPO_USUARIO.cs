@@ -17,6 +17,7 @@ namespace Universidad.Entidades
         public US_CAT_TIPO_USUARIO()
         {
             this.SIS_AADM_APLICACIONES = new HashSet<SIS_AADM_APLICACIONES>();
+            this.SIS_WADM_ARBOLMENU = new HashSet<SIS_WADM_ARBOLMENU>();
             this.US_USUARIOS = new HashSet<US_USUARIOS>();
         }
     
@@ -25,6 +26,7 @@ namespace Universidad.Entidades
         public string DESCRIPCION { get; set; }
     
         public virtual ICollection<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
+        public virtual ICollection<SIS_WADM_ARBOLMENU> SIS_WADM_ARBOLMENU { get; set; }
         public virtual ICollection<US_USUARIOS> US_USUARIOS { get; set; }
     }
 }

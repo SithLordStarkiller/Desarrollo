@@ -56,6 +56,13 @@ namespace Universidad.AccesoDatos.AdministracionSistema.MenuSistema
             return lista;
         }
 
+        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadmLinq(US_USUARIOS usuario)
+        {
+            using (var aux = new Repositorio<SIS_WADM_ARBOLMENU>())
+            {
+                return aux.Filtro(r => r.ID_NIVEL_USUARIO == usuario.ID_NIVEL_USUARIO && r.ID_TIPO_USUARIO == usuario.ID_TIPO_USUARIO);
+            }
+        }
         #endregion
     }
 }

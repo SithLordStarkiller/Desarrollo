@@ -16,6 +16,8 @@ namespace Universidad.AplicacionAdministrativa.Vistas
         private readonly Form _padre;
         private readonly US_USUARIOS _usuario;
         private readonly Sesion _sesion;
+        private SVC_GestionCatalogos _gestionCatalogos;
+        private SVC_LoginAdministrativos _persona;
         private List<MenuSistemaE> _listaSistema;
         private List<SIS_AADM_ARBOLMENUS> _listaArbol;
 
@@ -79,17 +81,22 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            var gestioncatalogos = new SVC_GestionCatalogos(_sesion);
-            var persona = new SVC_LoginAdministrativos(_sesion);
+            _gestionCatalogos = new SVC_GestionCatalogos(_sesion);
+            _persona = new SVC_LoginAdministrativos(_sesion);
 
-            persona.ObtenNombreCompleto(_usuario);
+            _persona.ObtenNombreCompleto(_usuario);
+            _persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado;
 
             if (_usuario.ID_TIPO_USUARIO == null) return;
-            var tipoUsuario = gestioncatalogos.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
 
+            _gestionCatalogos.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
+            _gestionCatalogos.ObtenTipoUsuarioFinalizado += gestioncatalogos_ObtenTipoUsuarioFinalizado;
+        }
+
+        void gestioncatalogos_ObtenTipoUsuarioFinalizado(US_CAT_TIPO_USUARIO tipoUsuario)
+        {
             LBL_Tipo_Usuario.Text = tipoUsuario.TIPO_USUARIO;
-
-            persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado;
+            _gestionCatalogos.ObtenTipoUsuarioFinalizado += gestioncatalogos_ObtenTipoUsuarioFinalizado;
         }
 
         private void Persona_ObtenNombreCompletoFinalizado(PER_PERSONAS usuario)

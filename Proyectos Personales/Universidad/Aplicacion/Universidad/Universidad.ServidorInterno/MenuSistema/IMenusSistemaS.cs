@@ -17,5 +17,8 @@ namespace Universidad.ServidorInterno.MenuSistema
 
         [OperationContract]
         string TraerMenus(US_USUARIOS usuario);
+
+        [OperationContract]
+        string TraeArbolMenuWadm(US_USUARIOS usuario);
     }
 }

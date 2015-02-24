@@ -30,9 +30,9 @@ namespace Universidad.WebAdministrativaPrueba
         private void _servicioPersona_ObtenNombreCompletoFinalizado(PER_PERSONAS persona)
         {
             var gestioncatalogos = new SVC_GestionCatalogos(_sesion);
-            var tipoUsuario = gestioncatalogos.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
+            //var tipoUsuario = gestioncatalogos.ObtenTipoUsuario((int)_usuario.ID_TIPO_USUARIO);
             ((Label) (Master.FindControl("lblNombre"))).Text = persona.NOMBRE_COMPLETO;
-            ((Label) (Master.FindControl("lblTipoUsuario"))).Text = tipoUsuario.TIPO_USUARIO;
+            //((Label) (Master.FindControl("lblTipoUsuario"))).Text = tipoUsuario.TIPO_USUARIO;
         }
     }
 }

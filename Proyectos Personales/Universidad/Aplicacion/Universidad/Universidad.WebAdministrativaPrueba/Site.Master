@@ -45,7 +45,7 @@
                 <div class="navbar-header">
                     <asp:Label runat="server" ID="lblTipoUsuario" Class="navbar-right navbar-text text-center" />
                 </div>
-                <div class="navbar">
+                <div class="navbar" id="navBar">
                     <lu class="nav navbar-nav navbar-right">
                         <li>
                            <asp:Label runat="server" ID="lblNombre" Class="navbar-right navbar-text navbar-right" />
@@ -57,10 +57,10 @@
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
         <div class="container body-content">
             <div class="container">
-            <lu class="nav nav-tabs">
+                <lu class="nav nav-tabs">
                 <li>
                     <asp:HyperLink runat="server" text="button" class="btn btn-default btn-sm"/>
                 </li>
@@ -69,16 +69,17 @@
                     <asp:HyperLink runat="server" Class="btn btn-default btn-sm" Text="button"/>
                 </li>
             </lu>
-        </div>
-            
-    <div>
-    </div>
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Universidad</p>
-            </footer>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <hr />
+                    <footer>
+                        <p>&copy; <%: DateTime.Now.Year %> - Universidad</p>
+                    </footer>
+                </div>
+            </div>
         </div>
     </form>
 </body>

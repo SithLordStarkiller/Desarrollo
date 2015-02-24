@@ -40,6 +40,8 @@ namespace Universidad.Entidades
         public DbSet<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
         public DbSet<SIS_AADM_ARBOLMENUS> SIS_AADM_ARBOLMENUS { get; set; }
         public DbSet<SIS_CAT_TABPAGES> SIS_CAT_TABPAGES { get; set; }
+        public DbSet<SIS_WADM_ARBOLMENU> SIS_WADM_ARBOLMENU { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<US_CAT_ESTATUS_USUARIO> US_CAT_ESTATUS_USUARIO { get; set; }
         public DbSet<US_CAT_NIVEL_USUARIO> US_CAT_NIVEL_USUARIO { get; set; }
         public DbSet<US_CAT_TIPO_USUARIO> US_CAT_TIPO_USUARIO { get; set; }

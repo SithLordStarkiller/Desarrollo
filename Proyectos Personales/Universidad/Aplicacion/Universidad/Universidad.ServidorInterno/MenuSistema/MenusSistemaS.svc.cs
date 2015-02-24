@@ -25,5 +25,11 @@ namespace Universidad.ServidorInterno.MenuSistema
             var lista = new MenuSistemaAdministrativoL().TraeMenus(usuario);
             return JsonConvert.SerializeObject(lista);
         }
+
+        public string TraeArbolMenuWadm(US_USUARIOS usuario)
+        {
+            var lista = new MenuSistemaAdministrativoL().TraeArbolMenuWadm(usuario);
+            return JsonConvert.SerializeObject(lista);
+        }
     }
 }

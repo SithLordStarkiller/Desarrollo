@@ -179,6 +179,27 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="RUTATAB" Type="varchar" MaxLength="100" />
           <Property Name="NOMBRETABPAGE" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="SIS_WADM_ARBOLMENU">
+          <Key>
+            <PropertyRef Name="IDMENU" />
+          </Key>
+          <Property Name="IDMENU" Type="int" Nullable="false" />
+          <Property Name="ID_TIPO_USUARIO" Type="int" />
+          <Property Name="ID_NIVEL_USUARIO" Type="int" />
+          <Property Name="IDMENUPADRE" Type="int" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
+          <Property Name="LINK" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="US_CAT_ESTATUS_USUARIO">
           <Key>
             <PropertyRef Name="ID_ESTATUS_USUARIOS" />
@@ -316,6 +337,42 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
               <PropertyRef Name="ID_TIPO_USUARIO" />
             </Principal>
             <Dependent Role="SIS_AADM_APLICACIONES">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_WADM_REFERENCE_SIS_WADM">
+          <End Role="SIS_WADM_ARBOLMENU" Type="Self.SIS_WADM_ARBOLMENU" Multiplicity="0..1" />
+          <End Role="SIS_WADM_ARBOLMENU1" Type="Self.SIS_WADM_ARBOLMENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIS_WADM_ARBOLMENU">
+              <PropertyRef Name="IDMENU" />
+            </Principal>
+            <Dependent Role="SIS_WADM_ARBOLMENU1">
+              <PropertyRef Name="IDMENUPADRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_WADM_REFERENCE_US_CAT_N">
+          <End Role="US_CAT_NIVEL_USUARIO" Type="Self.US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
+          <End Role="SIS_WADM_ARBOLMENU" Type="Self.SIS_WADM_ARBOLMENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_NIVEL_USUARIO">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_WADM_ARBOLMENU">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_WADM_REFERENCE_US_CAT_T">
+          <End Role="US_CAT_TIPO_USUARIO" Type="Self.US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
+          <End Role="SIS_WADM_ARBOLMENU" Type="Self.SIS_WADM_ARBOLMENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_TIPO_USUARIO">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_WADM_ARBOLMENU">
               <PropertyRef Name="ID_TIPO_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
@@ -516,6 +573,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="Self.SIS_AADM_APLICACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="Self.SIS_AADM_ARBOLMENUS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_CAT_TABPAGES" EntityType="Self.SIS_CAT_TABPAGES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SIS_WADM_ARBOLMENU" EntityType="Self.SIS_WADM_ARBOLMENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_ESTATUS_USUARIO" EntityType="Self.US_CAT_ESTATUS_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_NIVEL_USUARIO" EntityType="Self.US_CAT_NIVEL_USUARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_TIPO_USUARIO" EntityType="Self.US_CAT_TIPO_USUARIO" Schema="dbo" store:Type="Tables" />
@@ -552,6 +611,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_T" Association="Self.FK_SIS_AADM_REFERENCE_US_CAT_T">
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
             <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_WADM_REFERENCE_SIS_WADM" Association="Self.FK_SIS_WADM_REFERENCE_SIS_WADM">
+            <End Role="SIS_WADM_ARBOLMENU" EntitySet="SIS_WADM_ARBOLMENU" />
+            <End Role="SIS_WADM_ARBOLMENU1" EntitySet="SIS_WADM_ARBOLMENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_WADM_REFERENCE_US_CAT_N" Association="Self.FK_SIS_WADM_REFERENCE_US_CAT_N">
+            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
+            <End Role="SIS_WADM_ARBOLMENU" EntitySet="SIS_WADM_ARBOLMENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_WADM_REFERENCE_US_CAT_T" Association="Self.FK_SIS_WADM_REFERENCE_US_CAT_T">
+            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
+            <End Role="SIS_WADM_ARBOLMENU" EntitySet="SIS_WADM_ARBOLMENU" />
           </AssociationSet>
           <AssociationSet Name="Reference_10" Association="Self.Reference_10">
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
@@ -634,6 +705,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="SIS_AADM_APLICACIONES" EntityType="UniversidadDBModel.SIS_AADM_APLICACIONES" />
           <EntitySet Name="SIS_AADM_ARBOLMENUS" EntityType="UniversidadDBModel.SIS_AADM_ARBOLMENUS" />
           <EntitySet Name="SIS_CAT_TABPAGES" EntityType="UniversidadDBModel.SIS_CAT_TABPAGES" />
+          <EntitySet Name="SIS_WADM_ARBOLMENU" EntityType="UniversidadDBModel.SIS_WADM_ARBOLMENU" />
+          <EntitySet Name="sysdiagrams" EntityType="UniversidadDBModel.sysdiagrams" />
           <EntitySet Name="US_CAT_ESTATUS_USUARIO" EntityType="UniversidadDBModel.US_CAT_ESTATUS_USUARIO" />
           <EntitySet Name="US_CAT_NIVEL_USUARIO" EntityType="UniversidadDBModel.US_CAT_NIVEL_USUARIO" />
           <EntitySet Name="US_CAT_TIPO_USUARIO" EntityType="UniversidadDBModel.US_CAT_TIPO_USUARIO" />
@@ -714,6 +787,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <AssociationSet Name="FK_SIS_AADM_REFERENCE_US_CAT_T" Association="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T">
             <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
             <End Role="SIS_AADM_APLICACIONES" EntitySet="SIS_AADM_APLICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_WADM_REFERENCE_SIS_WADM" Association="UniversidadDBModel.FK_SIS_WADM_REFERENCE_SIS_WADM">
+            <End Role="SIS_WADM_ARBOLMENU" EntitySet="SIS_WADM_ARBOLMENU" />
+            <End Role="SIS_WADM_ARBOLMENU1" EntitySet="SIS_WADM_ARBOLMENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_WADM_REFERENCE_US_CAT_N" Association="UniversidadDBModel.FK_SIS_WADM_REFERENCE_US_CAT_N">
+            <End Role="US_CAT_NIVEL_USUARIO" EntitySet="US_CAT_NIVEL_USUARIO" />
+            <End Role="SIS_WADM_ARBOLMENU" EntitySet="SIS_WADM_ARBOLMENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_WADM_REFERENCE_US_CAT_T" Association="UniversidadDBModel.FK_SIS_WADM_REFERENCE_US_CAT_T">
+            <End Role="US_CAT_TIPO_USUARIO" EntitySet="US_CAT_TIPO_USUARIO" />
+            <End Role="SIS_WADM_ARBOLMENU" EntitySet="SIS_WADM_ARBOLMENU" />
           </AssociationSet>
           <AssociationSet Name="Reference_11" Association="UniversidadDBModel.Reference_11">
             <End Role="US_CAT_ESTATUS_USUARIO" EntitySet="US_CAT_ESTATUS_USUARIO" />
@@ -922,6 +1007,31 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="NOMBRETABPAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_SIS_CAT_" FromRole="SIS_CAT_TABPAGES" ToRole="SIS_AADM_APLICACIONES" />
         </EntityType>
+        <EntityType Name="SIS_WADM_ARBOLMENU">
+          <Key>
+            <PropertyRef Name="IDMENU" />
+          </Key>
+          <Property Name="IDMENU" Type="Int32" Nullable="false" />
+          <Property Name="ID_TIPO_USUARIO" Type="Int32" />
+          <Property Name="ID_NIVEL_USUARIO" Type="Int32" />
+          <Property Name="IDMENUPADRE" Type="Int32" />
+          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LINK" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SIS_WADM_ARBOLMENU1" Relationship="UniversidadDBModel.FK_SIS_WADM_REFERENCE_SIS_WADM" FromRole="SIS_WADM_ARBOLMENU" ToRole="SIS_WADM_ARBOLMENU1" />
+          <NavigationProperty Name="SIS_WADM_ARBOLMENU2" Relationship="UniversidadDBModel.FK_SIS_WADM_REFERENCE_SIS_WADM" FromRole="SIS_WADM_ARBOLMENU1" ToRole="SIS_WADM_ARBOLMENU" />
+          <NavigationProperty Name="US_CAT_NIVEL_USUARIO" Relationship="UniversidadDBModel.FK_SIS_WADM_REFERENCE_US_CAT_N" FromRole="SIS_WADM_ARBOLMENU" ToRole="US_CAT_NIVEL_USUARIO" />
+          <NavigationProperty Name="US_CAT_TIPO_USUARIO" Relationship="UniversidadDBModel.FK_SIS_WADM_REFERENCE_US_CAT_T" FromRole="SIS_WADM_ARBOLMENU" ToRole="US_CAT_TIPO_USUARIO" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="US_CAT_ESTATUS_USUARIO">
           <Key>
             <PropertyRef Name="ID_ESTATUS_USUARIOS" />
@@ -939,6 +1049,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="NIVEL_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_N" FromRole="US_CAT_NIVEL_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
+          <NavigationProperty Name="SIS_WADM_ARBOLMENU" Relationship="UniversidadDBModel.FK_SIS_WADM_REFERENCE_US_CAT_N" FromRole="US_CAT_NIVEL_USUARIO" ToRole="SIS_WADM_ARBOLMENU" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_12" FromRole="US_CAT_NIVEL_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_CAT_TIPO_USUARIO">
@@ -949,6 +1060,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="TIPO_USUARIO" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="SIS_AADM_APLICACIONES" Relationship="UniversidadDBModel.FK_SIS_AADM_REFERENCE_US_CAT_T" FromRole="US_CAT_TIPO_USUARIO" ToRole="SIS_AADM_APLICACIONES" />
+          <NavigationProperty Name="SIS_WADM_ARBOLMENU" Relationship="UniversidadDBModel.FK_SIS_WADM_REFERENCE_US_CAT_T" FromRole="US_CAT_TIPO_USUARIO" ToRole="SIS_WADM_ARBOLMENU" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.Reference_10" FromRole="US_CAT_TIPO_USUARIO" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_HISTORIAL">
@@ -1206,6 +1318,42 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SIS_WADM_REFERENCE_SIS_WADM">
+          <End Type="UniversidadDBModel.SIS_WADM_ARBOLMENU" Role="SIS_WADM_ARBOLMENU" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_WADM_ARBOLMENU" Role="SIS_WADM_ARBOLMENU1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SIS_WADM_ARBOLMENU">
+              <PropertyRef Name="IDMENU" />
+            </Principal>
+            <Dependent Role="SIS_WADM_ARBOLMENU1">
+              <PropertyRef Name="IDMENUPADRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_WADM_REFERENCE_US_CAT_N">
+          <End Type="UniversidadDBModel.US_CAT_NIVEL_USUARIO" Role="US_CAT_NIVEL_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_WADM_ARBOLMENU" Role="SIS_WADM_ARBOLMENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_NIVEL_USUARIO">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_WADM_ARBOLMENU">
+              <PropertyRef Name="ID_NIVEL_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SIS_WADM_REFERENCE_US_CAT_T">
+          <End Type="UniversidadDBModel.US_CAT_TIPO_USUARIO" Role="US_CAT_TIPO_USUARIO" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.SIS_WADM_ARBOLMENU" Role="SIS_WADM_ARBOLMENU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="US_CAT_TIPO_USUARIO">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Principal>
+            <Dependent Role="SIS_WADM_ARBOLMENU">
+              <PropertyRef Name="ID_TIPO_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="Reference_11">
           <End Type="UniversidadDBModel.US_CAT_ESTATUS_USUARIO" Role="US_CAT_ESTATUS_USUARIO" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
@@ -1426,6 +1574,29 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
                 <ScalarProperty Name="NOMBRETABPAGE" ColumnName="NOMBRETABPAGE" />
                 <ScalarProperty Name="RUTATAB" ColumnName="RUTATAB" />
                 <ScalarProperty Name="IDTABPAGES" ColumnName="IDTABPAGES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SIS_WADM_ARBOLMENU">
+            <EntityTypeMapping TypeName="UniversidadDBModel.SIS_WADM_ARBOLMENU">
+              <MappingFragment StoreEntitySet="SIS_WADM_ARBOLMENU">
+                <ScalarProperty Name="LINK" ColumnName="LINK" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="IDMENUPADRE" ColumnName="IDMENUPADRE" />
+                <ScalarProperty Name="ID_NIVEL_USUARIO" ColumnName="ID_NIVEL_USUARIO" />
+                <ScalarProperty Name="ID_TIPO_USUARIO" ColumnName="ID_TIPO_USUARIO" />
+                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="UniversidadDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

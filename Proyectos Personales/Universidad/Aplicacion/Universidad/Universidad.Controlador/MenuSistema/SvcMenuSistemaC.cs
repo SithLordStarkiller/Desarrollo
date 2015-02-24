@@ -66,5 +66,30 @@ namespace Universidad.Controlador.MenuSistema
         }
 
         #endregion
+
+        #region TraeMenuArbolWadm
+
+        public delegate void TraeArbolMenuWadmArgs(List<SIS_WADM_ARBOLMENU> lista);
+
+        public event TraeArbolMenuWadmArgs TraeArbolMenuWadmFinalizado;
+
+        public void TraeArbolMenuWadm(US_USUARIOS usuario)
+        {
+            _servicio.TraeArbolMenuWadmCompleted += _servicio_TraeArbolMenuWadmCompleted;
+            _servicio.TraeArbolMenuWadm(usuario);
+        }
+
+        void _servicio_TraeArbolMenuWadmCompleted(object sender, TraeArbolMenuWadmCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var lista = JsonConvert.DeserializeObject<List<SIS_WADM_ARBOLMENU>>(e.Result);
+            
+            _servicio.TraeArbolMenuWadmCompleted -= _servicio_TraeArbolMenuWadmCompleted;
+
+            TraeArbolMenuWadmFinalizado(lista);
+        }
+
+        #endregion
     }
 }
