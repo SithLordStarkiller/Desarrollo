@@ -37,7 +37,7 @@ namespace Universidad.WebAdministrativa.Controllers
             servidorLogin.LoginAdministrativo(sesion.Usuario, sesion.Contrasena);
         }
 
-        public ActionResult LogInCompleted(US_USUARIOS usuario,Sesion sesion)
+        public ActionResult LogInCompleted(US_USUARIOS usuario, Sesion sesion)
         {
             TempData["usuario"] = usuario;
             TempData["sesion"] = sesion;
