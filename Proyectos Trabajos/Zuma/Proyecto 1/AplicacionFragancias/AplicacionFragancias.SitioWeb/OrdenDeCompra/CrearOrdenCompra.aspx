@@ -31,7 +31,7 @@
         <br />
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
             <div class="panel-heading" style="margin: 5px; padding: 10px;">
-                <div class="panel-title">Orden de compra</div>
+                <div class="panel-title">Productos</div>
             </div>
             <div>
                 <asp:GridView ID="grdCredit" runat="server" AutoGenerateColumns="false" CssClass="GridViewStyle"
