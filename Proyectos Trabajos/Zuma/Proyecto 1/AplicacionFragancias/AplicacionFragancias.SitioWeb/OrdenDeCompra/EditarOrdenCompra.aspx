@@ -14,11 +14,10 @@
                             AutoGenerateColumns="false" Font-Names="Arial"
                             Font-Size="11pt" AlternatingRowStyle-BackColor="#C2D69B"
                             HeaderStyle-BackColor="green" AllowPaging="true" ShowFooter="true"
-                            <%-- OnPageIndexChanging="OnPaging" OnRowEditing="EditCustomer"
-                    OnRowUpdating="UpdateCustomer" OnRowCancelingEdit="CancelEdit"--%>
+                           
                             PageSize="10">
                             <Columns>
-                                <asp:TemplateField ItemStyle-Width="30px" HeaderText="CustomerID">
+                                <%--<asp:TemplateField ItemStyle-Width="30px" HeaderText="CustomerID">
                                     <ItemTemplate>
                                         <asp:Label ID="lblCustomerID" runat="server"
                                             Text='<%# Eval("CustomerID")%>'></asp:Label>
@@ -53,7 +52,7 @@
                                     <FooterTemplate>
                                         <asp:TextBox ID="txtCompanyF" runat="server"></asp:TextBox>
                                     </FooterTemplate>
-                                </asp:TemplateField>
+                                </asp:TemplateField>--%>
                                 <%--<asp:TemplateField>
                             <ItemTemplate>
                                 <asp:LinkButton ID="lnkRemove" runat="server"
@@ -71,9 +70,9 @@
                             <AlternatingRowStyle BackColor="#C2D69B" />
                         </asp:GridView>
                     </ContentTemplate>
-                    <Triggers>
+                    <%--<Triggers>
                         <asp:AsyncPostBackTrigger ControlID="GridView1" />
-                    </Triggers>
+                    </Triggers>--%>
                 </asp:UpdatePanel>
             </div>
         </div>
