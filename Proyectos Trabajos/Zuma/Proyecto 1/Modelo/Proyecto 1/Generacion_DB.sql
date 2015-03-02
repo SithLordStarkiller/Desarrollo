@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     26/02/2015 04:56:19 p. m.                    */
+/* Created on:     02/03/2015 02:02:45 p. m.                    */
 /*==============================================================*/
 
 
@@ -155,11 +155,11 @@ go
 /* Table: ALM_CAT_ALMECENES                                     */
 /*==============================================================*/
 create table ALM_CAT_ALMECENES (
-   ID_ALAMACENES        smallint             not null,
+   IDALAMACENES         smallint             not null,
    NOMBREALMACEN        varchar(50)          not null,
    DESCRIPCION          varchar(100)         null,
    BORRADO              bit                  not null,
-   constraint PK_ALM_CAT_ALMECENES primary key (ID_ALAMACENES)
+   constraint PK_ALM_CAT_ALMECENES primary key (IDALAMACENES)
 )
 go
 
@@ -192,7 +192,7 @@ go
 /*==============================================================*/
 create table COM_ORDENCOMPRA (
    IDORDENCOMPRA        int                  not null,
-   ID_ALAMACENES        smallint             null,
+   IDALAMACENES         smallint             null,
    IDESTATUSCOMPRA      int                  null,
    FECHAENTREGA         datetime             not null,
    FECHAPEDIDO          datetime             not null,
@@ -260,10 +260,10 @@ go
 /* Table: SIS_PERFILES_MENU                                     */
 /*==============================================================*/
 create table SIS_PERFILES_MENU (
-   ID_PERFILESMENU      smallint             not null,
+   IDPERFILESMENU       smallint             not null,
    IDMENU               int                  null,
    IDPERFIL             smallint             null,
-   constraint PK_SIS_PERFILES_MENU primary key (ID_PERFILESMENU)
+   constraint PK_SIS_PERFILES_MENU primary key (IDPERFILESMENU)
 )
 go
 
@@ -305,8 +305,8 @@ create table US_USUARIOS (
 go
 
 alter table COM_ORDENCOMPRA
-   add constraint FK_COM_ORDE_REFERENCE_ALM_CAT_ foreign key (ID_ALAMACENES)
-      references ALM_CAT_ALMECENES (ID_ALAMACENES)
+   add constraint FK_COM_ORDE_REFERENCE_ALM_CAT_ foreign key (IDALAMACENES)
+      references ALM_CAT_ALMECENES (IDALAMACENES)
 go
 
 alter table COM_ORDENCOMPRA

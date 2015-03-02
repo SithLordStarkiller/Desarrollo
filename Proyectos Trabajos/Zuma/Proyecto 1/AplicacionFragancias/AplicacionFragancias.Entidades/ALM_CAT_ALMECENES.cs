@@ -19,7 +19,7 @@ namespace AplicacionFragancias.Entidades
             this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
         }
     
-        public short ID_ALAMACENES { get; set; }
+        public short IDALAMACENES { get; set; }
         public string NOMBREALMACEN { get; set; }
         public string DESCRIPCION { get; set; }
         public bool BORRADO { get; set; }

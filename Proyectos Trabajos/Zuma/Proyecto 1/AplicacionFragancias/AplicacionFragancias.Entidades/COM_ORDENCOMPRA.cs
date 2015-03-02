@@ -20,7 +20,7 @@ namespace AplicacionFragancias.Entidades
         }
     
         public int IDORDENCOMPRA { get; set; }
-        public Nullable<short> ID_ALAMACENES { get; set; }
+        public Nullable<short> IDALAMACENES { get; set; }
         public Nullable<int> IDESTATUSCOMPRA { get; set; }
         public System.DateTime FECHAENTREGA { get; set; }
         public System.DateTime FECHAPEDIDO { get; set; }

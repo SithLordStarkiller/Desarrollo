@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FraganciasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FraganciasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ALM_CAT_ALMECENES">
           <Key>
-            <PropertyRef Name="ID_ALAMACENES" />
+            <PropertyRef Name="IDALAMACENES" />
           </Key>
-          <Property Name="ID_ALAMACENES" Type="smallint" Nullable="false" />
+          <Property Name="IDALAMACENES" Type="smallint" Nullable="false" />
           <Property Name="NOMBREALMACEN" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
           <Property Name="BORRADO" Type="bit" Nullable="false" />
@@ -37,7 +37,7 @@
             <PropertyRef Name="IDORDENCOMPRA" />
           </Key>
           <Property Name="IDORDENCOMPRA" Type="int" Nullable="false" />
-          <Property Name="ID_ALAMACENES" Type="smallint" />
+          <Property Name="IDALAMACENES" Type="smallint" />
           <Property Name="IDESTATUSCOMPRA" Type="int" />
           <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
           <Property Name="FECHAPEDIDO" Type="datetime" Nullable="false" />
@@ -88,9 +88,9 @@
         </EntityType>
         <EntityType Name="SIS_PERFILES_MENU">
           <Key>
-            <PropertyRef Name="ID_PERFILESMENU" />
+            <PropertyRef Name="IDPERFILESMENU" />
           </Key>
-          <Property Name="ID_PERFILESMENU" Type="smallint" Nullable="false" />
+          <Property Name="IDPERFILESMENU" Type="smallint" Nullable="false" />
           <Property Name="IDMENU" Type="int" />
           <Property Name="IDPERFIL" Type="smallint" />
         </EntityType>
@@ -127,10 +127,10 @@
           <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ALM_CAT_ALMECENES">
-              <PropertyRef Name="ID_ALAMACENES" />
+              <PropertyRef Name="IDALAMACENES" />
             </Principal>
             <Dependent Role="COM_ORDENCOMPRA">
-              <PropertyRef Name="ID_ALAMACENES" />
+              <PropertyRef Name="IDALAMACENES" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -280,27 +280,76 @@
             <End Role="US_PERFILES" EntitySet="US_PERFILES" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FraganciasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FraganciasEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALM_CAT_ALMECENES" EntityType="FraganciasModel.ALM_CAT_ALMECENES" />
+          <EntitySet Name="CAT_TIPO_OPERACION" EntityType="FraganciasModel.CAT_TIPO_OPERACION" />
+          <EntitySet Name="COM_ESTATUS_COMPRA" EntityType="FraganciasModel.COM_ESTATUS_COMPRA" />
+          <EntitySet Name="COM_ORDENCOMPRA" EntityType="FraganciasModel.COM_ORDENCOMPRA" />
+          <EntitySet Name="COM_PRODUCTOS" EntityType="FraganciasModel.COM_PRODUCTOS" />
+          <EntitySet Name="LOG_COM_OPERACIONES" EntityType="FraganciasModel.LOG_COM_OPERACIONES" />
+          <EntitySet Name="PER_PERSONA" EntityType="FraganciasModel.PER_PERSONA" />
+          <EntitySet Name="SIS_MENUARBOL" EntityType="FraganciasModel.SIS_MENUARBOL" />
+          <EntitySet Name="SIS_PERFILES_MENU" EntityType="FraganciasModel.SIS_PERFILES_MENU" />
+          <EntitySet Name="US_CAT_PERFILES" EntityType="FraganciasModel.US_CAT_PERFILES" />
+          <EntitySet Name="US_PERFILES" EntityType="FraganciasModel.US_PERFILES" />
+          <EntitySet Name="US_USUARIOS" EntityType="FraganciasModel.US_USUARIOS" />
+          <AssociationSet Name="FK_COM_ORDE_REFERENCE_ALM_CAT_" Association="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_">
+            <End Role="ALM_CAT_ALMECENES" EntitySet="ALM_CAT_ALMECENES" />
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_ESTA" Association="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA">
+            <End Role="COM_ESTATUS_COMPRA" EntitySet="COM_ESTATUS_COMPRA" />
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_ORDE" Association="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE">
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_US_USUAR" Association="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR">
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_MENU_REFERENCE_SIS_MENU" Association="FraganciasModel.FK_SIS_MENU_REFERENCE_SIS_MENU">
+            <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
+            <End Role="SIS_MENUARBOL1" EntitySet="SIS_MENUARBOL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_PERF_REFERENCE_SIS_MENU" Association="FraganciasModel.FK_SIS_PERF_REFERENCE_SIS_MENU">
+            <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
+            <End Role="SIS_PERFILES_MENU" EntitySet="SIS_PERFILES_MENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SIS_PERF_REFERENCE_US_CAT_P" Association="FraganciasModel.FK_SIS_PERF_REFERENCE_US_CAT_P">
+            <End Role="US_CAT_PERFILES" EntitySet="US_CAT_PERFILES" />
+            <End Role="SIS_PERFILES_MENU" EntitySet="SIS_PERFILES_MENU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_US_PERFI_REFERENCE_US_CAT_P" Association="FraganciasModel.FK_US_PERFI_REFERENCE_US_CAT_P">
+            <End Role="US_CAT_PERFILES" EntitySet="US_CAT_PERFILES" />
+            <End Role="US_PERFILES" EntitySet="US_PERFILES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_US_PERFI_REFERENCE_US_USUAR" Association="FraganciasModel.FK_US_PERFI_REFERENCE_US_USUAR">
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+            <End Role="US_PERFILES" EntitySet="US_PERFILES" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ALM_CAT_ALMECENES">
           <Key>
-            <PropertyRef Name="ID_ALAMACENES" />
+            <PropertyRef Name="IDALAMACENES" />
           </Key>
-          <Property Name="ID_ALAMACENES" Type="Int16" Nullable="false" />
-          <Property Name="NOMBREALMACEN" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDALAMACENES" Type="Int16" Nullable="false" />
+          <Property Name="NOMBREALMACEN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="Self.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="ALM_CAT_ALMECENES" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="ALM_CAT_ALMECENES" ToRole="COM_ORDENCOMPRA" />
         </EntityType>
         <EntityType Name="CAT_TIPO_OPERACION">
           <Key>
             <PropertyRef Name="IDTIPOOPERACION" />
           </Key>
           <Property Name="IDTIPOOPERACION" Type="Int32" Nullable="false" />
-          <Property Name="NOMBREOPERACION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBREOPERACION" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
         </EntityType>
@@ -309,25 +358,25 @@
             <PropertyRef Name="IDESTATUSCOMPRA" />
           </Key>
           <Property Name="IDESTATUSCOMPRA" Type="Int32" Nullable="false" />
-          <Property Name="NOMBREESTATUS" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBREESTATUS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="Self.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ESTATUS_COMPRA" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ESTATUS_COMPRA" ToRole="COM_ORDENCOMPRA" />
         </EntityType>
         <EntityType Name="COM_ORDENCOMPRA">
           <Key>
             <PropertyRef Name="IDORDENCOMPRA" />
           </Key>
           <Property Name="IDORDENCOMPRA" Type="Int32" Nullable="false" />
-          <Property Name="ID_ALAMACENES" Type="Int16" />
+          <Property Name="IDALAMACENES" Type="Int16" />
           <Property Name="IDESTATUSCOMPRA" Type="Int32" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FECHAPEDIDO" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CANTIDADTOTAL" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CANTIDADTOTAL" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ENTREGAFRACCIONARIA" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ALM_CAT_ALMECENES" Relationship="Self.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="COM_ORDENCOMPRA" ToRole="ALM_CAT_ALMECENES" />
-          <NavigationProperty Name="COM_ESTATUS_COMPRA" Relationship="Self.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ORDENCOMPRA" ToRole="COM_ESTATUS_COMPRA" />
-          <NavigationProperty Name="COM_PRODUCTOS" Relationship="Self.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_ORDENCOMPRA" ToRole="COM_PRODUCTOS" />
+          <NavigationProperty Name="ALM_CAT_ALMECENES" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="COM_ORDENCOMPRA" ToRole="ALM_CAT_ALMECENES" />
+          <NavigationProperty Name="COM_ESTATUS_COMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ORDENCOMPRA" ToRole="COM_ESTATUS_COMPRA" />
+          <NavigationProperty Name="COM_PRODUCTOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_ORDENCOMPRA" ToRole="COM_PRODUCTOS" />
         </EntityType>
         <EntityType Name="COM_PRODUCTOS">
           <Key>
@@ -335,13 +384,13 @@
           </Key>
           <Property Name="IDPRODUCTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDORDENCOMPRA" Type="Int32" />
-          <Property Name="NOMBREPRODUCTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LOTE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CANTIDADPRODUCTO" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="NOMBREPRODUCTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LOTE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CANTIDADPRODUCTO" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PRECIOUNITARIO" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PRECIOUNITARIO" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="Self.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_PRODUCTOS" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_PRODUCTOS" ToRole="COM_ORDENCOMPRA" />
         </EntityType>
         <EntityType Name="LOG_COM_OPERACIONES">
           <Key>
@@ -353,16 +402,16 @@
           <Key>
             <PropertyRef Name="IDPERSONA" />
           </Key>
-          <Property Name="IDPERSONA" Type="Decimal" Precision="18" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPERSONA" Type="Decimal" Nullable="false" Precision="18" Scale="0" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IDUSUARIOS" Type="Int32" />
-          <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="APELLIDOP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="APELLIDOM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FECHANACIMINETO" Type="DateTime" Precision="3" />
           <Property Name="GENERO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FECHAREGISTRO" Type="DateTime" Precision="3" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="US_USUARIOS" Relationship="Self.FK_PER_PERS_REFERENCE_US_USUAR" FromRole="PER_PERSONA" ToRole="US_USUARIOS" />
+          <NavigationProperty Name="US_USUARIOS" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR" FromRole="PER_PERSONA" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="SIS_MENUARBOL">
           <Key>
@@ -370,32 +419,32 @@
           </Key>
           <Property Name="IDMENU" Type="Int32" Nullable="false" />
           <Property Name="IDMENUPADRE" Type="Int32" />
-          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DIRECCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="SIS_MENUARBOL1" Relationship="Self.FK_SIS_MENU_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL" ToRole="SIS_MENUARBOL1" />
-          <NavigationProperty Name="SIS_MENUARBOL2" Relationship="Self.FK_SIS_MENU_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL1" ToRole="SIS_MENUARBOL" />
-          <NavigationProperty Name="SIS_PERFILES_MENU" Relationship="Self.FK_SIS_PERF_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL" ToRole="SIS_PERFILES_MENU" />
+          <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SIS_MENUARBOL1" Relationship="FraganciasModel.FK_SIS_MENU_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL" ToRole="SIS_MENUARBOL1" />
+          <NavigationProperty Name="SIS_MENUARBOL2" Relationship="FraganciasModel.FK_SIS_MENU_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL1" ToRole="SIS_MENUARBOL" />
+          <NavigationProperty Name="SIS_PERFILES_MENU" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL" ToRole="SIS_PERFILES_MENU" />
         </EntityType>
         <EntityType Name="SIS_PERFILES_MENU">
           <Key>
-            <PropertyRef Name="ID_PERFILESMENU" />
+            <PropertyRef Name="IDPERFILESMENU" />
           </Key>
-          <Property Name="ID_PERFILESMENU" Type="Int16" Nullable="false" />
+          <Property Name="IDPERFILESMENU" Type="Int16" Nullable="false" />
           <Property Name="IDMENU" Type="Int32" />
           <Property Name="IDPERFIL" Type="Int16" />
-          <NavigationProperty Name="SIS_MENUARBOL" Relationship="Self.FK_SIS_PERF_REFERENCE_SIS_MENU" FromRole="SIS_PERFILES_MENU" ToRole="SIS_MENUARBOL" />
-          <NavigationProperty Name="US_CAT_PERFILES" Relationship="Self.FK_SIS_PERF_REFERENCE_US_CAT_P" FromRole="SIS_PERFILES_MENU" ToRole="US_CAT_PERFILES" />
+          <NavigationProperty Name="SIS_MENUARBOL" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_SIS_MENU" FromRole="SIS_PERFILES_MENU" ToRole="SIS_MENUARBOL" />
+          <NavigationProperty Name="US_CAT_PERFILES" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_US_CAT_P" FromRole="SIS_PERFILES_MENU" ToRole="US_CAT_PERFILES" />
         </EntityType>
         <EntityType Name="US_CAT_PERFILES">
           <Key>
             <PropertyRef Name="IDPERFIL" />
           </Key>
           <Property Name="IDPERFIL" Type="Int16" Nullable="false" />
-          <Property Name="NOMBREPERFIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NOMBREPERFIL" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="SIS_PERFILES_MENU" Relationship="Self.FK_SIS_PERF_REFERENCE_US_CAT_P" FromRole="US_CAT_PERFILES" ToRole="SIS_PERFILES_MENU" />
-          <NavigationProperty Name="US_PERFILES" Relationship="Self.FK_US_PERFI_REFERENCE_US_CAT_P" FromRole="US_CAT_PERFILES" ToRole="US_PERFILES" />
+          <NavigationProperty Name="SIS_PERFILES_MENU" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_US_CAT_P" FromRole="US_CAT_PERFILES" ToRole="SIS_PERFILES_MENU" />
+          <NavigationProperty Name="US_PERFILES" Relationship="FraganciasModel.FK_US_PERFI_REFERENCE_US_CAT_P" FromRole="US_CAT_PERFILES" ToRole="US_PERFILES" />
         </EntityType>
         <EntityType Name="US_PERFILES">
           <Key>
@@ -405,36 +454,36 @@
           <Property Name="IDUSUARIOS" Type="Int32" />
           <Property Name="IDPERFIL" Type="Int16" />
           <Property Name="BORRADO" Type="Boolean" />
-          <NavigationProperty Name="US_CAT_PERFILES" Relationship="Self.FK_US_PERFI_REFERENCE_US_CAT_P" FromRole="US_PERFILES" ToRole="US_CAT_PERFILES" />
-          <NavigationProperty Name="US_USUARIOS" Relationship="Self.FK_US_PERFI_REFERENCE_US_USUAR" FromRole="US_PERFILES" ToRole="US_USUARIOS" />
+          <NavigationProperty Name="US_CAT_PERFILES" Relationship="FraganciasModel.FK_US_PERFI_REFERENCE_US_CAT_P" FromRole="US_PERFILES" ToRole="US_CAT_PERFILES" />
+          <NavigationProperty Name="US_USUARIOS" Relationship="FraganciasModel.FK_US_PERFI_REFERENCE_US_USUAR" FromRole="US_PERFILES" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="US_USUARIOS">
           <Key>
             <PropertyRef Name="IDUSUARIOS" />
           </Key>
           <Property Name="IDUSUARIOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CONTRASENA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="USUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTRASENA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ULTIMASESION" Type="DateTime" Precision="3" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PER_PERSONA" Relationship="Self.FK_PER_PERS_REFERENCE_US_USUAR" FromRole="US_USUARIOS" ToRole="PER_PERSONA" />
-          <NavigationProperty Name="US_PERFILES" Relationship="Self.FK_US_PERFI_REFERENCE_US_USUAR" FromRole="US_USUARIOS" ToRole="US_PERFILES" />
+          <NavigationProperty Name="PER_PERSONA" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR" FromRole="US_USUARIOS" ToRole="PER_PERSONA" />
+          <NavigationProperty Name="US_PERFILES" Relationship="FraganciasModel.FK_US_PERFI_REFERENCE_US_USUAR" FromRole="US_USUARIOS" ToRole="US_PERFILES" />
         </EntityType>
         <Association Name="FK_COM_ORDE_REFERENCE_ALM_CAT_">
-          <End Role="ALM_CAT_ALMECENES" Type="Self.ALM_CAT_ALMECENES" Multiplicity="0..1" />
-          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="*" />
+          <End Type="FraganciasModel.ALM_CAT_ALMECENES" Role="ALM_CAT_ALMECENES" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ALM_CAT_ALMECENES">
-              <PropertyRef Name="ID_ALAMACENES" />
+              <PropertyRef Name="IDALAMACENES" />
             </Principal>
             <Dependent Role="COM_ORDENCOMPRA">
-              <PropertyRef Name="ID_ALAMACENES" />
+              <PropertyRef Name="IDALAMACENES" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_COM_ORDE_REFERENCE_COM_ESTA">
-          <End Role="COM_ESTATUS_COMPRA" Type="Self.COM_ESTATUS_COMPRA" Multiplicity="0..1" />
-          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="*" />
+          <End Type="FraganciasModel.COM_ESTATUS_COMPRA" Role="COM_ESTATUS_COMPRA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COM_ESTATUS_COMPRA">
               <PropertyRef Name="IDESTATUSCOMPRA" />
@@ -445,8 +494,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_COM_PROD_REFERENCE_COM_ORDE">
-          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="0..1" />
-          <End Role="COM_PRODUCTOS" Type="Self.COM_PRODUCTOS" Multiplicity="*" />
+          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PRODUCTOS" Role="COM_PRODUCTOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COM_ORDENCOMPRA">
               <PropertyRef Name="IDORDENCOMPRA" />
@@ -457,8 +506,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PER_PERS_REFERENCE_US_USUAR">
-          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="0..1" />
-          <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="*" />
+          <End Type="FraganciasModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.PER_PERSONA" Role="PER_PERSONA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="US_USUARIOS">
               <PropertyRef Name="IDUSUARIOS" />
@@ -469,8 +518,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SIS_MENU_REFERENCE_SIS_MENU">
-          <End Role="SIS_MENUARBOL" Type="Self.SIS_MENUARBOL" Multiplicity="0..1" />
-          <End Role="SIS_MENUARBOL1" Type="Self.SIS_MENUARBOL" Multiplicity="*" />
+          <End Type="FraganciasModel.SIS_MENUARBOL" Role="SIS_MENUARBOL" Multiplicity="0..1" />
+          <End Type="FraganciasModel.SIS_MENUARBOL" Role="SIS_MENUARBOL1" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SIS_MENUARBOL">
               <PropertyRef Name="IDMENU" />
@@ -481,8 +530,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SIS_PERF_REFERENCE_SIS_MENU">
-          <End Role="SIS_MENUARBOL" Type="Self.SIS_MENUARBOL" Multiplicity="0..1" />
-          <End Role="SIS_PERFILES_MENU" Type="Self.SIS_PERFILES_MENU" Multiplicity="*" />
+          <End Type="FraganciasModel.SIS_MENUARBOL" Role="SIS_MENUARBOL" Multiplicity="0..1" />
+          <End Type="FraganciasModel.SIS_PERFILES_MENU" Role="SIS_PERFILES_MENU" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SIS_MENUARBOL">
               <PropertyRef Name="IDMENU" />
@@ -493,8 +542,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SIS_PERF_REFERENCE_US_CAT_P">
-          <End Role="US_CAT_PERFILES" Type="Self.US_CAT_PERFILES" Multiplicity="0..1" />
-          <End Role="SIS_PERFILES_MENU" Type="Self.SIS_PERFILES_MENU" Multiplicity="*" />
+          <End Type="FraganciasModel.US_CAT_PERFILES" Role="US_CAT_PERFILES" Multiplicity="0..1" />
+          <End Type="FraganciasModel.SIS_PERFILES_MENU" Role="SIS_PERFILES_MENU" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="US_CAT_PERFILES">
               <PropertyRef Name="IDPERFIL" />
@@ -505,8 +554,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_US_PERFI_REFERENCE_US_CAT_P">
-          <End Role="US_CAT_PERFILES" Type="Self.US_CAT_PERFILES" Multiplicity="0..1" />
-          <End Role="US_PERFILES" Type="Self.US_PERFILES" Multiplicity="*" />
+          <End Type="FraganciasModel.US_CAT_PERFILES" Role="US_CAT_PERFILES" Multiplicity="0..1" />
+          <End Type="FraganciasModel.US_PERFILES" Role="US_PERFILES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="US_CAT_PERFILES">
               <PropertyRef Name="IDPERFIL" />
@@ -517,8 +566,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_US_PERFI_REFERENCE_US_USUAR">
-          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="0..1" />
-          <End Role="US_PERFILES" Type="Self.US_PERFILES" Multiplicity="*" />
+          <End Type="FraganciasModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.US_PERFILES" Role="US_PERFILES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="US_USUARIOS">
               <PropertyRef Name="IDUSUARIOS" />
@@ -528,56 +577,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FraganciasEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ALM_CAT_ALMECENES" EntityType="Self.ALM_CAT_ALMECENES" />
-          <EntitySet Name="CAT_TIPO_OPERACION" EntityType="Self.CAT_TIPO_OPERACION" />
-          <EntitySet Name="COM_ESTATUS_COMPRA" EntityType="Self.COM_ESTATUS_COMPRA" />
-          <EntitySet Name="COM_ORDENCOMPRA" EntityType="Self.COM_ORDENCOMPRA" />
-          <EntitySet Name="COM_PRODUCTOS" EntityType="Self.COM_PRODUCTOS" />
-          <EntitySet Name="LOG_COM_OPERACIONES" EntityType="Self.LOG_COM_OPERACIONES" />
-          <EntitySet Name="PER_PERSONA" EntityType="Self.PER_PERSONA" />
-          <EntitySet Name="SIS_MENUARBOL" EntityType="Self.SIS_MENUARBOL" />
-          <EntitySet Name="SIS_PERFILES_MENU" EntityType="Self.SIS_PERFILES_MENU" />
-          <EntitySet Name="US_CAT_PERFILES" EntityType="Self.US_CAT_PERFILES" />
-          <EntitySet Name="US_PERFILES" EntityType="Self.US_PERFILES" />
-          <EntitySet Name="US_USUARIOS" EntityType="Self.US_USUARIOS" />
-          <AssociationSet Name="FK_COM_ORDE_REFERENCE_ALM_CAT_" Association="Self.FK_COM_ORDE_REFERENCE_ALM_CAT_">
-            <End Role="ALM_CAT_ALMECENES" EntitySet="ALM_CAT_ALMECENES" />
-            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_ESTA" Association="Self.FK_COM_ORDE_REFERENCE_COM_ESTA">
-            <End Role="COM_ESTATUS_COMPRA" EntitySet="COM_ESTATUS_COMPRA" />
-            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_ORDE" Association="Self.FK_COM_PROD_REFERENCE_COM_ORDE">
-            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
-            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PER_PERS_REFERENCE_US_USUAR" Association="Self.FK_PER_PERS_REFERENCE_US_USUAR">
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SIS_MENU_REFERENCE_SIS_MENU" Association="Self.FK_SIS_MENU_REFERENCE_SIS_MENU">
-            <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
-            <End Role="SIS_MENUARBOL1" EntitySet="SIS_MENUARBOL" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SIS_PERF_REFERENCE_SIS_MENU" Association="Self.FK_SIS_PERF_REFERENCE_SIS_MENU">
-            <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
-            <End Role="SIS_PERFILES_MENU" EntitySet="SIS_PERFILES_MENU" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SIS_PERF_REFERENCE_US_CAT_P" Association="Self.FK_SIS_PERF_REFERENCE_US_CAT_P">
-            <End Role="US_CAT_PERFILES" EntitySet="US_CAT_PERFILES" />
-            <End Role="SIS_PERFILES_MENU" EntitySet="SIS_PERFILES_MENU" />
-          </AssociationSet>
-          <AssociationSet Name="FK_US_PERFI_REFERENCE_US_CAT_P" Association="Self.FK_US_PERFI_REFERENCE_US_CAT_P">
-            <End Role="US_CAT_PERFILES" EntitySet="US_CAT_PERFILES" />
-            <End Role="US_PERFILES" EntitySet="US_PERFILES" />
-          </AssociationSet>
-          <AssociationSet Name="FK_US_PERFI_REFERENCE_US_USUAR" Association="Self.FK_US_PERFI_REFERENCE_US_USUAR">
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-            <End Role="US_PERFILES" EntitySet="US_PERFILES" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -587,57 +586,57 @@
           <EntitySetMapping Name="ALM_CAT_ALMECENES">
             <EntityTypeMapping TypeName="FraganciasModel.ALM_CAT_ALMECENES">
               <MappingFragment StoreEntitySet="ALM_CAT_ALMECENES">
-                <ScalarProperty Name="ID_ALAMACENES" ColumnName="ID_ALAMACENES" />
-                <ScalarProperty Name="NOMBREALMACEN" ColumnName="NOMBREALMACEN" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBREALMACEN" ColumnName="NOMBREALMACEN" />
+                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CAT_TIPO_OPERACION">
             <EntityTypeMapping TypeName="FraganciasModel.CAT_TIPO_OPERACION">
               <MappingFragment StoreEntitySet="CAT_TIPO_OPERACION">
-                <ScalarProperty Name="IDTIPOOPERACION" ColumnName="IDTIPOOPERACION" />
-                <ScalarProperty Name="NOMBREOPERACION" ColumnName="NOMBREOPERACION" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBREOPERACION" ColumnName="NOMBREOPERACION" />
+                <ScalarProperty Name="IDTIPOOPERACION" ColumnName="IDTIPOOPERACION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="COM_ESTATUS_COMPRA">
             <EntityTypeMapping TypeName="FraganciasModel.COM_ESTATUS_COMPRA">
               <MappingFragment StoreEntitySet="COM_ESTATUS_COMPRA">
-                <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
-                <ScalarProperty Name="NOMBREESTATUS" ColumnName="NOMBREESTATUS" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBREESTATUS" ColumnName="NOMBREESTATUS" />
+                <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="COM_ORDENCOMPRA">
             <EntityTypeMapping TypeName="FraganciasModel.COM_ORDENCOMPRA">
               <MappingFragment StoreEntitySet="COM_ORDENCOMPRA">
-                <ScalarProperty Name="IDORDENCOMPRA" ColumnName="IDORDENCOMPRA" />
-                <ScalarProperty Name="ID_ALAMACENES" ColumnName="ID_ALAMACENES" />
-                <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
-                <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
-                <ScalarProperty Name="FECHAPEDIDO" ColumnName="FECHAPEDIDO" />
-                <ScalarProperty Name="CANTIDADTOTAL" ColumnName="CANTIDADTOTAL" />
                 <ScalarProperty Name="ENTREGAFRACCIONARIA" ColumnName="ENTREGAFRACCIONARIA" />
+                <ScalarProperty Name="CANTIDADTOTAL" ColumnName="CANTIDADTOTAL" />
+                <ScalarProperty Name="FECHAPEDIDO" ColumnName="FECHAPEDIDO" />
+                <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
+                <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
+                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
+                <ScalarProperty Name="IDORDENCOMPRA" ColumnName="IDORDENCOMPRA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="COM_PRODUCTOS">
             <EntityTypeMapping TypeName="FraganciasModel.COM_PRODUCTOS">
               <MappingFragment StoreEntitySet="COM_PRODUCTOS">
-                <ScalarProperty Name="IDPRODUCTOS" ColumnName="IDPRODUCTOS" />
-                <ScalarProperty Name="IDORDENCOMPRA" ColumnName="IDORDENCOMPRA" />
-                <ScalarProperty Name="NOMBREPRODUCTO" ColumnName="NOMBREPRODUCTO" />
-                <ScalarProperty Name="LOTE" ColumnName="LOTE" />
-                <ScalarProperty Name="CANTIDADPRODUCTO" ColumnName="CANTIDADPRODUCTO" />
-                <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
-                <ScalarProperty Name="PRECIOUNITARIO" ColumnName="PRECIOUNITARIO" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="PRECIOUNITARIO" ColumnName="PRECIOUNITARIO" />
+                <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
+                <ScalarProperty Name="CANTIDADPRODUCTO" ColumnName="CANTIDADPRODUCTO" />
+                <ScalarProperty Name="LOTE" ColumnName="LOTE" />
+                <ScalarProperty Name="NOMBREPRODUCTO" ColumnName="NOMBREPRODUCTO" />
+                <ScalarProperty Name="IDORDENCOMPRA" ColumnName="IDORDENCOMPRA" />
+                <ScalarProperty Name="IDPRODUCTOS" ColumnName="IDPRODUCTOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -651,65 +650,65 @@
           <EntitySetMapping Name="PER_PERSONA">
             <EntityTypeMapping TypeName="FraganciasModel.PER_PERSONA">
               <MappingFragment StoreEntitySet="PER_PERSONA">
-                <ScalarProperty Name="IDPERSONA" ColumnName="IDPERSONA" />
-                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
-                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="APELLIDOP" ColumnName="APELLIDOP" />
-                <ScalarProperty Name="APELLIDOM" ColumnName="APELLIDOM" />
-                <ScalarProperty Name="FECHANACIMINETO" ColumnName="FECHANACIMINETO" />
-                <ScalarProperty Name="GENERO" ColumnName="GENERO" />
-                <ScalarProperty Name="FECHAREGISTRO" ColumnName="FECHAREGISTRO" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="FECHAREGISTRO" ColumnName="FECHAREGISTRO" />
+                <ScalarProperty Name="GENERO" ColumnName="GENERO" />
+                <ScalarProperty Name="FECHANACIMINETO" ColumnName="FECHANACIMINETO" />
+                <ScalarProperty Name="APELLIDOM" ColumnName="APELLIDOM" />
+                <ScalarProperty Name="APELLIDOP" ColumnName="APELLIDOP" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
+                <ScalarProperty Name="IDPERSONA" ColumnName="IDPERSONA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SIS_MENUARBOL">
             <EntityTypeMapping TypeName="FraganciasModel.SIS_MENUARBOL">
               <MappingFragment StoreEntitySet="SIS_MENUARBOL">
-                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
-                <ScalarProperty Name="IDMENUPADRE" ColumnName="IDMENUPADRE" />
-                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="IDMENUPADRE" ColumnName="IDMENUPADRE" />
+                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SIS_PERFILES_MENU">
             <EntityTypeMapping TypeName="FraganciasModel.SIS_PERFILES_MENU">
               <MappingFragment StoreEntitySet="SIS_PERFILES_MENU">
-                <ScalarProperty Name="ID_PERFILESMENU" ColumnName="ID_PERFILESMENU" />
-                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
                 <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
+                <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
+                <ScalarProperty Name="IDPERFILESMENU" ColumnName="IDPERFILESMENU" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="US_CAT_PERFILES">
             <EntityTypeMapping TypeName="FraganciasModel.US_CAT_PERFILES">
               <MappingFragment StoreEntitySet="US_CAT_PERFILES">
-                <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
-                <ScalarProperty Name="NOMBREPERFIL" ColumnName="NOMBREPERFIL" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBREPERFIL" ColumnName="NOMBREPERFIL" />
+                <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="US_PERFILES">
             <EntityTypeMapping TypeName="FraganciasModel.US_PERFILES">
               <MappingFragment StoreEntitySet="US_PERFILES">
-                <ScalarProperty Name="IDUSURIOPERFILES" ColumnName="IDUSURIOPERFILES" />
-                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
-                <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
+                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
+                <ScalarProperty Name="IDUSURIOPERFILES" ColumnName="IDUSURIOPERFILES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="US_USUARIOS">
             <EntityTypeMapping TypeName="FraganciasModel.US_USUARIOS">
               <MappingFragment StoreEntitySet="US_USUARIOS">
-                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
-                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
-                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
-                <ScalarProperty Name="ULTIMASESION" ColumnName="ULTIMASESION" />
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="ULTIMASESION" ColumnName="ULTIMASESION" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

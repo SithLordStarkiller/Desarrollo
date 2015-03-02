@@ -21,82 +21,51 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse">
-        <nav class="navbar-header navbar-left">
-            <asp:Label runat="server" Class="navbar-text navbar-left"><%: DateTime.Now %> </asp:Label>
-            <asp:Label runat="server" Class="navbar-text navbar-right">Nombre usuario</asp:Label>
-        </nav>
-    </div>
-    <div>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Brand</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="../index.aspx">Inicio <span class="sr-only">(current)</span></a></li>
-                        <li><a href="/OrdenDeCompra/CrearOrdenCompra.aspx">Orden de compra</a></li>
-                        <li><a href="/OrdenDeCompra/EditarOrdenCompra.aspx">Editar Orden de Compra</a></li>
-                        <%--<li class="dropdown">
-                            <a href="#" class="dropdown" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">Link</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>--%>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container-fluid -->
-        </nav>
-    </div>
     <form id="form1" runat="server">
+       <div>
+           <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="../index.aspx" class="navbar-brand">Inicio</a>
+                    <asp:Label runat="server" ID="lblTipoUsuario" Class="navbar-right navbar-text text-center" Text="Puestos" />
+                </div>
+                <div class="navbar" id="navBar">
+                    <lu class="nav navbar-nav navbar-right">
+                        <li>
+                           <asp:Label runat="server" ID="lblNombre" Class="navbar-left navbar-text" Text="Nombre de usuario"/>
+                        </li>
+                        <li></li>
+                        <li>
+                            <asp:Label runat="server" ID="lblFecha" class="navbar-left navbar-text"><%# DateTime.Now.ToShortDateString() %></asp:Label>
+                        </li>
+                        <li></li>
+                        <li>
+                            <asp:Button runat="server" ID="btnLogout" Text="Cerrar sesion" Class="btn navbar-btn btn-warning" />
+                        </li>
+                    </lu>
+                </div>
+            </div>
+        </div>
+       </div>
+        <div class="CenterDivBar">
+            <br/>
+            <br/>
+            <br/>
+            <asp:Menu ID="menuBar" runat="server" Orientation="Horizontal" Width="100%" style="position:relative;">
+                <StaticMenuStyle CssClass="primaryStaticMenu" />
+                <StaticMenuItemStyle CssClass="primaryStaticMenuItem" />
+                <StaticHoverStyle CssClass="primaryStaticHover" />
+                <DynamicMenuStyle CssClass="primaryDynamicMenu" />
+                <DynamicMenuItemStyle CssClass="primaryDynamicMenuItem" />
+                <DynamicHoverStyle CssClass="primaryDynamicHover" />
+            </asp:Menu>
+        </div>
         <div class="CenterDivBar">
             <asp:ScriptManager ID="clientScriptManager" runat="server">
-                        </asp:ScriptManager>
+            </asp:ScriptManager>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
     </form>
 </body>
-<%--<script type="text/javascript">
-         $(document).ready(function () {
-             $('.dropdown-toggle').dropdown();
-         });
-    </script>--%>
 </html>

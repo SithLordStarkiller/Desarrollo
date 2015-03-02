@@ -14,7 +14,7 @@ namespace AplicacionFragancias.Entidades
     
     public partial class SIS_PERFILES_MENU
     {
-        public short ID_PERFILESMENU { get; set; }
+        public short IDPERFILESMENU { get; set; }
         public Nullable<int> IDMENU { get; set; }
         public Nullable<short> IDPERFIL { get; set; }
     
