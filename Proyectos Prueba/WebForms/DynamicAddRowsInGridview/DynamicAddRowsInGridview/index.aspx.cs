@@ -6,15 +6,17 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
+namespace DynamicAddRowsInGridview
 {
-    public partial class CrearOrdenCompra : System.Web.UI.Page
+    public partial class index : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                FirstGridViewRow();
+            }
         }
-
         private void FirstGridViewRow()
         {
             DataTable dt = new DataTable();
@@ -36,10 +38,17 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
 
             ViewState["CurrentTable"] = dt;
 
+
             grvStudentDetails.DataSource = dt;
             grvStudentDetails.DataBind();
-        }
 
+
+            TextBox txn = (TextBox)grvStudentDetails.Rows[0].Cells[1].FindControl("txtName");
+            txn.Focus();
+            Button btnAdd = (Button)grvStudentDetails.FooterRow.Cells[5].FindControl("ButtonAdd");
+            Page.Form.DefaultFocus = btnAdd.ClientID;
+
+        }
         private void AddNewRow()
         {
             int rowIndex = 0;
@@ -52,16 +61,11 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        TextBox TextBoxName =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtName");
-                        TextBox TextBoxAge =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtAge");
-                        TextBox TextBoxAddress =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtAddress");
-                        RadioButtonList RBLGender =
-                          (RadioButtonList)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("RBLGender");
-                        DropDownList DrpQualification =
-                          (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("drpQualification");
+                        TextBox TextBoxName = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtName");
+                        TextBox TextBoxAge = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtAge");
+                        TextBox TextBoxAddress = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtAddress");
+                        RadioButtonList RBLGender = (RadioButtonList)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("RBLGender");
+                        DropDownList DrpQualification = (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("drpQualification");
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
 
@@ -77,6 +81,10 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
 
                     grvStudentDetails.DataSource = dtCurrentTable;
                     grvStudentDetails.DataBind();
+
+                    TextBox txn = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtName");
+                    txn.Focus();
+                    // txn.Focus;
                 }
             }
             else
@@ -85,7 +93,6 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
             }
             SetPreviousData();
         }
-
         private void SetPreviousData()
         {
             int rowIndex = 0;
@@ -98,13 +105,12 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                     {
                         TextBox TextBoxName = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtName");
                         TextBox TextBoxAge = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtAge");
-                        TextBox TextBoxAddress =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtAddress");
-                        RadioButtonList RBLGender =
-                          (RadioButtonList)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("RBLGender");
-                        DropDownList DrpQualification =
-                          (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("drpQualification");
+                        TextBox TextBoxAddress = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtAddress");
+                        RadioButtonList RBLGender = (RadioButtonList)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("RBLGender");
+                        DropDownList DrpQualification = (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("drpQualification");
+                        // drCurrentRow["RowNumber"] = i + 1;
 
+                        grvStudentDetails.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
                         TextBoxName.Text = dt.Rows[i]["Col1"].ToString();
                         TextBoxAge.Text = dt.Rows[i]["Col2"].ToString();
                         TextBoxAddress.Text = dt.Rows[i]["Col3"].ToString();
@@ -115,7 +121,10 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                 }
             }
         }
-
+        protected void ButtonAdd_Click(object sender, EventArgs e)
+        {
+            AddNewRow();
+        }
         protected void grvStudentDetails_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             SetRowData();
@@ -156,10 +165,8 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                         TextBox TextBoxName = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtName");
                         TextBox TextBoxAge = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtAge");
                         TextBox TextBoxAddress = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtAddress");
-                        RadioButtonList RBLGender =
-                          (RadioButtonList)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("RBLGender");
-                        DropDownList DrpQualification =
-                          (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("drpQualification");
+                        RadioButtonList RBLGender = (RadioButtonList)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("RBLGender");
+                        DropDownList DrpQualification = (DropDownList)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("drpQualification");
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextBoxName.Text;
@@ -181,10 +188,43 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
             }
             //SetPreviousData();
         }
-
-        protected void ButtonAdd_OnClick(object sender, EventArgs e)
+        protected void btnSave_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SetRowData();
+                DataTable table = ViewState["CurrentTable"] as DataTable;
+
+                if (table != null)
+                {
+                    foreach (DataRow row in table.Rows)
+                    {
+                        string txName = row.ItemArray[1] as string;
+                        string txAge = row.ItemArray[2] as string;
+                        string txAdd = row.ItemArray[3] as string;
+                        string rbGen = row.ItemArray[4] as string;
+                        string drpQual = row.ItemArray[5] as string;
+
+
+                        if (txName != null ||
+                            txAge != null ||
+                            txAdd != null ||
+                            rbGen != null ||
+                            drpQual != null)
+                        {
+                            // Do whatever is needed with this data, 
+                            // Possibily push it in database
+                            // I am just printing on the page to demonstrate that it is working.
+                            Response.Write(string.Format("{0} {1} {2} {3} {4}<br/>", txName, txAge, txAdd, rbGen, drpQual));
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

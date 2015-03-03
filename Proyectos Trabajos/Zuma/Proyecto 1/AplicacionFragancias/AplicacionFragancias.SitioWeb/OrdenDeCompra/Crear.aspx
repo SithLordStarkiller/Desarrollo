@@ -34,40 +34,67 @@
                 <div class="panel-title">Productos</div>
             </div>
             <div>
-                <asp:GridView ID="grdCredit" runat="server" AutoGenerateColumns="false" CssClass="GridViewStyle"
-                    AllowPaging="True" PageSize="20" DataKeyNames="No_Credito, Cve_Estatus_Credito">
-                    <%--OnRowCommand="OnRowCommand" OnRowCreated="OnRowCreated" OnDataBound="OnDataBound"--%>
-                    <HeaderStyle CssClass="GridViewHeaderStyle" />
-                    <FooterStyle CssClass="GridViewFooterStyle" />
-                    <RowStyle CssClass="GridViewRowStyle" />
-                    <PagerStyle CssClass="GridViewPagerStyle" />
-                    <AlternatingRowStyle CssClass="GridViewAlternatingRowStyle" />
-                    <SelectedRowStyle CssClass="GridViewSelectedRowStyle" />
+                <asp:GridView ID="grvStudentDetails" runat="server"
+                    ShowFooter="True" AutoGenerateColumns="False"
+                    CellPadding="4" ForeColor="#333333"
+                    GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting">
                     <Columns>
-                        <asp:HyperLinkField DataTextField="Nombre de producto" DataNavigateUrlFields="No_Credito, Cve_Estatus_Credito"
-                            DataNavigateUrlFormatString="../RegionalModule/CreditReview.aspx?creditno={0}&statusid={1}&Flag=M" HeaderText="Nombre de producto" HeaderStyle-Font-Underline="true">
-                            <HeaderStyle Font-Underline="True" />
-                        </asp:HyperLinkField>
-                        <asp:BoundField DataField="Dt_Fecha_Pendiente" HeaderText="Cantidad" ItemStyle-Width="80px">
-                            <ItemStyle Width="80px" />
-                        </asp:BoundField>
-
-                        <asp:BoundField DataField="Dx_Razon_Social" HeaderText="No Lote" />
-                        <asp:BoundField DataField="Dx_Nombre_Repre_Legal" HeaderText="Precio Unitario" />
-                        <asp:BoundField DataField="Dx_Tel_Fisc" HeaderText="Subtotal por Producto" />
-                        <asp:BoundField DataField="Mt_Monto_Solicitado" HeaderText="Fecha de entrega" DataFormatString="{0:C2}" ItemStyle-HorizontalAlign="Right">
-                            <ItemStyle HorizontalAlign="Right" />
-                        </asp:BoundField>
+                        <asp:BoundField DataField="RowNumber" HeaderText="SNo" />
+                        <asp:TemplateField HeaderText="Student Name">
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Student Age">
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtAge" runat="server"></asp:TextBox>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Student Address">
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtAddress" runat="server"
+                                    Height="55px" TextMode="MultiLine"></asp:TextBox>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Gender">
+                            <ItemTemplate>
+                                <asp:RadioButtonList ID="RBLGender"
+                                    runat="server" RepeatDirection="Horizontal">
+                                    <asp:ListItem Value="M">Male</asp:ListItem>
+                                    <asp:ListItem Value="F">Female</asp:ListItem>
+                                </asp:RadioButtonList>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Qualification">
+                            <ItemTemplate>
+                                <asp:DropDownList ID="drpQualification" runat="server">
+                                    <asp:ListItem Value="G">Graduate</asp:ListItem>
+                                    <asp:ListItem Value="P">Post Graduate</asp:ListItem>
+                                </asp:DropDownList>
+                            </ItemTemplate>
+                            <FooterStyle HorizontalAlign="Right" />
+                            <FooterTemplate>
+                                <asp:Button ID="ButtonAdd" runat="server"
+                                    Text="Add New Row" OnClick="ButtonAdd_OnClick" />
+                            </FooterTemplate>
+                        </asp:TemplateField>
+                        <asp:CommandField ShowDeleteButton="True" />
                     </Columns>
-                    <PagerTemplate>
-                    </PagerTemplate>
+                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    <RowStyle BackColor="#EFF3FB" />
+                    <EditRowStyle BackColor="#2461BF" />
+                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    <AlternatingRowStyle BackColor="White" />
                 </asp:GridView>
+
             </div>
         </div>
         <div style="float: right; margin: 0px 80px;">
-            <asp:Button runat="server" class=" btn btn-danger " Text="Cancelar Orden de compra" style="margin: 10px;"/>
-            <asp:Button runat="server" class=" btn btn-warning " Text="Entrega Fraccionaria"  style="margin: 10px;"/>
-            <asp:Button runat="server" class=" btn btn-success disabled" Text="Entrega"  style="margin: 10px;"/>
+            <asp:Button runat="server" class=" btn btn-danger " Text="Cancelar Orden de compra" Style="margin: 10px;" />
+            <asp:Button runat="server" class=" btn btn-warning " Text="Entrega Fraccionaria" Style="margin: 10px;" />
+            <asp:Button runat="server" class=" btn btn-success disabled" Text="Entrega" Style="margin: 10px;" />
         </div>
     </div>
 </asp:Content>
