@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Crear.aspx.cs" Inherits="AplicacionFragancias.SitioWeb.OrdenDeCompra.CrearOrdenCompra" %>
+﻿<%@ Page Title="" Language="C#" EnableEventValidation="true" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Crear.aspx.cs" Inherits="AplicacionFragancias.SitioWeb.OrdenDeCompra.CrearOrdenCompra" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -37,7 +37,7 @@
                 <asp:GridView ID="grvStudentDetails" runat="server"
                     ShowFooter="True" AutoGenerateColumns="False"
                     CellPadding="4" ForeColor="#333333"
-                    GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting">
+                    GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting" Width="100%">
                     <Columns>
                         <asp:BoundField DataField="RowNumber" HeaderText="SNo" />
                         <asp:TemplateField HeaderText="Student Name">

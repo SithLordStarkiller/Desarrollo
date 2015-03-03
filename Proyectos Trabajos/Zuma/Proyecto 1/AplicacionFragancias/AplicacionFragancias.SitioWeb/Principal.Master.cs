@@ -21,7 +21,7 @@ namespace AplicacionFragancias.SitioWeb
         private void CargaMenuArbol()
         {
             menuBar.Items.Clear();
-            _lista = new OperaionSistema().ObtenListaMenuArbol();
+            _lista = new OperacionSistema().ObtenListaMenuArbol();
 
             var listaPadre = _lista.Where(r => r.IDMENUPADRE == null).ToList();
 

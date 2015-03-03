@@ -8,7 +8,7 @@ using AplicacionFragancias.AccesoDatos;
 
 namespace AplicacionFragancias.LogicaNegocios.OperacionSistema
 {
-    public class OperaionSistema
+    public class OperacionSistema
     {
         public List<SIS_MENUARBOL> ObtenListaMenuArbol()
         {
