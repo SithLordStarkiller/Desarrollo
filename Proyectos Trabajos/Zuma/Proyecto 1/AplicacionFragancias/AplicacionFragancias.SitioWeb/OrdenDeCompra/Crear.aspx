@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" EnableEventValidation="true" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Crear.aspx.cs" Inherits="AplicacionFragancias.SitioWeb.OrdenDeCompra.CrearOrdenCompra" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%--<script type="text/javascript">
+        $(document).ready(
+            $("buttonAdd").click(
+                window.scrollTo(0,document.body.scrollHeight)
+                )
+        );
+    </script>--%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="jumbotron">
@@ -16,7 +23,7 @@
             </div>
             <div class="form-group row" style="margin: 5px; padding: 10px;">
                 <asp:Label runat="server" Class="control-label col-md-2">Almacen de entrega </asp:Label>
-                <asp:DropDownList runat="server" class="col-sm-3 TextboxWidth" Width="350px" />
+                <asp:DropDownList runat="server" class="col-sm-3 TextboxWidth form-control" Width="350px" />
                 <asp:Label runat="server" Class="control-label col-md-2">Fecha de Entrega </asp:Label>
                 <asp:TextBox runat="server" class="form-control col-sm-3 TextboxWidth" placeholder="dd/mm/yyyy" />
             </div>
@@ -24,7 +31,7 @@
                 <asp:Label runat="server" Class="control-label col-md-2">Cantidad de piezas </asp:Label>
                 <asp:TextBox runat="server" class="form-control col-sm-3 TextboxWidth" />
                 <asp:Label runat="server" Class="control-label col-md-1">Estatus </asp:Label>
-                <asp:DropDownList runat="server" class="col-sm-2 TextboxWidth" Width="150px" />
+                <asp:DropDownList runat="server" class="col-sm-2 TextboxWidth form-control" Width="150px" />
                 <asp:CheckBox runat="server" class=" col-lg-offset-1 col-sm-2" Text="  Entrega Fraccionaria  " />
             </div>
         </div>
@@ -39,43 +46,40 @@
                     CellPadding="4" ForeColor="#333333"
                     GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting" Width="100%">
                     <Columns>
-                        <asp:BoundField DataField="RowNumber" HeaderText="SNo" />
-                        <asp:TemplateField HeaderText="Student Name">
+                        <asp:BoundField DataField="RowNumber" HeaderText="No" />
+                        <asp:TemplateField HeaderText="Nombre del Producto">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtNombreProducto" runat="server" Class="form-control TextboxWidth" placeholder="Nombre del Producto" Width="95%" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Student Age">
+                        <asp:TemplateField HeaderText="Lote">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtAge" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtLote" runat="server" Class="form-control TextboxWidth" placeholder="Lote" Width="95%" style="position: relative; align-items: center;"></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Student Address">
+                        <asp:TemplateField HeaderText="Cantidad">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtAddress" runat="server"
-                                    Height="55px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="txtCantidad" runat="server" Class="form-control TextboxWidth" placeholder="Cantidad" Width="95%" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Gender">
+                        <asp:TemplateField HeaderText="Precio Unitario">
                             <ItemTemplate>
-                                <asp:RadioButtonList ID="RBLGender"
-                                    runat="server" RepeatDirection="Horizontal">
-                                    <asp:ListItem Value="M">Male</asp:ListItem>
-                                    <asp:ListItem Value="F">Female</asp:ListItem>
-                                </asp:RadioButtonList>
+                                <asp:TextBox ID="txtPrecioUnitario" runat="server" Class="form-control TextboxWidth" placeholder="Precio unitario" Width="95%" ></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Qualification">
+                        <asp:TemplateField HeaderText="Fecha de entrega">
                             <ItemTemplate>
-                                <asp:DropDownList ID="drpQualification" runat="server">
-                                    <asp:ListItem Value="G">Graduate</asp:ListItem>
-                                    <asp:ListItem Value="P">Post Graduate</asp:ListItem>
-                                </asp:DropDownList>
+                                <asp:TextBox ID="txtFechaEntrega" runat="server" Class="form-control TextboxWidth" placeholder="dd/mm/aaaa" Width="95%" ></asp:TextBox>
                             </ItemTemplate>
-                            <FooterStyle HorizontalAlign="Right" />
+                        </asp:TemplateField>
+                        <asp:TemplateField HeaderText="Sub Total">
+                            <ItemTemplate>
+                                <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control TextboxWidth" placeholder="Subtotal" Width="95%" ></asp:TextBox>
+                            </ItemTemplate>
+                            <FooterStyle HorizontalAlign="Right" Height="50px" />
                             <FooterTemplate>
                                 <asp:Button ID="ButtonAdd" runat="server"
-                                    Text="Add New Row" OnClick="ButtonAdd_OnClick" />
+                                    Text="Nuevo Producto" OnClick="ButtonAdd_OnClick" class="btn btn-default" />
                             </FooterTemplate>
                         </asp:TemplateField>
                         <asp:CommandField ShowDeleteButton="True" />
@@ -88,13 +92,11 @@
                     <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
                     <AlternatingRowStyle BackColor="White" />
                 </asp:GridView>
-
             </div>
         </div>
         <div style="float: right; margin: 0px 80px;">
-            <asp:Button runat="server" class=" btn btn-danger " Text="Cancelar Orden de compra" Style="margin: 10px;" />
-            <asp:Button runat="server" class=" btn btn-warning " Text="Entrega Fraccionaria" Style="margin: 10px;" />
-            <asp:Button runat="server" class=" btn btn-success disabled" Text="Entrega" Style="margin: 10px;" />
+            <asp:Button runat="server" class=" btn btn-danger " Text="Cancelar" Style="margin: 10px;" />
+            <asp:Button runat="server" ID="btnAceptar" class=" btn btn-success" Text="Aceptar" Style="margin: 10px;" OnClick="btnAceptar_OnClick" />
         </div>
     </div>
 </asp:Content>

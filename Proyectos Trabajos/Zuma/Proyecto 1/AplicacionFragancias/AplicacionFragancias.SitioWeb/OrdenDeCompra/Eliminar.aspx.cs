@@ -226,5 +226,10 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                 throw new Exception(ex.Message);
             }
         }
+
+        protected void ButtonAdd_OnClick(object sender, EventArgs e)
+        {
+            AddNewRow();
+        }
     }
 }
