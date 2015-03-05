@@ -12,11 +12,14 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class CAT_TIPO_OPERACION
+    public partial class COM_CAT_TIPO_OPERACION
     {
         public int IDTIPOOPERACION { get; set; }
+        public Nullable<int> IDLOGOPERACIONES { get; set; }
         public string NOMBREOPERACION { get; set; }
         public string DESCRIPCION { get; set; }
         public bool BORRADO { get; set; }
+    
+        public virtual LOG_COM_OPERACIONES LOG_COM_OPERACIONES { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
 
             Parallel.ForEach(listaProductos, item =>
             {
-                item.IDORDENCOMPRA = nuevaOrdenCompra.IDORDENCOMPRA;
+                item.NOORDENCOMPRA = nuevaOrdenCompra.NOORDENCOMPRA;
                 var nuevoitem = new AccesoDatos.Compras.OperacionesCompras().InsertaProductoOrdencompra(item);
             });
 

@@ -24,5 +24,13 @@ namespace AplicacionFragancias.AccesoDatos.Compras
                 return r.Agregar(ordenCompra);
             }
         }
+
+        public COM_ORDENCOMPRA ObtenOrdenCompra(string noOrdenCompra)
+        {
+            using (var r = new Repositorio<COM_ORDENCOMPRA>())
+            {
+                return r.Extraer(aux => aux.NOORDENCOMPRA == noOrdenCompra);
+            }
+        }
     }
 }

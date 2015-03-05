@@ -74,13 +74,13 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                           (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtSubTotal");
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
-
+                        var subtotal = (Convert.ToDecimal(string.IsNullOrEmpty(txtCantidad.Text) ? "0" : txtCantidad.Text)) * (Convert.ToDecimal(string.IsNullOrEmpty(txtPreciounitario.Text) ? "0" : txtPreciounitario.Text));
                         dtCurrentTable.Rows[i - 1]["Col1"] = txtNombreProducto.Text;
                         dtCurrentTable.Rows[i - 1]["Col2"] = txtLote.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = txtCantidad.Text;
                         dtCurrentTable.Rows[i - 1]["Col4"] = txtPreciounitario.Text;
                         dtCurrentTable.Rows[i - 1]["Col5"] = txtFechaEntrega.Text;
-                        dtCurrentTable.Rows[i - 1]["Col6"] = txtSubtotal.Text;
+                        dtCurrentTable.Rows[i - 1]["Col6"] = subtotal.ToString();
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -183,8 +183,6 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                     }
 
                     ViewState["CurrentTable"] = dtCurrentTable;
-                    //grvStudentDetails.DataSource = dtCurrentTable;
-                    //grvStudentDetails.DataBind();
                 }
             }
             else
@@ -226,16 +224,35 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                             NOMBREPRODUCTO = txtNombreProducto.Text,
                             LOTE = txtLote.Text,
                             CANTIDADPRODUCTO = Convert.ToDecimal(txtCantidad.Text),
-                            PRECIOUNITARIO = Convert.ToDecimal(txtPrecioUnitario.Text)
+                            PRECIOUNITARIO = Convert.ToDecimal(txtPrecioUnitario.Text),
+                            FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text)
                         };
-
-                        //FECHAENTREGA = Convert.ToDateTime(item.ItemArray[5].ToString())
 
                         listaProductos.Add(entidad);
                         rowIndex++;
                     }
-                    var ordenCompra = new COM_ORDENCOMPRA();
+                    var ordenCompra = new COM_ORDENCOMPRA
+                    {
+                        NOORDENCOMPRA = txtNoOrdenCompra.Text,
+                        FECHAPEDIDO = Convert.ToDateTime(txtFechaPedido.Text),
+                        FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text),
+                        IDALAMACENES = Convert.ToInt16(ddlCatAlmacenes.SelectedValue),
+                        CANTIDADTOTAL = Convert.ToDecimal(CantidadPiezas.Text),
+                        IDESTATUSCOMPRA = Convert.ToInt32(ddlEstatusPedido.SelectedValue)
+                    };
 
+                    var insertado = new LogicaNegocios.Compras.OperaionesCompras().InsertaOrdenCompra(ordenCompra,
+                        listaProductos);
+
+                    if (insertado != null)
+                    {
+                        ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page), "Ingreso exitosos",
+                            "alert('Se creo la nueva orden de compra " + insertado.NOORDENCOMPRA + "');",
+                            true);
+                    }
+                    else
+                    {
+                    }
 
                 }
                 else

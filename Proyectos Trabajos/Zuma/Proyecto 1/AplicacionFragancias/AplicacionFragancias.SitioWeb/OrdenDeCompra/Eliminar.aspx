@@ -34,58 +34,56 @@
                 <div class="panel-title">Productos</div>
             </div>
             <div>
-                <asp:GridView ID="grvStudentDetails" runat="server"
-                    ShowFooter="True" AutoGenerateColumns="False"
-                    CellPadding="4" ForeColor="#333333"
-                    GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting" Width="100%">
+                <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="Id" Width="100%"
+                    ShowFooter="true" AllowPaging="true" PageSize="4"
+                    AllowSorting="True"
+                    OnRowCommand="GridView1_RowCommand"
+                    OnPageIndexChanging="GridView1_PageIndexChanging"
+                    OnRowEditing="GridView1_RowEditing"
+                    OnRowUpdating="GridView1_RowUpdating"
+                    OnSorting="GridView1_Sorting"
+                    OnRowCancelingEdit="GridView1_RowCancelingEdit">
                     <Columns>
-                        <asp:BoundField DataField="RowNumber" HeaderText="SNo" />
-                        <asp:TemplateField HeaderText="Student Name">
+                       <asp:TemplateField HeaderText="Id" InsertVisible="False" SortExpression="Id">
+                            <EditItemTemplate>
+                                <asp:Label ID="Label1" runat="server"
+                                    Text='<%# Eval("Id") %>'></asp:Label>
+                            </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                                <asp:Label ID="Label2" runat="server"
+                                    Text='<%# Bind("Id") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Student Age">
+                        <asp:BoundField DataField="Id" ShowHeader="True" />
+                        <asp:TemplateField HeaderText="Name" SortExpression="Name">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox1" runat="server"
+                                    Text='<%# Bind("Name") %>'></asp:TextBox>
+                            </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:TextBox ID="txtAge" runat="server"></asp:TextBox>
+                                <asp:Label ID="Label3" runat="server"
+                                    Text='<%# Bind("Name") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Student Address">
+                        <asp:TemplateField HeaderText="Description" SortExpression="Description">
+                            <EditItemTemplate>
+                                <asp:TextBox ID="TextBox2" runat="server"
+                                    Text='<%# Bind("Description") %>'></asp:TextBox>
+                            </EditItemTemplate>
                             <ItemTemplate>
-                                <asp:TextBox ID="txtAddress" runat="server"
-                                    Height="55px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:Label ID="Label4" runat="server"
+                                    Text='<%# Bind("Description") %>'></asp:Label>
                             </ItemTemplate>
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Gender">
-                            <ItemTemplate>
-                                <asp:RadioButtonList ID="RBLGender"
-                                    runat="server" RepeatDirection="Horizontal">
-                                    <asp:ListItem Value="M">Male</asp:ListItem>
-                                    <asp:ListItem Value="F">Female</asp:ListItem>
-                                </asp:RadioButtonList>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Qualification">
-                            <ItemTemplate>
-                                <asp:DropDownList ID="drpQualification" runat="server">
-                                    <asp:ListItem Value="G">Graduate</asp:ListItem>
-                                    <asp:ListItem Value="P">Post Graduate</asp:ListItem>
-                                </asp:DropDownList>
-                            </ItemTemplate>
-                            <FooterStyle HorizontalAlign="Right" Width="90px"/>
-                            <FooterTemplate>
-                                <asp:Button ID="ButtonAdd" runat="server"
-                                    Text="Add New Row" OnClick="ButtonAdd_OnClick" />
-                            </FooterTemplate>
-                        </asp:TemplateField>
-                        <asp:CommandField ShowDeleteButton="True" />
+                         <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" EditImageUrl="/Imagenes/ico_editar.gif" DeleteImageUrl="/Imagenes/eliminar.gif"
+                             ButtonType="Image" UpdateImageUrl="/Imagenes/yes.gif" CancelImageUrl="/Imagenes/delete.png" />
                     </Columns>
-                    <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-                    <RowStyle BackColor="#EFF3FB" />
-                    <EditRowStyle BackColor="#2461BF" />
-                    <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-                    <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-                    <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                    <FooterStyle BackColor="#ffffff" Font-Bold="True" ForeColor="White" />
+                    <RowStyle BackColor="#FFFFFF" />
+                    <EditRowStyle BackColor="#CCCCCC" />
+                    <SelectedRowStyle BackColor="#ffffff" Font-Bold="True" ForeColor="#888888" />
+                    <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                    <HeaderStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
                     <AlternatingRowStyle BackColor="White" />
                 </asp:GridView>
             </div>

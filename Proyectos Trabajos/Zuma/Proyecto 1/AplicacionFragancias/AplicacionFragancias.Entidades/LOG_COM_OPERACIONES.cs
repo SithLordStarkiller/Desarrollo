@@ -14,6 +14,15 @@ namespace AplicacionFragancias.Entidades
     
     public partial class LOG_COM_OPERACIONES
     {
+        public LOG_COM_OPERACIONES()
+        {
+            this.COM_CAT_TIPO_OPERACION = new HashSet<COM_CAT_TIPO_OPERACION>();
+        }
+    
         public int IDLOGOPERACIONES { get; set; }
+        public string TIPOOPERACION { get; set; }
+        public string DESCRIPCION { get; set; }
+    
+        public virtual ICollection<COM_CAT_TIPO_OPERACION> COM_CAT_TIPO_OPERACION { get; set; }
     }
 }

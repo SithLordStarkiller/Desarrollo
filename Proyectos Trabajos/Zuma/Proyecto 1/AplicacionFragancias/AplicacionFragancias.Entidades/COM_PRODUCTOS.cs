@@ -15,14 +15,12 @@ namespace AplicacionFragancias.Entidades
     public partial class COM_PRODUCTOS
     {
         public int IDPRODUCTOS { get; set; }
-        public Nullable<int> IDORDENCOMPRA { get; set; }
+        public string NOORDENCOMPRA { get; set; }
         public string NOMBREPRODUCTO { get; set; }
         public string LOTE { get; set; }
         public decimal CANTIDADPRODUCTO { get; set; }
         public System.DateTime FECHAENTREGA { get; set; }
         public decimal PRECIOUNITARIO { get; set; }
         public bool BORRADO { get; set; }
-    
-        public virtual COM_ORDENCOMPRA COM_ORDENCOMPRA { get; set; }
     }
 }

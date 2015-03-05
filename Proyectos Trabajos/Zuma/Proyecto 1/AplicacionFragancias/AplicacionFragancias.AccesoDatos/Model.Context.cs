@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using AplicacionFragancias.Entidades;
-
 namespace AplicacionFragancias.AccesoDatos
 {
     using System;
@@ -28,7 +26,7 @@ namespace AplicacionFragancias.AccesoDatos
         }
     
         public virtual DbSet<ALM_CAT_ALMECENES> ALM_CAT_ALMECENES { get; set; }
-        public virtual DbSet<CAT_TIPO_OPERACION> CAT_TIPO_OPERACION { get; set; }
+        public virtual DbSet<COM_CAT_TIPO_OPERACION> COM_CAT_TIPO_OPERACION { get; set; }
         public virtual DbSet<COM_ESTATUS_COMPRA> COM_ESTATUS_COMPRA { get; set; }
         public virtual DbSet<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
         public virtual DbSet<COM_PRODUCTOS> COM_PRODUCTOS { get; set; }

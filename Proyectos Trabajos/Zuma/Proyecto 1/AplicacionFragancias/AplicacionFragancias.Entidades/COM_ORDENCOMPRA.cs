@@ -14,21 +14,16 @@ namespace AplicacionFragancias.Entidades
     
     public partial class COM_ORDENCOMPRA
     {
-        public COM_ORDENCOMPRA()
-        {
-            this.COM_PRODUCTOS = new HashSet<COM_PRODUCTOS>();
-        }
-    
-        public int IDORDENCOMPRA { get; set; }
+        public string NOORDENCOMPRA { get; set; }
         public Nullable<short> IDALAMACENES { get; set; }
         public Nullable<int> IDESTATUSCOMPRA { get; set; }
         public System.DateTime FECHAENTREGA { get; set; }
         public System.DateTime FECHAPEDIDO { get; set; }
         public decimal CANTIDADTOTAL { get; set; }
         public bool ENTREGAFRACCIONARIA { get; set; }
+        public bool BORRADO { get; set; }
     
         public virtual ALM_CAT_ALMECENES ALM_CAT_ALMECENES { get; set; }
         public virtual COM_ESTATUS_COMPRA COM_ESTATUS_COMPRA { get; set; }
-        public virtual ICollection<COM_PRODUCTOS> COM_PRODUCTOS { get; set; }
     }
 }

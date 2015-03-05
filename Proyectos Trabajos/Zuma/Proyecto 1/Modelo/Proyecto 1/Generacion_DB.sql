@@ -1,8 +1,15 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     02/03/2015 02:02:45 p. m.                    */
+/* Created on:     04/03/2015 09:56:05 a. m.                    */
 /*==============================================================*/
 
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('COM_CAT_TIPO_OPERACION') and o.name = 'FK_COM_CAT__REFERENCE_LOG_COM_')
+alter table COM_CAT_TIPO_OPERACION
+   drop constraint FK_COM_CAT__REFERENCE_LOG_COM_
+go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
@@ -76,9 +83,9 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('CAT_TIPO_OPERACION')
+           where  id = object_id('COM_CAT_TIPO_OPERACION')
             and   type = 'U')
-   drop table CAT_TIPO_OPERACION
+   drop table COM_CAT_TIPO_OPERACION
 go
 
 if exists (select 1
@@ -164,14 +171,15 @@ create table ALM_CAT_ALMECENES (
 go
 
 /*==============================================================*/
-/* Table: CAT_TIPO_OPERACION                                    */
+/* Table: COM_CAT_TIPO_OPERACION                                */
 /*==============================================================*/
-create table CAT_TIPO_OPERACION (
+create table COM_CAT_TIPO_OPERACION (
    IDTIPOOPERACION      int                  not null,
+   IDLOGOPERACIONES     int                  null,
    NOMBREOPERACION      varchar(50)          not null,
    DESCRIPCION          varchar(50)          null,
    BORRADO              bit                  not null,
-   constraint PK_CAT_TIPO_OPERACION primary key (IDTIPOOPERACION)
+   constraint PK_COM_CAT_TIPO_OPERACION primary key (IDTIPOOPERACION)
 )
 go
 
@@ -191,14 +199,14 @@ go
 /* Table: COM_ORDENCOMPRA                                       */
 /*==============================================================*/
 create table COM_ORDENCOMPRA (
-   IDORDENCOMPRA        int                  not null,
+   NOORDENCOMPRA        varchar(50)          not null,
    IDALAMACENES         smallint             null,
    IDESTATUSCOMPRA      int                  null,
    FECHAENTREGA         datetime             not null,
    FECHAPEDIDO          datetime             not null,
    CANTIDADTOTAL        decimal              not null,
    ENTREGAFRACCIONARIA  bit                  not null,
-   constraint PK_COM_ORDENCOMPRA primary key (IDORDENCOMPRA)
+   constraint PK_COM_ORDENCOMPRA primary key nonclustered (NOORDENCOMPRA)
 )
 go
 
@@ -207,7 +215,7 @@ go
 /*==============================================================*/
 create table COM_PRODUCTOS (
    IDPRODUCTOS          int                  identity,
-   IDORDENCOMPRA        int                  null,
+   NOORDENCOMPRA        varchar(50)          null,
    NOMBREPRODUCTO       varchar(100)         not null,
    LOTE                 varchar(50)          not null,
    CANTIDADPRODUCTO     decimal              not null,
@@ -223,6 +231,8 @@ go
 /*==============================================================*/
 create table LOG_COM_OPERACIONES (
    IDLOGOPERACIONES     int                  identity,
+   TIPOOPERACION        varchar(50)          null,
+   DESCRIPCION          varchar(MAX)         null,
    constraint PK_LOG_COM_OPERACIONES primary key (IDLOGOPERACIONES)
 )
 go
@@ -304,6 +314,11 @@ create table US_USUARIOS (
 )
 go
 
+alter table COM_CAT_TIPO_OPERACION
+   add constraint FK_COM_CAT__REFERENCE_LOG_COM_ foreign key (IDLOGOPERACIONES)
+      references LOG_COM_OPERACIONES (IDLOGOPERACIONES)
+go
+
 alter table COM_ORDENCOMPRA
    add constraint FK_COM_ORDE_REFERENCE_ALM_CAT_ foreign key (IDALAMACENES)
       references ALM_CAT_ALMECENES (IDALAMACENES)
@@ -315,8 +330,8 @@ alter table COM_ORDENCOMPRA
 go
 
 alter table COM_PRODUCTOS
-   add constraint FK_COM_PROD_REFERENCE_COM_ORDE foreign key (IDORDENCOMPRA)
-      references COM_ORDENCOMPRA (IDORDENCOMPRA)
+   add constraint FK_COM_PROD_REFERENCE_COM_ORDE foreign key (NOORDENCOMPRA)
+      references COM_ORDENCOMPRA (NOORDENCOMPRA)
 go
 
 alter table PER_PERSONA
