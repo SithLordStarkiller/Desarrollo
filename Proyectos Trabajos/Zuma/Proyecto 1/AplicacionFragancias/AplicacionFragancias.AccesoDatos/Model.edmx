@@ -57,6 +57,7 @@
           <Property Name="CANTIDADPRODUCTO" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
           <Property Name="PRECIOUNITARIO" Type="money" Nullable="false" />
+          <Property Name="ENTREGADO" Type="bit" Nullable="false" />
           <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LOG_COM_OPERACIONES">
@@ -162,6 +163,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_ORDE">
+          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="0..1" />
+          <End Role="COM_PRODUCTOS" Type="Self.COM_PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_ORDENCOMPRA">
+              <PropertyRef Name="NOORDENCOMPRA" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS">
+              <PropertyRef Name="NOORDENCOMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PER_PERS_REFERENCE_US_USUAR">
           <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="0..1" />
           <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="*" />
@@ -259,6 +272,10 @@
             <End Role="COM_ESTATUS_COMPRA" EntitySet="COM_ESTATUS_COMPRA" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
           </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_ORDE" Association="Self.FK_COM_PROD_REFERENCE_COM_ORDE">
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+          </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_US_USUAR" Association="Self.FK_PER_PERS_REFERENCE_US_USUAR">
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
             <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
@@ -312,6 +329,10 @@
           <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_ESTA" Association="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA">
             <End Role="COM_ESTATUS_COMPRA" EntitySet="COM_ESTATUS_COMPRA" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_ORDE" Association="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE">
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
           </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_US_USUAR" Association="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR">
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
@@ -383,6 +404,7 @@
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ALM_CAT_ALMECENES" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="COM_ORDENCOMPRA" ToRole="ALM_CAT_ALMECENES" />
           <NavigationProperty Name="COM_ESTATUS_COMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ORDENCOMPRA" ToRole="COM_ESTATUS_COMPRA" />
+          <NavigationProperty Name="COM_PRODUCTOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_ORDENCOMPRA" ToRole="COM_PRODUCTOS" />
         </EntityType>
         <EntityType Name="COM_PRODUCTOS">
           <Key>
@@ -395,7 +417,9 @@
           <Property Name="CANTIDADPRODUCTO" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PRECIOUNITARIO" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ENTREGADO" Type="Boolean" Nullable="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_PRODUCTOS" ToRole="COM_ORDENCOMPRA" />
         </EntityType>
         <EntityType Name="LOG_COM_OPERACIONES">
           <Key>
@@ -510,6 +534,18 @@
             </Principal>
             <Dependent Role="COM_ORDENCOMPRA">
               <PropertyRef Name="IDESTATUSCOMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_ORDE">
+          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PRODUCTOS" Role="COM_PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_ORDENCOMPRA">
+              <PropertyRef Name="NOORDENCOMPRA" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS">
+              <PropertyRef Name="NOORDENCOMPRA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -640,6 +676,7 @@
             <EntityTypeMapping TypeName="FraganciasModel.COM_PRODUCTOS">
               <MappingFragment StoreEntitySet="COM_PRODUCTOS">
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="ENTREGADO" ColumnName="ENTREGADO" />
                 <ScalarProperty Name="PRECIOUNITARIO" ColumnName="PRECIOUNITARIO" />
                 <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
                 <ScalarProperty Name="CANTIDADPRODUCTO" ColumnName="CANTIDADPRODUCTO" />

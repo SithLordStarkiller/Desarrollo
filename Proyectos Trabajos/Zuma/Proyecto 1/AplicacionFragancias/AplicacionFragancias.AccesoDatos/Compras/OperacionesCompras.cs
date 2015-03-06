@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using AplicacionFragancias.Entidades;
 
 namespace AplicacionFragancias.AccesoDatos.Compras
@@ -29,7 +25,23 @@ namespace AplicacionFragancias.AccesoDatos.Compras
         {
             using (var r = new Repositorio<COM_ORDENCOMPRA>())
             {
-                return r.Extraer(aux => aux.NOORDENCOMPRA == noOrdenCompra);
+                return r.Extraer(aux => aux.NOORDENCOMPRA == noOrdenCompra && aux.BORRADO == false);
+            }
+        }
+
+        public List<COM_PRODUCTOS> ObtenListaProductos(COM_ORDENCOMPRA ordenCompra)
+        {
+            using (var r = new Repositorio<COM_PRODUCTOS>())
+            {
+                return r.Filtro(aux => aux.NOORDENCOMPRA == ordenCompra.NOORDENCOMPRA && aux.BORRADO == false);
+            }
+        }
+
+        public bool ActualizaProducto(COM_PRODUCTOS producto)
+        {
+            using (var r = new Repositorio<COM_PRODUCTOS>())
+            {
+                return r.Actualizar(producto);
             }
         }
     }

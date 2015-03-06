@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using AplicacionFragancias.Entidades;
+
 namespace AplicacionFragancias.AccesoDatos
 {
     using System;

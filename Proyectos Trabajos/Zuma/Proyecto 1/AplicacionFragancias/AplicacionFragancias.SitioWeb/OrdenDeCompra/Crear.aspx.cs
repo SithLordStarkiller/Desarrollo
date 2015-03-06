@@ -225,7 +225,8 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                             LOTE = txtLote.Text,
                             CANTIDADPRODUCTO = Convert.ToDecimal(txtCantidad.Text),
                             PRECIOUNITARIO = Convert.ToDecimal(txtPrecioUnitario.Text),
-                            FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text)
+                            FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text),
+                            ENTREGADO = false
                         };
 
                         listaProductos.Add(entidad);

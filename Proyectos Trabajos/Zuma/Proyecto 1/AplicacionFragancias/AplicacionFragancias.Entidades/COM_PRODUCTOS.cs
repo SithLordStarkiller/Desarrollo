@@ -21,6 +21,9 @@ namespace AplicacionFragancias.Entidades
         public decimal CANTIDADPRODUCTO { get; set; }
         public System.DateTime FECHAENTREGA { get; set; }
         public decimal PRECIOUNITARIO { get; set; }
+        public bool ENTREGADO { get; set; }
         public bool BORRADO { get; set; }
+    
+        public virtual COM_ORDENCOMPRA COM_ORDENCOMPRA { get; set; }
     }
 }

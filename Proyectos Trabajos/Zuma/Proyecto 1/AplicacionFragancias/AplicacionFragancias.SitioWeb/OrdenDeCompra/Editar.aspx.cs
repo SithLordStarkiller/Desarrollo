@@ -2,30 +2,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using AplicacionFragancias.LogicaNegocios;
+using AplicacionFragancias.Entidades;
+using AplicacionFragancias.LogicaNegocios.Compras;
 
 namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
 {
     public partial class EditarOrdenCompra : System.Web.UI.Page
     {
-        private const int _ordenCompra = 1;
+        private const string NoOrdenCompra = "CO1902EJ";
+        public COM_ORDENCOMPRA OrdenCompra;
+        private List<COM_PRODUCTOS> _listaProductos;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            OrdenCompra = new OperaionesCompras().ObtenOrdencompra(NoOrdenCompra);
 
-            if (!IsPostBack)
-            {
-                BindGrid();
-            }
+            if (IsPostBack) return;
+
+            txtNoOrdenCompra.Text = OrdenCompra.NOORDENCOMPRA;
+            txtFehaEntrega.Text = OrdenCompra.FECHAENTREGA.ToShortDateString();
+            txtFechaPedido.Text = OrdenCompra.FECHAPEDIDO.ToShortDateString();
+            ddlCatAlmacenes.SelectedValue = OrdenCompra.IDALAMACENES.ToString();
+            ddlEstatusPedido.SelectedValue = OrdenCompra.IDESTATUSCOMPRA.ToString();
+            CantidadPiezas.Text = OrdenCompra.CANTIDADTOTAL.ToString(CultureInfo.InvariantCulture);
+            chkEsFraccionaria.Checked = OrdenCompra.ENTREGAFRACCIONARIA;
+
+            BindGrid();
         }
+
         public void BindGrid()
         {
-
+            _listaProductos = new OperaionesCompras().ObtenListaProductos(OrdenCompra);
+            gvProductos.DataSource = _listaProductos;
+            gvProductos.DataBind();
         }
+
         public DataTable CreateDGDataSource()
         {
             // Create sample data for the DataList control.
@@ -87,8 +103,8 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                     dt.AcceptChanges();
                     Session["dt"] = dt;
 
-                    GridView1.DataSource = Session["dt"] as DataTable;
-                    GridView1.DataBind();
+                    //GridView1.DataSource = Session["dt"] as DataTable;
+                    //GridView1.DataBind();
 
                 }
 
@@ -103,9 +119,10 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
 
         protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
-            GridView1.PageIndex = e.NewPageIndex;
+            gvProductos.PageIndex = e.NewPageIndex;
             BindGrid();
         }
+
         protected void GridView1_Sorting(object sender, GridViewSortEventArgs e)
         {
             DataTable dataTable = Session["dt"] as DataTable;
@@ -113,8 +130,8 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
             {
                 DataView dataView = new DataView(dataTable);
                 dataView.Sort = e.SortExpression + " " + ConvertSortDirectionToSql(e.SortDirection);
-                GridView1.DataSource = dataView;
-                GridView1.DataBind();
+                //GridView1.DataSource = dataView;
+                //GridView1.DataBind();
             }
         }
         private string ConvertSortDirectionToSql(SortDirection sortDireciton)
@@ -133,31 +150,63 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
         }
         protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int ID = (int)GridView1.DataKeys[e.RowIndex].Value;
+            //int ID = (int)GridView1.DataKeys[e.RowIndex].Value;
             // Query the database and get the values based on the ID and delete it.
             //lblMsg.Text = "Deleted Record Id" + ID.ToString();
 
         }
         protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            GridView1.EditIndex = e.NewEditIndex;
+            gvProductos.EditIndex = e.NewEditIndex;
             BindGrid();
         }
+
         protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
+            var idProducto = e.Keys["IDPRODUCTOS"];
+            var noOrdenCompra = e.Keys["NOORDENCOMPRA"];
 
-            // Retrieve the row being edited.
-            int index = GridView1.EditIndex;
-            GridViewRow row = GridView1.Rows[index];
-            TextBox t1 = row.FindControl("TextBox1") as TextBox;
-            TextBox t2 = row.FindControl("TextBox2") as TextBox;
-            string t3 = GridView1.DataKeys[e.RowIndex].Value.ToString();
+            var index = gvProductos.EditIndex;
 
-            //lblMsg.Text = "Updated record " + t1.Text + "," + t2.Text + "Value From Bound Field" + t3;
+            var row = gvProductos.Rows[index];
+
+            var txtNombreProducto = ((TextBox)row.FindControl("txtNombreProducto")).Text;
+            var txtLote = ((TextBox) row.FindControl("txtLote")).Text;
+            var txtCantidadProducto = Convert.ToDecimal(((TextBox)row.FindControl("txtCantidadProducto")).Text);
+            var txtFechaEntrega = Convert.ToDateTime((((TextBox)row.FindControl("txtFechaEntrega")).Text));
+            var txtPrecioUnitario = Convert.ToDecimal(((TextBox)row.FindControl("txtPrecioUnitario")).Text);
+
+
+            var producto = new COM_PRODUCTOS();
+            producto.IDPRODUCTOS = (int)idProducto;
+            producto.NOORDENCOMPRA = (string) noOrdenCompra;
+            producto.NOMBREPRODUCTO = txtNombreProducto;
+            producto.LOTE = txtLote;
+            producto.FECHAENTREGA = txtFechaEntrega;
+            producto.PRECIOUNITARIO = txtPrecioUnitario;
+            producto.CANTIDADPRODUCTO = txtCantidadProducto;
+            producto.BORRADO = false;
+
+            gvProductos.EditIndex = -1;
+
+            var actualizado = new OperaionesCompras().ActualizaProducto(producto);
+            
+            if (actualizado)
+            {
+                ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page), "Ingreso exitosos",
+                    "alert('Se Actualizo el producto');",
+                    true);
+
+                BindGrid();
+            }
+            else
+            {
+            }
         }
+
         protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            GridView1.EditIndex = -1;
+            gvProductos.EditIndex = -1;
             BindGrid();
         }
     }
