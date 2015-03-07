@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using AplicacionFragancias.Entidades;
 using AplicacionFragancias.LogicaNegocios.OperacionSistema;
@@ -16,6 +17,7 @@ namespace AplicacionFragancias.SitioWeb
         protected void Page_Load(object sender, EventArgs e)
         {
             CargaMenuArbol();
+            
         }
 
         private void CargaMenuArbol()
@@ -27,8 +29,8 @@ namespace AplicacionFragancias.SitioWeb
 
             foreach (var item in listaPadre)
             {
-                
                 var padre = new MenuItem();
+
                 padre = new MenuItem(item.NOMBRE,
                                item.IDMENU.ToString(),
                                "", item.DIRECCION);
@@ -59,14 +61,6 @@ namespace AplicacionFragancias.SitioWeb
             }
 
             return padre;
-        }
-
-        public class Menu
-        {
-            public int IdHijo { get; set; }
-            public string UrlPagina { get; set; }
-            public string NombrePagines { get; set; }
-            public int IdPadre { get; set; }
         }
 
         protected void btnInicio_OnClick(object sender, EventArgs e)

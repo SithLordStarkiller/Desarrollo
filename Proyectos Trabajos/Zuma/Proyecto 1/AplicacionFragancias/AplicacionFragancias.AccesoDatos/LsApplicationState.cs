@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Universidad.Helpers
+namespace AplicacionFragancias.AccesoDatos
 {
     public class LsApplicationState
     {
