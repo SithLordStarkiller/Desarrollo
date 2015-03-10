@@ -7,12 +7,21 @@
 <head id="Head1" runat="server">
     <title>Page-2</title>
 
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         Sys.WebForms.PageRequestManager.getInstance().add_endRequest(InIEvent);
-    </script>
+    </script>--%>
 
-    <script src="Scripts/jquery-2.1.3.js"
-        type="text/javascript"></script>
+    <script src="Scripts/jquery-2.1.3.js" type="text/javascript"></script>
+    <script src="Scripts/jquery-ui-1.11.3.js" type="text/javascript"></script>
+    <script src="Scripts/datepicker-es.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="Content/themes/base/datepicker.css" type="text/css"/>
+    <link rel="stylesheet" href="Content/Sitio.css" type="text/css"/>
+    <script type="text/javascript">
+        $(function () {
+            $.datepicker.setDefaults($.datepicker.regional['es']);
+            $("#txt").datepicker();
+        });
+    </script>
 
     <script type="text/javascript">
         //
@@ -44,6 +53,11 @@
         }
 
         $(document).ready(function () {
+
+            $('#txtNum1').keyup(function () {
+                $('#txtNum2').val($('#txtNum1').val());
+            });
+
             $(document).on('click', '#botton1', function () {
                 //alert("Click");
 
@@ -57,7 +71,7 @@
                         alert(data.d);
                     },
                     error: function (e) {
-                        alert("Ajax Error "+ e.getError);
+                        alert("Ajax Error " + e.getError);
                     }
                 });
             });
@@ -72,9 +86,9 @@
         <asp:ScriptManager ID="SM" runat="server">
         </asp:ScriptManager>
 
-        <script type="text/javascript">
+        <%-- <script type="text/javascript">
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(InIEvent);
-        </script>
+        </script>--%>
 
         <asp:UpdatePanel ID="upMain"
             runat="server" UpdateMode="Conditional">
@@ -103,6 +117,7 @@
                         </tr>
                     </table>
                     <asp:Button runat="server" ID="botton1" Text="btn" />
+                    <asp:TextBox runat="server" CssClass="form-control" ID="txt"></asp:TextBox>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

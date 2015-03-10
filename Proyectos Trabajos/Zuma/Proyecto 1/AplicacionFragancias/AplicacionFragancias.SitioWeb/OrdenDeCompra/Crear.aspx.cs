@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using AplicacionFragancias.Entidades;
 using AplicacionFragancias.LogicaNegocios;
+using Microsoft.Ajax.Utilities;
 
 namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
 {
@@ -82,6 +83,7 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                         dtCurrentTable.Rows[i - 1]["Col5"] = txtFechaEntrega.Text;
                         dtCurrentTable.Rows[i - 1]["Col6"] = subtotal.ToString();
                         rowIndex++;
+
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
                     ViewState["CurrentTable"] = dtCurrentTable;
@@ -219,17 +221,21 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                             (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
                         var txtSubTotal = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
 
-                        var entidad = new COM_PRODUCTOS
+                        if (txtNombreProducto.Text.IsNullOrWhiteSpace() || txtLote.Text.IsNullOrWhiteSpace() ||
+                            txtCantidad.Text.IsNullOrWhiteSpace() || txtFechaPedido.Text.IsNullOrWhiteSpace())
                         {
-                            NOMBREPRODUCTO = txtNombreProducto.Text,
-                            LOTE = txtLote.Text,
-                            CANTIDADPRODUCTO = Convert.ToDecimal(txtCantidad.Text),
-                            PRECIOUNITARIO = Convert.ToDecimal(txtPrecioUnitario.Text),
-                            FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text),
-                            ENTREGADO = false
-                        };
+                            var entidad = new COM_PRODUCTOS
+                            {
+                                NOMBREPRODUCTO = txtNombreProducto.Text,
+                                LOTE = txtLote.Text,
+                                CANTIDADPRODUCTO = Convert.ToDecimal(txtCantidad.Text),
+                                PRECIOUNITARIO = Convert.ToDecimal(txtPrecioUnitario.Text),
+                                FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text),
+                                ENTREGADO = false
+                            };
 
-                        listaProductos.Add(entidad);
+                            listaProductos.Add(entidad);
+                        }
                         rowIndex++;
                     }
                     var ordenCompra = new COM_ORDENCOMPRA

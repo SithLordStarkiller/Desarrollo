@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () { 
     alert('jquery working!');
-    $("#Buton").click(function () {
+    $("#Boton").click(function () {
         alert('Se invoco evento click');
     });
 

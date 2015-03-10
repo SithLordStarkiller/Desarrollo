@@ -1,16 +1,57 @@
 ﻿<%@ Page Title="" Language="C#" EnableEventValidation="true" MasterPageFile="~/Principal.Master" AutoEventWireup="true" CodeBehind="Crear.aspx.cs" Inherits="AplicacionFragancias.SitioWeb.OrdenDeCompra.CrearOrdenCompra" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <%--<script type="text/javascript">
-        $(document).ready(
-            $("buttonAdd").click(
-                window.scrollTo(0,document.body.scrollHeight)
-                )
-        );
-    </script>--%>
+
+    <link href="/Content/themes/base/datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="/Scripts/jquery-2.1.3.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-1.11.3.js" type="text/javascript"></script>
+    <script src="/Scripts/datepicker-es.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="/Content/themes/base/datepicker.css" type="text/css" />
+    <link rel="stylesheet" href="/Content/Sitio.css" type="text/css" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#<%=txtFehaEntrega.ClientID%>").datepicker();
+            $("#<%=txtFechaPedido.ClientID%>").datepicker();
+        });
+    </script>
+
+    <script>
+        $(function () {
+            var $gv = $("table[id$=grvStudentDetails]");
+            var $rows = $("> tbody > tr:not(:has(th, table))", $gv);
+            var $inputs = $(".datepickers", $rows);
+
+            $rows.css("background-color", "white");
+
+            $inputs.datepicker();
+        });
+    </script>
+    
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#<%=grvStudentDetails.ClientID%> [id*='txtCantidad']").keyup(function() {
+                var cantidad = $(this).val();
+                var precio = $(this).parent().parent();
+
+                alert('Cantidad= ' + cantidad + ' Precio= ' + precio);
+
+                //$("td:eq(3) span", tr).html($(this).val() * precio);
+
+            });
+
+});
+
+</script>
+
 </asp:Content>
+
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server"/>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" />
     <div class="jumbotron">
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
             <div class="panel-heading" style="margin: 5px; padding: 10px;">
@@ -24,9 +65,9 @@
             </div>
             <div class="form-group row" style="margin: 5px; padding: 10px;">
                 <asp:Label runat="server" Class="control-label col-md-2">Almacen de entrega </asp:Label>
-                <asp:DropDownList runat="server" class="col-sm-3 TextboxWidth form-control" ID="ddlCatAlmacenes" Width="350px" >
-                    <asp:ListItem Value="1" Text="Almacen 1"/>
-                    <asp:ListItem Value="2" Text="Almacen AC"/>
+                <asp:DropDownList runat="server" class="col-sm-3 TextboxWidth form-control" ID="ddlCatAlmacenes" Width="350px">
+                    <asp:ListItem Value="1" Text="Almacen 1" />
+                    <asp:ListItem Value="2" Text="Almacen AC" />
                 </asp:DropDownList>
                 <asp:Label runat="server" Class="control-label col-md-2">Fecha de Entrega </asp:Label>
                 <asp:TextBox runat="server" class="form-control col-sm-3 TextboxWidth" ID="txtFehaEntrega" placeholder="dd/mm/yyyy" />
@@ -36,8 +77,8 @@
                 <asp:TextBox runat="server" class="form-control col-sm-3 TextboxWidth" ID="CantidadPiezas" placeholder="CantidadPiezas" />
                 <asp:Label runat="server" Class="control-label col-md-1">Estatus </asp:Label>
                 <asp:DropDownList runat="server" class="col-sm-2 TextboxWidth form-control" Width="150px" ID="ddlEstatusPedido">
-                    <asp:ListItem Value="1" Text="Trancito"/>
-                    <asp:ListItem Value="2" Text="Cancelado"/>
+                    <asp:ListItem Value="1" Text="Trancito" />
+                    <asp:ListItem Value="2" Text="Cancelado" />
                 </asp:DropDownList>
                 <asp:CheckBox runat="server" class=" col-lg-offset-1 col-sm-2" Text="  Entrega Fraccionaria  " />
             </div>
@@ -76,7 +117,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Fecha de entrega">
                             <ItemTemplate>
-                                <asp:TextBox ID="txtFechaEntrega" runat="server" Class="form-control TextboxWidth" placeholder="dd/mm/aaaa" Width="95%"></asp:TextBox>
+                                <asp:TextBox ID="txtFechaEntrega" runat="server" CssClass="form-control TextboxWidth datepickers" placeholder="dd/mm/aaaa" Width="95%"></asp:TextBox>
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Sub Total">
@@ -89,7 +130,7 @@
                                     Text="Nuevo Producto" OnClick="ButtonAdd_OnClick" class="btn btn-default" />
                             </FooterTemplate>
                         </asp:TemplateField>
-                        <asp:CommandField ShowDeleteButton="True" DeleteImageUrl="/Imagenes/eliminar.gif" ButtonType="Image"/>
+                        <asp:CommandField ShowDeleteButton="True" DeleteImageUrl="/Imagenes/eliminar.gif" ButtonType="Image" />
                     </Columns>
                     <FooterStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
                     <RowStyle BackColor="#FFFFFF" />
@@ -103,7 +144,7 @@
         </div>
         <div style="float: right;">
             <asp:Button runat="server" class=" btn btn-danger " Text="Cancelar" Style="margin: 10px 20px 10px 20px;" />
-            <asp:Button runat="server" ID="btnAceptar" class=" btn btn-success" Text="Aceptar"  Style="margin: 10px 20px 10px 20px;"  OnClick="btnAceptar_OnClick" />
+            <asp:Button runat="server" ID="btnAceptar" class=" btn btn-success" Text="Aceptar" Style="margin: 10px 20px 10px 20px;" OnClick="btnAceptar_OnClick" />
         </div>
     </div>
 </asp:Content>
