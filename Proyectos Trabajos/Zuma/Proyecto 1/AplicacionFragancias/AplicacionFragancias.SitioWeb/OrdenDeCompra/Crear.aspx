@@ -8,18 +8,15 @@
     <script src="/Scripts/datepicker-es.js" type="text/javascript"></script>
     <link rel="stylesheet" href="/Content/themes/base/datepicker.css" type="text/css" />
     <link rel="stylesheet" href="/Content/Sitio.css" type="text/css" />
-
     <script type="text/javascript">
         $(document).ready(function () {
 
-            $("#<%=txtFehaEntrega.ClientID%>").datepicker();
-            $("#<%=txtFechaPedido.ClientID%>").datepicker();
+            $("#<%=txtFehaEntrega.ClientID%>").datepicker({ minDate: 0 });
+            $("#<%=txtFechaPedido.ClientID%>").datepicker({ minDate: 0 });
         });
-    </script>
 
-    <script>
         $(function () {
-            var $gv = $("table[id$=grvStudentDetails]");
+            var $gv = $("table[id$=grvProductos]");
             var $rows = $("> tbody > tr:not(:has(th, table))", $gv);
             var $inputs = $(".datepickers", $rows);
 
@@ -27,26 +24,21 @@
 
             $inputs.datepicker();
         });
-    </script>
-    
-    <script type="text/javascript">
 
         $(document).ready(function () {
-
-            $("#<%=grvStudentDetails.ClientID%> [id*='txtCantidad']").keyup(function() {
+            $("#<%=grvProductos.ClientID%> [id*='txtCantidad']").keyup(function () {
                 var cantidad = $(this).val();
-                var precio = $(this).parent().parent();
-
-                alert('Cantidad= ' + cantidad + ' Precio= ' + precio);
-
-                //$("td:eq(3) span", tr).html($(this).val() * precio);
-
+                var precio = $(this).parent().parent().find("[id*='txtPrecioUnitario']").val();
+                $(this).parent().parent().find("[id*='txtSubTotal']").val(cantidad * precio);
             });
 
-});
-
-</script>
-
+            $("#<%=grvProductos.ClientID%> [id*='txtPrecioUnitario']").keyup(function () {
+                var precio = $(this).val();
+                var cantidad = $(this).parent().parent().find("[id*='txtCantidad']").val();
+                $(this).parent().parent().find("[id*='txtSubTotal']").val(cantidad * precio);
+            });
+        });
+    </script>
 </asp:Content>
 
 
@@ -59,7 +51,7 @@
             </div>
             <div class="form-group row" style="margin: 5px; padding: 10px;">
                 <asp:Label runat="server" Class="control-label col-sm-2">Orden de compra:</asp:Label>
-                <asp:TextBox runat="server" Class="form-control TextboxWidth col-sm-4" type="text" ID="txtNoOrdenCompra" placeholder="Orden de compra" />
+                <asp:TextBox runat="server" Class="form-control TextboxWidth col-sm-4" type="text" ID="txtNoOrdenCompra" placeholder="Orden de compra"/>
                 <asp:Label runat="server" class="control-label col-md-2">Fecha de pedido </asp:Label>
                 <asp:TextBox runat="server" class="form-control TextboxWidth col-md-4" ID="txtFechaPedido" placeholder="dd/mm/yyyy" />
             </div>
@@ -80,7 +72,7 @@
                     <asp:ListItem Value="1" Text="Trancito" />
                     <asp:ListItem Value="2" Text="Cancelado" />
                 </asp:DropDownList>
-                <asp:CheckBox runat="server" class=" col-lg-offset-1 col-sm-2" Text="  Entrega Fraccionaria  " />
+                <asp:CheckBox runat="server" ID="chkEntregaFraccionaria" class=" col-lg-offset-1 col-sm-2" Text="  Entrega Fraccionaria  " />
             </div>
         </div>
         <br />
@@ -89,7 +81,7 @@
                 <div class="panel-title">Productos</div>
             </div>
             <div>
-                <asp:GridView ID="grvStudentDetails" runat="server"
+                <asp:GridView ID="grvProductos" runat="server"
                     ShowFooter="True" AutoGenerateColumns="False"
                     CellPadding="4" ForeColor="#333333"
                     GridLines="None" OnRowDeleting="grvStudentDetails_RowDeleting" Width="100%">

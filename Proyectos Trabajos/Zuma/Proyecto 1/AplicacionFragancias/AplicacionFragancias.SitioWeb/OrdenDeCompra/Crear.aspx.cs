@@ -44,8 +44,8 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
 
             ViewState["CurrentTable"] = dt;
 
-            grvStudentDetails.DataSource = dt;
-            grvStudentDetails.DataBind();
+            grvProductos.DataSource = dt;
+            grvProductos.DataBind();
         }
 
         private void AddNewRow()
@@ -56,23 +56,25 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
             {
                 var dtCurrentTable = (DataTable)ViewState["CurrentTable"];
                 DataRow drCurrentRow = null;
+                var totalUnidades = 0;
+                decimal precioTotal=0;
 
                 if (dtCurrentTable.Rows.Count > 0)
                 {
                     for (var i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
                         var txtNombreProducto =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
+                          (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
                         var txtLote =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[2].FindControl("txtLote");
+                          (TextBox)grvProductos.Rows[rowIndex].Cells[2].FindControl("txtLote");
                         var txtCantidad =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[3].FindControl("txtCantidad");
+                          (TextBox)grvProductos.Rows[rowIndex].Cells[3].FindControl("txtCantidad");
                         var txtPreciounitario =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[4].FindControl("txtPrecioUnitario");
+                          (TextBox)grvProductos.Rows[rowIndex].Cells[4].FindControl("txtPrecioUnitario");
                         var txtFechaEntrega =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtFechaEntrega");
+                          (TextBox)grvProductos.Rows[rowIndex].Cells[5].FindControl("txtFechaEntrega");
                         var txtSubtotal =
-                          (TextBox)grvStudentDetails.Rows[rowIndex].Cells[5].FindControl("txtSubTotal");
+                          (TextBox)grvProductos.Rows[rowIndex].Cells[5].FindControl("txtSubTotal");
                         drCurrentRow = dtCurrentTable.NewRow();
                         drCurrentRow["RowNumber"] = i + 1;
                         var subtotal = (Convert.ToDecimal(string.IsNullOrEmpty(txtCantidad.Text) ? "0" : txtCantidad.Text)) * (Convert.ToDecimal(string.IsNullOrEmpty(txtPreciounitario.Text) ? "0" : txtPreciounitario.Text));
@@ -83,13 +85,15 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                         dtCurrentTable.Rows[i - 1]["Col5"] = txtFechaEntrega.Text;
                         dtCurrentTable.Rows[i - 1]["Col6"] = subtotal.ToString();
                         rowIndex++;
-
+                        precioTotal += (Convert.ToDecimal(txtSubtotal.Text));
+                        totalUnidades += (Convert.ToInt32(txtCantidad.Text));
                     }
+                    CantidadPiezas.Text = totalUnidades.ToString();
                     dtCurrentTable.Rows.Add(drCurrentRow);
                     ViewState["CurrentTable"] = dtCurrentTable;
 
-                    grvStudentDetails.DataSource = dtCurrentTable;
-                    grvStudentDetails.DataBind();
+                    grvProductos.DataSource = dtCurrentTable;
+                    grvProductos.DataBind();
                 }
             }
             else
@@ -109,12 +113,12 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                 {
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        var txtNombreProducto = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
-                        var txtLote = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtLote");
-                        var txtCantidad = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtCantidad");
-                        var txtPrecioUnitario = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtprecioUnitario");
-                        var txtFechaEntrega = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
-                        var txtSubTotal = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
+                        var txtNombreProducto = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
+                        var txtLote = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtLote");
+                        var txtCantidad = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtCantidad");
+                        var txtPrecioUnitario = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtprecioUnitario");
+                        var txtFechaEntrega = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
+                        var txtSubTotal = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
 
                         txtNombreProducto.Text = dt.Rows[i]["Col1"].ToString();
                         txtLote.Text = dt.Rows[i]["Col2"].ToString();
@@ -138,15 +142,19 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                 var rowIndex = Convert.ToInt32(e.RowIndex);
                 if (dt.Rows.Count > 1)
                 {
+                    var piezas = Convert.ToInt32(CantidadPiezas.Text);
+                    var rowpiezas =
+                        Convert.ToInt32(grvProductos.Rows[rowIndex].Cells[3].FindControl("txtCantidad"));
+                    CantidadPiezas.Text = (piezas - rowpiezas).ToString();
                     dt.Rows.Remove(dt.Rows[rowIndex]);
                     drCurrentRow = dt.NewRow();
                     ViewState["CurrentTable"] = dt;
-                    grvStudentDetails.DataSource = dt;
-                    grvStudentDetails.DataBind();
+                    grvProductos.DataSource = dt;
+                    grvProductos.DataBind();
 
-                    for (var i = 0; i < grvStudentDetails.Rows.Count - 1; i++)
+                    for (var i = 0; i < grvProductos.Rows.Count - 1; i++)
                     {
-                        grvStudentDetails.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
+                        grvProductos.Rows[i].Cells[0].Text = Convert.ToString(i + 1);
                     }
                     SetPreviousData();
                 }
@@ -165,12 +173,12 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        var txtNombreProducto = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
-                        var txtLote = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtLote");
-                        var txtCantidad = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtCantidad");
-                        var txtPrecioUnitario = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtprecioUnitario");
-                        var txtFechaEntrega = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
-                        var txtSubTotal = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
+                        var txtNombreProducto = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
+                        var txtLote = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtLote");
+                        var txtCantidad = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtCantidad");
+                        var txtPrecioUnitario = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtprecioUnitario");
+                        var txtFechaEntrega = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
+                        var txtSubTotal = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
 
                         drCurrentRow = dtCurrentTable.NewRow();
 
@@ -212,17 +220,17 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                     for (var i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
                         var txtNombreProducto =
-                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
-                        var txtLote = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtLote");
-                        var txtCantidad = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtCantidad");
+                            (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtNombreProducto");
+                        var txtLote = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtLote");
+                        var txtCantidad = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtCantidad");
                         var txtPrecioUnitario =
-                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtprecioUnitario");
+                            (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtprecioUnitario");
                         var txtFechaEntrega =
-                            (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
-                        var txtSubTotal = (TextBox)grvStudentDetails.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
+                            (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtFechaEntrega");
+                        var txtSubTotal = (TextBox)grvProductos.Rows[rowIndex].Cells[1].FindControl("txtSubTotal");
 
-                        if (txtNombreProducto.Text.IsNullOrWhiteSpace() || txtLote.Text.IsNullOrWhiteSpace() ||
-                            txtCantidad.Text.IsNullOrWhiteSpace() || txtFechaPedido.Text.IsNullOrWhiteSpace())
+                        if (txtNombreProducto.Text.IsNullOrWhiteSpace() == false || txtLote.Text.IsNullOrWhiteSpace() == false ||
+                            txtCantidad.Text.IsNullOrWhiteSpace() == false || txtFechaPedido.Text.IsNullOrWhiteSpace() == false)
                         {
                             var entidad = new COM_PRODUCTOS
                             {
@@ -245,7 +253,8 @@ namespace AplicacionFragancias.SitioWeb.OrdenDeCompra
                         FECHAENTREGA = Convert.ToDateTime(txtFehaEntrega.Text),
                         IDALAMACENES = Convert.ToInt16(ddlCatAlmacenes.SelectedValue),
                         CANTIDADTOTAL = Convert.ToDecimal(CantidadPiezas.Text),
-                        IDESTATUSCOMPRA = Convert.ToInt32(ddlEstatusPedido.SelectedValue)
+                        IDESTATUSCOMPRA = Convert.ToInt32(ddlEstatusPedido.SelectedValue),
+                        ENTREGAFRACCIONARIA= chkEntregaFraccionaria.Checked
                     };
 
                     var insertado = new LogicaNegocios.Compras.OperaionesCompras().InsertaOrdenCompra(ordenCompra,
