@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Universidad.Controlador.Login;
+using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.WebAdministrativaPrueba
@@ -14,6 +15,7 @@ namespace Universidad.WebAdministrativaPrueba
     public partial class Login : System.Web.UI.Page
     {
         private Sesion _sesion;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             _sesion = new Sesion();
@@ -35,17 +37,50 @@ namespace Universidad.WebAdministrativaPrueba
             }
             catch (Exception exception)
             {
-
+                ScriptManager.RegisterStartupScript(udpPanel, typeof(Page), "Ingreso exitosos",
+                           "alert('Hay un problema con el servidor o la conexion');",
+                           true);
             }
         }
 
-        private void Login_LoginAdministrativosFinalizado(Entidades.US_USUARIOS usuario)
+        private void Login_LoginAdministrativosFinalizado(US_USUARIOS usuario)
         {
             if (usuario != null)
             {
                 Session["Usuario"] = usuario;
                 Session["Sesion"] = _sesion;
-                Response.Redirect("Default.aspx");
+                switch (usuario.ID_ESTATUS_USUARIOS)
+                {
+                    case 1:
+                        {
+                            Response.Redirect("Default.aspx");
+                        }
+                        break;
+
+                    case 2:
+                        {
+                            ScriptManager.RegisterStartupScript(udpPanel, typeof(Page), "Ingreso exitosos",
+                          "Mensage('El usuario se encuentra suspendido');",
+                          true);
+                        }
+                        break;
+                    
+                    case 3:
+                        {
+                            ScriptManager.RegisterStartupScript(udpPanel, typeof(Page), "Ingreso exitosos",
+                          "Mensage('El usuario se encuentra cancelado');",
+                          true);
+                        }
+                        break;
+                }
+
+
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(udpPanel, typeof(Page), "Ingreso exitosos",
+                           "ErrorLogin();",
+                           true);
             }
         }
     }

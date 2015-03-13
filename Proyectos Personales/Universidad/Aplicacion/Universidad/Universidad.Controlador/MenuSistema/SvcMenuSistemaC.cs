@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using Universidad.Controlador.SVRMenuSistema;
 using Universidad.Entidades;
@@ -67,23 +68,12 @@ namespace Universidad.Controlador.MenuSistema
 
         #endregion
 
-        #region TraeMenuArbolWadm
+        #region TraeMenuArbolWadmSynchronous
 
-        public delegate void TraeArbolMenuWadmArgs(List<SIS_WADM_ARBOLMENU> lista);
-        public event TraeArbolMenuWadmArgs TraeArbolMenuWadmFinalizado;
-
-        public void TraeArbolMenuWadm(US_USUARIOS usuario)
+        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
         {
-            _servicio.TraeArbolMenuWadmCompleted += _servicio_TraeArbolMenuWadmCompleted;
-            _servicio.TraeArbolMenuWadmAsync(usuario);
-        }
-
-        public void _servicio_TraeArbolMenuWadmCompleted(object sender, TraeArbolMenuWadmCompletedEventArgs e)
-        {
-            if (e.Result == null) return;
-
-            var lista = JsonConvert.DeserializeObject<List<SIS_WADM_ARBOLMENU>>(e.Result);
-            TraeArbolMenuWadmFinalizado(lista);
+            var lista = _servicio.TraeArbolMenuWadm(usuario);
+            return JsonConvert.DeserializeObject<List<SIS_WADM_ARBOLMENU>>(lista);
         }
 
         #endregion

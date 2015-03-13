@@ -28,6 +28,12 @@ namespace Universidad.ServidorInterno.MenuSistema
 
         public string TraeArbolMenuWadm(US_USUARIOS usuario)
         {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
             var lista = new MenuSistemaAdministrativoL().TraeArbolMenuWadm(usuario);
             return JsonConvert.SerializeObject(lista);
         }

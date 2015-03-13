@@ -22,6 +22,24 @@ namespace Universidad.WebAdministrativaPrueba {
         protected global::System.Web.UI.HtmlControls.HtmlForm loginform;
         
         /// <summary>
+        /// clientScriptManager control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager clientScriptManager;
+        
+        /// <summary>
+        /// udpPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel udpPanel;
+        
+        /// <summary>
         /// tbxUsuario control.
         /// </summary>
         /// <remarks>

@@ -1,7 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="Universidad.WebAdministrativaPrueba.SiteMaster" %>
 
-<%@ Import Namespace="Universidad.Entidades.ControlUsuario" %>
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -10,12 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - My ASP.NET Application</title>
 
-    <asp:PlaceHolder runat="server">
+   <%-- <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
-    </asp:PlaceHolder>
-    <webopt:BundleReference runat="server" Path="~/Content/css" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    </asp:PlaceHolder>--%>
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.3.js" ></script>
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.3.min.js" ></script>
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.3.intellisense.js" ></script>
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.3.min.map"></script>
+    
+    <script type="text/javascript" src="~/Scripts/bootstrap.js" ></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js" ></script>
 
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="/Content/Site.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -40,15 +46,16 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <div class="navbar navbar-inverse">
+        <div class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
                     <asp:Label runat="server" ID="lblTipoUsuario" Class="navbar-right navbar-text text-center" />
                 </div>
                 <div class="navbar" id="navBar">
                     <lu class="nav navbar-nav navbar-right">
+                        <li></li>
                         <li>
-                           <asp:Label runat="server" ID="lblNombre" Class="navbar-right navbar-text navbar-right" />
+                           <asp:Label runat="server" ID="lblNombre" Class="navbar-right navbar-text navbar-left" />
                         </li>
                         <li>
                             <asp:Button runat="server" ID="btnLogout" Text="Cerrar sesion" Class="btn navbar-btn btn-warning" />
@@ -58,27 +65,25 @@
             </div>
         </div>
         <br />
+        <br />
+        <br />
         <div class="container body-content">
-            <div class="container">
-                <lu class="nav nav-tabs">
-                <li>
-                    <asp:HyperLink runat="server" text="button" class="btn btn-default btn-sm"/>
-                </li>
-                <li></li>
-                <li>
-                    <asp:HyperLink runat="server" Class="btn btn-default btn-sm" Text="button"/>
-                </li>
-            </lu>
-            </div>
-            <div class="row">
-                <div class="col-lg-9">
-                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                    </asp:ContentPlaceHolder>
-                    <hr />
-                    <footer>
-                        <p>&copy; <%: DateTime.Now.Year %> - Universidad</p>
-                    </footer>
-                </div>
+            <asp:Menu ID="menuBar" runat="server" Orientation="Horizontal" Width="100%" Style="position: relative;">
+                <StaticMenuStyle CssClass="primaryStaticMenu" />
+                <StaticMenuItemStyle CssClass="primaryStaticMenuItem" />
+                <StaticHoverStyle CssClass="primaryStaticHover" />
+                <DynamicMenuStyle CssClass="primaryDynamicMenu" />
+                <DynamicMenuItemStyle CssClass="primaryDynamicMenuItem" />
+                <DynamicHoverStyle CssClass="primaryDynamicHover" />
+            </asp:Menu>
+
+            <div class="">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+                <hr />
+                <footer>
+                    <p>&copy; <%: DateTime.Now.Year %> - Universidad</p>
+                </footer>
             </div>
         </div>
     </form>
