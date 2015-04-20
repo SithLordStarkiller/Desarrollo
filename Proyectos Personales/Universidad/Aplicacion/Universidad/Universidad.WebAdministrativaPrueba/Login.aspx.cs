@@ -18,8 +18,11 @@ namespace Universidad.WebAdministrativaPrueba
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            _sesion = new Sesion();
-            _sesion.Conexion = (string)new AppSettingsReader().GetValue("RutaServidorInterno", typeof(string));
+            _sesion = new Sesion
+            {
+                Conexion = (string) new AppSettingsReader().GetValue("RutaServidorInterno", typeof (string))
+            };
+
             HttpContext.Current.Session["Usuario"] = "Usuario";
             HttpContext.Current.Session["Sesion"] = "Sesion";
         }

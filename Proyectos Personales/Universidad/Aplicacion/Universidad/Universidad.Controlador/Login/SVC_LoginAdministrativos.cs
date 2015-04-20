@@ -100,5 +100,14 @@ namespace Universidad.Controlador.Login
             ObtenNombreCompletoFinalizado(persona);
         }
         #endregion
+
+        #region Metodos Sincronos
+
+        public PER_PERSONAS ObtenNombreCompletoSincrono(US_USUARIOS persona)
+        {
+            return _servicio.ObtenPersonas(persona);
+        }
+
+        #endregion
     }
 }

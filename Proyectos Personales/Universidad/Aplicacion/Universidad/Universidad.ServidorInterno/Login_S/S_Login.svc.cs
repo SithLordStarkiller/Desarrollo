@@ -26,6 +26,11 @@ namespace Universidad.ServidorInterno.Login_S
             return JsonConvert.SerializeObject(persona);
         }
 
+        public PER_PERSONAS ObtenPersonas(US_USUARIOS usuario)
+        {
+            return new LoginL().ObtenPersona(usuario);
+        }
+
         public bool Funciona()
         {
             return true;

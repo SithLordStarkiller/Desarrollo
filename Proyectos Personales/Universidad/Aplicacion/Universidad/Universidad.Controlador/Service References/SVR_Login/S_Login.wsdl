@@ -25,6 +25,12 @@
   <wsdl:message name="IS_Login_Funciona_OutputMessage">
     <wsdl:part name="parameters" element="tns:FuncionaResponse" />
   </wsdl:message>
+  <wsdl:message name="IS_Login_ObtenPersonas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenPersonas" />
+  </wsdl:message>
+  <wsdl:message name="IS_Login_ObtenPersonas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenPersonasResponse" />
+  </wsdl:message>
   <wsdl:portType name="IS_Login">
     <wsdl:operation name="LoginAdministrador">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_Login/LoginAdministrador" message="tns:IS_Login_LoginAdministrador_InputMessage" />
@@ -37,6 +43,10 @@
     <wsdl:operation name="Funciona">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_Login/Funciona" message="tns:IS_Login_Funciona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_Login/FuncionaResponse" message="tns:IS_Login_Funciona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenPersonas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_Login/ObtenPersonas" message="tns:IS_Login_ObtenPersonas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_Login/ObtenPersonasResponse" message="tns:IS_Login_ObtenPersonas_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_Login" type="tns:IS_Login">
@@ -61,6 +71,15 @@
     </wsdl:operation>
     <wsdl:operation name="Funciona">
       <soap:operation soapAction="http://tempuri.org/IS_Login/Funciona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenPersonas">
+      <soap:operation soapAction="http://tempuri.org/IS_Login/ObtenPersonas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

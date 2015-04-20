@@ -9,7 +9,9 @@ using System.Web.Script.Services;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Universidad.Controlador.Login;
 using Universidad.Controlador.MenuSistema;
+using Universidad.Controlador.Personas;
 using Universidad.Entidades.ControlUsuario;
 using WebGrease;
 using Universidad.Entidades;
@@ -20,6 +22,7 @@ namespace Universidad.WebAdministrativaPrueba
     {
         private List<SIS_WADM_ARBOLMENU> _listaMenuArbol;
         private SvcMenuSistemaC _servidorMenuSistema;
+        private SVC_LoginAdministrativos _servicioLogin;
         private Sesion _sesion;
         private US_USUARIOS _usuario;
         private PER_PERSONAS _persona;
@@ -38,7 +41,10 @@ namespace Universidad.WebAdministrativaPrueba
         {
             _sesion = (Sesion)Session["Sesion"];
             _servidorMenuSistema = new SvcMenuSistemaC(_sesion);
+            _servicioLogin = new SVC_LoginAdministrativos(_sesion);
             _usuario = (US_USUARIOS)Session["Usuario"];
+            var persona = _servicioLogin.ObtenNombreCompletoSincrono(_usuario);
+            lblNombre.Text = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
             CargaArbolMenu(_usuario);
         }
 

@@ -7,63 +7,72 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Universidad.WebAdministrativaPrueba {
+namespace Universidad.WebAdministrativaPrueba.Vistas.Formularios.Personas {
     
     
-    public partial class SiteMaster {
+    public partial class AltaPersonas {
         
         /// <summary>
-        /// head control.
+        /// txtNoOrdenCompra control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.TextBox txtNoOrdenCompra;
         
         /// <summary>
-        /// lblTipoUsuario control.
+        /// txtFechaPedido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTipoUsuario;
+        protected global::System.Web.UI.WebControls.TextBox txtFechaPedido;
         
         /// <summary>
-        /// lblNombre control.
+        /// ddlCatAlmacenes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNombre;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCatAlmacenes;
         
         /// <summary>
-        /// btnLogout control.
+        /// txtFehaEntrega control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogout;
+        protected global::System.Web.UI.WebControls.TextBox txtFehaEntrega;
         
         /// <summary>
-        /// menuBar control.
+        /// CantidadPiezas control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu menuBar;
+        protected global::System.Web.UI.WebControls.TextBox CantidadPiezas;
         
         /// <summary>
-        /// MainContent control.
+        /// ddlEstatusPedido control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEstatusPedido;
+        
+        /// <summary>
+        /// chkEntregaFraccionaria control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkEntregaFraccionaria;
     }
 }

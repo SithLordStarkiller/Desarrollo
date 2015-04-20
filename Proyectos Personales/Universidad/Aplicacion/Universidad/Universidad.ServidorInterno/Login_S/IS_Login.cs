@@ -21,5 +21,8 @@ namespace Universidad.ServidorInterno.Login_S
 
         [OperationContract]
         bool Funciona();
+
+        [OperationContract]
+        PER_PERSONAS ObtenPersonas(US_USUARIOS usuario);
     }
 }
