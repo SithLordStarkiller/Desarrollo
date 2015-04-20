@@ -9,10 +9,14 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class US_CAT_NIVEL_USUARIO
+    
     {
         public US_CAT_NIVEL_USUARIO()
         {
@@ -21,9 +25,18 @@ namespace Universidad.Entidades
             this.US_USUARIOS = new HashSet<US_USUARIOS>();
         }
     
+    
+    	[DataMember]
         public int ID_NIVEL_USUARIO { get; set; }
+    
+    
+    	[DataMember]
         public string NIVEL_USUARIO { get; set; }
+    
+    
+    	[DataMember]
         public string DESCRIPCION { get; set; }
+    
     
         public virtual ICollection<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
         public virtual ICollection<SIS_WADM_ARBOLMENU> SIS_WADM_ARBOLMENU { get; set; }

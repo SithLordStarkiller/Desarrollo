@@ -9,16 +9,35 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class SIS_AADM_APLICACIONES
+    
     {
+    
+    	[DataMember]
         public int IDAPLICACIONES { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDMENU { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDTABPAGES { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> ID_NIVEL_USUARIO { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> ID_TIPO_USUARIO { get; set; }
+    
     
         public virtual SIS_AADM_ARBOLMENUS SIS_AADM_ARBOLMENUS { get; set; }
         public virtual SIS_CAT_TABPAGES SIS_CAT_TABPAGES { get; set; }

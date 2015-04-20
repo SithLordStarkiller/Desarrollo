@@ -23,8 +23,12 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     fileManager.StartNewFile(entity.Name + ".cs");
     BeginNamespace(code);
 #>
+using System.Runtime.Serialization;
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
+
+[DataContract]
 <#=codeStringGenerator.EntityClassOpening(entity)#>
+
 {
 <#
     var propertiesWithDefaultValues = typeMapper.GetPropertiesWithDefaultValues(entity);
@@ -69,7 +73,10 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
         foreach (var edmProperty in simpleProperties)
         {
 #>
+
+	[DataMember]
     <#=codeStringGenerator.Property(edmProperty)#>
+
 <#
         }
     }

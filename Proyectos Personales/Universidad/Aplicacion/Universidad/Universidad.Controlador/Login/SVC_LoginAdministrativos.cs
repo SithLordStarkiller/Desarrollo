@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 using Universidad.Controlador.SVR_Login;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
@@ -67,7 +66,7 @@ namespace Universidad.Controlador.Login
                 if (e.Result == null) return;
 
                 var resultado = e.Result;
-                var usuario = JsonConvert.DeserializeObject<US_USUARIOS>(resultado);
+                var usuario = resultado;
 
                 LoginAdministrativosFinalizado(usuario);
             }
@@ -96,7 +95,7 @@ namespace Universidad.Controlador.Login
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var persona = JsonConvert.DeserializeObject<PER_PERSONAS>(resultado);
+            var persona = resultado;
             ObtenNombreCompletoFinalizado(persona);
         }
         #endregion

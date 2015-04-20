@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
 using Universidad.Entidades;
+using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.ServidorInterno.MenuSistema
 {
@@ -13,12 +10,12 @@ namespace Universidad.ServidorInterno.MenuSistema
     public interface IMenusSistemaS
     {
         [OperationContract]
-        string TraeArbol();
+        List<SIS_AADM_ARBOLMENUS> TraeArbol();
 
         [OperationContract]
-        string TraerMenus(US_USUARIOS usuario);
+        List<MenuSistemaE> TraerMenus(US_USUARIOS usuario);
 
         [OperationContract]
-        string TraeArbolMenuWadm(US_USUARIOS usuario);
+        List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario);
     }
 }

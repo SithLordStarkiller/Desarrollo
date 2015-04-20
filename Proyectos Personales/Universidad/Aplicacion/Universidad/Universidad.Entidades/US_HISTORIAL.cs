@@ -9,20 +9,36 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class US_HISTORIAL
+    
     {
         public US_HISTORIAL()
         {
             this.US_USUARIOS = new HashSet<US_USUARIOS>();
         }
     
+    
+    	[DataMember]
         public int ID_HISTORIAL { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<System.DateTime> FECHA_ULTIMA_CESION { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<System.DateTime> FECHA_CAMBIOCONTRASENA_ULTIMO { get; set; }
+    
+    
+    	[DataMember]
         public string ULTIMA_CONTRASENA { get; set; }
+    
     
         public virtual ICollection<US_USUARIOS> US_USUARIOS { get; set; }
     }

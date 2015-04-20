@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
-using System.Text;
+﻿using System.ServiceModel;
 using Universidad.Entidades;
 
 namespace Universidad.ServidorInterno.Login_S
@@ -14,10 +8,10 @@ namespace Universidad.ServidorInterno.Login_S
     public interface IS_Login
     {
         [OperationContract]
-        string LoginAdministrador(string Usuario, string Contrasena);
+        US_USUARIOS LoginAdministrador(string Usuario, string Contrasena);
 
         [OperationContract]
-        string ObtenPersona(US_USUARIOS usuario);
+        PER_PERSONAS ObtenPersona(US_USUARIOS usuario);
 
         [OperationContract]
         bool Funciona();

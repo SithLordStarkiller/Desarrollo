@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Universidad.Entidades;
-using Universidad.LogicaNegocios;
 
 
 namespace Universidad.ServidorInterno.GestionCatalogos
@@ -15,56 +9,45 @@ namespace Universidad.ServidorInterno.GestionCatalogos
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione S_GestionCatalogos.svc o S_GestionCatalogos.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class S_GestionCatalogos : IS_GestionCatalogos
     {
-        public string ObtenTablaUsCatTipoUsuarios()
+        public List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios()
         {
-            var Lista = LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
-            var JLista = JsonConvert.SerializeObject(Lista);
-            return JLista;
+            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
         }
 
-        public string ObtenCatalogoNacionalidades()
+        public List<PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades()
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenNacionalidades();
-            return JsonConvert.SerializeObject(lista);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenNacionalidades();
         }
 
-        public string ObtenCatTipoUsuario(int Id_TipoUsuario)
+        public US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario)
         {
-            var TipoUsuario = LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenTipoUsuario(Id_TipoUsuario);
+            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenTipoUsuario(idTipoUsuario);
 
-            string JObject = JsonConvert.SerializeObject(TipoUsuario);
-
-            return JObject;
         }
 
-        public string ObtenCatTipoPersona()
+        public List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona()
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatTipoPersona();
-            return JsonConvert.SerializeObject(lista);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatTipoPersona();
         }
 
-        public string ObtenColoniasPorCp(int codigoPostal)
+        public List<DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal)
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColoniasPorCp(codigoPostal);
-            return JsonConvert.SerializeObject(lista);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColoniasPorCp(codigoPostal);
         }
 
-        public string ObtenCatEstados()
+        public List<DIR_CAT_ESTADO> ObtenCatEstados()
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatEstados();
-            return JsonConvert.SerializeObject(lista);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatEstados();
         }
 
-        public string ObtenMunicipios(int estado)
+        public List<DIR_CAT_DELG_MUNICIPIO> ObtenMunicipios(int estado)
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatMunicipios(estado);
-            return JsonConvert.SerializeObject(lista);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatMunicipios(estado);
         }
 
-        public string ObtenColonias(int estado, int municipio)
+        public List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio)
         {
-            var lista = new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColonias(estado, municipio);
-            return JsonConvert.SerializeObject(lista);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColonias(estado, municipio);
         }
 
     }

@@ -9,24 +9,52 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class DIR_CAT_COLONIAS
+    
     {
         public DIR_CAT_COLONIAS()
         {
             this.DIR_DIRECCIONES = new HashSet<DIR_DIRECCIONES>();
         }
     
+    
+    	[DataMember]
         public int IDCOLONIA { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDESTADO { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDDELGMUNICIPIO { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDTIPOASENTAMIENTO { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDTIPOZONA { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> IDMUNICIPIO { get; set; }
+    
+    
+    	[DataMember]
         public Nullable<int> CODIGOPOSTAL { get; set; }
+    
+    
+    	[DataMember]
         public string NOMBRECOLONIA { get; set; }
+    
     
         public virtual DIR_CAT_TIPO_ASENTAMIENTO DIR_CAT_TIPO_ASENTAMIENTO { get; set; }
         public virtual DIR_CAT_TIPO_ZONA DIR_CAT_TIPO_ZONA { get; set; }

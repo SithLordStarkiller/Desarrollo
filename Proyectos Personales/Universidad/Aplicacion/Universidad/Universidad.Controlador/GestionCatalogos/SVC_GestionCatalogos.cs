@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Universidad.Controlador;
+﻿using System.Collections.Generic;
 using Universidad.Controlador.SRV_GestionCatalogos;
 using Universidad.Entidades;
-using System.ServiceModel;
 using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.Controlador.GestionCatalogos
@@ -46,7 +38,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var tipoUsuario = JsonConvert.DeserializeObject<US_CAT_TIPO_USUARIO>(resultado);
+            var tipoUsuario = resultado;
             ObtenTipoUsuarioFinalizado(tipoUsuario);
             _servicio.ObtenCatTipoUsuarioCompleted -= _servicio_ObtenCatTipoUsuarioCompleted;
         }
@@ -70,7 +62,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var persona = JsonConvert.DeserializeObject<List<PER_CAT_NACIONALIDAD>>(resultado);
+            var persona = resultado;
             ObtenCatNacionalidadFinalizado(persona);
 
             _servicio.ObtenCatalogoNacionalidadesCompleted -= _servicio_ObtenCatalogoNacionalidadesCompleted;
@@ -95,7 +87,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var lista = JsonConvert.DeserializeObject<List<PER_CAT_TIPO_PERSONA>>(resultado);
+            var lista = resultado;
             ObtenCatTipoPersonaFinalizado(lista);
 
             _servicio.ObtenCatTipoPersonaCompleted -= _servicio_ObtenCatTipoPersonaCompleted;
@@ -120,7 +112,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
+            var lista = resultado;
             ObtenColoniasPorCpFinalizado(lista);
 
             _servicio.ObtenColoniasPorCpCompleted -= _servicio_ObtenColoniasPorCpCompleted;
@@ -145,7 +137,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_ESTADO>>(resultado);
+            var lista = resultado;
             ObtenCatEstadosFinalizado(lista);
 
             _servicio.ObtenCatEstadosCompleted -= _servicio_ObtenCatEstadosCompleted;
@@ -170,7 +162,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_DELG_MUNICIPIO>>(resultado);
+            var lista = resultado;
             ObtenMunicipiosFinalizado(lista);
             _servicio.ObtenMunicipiosCompleted -= _servicio_ObtenMunicipiosCompleted;
         }
@@ -194,7 +186,7 @@ namespace Universidad.Controlador.GestionCatalogos
             if (e.Result == null) return;
 
             var resultado = e.Result;
-            var lista = JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(resultado);
+            var lista = resultado;
             ObtenColoniasFinalizado(lista);
             _servicio.ObtenColoniasCompleted -= _servicio_ObtenColoniasCompleted;
         }

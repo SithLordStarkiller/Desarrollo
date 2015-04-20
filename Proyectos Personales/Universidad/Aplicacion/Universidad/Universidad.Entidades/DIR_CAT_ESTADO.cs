@@ -9,10 +9,14 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class DIR_CAT_ESTADO
+    
     {
         public DIR_CAT_ESTADO()
         {
@@ -21,8 +25,14 @@ namespace Universidad.Entidades
             this.DIR_DIRECCIONES = new HashSet<DIR_DIRECCIONES>();
         }
     
+    
+    	[DataMember]
         public int IDESTADO { get; set; }
+    
+    
+    	[DataMember]
         public string NOMBREESTADO { get; set; }
+    
     
         public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
         public virtual ICollection<DIR_CAT_DELG_MUNICIPIO> DIR_CAT_DELG_MUNICIPIO { get; set; }

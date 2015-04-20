@@ -9,22 +9,44 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class PER_CAT_TELEFONOS
+    
     {
         public PER_CAT_TELEFONOS()
         {
             this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
         }
     
+    
+    	[DataMember]
         public int ID_TELEFONOS { get; set; }
+    
+    
+    	[DataMember]
         public string TELEFONO_FIJO_DOMICILIO { get; set; }
+    
+    
+    	[DataMember]
         public string TELEFONO_FIJO_TRABAJO { get; set; }
+    
+    
+    	[DataMember]
         public string TELEFONO_CELULAR_PERSONAL { get; set; }
+    
+    
+    	[DataMember]
         public string TELEFONO_CELULAR_TRABAJO { get; set; }
+    
+    
+    	[DataMember]
         public string FAX { get; set; }
+    
     
         public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }

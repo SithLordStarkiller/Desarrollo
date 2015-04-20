@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 using Universidad.Entidades;
+using Universidad.Entidades.ControlUsuario;
 using Universidad.LogicaNegocios.MenuSistema;
 
 namespace Universidad.ServidorInterno.MenuSistema
@@ -14,28 +9,19 @@ namespace Universidad.ServidorInterno.MenuSistema
     // NOTE: In order to launch WCF Test Client for testing this service, please select MenusSistemaS.svc or MenusSistemaS.svc.cs at the Solution Explorer and start debugging.
     public class MenusSistemaS : IMenusSistemaS
     {
-        public string TraeArbol()
+        public List<SIS_AADM_ARBOLMENUS> TraeArbol()
         {
-            var lista = new MenuSistemaAdministrativoL().TraeArbol();
-            return JsonConvert.SerializeObject(lista);
+            return new MenuSistemaAdministrativoL().TraeArbol();
         }
 
-        public string TraerMenus(US_USUARIOS usuario)
+        public List<MenuSistemaE> TraerMenus(US_USUARIOS usuario)
         {
-            var lista = new MenuSistemaAdministrativoL().TraeMenus(usuario);
-            return JsonConvert.SerializeObject(lista);
+            return new MenuSistemaAdministrativoL().TraeMenus(usuario);
         }
 
-        public string TraeArbolMenuWadm(US_USUARIOS usuario)
+        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
         {
-            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-            {
-                Formatting = Formatting.Indented,
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
-
-            var lista = new MenuSistemaAdministrativoL().TraeArbolMenuWadm(usuario);
-            return JsonConvert.SerializeObject(lista);
+            return new MenuSistemaAdministrativoL().TraeArbolMenuWadm(usuario);
         }
     }
 }

@@ -9,21 +9,40 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class PER_MEDIOS_ELECTRONICOS
+    
     {
         public PER_MEDIOS_ELECTRONICOS()
         {
             this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
         }
     
+    
+    	[DataMember]
         public int ID_MEDIOS_ELECTRONICOS { get; set; }
+    
+    
+    	[DataMember]
         public string CORREO_ELECTRONICO_UNIVERSIDAD { get; set; }
+    
+    
+    	[DataMember]
         public string CORREO_ELECTRONICO_PERSONAL { get; set; }
+    
+    
+    	[DataMember]
         public string FACEBOOK { get; set; }
+    
+    
+    	[DataMember]
         public string TWITTER { get; set; }
+    
     
         public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }

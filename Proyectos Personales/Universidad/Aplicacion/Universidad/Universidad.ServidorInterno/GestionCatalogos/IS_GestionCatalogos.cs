@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
 using Universidad.Entidades;
 
 namespace Universidad.ServidorInterno.GestionCatalogos
@@ -13,27 +9,27 @@ namespace Universidad.ServidorInterno.GestionCatalogos
     public interface IS_GestionCatalogos
     {
         [OperationContract]
-        string ObtenTablaUsCatTipoUsuarios();
+        List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios();
 
         [OperationContract]
-        string ObtenCatTipoUsuario(int Id_tipoUsuario);
+        US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario);
 
         [OperationContract]
-        string ObtenCatalogoNacionalidades();
+        List<PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades();
 
         [OperationContract]
-        string ObtenCatTipoPersona();
+        List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
 
         [OperationContract]
-        string ObtenColoniasPorCp(int codigoPostal);
+        List<DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal);
 
         [OperationContract]
-        string ObtenCatEstados();
+        List<DIR_CAT_ESTADO> ObtenCatEstados();
 
         [OperationContract]
-        string ObtenMunicipios(int estado);
+        List<DIR_CAT_DELG_MUNICIPIO> ObtenMunicipios(int estado);
 
         [OperationContract]
-        string ObtenColonias(int estado, int municipio);
+        List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio);
     }
 }

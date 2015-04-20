@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using Universidad.Entidades;
+﻿using Universidad.Entidades;
 using Universidad.LogicaNegocios.LoginL;
-using Newtonsoft.Json;
 
 namespace Universidad.ServidorInterno.Login_S
 {
@@ -14,16 +7,14 @@ namespace Universidad.ServidorInterno.Login_S
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione S_Login.svc o S_Login.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class S_Login : IS_Login
     {
-        public string LoginAdministrador(string usuario, string contrasena)
+        public US_USUARIOS LoginAdministrador(string usuario, string contrasena)
         {
-            var login = new LoginL().LoginAdminitradorUsuarios(usuario, contrasena);
-            return JsonConvert.SerializeObject(login);
+            return new LoginL().LoginAdminitradorUsuarios(usuario, contrasena);
         }
 
-        public string ObtenPersona(US_USUARIOS usuario)
+        public PER_PERSONAS ObtenPersona(US_USUARIOS usuario)
         {
-            var persona = new LoginL().ObtenPersona(usuario);
-            return JsonConvert.SerializeObject(persona);
+            return new LoginL().ObtenPersona(usuario);
         }
 
         public PER_PERSONAS ObtenPersonas(US_USUARIOS usuario)

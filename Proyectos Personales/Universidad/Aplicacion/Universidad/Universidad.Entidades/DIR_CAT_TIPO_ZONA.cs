@@ -9,18 +9,28 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class DIR_CAT_TIPO_ZONA
+    
     {
         public DIR_CAT_TIPO_ZONA()
         {
             this.DIR_CAT_COLONIAS = new HashSet<DIR_CAT_COLONIAS>();
         }
     
+    
+    	[DataMember]
         public int IDTIPOZONA { get; set; }
+    
+    
+    	[DataMember]
         public string TIPOZONA { get; set; }
+    
     
         public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
     }

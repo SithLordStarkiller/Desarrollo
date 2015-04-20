@@ -38,7 +38,7 @@ namespace Universidad.Controlador.MenuSistema
         {
             if (e.Result == null) return;
 
-            var lista = JsonConvert.DeserializeObject<List<MenuSistemaE>>(e.Result);
+            var lista = e.Result;
 
             MenuSistemaFinalizado(lista);
         }
@@ -60,9 +60,7 @@ namespace Universidad.Controlador.MenuSistema
         private void _servicio_TraeArbolCompleted(object sender, TraeArbolCompletedEventArgs e)
         {
             if (e.Result == null) return;
-
-            var lista = JsonConvert.DeserializeObject<List<SIS_AADM_ARBOLMENUS>>(e.Result);
-
+            var lista = e.Result;
             MenuArbolFinalizado(lista);
         }
 
@@ -72,8 +70,7 @@ namespace Universidad.Controlador.MenuSistema
 
         public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
         {
-            var lista = _servicio.TraeArbolMenuWadm(usuario);
-            return JsonConvert.DeserializeObject<List<SIS_WADM_ARBOLMENU>>(lista);
+            return _servicio.TraeArbolMenuWadm(usuario);
         }
 
         #endregion

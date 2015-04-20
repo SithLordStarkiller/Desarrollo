@@ -9,18 +9,28 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class PER_CAT_NACIONALIDAD
+    
     {
         public PER_CAT_NACIONALIDAD()
         {
             this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
         }
     
+    
+    	[DataMember]
         public int CVE_NACIONALIDAD { get; set; }
+    
+    
+    	[DataMember]
         public string NOMBRE_PAIS { get; set; }
+    
     
         public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }

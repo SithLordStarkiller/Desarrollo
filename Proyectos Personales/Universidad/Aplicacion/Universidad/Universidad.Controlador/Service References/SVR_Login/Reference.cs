@@ -16,20 +16,20 @@ namespace Universidad.Controlador.SVR_Login {
     public interface IS_Login {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/LoginAdministrador", ReplyAction="http://tempuri.org/IS_Login/LoginAdministradorResponse")]
-        string LoginAdministrador(string Usuario, string Contrasena);
+        Universidad.Entidades.US_USUARIOS LoginAdministrador(string Usuario, string Contrasena);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_Login/LoginAdministrador", ReplyAction="http://tempuri.org/IS_Login/LoginAdministradorResponse")]
         System.IAsyncResult BeginLoginAdministrador(string Usuario, string Contrasena, System.AsyncCallback callback, object asyncState);
         
-        string EndLoginAdministrador(System.IAsyncResult result);
+        Universidad.Entidades.US_USUARIOS EndLoginAdministrador(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/ObtenPersona", ReplyAction="http://tempuri.org/IS_Login/ObtenPersonaResponse")]
-        string ObtenPersona(Universidad.Entidades.US_USUARIOS usuario);
+        Universidad.Entidades.PER_PERSONAS ObtenPersona(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_Login/ObtenPersona", ReplyAction="http://tempuri.org/IS_Login/ObtenPersonaResponse")]
         System.IAsyncResult BeginObtenPersona(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState);
         
-        string EndObtenPersona(System.IAsyncResult result);
+        Universidad.Entidades.PER_PERSONAS EndObtenPersona(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/Funciona", ReplyAction="http://tempuri.org/IS_Login/FuncionaResponse")]
         bool Funciona();
@@ -63,10 +63,10 @@ namespace Universidad.Controlador.SVR_Login {
             this.results = results;
         }
         
-        public string Result {
+        public Universidad.Entidades.US_USUARIOS Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((Universidad.Entidades.US_USUARIOS)(this.results[0]));
             }
         }
     }
@@ -82,10 +82,10 @@ namespace Universidad.Controlador.SVR_Login {
             this.results = results;
         }
         
-        public string Result {
+        public Universidad.Entidades.PER_PERSONAS Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((Universidad.Entidades.PER_PERSONAS)(this.results[0]));
             }
         }
     }
@@ -183,7 +183,7 @@ namespace Universidad.Controlador.SVR_Login {
         
         public event System.EventHandler<ObtenPersonasCompletedEventArgs> ObtenPersonasCompleted;
         
-        public string LoginAdministrador(string Usuario, string Contrasena) {
+        public Universidad.Entidades.US_USUARIOS LoginAdministrador(string Usuario, string Contrasena) {
             return base.Channel.LoginAdministrador(Usuario, Contrasena);
         }
         
@@ -193,7 +193,7 @@ namespace Universidad.Controlador.SVR_Login {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public string EndLoginAdministrador(System.IAsyncResult result) {
+        public Universidad.Entidades.US_USUARIOS EndLoginAdministrador(System.IAsyncResult result) {
             return base.Channel.EndLoginAdministrador(result);
         }
         
@@ -204,7 +204,7 @@ namespace Universidad.Controlador.SVR_Login {
         }
         
         private object[] OnEndLoginAdministrador(System.IAsyncResult result) {
-            string retVal = this.EndLoginAdministrador(result);
+            Universidad.Entidades.US_USUARIOS retVal = this.EndLoginAdministrador(result);
             return new object[] {
                     retVal};
         }
@@ -235,7 +235,7 @@ namespace Universidad.Controlador.SVR_Login {
                         Contrasena}, this.onEndLoginAdministradorDelegate, this.onLoginAdministradorCompletedDelegate, userState);
         }
         
-        public string ObtenPersona(Universidad.Entidades.US_USUARIOS usuario) {
+        public Universidad.Entidades.PER_PERSONAS ObtenPersona(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.ObtenPersona(usuario);
         }
         
@@ -245,7 +245,7 @@ namespace Universidad.Controlador.SVR_Login {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public string EndObtenPersona(System.IAsyncResult result) {
+        public Universidad.Entidades.PER_PERSONAS EndObtenPersona(System.IAsyncResult result) {
             return base.Channel.EndObtenPersona(result);
         }
         
@@ -255,7 +255,7 @@ namespace Universidad.Controlador.SVR_Login {
         }
         
         private object[] OnEndObtenPersona(System.IAsyncResult result) {
-            string retVal = this.EndObtenPersona(result);
+            Universidad.Entidades.PER_PERSONAS retVal = this.EndObtenPersona(result);
             return new object[] {
                     retVal};
         }

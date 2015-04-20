@@ -9,19 +9,32 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class US_CAT_ESTATUS_USUARIO
+    
     {
         public US_CAT_ESTATUS_USUARIO()
         {
             this.US_USUARIOS = new HashSet<US_USUARIOS>();
         }
     
+    
+    	[DataMember]
         public int ID_ESTATUS_USUARIOS { get; set; }
+    
+    
+    	[DataMember]
         public string ESTATUS_USUARIO { get; set; }
+    
+    
+    	[DataMember]
         public string DESCRIPCION { get; set; }
+    
     
         public virtual ICollection<US_USUARIOS> US_USUARIOS { get; set; }
     }

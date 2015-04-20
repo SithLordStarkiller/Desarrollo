@@ -16,28 +16,28 @@ namespace Universidad.Controlador.SVRMenuSistema {
     public interface IMenusSistemaS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbol", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolResponse")]
-        string TraeArbol();
+        System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> TraeArbol();
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMenusSistemaS/TraeArbol", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolResponse")]
         System.IAsyncResult BeginTraeArbol(System.AsyncCallback callback, object asyncState);
         
-        string EndTraeArbol(System.IAsyncResult result);
+        System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> EndTraeArbol(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraerMenus", ReplyAction="http://tempuri.org/IMenusSistemaS/TraerMenusResponse")]
-        string TraerMenus(Universidad.Entidades.US_USUARIOS usuario);
+        System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE> TraerMenus(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMenusSistemaS/TraerMenus", ReplyAction="http://tempuri.org/IMenusSistemaS/TraerMenusResponse")]
         System.IAsyncResult BeginTraerMenus(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState);
         
-        string EndTraerMenus(System.IAsyncResult result);
+        System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE> EndTraerMenus(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadm", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadmResponse")]
-        string TraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario);
+        System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadm", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadmResponse")]
         System.IAsyncResult BeginTraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState);
         
-        string EndTraeArbolMenuWadm(System.IAsyncResult result);
+        System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> EndTraeArbolMenuWadm(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,10 +55,10 @@ namespace Universidad.Controlador.SVRMenuSistema {
             this.results = results;
         }
         
-        public string Result {
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS>)(this.results[0]));
             }
         }
     }
@@ -74,10 +74,10 @@ namespace Universidad.Controlador.SVRMenuSistema {
             this.results = results;
         }
         
-        public string Result {
+        public System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE>)(this.results[0]));
             }
         }
     }
@@ -93,10 +93,10 @@ namespace Universidad.Controlador.SVRMenuSistema {
             this.results = results;
         }
         
-        public string Result {
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU>)(this.results[0]));
             }
         }
     }
@@ -148,7 +148,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         
         public event System.EventHandler<TraeArbolMenuWadmCompletedEventArgs> TraeArbolMenuWadmCompleted;
         
-        public string TraeArbol() {
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> TraeArbol() {
             return base.Channel.TraeArbol();
         }
         
@@ -158,7 +158,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public string EndTraeArbol(System.IAsyncResult result) {
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> EndTraeArbol(System.IAsyncResult result) {
             return base.Channel.EndTraeArbol(result);
         }
         
@@ -167,7 +167,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         }
         
         private object[] OnEndTraeArbol(System.IAsyncResult result) {
-            string retVal = this.EndTraeArbol(result);
+            System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> retVal = this.EndTraeArbol(result);
             return new object[] {
                     retVal};
         }
@@ -196,7 +196,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
             base.InvokeAsync(this.onBeginTraeArbolDelegate, null, this.onEndTraeArbolDelegate, this.onTraeArbolCompletedDelegate, userState);
         }
         
-        public string TraerMenus(Universidad.Entidades.US_USUARIOS usuario) {
+        public System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE> TraerMenus(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraerMenus(usuario);
         }
         
@@ -206,7 +206,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public string EndTraerMenus(System.IAsyncResult result) {
+        public System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE> EndTraerMenus(System.IAsyncResult result) {
             return base.Channel.EndTraerMenus(result);
         }
         
@@ -216,7 +216,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         }
         
         private object[] OnEndTraerMenus(System.IAsyncResult result) {
-            string retVal = this.EndTraerMenus(result);
+            System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSistemaE> retVal = this.EndTraerMenus(result);
             return new object[] {
                     retVal};
         }
@@ -246,7 +246,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
                         usuario}, this.onEndTraerMenusDelegate, this.onTraerMenusCompletedDelegate, userState);
         }
         
-        public string TraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario) {
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraeArbolMenuWadm(usuario);
         }
         
@@ -256,7 +256,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public string EndTraeArbolMenuWadm(System.IAsyncResult result) {
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> EndTraeArbolMenuWadm(System.IAsyncResult result) {
             return base.Channel.EndTraeArbolMenuWadm(result);
         }
         
@@ -266,7 +266,7 @@ namespace Universidad.Controlador.SVRMenuSistema {
         }
         
         private object[] OnEndTraeArbolMenuWadm(System.IAsyncResult result) {
-            string retVal = this.EndTraeArbolMenuWadm(result);
+            System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> retVal = this.EndTraeArbolMenuWadm(result);
             return new object[] {
                     retVal};
         }

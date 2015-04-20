@@ -9,19 +9,32 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class SIS_CAT_TABPAGES
+    
     {
         public SIS_CAT_TABPAGES()
         {
             this.SIS_AADM_APLICACIONES = new HashSet<SIS_AADM_APLICACIONES>();
         }
     
+    
+    	[DataMember]
         public int IDTABPAGES { get; set; }
+    
+    
+    	[DataMember]
         public string RUTATAB { get; set; }
+    
+    
+    	[DataMember]
         public string NOMBRETABPAGE { get; set; }
+    
     
         public virtual ICollection<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
     }

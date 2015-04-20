@@ -9,20 +9,36 @@
 
 namespace Universidad.Entidades
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
+    
+    [DataContract]
     public partial class SIS_AADM_ARBOLMENUS
+    
     {
         public SIS_AADM_ARBOLMENUS()
         {
             this.SIS_AADM_APLICACIONES = new HashSet<SIS_AADM_APLICACIONES>();
         }
     
+    
+    	[DataMember]
         public int IDMENU { get; set; }
+    
+    
+    	[DataMember]
         public string NOMBRENODO { get; set; }
+    
+    
+    	[DataMember]
         public string RUTA { get; set; }
+    
+    
+    	[DataMember]
         public int IDMENUPADRE { get; set; }
+    
     
         public virtual ICollection<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
     }
