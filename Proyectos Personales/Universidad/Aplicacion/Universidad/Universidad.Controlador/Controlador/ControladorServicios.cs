@@ -30,7 +30,7 @@ namespace Universidad.Controlador.Controlador
             {
                 return new System.ServiceModel.EndpointAddress(sesion.Conexion + direcctorio + servicio);
             }
-            catch (UriFormatException e)
+            catch (UriFormatException)
             {
                 return null;
             }

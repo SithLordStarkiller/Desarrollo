@@ -1,0 +1,608 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/21/2015 10:55:19 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DR5Q402"
+  DTS:CreatorName="DR5Q402\Admin"
+  DTS:DTSID="{03FC6C78-0BCF-4801-8C02-ED2814E4E9E7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="Raw Files"
+  DTS:PackageType="5"
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{8AA0AA83-A5F1-47AD-B71D-187F1CC74E19}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Conexion Universidad]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{380B402E-9AB7-4AF0-98E0-EFD2C4A124F7}"
+      DTS:ObjectName="Conexion Universidad">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DR5Q402\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbByF8a63XUmC72LT4TDJDwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADGTxQiEeUkmpPgBtmR/tBpoJmILWjIRMIqD60wk5A9zgAAAAAOgAAAAAIAACAAAAB41gyfi/NUeERoF8rVgWcQ3OStmgcXqdtwEF0YY8mfhiAAAAAtl6+SxIvjCfvBarcYMVGO1hR5y8Y0SB9H/6oHTRYohEAAAABFDyMCX/po6k682gFjnOZPIMrnnflGiYqqchRmgAmoKQjHuKxpP4KBwGZDSrt8NkDXv9NUC+BEVsH1loodrLlZ</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3273C5F7-AF3D-4B26-9342-1CAE5ADCA9CD}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileName">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Desarrollo\Proyectos\Proyectos Prueba\Business Intelligence\SSIS\31 days of SSIS\Day 1 - Raw Files\Archivos\RawFile.Raw</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Crear Archivo Raw"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C9BEBC5A-CA58-4BC7-B1C8-33DE1269F197}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Crear Archivo Raw"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Crear Archivo Raw\Fuente de Datos"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Fuente de Datos"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PER_CAT_NACIONALIDAD]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Crear Archivo Raw\Fuente de Datos.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion Universidad]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion Universidad]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].Columns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].ExternalColumns[CVE_NACIONALIDAD]"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].Columns[CVE_NACIONALIDAD]"
+                      name="CVE_NACIONALIDAD"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].Columns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].ExternalColumns[NOMBRE_PAIS]"
+                      length="50"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].Columns[NOMBRE_PAIS]"
+                      name="NOMBRE_PAIS"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].ExternalColumns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      name="CVE_NACIONALIDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].ExternalColumns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NOMBRE_PAIS" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[CVE_NACIONALIDAD]"
+                      name="CVE_NACIONALIDAD" />
+                    <outputColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[NOMBRE_PAIS]"
+                      name="NOMBRE_PAIS" />
+                    <outputColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Crear Archivo Raw\Raw File Destination"
+              componentClassID="Microsoft.RawDestination"
+              contactInfo="Writes raw data that will not require parsing or translation. For example, allow packages to run faster by reading from a local raw file instead of a slow source or manually distribute data for parallel processing on multiple computers.;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Writes raw data that will not require parsing or translation. For example, allow packages to run faster by reading from a local raw file instead of a slow source or manually distribute data for parallel processing on multiple computers."
+              name="Raw File Destination"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the file."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Null"
+                  description="Output file name"
+                  name="FileName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.NonValidatingFileNameEditor" />
+                <property
+                  dataType="System.String"
+                  description="Name of the variable that contains the file name"
+                  name="FileNameVariable">User::FileName</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates what option is used to write to the file."
+                  name="WriteOption"
+                  typeConverter="WriteOption">0</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Crear Archivo Raw\Raw File Destination.Inputs[Raw File Destination Input]"
+                  hasSideEffects="true"
+                  name="Raw File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Crear Archivo Raw\Raw File Destination.Inputs[Raw File Destination Input].Columns[CVE_NACIONALIDAD]"
+                      cachedDataType="i4"
+                      cachedName="CVE_NACIONALIDAD"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].Columns[CVE_NACIONALIDAD]" />
+                    <inputColumn
+                      refId="Package\Crear Archivo Raw\Raw File Destination.Inputs[Raw File Destination Input].Columns[NOMBRE_PAIS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="NOMBRE_PAIS"
+                      lineageId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output].Columns[NOMBRE_PAIS]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Crear Archivo Raw.Paths[OLE DB Source Output]"
+              endId="Package\Crear Archivo Raw\Raw File Destination.Inputs[Raw File Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Crear Archivo Raw\Fuente de Datos.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Lectura de Archivo Raw"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{55483309-23CF-4DE8-9399-6F86C36A4CD4}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Lectura de Archivo Raw"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Lectura de Archivo Raw\Abre Archivo Raw"
+              componentClassID="Microsoft.RawSource"
+              contactInfo="Reads raw data from a flat file that was previously written by the Raw File destination. For example, allow packages to run faster by reading from a local raw file instead of a slow source or manually distribute data for parallel processing on multiple computers.;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Reads raw data from a flat file that was previously written by the Raw File destination. For example, allow packages to run faster by reading from a local raw file instead of a slow source or manually distribute data for parallel processing on multiple computers."
+              name="Abre Archivo Raw">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the file."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Null"
+                  description="Output file name"
+                  name="FileName"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.NonValidatingFileNameEditor" />
+                <property
+                  dataType="System.String"
+                  description="Name of the variable that contains the file name"
+                  name="FileNameVariable">User::FileName</property>
+              </properties>
+              <outputs>
+                <output
+                  refId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output]"
+                  name="Raw File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      externalMetadataColumnId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].ExternalColumns[CVE_NACIONALIDAD]"
+                      lineageId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[CVE_NACIONALIDAD]"
+                      name="CVE_NACIONALIDAD" />
+                    <outputColumn
+                      refId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      externalMetadataColumnId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].ExternalColumns[NOMBRE_PAIS]"
+                      length="50"
+                      lineageId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[NOMBRE_PAIS]"
+                      name="NOMBRE_PAIS" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].ExternalColumns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      name="CVE_NACIONALIDAD" />
+                    <externalMetadataColumn
+                      refId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].ExternalColumns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="NOMBRE_PAIS" />
+                  </externalMetadataColumns>
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Lectura de Archivo Raw\Row Sampling"
+              componentClassID="Microsoft.RowSampling"
+              contactInfo="Row Sampling;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Randomly samples a specific number of rows from an input data flow. For example, use it randomly select products to feature on your Web site."
+              name="Row Sampling"
+              validateExternalMetadata="False">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of rows in the sample."
+                  expressionType="Notify"
+                  name="SamplingValue">10</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the seed for the random number generator."
+                  name="SamplingSeed">0</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Lectura de Archivo Raw\Row Sampling.Inputs[Row Sampling Input 1]"
+                  name="Row Sampling Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Lectura de Archivo Raw\Row Sampling.Inputs[Row Sampling Input 1].Columns[CVE_NACIONALIDAD]"
+                      cachedDataType="i4"
+                      cachedName="CVE_NACIONALIDAD"
+                      lineageId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[CVE_NACIONALIDAD]" />
+                    <inputColumn
+                      refId="Package\Lectura de Archivo Raw\Row Sampling.Inputs[Row Sampling Input 1].Columns[NOMBRE_PAIS]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="NOMBRE_PAIS"
+                      lineageId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[NOMBRE_PAIS]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Selected Output]"
+                  name="Sampling Selected Output">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output for rows in the sample"
+                      name="Selected">true</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Selected Output].Columns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      lineageId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Selected Output].Columns[CVE_NACIONALIDAD]"
+                      name="CVE_NACIONALIDAD">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Input column lineage ID"
+                          name="InputColumnLineageID">#{Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[CVE_NACIONALIDAD]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Selected Output].Columns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Selected Output].Columns[NOMBRE_PAIS]"
+                      name="NOMBRE_PAIS">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Input column lineage ID"
+                          name="InputColumnLineageID">#{Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[NOMBRE_PAIS]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Unselected Output]"
+                  name="Sampling Unselected Output">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Output for rows in the sample"
+                      name="Selected">false</property>
+                  </properties>
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Unselected Output].Columns[CVE_NACIONALIDAD]"
+                      dataType="i4"
+                      lineageId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Unselected Output].Columns[CVE_NACIONALIDAD]"
+                      name="CVE_NACIONALIDAD">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Input column lineage ID"
+                          name="InputColumnLineageID">#{Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[CVE_NACIONALIDAD]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Unselected Output].Columns[NOMBRE_PAIS]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Lectura de Archivo Raw\Row Sampling.Outputs[Sampling Unselected Output].Columns[NOMBRE_PAIS]"
+                      name="NOMBRE_PAIS">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Input column lineage ID"
+                          name="InputColumnLineageID">#{Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output].Columns[NOMBRE_PAIS]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Lectura de Archivo Raw.Paths[Raw File Source Output]"
+              endId="Package\Lectura de Archivo Raw\Row Sampling.Inputs[Row Sampling Input 1]"
+              name="Raw File Source Output"
+              startId="Package\Lectura de Archivo Raw\Abre Archivo Raw.Outputs[Raw File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{83AAA10F-2A9B-4C2A-8DB4-22D9E54B97A0}"
+      DTS:From="Package\Crear Archivo Raw"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Lectura de Archivo Raw" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="166,42"
+          Id="Package\Crear Archivo Raw"
+          TopLeft="279,55" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Lectura de Archivo Raw"
+          TopLeft="274,140" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="365.5,97">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43"
+              Start="0,0"
+              End="0,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Crear Archivo Raw">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Crear Archivo Raw\Fuente de Datos"
+          TopLeft="339,16" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Crear Archivo Raw\Raw File Destination"
+          TopLeft="328,96" />
+        <EdgeLayout
+          Id="Package\Crear Archivo Raw.Paths[OLE DB Source Output]"
+          TopLeft="416.25,58">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Crear Archivo Raw\Fuente de Datos">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Lectura de Archivo Raw">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Lectura de Archivo Raw\Abre Archivo Raw"
+          TopLeft="356,73" />
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Lectura de Archivo Raw\Row Sampling"
+          TopLeft="367,160" />
+        <EdgeLayout
+          Id="Package\Lectura de Archivo Raw.Paths[Raw File Source Output]"
+          TopLeft="438.5,115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-8,10.75,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

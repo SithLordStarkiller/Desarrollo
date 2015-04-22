@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLRespaldoCatalogos"
   DTS:PackageType="5"
-  DTS:VersionBuild="24"
-  DTS:VersionGUID="{605DECB6-469D-4F8B-A5A3-5270FCECFEE4}">
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{877E6576-4039-4845-9DB1-3D4472369EE4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -202,127 +202,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <pipeline
-              version="1">
-              <components>
-                <component
-                  refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source"
-                  componentClassID="Microsoft.ManagedComponentHost"
-                  contactInfo="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server.;Microsoft Corporation; Microsoft SQL Server; © Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
-                  description="Consumes data from SQL Server, OLE DB, ODBC, or Oracle, using the corresponding .NET Framework data provider. Use a Transact-SQL statement to define the result set. For example, extract data from SQL Server with the .NET Framework data provider for SQL Server."
-                  name="ADO NET Source"
-                  usesDispositions="true"
-                  version="4">
-                  <properties>
-                    <property
-                      dataType="System.String"
-                      description="Specifies the SQL statement used by the component to extract data."
-                      expressionType="Notify"
-                      name="SqlCommand"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
-                    <property
-                      dataType="System.Int32"
-                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
-                      name="CommandTimeout">30</property>
-                    <property
-                      dataType="System.Boolean"
-                      description="Indicates whether to allow non-string external columns to be implicitly converted to strings at the output columns."
-                      name="AllowImplicitStringConversion">true</property>
-                    <property
-                      dataType="System.String"
-                      description="The Source database table name."
-                      expressionType="Notify"
-                      name="TableOrViewName"
-                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">"dbo"."PER_CAT_NACIONALIDAD"</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specify the mode to retrieve external column information"
-                      name="AccessMode"
-                      typeConverter="Microsoft.SqlServer.Dts.Pipeline.DataReaderSourceAdapter+EnumToStringConverter">0</property>
-                    <property
-                      dataType="System.String"
-                      name="UserComponentTypeName">Microsoft.DataReaderSourceAdapter</property>
-                  </properties>
-                  <connections>
-                    <connection
-                      refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Connections[IDbConnection]"
-                      connectionManagerID="{F60AB288-D703-4725-A324-E936E27383AA}:external"
-                      connectionManagerRefId="Project.ConnectionManagers[Conexion Universidad SQL Server Trabajo]"
-                      description="Managed connection manager"
-                      name="IDbConnection" />
-                  </connections>
-                  <outputs>
-                    <output
-                      refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output]"
-                      name="ADO NET Source Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].Columns[CVE_NACIONALIDAD]"
-                          dataType="i4"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[CVE_NACIONALIDAD]"
-                          lineageId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].Columns[CVE_NACIONALIDAD]"
-                          name="CVE_NACIONALIDAD"
-                          truncationRowDisposition="FailComponent" />
-                        <outputColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].Columns[NOMBRE_PAIS]"
-                          dataType="wstr"
-                          errorOrTruncationOperation="Conversion"
-                          errorRowDisposition="FailComponent"
-                          externalMetadataColumnId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[NOMBRE_PAIS]"
-                          length="50"
-                          lineageId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].Columns[NOMBRE_PAIS]"
-                          name="NOMBRE_PAIS"
-                          truncationRowDisposition="FailComponent" />
-                      </outputColumns>
-                      <externalMetadataColumns
-                        isUsed="True">
-                        <externalMetadataColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[CVE_NACIONALIDAD]"
-                          dataType="i4"
-                          name="CVE_NACIONALIDAD" />
-                        <externalMetadataColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Output].ExternalColumns[NOMBRE_PAIS]"
-                          dataType="wstr"
-                          length="50"
-                          name="NOMBRE_PAIS" />
-                      </externalMetadataColumns>
-                    </output>
-                    <output
-                      refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output]"
-                      isErrorOut="true"
-                      name="ADO NET Source Error Output">
-                      <outputColumns>
-                        <outputColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[CVE_NACIONALIDAD]"
-                          dataType="i4"
-                          lineageId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[CVE_NACIONALIDAD]"
-                          name="CVE_NACIONALIDAD" />
-                        <outputColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[NOMBRE_PAIS]"
-                          dataType="wstr"
-                          length="50"
-                          lineageId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[NOMBRE_PAIS]"
-                          name="NOMBRE_PAIS" />
-                        <outputColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
-                          dataType="i4"
-                          lineageId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorCode]"
-                          name="ErrorCode"
-                          specialFlags="1" />
-                        <outputColumn
-                          refId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
-                          dataType="i4"
-                          lineageId="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source.Outputs[ADO NET Source Error Output].Columns[ErrorColumn]"
-                          name="ErrorColumn"
-                          specialFlags="2" />
-                      </outputColumns>
-                      <externalMetadataColumns />
-                    </output>
-                  </outputs>
-                </component>
-              </components>
-            </pipeline>
+              version="1" />
           </DTS:ObjectData>
         </DTS:Executable>
       </DTS:Executables>
@@ -489,18 +369,10 @@
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
         <NodeLayout
           Size="158,42"
-          Id="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source"
+          Id="2"
           TopLeft="351,90" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Crear  Catalogos\Crear Hoja y Tablas\ADO NET Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>

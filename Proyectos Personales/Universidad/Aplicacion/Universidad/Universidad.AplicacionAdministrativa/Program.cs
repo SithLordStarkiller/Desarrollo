@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace Universidad.AplicacionAdministrativa
@@ -16,7 +18,7 @@ namespace Universidad.AplicacionAdministrativa
                 var configuracion = new GestionSesion();
                 var sesion = configuracion.ExisteSesion();
 
-                if (sesion == null)
+                if (string.IsNullOrEmpty(sesion.Conexion))
                 {
                     CreaWizard();
                 }
@@ -33,27 +35,19 @@ namespace Universidad.AplicacionAdministrativa
                 CreaWizard();
             }
 
-            catch (UriFormatException)
+            catch (DirectoryNotFoundException)
             {
                 CreaWizard();
             }
 
-            catch (ArgumentNullException)
+            catch (CryptographicException)
             {
                 CreaWizard();
             }
 
             catch (Exception ex)
             {
-                if (ex.Source == @"Newtonsoft.Json" ||
-                    ex.Message == @"URI no válido: no se puede determinar el formato del URI.")
-                {
-                    CreaWizard();
-                }
-                else
-                {
-                    Error(ex);
-                }
+                Error(ex);
             }
 
         }
