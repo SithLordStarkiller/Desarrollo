@@ -138,5 +138,19 @@ namespace Universidad.AplicacionAdministrativa.Vistas
                 tbcContenido.TabPages.Add(tabPage);
             }
         }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _sesion.RecordarSesion = false;
+            new GestionSesion().ActualizaArchivo(_sesion);
+            Dispose();
+            _padre.Close();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Dispose();
+            _padre.Close();
+        }
     }
 }

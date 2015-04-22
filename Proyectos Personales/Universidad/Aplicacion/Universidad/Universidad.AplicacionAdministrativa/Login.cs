@@ -121,6 +121,17 @@ namespace Universidad.AplicacionAdministrativa
                 }
             }
 
+            else if (_login != null && (_login.ID_USUARIO == 0 && _login.USUARIO == "Problema de conexion con el servidor"))
+            {
+                MessageBox.Show(text: @"Hay un problema de conexion con el servidor, reporte el problema con el area de sistemas",
+                        caption: @"Error en el sistema", buttons: MessageBoxButtons.OK,
+                        icon: MessageBoxIcon.Error);
+                _sesion.RecordarSesion = false;
+                _sesion.RecordarContrasena = false;
+                new GestionSesion().ActualizaArchivo(_sesion);
+                Dispose();
+            }
+
             else
             {
                 MessageBox.Show(text: @"El usuario o contraseña no son correctos favor de verificar",

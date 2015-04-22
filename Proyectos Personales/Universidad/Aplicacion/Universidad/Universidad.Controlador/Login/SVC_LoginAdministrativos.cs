@@ -70,9 +70,14 @@ namespace Universidad.Controlador.Login
 
                 LoginAdministrativosFinalizado(usuario);
             }
-            catch (Exception er)
+            catch (Exception)
             {
-                throw;
+                var usuario = new US_USUARIOS()
+                {
+                    ID_USUARIO = 0,
+                    USUARIO = "Problema de conexion con el servidor"
+                };
+                LoginAdministrativosFinalizado(usuario);
             }
         }
 
