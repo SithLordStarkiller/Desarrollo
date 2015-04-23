@@ -8,14 +8,6 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 {
     public class LoginA
     {
-        #region Propiedades de la clase
-
-        public LoginA()
-        {
-        }
-
-        #endregion
-
         #region Metodos de Insercion
 
         #endregion
