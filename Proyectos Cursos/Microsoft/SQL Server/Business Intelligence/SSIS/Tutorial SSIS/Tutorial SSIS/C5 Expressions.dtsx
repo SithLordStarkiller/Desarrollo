@@ -1,0 +1,100 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/23/2015 5:07:12 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DR5Q402"
+  DTS:CreatorName="DR5Q402\Admin"
+  DTS:DTSID="{F0C9F82F-556B-43A5-A9B7-3A05987B74A3}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="2058"
+  DTS:ObjectName="C5 Expressions"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{04E0FAFC-CE99-4D3C-B383-56BF8AF6F3B4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9CB030CB-ADB3-4374-942F-15206976BD3F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="GETDATE()"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentDate">
+      <DTS:VariableValue
+        DTS:DataType="7">4/23/2015 5:54:27 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{31C18816-78DF-4B4B-8D82-F0E3A9A198DD}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="YEAR( @[User::CurrentDate] )"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentYear">
+      <DTS:VariableValue
+        DTS:DataType="3">2015</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F9322E1A-DB28-4064-89C4-2C7F8E5D4F18}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_WSTR,100) DAY( @[User::CurrentDate]  )+ &quot; / &quot; + (DT_WSTR,100)MONTH( @[User::CurrentDate]  )+ &quot; / &quot; +(DT_WSTR,100)@[User::CurrentYear]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DateText">
+      <DTS:VariableValue
+        DTS:DataType="8">23 / 4 / 2015</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7AC277E1-0CBD-4805-8199-80D205CF9160}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExampleDate">
+      <DTS:VariableValue
+        DTS:DataType="7">4/23/2015 5:14:23 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E3C57C32-C33F-4417-8A4B-4E785A1F660A}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExampleDateText">
+      <DTS:VariableValue
+        DTS:DataType="8">2013-01-01</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5320522B-7F04-41C2-9B9C-C0252E62BBC5}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ExampleDays">
+      <DTS:VariableValue
+        DTS:DataType="3">49</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DB1644D5-48A3-4597-B30B-655B6CCD4F17}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_DBTIMESTAMP) @[User::DateText]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StringToDate">
+      <DTS:VariableValue
+        DTS:DataType="7">4/23/2015</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables />
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

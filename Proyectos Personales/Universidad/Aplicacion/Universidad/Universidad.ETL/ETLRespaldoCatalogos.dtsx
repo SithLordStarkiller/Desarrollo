@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLRespaldoCatalogos"
   DTS:PackageType="5"
-  DTS:VersionBuild="25"
-  DTS:VersionGUID="{877E6576-4039-4845-9DB1-3D4472369EE4}">
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{D110C9C1-4325-49E5-98EF-2AD9D456314E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -148,13 +148,12 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="Crear  Catalogos">
       <DTS:ForEachEnumerator
-        DTS:CreationName="Microsoft.ForEachADOEnumerator"
-        DTS:DTSID="{368FF814-4DF4-4C22-8D73-6CA9B7E20758}"
-        DTS:ObjectName="{368FF814-4DF4-4C22-8D73-6CA9B7E20758}">
+        DTS:CreationName="Microsoft.ForEachFromVarEnumerator"
+        DTS:DTSID="{D8E64572-61A5-4F46-9715-7A5121DD70C6}"
+        DTS:ObjectName="{D8E64572-61A5-4F46-9715-7A5121DD70C6}">
         <DTS:ObjectData>
-          <FEEADO
-            EnumType="EnumerateTables"
-            VarName="User::Tablas" />
+          <FEEFVE
+            VariableName="User::Tablas" />
         </DTS:ObjectData>
       </DTS:ForEachEnumerator>
       <DTS:Variables />
@@ -216,6 +215,14 @@
           DTS:ObjectName="Constraint"
           DTS:To="Package\Crear  Catalogos\Crear Hoja y Tablas" />
       </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{FDD2DE78-7801-4835-8064-F2C221331985}"
+          DTS:ObjectName="{FDD2DE78-7801-4835-8064-F2C221331985}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::NombreArchivo" />
+      </DTS:ForEachVariableMappings>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\Obten Tablas"
@@ -234,7 +241,7 @@
           SQLTask:SqlStatementSource="&#xA;DECLARE @Server varchar(50) &#xA;SET @Server = @@SERVERNAME &#xA;-- This ServerOption Should be Turned on &#xA;EXEC sp_serveroption  @Server,'DATA ACCESS','TRUE'&#xA;&#xA;SELECT [TableName] = so.name &#xA;                FROM sysobjects so, sysindexes si &#xA;                WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.name)&#xA;/*Comment the following line if you are using Excel 2007.*/&#xA;                AND si.rows &lt; 65335 &#xA;/*Uncomment the following code if you want to avoid the table names where you dont have data in it.*/&#xA;                --AND si.rows &gt; 0&#xA;                GROUP BY so.name &#xA;                ORDER BY 1 DESC"
           SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
-            SQLTask:ResultName="Resutado"
+            SQLTask:ResultName="0"
             SQLTask:DtsVariableName="User::Tablas" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
@@ -310,25 +317,25 @@
           PanelSize="258,297"
           Size="258,340"
           Id="Package\Crear  Catalogos"
-          TopLeft="266,271" />
+          TopLeft="267,270" />
         <NodeLayout
           Size="141,42"
           Id="Package\Obten Tablas"
-          TopLeft="320,185" />
+          TopLeft="324,187" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="393.357142857143,140.964285714286">
+          TopLeft="395.357142857143,140.964285714286">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44.0357142857143"
+              EndConnector="0,46.0357142857143"
               Start="0,0"
-              End="0,36.5357142857143">
+              End="0,38.5357142857143">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.5357142857143" />
+                    End="0,38.5357142857143" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -339,18 +346,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="392.75,227">
+          TopLeft="395.25,229">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44"
+              EndConnector="0,41"
               Start="0,0"
-              End="0,36.5">
+              End="0,33.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.5" />
+                    End="0,33.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
