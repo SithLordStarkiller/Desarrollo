@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Universidad.Controlador.SVRMenuSistema;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
@@ -60,6 +61,26 @@ namespace Universidad.Controlador.MenuSistema
             if (e.Result == null) return;
             var lista = e.Result;
             MenuArbolFinalizado(lista);
+        }
+
+        #endregion
+
+        #region TraeMenuArbolWadmAsyncrono
+
+        public delegate void TraeMenuArbolWadmArgs(List<SIS_WADM_ARBOLMENU> lista);
+
+        public event TraeMenuArbolWadmArgs TraeMenuArbolWadmFinalizado;
+
+        public void TraeMenuArbolWadmAsyncrono(US_USUARIOS usuario)
+        {
+            _servicio.TraeArbolMenuWadmCompleted +=
+                delegate(object sender, TraeArbolMenuWadmCompletedEventArgs e)
+                {
+                    if (e.Result == null) return;
+                    var lista = e.Result;
+                    TraeMenuArbolWadmFinalizado(lista);
+                };
+            _servicio.TraeArbolMenuWadmAsync(usuario);
         }
 
         #endregion

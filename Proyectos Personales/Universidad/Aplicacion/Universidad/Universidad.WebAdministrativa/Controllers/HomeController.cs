@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
 using Universidad.Controlador.MenuSistema;
-using Universidad.Controlador.Personas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
@@ -58,53 +51,26 @@ namespace Universidad.WebAdministrativa.Controllers
             return View();
         }
 
-        //public void ObtenArbolMenuWadmAsync()
-        //{
-        //    var sesion = (Sesion)TempData["sesion"];
-        //    var usuario = (US_USUARIOS)TempData["usuario"];
-
-        //    var serviciosSistema = new SvcMenuSistemaC(sesion);
-
-        //    serviciosSistema.TraeArbolMenuWadmFinalizado += delegate(List<SIS_WADM_ARBOLMENU> lista)
-        //    {
-        //        AsyncManager.Parameters["listaArbol"] = lista;
-        //        AsyncManager.OutstandingOperations.Decrement();
-        //    };
-
-        //    AsyncManager.OutstandingOperations.Increment();
-        //    serviciosSistema.TraeArbolMenuWadm(usuario);
-
-        //}
-
-        //public ActionResult ObtenArbolMenuWadmCompleted(List<SIS_WADM_ARBOLMENU> listaArbol)
-        //{
-        //    return PartialView("listaArbol", listaArbol);
-        //}
-
         public void ObtenArbolMenuWadmAsync()
         {
-            var sesion = (Sesion)TempData["sesion"];
-            var usuario = (US_USUARIOS)TempData["usuario"];
+            var sesion = (Sesion) TempData["sesion"];
+            var usuario = (US_USUARIOS) TempData["usuario"];
 
             var serviciosSistema = new SvcMenuSistemaC(sesion);
-            
-            serviciosSistema.TraeArbolMenuWadmFinalizado += delegate(List<SIS_WADM_ARBOLMENU> lista)
+
+            serviciosSistema.TraeMenuArbolWadmFinalizado += delegate(List<SIS_WADM_ARBOLMENU> lista)
             {
                 AsyncManager.Parameters["listaArbol"] = lista;
                 AsyncManager.OutstandingOperations.Decrement();
             };
-
-            Task.Factory.StartNew(() =>
-            {
-                AsyncManager.OutstandingOperations.Increment();
-                serviciosSistema.TraeArbolMenuWadm(usuario);
-            });
+            AsyncManager.OutstandingOperations.Increment();
+            serviciosSistema.TraeMenuArbolWadmAsyncrono(usuario);
         }
 
         public ViewResult ObtenArbolMenuWadmCompleted(List<SIS_WADM_ARBOLMENU> listaArbol)
         {
             ViewData["listaArbol"] = listaArbol;
-            return View("_MenuArbol");
+            return View("ObtenArbolMenuWadm");
         }
     }
 }
