@@ -11,23 +11,53 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLRespaldoCatalogos"
   DTS:PackageType="5"
-  DTS:VersionBuild="85"
-  DTS:VersionGUID="{FAF1B1FB-17E6-408F-A886-1DE924034349}">
+  DTS:VersionBuild="135"
+  DTS:VersionGUID="{3CB65A99-EA12-47BD-BC00-911DC17B3FFD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[TemplateExcel.xls]"
-      DTS:CreationName="FILE"
-      DTS:DTSID="{06D75BEA-5B4E-4AF1-8C88-F045E0CC4B26}"
-      DTS:ObjectName="TemplateExcel.xls">
+      DTS:refId="Package.ConnectionManagers[Conexion Dinamica a excel]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{80AF5EEC-84A4-48D4-9C8D-65EC369FAE23}"
+      DTS:ObjectName="Conexion Dinamica a excel">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::Path]+ @[User::NombreArchivo]</DTS:PropertyExpression>
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Catalogos Sepomex\TemplateExcel.xls" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Respaldo Catalogos\PER_CAT_NACIONALIDAD.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[TemplateExcel.xlsx]"
+      DTS:CreationName="FILE"
+      DTS:DTSID="{76E4FA33-181A-4998-A921-92DEFFFE6841}"
+      DTS:ObjectName="TemplateExcel.xlsx">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\TemplateExcel.xlsx" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{4D48942B-142C-4A31-B67F-D650948D920D}"
+      DTS:ObjectName="ExcelConnectionManager1_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\TemplateExcel.xlsx;Extended Properties="EXCEL 12.0 XML;HDR=YES";</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{2DA1481B-15B9-4A1B-A8F5-A6D45AB872DF}"
+      DTS:ObjectName="ExcelConnectionManager1_ConnectionString1">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\TemplateExcel.xlsx;Extended Properties="EXCEL 12.0 XML;HDR=YES";</DTS:Property>
+    </DTS:PackageParameter>
     <DTS:PackageParameter
       DTS:CreationName=""
       DTS:DataType="8"
@@ -80,6 +110,36 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{4DE68B9A-9F95-4BBC-A997-74244D5D061D}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;Insert into OPENROWSET('Microsoft.ACE.OLEDB.12.0','Excel 8.0;HDR=YES;Database=&quot;+ @[User::NombreCompleto] +&quot;' ,'SELECT &quot;+ @[User::ColumnasCompleta] +&quot; FROM [&quot;+ @[User::NombreTablas] +&quot;$]') SELECT &quot; +@[User::ColumnasCompleta] +&quot; FROM &quot;+ @[User::NombreTablas]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ConsultaInsertaAExcel">
+      <DTS:VariableValue
+        DTS:DataType="8">Insert into OPENROWSET('Microsoft.ACE.OLEDB.12.0','Excel 8.0;HDR=YES;Database=C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Respaldo Catalogos\PER_CAT_NACIONALIDAD.xlsx' ,'SELECT  FROM [PER_CAT_NACIONALIDAD$]') SELECT  FROM PER_CAT_NACIONALIDAD</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4BF8FCD0-9F9C-48C5-9348-9DC96E31E6B8}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;DECLARE @Server varchar(50) &#xA;SET @Server = @@SERVERNAME &#xA;EXEC sp_serveroption  @Server,'DATA ACCESS','TRUE'&#xA;&#xA;SELECT [TableName] = so.name &#xA;                FROM sysobjects so, sysindexes si &#xA;                WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.name) AND so.name in( &quot;+ @[User::TablasRequeridas]  +&quot; )&#xA;                GROUP BY so.name &#xA;                ORDER BY 1 DESC&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ConsultaObtenTablas">
+      <DTS:VariableValue
+        DTS:DataType="8">DECLARE @Server varchar(50) 
+SET @Server = @@SERVERNAME 
+EXEC sp_serveroption  @Server,'DATA ACCESS','TRUE'
+
+SELECT [TableName] = so.name 
+                FROM sysobjects so, sysindexes si 
+                WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.name) AND so.name in( 'US_USUARIOS','US_CAT_TIPO_USUARIO' )
+                GROUP BY so.name 
+                ORDER BY 1 DESC</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{75DF3594-054A-425B-BAC9-35B8F2411666}"
       DTS:EvaluateAsExpression="True"
       DTS:Expression="&quot;SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '&quot; + @[User::NombreTablas] + &quot;'&quot;"
@@ -93,13 +153,13 @@
       DTS:CreationName=""
       DTS:DTSID="{5BE8A9C1-385F-46A6-A967-D4E2848CC539}"
       DTS:EvaluateAsExpression="True"
-      DTS:Expression="&quot;DECLARE @vsTableName VARCHAR(100)  &#xA;SET @vsTableName =&quot; + @[User::NombreTablas]  + &quot;&#xA;DECLARE @vsSQL VARCHAR(8000)  &#xA; &#xA;BEGIN  &#xA;  SELECT @vsSQL = 'CREATE TABLE ' + '`' + @vsTableName + '`' + CHAR(10) + '(' + CHAR(10) &#xA;  SELECT @vsSQL = @vsSQL + '[' + sc.Name + '] ' +  &#xA;  CASE WHEN st.Name IN ('nvarchar','ntext','text','varchar','varchar','char','nchar','xml','uniqueidentifier') THEN  'LongText'  &#xA;       WHEN st.Name IN ('tinyint','int','smallint','bigint','float','numeric','decimal','money','smallmoney','bit') THEN  'Long'&#xA;       WHEN st.Name IN ('date','datetime','timestamp') THEN  'datetime'&#xA;  ELSE ' ' END + ',' + CHAR(10) &#xA;  FROM sysobjects so  &#xA;  JOIN syscolumns sc ON sc.id = so.id  &#xA;  JOIN systypes st ON st.xusertype = sc.xusertype  &#xA;  WHERE so.name = @vsTableName &#xA;  AND st.Name not in ( 'image','sysname','binary','varbinary','xml','uniqueidentifier') &#xA;  ORDER BY  &#xA;  sc.ColID  &#xA;  &#xA;  SELECT SUBSTRING(@vsSQL,1,LEN(@vsSQL) - 2) + CHAR(10) + ')'  AS ExcelTableName   &#xA; END&quot;"
+      DTS:Expression="&quot;DECLARE @vsTableName VARCHAR(100)  &#xA;SET @vsTableName = '&quot; + @[User::NombreTablas]  + &quot;'&#xA;DECLARE @vsSQL VARCHAR(8000)  &#xA; &#xA;BEGIN  &#xA;  SELECT @vsSQL = 'CREATE TABLE ' + '`' + @vsTableName + '`' + CHAR(10) + '(' + CHAR(10) &#xA;  SELECT @vsSQL = @vsSQL + '[' + sc.Name + '] ' +  &#xA;  CASE WHEN st.Name IN ('nvarchar','ntext','text','varchar','varchar','char','nchar','xml','uniqueidentifier') THEN  'LongText'  &#xA;       WHEN st.Name IN ('tinyint','int','smallint','bigint','float','numeric','decimal','money','smallmoney','bit') THEN  'Long'&#xA;       WHEN st.Name IN ('date','datetime','timestamp') THEN  'datetime'&#xA;  ELSE ' ' END + ',' + CHAR(10) &#xA;  FROM sysobjects so  &#xA;  JOIN syscolumns sc ON sc.id = so.id  &#xA;  JOIN systypes st ON st.xusertype = sc.xusertype  &#xA;  WHERE so.name = @vsTableName &#xA;  AND st.Name not in ( 'image','sysname','binary','varbinary','xml','uniqueidentifier') &#xA;  ORDER BY  &#xA;  sc.ColID  &#xA;  &#xA;  SELECT SUBSTRING(@vsSQL,1,LEN(@vsSQL) - 2) + CHAR(10) + ')'  AS ExcelTableName   &#xA; END&quot;"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
       DTS:ObjectName="ConsultaSQLCreaColumansExcel">
       <DTS:VariableValue
         DTS:DataType="8">DECLARE @vsTableName VARCHAR(100)  
-SET @vsTableName =PER_CAT_NACIONALIDAD
+SET @vsTableName = 'PER_CAT_NACIONALIDAD'
 DECLARE @vsSQL VARCHAR(8000)  
  
 BEGIN  
@@ -144,6 +204,17 @@ BEGIN
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{2E8871B6-2C2E-4BCF-A77A-9CED1759E477}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::Path]+ @[User::NombreArchivo]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="NombreCompleto">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Respaldo Catalogos\PER_CAT_NACIONALIDAD.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{7F24CC8A-2DE8-4098-9D8A-08E8332E7A8B}"
       DTS:IncludeInDebugDump="2345"
       DTS:Namespace="User"
@@ -177,6 +248,15 @@ BEGIN
           </SOAP-ENV:Body>
         </SOAP-ENV:Envelope>
       </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E34D6415-49DE-486D-A09C-DB782CE7ECEE}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="TablasRequeridas">
+      <DTS:VariableValue
+        DTS:DataType="8">'US_USUARIOS','US_CAT_TIPO_USUARIO'</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -222,6 +302,24 @@ BEGIN
       <DTS:Variables />
       <DTS:Executables>
         <DTS:Executable
+          DTS:refId="Package\Crear  Catalogos\Crea columnas"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{04A2FDB3-D8E0-43C6-BD19-BCC149EB1A59}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Crea columnas"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{80AF5EEC-84A4-48D4-9C8D-65EC369FAE23}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::Aux" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
           DTS:refId="Package\Crear  Catalogos\Crear Excel"
           DTS:CreationName="Microsoft.FileSystemTask"
           DTS:Description="File System Task"
@@ -247,9 +345,27 @@ BEGIN
           <DTS:ObjectData>
             <FileSystemData
               TaskOverwriteDestFile="True"
-              TaskSourcePath="{06D75BEA-5B4E-4AF1-8C88-F045E0CC4B26}"
+              TaskSourcePath="{76E4FA33-181A-4998-A921-92DEFFFE6841}"
               TaskDestinationPath="User::NombreCompleto"
               TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Crear  Catalogos\Execute SQL Task"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{30871A7F-D5F6-4676-AF79-1F0BF4A364E6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Execute SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{27AD999B-6631-4602-A94E-B4BB43449A96}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::ConsultaInsertaAExcel" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -316,6 +432,15 @@ BEGIN
               Language="CSharp"
               ReadOnlyVariables="User::NombreArchivo"
               ReadWriteVariables="User::Aux,User::ColumnasCompleta,User::ConsultaSQLCreaColumansExcel,User::NombreTablas,User::Path">
+              <ProjectItem
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -435,35 +560,6 @@ BEGIN
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Settings.get_Default():ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Sett" +
-    "ings")]
-
-namespace ST_2f21a5f0046548bfb7ae69478efdf4df.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
               <ProjectItem
                 Name="ST_2f21a5f0046548bfb7ae69478efdf4df.csproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -663,34 +759,9 @@ namespace ST_2f21a5f0046548bfb7ae69478efdf4df
 		    
             columnas = columnas.Remove(columnas.Length-1);
 
-		    Dts.Variables["User::ColumnasCompleta"].Value = columnas;
+		    Dts.Variables["ColumnasCompleta"].Value = columnas;
 
 
-            var filePath = Dts.Variables["User::NombreArchivo"].Value;
-            //string tabName = "Sheet1$";
-            //String strCn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source="
-            //+ filePath + ";Extended Properties=\"Excel 12.0;HDR=NO;IMEX=1\";";
-            //OleDbConnection cn = new OleDbConnection(strCn);
-            //string strSQL = "Select * From [" + tabName + "A1:D100]";
-            //int iCnt = 0;
-            //OleDbDataAdapter objAdapter = new OleDbDataAdapter(strSQL, cn);
-            //DataSet ds = new DataSet();
-            //objAdapter.Fill(ds, "dSheet1");
-            //DataTable dt = ds.Tables["dSheet1"];
-            //foreach (DataRow row in dt.Rows)
-            //{
-            //    iCnt = iCnt + 1;
-            //    if ((row[0].ToString() == "HdrCol1")
-            //    & (row[1].ToString() == "HdrCol2")
-            //    & (row[2].ToString() == "HdrCol3")
-            //    & (row[3].ToString() == "HdrCol4"))
-            //    {
-            //        Dts.Variables["varTabName"].Value = tabName + "A"
-            //        + iCnt.ToString() + ":D1048576";
-            //        break;
-            //    }
-            //}
-            //cn.Close();  
 
 			Dts.TaskResult = (int)ScriptResults.Success;
 		}
@@ -716,32 +787,50 @@ namespace ST_2f21a5f0046548bfb7ae69478efdf4df
                 Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
 <c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
 	<msb:PropertyGroup>
-		<msb:CodeName>ST_2f21a5f0046548bfb7ae69478efdf4df</msb:CodeName>
 		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>ST_2f21a5f0046548bfb7ae69478efdf4df</msb:CodeName>
 		<msb:DisplayName>ST_2f21a5f0046548bfb7ae69478efdf4df</msb:DisplayName>
 		<msb:ProjectId>{BB4C3FB2-1D0F-469B-AB8B-7DDA62340181}</msb:ProjectId>
 	</msb:PropertyGroup>
 	<msb:ItemGroup>
 		<msb:Project Include="ST_2f21a5f0046548bfb7ae69478efdf4df.csproj"/>
-		<msb:File Include="Properties\AssemblyInfo.cs"/>
 		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
 		<msb:File Include="Properties\Resources.resx"/>
 		<msb:File Include="Properties\Resources.Designer.cs"/>
 		<msb:File Include="Properties\Settings.Designer.cs"/>
 		<msb:File Include="ScriptMain.cs"/>
-		<msb:Breakpoint Include="f41e5d9a72e044f0b630e64bbfb3d6d0">
-			<msb:FileName>ScriptMain.cs</msb:FileName>
-			<msb:LineNumber>101</msb:LineNumber>
-			<msb:ColumnNumber>13</msb:ColumnNumber>
-			<msb:Enabled>True</msb:Enabled>
-			<msb:ConditionType>1</msb:ConditionType>
-			<msb:Condition></msb:Condition>
-			<msb:Language>C#</msb:Language>
-			<msb:HitCountType>1</msb:HitCountType>
-			<msb:HitCountTarget>1</msb:HitCountTarget>
-		</msb:Breakpoint>
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Settings.get_Default():ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Sett" +
+    "ings")]
+
+namespace ST_2f21a5f0046548bfb7ae69478efdf4df.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
               <ProjectItem
                 Name="Properties\AssemblyInfo.cs"
                 Encoding="UTF8"><![CDATA[using System.Reflection;
@@ -772,15 +861,6 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -852,80 +932,80 @@ namespace ST_2f21a5f0046548bfb7ae69478efdf4df.Properties {
               <BinaryItem
                 Name="ST_2f21a5f0046548bfb7ae69478efdf4df.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAM/OPlUAAAAAAAAAAOAAAiELAQsAABAAAAAIAAAAAAAAzi4A
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDACAAQFUAAAAAAAAAAOAAAiELAQsAABAAAAAIAAAAAAAAXi4A
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAA
-ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAIAuAABLAAAAAEAAAAgEAAAAAAAAAAAAAAAAAAAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAAwuAABPAAAAAEAAAAgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAA1A4AAAAgAAAAEAAAAAIA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAZA4AAAAgAAAAEAAAAAIA
 AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAAgEAAAAQAAAAAYAAAASAAAAAAAAAAAAAAAAAABAAABA
-LnJlbG9jAAAMAAAAAGAAAAACAAAAGAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAACw
-LgAAAAAAAEgAAAACAAUAACIAAIAMAAABAAAAAAAAAEghAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAGAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABA
+LgAAAAAAAEgAAAACAAUA4CEAACwMAAABAAAAAAAAACghAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKA4AAAoqEzACAC0AAAABAAARfgEAAAQtIHIBAABw0AIA
 AAIoDwAACm8QAAAKcxEAAAoKBoABAAAEfgEAAAQqGn4CAAAEKh4CgAIAAAQqGn4DAAAEKi5zBgAA
-BoADAAAEKh4CKBQAAAoqABMwAwByAAAAAgAAEQIoFgAACm8XAAAKcnMAAHBvGAAACm8ZAAAKbxoA
-AAoKBgZvGwAAChdZbxwAAAoKAigWAAAKbxcAAApylQAAcG8YAAAKBm8dAAAKAigWAAAKbxcAAApy
-wwAAcG8YAAAKbxkAAAomAigWAAAKFm8eAAAKKh4CKB8AAAoqAAAAAAAAtAAAAM7K774BAAAAkQAA
-AGxTeXN0ZW0uUmVzb3VyY2VzLlJlc291cmNlUmVhZGVyLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAu
-MC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkjU3lz
-dGVtLlJlc291cmNlcy5SdW50aW1lUmVzb3VyY2VTZXQCAAAAAAAAAAAAAABQQURQQURQtAAAAEJT
-SkIBAAEAAAAAAAwAAAB2NC4wLjMwMzE5AAAAAAUAbAAAANgDAAAjfgAARAQAANAFAAAjU3RyaW5n
-cwAAAAAUCgAA7AAAACNVUwAACwAAEAAAACNHVUlEAAAAEAsAAHABAAAjQmxvYgAAAAAAAAACAAAB
-Vx2iAQkDAAAA+iUzABYAAAEAAAAeAAAABQAAAAYAAAAJAAAAAQAAAB8AAAACAAAADwAAAAIAAAAC
-AAAAAwAAAAQAAAABAAAABAAAAAEAAAABAAAAAAAKAAEAAAAAAAYAwQC6AAoA3QDIAA4APQEUAQYA
-WQG6AAYAbwFeAQYAoAGLAQYAVwI9AgYAggJwAgYAmQJwAgYAtgJwAgYA1QJwAgYA7gJwAgYABwNw
-AgYAIgNwAgYAPQNwAgYAVgNwAgYAjwNvAwYArwNvAwYA4APNAwYA/QO6AAYAAgS6AAYAJgRwAgoA
-UgQ8BAoAawQ8BAYAgARvAw4AogQUAQ4AxAQUARIAHQX9BBIANQX9BAYAWgW6AAAAAAABAAAAAAAB
-AAEAAAAQADIAPAAFAAEAAQAAARAAawA8AAkAAwAFAAEAEAB0AH8ADQAEAAgAAwEAAKMAAAARAAQA
-CgARAH8BEwARAKwBFwARAPYBOQAGBh8CRwBWgCcCSgBWgC8CSgBQIAAAAACDGLwBGwABAFggAAAA
-AJMIwgEfAAEAkSAAAAAAkwjWASQAAQCYIAAAAACTCOIBKQABAKAgAAAAAJYIBgI9AAIAsyAAAAAA
-hhi8ARsAAgCnIAAAAACRGJsEiQACALwgAAAAAIYAGgIbAAIAOiEAAAAAhhi8ARsAAgAAAAEANwI5
-ALwBWABBALwBWABJALwBWABRALwBWABZALwBWABhALwBWABpALwBWABxALwBWAB5ALwBWACBALwB
-WACJALwBXQCRALwBGwCZALwBGwAJALwBGwChABQEYgChAC8EaQApALwBbgC5ALwBegDJALwBGwAR
-ALwBGwDRALwBGwAZANYEjQDZACcFkgDhAD4FlwDpAEcFnQAJAFEFoQDxAGEFpQDxAGwFqQDpAHMF
-rgDZAH0FXQAZALwBGwAIABQATgAIABgAUwApAJMAgAAuABsAKAEuACMAKAEuAGMATgEuAAsAtwAu
-ABMA/wAuADMA/wAuACsAKAEuADsALgEuAEMAKAEuAFsARQFDAGsAUwBJAJMAgABhAJsAUwCDAKsA
-UwB1ALMAAgABAAMAAwAAAG8BLwAAAO4BNAAAABICQgACAAIAAwACAAMABQABAAQABQACAAUABwAE
-gAAAAQAAANsVN38AAAAAAAB/AAAABAAAAAAAAAAAAAAAAQCxAAAAAAAEAAAAAAAAAAAAAAABALoA
-AAAAAAwAAAAAAAAAAAAAAAoA9QAAAAAADAAAAAAAAAAAAAAACgDeBAAAAAAAAAAAAQAAAIwFAAAF
-AAQAAAAAAAA8TW9kdWxlPgBTVF8yZjIxYTVmMDA0NjU0OGJmYjdhZTY5NDc4ZWZkZjRkZi5kbGwA
-UmVzb3VyY2VzAFNUXzJmMjFhNWYwMDQ2NTQ4YmZiN2FlNjk0NzhlZmRmNGRmLlByb3BlcnRpZXMA
-U2V0dGluZ3MAU2NyaXB0TWFpbgBTVF8yZjIxYTVmMDA0NjU0OGJmYjdhZTY5NDc4ZWZkZjRkZgBT
-Y3JpcHRSZXN1bHRzAG1zY29ybGliAFN5c3RlbQBPYmplY3QAU3lzdGVtLkNvbmZpZ3VyYXRpb24A
-QXBwbGljYXRpb25TZXR0aW5nc0Jhc2UATWljcm9zb2Z0LlNxbFNlcnZlci5TY3JpcHRUYXNrAE1p
-Y3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlRhc2tzLlNjcmlwdFRhc2sAVlNUQVJUU2NyaXB0T2JqZWN0
-TW9kZWxCYXNlAEVudW0AU3lzdGVtLlJlc291cmNlcwBSZXNvdXJjZU1hbmFnZXIAcmVzb3VyY2VN
-YW4AU3lzdGVtLkdsb2JhbGl6YXRpb24AQ3VsdHVyZUluZm8AcmVzb3VyY2VDdWx0dXJlAC5jdG9y
-AGdldF9SZXNvdXJjZU1hbmFnZXIAZ2V0X0N1bHR1cmUAc2V0X0N1bHR1cmUAQ3VsdHVyZQBkZWZh
-dWx0SW5zdGFuY2UAZ2V0X0RlZmF1bHQARGVmYXVsdABNYWluAHZhbHVlX18AU3VjY2VzcwBGYWls
-dXJlAHZhbHVlAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAVGFyZ2V0RnJhbWV3b3JrQXR0cmli
-dXRlAFN5c3RlbS5SZWZsZWN0aW9uAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlEZXNj
-cmlwdGlvbkF0dHJpYnV0ZQBBc3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlD
-b21wYW55QXR0cmlidXRlAEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdo
-dEF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBBc3NlbWJseUN1bHR1cmVBdHRy
-aWJ1dGUAQXNzZW1ibHlWZXJzaW9uQXR0cmlidXRlAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2Vy
-dmljZXMAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0
-eUF0dHJpYnV0ZQBTeXN0ZW0uRGlhZ25vc3RpY3MARGVidWdnZXJOb25Vc2VyQ29kZUF0dHJpYnV0
-ZQBUeXBlAFJ1bnRpbWVUeXBlSGFuZGxlAEdldFR5cGVGcm9tSGFuZGxlAEFzc2VtYmx5AGdldF9B
-c3NlbWJseQBTeXN0ZW0uQ29tcG9uZW50TW9kZWwARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEVk
-aXRvckJyb3dzYWJsZVN0YXRlAENvbXBpbGVyR2VuZXJhdGVkQXR0cmlidXRlAC5jY3RvcgBTU0lT
-U2NyaXB0VGFza0VudHJ5UG9pbnRBdHRyaWJ1dGUAU2NyaXB0T2JqZWN0TW9kZWwAZ2V0X0R0cwBN
-aWNyb3NvZnQuU3FsU2VydmVyLk1hbmFnZWREVFMATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUnVu
-dGltZQBWYXJpYWJsZXMAZ2V0X1ZhcmlhYmxlcwBWYXJpYWJsZQBnZXRfSXRlbQBnZXRfVmFsdWUA
-VG9TdHJpbmcAU3RyaW5nAGdldF9MZW5ndGgAUmVtb3ZlAHNldF9WYWx1ZQBzZXRfVGFza1Jlc3Vs
-dABTVF8yZjIxYTVmMDA0NjU0OGJmYjdhZTY5NDc4ZWZkZjRkZi5Qcm9wZXJ0aWVzLlJlc291cmNl
-cy5yZXNvdXJjZXMAAABxUwBUAF8AMgBmADIAMQBhADUAZgAwADAANAA2ADUANAA4AGIAZgBiADcA
-YQBlADYAOQA0ADcAOABlAGYAZABmADQAZABmAC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBz
-AG8AdQByAGMAZQBzAAAhQwBvAGwAdQBtAG4AYQBzAEMAbwBtAHAAbABlAHQAYQAALVUAcwBlAHIA
-OgA6AEMAbwBsAHUAbQBuAGEAcwBDAG8AbQBwAGwAZQB0AGEAACdVAHMAZQByADoAOgBOAG8AbQBi
-AHIAZQBBAHIAYwBoAGkAdgBvAAAACc6kGHSZ9ECKrwbthAAUsAAIt3pcVhk04IkIiYRdzYCAzJED
-BhIVAwYSGQMgAAEEAAASFQQAABIZBQABARIZBAgAEhUECAASGQMGEgwEAAASDAQIABIMAgYIAwYR
-FAQAAAAABAEAAAAEIAEBDgQgAQEIBgABElERVQQgABJZBiACAQ4SWQQHARIVBSABARFhCAEAAgAA
-AAAAAwAAAQQgABJtBCAAEnEFIAESdRwDIAAcAyAADgMgAAgEIAEOCAQgAQEcAwcBDkcBABouTkVU
-RnJhbWV3b3JrLFZlcnNpb249djQuMAEAVA4URnJhbWV3b3JrRGlzcGxheU5hbWUQLk5FVCBGcmFt
-ZXdvcmsgNCgBACNTVF8yZjIxYTVmMDA0NjU0OGJmYjdhZTY5NDc4ZWZkZjRkZgAABQEAAAAAFgEA
-EUNvcHlyaWdodCBAICAyMDE1AAAIAQAIAAAAAAAeAQABAFQCFldyYXBOb25FeGNlcHRpb25UaHJv
-d3MBAAAAqC4AAAAAAAAAAAAAvi4AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAALAuAAAAAAAAAABf
-Q29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+BoADAAAEKh4CKBQAAAoqABMwAwBXAAAAAgAAEQIoFgAACm8XAAAKcnMAAHBvGAAACm8ZAAAKbxoA
+AAoKBgZvGwAAChdZbxwAAAoKAigWAAAKbxcAAApycwAAcG8YAAAKBm8dAAAKAigWAAAKFm8eAAAK
+Kh4CKB8AAAoqALQAAADOyu++AQAAAJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRl
+ciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlU
+b2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0
+AgAAAAAAAAAAAAAAUEFEUEFEULQAAABCU0pCAQABAAAAAAAMAAAAdjQuMC4zMDMxOQAAAAAFAGwA
+AADYAwAAI34AAEQEAADQBQAAI1N0cmluZ3MAAAAAFAoAAJgAAAAjVVMArAoAABAAAAAjR1VJRAAA
+ALwKAABwAQAAI0Jsb2IAAAAAAAAAAgAAAVcdogEJAwAAAPolMwAWAAABAAAAHgAAAAUAAAAGAAAA
+CQAAAAEAAAAfAAAAAgAAAA8AAAACAAAAAgAAAAMAAAAEAAAAAQAAAAQAAAABAAAAAQAAAAAACgAB
+AAAAAAAGAMEAugAKAN0AyAAOAD0BFAEGAFkBugAGAG8BXgEGAKABiwEGAFcCPQIGAIICcAIGAJkC
+cAIGALYCcAIGANUCcAIGAO4CcAIGAAcDcAIGACIDcAIGAD0DcAIGAFYDcAIGAI8DbwMGAK8DbwMG
+AOADzQMGAP0DugAGAAIEugAGACYEcAIKAFIEPAQKAGsEPAQGAIAEbwMOAKIEFAEOAMQEFAESAB0F
+/QQSADUF/QQGAFoFugAAAAAAAQAAAAAAAQABAAAAEAAyADwABQABAAEAAAEQAGsAPAAJAAMABQAB
+ABAAdAB/AA0ABAAIAAMBAACjAAAAEQAEAAoAEQB/ARMAEQCsARcAEQD2ATkABgYfAkcAVoAnAkoA
+VoAvAkoAUCAAAAAAgxi8ARsAAQBYIAAAAACTCMIBHwABAJEgAAAAAJMI1gEkAAEAmCAAAAAAkwji
+ASkAAQCgIAAAAACWCAYCPQACALMgAAAAAIYYvAEbAAIApyAAAAAAkRibBIkAAgC8IAAAAACGABoC
+GwACAB8hAAAAAIYYvAEbAAIAAAABADcCOQC8AVgAQQC8AVgASQC8AVgAUQC8AVgAWQC8AVgAYQC8
+AVgAaQC8AVgAcQC8AVgAeQC8AVgAgQC8AVgAiQC8AV0AkQC8ARsAmQC8ARsACQC8ARsAoQAUBGIA
+oQAvBGkAKQC8AW4AuQC8AXoAyQC8ARsAEQC8ARsA0QC8ARsAGQDWBI0A2QAnBZIA4QA+BZcA6QBH
+BZ0ACQBRBaEA8QBhBaUA8QBsBakA6QBzBa4A2QB9BV0AGQC8ARsACAAUAE4ACAAYAFMAKQCTAIAA
+LgAbACgBLgAjACgBLgBjAE4BLgALALcALgATAP8ALgAzAP8ALgArACgBLgA7AC4BLgBDACgBLgBb
+AEUBQwBrAFMASQCTAIAAYQCbAFMAgwCrAFMAdQCzAAIAAQADAAMAAABvAS8AAADuATQAAAASAkIA
+AgACAAMAAgADAAUAAQAEAAUAAgAFAAcABIAAAAEAAADcFSBvAAAAAAAAfwAAAAQAAAAAAAAAAAAA
+AAEAsQAAAAAABAAAAAAAAAAAAAAAAQC6AAAAAAAMAAAAAAAAAAAAAAAKAPUAAAAAAAwAAAAAAAAA
+AAAAAAoA3gQAAAAAAAAAAAEAAACMBQAABQAEAAAAAAAAPE1vZHVsZT4AU1RfMmYyMWE1ZjAwNDY1
+NDhiZmI3YWU2OTQ3OGVmZGY0ZGYuZGxsAFJlc291cmNlcwBTVF8yZjIxYTVmMDA0NjU0OGJmYjdh
+ZTY5NDc4ZWZkZjRkZi5Qcm9wZXJ0aWVzAFNldHRpbmdzAFNjcmlwdE1haW4AU1RfMmYyMWE1ZjAw
+NDY1NDhiZmI3YWU2OTQ3OGVmZGY0ZGYAU2NyaXB0UmVzdWx0cwBtc2NvcmxpYgBTeXN0ZW0AT2Jq
+ZWN0AFN5c3RlbS5Db25maWd1cmF0aW9uAEFwcGxpY2F0aW9uU2V0dGluZ3NCYXNlAE1pY3Jvc29m
+dC5TcWxTZXJ2ZXIuU2NyaXB0VGFzawBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5UYXNrcy5TY3Jp
+cHRUYXNrAFZTVEFSVFNjcmlwdE9iamVjdE1vZGVsQmFzZQBFbnVtAFN5c3RlbS5SZXNvdXJjZXMA
+UmVzb3VyY2VNYW5hZ2VyAHJlc291cmNlTWFuAFN5c3RlbS5HbG9iYWxpemF0aW9uAEN1bHR1cmVJ
+bmZvAHJlc291cmNlQ3VsdHVyZQAuY3RvcgBnZXRfUmVzb3VyY2VNYW5hZ2VyAGdldF9DdWx0dXJl
+AHNldF9DdWx0dXJlAEN1bHR1cmUAZGVmYXVsdEluc3RhbmNlAGdldF9EZWZhdWx0AERlZmF1bHQA
+TWFpbgB2YWx1ZV9fAFN1Y2Nlc3MARmFpbHVyZQB2YWx1ZQBTeXN0ZW0uUnVudGltZS5WZXJzaW9u
+aW5nAFRhcmdldEZyYW1ld29ya0F0dHJpYnV0ZQBTeXN0ZW0uUmVmbGVjdGlvbgBBc3NlbWJseVRp
+dGxlQXR0cmlidXRlAEFzc2VtYmx5RGVzY3JpcHRpb25BdHRyaWJ1dGUAQXNzZW1ibHlDb25maWd1
+cmF0aW9uQXR0cmlidXRlAEFzc2VtYmx5Q29tcGFueUF0dHJpYnV0ZQBBc3NlbWJseVByb2R1Y3RB
+dHRyaWJ1dGUAQXNzZW1ibHlDb3B5cmlnaHRBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRy
+aWJ1dGUAQXNzZW1ibHlDdWx0dXJlQXR0cmlidXRlAEFzc2VtYmx5VmVyc2lvbkF0dHJpYnV0ZQBT
+eXN0ZW0uUnVudGltZS5Db21waWxlclNlcnZpY2VzAENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRy
+aWJ1dGUAUnVudGltZUNvbXBhdGliaWxpdHlBdHRyaWJ1dGUAU3lzdGVtLkRpYWdub3N0aWNzAERl
+YnVnZ2VyTm9uVXNlckNvZGVBdHRyaWJ1dGUAVHlwZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBl
+RnJvbUhhbmRsZQBBc3NlbWJseQBnZXRfQXNzZW1ibHkAU3lzdGVtLkNvbXBvbmVudE1vZGVsAEVk
+aXRvckJyb3dzYWJsZUF0dHJpYnV0ZQBFZGl0b3JCcm93c2FibGVTdGF0ZQBDb21waWxlckdlbmVy
+YXRlZEF0dHJpYnV0ZQAuY2N0b3IAU1NJU1NjcmlwdFRhc2tFbnRyeVBvaW50QXR0cmlidXRlAFNj
+cmlwdE9iamVjdE1vZGVsAGdldF9EdHMATWljcm9zb2Z0LlNxbFNlcnZlci5NYW5hZ2VkRFRTAE1p
+Y3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlJ1bnRpbWUAVmFyaWFibGVzAGdldF9WYXJpYWJsZXMAVmFy
+aWFibGUAZ2V0X0l0ZW0AZ2V0X1ZhbHVlAFRvU3RyaW5nAFN0cmluZwBnZXRfTGVuZ3RoAFJlbW92
+ZQBzZXRfVmFsdWUAc2V0X1Rhc2tSZXN1bHQAU1RfMmYyMWE1ZjAwNDY1NDhiZmI3YWU2OTQ3OGVm
+ZGY0ZGYuUHJvcGVydGllcy5SZXNvdXJjZXMucmVzb3VyY2VzAAAAcVMAVABfADIAZgAyADEAYQA1
+AGYAMAAwADQANgA1ADQAOABiAGYAYgA3AGEAZQA2ADkANAA3ADgAZQBmAGQAZgA0AGQAZgAuAFAA
+cgBvAHAAZQByAHQAaQBlAHMALgBSAGUAcwBvAHUAcgBjAGUAcwAAIUMAbwBsAHUAbQBuAGEAcwBD
+AG8AbQBwAGwAZQB0AGEAAAAAAMVLWLkQcS5DqYIx45ovIrAACLd6XFYZNOCJCImEXc2AgMyRAwYS
+FQMGEhkDIAABBAAAEhUEAAASGQUAAQESGQQIABIVBAgAEhkDBhIMBAAAEgwECAASDAIGCAMGERQE
+AAAAAAQBAAAABCABAQ4EIAEBCAYAARJREVUEIAASWQYgAgEOElkEBwESFQUgAQERYQgBAAIAAAAA
+AAMAAAEEIAASbQQgABJxBSABEnUcAyAAHAMgAA4DIAAIBCABDggEIAEBHAMHAQ5HAQAaLk5FVEZy
+YW1ld29yayxWZXJzaW9uPXY0LjABAFQOFEZyYW1ld29ya0Rpc3BsYXlOYW1lEC5ORVQgRnJhbWV3
+b3JrIDQoAQAjU1RfMmYyMWE1ZjAwNDY1NDhiZmI3YWU2OTQ3OGVmZGY0ZGYAAAUBAAAAABYBABFD
+b3B5cmlnaHQgQCAgMjAxNQAACAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dz
+AQAAADQuAAAAAAAAAAAAAE4uAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAABALgAAAAAAAAAAAAAA
+AF9Db3JEbGxNYWluAG1zY29yZWUuZGxsAAAAAAD/JQAgABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -933,13 +1013,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAABABAAAAAYAACAAAAAAAAAAAAAAAAAAAABAAEAAAAwAACAAAAAAAAAAAAAAAAAAAABAAAA
 AABIAAAAWEAAALADAAAAAAAAAAAAALADNAAAAFYAUwBfAFYARQBSAFMASQBPAE4AXwBJAE4ARgBP
-AAAAAAC9BO/+AAABAAAAAQA3f9sVAAABADd/2xU/AAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAA
+AAAAAAC9BO/+AAABAAAAAQAgb9wVAAABACBv3BU/AAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAAAAA
 RAAAAAEAVgBhAHIARgBpAGwAZQBJAG4AZgBvAAAAAAAkAAQAAABUAHIAYQBuAHMAbABhAHQAaQBv
 AG4AAAAAAAAAsAQQAwAAAQBTAHQAcgBpAG4AZwBGAGkAbABlAEkAbgBmAG8AAADsAgAAAQAwADAA
 MAAwADAANABiADAAAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAAUwBU
 AF8AMgBmADIAMQBhADUAZgAwADAANAA2ADUANAA4AGIAZgBiADcAYQBlADYAOQA0ADcAOABlAGYA
 ZABmADQAZABmAAAAQAAPAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADUANQA5
-ADUALgAzADIANQA2ADcAAAAAAHAAKAABAEkAbgB0AGUAcgBuAGEAbABOAGEAbQBlAAAAUwBUAF8A
+ADYALgAyADgANAA0ADgAAAAAAHAAKAABAEkAbgB0AGUAcgBuAGEAbABOAGEAbQBlAAAAUwBUAF8A
 MgBmADIAMQBhADUAZgAwADAANAA2ADUANAA4AGIAZgBiADcAYQBlADYAOQA0ADcAOABlAGYAZABm
 ADQAZABmAC4AZABsAGwAAABIABIAAQBMAGUAZwBhAGwAQwBvAHAAeQByAGkAZwBoAHQAAABDAG8A
 cAB5AHIAaQBnAGgAdAAgAEAAIAAgADIAMAAxADUAAAB4ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBp
@@ -947,8 +1027,8 @@ AGwAZQBuAGEAbQBlAAAAUwBUAF8AMgBmADIAMQBhADUAZgAwADAANAA2ADUANAA4AGIAZgBiADcA
 YQBlADYAOQA0ADcAOABlAGYAZABmADQAZABmAC4AZABsAGwAAABoACQAAQBQAHIAbwBkAHUAYwB0
 AE4AYQBtAGUAAAAAAFMAVABfADIAZgAyADEAYQA1AGYAMAAwADQANgA1ADQAOABiAGYAYgA3AGEA
 ZQA2ADkANAA3ADgAZQBmAGQAZgA0AGQAZgAAAEQADwABAFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBp
-AG8AbgAAADEALgAwAC4ANQA1ADkANQAuADMAMgA1ADYANwAAAAAASAAPAAEAQQBzAHMAZQBtAGIA
-bAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANQA1ADkANQAuADMAMgA1ADYANwAAAAAAAAAA
+AG8AbgAAADEALgAwAC4ANQA1ADkANgAuADIAOAA0ADQAOAAAAAAASAAPAAEAQQBzAHMAZQBtAGIA
+bAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4ANQA1ADkANgAuADIAOAA0ADQAOAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -957,7 +1037,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAwAAADQPgAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAwAAABgPgAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -967,12 +1047,23 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
-              <Breakpoint
-                Enabled="True"
-                File="ScriptMain.cs"
-                Line="101"
-                Column="13" />
             </ScriptProject>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Crear  Catalogos\Limpia Variables"
+          DTS:CreationName="Microsoft.ExpressionTask"
+          DTS:Description="Expression Task"
+          DTS:DTSID="{6E358689-DA5B-4446-8279-5E4622534C7D}"
+          DTS:ExecutableType="Microsoft.ExpressionTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Limpia Variables"
+          DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <ExpressionTask
+              Expression="@[User::ColumnasCompleta]=&quot;&quot;" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -998,6 +1089,29 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </SQLTask:SqlTaskData>
           </DTS:ObjectData>
         </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Crear  Catalogos\Query crea columnas"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5195813c-f91e-4fc5-8083-3ffaea128ccc}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Query crea columnas"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{27AD999B-6631-4602-A94E-B4BB43449A96}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::ConsultaSQLCreaColumansExcel"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="0"
+                SQLTask:DtsVariableName="User::Aux" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
       </DTS:Executables>
       <DTS:PrecedenceConstraints>
         <DTS:PrecedenceConstraint
@@ -1019,11 +1133,43 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:PrecedenceConstraint
           DTS:refId="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 2]"
           DTS:CreationName=""
-          DTS:DTSID="{F1329304-5D8C-4252-A2E8-4971298E50D1}"
+          DTS:DTSID="{27621A11-F485-47FF-A8EB-E03917C92955}"
           DTS:From="Package\Crear  Catalogos\Foreach Loop Container"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 2"
           DTS:To="Package\Crear  Catalogos\Formatea Columnas" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{1F825F52-84A7-49C6-903C-AEB88F5868D9}"
+          DTS:From="Package\Crear  Catalogos\Formatea Columnas"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Crear  Catalogos\Query crea columnas" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{9705A98E-5CF4-405A-8B05-5D60B04D4176}"
+          DTS:From="Package\Crear  Catalogos\Query crea columnas"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Crear  Catalogos\Crea columnas" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{869E9D31-5D00-4D77-95B4-2B1FF766369C}"
+          DTS:From="Package\Crear  Catalogos\Crea columnas"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\Crear  Catalogos\Execute SQL Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 6]"
+          DTS:CreationName=""
+          DTS:DTSID="{D5296DA3-1557-4204-891E-DCC59B33D64D}"
+          DTS:From="Package\Crear  Catalogos\Execute SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 6"
+          DTS:To="Package\Crear  Catalogos\Limpia Variables" />
       </DTS:PrecedenceConstraints>
       <DTS:ForEachVariableMappings>
         <DTS:ForEachVariableMapping
@@ -1048,11 +1194,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{27AD999B-6631-4602-A94E-B4BB43449A96}"
-          SQLTask:SqlStatementSource="DECLARE @Server varchar(50) &#xA;SET @Server = @@SERVERNAME &#xA;-- This ServerOption Should be Turned on &#xA;EXEC sp_serveroption  @Server,'DATA ACCESS','TRUE'&#xA;&#xA;SELECT [TableName] = so.name &#xA;                FROM sysobjects so, sysindexes si &#xA;                WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.name)&#xA;                GROUP BY so.name &#xA;                ORDER BY 1 DESC"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::ConsultaObtenTablas"
           SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ResultBinding
             SQLTask:ResultName="0"
             SQLTask:DtsVariableName="User::Tablas" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::TablasRequeridas"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
         </SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -1086,19 +1239,46 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="149,42"
           Id="Package\Crea Directorio"
-          TopLeft="348.714285714286,183.964285714286" />
+          TopLeft="180.380952380953,1.63095238095272" />
+        <NodeLayout
+          Size="148,42"
+          Id="Package\Crear  Catalogos\Crea columnas"
+          TopLeft="70,459" />
         <NodeLayout
           Size="132,42"
           Id="Package\Crear  Catalogos\Crear Excel"
           TopLeft="73,17" />
         <NodeLayout
+          Size="163,42"
+          Id="Package\Crear  Catalogos\Execute SQL Task"
+          TopLeft="63.7142857142858,528.285714285714" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Crear  Catalogos\Foreach Loop Container\Expression Task"
+          TopLeft="44,21" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="238,79"
+          Size="238,122"
+          Id="Package\Crear  Catalogos\Foreach Loop Container"
+          TopLeft="22,159" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Crear  Catalogos\Formatea Columnas"
+          TopLeft="58.4166666666667,312.666666666667" />
+        <NodeLayout
           Size="155,42"
           Id="Package\Crear  Catalogos\Obten columnas"
           TopLeft="63,88" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Crear  Catalogos\Query crea columnas"
+          TopLeft="56,385" />
         <EdgeLayout
           Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint]"
           TopLeft="139.75,59">
@@ -1121,17 +1301,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="155,42"
-          Id="Package\Crear  Catalogos\Foreach Loop Container\Expression Task"
-          TopLeft="44,21" />
-        <ContainerLayout
-          HeaderHeight="43"
-          IsExpanded="True"
-          PanelSize="238,79"
-          Size="238,122"
-          Id="Package\Crear  Catalogos\Foreach Loop Container"
-          TopLeft="22,159" />
         <EdgeLayout
           Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 1]"
           TopLeft="140.75,130">
@@ -1154,24 +1323,112 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="173,42"
-          Id="Package\Crear  Catalogos\Formatea Columnas"
-          TopLeft="56.75,316" />
         <EdgeLayout
           Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 2]"
-          TopLeft="142.125,281">
+          TopLeft="142.958333333333,281">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,35"
+              EndConnector="0,31.6666666666666"
               Start="0,0"
-              End="0,27.5">
+              End="0,24.1666666666666">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,27.5" />
+                    End="0,24.1666666666666" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 3]"
+          TopLeft="144.958333333333,354.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,30.3333333333334"
+              Start="0,0"
+              End="0,22.8333333333334">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.8333333333334" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 4]"
+          TopLeft="144.5,427">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32.0000000000001"
+              Start="0,0"
+              End="0,24.5000000000001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5000000000001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 5]"
+          TopLeft="144.607142857143,501">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.285714285714"
+              Start="0,0"
+              End="0,19.785714285714">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.785714285714" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="156,42"
+          Id="Package\Crear  Catalogos\Limpia Variables"
+          TopLeft="67,593" />
+        <EdgeLayout
+          Id="Package\Crear  Catalogos.PrecedenceConstraints[Constraint 6]"
+          TopLeft="145.107142857143,570.285714285714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,22.714285714286"
+              Start="0,0"
+              End="0,15.214285714286">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.214285714286" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1183,17 +1440,17 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="280,493"
-          Size="280,536"
+          PanelSize="280,672"
+          Size="280,715"
           Id="Package\Crear  Catalogos"
-          TopLeft="284,325" />
+          TopLeft="120.666666666667,142.666666666667" />
         <NodeLayout
           Size="141,42"
           Id="Package\Obten Tablas"
-          TopLeft="354,254" />
+          TopLeft="185.666666666667,71.6666666666667" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="423.857142857143,225.964285714286">
+          TopLeft="255.52380952381,43.6309523809527">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -1215,18 +1472,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="424.25,296">
+          TopLeft="258.416666666667,113.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,29"
+              EndConnector="0,29.0000000000003"
               Start="0,0"
-              End="0,21.5">
+              End="0,21.5000000000003">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,21.5" />
+                    End="0,21.5000000000003" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
