@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
@@ -58,18 +60,20 @@ namespace Universidad.WebAdministrativa.Controllers
 
             var serviciosSistema = new SvcMenuSistemaC(sesion);
 
-            serviciosSistema.TraeMenuArbolWadmFinalizado += delegate(List<SIS_WADM_ARBOLMENU> lista)
+            serviciosSistema.TraeArbolMenuMvcFinalizado += delegate(List<SIS_WADM_ARBOLMENU_MVC> lista)
             {
                 AsyncManager.Parameters["listaArbol"] = lista;
                 AsyncManager.OutstandingOperations.Decrement();
             };
+
             AsyncManager.OutstandingOperations.Increment();
-            serviciosSistema.TraeMenuArbolWadmAsyncrono(usuario);
+            serviciosSistema.TraeArbolMenuMvc(usuario);
         }
 
-        public ViewResult ObtenArbolMenuWadmCompleted(List<SIS_WADM_ARBOLMENU> listaArbol)
+        public ViewResult ObtenArbolMenuWadmCompleted(List<SIS_WADM_ARBOLMENU_MVC> listaArbol)
         {
             ViewData["listaArbol"] = listaArbol;
+
             return View("ObtenArbolMenuWadm");
         }
     }

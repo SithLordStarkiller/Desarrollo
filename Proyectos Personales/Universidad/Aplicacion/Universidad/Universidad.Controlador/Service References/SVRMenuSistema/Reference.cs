@@ -38,6 +38,14 @@ namespace Universidad.Controlador.SVRMenuSistema {
         System.IAsyncResult BeginTraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU> EndTraeArbolMenuWadm(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvc", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvcResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC> TraeArbolMenuMvc(Universidad.Entidades.US_USUARIOS usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvc", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvcResponse")]
+        System.IAsyncResult BeginTraeArbolMenuMvc(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC> EndTraeArbolMenuMvc(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -103,6 +111,25 @@ namespace Universidad.Controlador.SVRMenuSistema {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class TraeArbolMenuMvcCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public TraeArbolMenuMvcCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class MenusSistemaSClient : System.ServiceModel.ClientBase<Universidad.Controlador.SVRMenuSistema.IMenusSistemaS>, Universidad.Controlador.SVRMenuSistema.IMenusSistemaS {
         
         private BeginOperationDelegate onBeginTraeArbolDelegate;
@@ -122,6 +149,12 @@ namespace Universidad.Controlador.SVRMenuSistema {
         private EndOperationDelegate onEndTraeArbolMenuWadmDelegate;
         
         private System.Threading.SendOrPostCallback onTraeArbolMenuWadmCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginTraeArbolMenuMvcDelegate;
+        
+        private EndOperationDelegate onEndTraeArbolMenuMvcDelegate;
+        
+        private System.Threading.SendOrPostCallback onTraeArbolMenuMvcCompletedDelegate;
         
         public MenusSistemaSClient() {
         }
@@ -147,6 +180,8 @@ namespace Universidad.Controlador.SVRMenuSistema {
         public event System.EventHandler<TraerMenusCompletedEventArgs> TraerMenusCompleted;
         
         public event System.EventHandler<TraeArbolMenuWadmCompletedEventArgs> TraeArbolMenuWadmCompleted;
+        
+        public event System.EventHandler<TraeArbolMenuMvcCompletedEventArgs> TraeArbolMenuMvcCompleted;
         
         public System.Collections.Generic.List<Universidad.Entidades.SIS_AADM_ARBOLMENUS> TraeArbol() {
             return base.Channel.TraeArbol();
@@ -294,6 +329,56 @@ namespace Universidad.Controlador.SVRMenuSistema {
             }
             base.InvokeAsync(this.onBeginTraeArbolMenuWadmDelegate, new object[] {
                         usuario}, this.onEndTraeArbolMenuWadmDelegate, this.onTraeArbolMenuWadmCompletedDelegate, userState);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC> TraeArbolMenuMvc(Universidad.Entidades.US_USUARIOS usuario) {
+            return base.Channel.TraeArbolMenuMvc(usuario);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginTraeArbolMenuMvc(Universidad.Entidades.US_USUARIOS usuario, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginTraeArbolMenuMvc(usuario, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC> EndTraeArbolMenuMvc(System.IAsyncResult result) {
+            return base.Channel.EndTraeArbolMenuMvc(result);
+        }
+        
+        private System.IAsyncResult OnBeginTraeArbolMenuMvc(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Universidad.Entidades.US_USUARIOS usuario = ((Universidad.Entidades.US_USUARIOS)(inValues[0]));
+            return this.BeginTraeArbolMenuMvc(usuario, callback, asyncState);
+        }
+        
+        private object[] OnEndTraeArbolMenuMvc(System.IAsyncResult result) {
+            System.Collections.Generic.List<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC> retVal = this.EndTraeArbolMenuMvc(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnTraeArbolMenuMvcCompleted(object state) {
+            if ((this.TraeArbolMenuMvcCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.TraeArbolMenuMvcCompleted(this, new TraeArbolMenuMvcCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void TraeArbolMenuMvcAsync(Universidad.Entidades.US_USUARIOS usuario) {
+            this.TraeArbolMenuMvcAsync(usuario, null);
+        }
+        
+        public void TraeArbolMenuMvcAsync(Universidad.Entidades.US_USUARIOS usuario, object userState) {
+            if ((this.onBeginTraeArbolMenuMvcDelegate == null)) {
+                this.onBeginTraeArbolMenuMvcDelegate = new BeginOperationDelegate(this.OnBeginTraeArbolMenuMvc);
+            }
+            if ((this.onEndTraeArbolMenuMvcDelegate == null)) {
+                this.onEndTraeArbolMenuMvcDelegate = new EndOperationDelegate(this.OnEndTraeArbolMenuMvc);
+            }
+            if ((this.onTraeArbolMenuMvcCompletedDelegate == null)) {
+                this.onTraeArbolMenuMvcCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnTraeArbolMenuMvcCompleted);
+            }
+            base.InvokeAsync(this.onBeginTraeArbolMenuMvcDelegate, new object[] {
+                        usuario}, this.onEndTraeArbolMenuMvcDelegate, this.onTraeArbolMenuMvcCompletedDelegate, userState);
         }
     }
 }

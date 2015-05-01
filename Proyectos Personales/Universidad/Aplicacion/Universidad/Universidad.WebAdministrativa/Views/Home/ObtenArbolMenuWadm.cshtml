@@ -3,9 +3,11 @@
 @if (ViewData["listaArbol"] != null)
 {
 
-    foreach (var item in ((List<SIS_WADM_ARBOLMENU>) ViewData["listaArbol"]))
+    foreach (var item in ((List<SIS_WADM_ARBOLMENU_MVC>) ViewData["listaArbol"]))
     {
-        @item.NOMBRE
+        if (item.IDMENUPADRE == null)
+        {
+        }
     }
 }
 else

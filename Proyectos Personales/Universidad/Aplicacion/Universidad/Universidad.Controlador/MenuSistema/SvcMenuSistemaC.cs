@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Universidad.Controlador.SVRMenuSistema;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
@@ -65,7 +64,7 @@ namespace Universidad.Controlador.MenuSistema
 
         #endregion
 
-        #region TraeMenuArbolWadmAsyncrono
+        #region TraeMenuArbolWadmAsyncronous
 
         public delegate void TraeMenuArbolWadmArgs(List<SIS_WADM_ARBOLMENU> lista);
 
@@ -90,6 +89,27 @@ namespace Universidad.Controlador.MenuSistema
         public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
         {
             return _servicio.TraeArbolMenuWadm(usuario);
+        }
+
+        #endregion
+
+        #region TraeArbolMenuMvc
+
+        public delegate void TraeArbolMenuMvcArgs(List<SIS_WADM_ARBOLMENU_MVC> lista);
+
+        public event TraeArbolMenuMvcArgs TraeArbolMenuMvcFinalizado;
+
+        public void TraeArbolMenuMvc(US_USUARIOS usuario)
+        {
+            _servicio.TraeArbolMenuMvcCompleted += _servicio_TraeArbolMenuMvcCompleted;
+            _servicio.TraeArbolMenuMvcAsync(usuario);
+        }
+
+        private void _servicio_TraeArbolMenuMvcCompleted(object sender, TraeArbolMenuMvcCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+            var lista = e.Result;
+            TraeArbolMenuMvcFinalizado(lista);
         }
 
         #endregion
