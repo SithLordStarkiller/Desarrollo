@@ -1,0 +1,31 @@
+﻿
+@{
+    var titulo = ViewBag.Title = "PersonaDefault";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br/>
+<h2>PersonaDefault</h2>
+<br/>
+@using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Add Customer</legend>
+        <div>
+            <label for="a">Company Name:</label>
+            <input type="text" name="a" value="" />
+        </div>
+        <div>
+            <label for="b">Contact Name:</label>
+            <input type="text" name="b" value="" />
+        </div>
+        <div>
+            <label for="c">Employee Count:</label>
+            <input type="text" name="c" value="" />
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <input type="submit" value="Submit">
+        </div>
+    </fieldset>
+}

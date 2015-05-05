@@ -45,15 +45,16 @@ namespace Universidad.WebAdministrativa.Controllers
         public ActionResult DefaultCompleted(Sesion sesion, US_USUARIOS usuario, PER_PERSONAS persona,
             US_CAT_TIPO_USUARIO tipoUsuario)
         {
-            ViewBag.Nombre = persona.NOMBRE_COMPLETO;
+            ViewBag.Nombre = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
             ViewBag.TipoUsuario = tipoUsuario.TIPO_USUARIO;
             Session["Sesion"] = sesion;
             Session["Usuario"] = usuario;
             Session["Persona"] = persona;
+            Session["TipoPersona"] = tipoUsuario;
             return View();
         }
 
-       public List<MenuSisWadmE> ObtenArbol(List<SIS_WADM_ARBOLMENU_MVC> listaArbol, int? parentid)
+        public List<MenuSisWadmE> ObtenArbol(List<SIS_WADM_ARBOLMENU_MVC> listaArbol, int? parentid)
         {
             return (from men in listaArbol
                     where men.IDMENUPADRE == parentid
@@ -71,7 +72,7 @@ namespace Universidad.WebAdministrativa.Controllers
                     }).ToList();
         }
 
-       public PartialViewResult ObtenArbolMenuWadm()
+        public PartialViewResult ObtenArbolMenuWadm()
         {
             var sesion = (Sesion)Session["Sesion"];
             var usuario = (US_USUARIOS)Session["Usuario"];
@@ -79,7 +80,7 @@ namespace Universidad.WebAdministrativa.Controllers
             var serviciosSistema = new SvcMenuSistemaC(sesion);
 
             var listaArbol = serviciosSistema.TraeArbolMenuSyncrono(usuario);
-            
+
             var lista = ObtenArbol(listaArbol, null);
             ViewBag.listaArbol = lista;
 

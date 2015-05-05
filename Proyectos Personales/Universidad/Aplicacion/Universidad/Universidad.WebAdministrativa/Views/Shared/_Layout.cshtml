@@ -1,5 +1,4 @@
-﻿<% Page Async="true" %>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -14,82 +13,11 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#nav li").hover(
-                function () {
-                    $(this).children('ul').hide();
-                    $(this).children('ul').slideDown('fast');
-                },
-                function () {
-                    $('ul', this).slideUp('fast');
-                });
-        });
-    </script>
-    <style>
-        
-        .menu {
-            margin: 0px auto;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            font-size: 14px;
-        }
+    @{
+        string tipoUsuario = ViewBag.TipoUsuario.ToString();
+        string nombre = ViewBag.Nombre.ToString();
+    }
 
-            .menu ul li a:link, div ul li a:visited {
-                display: block;
-                background-color: #f1f1f1;
-                color: #000;
-                text-align: center;
-                text-decoration: none;
-                padding: 4px;
-                border-bottom: 1px solid #fff;
-                width: 150px;
-            }
-
-            .menu ul li a:hover {
-                background-color: #ccc;
-            }
-
-            .menu ul li ul li a:link, li ul li a:visited {
-                display: block;
-                background-color: #f1f1f1;
-                color: #000;
-                text-align: center;
-                text-decoration: none;
-                padding: 4px;
-                border-bottom: 1px solid #fff;
-                width: 150px;
-            }
-
-            .menu ul li ul li a:hover {
-                background-color: #ccc;
-            }
-
-            .menu ul {
-                list-style-type: none;
-                margin: 0px;
-                padding: 0px;
-            }
-
-                .menu ul li {
-                    float: left;
-                    margin-left: 5px;
-                }
-
-                    .menu ul li ul li {
-                        float: none;
-                        margin-left: 0px;
-                    }
-
-                    .menu ul li ul {
-                        display: none;
-                    }
-
-            .menu li:hover ul {
-                display: block;
-                margin: 2px;
-            }
-    </style>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -100,12 +28,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <label class="navbar-right navbar-text text-center text-info">Bienvenido @ViewBag.Nombre</label>
+                @Html.Label("Bienvenido " + nombre, new { @class = "navbar-right navbar-text text-center text-info" })
             </div>
             <div class="navbar" id="navBar">
                 <lu class="nav navbar-nav navbar-right">
                     <li>
-                        <label class="navbar-text navbar-header">@ViewBag.TipoUsuario</label>
+
+                        @Html.Label(tipoUsuario, new { @class = "navbar-text navbar-header" })
                     </li>
                     <li></li>
                     <li>
@@ -123,10 +52,10 @@
         <br />
         <br />
         <br />
-        <div class="menu">
+        <div class="menu" style="width: 100%; height: 1%;">
             @Html.Action("ObtenArbolMenuWadm", "Home")
         </div>
-        <div>
+        <div style="width:100%">
             @RenderBody()
         </div>
         <hr />
