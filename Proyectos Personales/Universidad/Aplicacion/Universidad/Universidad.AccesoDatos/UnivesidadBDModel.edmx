@@ -201,6 +201,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="NOMBRE" Type="varchar" MaxLength="100" />
           <Property Name="CONTROLLER" Type="varchar" MaxLength="100" />
           <Property Name="ACTION" Type="varchar" MaxLength="100" />
+          <Property Name="URL" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="US_CAT_ESTATUS_USUARIO">
           <Key>
@@ -1095,6 +1096,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="NOMBRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CONTROLLER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ACTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="US_CAT_TIPO_USUARIO" Relationship="UniversidadDBModel.FK_MENU_US_TIPO_USUARIO" FromRole="SIS_WADM_ARBOLMENU_MVC" ToRole="US_CAT_TIPO_USUARIO" />
           <NavigationProperty Name="SIS_WADM_ARBOLMENU_MVC1" Relationship="UniversidadDBModel.FK_SIS_WADM_MVC_REC" FromRole="SIS_WADM_ARBOLMENU_MVC" ToRole="SIS_WADM_ARBOLMENU_MVC1" />
           <NavigationProperty Name="SIS_WADM_ARBOLMENU_MVC2" Relationship="UniversidadDBModel.FK_SIS_WADM_MVC_REC" FromRole="SIS_WADM_ARBOLMENU_MVC1" ToRole="SIS_WADM_ARBOLMENU_MVC" />
@@ -1698,6 +1700,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySetMapping Name="SIS_WADM_ARBOLMENU_MVC">
             <EntityTypeMapping TypeName="UniversidadDBModel.SIS_WADM_ARBOLMENU_MVC">
               <MappingFragment StoreEntitySet="SIS_WADM_ARBOLMENU_MVC">
+                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="ACTION" ColumnName="ACTION" />
                 <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />

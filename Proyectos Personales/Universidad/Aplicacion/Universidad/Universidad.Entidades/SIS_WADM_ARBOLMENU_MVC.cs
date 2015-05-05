@@ -52,6 +52,10 @@ namespace Universidad.Entidades
         public string ACTION { get; set; }
     
     
+    	[DataMember]
+        public string URL { get; set; }
+    
+    
         public virtual US_CAT_TIPO_USUARIO US_CAT_TIPO_USUARIO { get; set; }
         public virtual ICollection<SIS_WADM_ARBOLMENU_MVC> SIS_WADM_ARBOLMENU_MVC1 { get; set; }
         public virtual SIS_WADM_ARBOLMENU_MVC SIS_WADM_ARBOLMENU_MVC2 { get; set; }

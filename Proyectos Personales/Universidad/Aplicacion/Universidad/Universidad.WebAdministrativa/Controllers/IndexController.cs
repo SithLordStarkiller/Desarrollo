@@ -39,8 +39,13 @@ namespace Universidad.WebAdministrativa.Controllers
 
         public ActionResult LogInCompleted(US_USUARIOS usuario, Sesion sesion)
         {
-            TempData["usuario"] = usuario;
-            TempData["sesion"] = sesion;
+            System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
+            System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
+            System.Web.HttpContext.Current.Session["Persona"] = "Persona";
+
+            Session["Sesion"] = sesion;
+            Session["Usuario"] = usuario;
+
             return RedirectToAction("Default", "Home");
         }
     }

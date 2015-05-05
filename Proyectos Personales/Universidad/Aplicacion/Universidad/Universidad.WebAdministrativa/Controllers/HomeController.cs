@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Universidad.Controlador.GestionCatalogos;
@@ -14,8 +13,8 @@ namespace Universidad.WebAdministrativa.Controllers
     {
         public void DefaultAsync()
         {
-            var sesion = (Sesion)TempData["sesion"];
-            var usuario = (US_USUARIOS)TempData["usuario"];
+            var sesion = (Sesion)Session["Sesion"];
+            var usuario = (US_USUARIOS)Session["Usuario"];
             var servicioLogin = new SVC_LoginAdministrativos(sesion);
             var serviciosCatalogos = new SVC_GestionCatalogos(sesion);
 
@@ -25,6 +24,7 @@ namespace Universidad.WebAdministrativa.Controllers
             servicioLogin.ObtenNombreCompletoFinalizado += delegate(PER_PERSONAS persona)
             {
                 AsyncManager.Parameters["persona"] = persona;
+                Session["Persona"] = persona;
                 AsyncManager.OutstandingOperations.Decrement();
             };
 
@@ -47,34 +47,43 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             ViewBag.Nombre = persona.NOMBRE_COMPLETO;
             ViewBag.TipoUsuario = tipoUsuario.TIPO_USUARIO;
-            TempData["sesion"] = sesion;
-            TempData["usuario"] = usuario;
-            TempData["persona"] = persona;
+            Session["Sesion"] = sesion;
+            Session["Usuario"] = usuario;
+            Session["Persona"] = persona;
             return View();
         }
 
-        public void ObtenArbolMenuWadmAsync()
+       public List<MenuSisWadmE> ObtenArbol(List<SIS_WADM_ARBOLMENU_MVC> listaArbol, int? parentid)
         {
-            var sesion = (Sesion) TempData["sesion"];
-            var usuario = (US_USUARIOS) TempData["usuario"];
+            return (from men in listaArbol
+                    where men.IDMENUPADRE == parentid
+                    select new MenuSisWadmE
+                    {
+                        IdMenuHijo = men.IDMENU,
+                        IdMenuPadre = men.IDMENUPADRE,
+                        IdTipoUsurio = men.ID_TIPO_USUARIO,
+                        IdNivelUsuario = men.ID_NIVEL_USUARIO,
+                        Nombre = men.NOMBRE,
+                        Controller = men.CONTROLLER,
+                        Method = men.ACTION,
+                        Url = men.URL,
+                        Hijos = ObtenArbol(listaArbol, men.IDMENU)
+                    }).ToList();
+        }
+
+       public PartialViewResult ObtenArbolMenuWadm()
+        {
+            var sesion = (Sesion)Session["Sesion"];
+            var usuario = (US_USUARIOS)Session["Usuario"];
 
             var serviciosSistema = new SvcMenuSistemaC(sesion);
 
-            serviciosSistema.TraeArbolMenuMvcFinalizado += delegate(List<SIS_WADM_ARBOLMENU_MVC> lista)
-            {
-                AsyncManager.Parameters["listaArbol"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var listaArbol = serviciosSistema.TraeArbolMenuSyncrono(usuario);
+            
+            var lista = ObtenArbol(listaArbol, null);
+            ViewBag.listaArbol = lista;
 
-            AsyncManager.OutstandingOperations.Increment();
-            serviciosSistema.TraeArbolMenuMvc(usuario);
-        }
-
-        public ViewResult ObtenArbolMenuWadmCompleted(List<SIS_WADM_ARBOLMENU_MVC> listaArbol)
-        {
-            ViewData["listaArbol"] = listaArbol;
-
-            return View("ObtenArbolMenuWadm");
+            return PartialView("ObtenArbolMenuWadm");
         }
     }
 }

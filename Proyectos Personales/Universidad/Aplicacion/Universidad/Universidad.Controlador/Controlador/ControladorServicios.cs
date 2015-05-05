@@ -28,7 +28,7 @@ namespace Universidad.Controlador.Controlador
         {
             try
             {
-                return new System.ServiceModel.EndpointAddress(sesion.Conexion + direcctorio + servicio);
+                return sesion != null ? new System.ServiceModel.EndpointAddress(sesion.Conexion + direcctorio + servicio) : null;
             }
             catch (UriFormatException)
             {

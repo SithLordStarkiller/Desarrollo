@@ -1,14 +1,10 @@
-﻿@using Universidad.Entidades
+﻿@using Universidad.Entidades.ControlUsuario
 
-@if (ViewData["listaArbol"] != null)
+@if (ViewBag.listaArbol != null)
 {
-
-    foreach (var item in ((List<SIS_WADM_ARBOLMENU_MVC>) ViewData["listaArbol"]))
-    {
-        if (item.IDMENUPADRE == null)
-        {
-        }
-    }
+    var menuList = ViewBag.listaArbol as List<MenuSisWadmE>;
+    
+        Html.RenderPartial("MenuParcial", menuList);
 }
 else
 {

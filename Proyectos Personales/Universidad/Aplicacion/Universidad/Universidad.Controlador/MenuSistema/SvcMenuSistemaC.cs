@@ -93,7 +93,7 @@ namespace Universidad.Controlador.MenuSistema
 
         #endregion
 
-        #region TraeArbolMenuMvc
+        #region TraeArbolMenuMvcAsynchronous
 
         public delegate void TraeArbolMenuMvcArgs(List<SIS_WADM_ARBOLMENU_MVC> lista);
 
@@ -110,6 +110,15 @@ namespace Universidad.Controlador.MenuSistema
             if (e.Result == null) return;
             var lista = e.Result;
             TraeArbolMenuMvcFinalizado(lista);
+        }
+
+        #endregion
+
+        #region TraeArbolMenuMvcSynchronous
+
+        public List<SIS_WADM_ARBOLMENU_MVC> TraeArbolMenuSyncrono(US_USUARIOS usuario)
+        {
+            return _servicio.TraeArbolMenuMvc(usuario);
         }
 
         #endregion

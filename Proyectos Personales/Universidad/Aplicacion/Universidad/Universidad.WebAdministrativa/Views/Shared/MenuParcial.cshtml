@@ -1,0 +1,16 @@
+﻿@model List<Universidad.Entidades.ControlUsuario.MenuSisWadmE>
+
+@if (Model != null)
+{
+    foreach (var menuitem in Model)
+    {
+        <ul class="menu">
+            <li>
+                @Html.ActionLink(@menuitem.Nombre,menuitem.Method,menuitem.Controller)
+                @{
+                    Html.RenderPartial("MenuParcial", menuitem.Hijos);
+                }
+            </li>
+        </ul>
+    }
+}
