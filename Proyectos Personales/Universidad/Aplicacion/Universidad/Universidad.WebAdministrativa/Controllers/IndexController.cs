@@ -13,10 +13,6 @@ namespace Universidad.WebAdministrativa.Controllers
             return View();
         }
 
-        public void LogInAsync()
-        {
-        }
-
         [HttpPost]
         public void LogInAsync(Sesion sesion)
         {
@@ -42,6 +38,15 @@ namespace Universidad.WebAdministrativa.Controllers
             Session["Usuario"] = usuario;
 
             return RedirectToAction("Default", "Home");
+        }
+
+        public ActionResult CerrarSesion()
+        {
+            Session["Sesion"] = null;
+            Session["Usuario"] = null;
+            Session["Persona"] = null;
+            Session["TipoPersona"] = null;
+            return View("Index");
         }
     }
 }
