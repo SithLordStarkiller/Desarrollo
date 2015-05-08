@@ -63,7 +63,7 @@ namespace Universidad.Controlador.Login
             try
             {
 
-                if (e.Result == null) return;
+                //if (e.Result == null) return;
 
                 var resultado = e.Result;
                 var usuario = resultado;

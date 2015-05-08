@@ -28,16 +28,64 @@ namespace Universidad.WebAdministrativa.Controllers
             servidorLogin.LoginAdministrativo(sesion.Usuario, sesion.Contrasena);
         }
 
-        public ActionResult LogInCompleted(US_USUARIOS usuario, Sesion sesion)
+        //public ActionResult LogInCompleted(US_USUARIOS usuario, Sesion sesion)
+        //{
+        //    System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
+        //    System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
+        //    System.Web.HttpContext.Current.Session["Persona"] = "Persona";
+
+        //    Session["Sesion"] = sesion;
+        //    Session["Usuario"] = usuario;
+        //    if (usuario != null)
+        //    {
+        //        return RedirectToAction("Default", "Home");
+        //    }
+
+        //    ViewBag.Error = "Error login";
+        //    return RedirectToAction("Index", "Index");
+        //}
+        public string LogInCompleted(US_USUARIOS usuario, Sesion sesion)
         {
-            System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
-            System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
-            System.Web.HttpContext.Current.Session["Persona"] = "Persona";
+            var resultado = "";
 
-            Session["Sesion"] = sesion;
-            Session["Usuario"] = usuario;
+            if (usuario != null)
+            {
+                if (usuario.USUARIO == "Problema de conexion con el servidor")
+                {
+                    resultado = "Error de conexicon conservidor";
+                    
+                }
 
-            return RedirectToAction("Default", "Home");
+                switch (usuario.ID_NIVEL_USUARIO)
+                {
+                    case 1:
+                        System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
+                        System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
+                        System.Web.HttpContext.Current.Session["Persona"] = "Persona";
+                        Session["Sesion"] = sesion;
+                        Session["Usuario"] = usuario;
+
+                        resultado = "Correcto";
+
+                        break;
+                    case 2:
+
+                        resultado = "La cuenta se encuentra suspendida";
+
+                        break;
+                    case 3:
+
+                        resultado = "La cuenta se encuentra cancelada";
+
+                        break;
+                }
+            }
+            else
+            {
+                resultado = "Usuario o contraseña incorrectos";
+            }
+
+            return resultado;
         }
 
         public ActionResult CerrarSesion()

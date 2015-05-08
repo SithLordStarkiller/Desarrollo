@@ -59,8 +59,8 @@ namespace Universidad.AplicacionAdministrativa
         {
             try
             {
-                _usuario = "ecruzlagunes";//TXB_Usuario.Text;
-                _contrasena = "A@141516182235";//TXB_Contrasena.Text;
+                _usuario = TXB_Usuario.Text;
+                _contrasena = TXB_Contrasena.Text;
                 _inicioAutomatico = !_sesion.RecordarSesion && ckbRecordarSesion.Checked;
                 _recordarDatos = ckbRecodarDatos.Checked;
 

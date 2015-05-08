@@ -16,9 +16,9 @@ namespace Universidad.WebAdministrativa.Controllers
             var sesion = Session["Sesion"];
             var usuario = Session["Usuario"];
             var persona = Session["Persona"];
-            var tipoPersona = Session["TipoPersona"];
+            //var tipoPersona = Session["TipoPersona"];
 
-            var activa = (sesion != null || usuario != null || persona != null || tipoPersona != null);
+            var activa = (sesion != null || usuario != null || persona != null );
 
             if (activa) return true;
 
@@ -32,14 +32,13 @@ namespace Universidad.WebAdministrativa.Controllers
             Session.Remove("Persona");
             Session.Remove("TipoPersona");
 
-            RedirectToAction("Index", "Index");
+            //RedirectToAction("Index", "Index");
             return false;
         }
 
         public void DefaultAsync()
         {
-            SesionActiva();
-
+            //SesionActiva();
             var sesion = (Sesion)Session["Sesion"];
             var usuario = (US_USUARIOS)Session["Usuario"];
             var servicioLogin = new SVC_LoginAdministrativos(sesion);
@@ -101,7 +100,7 @@ namespace Universidad.WebAdministrativa.Controllers
 
         public PartialViewResult ObtenArbolMenuWadm()
         {
-            SesionActiva();
+            //SesionActiva();
 
             var sesion = (Sesion)Session["Sesion"];
             var usuario = (US_USUARIOS)Session["Usuario"];
