@@ -1,7 +1,17 @@
 ﻿@{
-    var titulo = ViewBag.Title = "Registro de personas";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var titulo = ViewBag.Title = "Registro de personas";
+    var paises = ViewData["paises"];
+    var tiposPersona = ViewData["tiposPersona"];
+    var sexo = ViewData["sexo"];
 }
+
+@section Head
+{
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+}
+
 <div class="jumbotron">
     <br />
     <h2>@titulo</h2>
@@ -13,29 +23,70 @@
         </div>
         @using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
         {
-
             <fieldset>
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="input-group form-group col-md-12">
-                        <label for="a" class="input-group-addon">Company Name:</label>
-                        <input type="text" name="a" value="" class="form-control" placeholder="Company Name" />
-                        <label for="b" class="input-group-addon">Contact Name:</label>
-                        <input type="text" name="b" value="" class="form-control" placeholder="Contact Name" />
-                        <label for="e" class="input-group-addon">Employee acount:</label>
-                        <input type="text" name="e" value="" class="form-control" placeholder="Employee acount" />
+                        <label for="Nombre" class="input-group-addon">Nombres</label>
+                        <input type="text" name="Nombre" value="" class="form-control" placeholder="Nombre" />
+                        <label for="ApellidoP" class="input-group-addon">Apellido Paterno:</label>
+                        <input type="text" name="ApellidoP" value="" class="form-control" placeholder="Apellido Paterno" />
+                        <label for="ApellidoM" class="input-group-addon">Apellido Materno:</label>
+                        <input type="text" name="ApellidoM" value="" class="form-control" placeholder="Apellido Materno" />
                     </div>
                     <div class="input-group form-group col-md-12">
-                        <label for="c" class="input-group-addon">Employee acount:</label>
-                        <input type="text" name="c" value="" class="form-control" placeholder="Employee acount" />
-                        <label for="d" class="input-group-addon">Employee age:</label>
-                        <input type="text" name="d" value="" class="form-control" placeholder="Employee age" />
+                        <label for="Curp" class="input-group-addon">CURP:</label>
+                        <input type="text" name="Curp" value="" class="form-control" placeholder="CURP" />
+                        <label for="RFC" class="input-group-addon">RFC:</label>
+                        <input type="text" name="RFC" value="" class="form-control" placeholder="RFC" />
+                        <label for="Nss" class="input-group-addon">NSS:</label>
+                        <input type="text" name="Nss" value="" class="form-control" placeholder="Numero de seguro social" />
+                    </div>
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    <label for="Nacionalidad" class="input-group-addon">Nacionalidad:</label>
+                                    @Html.DropDownList("Nacionalidad", (List<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    <label for="Rol" class="input-group-addon">Rol:</label>
+                                    @Html.DropDownList("TipoPersona", (List<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="FechaNacimiento" placeholder="Fecha de nacimiento">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <div class="input-group">
+                                    <label for="Rol" class="input-group-addon">Sexo:</label>
+                                    @Html.DropDownList("Sexo", (List<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div style="margin-top: 10px; float: right;" class="form-group">
-                    <label>&nbsp;</label>
-                    <input type="submit" value="Registrar" class="btn btn-success btn-xs" style=" margin: 10px; padding: 10px;">
-                </div>
             </fieldset>
+            <div style="margin-top: 10px; float: right;" class="form-group">
+                <label>&nbsp;</label>
+                <input type="submit" value="Registrar" class="btn btn-success btn-xs" style=" margin: 10px; padding: 10px;">
+            </div>
         }
     </div>
 </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$("select").prop('class', 'selectpicker');
+            //$("select").attr('data-live-search', true);
+        });
+    </script>
+}
