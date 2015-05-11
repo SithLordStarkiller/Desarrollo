@@ -3,7 +3,6 @@ using System.Data;
 using System.Linq;
 using System.Data.SqlClient;
 using Universidad.Entidades;
-using Universidad.Helpers;
 
 namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 {

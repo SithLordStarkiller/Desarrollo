@@ -11,34 +11,10 @@ namespace Universidad.WebAdministrativa.Controllers
 {
     public class HomeController : AsyncController
     {
-        public bool SesionActiva()
-        {
-            var sesion = Session["Sesion"];
-            var usuario = Session["Usuario"];
-            var persona = Session["Persona"];
-            //var tipoPersona = Session["TipoPersona"];
 
-            var activa = (sesion != null || usuario != null || persona != null );
-
-            if (activa) return true;
-
-            Session["Sesion"] = null;
-            Session["Usuario"] = null;
-            Session["Persona"] = null;
-            Session["TipoPersona"] = null;
-
-            Session.Remove("Sesion");
-            Session.Remove("Usuario");
-            Session.Remove("Persona");
-            Session.Remove("TipoPersona");
-
-            //RedirectToAction("Index", "Index");
-            return false;
-        }
-
+        [SessionExpireFilter]
         public void DefaultAsync()
         {
-            //SesionActiva();
             var sesion = (Sesion)Session["Sesion"];
             var usuario = (US_USUARIOS)Session["Usuario"];
             var servicioLogin = new SVC_LoginAdministrativos(sesion);
@@ -68,6 +44,7 @@ namespace Universidad.WebAdministrativa.Controllers
             serviciosCatalogos.ObtenTipoUsuario(usuario.ID_USUARIO);
         }
 
+        [SessionExpireFilter]
         public ActionResult DefaultCompleted(Sesion sesion, US_USUARIOS usuario, PER_PERSONAS persona,
             US_CAT_TIPO_USUARIO tipoUsuario)
         {
@@ -80,6 +57,7 @@ namespace Universidad.WebAdministrativa.Controllers
             return View();
         }
 
+        [SessionExpireFilter]
         public List<MenuSisWadmE> ObtenArbol(List<SIS_WADM_ARBOLMENU_MVC> listaArbol, int? parentid)
         {
             return (from men in listaArbol
@@ -97,7 +75,8 @@ namespace Universidad.WebAdministrativa.Controllers
                         Hijos = ObtenArbol(listaArbol, men.IDMENU)
                     }).ToList();
         }
-
+        
+        [SessionExpireFilter]
         public PartialViewResult ObtenArbolMenuWadm()
         {
             //SesionActiva();

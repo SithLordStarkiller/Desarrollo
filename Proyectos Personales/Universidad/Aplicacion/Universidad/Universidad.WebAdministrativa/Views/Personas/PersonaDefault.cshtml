@@ -10,6 +10,18 @@
 @section Head
 {
     <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                language: "es"
+            });
+        });
+    </script>
 }
 
 <div class="jumbotron">
@@ -45,19 +57,19 @@
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
-                                    <label for="Nacionalidad" class="input-group-addon">Nacionalidad:</label>
+                                    <label class="input-group-addon">Nacionalidad:</label>
                                     @Html.DropDownList("Nacionalidad", (List<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <label for="Rol" class="input-group-addon">Rol:</label>
+                                    <label class="input-group-addon">Rol:</label>
                                     @Html.DropDownList("TipoPersona", (List<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="FechaNacimiento" placeholder="Fecha de nacimiento">
+                                <div class="input-group date">
+                                    <input id="fechaNacimiento" type="text" class="form-control datepicker">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -65,7 +77,7 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <div class="input-group">
-                                    <label for="Rol" class="input-group-addon">Sexo:</label>
+                                    <label class="input-group-addon">Sexo:</label>
                                     @Html.DropDownList("Sexo", (List<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
                                 </div>
                             </div>
@@ -80,13 +92,3 @@
         }
     </div>
 </div>
-
-@section scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            //$("select").prop('class', 'selectpicker');
-            //$("select").attr('data-live-search', true);
-        });
-    </script>
-}

@@ -9,9 +9,17 @@ namespace Universidad.WebAdministrativa.Controllers
 {
     public class PersonasController : AsyncController
     {
+        [SessionExpireFilter]
+        public void Sesion()
+        {
+            var persona = ((PER_PERSONAS)Session["Persona"]);
+            ViewBag.tipoUsuario = ((US_CAT_TIPO_USUARIO)Session["TipoPersona"]).TIPO_USUARIO;
+            ViewBag.nombre = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
+        }
+
+        [SessionExpireFilter]
         public void PersonaDefaultAsync()
         {
-            SesionActiva();
             Sesion();
 
             var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
@@ -33,9 +41,9 @@ namespace Universidad.WebAdministrativa.Controllers
             };
             AsyncManager.OutstandingOperations.Increment();
             servicioCatalogos.ObtenCatTipoPersona();
-
         }
 
+        [SessionExpireFilter]
         public ActionResult PersonaDefaultCompleted(List<PER_CAT_NACIONALIDAD> listaPaises, List<PER_CAT_TIPO_PERSONA> listaTiposPersona)
         {
             var paises = listaPaises
@@ -44,7 +52,7 @@ namespace Universidad.WebAdministrativa.Controllers
                     Value = c.CVE_NACIONALIDAD.ToString(CultureInfo.InvariantCulture),
                     Text = c.NOMBRE_PAIS
                 }).ToList();
-            
+
             var tiposPersona = listaTiposPersona
                 .Select(c => new SelectListItem
                 {
@@ -55,7 +63,7 @@ namespace Universidad.WebAdministrativa.Controllers
             var sexo = new List<SelectListItem>
             {
                 new SelectListItem {Value = "1", Text = "M"},
-                new SelectListItem {Value = "1", Text = "F"}
+                new SelectListItem {Value = "2", Text = "F"}
             };
 
             ViewData["paises"] = paises;
@@ -66,49 +74,16 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [HttpPost]
-        public void NuevaPersonaAsync(string a, string b, string c)
+        [SessionExpireFilter]
+        public void NuevaPersonaAsync(string nombre, string apellidoP, string apellidoM, string curp, string rfc, string nss, string nacionalidad)
         {
-            SesionActiva();
-
         }
 
+        [SessionExpireFilter]
         public ActionResult NuevaPersonaCompleted()
         {
-            SesionActiva();
             Sesion();
             return View();
-        }
-
-        public void Sesion()
-        {
-            var persona = ((PER_PERSONAS)Session["Persona"]);
-            ViewBag.tipoUsuario = ((US_CAT_TIPO_USUARIO)Session["TipoPersona"]).TIPO_USUARIO;
-            ViewBag.nombre = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
-        }
-
-        public bool SesionActiva()
-        {
-            var sesion = Session["Sesion"];
-            var usuario = Session["Usuario"];
-            var persona = Session["Persona"];
-            var tipoPersona = Session["TipoPersona"];
-
-            var activa = (sesion != null || usuario != null || persona != null || tipoPersona != null);
-
-            if (activa) return true;
-
-            Session["Sesion"] = null;
-            Session["Usuario"] = null;
-            Session["Persona"] = null;
-            Session["TipoPersona"] = null;
-
-            Session.Remove("Sesion");
-            Session.Remove("Usuario");
-            Session.Remove("Persona");
-            Session.Remove("TipoPersona");
-
-            RedirectToAction("Index", "Index");
-            return false;
         }
     }
 }
