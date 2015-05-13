@@ -18,7 +18,7 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
-    
+
     @RenderSection("Head", required: false)
     @RenderSection("Scripts", required: false)
 
@@ -26,7 +26,11 @@
         string tipoUsuario = ViewBag.TipoUsuario.ToString();
         string nombre = ViewBag.Nombre.ToString();
     }
-    
+
+    <style>
+        
+    </style>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -61,9 +65,9 @@
         <br />
         <br />
         <br />
-        <div>
+        <nav>
             @Html.Action("ObtenArbolMenuWadm", "Home")
-        </div>
+        </nav>
         <div style="width:100%">
             @RenderBody()
         </div>
