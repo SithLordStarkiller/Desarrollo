@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Entidades;
+using Universidad.WebAdministrativa.Models;
 
 namespace Universidad.WebAdministrativa.Controllers
 {
@@ -51,14 +52,14 @@ namespace Universidad.WebAdministrativa.Controllers
                 {
                     Value = c.CVE_NACIONALIDAD.ToString(CultureInfo.InvariantCulture),
                     Text = c.NOMBRE_PAIS
-                }).ToList();
+                }).ToArray();
 
             var tiposPersona = listaTiposPersona
                 .Select(c => new SelectListItem
                 {
                     Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
                     Text = c.TIPO_PERSONA
-                }).ToList();
+                }).ToArray();
 
             var sexo = new List<SelectListItem>
             {
@@ -68,19 +69,21 @@ namespace Universidad.WebAdministrativa.Controllers
 
             ViewData["paises"] = paises;
             ViewData["tipoPersona"] = tiposPersona;
-            ViewData["sexo"] = sexo;
+            ViewData["sexo"] = sexo.ToArray();
 
             return View();
         }
 
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
         [SessionExpireFilter]
-        public void NuevaPersonaAsync(string nombre, string apellidoP, string apellidoM, string curp, string rfc, string nss, string nacionalidad)
+        //[ActionName("Complex")]
+        public void NuevaPersonaAsync(ModelPersonaDatos xPersonaDatos)
         {
         }
 
+        [HttpPost]
         [SessionExpireFilter]
-        public ActionResult NuevaPersonaCompleted()
+        public ActionResult NuevaPersonaCompleted(ModelPersonaDatos x)
         {
             Sesion();
             return View();

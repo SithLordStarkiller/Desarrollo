@@ -1,11 +1,14 @@
-﻿@{
+﻿@model Universidad.WebAdministrativa.Models.ModelPersonaDatos
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var titulo = ViewBag.Title = "Registro de personas";
     var paises = ViewData["paises"];
-    var tiposPersona = ViewData["tiposPersona"];
+    var tiposPersona = ViewData["tipoPersona"];
     var sexo = ViewData["sexo"];
 }
+
 
 @section Head
 {
@@ -13,7 +16,8 @@
     <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
 }
-@section scripts
+
+@section Scripts
 {
     <script type="text/javascript">
         $(document).ready(function () {
@@ -23,7 +27,6 @@
         });
     </script>
 }
-
 <div class="jumbotron">
     <br />
     <h2>@titulo</h2>
@@ -35,50 +38,64 @@
         </div>
         @using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
         {
+            @Html.ValidationSummary(true)
             <fieldset>
+                @Html.ValidationMessage("Nombre", new { @class = "validation-summary-errors" })
+                @Html.ValidationMessageFor(x => x.Nombre)
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="input-group form-group col-md-12">
-                        <label for="Nombre" class="input-group-addon">Nombres</label>
-                        <input type="text" name="Nombre" value="" class="form-control" placeholder="Nombre" />
-                        <label for="ApellidoP" class="input-group-addon">Apellido Paterno:</label>
-                        <input type="text" name="ApellidoP" value="" class="form-control" placeholder="Apellido Paterno" />
-                        <label for="ApellidoM" class="input-group-addon">Apellido Materno:</label>
-                        <input type="text" name="ApellidoM" value="" class="form-control" placeholder="Apellido Materno" />
+                        @Html.LabelFor(x => x.Nombre, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                        @Html.HiddenFor(x => x.Nombre)
+                        @Html.ValidationMessageFor(x => x.Nombre)
+                        @Html.LabelFor(x => x.ApellidoP, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.ApellidoP, new { @class = "form-control", placeholder = "Apellido Paterno" })
+                        @Html.ValidationMessageFor(x => x.ApellidoP)
+                        @Html.LabelFor(x => x.ApellidoM, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.ApellidoM, new { @class = "form-control", placeholder = "Apellido Materno" })
+                        @Html.ValidationMessageFor(x => x.ApellidoM)
                     </div>
                     <div class="input-group form-group col-md-12">
-                        <label for="Curp" class="input-group-addon">CURP:</label>
-                        <input type="text" name="Curp" value="" class="form-control" placeholder="CURP" />
-                        <label for="RFC" class="input-group-addon">RFC:</label>
-                        <input type="text" name="RFC" value="" class="form-control" placeholder="RFC" />
-                        <label for="Nss" class="input-group-addon">NSS:</label>
-                        <input type="text" name="Nss" value="" class="form-control" placeholder="Numero de seguro social" />
+                        @Html.LabelFor(x => x.Curp, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Curp, new { @class = "form-control", placeholder = "CURP" })
+                        @Html.ValidationMessageFor(x => x.Curp)
+                        @Html.LabelFor(x => x.Rfc, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Rfc, new { @class = "form-control", placeholder = "RFC" })
+                        @Html.ValidationMessageFor(x => x.Rfc)
+                        @Html.LabelFor(x => x.Nss, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Nss, new { @class = "form-control", placeholder = "Numero de seguro social" })
+                        @Html.ValidationMessageFor(x => x.Nss)
                     </div>
                     <div class="row">
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
-                                    <label class="input-group-addon">Nacionalidad:</label>
-                                    @Html.DropDownList("Nacionalidad", (List<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
+                                    @Html.LabelFor(x => x.IdNacionalidad, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.IdNacionalidad, (IEnumerable<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
+                                    @Html.ValidationMessageFor(x => x.IdNacionalidad)
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    <label class="input-group-addon">Rol:</label>
-                                    @Html.DropDownList("TipoPersona", (List<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
+                                    @Html.LabelFor(x => x.IdTipoPersona, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.IdTipoPersona, (IEnumerable<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
+                                    @Html.ValidationMessageFor(x => x.IdTipoPersona)
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group date">
-                                    <input id="fechaNacimiento" type="text" class="form-control datepicker">
+                                    @Html.TextBoxFor(x => x.FechaNacimiento, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento" })
+                                    @Html.ValidationMessageFor(x => x.FechaNacimiento)
                                     <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
+                                        <span class="glyphicon glyphicon-calendar datepicker"></span>
                                     </span>
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
                                 <div class="input-group">
-                                    <label class="input-group-addon">Sexo:</label>
-                                    @Html.DropDownList("Sexo", (List<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
+                                    @Html.LabelFor(x => x.IdSexo, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.IdSexo, (IEnumerable<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
+                                    @Html.ValidationMessageFor(x => x.IdSexo)
                                 </div>
                             </div>
                         </div>
@@ -90,5 +107,6 @@
                 <input type="submit" value="Registrar" class="btn btn-success btn-xs" style=" margin: 10px; padding: 10px;">
             </div>
         }
+        @{ Html.EndForm(); }
     </div>
 </div>
