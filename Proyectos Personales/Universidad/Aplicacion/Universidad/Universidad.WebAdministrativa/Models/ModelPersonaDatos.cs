@@ -8,19 +8,19 @@ namespace Universidad.WebAdministrativa.Models
     {
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "El nombre es un campo obligatorio")]
-        [StringLength(30)]
-        [RegularExpression("^[A-Za-z]*$",ErrorMessage = "El nombre no es valido")]
+        [StringLength(30,ErrorMessage = "El nombre es muy largo"),MinLength(2, ErrorMessage = "El nombre es muy corto")]
+        [RegularExpression("^[A-Za-z]*$", ErrorMessage = "En el nombre unicamente se admiten letras")]
         public string Nombre { get; set; }
 
         [DisplayName("Apellido Paterno")]
         [Required(ErrorMessage = "El apellido paterno es un campo obligatorio")]
-        [StringLength(30)]
-        [RegularExpression("^[A-Za-z]*$",ErrorMessage = "El apellido no es valido")]
+        [StringLength(30, ErrorMessage = "El apellido paterno es muy largo"), MinLength(2, ErrorMessage = "El apellido paterno es muy corto")]
+        [RegularExpression("^[A-Za-z]*$", ErrorMessage = "En el apellido paterno unicamente se admiten letras")]
         public string ApellidoP { get; set; }
 
         [DisplayName("Apellido Materno")]
-        [StringLength(30)]
-        [RegularExpression("^[A-Za-z]*$",ErrorMessage = "El apellido no es valido")]
+        [StringLength(30, ErrorMessage = "El apellido materno es muy largo"), MinLength(2, ErrorMessage = "El apellido materno es muy corto")]
+        [RegularExpression("^[A-Za-z]*$", ErrorMessage = "En el apellido materno unicamente se admiten letras")]
         public string ApellidoM { get; set; }
 
         [DisplayName("CURP")]
@@ -35,12 +35,12 @@ namespace Universidad.WebAdministrativa.Models
 
         [DisplayName("NSS")]
         [StringLength(11)]
-        [RegularExpression("^[0-9]{11}$",ErrorMessage = "El numero de seguro social no es valido")]
+        [RegularExpression("^[0-9]{11}$", ErrorMessage = "El numero de seguro social no es valido")]
         public string Nss { get; set; }
 
         [DisplayName("Fecha de nacimiento")]
         [Required(ErrorMessage = "La fecha de nacimiento es un campo obligatorio")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date,ErrorMessage = "El formato de la fecha es incorrecto")]
         public DateTime FechaNacimiento { get; set; }
 
         [DisplayName("Nacionalidad")]

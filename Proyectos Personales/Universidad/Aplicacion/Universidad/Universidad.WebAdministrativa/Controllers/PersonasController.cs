@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
@@ -16,6 +17,13 @@ namespace Universidad.WebAdministrativa.Controllers
             var persona = ((PER_PERSONAS)Session["Persona"]);
             ViewBag.tipoUsuario = ((US_CAT_TIPO_USUARIO)Session["TipoPersona"]).TIPO_USUARIO;
             ViewBag.nombre = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
+        }
+
+        public void CargaListas()
+        {
+            ViewBag.ListaPaises = Session["ListaPaises"];
+            ViewBag.ListaTipoPersona = Session["ListaTipoPersona"];
+            ViewBag.ListaSexo = Session["ListaSexo"];
         }
 
         [SessionExpireFilter]
@@ -67,23 +75,56 @@ namespace Universidad.WebAdministrativa.Controllers
                 new SelectListItem {Value = "2", Text = "F"}
             };
 
-            ViewData["paises"] = paises;
-            ViewData["tipoPersona"] = tiposPersona;
-            ViewData["sexo"] = sexo.ToArray();
+            Session["ListaPaises"] = paises;
+            Session["ListaTipoPersona"] = tiposPersona;
+            Session["ListaSexo"] = sexo.ToArray();
 
+            CargaListas();
             return View();
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        [SessionExpireFilter]
-        //[ActionName("Complex")]
-        public void NuevaPersonaAsync(ModelPersonaDatos xPersonaDatos)
-        {
         }
 
         [HttpPost]
         [SessionExpireFilter]
-        public ActionResult NuevaPersonaCompleted(ModelPersonaDatos x)
+        public ActionResult NuevaPersona(ModelPersonaDatos modelo)
+        {
+            if (ModelState.IsValid)
+            {
+                var persona = new PER_PERSONAS
+                {
+                    NOMBRE = modelo.Nombre,
+                    A_PATERNO = modelo.ApellidoP,
+                    A_MATERNO = modelo.ApellidoM,
+                    CURP = modelo.Curp,
+                    RFC = modelo.Rfc,
+                    IMSS = modelo.Nss,
+                    CVE_NACIONALIDAD = Convert.ToInt32(modelo.IdNacionalidad),
+                    ID_TIPO_PERSONA = Convert.ToInt32(modelo.IdTipoPersona),
+                    SEXO = modelo.IdSexo == "1" ? "M" : "F",
+                    FECHA_NAC = modelo.FechaNacimiento,
+                };
+
+                RegistraPersonaAsync(persona);
+                Sesion();
+                CargaListas();
+                return View("PersonaDefault");
+            }
+            else
+            {
+                Sesion();
+                CargaListas();
+                return View("PersonaDefault",modelo);
+            }
+        }
+
+        [SessionExpireFilter]
+        public void RegistraPersonaAsync(PER_PERSONAS persona)
+        {
+
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult RegistraPersonaCompleted(ModelPersonaDatos x)
         {
             Sesion();
             return View();
