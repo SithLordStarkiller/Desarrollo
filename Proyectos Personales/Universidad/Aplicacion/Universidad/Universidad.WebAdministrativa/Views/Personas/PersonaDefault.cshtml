@@ -1,4 +1,4 @@
-﻿@model Universidad.WebAdministrativa.Models.ModelPersonaDatos
+﻿@model Universidad.WebAdministrativa.Models.ModelWizardPersonas
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -41,48 +41,48 @@
         {
             @Html.ValidationSummary(true)
             <fieldset>
-                @Html.ValidationMessageFor(x => x.Nombre, null, new { @class = "label label-danger" })
-                @Html.ValidationMessageFor(x => x.ApellidoP, null, new { @class = "label label-danger" })
-                @Html.ValidationMessageFor(x => x.ApellidoM, null, new { @class = "label label-danger" })
-                @Html.ValidationMessageFor(x => x.Curp, null, new { @class = "label label-danger" })
-                @Html.ValidationMessageFor(x => x.Rfc, null, new { @class = "label label-danger" })
-                @Html.ValidationMessageFor(x => x.Nss, null, new { @class = "label label-danger" })
-                @Html.ValidationMessageFor(x => x.FechaNacimiento, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.Nombre, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.ApellidoP, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.ApellidoM, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.Curp, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.Rfc, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.Nss, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Datos.FechaNacimiento, null, new { @class = "label label-danger" })
 
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="input-group form-group col-md-12">
-                        @Html.LabelFor(x => x.Nombre, new { @class = "input-group-addon" })
-                        @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre" })
-                        @Html.LabelFor(x => x.ApellidoP, new { @class = "input-group-addon" })
-                        @Html.TextBoxFor(x => x.ApellidoP, new { @class = "form-control", placeholder = "Apellido Paterno" })
-                        @Html.LabelFor(x => x.ApellidoM, new { @class = "input-group-addon" })
-                        @Html.TextBoxFor(x => x.ApellidoM, new { @class = "form-control", placeholder = "Apellido Materno" })
+                        @Html.LabelFor(x => x.Datos.Nombre, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Datos.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+                        @Html.LabelFor(x => x.Datos.ApellidoP, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Datos.ApellidoP, new { @class = "form-control", placeholder = "Apellido Paterno" })
+                        @Html.LabelFor(x => x.Datos.ApellidoM, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Datos.ApellidoM, new { @class = "form-control", placeholder = "Apellido Materno" })
                     </div>
                     <div class="input-group form-group col-md-12">
-                        @Html.LabelFor(x => x.Curp, new { @class = "input-group-addon" })
-                        @Html.TextBoxFor(x => x.Curp, new { @class = "form-control", placeholder = "CURP" })
-                        @Html.LabelFor(x => x.Rfc, new { @class = "input-group-addon" })
-                        @Html.TextBoxFor(x => x.Rfc, new { @class = "form-control", placeholder = "RFC" })
-                        @Html.LabelFor(x => x.Nss, new { @class = "input-group-addon" })
-                        @Html.TextBoxFor(x => x.Nss, new { @class = "form-control", placeholder = "Numero de seguro social" })
+                        @Html.LabelFor(x => x.Datos.Curp, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Datos.Curp, new { @class = "form-control", placeholder = "CURP" })
+                        @Html.LabelFor(x => x.Datos.Rfc, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Datos.Rfc, new { @class = "form-control", placeholder = "RFC" })
+                        @Html.LabelFor(x => x.Datos.Nss, new { @class = "input-group-addon" })
+                        @Html.TextBoxFor(x => x.Datos.Nss, new { @class = "form-control", placeholder = "Numero de seguro social" })
                     </div>
                     <div class="row">
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
-                                    @Html.LabelFor(x => x.IdNacionalidad, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.IdNacionalidad, (IEnumerable<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
+                                    @Html.LabelFor(x => x.Datos.IdNacionalidad, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.Datos.IdNacionalidad, (IEnumerable<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group">
-                                    @Html.LabelFor(x => x.IdTipoPersona, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.IdTipoPersona, (IEnumerable<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
+                                    @Html.LabelFor(x => x.Datos.IdTipoPersona, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.Datos.IdTipoPersona, (IEnumerable<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
                                 </div>
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group date">
-                                    @Html.TextBoxFor(x => x.FechaNacimiento, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento" })
+                                    @Html.TextBoxFor(x => x.Datos.FechaNacimiento, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar datepicker"></span>
                                     </span>
@@ -90,8 +90,8 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <div class="input-group">
-                                    @Html.LabelFor(x => x.IdSexo, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.IdSexo, (IEnumerable<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
+                                    @Html.LabelFor(x => x.Datos.IdSexo, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.Datos.IdSexo, (IEnumerable<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
                                 </div>
                             </div>
                         </div>
@@ -100,7 +100,7 @@
             </fieldset>
             <div style="margin-top: 10px; float: right;" class="form-group">
                 <label>&nbsp;</label>
-                <input type="submit" value="Registrar" class="btn btn-success btn-xs" style=" margin: 10px; padding: 10px;">
+                <input type="submit" value="Siguiente" class="btn btn-info btn-xs" style=" margin: 10px; padding: 10px;">
             </div>
         }
         @{ Html.EndForm(); }

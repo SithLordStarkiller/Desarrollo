@@ -1,0 +1,55 @@
+﻿@model Universidad.WebAdministrativa.Models.ModelWizardPersonas
+
+@{
+    var titulo = ViewBag.Title = "Registro de personas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listaEstados = ViewBag.ListaEstados;
+}
+
+<div class="jumbotron">
+    <br />
+    <h2>@titulo</h2>
+    <br />
+
+    <div class="panel panel-default" style="margin: 5px; padding: 10px;">
+        <div class="panel-heading" style="margin: 5px; padding: 10px;">
+            <div class="panel-title">Llena los campos de la direccion del usario</div>
+        </div>
+        @using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                            <div class="input-group form-group col-lg-offset-4 col-md-4">
+                                @Html.LabelFor(x => x.Direccion.CodigoPostal, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.Direccion.CodigoPostal, new { @class = "form-control", placeholder = "Codigo Postal" })
+                                <span class="input-group-btn">
+                                    @Html.ActionLink("Buscar", "PersonaDefault", "Personas", new { @class = "btn btn-default" })
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Direccion.IdEstado, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdEstado, (IEnumerable<SelectListItem>)listaEstados, new { @class = "dropdown-header form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div style="margin-top: 10px; float: right;" class="form-group">
+                <label>&nbsp;</label>
+                @Html.ActionLink("Atras", "PersonaDefault", "Personas", new { @class = "btn btn-info btn-xs", @style = "margin: 10px; padding: 10px;" })
+                <input type="submit" value="Siguiente" class="btn btn-info btn-xs" style=" margin: 10px; padding: 10px;">
+            </div>
+        }
+        @{ Html.EndForm(); }
+    </div>
+</div>

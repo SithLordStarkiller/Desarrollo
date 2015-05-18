@@ -79,55 +79,112 @@ namespace Universidad.WebAdministrativa.Controllers
             Session["ListaTipoPersona"] = tiposPersona;
             Session["ListaSexo"] = sexo.ToArray();
 
+            var modelo = TempData["Modelo"];
             CargaListas();
-            return View();
+
+            if (modelo == null) return View();
+
+            TempData.Keep("Modelo");
+            return View(modelo);
         }
 
         [HttpPost]
         [SessionExpireFilter]
-        public ActionResult NuevaPersona(ModelPersonaDatos modelo)
+        public ActionResult NuevaPersona(ModelWizardPersonas modeloPersona)
         {
             if (ModelState.IsValid)
             {
-                var persona = new PER_PERSONAS
-                {
-                    NOMBRE = modelo.Nombre,
-                    A_PATERNO = modelo.ApellidoP,
-                    A_MATERNO = modelo.ApellidoM,
-                    CURP = modelo.Curp,
-                    RFC = modelo.Rfc,
-                    IMSS = modelo.Nss,
-                    CVE_NACIONALIDAD = Convert.ToInt32(modelo.IdNacionalidad),
-                    ID_TIPO_PERSONA = Convert.ToInt32(modelo.IdTipoPersona),
-                    SEXO = modelo.IdSexo == "1" ? "M" : "F",
-                    FECHA_NAC = modelo.FechaNacimiento,
-                };
+                Sesion();
+                CargaListas();
+                TempData["Modelo"] = modeloPersona;
+                return new RedirectToReturnUrlResult(() => RedirectToAction("WizardPersonaDireccion", "Personas"));
+            }
 
-                RegistraPersonaAsync(persona);
-                Sesion();
-                CargaListas();
-                return View("PersonaDefault");
-            }
-            else
-            {
-                Sesion();
-                CargaListas();
-                return View("PersonaDefault",modelo);
-            }
+            Sesion();
+            CargaListas();
+
+            return View("PersonaDefault", modeloPersona);
         }
 
+        [HttpGet]
         [SessionExpireFilter]
-        public void RegistraPersonaAsync(PER_PERSONAS persona)
+        public void WizardPersonaDireccionAsync(ModelWizardPersonas modelo)
         {
+            Sesion();
 
+            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+
+            servicioCatalogos.ObtenCatEstadosFinalizado += delegate(List<DIR_CAT_ESTADO> lista)
+            {
+                AsyncManager.Parameters["listaEstados"] = lista;
+                AsyncManager.OutstandingOperations.Decrement();
+            };
+
+            AsyncManager.OutstandingOperations.Increment();
+            servicioCatalogos.ObtenCatEstados();
         }
 
         [HttpPost]
         [SessionExpireFilter]
-        public ActionResult RegistraPersonaCompleted(ModelPersonaDatos x)
+        public ActionResult WizardPersonaDireccionCompleted(List<DIR_CAT_ESTADO> listaEstados)
         {
-            Sesion();
-            return View();
+            var estados = listaEstados
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDESTADO.ToString(CultureInfo.InvariantCulture),
+                    Text = c.NOMBREESTADO
+                }).ToArray();
+
+            ViewBag.ListaEstados = estados;
+
+            var modelo = TempData["Modelo"];
+            TempData.Keep("Modelo");
+
+            ((ModelWizardPersonas)(modelo)).Direccion = new ModelPersonaDireccion { IdEstado = "1" };
+
+            return View(modelo);
+        }
+    }
+
+    public class RedirectToReturnUrlResult : ActionResult
+    {
+        private readonly Func<ActionResult> _funcIfNoReturnUrl;
+
+        public RedirectToReturnUrlResult(Func<ActionResult> funcIfNoReturnUrl)
+        {
+            if (funcIfNoReturnUrl == null) throw new ArgumentNullException("funcIfNoReturnUrl");
+            _funcIfNoReturnUrl = funcIfNoReturnUrl;
+        }
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            string returnUrl;
+
+            if (TryGetReturnUrl(context, out returnUrl))
+            {
+                new RedirectResult(returnUrl).ExecuteResult(context);
+            }
+            else
+            {
+                _funcIfNoReturnUrl().ExecuteResult(context);
+            }
+        }
+
+        private bool TryGetReturnUrl(ControllerContext context, out string returnUrl)
+        {
+            try
+            {
+                var queryString = context.HttpContext.Request.QueryString;
+                returnUrl = queryString["ReturnUrl"];
+                return !string.IsNullOrEmpty(returnUrl);
+            }
+
+            catch (Exception)
+            {
+                returnUrl = null;
+                return false;
+            }
         }
     }
 }

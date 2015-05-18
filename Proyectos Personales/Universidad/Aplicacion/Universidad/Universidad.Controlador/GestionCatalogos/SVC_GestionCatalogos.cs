@@ -9,7 +9,7 @@ namespace Universidad.Controlador.GestionCatalogos
     {
         #region Propiedades de la clase
 
-        private readonly S_GestionCatalogosClient _servicio = null;
+        private readonly S_GestionCatalogosClient _servicio;
 
         public SVC_GestionCatalogos(Sesion sesion)
         {
@@ -17,7 +17,7 @@ namespace Universidad.Controlador.GestionCatalogos
             _servicio = new S_GestionCatalogosClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"GestionCatalogos/", "S_GestionCatalogos.svc"));
         }
 
-        public System.EventHandler Logeo_Finalizado = null;
+        public System.EventHandler LogeoFinalizado = null;
 
         #endregion
 
