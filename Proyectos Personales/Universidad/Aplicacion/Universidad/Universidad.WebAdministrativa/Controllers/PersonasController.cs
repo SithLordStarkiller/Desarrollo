@@ -81,13 +81,10 @@ namespace Universidad.WebAdministrativa.Controllers
             Session["ListaTipoPersona"] = tiposPersona;
             Session["ListaSexo"] = sexo.ToArray();
 
-            var modelo = TempData["Modelo"];
+            var modelo = Session["Modelo"];
             CargaListas();
 
-            if (modelo == null) return View();
-
-            TempData.Keep("Modelo");
-            return View(modelo);
+            return modelo == null ? View() : View(modelo);
         }
 
         [HttpPost]
@@ -98,7 +95,7 @@ namespace Universidad.WebAdministrativa.Controllers
             {
                 Sesion();
                 CargaListas();
-                TempData["Modelo"] = modeloPersona;
+                Session["Modelo"] = modeloPersona;
                 return new RedirectToReturnUrlResult(() => RedirectToAction("WizardPersonaDireccion", "Personas"));
             }
 
@@ -140,6 +137,61 @@ namespace Universidad.WebAdministrativa.Controllers
 
             ViewBag.ListaEstados = estados;
 
+            var modelo = Session["Modelo"];
+
+            return View(modelo);
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult DireccionPersona(ModelWizardPersonas modeloPersona)
+        {
+            if (ModelState.IsValid)
+            {
+                Sesion();
+                CargaListas();
+                Session["Modelo"] = modeloPersona;
+                return new RedirectToReturnUrlResult(() => RedirectToAction("WizardPersonaDireccion", "Personas"));
+            }
+
+            Sesion();
+            CargaListas();
+
+            return View("PersonaDefault", modeloPersona);
+        }
+
+        [HttpGet]
+        [SessionExpireFilter]
+        public void WizardPersonaMediosElectronicosAsync(ModelWizardPersonas modelo)
+        {
+            Sesion();
+
+            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+
+            servicioCatalogos.ObtenCatEstadosFinalizado += delegate(List<DIR_CAT_ESTADO> lista)
+            {
+                AsyncManager.Parameters["listaEstados"] = lista;
+                AsyncManager.OutstandingOperations.Decrement();
+            };
+
+            AsyncManager.OutstandingOperations.Increment();
+            servicioCatalogos.ObtenCatEstados();
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult WizardPersonaMediosElectronicosCompleted(List<DIR_CAT_ESTADO> listaEstados)
+        {
+            var estados = listaEstados
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDESTADO.ToString(CultureInfo.InvariantCulture),
+                    Text = c.NOMBREESTADO
+                }).ToArray();
+
+            ViewBag.ListaEstados = estados;
+
             var modelo = TempData["Modelo"];
             TempData.Keep("Modelo");
 
@@ -167,7 +219,7 @@ namespace Universidad.WebAdministrativa.Controllers
         [SessionExpireFilter]
         public ActionResult ObtenMunicipiosCompleted(List<DIR_CAT_DELG_MUNICIPIO> listaMunicipios)
         {
-            var lista =  listaMunicipios.Select(c => new SelectListItem
+            var lista = listaMunicipios.Select(c => new SelectListItem
                 {
                     Value = c.IDMUNICIPIO.ToString(),
                     Text = c.NOMBREDELGMUNICIPIO
@@ -207,6 +259,56 @@ namespace Universidad.WebAdministrativa.Controllers
 
             var resultado = JsonConvert.SerializeObject(lista);
 
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public void ObtenCodigoPostalAsync(int estado, int municipio, int colonia)
+        {
+            Sesion();
+
+            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+
+            servicioCatalogos.ObtenCodigoPostalFinalizado += delegate(DIR_CAT_COLONIAS rColonia)
+            {
+                AsyncManager.Parameters["colonia"] = rColonia;
+                AsyncManager.OutstandingOperations.Decrement();
+            };
+
+            AsyncManager.OutstandingOperations.Increment();
+            servicioCatalogos.ObtenCodigoPostal(estado, municipio, colonia);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult ObtenCodigoPostalCompleted(DIR_CAT_COLONIAS colonia)
+        {
+            var resultado = JsonConvert.SerializeObject(colonia);
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public void ObtenColoniasPorCpAsync(int codigoPostal)
+        {
+            Sesion();
+
+            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+
+            servicioCatalogos.ObtenColoniasPorCpFinalizado += delegate(List<DIR_CAT_COLONIAS> lista)
+            {
+                AsyncManager.Parameters["lista"] = lista;
+                AsyncManager.OutstandingOperations.Decrement();
+            };
+
+            AsyncManager.OutstandingOperations.Increment();
+            servicioCatalogos.ObtenColoniasPorCpPersona(codigoPostal);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult ObtenColoniasPorCpCompleted(List<DIR_CAT_COLONIAS> lista)
+        {
+            var resultado = JsonConvert.SerializeObject(lista);
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
     }

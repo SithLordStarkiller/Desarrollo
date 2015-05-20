@@ -191,6 +191,29 @@ namespace Universidad.Controlador.GestionCatalogos
             _servicio.ObtenColoniasCompleted -= _servicio_ObtenColoniasCompleted;
         }
 
+        #endregion
+
+        #region Obten Codigo Postal
+
+        public delegate void ObtenCodigoPostalArgs(DIR_CAT_COLONIAS colonia);
+
+        public event ObtenCodigoPostalArgs ObtenCodigoPostalFinalizado;
+
+        public void ObtenCodigoPostal(int estado, int municipio,int colonia)
+        {
+            _servicio.ObtenCodigoPostalCompleted += _servicio_ObtenCodigoPostalCompleted;
+            _servicio.ObtenCodigoPostalAsync(estado, municipio,colonia);
+        }
+
+        void _servicio_ObtenCodigoPostalCompleted(object sender, ObtenCodigoPostalCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+                var resultado = e.Result;
+                var lista = resultado;
+                ObtenCodigoPostalFinalizado(lista);
+            _servicio.ObtenCodigoPostalCompleted -= _servicio_ObtenCodigoPostalCompleted;
+        }
 
         #endregion
     }

@@ -18,7 +18,7 @@
         public string IdColonia { get; set; }
 
         [DisplayName("Codigo Postal")]
-        [RegularExpression("^([0-9]{5})$", ErrorMessage = "El formato de codigo postal es incorrecto")]
+        [RegularExpression("^([0-9]{4,5})$", ErrorMessage = "El formato de codigo postal es incorrecto")]
         [Required(ErrorMessage = "El codigo postal es un valor requerido requerido")]
         public string CodigoPostal { get; set; }
 
@@ -30,7 +30,12 @@
         [DisplayName("No Exterior")]
         [Required(ErrorMessage = "El No Exterior es un campo obligatorio")]
         public string NoExterior { get; set; }
+
+        [DisplayName("No Interior")]
         public string NoInterior { get; set; }
+
+        [DisplayName("Referencias Adicionales")]
+        [StringLength(150, ErrorMessage = "Solo se permiten 150 caracteres en la referencias"), MinLength(10, ErrorMessage = "la referencia es muy corta")]
         public string ReferenciasAdicionalies { get; set; }
     }
 }

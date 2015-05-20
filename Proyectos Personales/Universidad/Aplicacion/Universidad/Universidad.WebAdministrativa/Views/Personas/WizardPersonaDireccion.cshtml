@@ -23,15 +23,15 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#ddlEstados').change(function() {
+        $(document).ready(function () {
+            $('#ddlEstados').change(function () {
                 var idEstado = $("#ddlEstados").val();
                 if (idEstado != 0) {
                     $.ajax({
                         type: "POST",
                         data: { 'estado': idEstado },
                         url: '@Url.Action("ObtenMunicipios", "Personas")',
-                        success: function(response) {
+                        success: function (response) {
                             var listado = JSON.parse(response);
                             var result = '';
                             var selectList = $("#ddlMunicipios");
@@ -44,7 +44,7 @@
                             }
                             $("#ddlMunicipios").html(result);
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             alert(status + " : " + error);
                         }
                     });
@@ -53,7 +53,7 @@
                 }
             });
 
-            $('#ddlMunicipios').change(function() {
+            $('#ddlMunicipios').change(function () {
                 var idEstado = $("#ddlEstados").val();
                 var idMunicipio = $("#ddlMunicipios").val();
                 if (idEstado != 0) {
@@ -61,7 +61,7 @@
                         type: "POST",
                         data: { 'estado': idEstado, 'municipio': idMunicipio },
                         url: '@Url.Action("ObtenColonias", "Personas")',
-                        success: function(response) {
+                        success: function (response) {
                             var listado = JSON.parse(response);
                             var result = '';
                             var selectList = $("#ddlColonias");
@@ -73,7 +73,7 @@
                             }
                             $("#ddlColonias").html(result);
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             alert(status + " : " + error);
                         }
                     });
@@ -82,10 +82,102 @@
                 }
             });
 
-            $('#ddlcolonias').change(function () {
-
+            $('#ddlColonias').change(function () {
+                var idEstado = $("#ddlEstados").val();
+                var idMunicipio = $("#ddlMunicipios").val();
+                var idColonia = $("#ddlColonias").val();
+                if (idEstado != 0) {
+                    $.ajax({
+                        type: "POST",
+                        data: { 'estado': idEstado, 'municipio': idMunicipio, 'colonia': idColonia },
+                        url: '@Url.Action("ObtenCodigoPostal", "Personas")',
+                        success: function (response) {
+                            var listado = JSON.parse(response);
+                            var cp = listado.CODIGOPOSTAL;
+                            $("#txtCodigoPostal").val(cp);
+                            $("#divCodigoPostal").removeClass("has-danger");
+                            $("#divCodigoPostal").addClass("has-success");
+                            $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
+                        },
+                        error: function (xhr, status, error) {
+                            alert(status + " : " + error);
+                            $("#divCodigoPostal").addClass("has-error");
+                            $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
+                        }
+                    });
+                } else {
+                    alert("No se pudo encontrar el codigo postal");
+                    $("#divCodigoPostal").addClass("has-error");
+                    $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
+                }
             });
         });
+
+        function traerDireccion() {
+            var codigoPostal = $("#txtCodigoPostal").val();
+            var idEstado = '';
+            var idMunicipio = '';
+            $.ajax({
+                type: "POST",
+                data: { 'codigoPostal': codigoPostal },
+                url: '@Url.Action("ObtenColoniasPorCp", "Personas")',
+                success: function (response) {
+                    var listado = JSON.parse(response);
+                    var result = '';
+                    for (var i = 0, iL = listado.length; i < iL; i++) {
+                        var id = listado[i].IDMUNICIPIO;
+                        var texto = listado[i].NOMBRECOLONIA;
+                        result += '<option value="' + id + '">' + texto + '</option>';
+                    }
+
+                    $("#ddlColonias").empty();
+                    $("#ddlColonias").html(result);
+
+                    if (listado.length > 0) {
+                        idEstado = listado[0].IDESTADO;
+                        idMunicipio = listado[0].IDMUNICIPIO;
+
+                        $.ajax({
+                            type: "POST",
+                            data: { 'estado': idEstado },
+                            url: '@Url.Action("ObtenMunicipios", "Personas")',
+                            success: function (lista) {
+                                var list = JSON.parse(lista);
+                                var cadena = '';
+                                for (var j = 0, l = list.length; j < l; j++) {
+                                    var idColonias = list[j].Value;
+                                    var nombreColonia = list[j].Text;
+                                    cadena += '<option value="' + idColonias + '">' + nombreColonia + '</option>';
+                                }
+                                $("#ddlMunicipios").empty();
+                                $("#ddlMunicipios").html(cadena);
+                                $('#ddlEstados').val(idEstado);
+                                $('#ddlMunicipios').val(idMunicipio);
+
+                                $("#divCodigoPostal").removeClass("has-danger");
+                                $("#divCodigoPostal").addClass("has-success");
+                                $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
+                            },
+                            error: function (xhr, status, error) {
+                                alert(status + " : " + error);
+                                $("#divCodigoPostal").addClass("has-error");
+                                $("#btnCodigoPostal").removeClass("btn-default").addClass("btn-danger");
+                            }
+                        });
+                    } else {
+                        alert("No se pudo encontrar el codigo postal");
+                        $("#divCodigoPostal").addClass("has-error");
+                        $("#btnCodigoPostal").removeClass("btn-default").addClass("btn-danger");
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                        $("#divCodigoPostal").addClass("has-danger");
+                        $("#btnCodigoPostal").removeClass("btn-default").addClass("btn-danger");
+                    }
+            });
+        }
     </script>
 }
 
@@ -97,18 +189,18 @@
         <div class="panel-heading" style="margin: 5px; padding: 10px;">
             <div class="panel-title">Llena los campos de la direccion del usario</div>
         </div>
-        @using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
+        @using (Html.BeginForm("DireccionPersona", "Personas", FormMethod.Post))
         {
             @Html.ValidationSummary(true)
             <fieldset>
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="row">
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                            <div class="input-group form-group col-lg-offset-4 col-md-4">
+                            <div class="input-group form-group col-lg-offset-4 col-md-4" id="divCodigoPostal">
                                 @Html.LabelFor(x => x.Direccion.CodigoPostal, new { @class = "input-group-addon" })
-                                @Html.TextBoxFor(x => x.Direccion.CodigoPostal, new { @class = "form-control", placeholder = "Codigo Postal" })
+                                @Html.TextBoxFor(x => x.Direccion.CodigoPostal, new { @class = "form-control", placeholder = "Codigo Postal", @id = "txtCodigoPostal" })
                                 <span class="input-group-btn">
-                                    @Html.ActionLink("Buscar", "PersonaDefault", "Personas", new { @class = "btn btn-default" })
+                                    <a href="#" id="btnCodigoPostal" class="btn btn-default" onclick="traerDireccion();">Buscar</a>
                                 </span>
                             </div>
                         </div>
@@ -132,6 +224,36 @@
                                     @Html.LabelFor(x => x.Direccion.IdColonia, new { @class = "input-group-addon" })
                                     @Html.DropDownListFor(x => x.Direccion.IdColonia, (IEnumerable<SelectListItem>)listaColonias, "Selecciona colonia", new { @class = "dropdown-header form-control", @id = "ddlColonias" })
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Direccion.Calle, new { @class = "input-group-addon" })
+                                    @Html.TextBoxFor(x => x.Direccion.Calle, new { @class = "form-control", placeholder = "Calle" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Direccion.NoExterior, new { @class = "input-group-addon" })
+                                    @Html.TextBoxFor(x => x.Direccion.NoExterior, new { @class = "form-control", placeholder = "No Exterior" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Direccion.NoInterior, new { @class = "input-group-addon" })
+                                    @Html.TextBoxFor(x => x.Direccion.NoInterior, new { @class = "form-control", placeholder = "No Interior" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <div>
+                                @Html.LabelFor(x => x.Direccion.ReferenciasAdicionalies, new { @class = "control-label" })
+                                @Html.TextAreaFor(x => x.Direccion.ReferenciasAdicionalies, new { @class = "form-control", placeholder = "Calle", @rows = "3", @maxlength = "150" })
                             </div>
                         </div>
                     </div>
