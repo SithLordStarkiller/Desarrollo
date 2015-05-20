@@ -42,5 +42,13 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
                 return aux.Filtro(r => r.IDESTADO == estado && r.IDMUNICIPIO == municipio);
             }
         }
+
+        public DIR_CAT_COLONIAS ObtenCodigoPostalLinq(int estado, int municipio, int colonia)
+        {
+            using (var aux = new Repositorio<DIR_CAT_COLONIAS>())
+            {
+                return aux.Filtro(r => r.IDESTADO == estado && r.IDMUNICIPIO == municipio && r.IDCOLONIA == colonia).FirstOrDefault();
+            }
+        }
     }
 }

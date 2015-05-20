@@ -78,6 +78,14 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         System.IAsyncResult BeginObtenColonias(int estado, int municipio, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> EndObtenColonias(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostalResponse")]
+        Universidad.Entidades.DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostalResponse")]
+        System.IAsyncResult BeginObtenCodigoPostal(int estado, int municipio, int colonia, System.AsyncCallback callback, object asyncState);
+        
+        Universidad.Entidades.DIR_CAT_COLONIAS EndObtenCodigoPostal(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -238,6 +246,25 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenCodigoPostalCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenCodigoPostalCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Universidad.Entidades.DIR_CAT_COLONIAS Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Universidad.Entidades.DIR_CAT_COLONIAS)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class S_GestionCatalogosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos>, Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos {
         
         private BeginOperationDelegate onBeginObtenTablaUsCatTipoUsuariosDelegate;
@@ -288,6 +315,12 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         
         private System.Threading.SendOrPostCallback onObtenColoniasCompletedDelegate;
         
+        private BeginOperationDelegate onBeginObtenCodigoPostalDelegate;
+        
+        private EndOperationDelegate onEndObtenCodigoPostalDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenCodigoPostalCompletedDelegate;
+        
         public S_GestionCatalogosClient() {
         }
         
@@ -322,6 +355,8 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         public event System.EventHandler<ObtenMunicipiosCompletedEventArgs> ObtenMunicipiosCompleted;
         
         public event System.EventHandler<ObtenColoniasCompletedEventArgs> ObtenColoniasCompleted;
+        
+        public event System.EventHandler<ObtenCodigoPostalCompletedEventArgs> ObtenCodigoPostalCompleted;
         
         public System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios() {
             return base.Channel.ObtenTablaUsCatTipoUsuarios();
@@ -715,6 +750,60 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
             base.InvokeAsync(this.onBeginObtenColoniasDelegate, new object[] {
                         estado,
                         municipio}, this.onEndObtenColoniasDelegate, this.onObtenColoniasCompletedDelegate, userState);
+        }
+        
+        public Universidad.Entidades.DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia) {
+            return base.Channel.ObtenCodigoPostal(estado, municipio, colonia);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenCodigoPostal(int estado, int municipio, int colonia, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenCodigoPostal(estado, municipio, colonia, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Universidad.Entidades.DIR_CAT_COLONIAS EndObtenCodigoPostal(System.IAsyncResult result) {
+            return base.Channel.EndObtenCodigoPostal(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenCodigoPostal(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            int estado = ((int)(inValues[0]));
+            int municipio = ((int)(inValues[1]));
+            int colonia = ((int)(inValues[2]));
+            return this.BeginObtenCodigoPostal(estado, municipio, colonia, callback, asyncState);
+        }
+        
+        private object[] OnEndObtenCodigoPostal(System.IAsyncResult result) {
+            Universidad.Entidades.DIR_CAT_COLONIAS retVal = this.EndObtenCodigoPostal(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenCodigoPostalCompleted(object state) {
+            if ((this.ObtenCodigoPostalCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenCodigoPostalCompleted(this, new ObtenCodigoPostalCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenCodigoPostalAsync(int estado, int municipio, int colonia) {
+            this.ObtenCodigoPostalAsync(estado, municipio, colonia, null);
+        }
+        
+        public void ObtenCodigoPostalAsync(int estado, int municipio, int colonia, object userState) {
+            if ((this.onBeginObtenCodigoPostalDelegate == null)) {
+                this.onBeginObtenCodigoPostalDelegate = new BeginOperationDelegate(this.OnBeginObtenCodigoPostal);
+            }
+            if ((this.onEndObtenCodigoPostalDelegate == null)) {
+                this.onEndObtenCodigoPostalDelegate = new EndOperationDelegate(this.OnEndObtenCodigoPostal);
+            }
+            if ((this.onObtenCodigoPostalCompletedDelegate == null)) {
+                this.onObtenCodigoPostalCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCodigoPostalCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenCodigoPostalDelegate, new object[] {
+                        estado,
+                        municipio,
+                        colonia}, this.onEndObtenCodigoPostalDelegate, this.onObtenCodigoPostalCompletedDelegate, userState);
         }
     }
 }

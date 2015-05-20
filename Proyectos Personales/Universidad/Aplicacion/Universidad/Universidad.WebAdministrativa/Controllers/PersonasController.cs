@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Entidades;
 using Universidad.WebAdministrativa.Models;
@@ -53,7 +54,8 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public ActionResult PersonaDefaultCompleted(List<PER_CAT_NACIONALIDAD> listaPaises, List<PER_CAT_TIPO_PERSONA> listaTiposPersona)
+        public ActionResult PersonaDefaultCompleted(List<PER_CAT_NACIONALIDAD> listaPaises,
+            List<PER_CAT_TIPO_PERSONA> listaTiposPersona)
         {
             var paises = listaPaises
                 .Select(c => new SelectListItem
@@ -141,9 +143,71 @@ namespace Universidad.WebAdministrativa.Controllers
             var modelo = TempData["Modelo"];
             TempData.Keep("Modelo");
 
-            ((ModelWizardPersonas)(modelo)).Direccion = new ModelPersonaDireccion { IdEstado = "1" };
-
             return View(modelo);
+        }
+
+        [SessionExpireFilter]
+        public void ObtenMunicipiosAsync(int estado)
+        {
+            Sesion();
+
+            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+
+            servicioCatalogos.ObtenMunicipiosFinalizado += delegate(List<DIR_CAT_DELG_MUNICIPIO> lista)
+            {
+                AsyncManager.Parameters["listaMunicipios"] = lista;
+                AsyncManager.OutstandingOperations.Decrement();
+            };
+
+            AsyncManager.OutstandingOperations.Increment();
+            servicioCatalogos.ObtenMunicipios(estado);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult ObtenMunicipiosCompleted(List<DIR_CAT_DELG_MUNICIPIO> listaMunicipios)
+        {
+            var lista =  listaMunicipios.Select(c => new SelectListItem
+                {
+                    Value = c.IDMUNICIPIO.ToString(),
+                    Text = c.NOMBREDELGMUNICIPIO
+                }).ToArray();
+
+            var resultado = JsonConvert.SerializeObject(lista);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public void ObtenColoniasAsync(int estado, int municipio)
+        {
+            Sesion();
+
+            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+
+            servicioCatalogos.ObtenColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> lista)
+            {
+                AsyncManager.Parameters["listaColonias"] = lista;
+                AsyncManager.OutstandingOperations.Decrement();
+            };
+
+            AsyncManager.OutstandingOperations.Increment();
+            servicioCatalogos.ObtenColonias(estado, municipio);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult ObtenColoniasCompleted(List<DIR_CAT_COLONIAS> listaColonias)
+        {
+            var lista = listaColonias.Select(c => new SelectListItem
+            {
+                Value = c.IDCOLONIA.ToString(CultureInfo.InvariantCulture),
+                Text = c.NOMBRECOLONIA
+            }).ToArray();
+
+            var resultado = JsonConvert.SerializeObject(lista);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
         }
     }
 

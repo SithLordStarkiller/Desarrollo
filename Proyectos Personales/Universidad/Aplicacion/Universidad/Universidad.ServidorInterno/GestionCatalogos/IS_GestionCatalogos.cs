@@ -31,5 +31,8 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio);
+
+        [OperationContract]
+        DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia);
     }
 }

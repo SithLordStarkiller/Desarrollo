@@ -49,5 +49,9 @@ namespace Universidad.ServidorInterno.GestionCatalogos
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenColonias(estado, municipio);
         }
 
+        public DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCodigoPostal(estado, municipio, colonia);
+        }
     }
 }

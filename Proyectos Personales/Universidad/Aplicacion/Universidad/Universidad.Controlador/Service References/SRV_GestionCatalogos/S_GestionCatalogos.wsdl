@@ -55,6 +55,12 @@
   <wsdl:message name="IS_GestionCatalogos_ObtenColonias_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenColoniasResponse" />
   </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCodigoPostal_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCodigoPostal" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCodigoPostal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCodigoPostalResponse" />
+  </wsdl:message>
   <wsdl:portType name="IS_GestionCatalogos">
     <wsdl:operation name="ObtenTablaUsCatTipoUsuarios">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios" message="tns:IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_InputMessage" />
@@ -87,6 +93,10 @@
     <wsdl:operation name="ObtenColonias">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenColonias" message="tns:IS_GestionCatalogos_ObtenColonias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasResponse" message="tns:IS_GestionCatalogos_ObtenColonias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCodigoPostal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal" message="tns:IS_GestionCatalogos_ObtenCodigoPostal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostalResponse" message="tns:IS_GestionCatalogos_ObtenCodigoPostal_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_GestionCatalogos" type="tns:IS_GestionCatalogos">
@@ -156,6 +166,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenColonias">
       <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenColonias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCodigoPostal">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

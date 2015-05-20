@@ -4,14 +4,95 @@
     var titulo = ViewBag.Title = "Registro de personas";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var listaMunicipios = ViewBag.ListaMunicipios;
+    var listaColonias = ViewBag.ListaColonias;
+
+    if (ViewBag.ListaMunicipios == null)
+    {
+        listaMunicipios = (new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Elige Estado" } }).ToArray();
+    }
+
+    if (ViewBag.ListaColonias == null)
+    {
+        listaColonias = (new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Elige Municipio" } }).ToArray();
+    }
+
     var listaEstados = ViewBag.ListaEstados;
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#ddlEstados').change(function() {
+                var idEstado = $("#ddlEstados").val();
+                if (idEstado != 0) {
+                    $.ajax({
+                        type: "POST",
+                        data: { 'estado': idEstado },
+                        url: '@Url.Action("ObtenMunicipios", "Personas")',
+                        success: function(response) {
+                            var listado = JSON.parse(response);
+                            var result = '';
+                            var selectList = $("#ddlMunicipios");
+                            selectList.empty();
+                            $("#ddlColonias").empty();
+                            for (var i = 0, iL = listado.length; i < iL; i++) {
+                                var id = listado[i].Value;
+                                var texto = listado[i].Text;
+                                result += '<option value="' + id + '">' + texto + '</option>';
+                            }
+                            $("#ddlMunicipios").html(result);
+                        },
+                        error: function(xhr, status, error) {
+                            alert(status + " : " + error);
+                        }
+                    });
+                } else {
+                    alert("Elige un estado");
+                }
+            });
+
+            $('#ddlMunicipios').change(function() {
+                var idEstado = $("#ddlEstados").val();
+                var idMunicipio = $("#ddlMunicipios").val();
+                if (idEstado != 0) {
+                    $.ajax({
+                        type: "POST",
+                        data: { 'estado': idEstado, 'municipio': idMunicipio },
+                        url: '@Url.Action("ObtenColonias", "Personas")',
+                        success: function(response) {
+                            var listado = JSON.parse(response);
+                            var result = '';
+                            var selectList = $("#ddlColonias");
+                            selectList.empty();
+                            for (var i = 0, iL = listado.length; i < iL; i++) {
+                                var id = listado[i].Value;
+                                var texto = listado[i].Text;
+                                result += '<option value="' + id + '">' + texto + '</option>';
+                            }
+                            $("#ddlColonias").html(result);
+                        },
+                        error: function(xhr, status, error) {
+                            alert(status + " : " + error);
+                        }
+                    });
+                } else {
+                    alert("Elige un municipio y un estado");
+                }
+            });
+
+            $('#ddlcolonias').change(function () {
+
+            });
+        });
+    </script>
 }
 
 <div class="jumbotron">
     <br />
     <h2>@titulo</h2>
     <br />
-
     <div class="panel panel-default" style="margin: 5px; padding: 10px;">
         <div class="panel-heading" style="margin: 5px; padding: 10px;">
             <div class="panel-title">Llena los campos de la direccion del usario</div>
@@ -22,7 +103,7 @@
             <fieldset>
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="row">
-                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                             <div class="input-group form-group col-lg-offset-4 col-md-4">
                                 @Html.LabelFor(x => x.Direccion.CodigoPostal, new { @class = "input-group-addon" })
                                 @Html.TextBoxFor(x => x.Direccion.CodigoPostal, new { @class = "form-control", placeholder = "Codigo Postal" })
@@ -33,11 +114,23 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                             <div class="form-group col-md-4">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Direccion.IdEstado, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Direccion.IdEstado, (IEnumerable<SelectListItem>)listaEstados, new { @class = "dropdown-header form-control" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdEstado, (IEnumerable<SelectListItem>)listaEstados, "Selecciona estado", new { @class = "dropdown-header form-control", @id = "ddlEstados" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Direccion.IdMunicipio, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdMunicipio, (IEnumerable<SelectListItem>)listaMunicipios, "Selecciona municipio", new { @class = "dropdown-header form-control", @id = "ddlMunicipios" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.LabelFor(x => x.Direccion.IdColonia, new { @class = "input-group-addon" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdColonia, (IEnumerable<SelectListItem>)listaColonias, "Selecciona colonia", new { @class = "dropdown-header form-control", @id = "ddlColonias" })
                                 </div>
                             </div>
                         </div>
@@ -47,7 +140,7 @@
             <div style="margin-top: 10px; float: right;" class="form-group">
                 <label>&nbsp;</label>
                 @Html.ActionLink("Atras", "PersonaDefault", "Personas", new { @class = "btn btn-info btn-xs", @style = "margin: 10px; padding: 10px;" })
-                <input type="submit" value="Siguiente" class="btn btn-info btn-xs" style=" margin: 10px; padding: 10px;">
+                <input type="submit" value="Siguiente" class="btn btn-info btn-xs" style="margin: 10px; padding: 10px;">
             </div>
         }
         @{ Html.EndForm(); }

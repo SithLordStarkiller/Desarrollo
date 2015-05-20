@@ -27,7 +27,7 @@
         [StringLength(30, ErrorMessage = "El nombre de la calle es muy largo"), MinLength(2, ErrorMessage = "El nombre de la calle es muy corto")]
         public string Calle { get; set; }
 
-        [DisplayName("Calle")]
+        [DisplayName("No Exterior")]
         [Required(ErrorMessage = "El No Exterior es un campo obligatorio")]
         public string NoExterior { get; set; }
         public string NoInterior { get; set; }
