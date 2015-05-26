@@ -19,17 +19,28 @@ namespace AplicacionFragancias.Entidades
             this.COM_PRODUCTOS = new HashSet<COM_PRODUCTOS>();
         }
     
+        public int IDORDENCOMPRA { get; set; }
         public string NOORDENCOMPRA { get; set; }
         public Nullable<short> IDALAMACENES { get; set; }
         public Nullable<int> IDESTATUSCOMPRA { get; set; }
-        public System.DateTime FECHAENTREGA { get; set; }
+        public Nullable<int> IDIMPUESTO { get; set; }
+        public Nullable<int> IDMONEDA { get; set; }
+        public Nullable<int> IDPROVEEDOR { get; set; }
+        public System.DateTime FECHAORDENCOMPRA { get; set; }
         public System.DateTime FECHAPEDIDO { get; set; }
+        public System.DateTime FECHAENTREGA { get; set; }
+        public decimal CANTIDADENTREGADA { get; set; }
         public decimal CANTIDADTOTAL { get; set; }
         public bool ENTREGAFRACCIONARIA { get; set; }
+        public decimal SUBTOTAL { get; set; }
+        public decimal TOTAL { get; set; }
         public bool BORRADO { get; set; }
     
         public virtual ALM_CAT_ALMECENES ALM_CAT_ALMECENES { get; set; }
         public virtual COM_ESTATUS_COMPRA COM_ESTATUS_COMPRA { get; set; }
+        public virtual COM_PROVEEDORES COM_PROVEEDORES { get; set; }
+        public virtual FAC_CAT_IMPUESTO FAC_CAT_IMPUESTO { get; set; }
+        public virtual FAC_CAT_MONEDA FAC_CAT_MONEDA { get; set; }
         public virtual ICollection<COM_PRODUCTOS> COM_PRODUCTOS { get; set; }
     }
 }

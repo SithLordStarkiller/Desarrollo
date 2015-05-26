@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using AplicacionFragancias.Entidades;
 
 namespace AplicacionFragancias.AccesoDatos.Compras
@@ -18,6 +20,17 @@ namespace AplicacionFragancias.AccesoDatos.Compras
             using (var r = new Repositorio<COM_PRODUCTOS>())
             {
                 return r.Agregar(ordenCompra);
+            }
+        }
+
+        public List<COM_ORDENCOMPRA> ObtenListasOrdenesDeCompra(DateTime inicio, DateTime fin, List<int> status)
+        {
+            using (var i = new Repositorio<COM_ORDENCOMPRA>())
+            {
+                return
+                    i.Filtro(
+                        r =>
+                            r.FECHAORDENCOMPRA >= inicio && r.FECHAORDENCOMPRA <= fin && status.Contains(r.IDORDENCOMPRA)).ToList();
             }
         }
 

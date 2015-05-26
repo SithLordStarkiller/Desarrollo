@@ -12,16 +12,18 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class SIS_PERFILES_MENU
+    public partial class COM_CAT_UNIDADES_MEDIDA
     {
-        public short IDPERFILESMENU { get; set; }
-        public Nullable<int> IDMENU { get; set; }
-        public Nullable<short> IDPERFIL { get; set; }
-        public bool ENLICENCIA { get; set; }
-        public bool ACTIVO { get; set; }
-        public bool BORRADO { get; set; }
+        public COM_CAT_UNIDADES_MEDIDA()
+        {
+            this.COM_PRODUCTOS = new HashSet<COM_PRODUCTOS>();
+        }
     
-        public virtual SIS_MENUARBOL SIS_MENUARBOL { get; set; }
-        public virtual US_CAT_PERFILES US_CAT_PERFILES { get; set; }
+        public short IDUNIDADESMEDIDA { get; set; }
+        public string TIPOUNIDAD { get; set; }
+        public string DESCRIPCION { get; set; }
+        public Nullable<bool> BORRADO { get; set; }
+    
+        public virtual ICollection<COM_PRODUCTOS> COM_PRODUCTOS { get; set; }
     }
 }

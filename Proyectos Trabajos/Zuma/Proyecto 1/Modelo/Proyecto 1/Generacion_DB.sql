@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     04/03/2015 09:56:05 a. m.                    */
+/* Created on:     25/05/2015 11:54:08 a. m.                    */
 /*==============================================================*/
 
 
@@ -9,6 +9,27 @@ if exists (select 1
    where r.fkeyid = object_id('COM_CAT_TIPO_OPERACION') and o.name = 'FK_COM_CAT__REFERENCE_LOG_COM_')
 alter table COM_CAT_TIPO_OPERACION
    drop constraint FK_COM_CAT__REFERENCE_LOG_COM_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('COM_ORDENCOMPRA') and o.name = 'FK_COM_ORD_FAC_CAT_IMP')
+alter table COM_ORDENCOMPRA
+   drop constraint FK_COM_ORD_FAC_CAT_IMP
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('COM_ORDENCOMPRA') and o.name = 'FK_COM_ORD_FAC_CAT_MON')
+alter table COM_ORDENCOMPRA
+   drop constraint FK_COM_ORD_FAC_CAT_MON
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('COM_ORDENCOMPRA') and o.name = 'FK_COM_ORD_COM_PRO')
+alter table COM_ORDENCOMPRA
+   drop constraint FK_COM_ORD_COM_PRO
 go
 
 if exists (select 1
@@ -30,6 +51,20 @@ if exists (select 1
    where r.fkeyid = object_id('COM_PRODUCTOS') and o.name = 'FK_COM_PROD_REFERENCE_COM_ORDE')
 alter table COM_PRODUCTOS
    drop constraint FK_COM_PROD_REFERENCE_COM_ORDE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('COM_PRODUCTOS') and o.name = 'FK_COM_PRO_COMCAT_UNI')
+alter table COM_PRODUCTOS
+   drop constraint FK_COM_PRO_COMCAT_UNI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('COM_PRODUCTOS') and o.name = 'FK_COM_PRO_COM_CAT_PRE')
+alter table COM_PRODUCTOS
+   drop constraint FK_COM_PRO_COM_CAT_PRE
 go
 
 if exists (select 1
@@ -83,9 +118,23 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('COM_CAT_PRESENTACION')
+            and   type = 'U')
+   drop table COM_CAT_PRESENTACION
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('COM_CAT_TIPO_OPERACION')
             and   type = 'U')
    drop table COM_CAT_TIPO_OPERACION
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('COM_CAT_UNIDADES_MEDIDA')
+            and   type = 'U')
+   drop table COM_CAT_UNIDADES_MEDIDA
 go
 
 if exists (select 1
@@ -107,6 +156,27 @@ if exists (select 1
            where  id = object_id('COM_PRODUCTOS')
             and   type = 'U')
    drop table COM_PRODUCTOS
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('COM_PROVEEDORES')
+            and   type = 'U')
+   drop table COM_PROVEEDORES
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('FAC_CAT_IMPUESTO')
+            and   type = 'U')
+   drop table FAC_CAT_IMPUESTO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('FAC_CAT_MONEDA')
+            and   type = 'U')
+   drop table FAC_CAT_MONEDA
 go
 
 if exists (select 1
@@ -171,6 +241,18 @@ create table ALM_CAT_ALMECENES (
 go
 
 /*==============================================================*/
+/* Table: COM_CAT_PRESENTACION                                  */
+/*==============================================================*/
+create table COM_CAT_PRESENTACION (
+   IDPRESENTACION       smallint             not null,
+   PRESENTACION         varchar(100)         null,
+   DESCRIPCION          varchar(200)         null,
+   BORRADO              bit                  null,
+   constraint PK_COM_CAT_PRESENTACION primary key (IDPRESENTACION)
+)
+go
+
+/*==============================================================*/
 /* Table: COM_CAT_TIPO_OPERACION                                */
 /*==============================================================*/
 create table COM_CAT_TIPO_OPERACION (
@@ -180,6 +262,18 @@ create table COM_CAT_TIPO_OPERACION (
    DESCRIPCION          varchar(50)          null,
    BORRADO              bit                  not null,
    constraint PK_COM_CAT_TIPO_OPERACION primary key (IDTIPOOPERACION)
+)
+go
+
+/*==============================================================*/
+/* Table: COM_CAT_UNIDADES_MEDIDA                               */
+/*==============================================================*/
+create table COM_CAT_UNIDADES_MEDIDA (
+   IDUNIDADESMEDIDA     smallint             not null,
+   TIPOUNIDAD           varchar(100)         null,
+   DESCRIPCION          varchar(100)         null,
+   BORRADO              bit                  null,
+   constraint PK_COM_CAT_UNIDADES_MEDIDA primary key (IDUNIDADESMEDIDA)
 )
 go
 
@@ -199,14 +293,23 @@ go
 /* Table: COM_ORDENCOMPRA                                       */
 /*==============================================================*/
 create table COM_ORDENCOMPRA (
+   IDORDENCOMPRA        int                  identity,
    NOORDENCOMPRA        varchar(50)          not null,
    IDALAMACENES         smallint             null,
    IDESTATUSCOMPRA      int                  null,
-   FECHAENTREGA         datetime             not null,
+   IDIMPUESTO           int                  null,
+   IDMONEDA             int                  null,
+   IDPROVEEDOR          int                  null,
+   FECHAORDENCOMPRA     datetime             not null,
    FECHAPEDIDO          datetime             not null,
+   FECHAENTREGA         datetime             not null,
+   CANTIDADENTREGADA    decimal              not null,
    CANTIDADTOTAL        decimal              not null,
    ENTREGAFRACCIONARIA  bit                  not null,
-   constraint PK_COM_ORDENCOMPRA primary key nonclustered (NOORDENCOMPRA)
+   SUBTOTAL             decimal              not null,
+   TOTAL                decimal              not null,
+   BORRADO              bit                  not null,
+   constraint PK_COM_ORDENCOMPRA primary key nonclustered (NOORDENCOMPRA, IDORDENCOMPRA)
 )
 go
 
@@ -216,13 +319,52 @@ go
 create table COM_PRODUCTOS (
    IDPRODUCTOS          int                  identity,
    NOORDENCOMPRA        varchar(50)          null,
+   IDORDENCOMPRA        int                  null,
+   IDUNIDADESMEDIDA     smallint             null,
+   IDPRESENTACION       smallint             null,
    NOMBREPRODUCTO       varchar(100)         not null,
    LOTE                 varchar(50)          not null,
    CANTIDADPRODUCTO     decimal              not null,
    FECHAENTREGA         datetime             not null,
    PRECIOUNITARIO       money                not null,
+   ENTREGADO            bit                  not null,
    BORRADO              bit                  not null,
    constraint PK_COM_PRODUCTOS primary key (IDPRODUCTOS)
+)
+go
+
+/*==============================================================*/
+/* Table: COM_PROVEEDORES                                       */
+/*==============================================================*/
+create table COM_PROVEEDORES (
+   IDPROVEEDOR          int                  not null,
+   NOMBREPROVEEDOR      varchar(100)         not null,
+   NOMBRECONTACTO       varchar(100)         not null,
+   TELEFONOCONTACTO     varchar(100)         null,
+   CORREOELECTRONICOCONTACTO varchar(100)         null,
+   constraint PK_COM_PROVEEDORES primary key (IDPROVEEDOR)
+)
+go
+
+/*==============================================================*/
+/* Table: FAC_CAT_IMPUESTO                                      */
+/*==============================================================*/
+create table FAC_CAT_IMPUESTO (
+   IDIMPUESTO           int                  not null,
+   NOMBREIMPUESTO       varchar(100)         not null,
+   PORSENTAGEIMPUESTO   decimal              not null,
+   constraint PK_FAC_CAT_IMPUESTO primary key (IDIMPUESTO)
+)
+go
+
+/*==============================================================*/
+/* Table: FAC_CAT_MONEDA                                        */
+/*==============================================================*/
+create table FAC_CAT_MONEDA (
+   IDMONEDA             int                  not null,
+   NOMBREMONEDA         varchar(100)         not null,
+   VALORPORDOLAR        decimal              not null,
+   constraint PK_FAC_CAT_MONEDA primary key (IDMONEDA)
 )
 go
 
@@ -241,7 +383,7 @@ go
 /* Table: PER_PERSONA                                           */
 /*==============================================================*/
 create table PER_PERSONA (
-   IDPERSONA            numeric              identity,
+   IDPERSONA            int                  identity,
    IDUSUARIOS           int                  null,
    NOMBRE               varchar(100)         not null,
    APELLIDOP            varchar(100)         null,
@@ -273,6 +415,9 @@ create table SIS_PERFILES_MENU (
    IDPERFILESMENU       smallint             not null,
    IDMENU               int                  null,
    IDPERFIL             smallint             null,
+   ENLICENCIA           bit                  not null,
+   ACTIVO               bit                  not null,
+   BORRADO              bit                  not null,
    constraint PK_SIS_PERFILES_MENU primary key (IDPERFILESMENU)
 )
 go
@@ -320,6 +465,21 @@ alter table COM_CAT_TIPO_OPERACION
 go
 
 alter table COM_ORDENCOMPRA
+   add constraint FK_COM_ORD_FAC_CAT_IMP foreign key (IDIMPUESTO)
+      references FAC_CAT_IMPUESTO (IDIMPUESTO)
+go
+
+alter table COM_ORDENCOMPRA
+   add constraint FK_COM_ORD_FAC_CAT_MON foreign key (IDMONEDA)
+      references FAC_CAT_MONEDA (IDMONEDA)
+go
+
+alter table COM_ORDENCOMPRA
+   add constraint FK_COM_ORD_COM_PRO foreign key (IDPROVEEDOR)
+      references COM_PROVEEDORES (IDPROVEEDOR)
+go
+
+alter table COM_ORDENCOMPRA
    add constraint FK_COM_ORDE_REFERENCE_ALM_CAT_ foreign key (IDALAMACENES)
       references ALM_CAT_ALMECENES (IDALAMACENES)
 go
@@ -330,8 +490,18 @@ alter table COM_ORDENCOMPRA
 go
 
 alter table COM_PRODUCTOS
-   add constraint FK_COM_PROD_REFERENCE_COM_ORDE foreign key (NOORDENCOMPRA)
-      references COM_ORDENCOMPRA (NOORDENCOMPRA)
+   add constraint FK_COM_PROD_REFERENCE_COM_ORDE foreign key (NOORDENCOMPRA, IDORDENCOMPRA)
+      references COM_ORDENCOMPRA (NOORDENCOMPRA, IDORDENCOMPRA)
+go
+
+alter table COM_PRODUCTOS
+   add constraint FK_COM_PRO_COMCAT_UNI foreign key (IDUNIDADESMEDIDA)
+      references COM_CAT_UNIDADES_MEDIDA (IDUNIDADESMEDIDA)
+go
+
+alter table COM_PRODUCTOS
+   add constraint FK_COM_PRO_COM_CAT_PRE foreign key (IDPRESENTACION)
+      references COM_CAT_PRESENTACION (IDPRESENTACION)
 go
 
 alter table PER_PERSONA

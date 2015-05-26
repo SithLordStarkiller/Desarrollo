@@ -16,6 +16,9 @@ namespace AplicacionFragancias.Entidades
     {
         public int IDPRODUCTOS { get; set; }
         public string NOORDENCOMPRA { get; set; }
+        public Nullable<int> IDORDENCOMPRA { get; set; }
+        public Nullable<short> IDUNIDADESMEDIDA { get; set; }
+        public Nullable<short> IDPRESENTACION { get; set; }
         public string NOMBREPRODUCTO { get; set; }
         public string LOTE { get; set; }
         public decimal CANTIDADPRODUCTO { get; set; }
@@ -24,6 +27,8 @@ namespace AplicacionFragancias.Entidades
         public bool ENTREGADO { get; set; }
         public bool BORRADO { get; set; }
     
+        public virtual COM_CAT_PRESENTACION COM_CAT_PRESENTACION { get; set; }
+        public virtual COM_CAT_UNIDADES_MEDIDA COM_CAT_UNIDADES_MEDIDA { get; set; }
         public virtual COM_ORDENCOMPRA COM_ORDENCOMPRA { get; set; }
     }
 }

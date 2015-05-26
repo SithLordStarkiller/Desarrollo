@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AplicacionFragancias.Entidades;
 using AplicacionFragancias.AccesoDatos.Compras;
@@ -20,6 +21,11 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
             return nuevaOrdenCompra;
         }
 
+        public List<COM_ORDENCOMPRA> ObtenListasOrdenesDeCompra(DateTime inicio, DateTime fin, List<int> status)
+        {
+            return new OperacionesCompras().ObtenListasOrdenesDeCompra(inicio, fin, status);
+        }
+
         public COM_ORDENCOMPRA ObtenOrdencompra(string noOrdenCompra)
         {
             return new OperacionesCompras().ObtenOrdenCompra(noOrdenCompra);
@@ -28,6 +34,11 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
         public List<COM_PRODUCTOS> ObtenListaProductos(COM_ORDENCOMPRA ordenCompra)
         {
             return new OperacionesCompras().ObtenListaProductos(ordenCompra);
+        }
+
+        public List<COM_ESTATUS_COMPRA> ObtenEstatusCompras()
+        {
+            return new OperacionesCatalogosCompras().ObtenEstatusCompras();
         }
 
         public bool ActualizaProducto(COM_PRODUCTOS producto)

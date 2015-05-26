@@ -15,6 +15,8 @@
     <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet"/>
 }
 
 @section Scripts
@@ -22,8 +24,9 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('.datepicker').datepicker({
-                language: "es",
-                format: 'dd/mm/yyyy'
+                language: 'es',
+                format: 'dd/mm/yyyy',
+                autoclose:true
             });
         });
     </script>
@@ -82,7 +85,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <div class="input-group date">
-                                    @Html.TextBoxFor(x => x.Datos.FechaNacimiento, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento" })
+                                    @Html.TextBoxFor(x => x.Datos.FechaNacimiento, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento", @id = "dpkFechaNacimiento" })
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar datepicker"></span>
                                     </span>

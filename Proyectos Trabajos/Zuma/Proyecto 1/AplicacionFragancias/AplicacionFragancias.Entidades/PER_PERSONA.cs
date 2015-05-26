@@ -14,7 +14,7 @@ namespace AplicacionFragancias.Entidades
     
     public partial class PER_PERSONA
     {
-        public decimal IDPERSONA { get; set; }
+        public int IDPERSONA { get; set; }
         public Nullable<int> IDUSUARIOS { get; set; }
         public string NOMBRE { get; set; }
         public string APELLIDOP { get; set; }

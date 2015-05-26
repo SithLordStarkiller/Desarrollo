@@ -12,16 +12,19 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class SIS_PERFILES_MENU
+    public partial class COM_PROVEEDORES
     {
-        public short IDPERFILESMENU { get; set; }
-        public Nullable<int> IDMENU { get; set; }
-        public Nullable<short> IDPERFIL { get; set; }
-        public bool ENLICENCIA { get; set; }
-        public bool ACTIVO { get; set; }
-        public bool BORRADO { get; set; }
+        public COM_PROVEEDORES()
+        {
+            this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
+        }
     
-        public virtual SIS_MENUARBOL SIS_MENUARBOL { get; set; }
-        public virtual US_CAT_PERFILES US_CAT_PERFILES { get; set; }
+        public int IDPROVEEDOR { get; set; }
+        public string NOMBREPROVEEDOR { get; set; }
+        public string NOMBRECONTACTO { get; set; }
+        public string TELEFONOCONTACTO { get; set; }
+        public string CORREOELECTRONICOCONTACTO { get; set; }
+    
+        public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
     }
 }
