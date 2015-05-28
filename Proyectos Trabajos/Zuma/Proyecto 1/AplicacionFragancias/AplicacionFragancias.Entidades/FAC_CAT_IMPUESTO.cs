@@ -21,6 +21,7 @@ namespace AplicacionFragancias.Entidades
     
         public int IDIMPUESTO { get; set; }
         public string NOMBREIMPUESTO { get; set; }
+        public string NOMBRECORTO { get; set; }
         public decimal PORSENTAGEIMPUESTO { get; set; }
     
         public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }

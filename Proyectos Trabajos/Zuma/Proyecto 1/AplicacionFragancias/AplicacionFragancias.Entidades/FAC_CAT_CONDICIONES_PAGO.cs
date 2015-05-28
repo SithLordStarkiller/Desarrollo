@@ -12,13 +12,18 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_PROVEEDORES
+    public partial class FAC_CAT_CONDICIONES_PAGO
     {
-        public int IDPROVEEDOR { get; set; }
-        public string CVEPROVEEDOR { get; set; }
-        public string NOMBREPROVEEDOR { get; set; }
-        public string NOMBRECONTACTO { get; set; }
-        public string TELEFONOCONTACTO { get; set; }
-        public string CORREOELECTRONICOCONTACTO { get; set; }
+        public FAC_CAT_CONDICIONES_PAGO()
+        {
+            this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
+        }
+    
+        public short IDCONDICIONESPAGO { get; set; }
+        public string CONDICIONPAGO { get; set; }
+        public string DESCRIPCIONPAGO { get; set; }
+        public bool BORRADO { get; set; }
+    
+        public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
     }
 }

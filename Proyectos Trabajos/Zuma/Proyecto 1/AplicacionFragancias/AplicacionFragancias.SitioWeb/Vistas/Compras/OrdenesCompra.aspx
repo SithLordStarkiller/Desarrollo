@@ -4,13 +4,14 @@
     <script src="/Scripts/jquery-2.1.3.js" type="text/javascript"></script>
     <script src="/Scripts/jquery-ui-1.11.3.js" type="text/javascript"></script>
     <script type="text/javascript" src="/Scripts/bootstrap.js"></script>
-    <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/Content/bootstrap.css" type="text/css" />
     <link rel="stylesheet" href="/Content/bootstrap.min.css" type="text/css" />
-    <script type="text/javascript" src="/Scripts/bootstrap.min.js"></script>
     <script src="/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
     <link href="/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
     <script src="/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
     <link href="/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript">
 
@@ -32,14 +33,34 @@
                 autoclose: true,
                 orientation: "buttom"
             });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
+            });
+
+            $('#exampleModal').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget); 
+                var recipient = button.data('whatever');
+                var modal = $(this);
+                modal.find('.modal-title').text('New message to ' + recipient);
+                modal.find('.modal-body input').val(recipient);
+            });
         });
     </script>
+    <style>
+        .selectpicker {
+            bottom: 0;
+            max-width: 100px;
+            margin-left: 3px;
+            margin-right: 3px;
+            margin-top: 0;
+            margin-bottom: 0;
+            top: 0;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <br />
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" />
-    <br />
-    <br />
     <div class="jumbotron">
         <br />
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
@@ -58,63 +79,89 @@
             <div class="row">
                 <div class="input-group form-group col-lg-offset-5 col-md-4">
                     <asp:Label runat="server" Class="input-group-addon">Estatus </asp:Label>
-                    <asp:ListBox runat="server" ID="lbxEstatusPedido" SelectionMode="Multiple" />
+                    <asp:ListBox runat="server" ID="lbxEstatusPedido" SelectionMode="Multiple" AutoPostBack="true" OnSelectedIndexChanged="lbxEstatusPedido_OnTextChanged" />
                 </div>
             </div>
         </div>
-        <br/>
+        <br />
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
             <asp:GridView ID="grvProductos" runat="server"
-                    ShowFooter="True" AutoGenerateColumns="False"
-                    CellPadding="4" ForeColor="#333333"
-                    GridLines="None" Width="100%">
-                    <Columns>
-                        <asp:BoundField DataField="RowNumber" HeaderText="No" />
-                        <asp:TemplateField HeaderText="Nombre del Producto">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtNombreProducto" runat="server" Class="form-control TextboxWidth" placeholder="Nombre del Producto" Width="95%"></asp:TextBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Lote">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtLote" runat="server" Class="form-control TextboxWidth" placeholder="Lote" Width="95%" Style="position: relative; align-items: center;"></asp:TextBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Cantidad">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtCantidad" runat="server" Class="form-control TextboxWidth" placeholder="Cantidad" Width="95%"></asp:TextBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Precio Unitario">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtPrecioUnitario" runat="server" Class="form-control TextboxWidth" placeholder="Precio unitario" Width="95%"></asp:TextBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Fecha de entrega">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtFechaEntrega" runat="server" CssClass="form-control TextboxWidth datepickers" placeholder="dd/mm/aaaa" Width="95%"></asp:TextBox>
-                            </ItemTemplate>
-                        </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Sub Total">
-                            <ItemTemplate>
-                                <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control TextboxWidth" placeholder="Subtotal" Width="95%"></asp:TextBox>
-                            </ItemTemplate>
-                            <FooterStyle HorizontalAlign="Right" Height="50px" />
-                            <FooterTemplate>
-                                <asp:Button ID="ButtonAdd" runat="server"
-                                    Text="Nuevo Producto" class="btn btn-default btn-xs" />
-                            </FooterTemplate>
-                        </asp:TemplateField>
-                        <asp:CommandField ShowDeleteButton="True" DeleteImageUrl="/Imagenes/eliminar.gif" ButtonType="Image" />
-                    </Columns>
-                    <FooterStyle BackColor="#EEEEEE" Font-Bold="True" ForeColor="black" />
-                    <RowStyle BackColor="#FFFFFF" />
-                    <EditRowStyle BackColor="#CCCCCC" />
-                    <SelectedRowStyle BackColor="#888888" Font-Bold="True" ForeColor="#333333" />
-                    <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
-                    <HeaderStyle BackColor="#EEEEEE" ForeColor="black" />
-                    <AlternatingRowStyle BackColor="White" />
-                </asp:GridView>
+                ShowFooter="True" AutoGenerateColumns="False"
+                CellPadding="10000" ForeColor="#333333"
+                GridLines="None" Width="100%" HorizontalAlign="Center">
+                <Columns>
+                    <asp:TemplateField HeaderText="Orden de Compra">
+                        <ItemTemplate>
+                            <asp:Label ID="lblOrdenCompra" runat="server" Text='<%# Bind("NOORDENCOMPRA") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Estatus">
+                        <ItemTemplate>
+                            <asp:Label ID="lblOrdenCompra" runat="server" Text='<%# Bind("NOORDENCOMPRA") %>' />
+                            <asp:TextBox ID="txtEstatus" runat="server" Class="form-control input-sm" placeholder="Estatus"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Fecha">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtFechaOrdenCompra" runat="server" Class="form-control input-sm datepicker" placeholder="Fecha"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Clave prov.">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="ddlCveProveedor" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Nombre prov.">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="ddlNombreProveedor" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Moneda">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="ddlMoneda" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Partidas">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtPartidas" runat="server" Class="form-control input-sm" placeholder="Subtotal"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Entregados">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtEntregadas" runat="server" Class="form-control input-sm" placeholder="Subtotal"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="SubTotal">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control input-sm" placeholder="Subtotal"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Impuestos">
+                        <ItemTemplate>
+                            <asp:DropDownList ID="ddlImpuestos" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Total">
+                        <ItemTemplate>
+                            <asp:TextBox ID="txtTotal" runat="server" Class="form-control input-sm" placeholder="Total"></asp:TextBox>
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:CommandField ShowEditButton="True" EditImageUrl="/Imagenes/ico_editar.gif" ButtonType="Image" />
+                    <asp:CommandField ShowDeleteButton="True" DeleteImageUrl="/Imagenes/eliminar.gif" ButtonType="Image" />
+                </Columns>
+                <FooterStyle BackColor="#EEEEEE" Font-Bold="True" ForeColor="black" />
+                <RowStyle BackColor="#FFFFFF" />
+                <EditRowStyle BackColor="#CCCCCC" />
+                <SelectedRowStyle BackColor="#888888" Font-Bold="True" ForeColor="#333333" />
+                <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                <HeaderStyle BackColor="#EEEEEE" ForeColor="black" HorizontalAlign="Center" />
+                <AlternatingRowStyle BackColor="White" />
+            </asp:GridView>
+            <div style="float: right;">
+                <asp:HyperLink runat="server" Text="Crear Orden de compra" class="btn btn-default btn-sm" NavigateUrl="NuevaOrdenCompra.aspx" />
+            </div>
+            <br />
+            <br />
         </div>
     </div>
 </asp:Content>

@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Web.UI;
 using AplicacionFragancias.Entidades;
-using AplicacionFragancias.LogicaNegocios;
 using AplicacionFragancias.LogicaNegocios.Compras;
 
 namespace AplicacionFragancias.SitioWeb.Vistas.Compras
@@ -10,18 +11,17 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack) return;
             lbxEstatusPedido.DataValueField = "IdEstatusCompra";
             lbxEstatusPedido.DataTextField = "NombreEstatus";
-            var lista =  new OperaionesCompras().ObtenEstatusCompras();
-            lbxEstatusPedido.DataSource = lista;
+            var listaOperacionesCompras =  new OperaionesCompras().ObtenEstatusCompras();
+            lbxEstatusPedido.DataSource = listaOperacionesCompras;
             lbxEstatusPedido.DataBind();
-            PrimeraFila();
         }
 
-        private void PrimeraFila()
+        public void PrimeraFila()
         {
             var dt = new DataTable();
-            DataRow dr = null;
             dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
@@ -29,7 +29,7 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
             dt.Columns.Add(new DataColumn("Col4", typeof(string)));
             dt.Columns.Add(new DataColumn("Col5", typeof(string)));
             dt.Columns.Add(new DataColumn("Col6", typeof(string)));
-            dr = dt.NewRow();
+            var dr = dt.NewRow();
             dr["RowNumber"] = 1;
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
@@ -43,6 +43,29 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
 
             grvProductos.DataSource = dt;
             grvProductos.DataBind();
+        }
+
+        protected void lbxEstatusPedido_OnTextChanged(object sender, EventArgs e)
+        {
+            var listaOperaciones = new List<int>();
+            List<COM_ORDENCOMPRA> ListaOrdenesCompras;
+            if (lbxEstatusPedido.Items.Count >= 1 && !string.IsNullOrEmpty(txtFechaFinal.Text) && !string.IsNullOrEmpty(txtFechaInicio.Text))
+            {
+                for (var i = 0; i < lbxEstatusPedido.Items.Count; i++)
+                {
+                    if (lbxEstatusPedido.Items[i].Selected)
+                        listaOperaciones.Add(Convert.ToInt32(lbxEstatusPedido.Items[i].Value));
+                }
+                var inicio = Convert.ToDateTime(txtFechaInicio.Text);
+                var final = Convert.ToDateTime((txtFechaFinal.Text));
+                ListaOrdenesCompras = new OperaionesCompras().ObtenListasOrdenesDeCompra(inicio, final, listaOperaciones);
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page),
+                            "Mensaje", string.Format("alert('Verifica los campos');"), true);
+                
+            }
         }
     }
 }

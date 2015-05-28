@@ -21,6 +21,16 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
             return nuevaOrdenCompra;
         }
 
+        public COM_PROVEEDORES InsertaProveedor(COM_PROVEEDORES proveedor)
+        {
+            return new OperacionesCompras().InsertaProveedor(proveedor);
+        }
+
+        public List<COM_PROVEEDORES> ObtenListaProveedores()
+        {
+            return new OperacionesCompras().ObtenListaProveedores();
+        }
+
         public List<COM_ORDENCOMPRA> ObtenListasOrdenesDeCompra(DateTime inicio, DateTime fin, List<int> status)
         {
             return new OperacionesCompras().ObtenListasOrdenesDeCompra(inicio, fin, status);

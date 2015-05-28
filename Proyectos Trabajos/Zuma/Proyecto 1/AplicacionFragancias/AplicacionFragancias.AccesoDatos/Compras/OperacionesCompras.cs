@@ -15,6 +15,14 @@ namespace AplicacionFragancias.AccesoDatos.Compras
             }
         }
 
+        public COM_PROVEEDORES InsertaProveedor(COM_PROVEEDORES proveedor)
+        {
+            using (var r = new Repositorio<COM_PROVEEDORES>())
+            {
+                return r.Agregar(proveedor);
+            }
+        }
+
         public COM_PRODUCTOS InsertaProductoOrdencompra(COM_PRODUCTOS ordenCompra)
         {
             using (var r = new Repositorio<COM_PRODUCTOS>())
@@ -31,6 +39,14 @@ namespace AplicacionFragancias.AccesoDatos.Compras
                     i.Filtro(
                         r =>
                             r.FECHAORDENCOMPRA >= inicio && r.FECHAORDENCOMPRA <= fin && status.Contains(r.IDORDENCOMPRA)).ToList();
+            }
+        }
+
+        public List<COM_PROVEEDORES> ObtenListaProveedores()
+        {
+            using (var r = new Repositorio<COM_PROVEEDORES>())
+            {
+                return r.TablaCompleta();
             }
         }
 

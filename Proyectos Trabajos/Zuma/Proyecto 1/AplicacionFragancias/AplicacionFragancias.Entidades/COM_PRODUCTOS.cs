@@ -29,6 +29,5 @@ namespace AplicacionFragancias.Entidades
     
         public virtual COM_CAT_PRESENTACION COM_CAT_PRESENTACION { get; set; }
         public virtual COM_CAT_UNIDADES_MEDIDA COM_CAT_UNIDADES_MEDIDA { get; set; }
-        public virtual COM_ORDENCOMPRA COM_ORDENCOMPRA { get; set; }
     }
 }

@@ -35,6 +35,7 @@ namespace AplicacionFragancias.AccesoDatos
         public virtual DbSet<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
         public virtual DbSet<COM_PRODUCTOS> COM_PRODUCTOS { get; set; }
         public virtual DbSet<COM_PROVEEDORES> COM_PROVEEDORES { get; set; }
+        public virtual DbSet<FAC_CAT_CONDICIONES_PAGO> FAC_CAT_CONDICIONES_PAGO { get; set; }
         public virtual DbSet<FAC_CAT_IMPUESTO> FAC_CAT_IMPUESTO { get; set; }
         public virtual DbSet<FAC_CAT_MONEDA> FAC_CAT_MONEDA { get; set; }
         public virtual DbSet<LOG_COM_OPERACIONES> LOG_COM_OPERACIONES { get; set; }

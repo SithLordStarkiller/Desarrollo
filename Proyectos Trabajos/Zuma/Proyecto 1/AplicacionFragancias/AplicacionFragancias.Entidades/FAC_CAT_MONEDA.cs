@@ -21,7 +21,8 @@ namespace AplicacionFragancias.Entidades
     
         public int IDMONEDA { get; set; }
         public string NOMBREMONEDA { get; set; }
-        public decimal VALORPORDOLAR { get; set; }
+        public string NOMBRECORTO { get; set; }
+        public Nullable<decimal> VALORPORDOLAR { get; set; }
     
         public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
     }
