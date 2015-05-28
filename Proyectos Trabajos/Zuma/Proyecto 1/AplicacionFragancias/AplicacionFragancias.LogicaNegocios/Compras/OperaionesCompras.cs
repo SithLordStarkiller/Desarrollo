@@ -26,6 +26,11 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
             return new OperacionesCompras().InsertaProveedor(proveedor);
         }
 
+        public COM_PROVEEDORES ExisteProveedor(string cveProveedor)
+        {
+            return new OperacionesCompras().ExisteProveedor(cveProveedor);
+        }
+
         public List<COM_PROVEEDORES> ObtenListaProveedores()
         {
             return new OperacionesCompras().ObtenListaProveedores();

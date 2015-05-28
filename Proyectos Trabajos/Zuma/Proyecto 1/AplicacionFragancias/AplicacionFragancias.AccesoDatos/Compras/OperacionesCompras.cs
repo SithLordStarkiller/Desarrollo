@@ -31,6 +31,14 @@ namespace AplicacionFragancias.AccesoDatos.Compras
             }
         }
 
+        public COM_PROVEEDORES ExisteProveedor(string cveProveedor)
+        {
+            using (var r = new Repositorio<COM_PROVEEDORES>())
+            {
+                return r.Extraer(e => e.CVEPROVEEDOR == cveProveedor);
+            }
+        }
+
         public List<COM_ORDENCOMPRA> ObtenListasOrdenesDeCompra(DateTime inicio, DateTime fin, List<int> status)
         {
             using (var i = new Repositorio<COM_ORDENCOMPRA>())

@@ -103,6 +103,24 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras {
         protected global::System.Web.UI.WebControls.DropDownList ddlImpuesto;
         
         /// <summary>
+        /// lblModalTitulo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModalTitulo;
+        
+        /// <summary>
+        /// lblModalMensaje control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblModalMensaje;
+        
+        /// <summary>
         /// txtCveProveedor control.
         /// </summary>
         /// <remarks>

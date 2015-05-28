@@ -50,37 +50,23 @@
                     type: "POST",
                     url: "NuevaOrdenCompra.aspx/GuardaProv",
                     data: '{cveProv: "' + cveProv + '", nomProv : "' + nomProv + '", nomCont: "' + nomCont + '", telCont: "' + telCont + '", emailCont: "' + emailCont + '"}',
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        success: function (msg) {
-                            alert(msg);
-                            $('#modalCreaProveedor').modal('hide');
-                        },
-                        failure: function (response) {
-                            alert(response.d);
-                        }
-                    });
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function () {
+                        $('#modalCreaProveedor').modal('hide');
+                        window.location.href = "NuevaOrdenCompra.aspx";
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
             });
         }
-
-        function OnChange(dropdown) {
-
-            var myindex = dropdown.selectedIndex;
-            var selValue = dropdown.options[myindex].value;
-            var cve = document.getElementById("<%=ddlCveProveedor.ClientID %>");
-            var nom = document.getElementById("<%=ddlProveedor.ClientID %>");
-
-            cve.options[2].selected = true;
-            nom.options[2].selected = true;
-        }
-
-
     </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="jumbotron col-md-12">
-        <br />
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
             <div class="panel-heading" style="margin: 5px; padding: 10px;">
                 <div class="panel-title">
@@ -96,10 +82,10 @@
             <div class="col-lg-offset-2 col-md-8">
                 <div class="input-group" style="margin: 10px; padding: 5px;">
                     <asp:Label runat="server" Class="input-group-addon">Clave del Proveedor</asp:Label>
-                    <asp:DropDownList ID="ddlCveProveedor" runat="server" Class="selectpicker" onchange='OnChange(this);' data-live-search="true" title="Selecciona Proveedor"></asp:DropDownList>
+                    <asp:DropDownList ID="ddlCveProveedor" runat="server" Class="selectpicker" AutoPostBack="true" OnTextChanged="ddlCveProveedor_OnTextChanged" data-live-search="true" title="Selecciona Proveedor"></asp:DropDownList>
                     <asp:Label runat="server" Class="input-group-addon">Nombre del Proveedor</asp:Label>
-                    <asp:DropDownList ID="ddlProveedor" runat="server" Class="selectpicker" onchange='OnChange(this);' data-live-search="true" title="Selecciona Proveedor"></asp:DropDownList>
-                    <button type="button" class="col-lg-offset-1 btn btn-primary btn-sm" title="Nuevo Proveedor" data-toggle="modal" data-target="#modalCreaProveedor" data-whatever="@mdo">Nuevo Proveedor</button>
+                    <asp:DropDownList ID="ddlProveedor" runat="server" Class="selectpicker" AutoPostBack="True" OnTextChanged="ddlProveedor_OnTextChanged" data-live-search="true" title="Selecciona Proveedor"></asp:DropDownList>
+                    <button type="button" class="col-lg-offset-1 btn btn-default btn-sm" title="Nuevo Proveedor" data-toggle="modal" data-target="#modalCreaProveedor" data-whatever="@mdo">Nuevo Proveedor</button>
 
                 </div>
             </div>
@@ -127,9 +113,43 @@
             </div>
             <br />
         </div>
+        <div class="panel panel-default" style="margin: 5px; padding: 10px;">
+            <div class="panel-heading" style="margin: 5px; padding: 10px;">
+                <div class="panel-title">
+                    <h4>Productos</h4>
+                </div>
+            </div>
+            <div style="float: right;">
+                <button type="button" class="btn btn-primary btn-sm col-lg-offset-1" title="Nuevo Proveedor" data-toggle="modal" data-target="#modalMensaje" data-whatever="@mdo">Nuevo Producto</button>
+            </div>
+            <br />
+            <br />
+        </div>
     </div>
 
+    <div style="float: right;">
+        <asp:button runat="server" type="button" class="btn btn-success btn-sm" Text="Guardar"/>
+    </div>
 
+    <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="modalLabelMensaje" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabelMensaje">
+                        <asp:Label runat="server" ID="lblModalTitulo"></asp:Label></h4>
+                </div>
+                <div class="modal-body">
+                    <asp:Label runat="server" ID="lblModalMensaje"></asp:Label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="modalCreaProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -145,13 +165,13 @@
                         <label class="control-label">Clave Proveedor:</label>
                         <asp:TextBox type="text" class="form-control" ID="txtCveProveedor" runat="server" />
                         <label class="control-label">Nombre Proveedor:</label>
-                        <asp:TextBox runat="server" class="form-control" id="txtNombreProveedor"></asp:TextBox>
+                        <asp:TextBox runat="server" class="form-control" ID="txtNombreProveedor"></asp:TextBox>
                         <label class="control-label">Nombre Contacto:</label>
-                        <asp:TextBox runat="server" class="form-control" id="txtNombreContaco"></asp:TextBox>
+                        <asp:TextBox runat="server" class="form-control" ID="txtNombreContaco"></asp:TextBox>
                         <label class="control-label">Telefono Contacto:</label>
-                        <asp:TextBox runat="server" class="form-control" id="txtTelefonoContacto"></asp:TextBox>
+                        <asp:TextBox runat="server" class="form-control" ID="txtTelefonoContacto"></asp:TextBox>
                         <label class="control-label">Correo Electronico Contacto:</label>
-                        <asp:TextBox runat="server" class="form-control" id="txteMailContacto"></asp:TextBox>
+                        <asp:TextBox runat="server" class="form-control" ID="txteMailContacto"></asp:TextBox>
                     </div>
                 </div>
                 <div class="modal-footer">
