@@ -7,6 +7,14 @@ namespace AplicacionFragancias.AccesoDatos.Compras
 {
     public class OperacionesCompras
     {
+        public COM_PROVEEDORES_CONTACTOS InsertaProveedoresContactos(COM_PROVEEDORES_CONTACTOS contactos)
+        {
+            using (var r = new Repositorio<COM_PROVEEDORES_CONTACTOS>())
+            {
+                return r.Agregar(contactos);
+            }
+        }
+
         public COM_ORDENCOMPRA InsertaOrdenCompra(COM_ORDENCOMPRA ordenCompra)
         {
             using (var r = new Repositorio<COM_ORDENCOMPRA>())
@@ -23,11 +31,19 @@ namespace AplicacionFragancias.AccesoDatos.Compras
             }
         }
 
-        public COM_PRODUCTOS InsertaProductoOrdencompra(COM_PRODUCTOS ordenCompra)
+        public COM_PRODUCTOS_PEDIDOS InsertaProductoOrdencompra(COM_PRODUCTOS_PEDIDOS ordenCompra)
+        {
+            using (var r = new Repositorio<COM_PRODUCTOS_PEDIDOS>())
+            {
+                return r.Agregar(ordenCompra);
+            }
+        }
+
+        public List<COM_PRODUCTOS> ObtenCatProductos()
         {
             using (var r = new Repositorio<COM_PRODUCTOS>())
             {
-                return r.Agregar(ordenCompra);
+                return r.TablaCompleta();
             }
         }
 
@@ -46,7 +62,7 @@ namespace AplicacionFragancias.AccesoDatos.Compras
                 return
                     i.Filtro(
                         r =>
-                            r.FECHAORDENCOMPRA >= inicio && r.FECHAORDENCOMPRA <= fin && status.Contains(r.IDORDENCOMPRA)).ToList();
+                            r.FECHAORDENCOMPRA >= inicio && r.FECHAORDENCOMPRA <= fin && status.Contains((int)r.IDESTATUSCOMPRA)).ToList();
             }
         }
 
@@ -66,9 +82,9 @@ namespace AplicacionFragancias.AccesoDatos.Compras
             }
         }
 
-        public List<COM_PRODUCTOS> ObtenListaProductos(COM_ORDENCOMPRA ordenCompra)
+        public List<COM_PRODUCTOS_PEDIDOS> ObtenListaProductos(COM_PRODUCTOS_PEDIDOS ordenCompra)
         {
-            using (var r = new Repositorio<COM_PRODUCTOS>())
+            using (var r = new Repositorio<COM_PRODUCTOS_PEDIDOS>())
             {
                 return r.Filtro(aux => aux.NOORDENCOMPRA == ordenCompra.NOORDENCOMPRA && aux.BORRADO == false);
             }

@@ -12,22 +12,18 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class PER_PERSONA
+    public partial class COM_CAT_ESTATUS_PRODUCTO
     {
-        public PER_PERSONA()
+        public COM_CAT_ESTATUS_PRODUCTO()
         {
-            this.US_USUARIOS = new HashSet<US_USUARIOS>();
+            this.COM_PRODUCTOS_PEDIDOS = new HashSet<COM_PRODUCTOS_PEDIDOS>();
         }
     
-        public int IDPERSONA { get; set; }
-        public string NOMBRE { get; set; }
-        public string APELLIDOP { get; set; }
-        public string APELLIDOM { get; set; }
-        public Nullable<System.DateTime> FECHANACIMINETO { get; set; }
-        public string GENERO { get; set; }
-        public Nullable<System.DateTime> FECHAREGISTRO { get; set; }
+        public short IDESTAUSPRODUCTO { get; set; }
+        public string ESTATUSPRODUCTO { get; set; }
+        public string DESCRIPCION { get; set; }
         public bool BORRADO { get; set; }
     
-        public virtual ICollection<US_USUARIOS> US_USUARIOS { get; set; }
+        public virtual ICollection<COM_PRODUCTOS_PEDIDOS> COM_PRODUCTOS_PEDIDOS { get; set; }
     }
 }

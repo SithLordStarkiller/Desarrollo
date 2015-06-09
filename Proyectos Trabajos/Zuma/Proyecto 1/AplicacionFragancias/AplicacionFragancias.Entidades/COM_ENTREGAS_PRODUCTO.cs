@@ -12,18 +12,16 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_CAT_UNIDADES_MEDIDA
+    public partial class COM_ENTREGAS_PRODUCTO
     {
-        public COM_CAT_UNIDADES_MEDIDA()
-        {
-            this.COM_PRODUCTOS_PEDIDOS = new HashSet<COM_PRODUCTOS_PEDIDOS>();
-        }
+        public int IDENTREGASPRODUCTO { get; set; }
+        public Nullable<short> IDALAMACENES { get; set; }
+        public Nullable<int> IDPRODUCTOSPEDIDOS { get; set; }
+        public System.DateTime FECHAENTREGA { get; set; }
+        public decimal PARTIDASENTREGADAS { get; set; }
+        public decimal PAGOREALIZADO { get; set; }
     
-        public short IDUNIDADESMEDIDA { get; set; }
-        public string TIPOUNIDAD { get; set; }
-        public string DESCRIPCION { get; set; }
-        public Nullable<bool> BORRADO { get; set; }
-    
-        public virtual ICollection<COM_PRODUCTOS_PEDIDOS> COM_PRODUCTOS_PEDIDOS { get; set; }
+        public virtual ALM_ALMECENES ALM_ALMECENES { get; set; }
+        public virtual COM_PRODUCTOS_PEDIDOS COM_PRODUCTOS_PEDIDOS { get; set; }
     }
 }

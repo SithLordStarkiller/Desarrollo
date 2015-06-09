@@ -16,7 +16,7 @@ namespace AplicacionFragancias.Entidades
     {
         public COM_CAT_PRESENTACION()
         {
-            this.COM_PRODUCTOS = new HashSet<COM_PRODUCTOS>();
+            this.COM_PRODUCTOS_PEDIDOS = new HashSet<COM_PRODUCTOS_PEDIDOS>();
         }
     
         public short IDPRESENTACION { get; set; }
@@ -24,6 +24,6 @@ namespace AplicacionFragancias.Entidades
         public string DESCRIPCION { get; set; }
         public Nullable<bool> BORRADO { get; set; }
     
-        public virtual ICollection<COM_PRODUCTOS> COM_PRODUCTOS { get; set; }
+        public virtual ICollection<COM_PRODUCTOS_PEDIDOS> COM_PRODUCTOS_PEDIDOS { get; set; }
     }
 }

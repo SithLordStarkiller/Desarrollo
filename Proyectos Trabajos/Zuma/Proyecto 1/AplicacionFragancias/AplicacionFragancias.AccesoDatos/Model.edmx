@@ -5,13 +5,31 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="FraganciasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="ALM_CAT_ALMECENES">
+        <EntityType Name="ALM_ALMECENES">
           <Key>
             <PropertyRef Name="IDALAMACENES" />
           </Key>
           <Property Name="IDALAMACENES" Type="smallint" Nullable="false" />
           <Property Name="NOMBREALMACEN" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COM_CAT_ESTATUS_COMPRA">
+          <Key>
+            <PropertyRef Name="IDESTATUSCOMPRA" />
+          </Key>
+          <Property Name="IDESTATUSCOMPRA" Type="int" Nullable="false" />
+          <Property Name="NOMBREESTATUS" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COM_CAT_ESTATUS_PRODUCTO">
+          <Key>
+            <PropertyRef Name="IDESTAUSPRODUCTO" />
+          </Key>
+          <Property Name="IDESTAUSPRODUCTO" Type="smallint" Nullable="false" />
+          <Property Name="ESTATUSPRODUCTO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" />
           <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="COM_CAT_PRESENTACION">
@@ -42,34 +60,30 @@
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
           <Property Name="BORRADO" Type="bit" />
         </EntityType>
-        <EntityType Name="COM_ESTATUS_COMPRA">
+        <EntityType Name="COM_ENTREGAS_PRODUCTO">
           <Key>
-            <PropertyRef Name="IDESTATUSCOMPRA" />
+            <PropertyRef Name="IDENTREGASPRODUCTO" />
           </Key>
-          <Property Name="IDESTATUSCOMPRA" Type="int" Nullable="false" />
-          <Property Name="NOMBREESTATUS" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
-          <Property Name="BORRADO" Type="bit" Nullable="false" />
+          <Property Name="IDENTREGASPRODUCTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDALAMACENES" Type="smallint" />
+          <Property Name="IDPRODUCTOSPEDIDOS" Type="int" />
+          <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
+          <Property Name="PARTIDASENTREGADAS" Type="decimal" Precision="10" Scale="4" Nullable="false" />
+          <Property Name="PAGOREALIZADO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="COM_ORDENCOMPRA">
           <Key>
-            <PropertyRef Name="IDORDENCOMPRA" />
             <PropertyRef Name="NOORDENCOMPRA" />
           </Key>
-          <Property Name="IDORDENCOMPRA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOORDENCOMPRA" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IDALAMACENES" Type="smallint" />
           <Property Name="IDESTATUSCOMPRA" Type="int" />
           <Property Name="IDIMPUESTO" Type="int" />
           <Property Name="IDMONEDA" Type="int" />
-          <Property Name="IDPROVEEDOR" Type="int" />
           <Property Name="CVEPROVEEDOR" Type="varchar" MaxLength="50" />
           <Property Name="IDCONDICIONESPAGO" Type="smallint" />
           <Property Name="FECHAORDENCOMPRA" Type="datetime" Nullable="false" />
           <Property Name="FECHAPEDIDO" Type="datetime" Nullable="false" />
           <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
-          <Property Name="CANTIDADENTREGADA" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="CANTIDADTOTAL" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="ENTREGAFRACCIONARIA" Type="bit" Nullable="false" />
           <Property Name="SUBTOTAL" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="TOTAL" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -77,32 +91,50 @@
         </EntityType>
         <EntityType Name="COM_PRODUCTOS">
           <Key>
-            <PropertyRef Name="IDPRODUCTOS" />
+            <PropertyRef Name="CVEPRODUCTO" />
           </Key>
-          <Property Name="IDPRODUCTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CVEPRODUCTO" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NOMBREPRODUCTO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="COM_PRODUCTOS_PEDIDOS">
+          <Key>
+            <PropertyRef Name="IDPRODUCTOSPEDIDOS" />
+          </Key>
+          <Property Name="IDPRODUCTOSPEDIDOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOORDENCOMPRA" Type="varchar" MaxLength="50" />
-          <Property Name="IDORDENCOMPRA" Type="int" />
           <Property Name="IDUNIDADESMEDIDA" Type="smallint" />
           <Property Name="IDPRESENTACION" Type="smallint" />
-          <Property Name="NOMBREPRODUCTO" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="LOTE" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="CANTIDADPRODUCTO" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="IDESTAUSPRODUCTO" Type="smallint" />
+          <Property Name="IDALAMACENES" Type="smallint" />
+          <Property Name="CVEPRODUCTO" Type="varchar" MaxLength="20" />
+          <Property Name="PARTIDA" Type="int" Nullable="false" />
+          <Property Name="CANTIDAD" Type="decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
-          <Property Name="PRECIOUNITARIO" Type="money" Nullable="false" />
+          <Property Name="PRECIOUNITARIO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="ENTREGADO" Type="bit" Nullable="false" />
           <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="COM_PROVEEDORES">
           <Key>
-            <PropertyRef Name="IDPROVEEDOR" />
             <PropertyRef Name="CVEPROVEEDOR" />
           </Key>
-          <Property Name="IDPROVEEDOR" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CVEPROVEEDOR" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="NOMBREPROVEEDOR" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="NOMBRECONTACTO" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="TELEFONOCONTACTO" Type="varchar" MaxLength="100" />
-          <Property Name="CORREOELECTRONICOCONTACTO" Type="varchar" MaxLength="100" />
+          <Property Name="IDPROVEEDORESCONTATOS" Type="int" />
+          <Property Name="RAZONSOCIAL" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RFC" Type="varchar" MaxLength="15" />
+          <Property Name="DIRECCION" Type="varchar" MaxLength="250" />
+          <Property Name="TELEFONO" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="COM_PROVEEDORES_CONTACTOS">
+          <Key>
+            <PropertyRef Name="IDPROVEEDORESCONTATOS" />
+          </Key>
+          <Property Name="IDPROVEEDORESCONTATOS" Type="int" Nullable="false" />
+          <Property Name="NOMBRECOMPLETO" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TELEFONOFIJO" Type="varchar" MaxLength="10" />
+          <Property Name="TELEFONOMOVIL" Type="varchar" MaxLength="10" />
+          <Property Name="CORREOELECTRONICO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="FAC_CAT_CONDICIONES_PAGO">
           <Key>
@@ -121,6 +153,7 @@
           <Property Name="NOMBREIMPUESTO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="NOMBRECORTO" Type="varchar" MaxLength="10" />
           <Property Name="PORSENTAGEIMPUESTO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="FAC_CAT_MONEDA">
           <Key>
@@ -129,7 +162,18 @@
           <Property Name="IDMONEDA" Type="int" Nullable="false" />
           <Property Name="NOMBREMONEDA" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="NOMBRECORTO" Type="varchar" MaxLength="10" />
-          <Property Name="VALORPORDOLAR" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FAC_TIPO_CAMBIO_HISTORICO">
+          <Key>
+            <PropertyRef Name="IDTIPOCAMBIO" />
+          </Key>
+          <Property Name="IDTIPOCAMBIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDMONEDA" Type="int" />
+          <Property Name="VALORCOMPRA" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="VALORVENTA" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="FECHA" Type="datetime" Nullable="false" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LOG_COM_OPERACIONES">
           <Key>
@@ -144,9 +188,8 @@
             <PropertyRef Name="IDPERSONA" />
           </Key>
           <Property Name="IDPERSONA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDUSUARIOS" Type="int" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="APELLIDOP" Type="varchar" MaxLength="100" />
+          <Property Name="APELLIDOP" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="APELLIDOM" Type="varchar" MaxLength="100" />
           <Property Name="FECHANACIMINETO" Type="datetime" />
           <Property Name="GENERO" Type="varchar" MaxLength="20" />
@@ -196,6 +239,7 @@
             <PropertyRef Name="IDUSUARIOS" />
           </Key>
           <Property Name="IDUSUARIOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPERSONA" Type="int" />
           <Property Name="USUARIO" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CONTRASENA" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ULTIMASESION" Type="datetime" />
@@ -210,6 +254,42 @@
             </Principal>
             <Dependent Role="COM_CAT_TIPO_OPERACION">
               <PropertyRef Name="IDLOGOPERACIONES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_ENTR_COM_PROD">
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="0..1" />
+          <End Role="COM_ENTREGAS_PRODUCTO" Type="Self.COM_ENTREGAS_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="IDPRODUCTOSPEDIDOS" />
+            </Principal>
+            <Dependent Role="COM_ENTREGAS_PRODUCTO">
+              <PropertyRef Name="IDPRODUCTOSPEDIDOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_ENTR_REFERENCE_ALM_ALME">
+          <End Role="ALM_ALMECENES" Type="Self.ALM_ALMECENES" Multiplicity="0..1" />
+          <End Role="COM_ENTREGAS_PRODUCTO" Type="Self.COM_ENTREGAS_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALM_ALMECENES">
+              <PropertyRef Name="IDALAMACENES" />
+            </Principal>
+            <Dependent Role="COM_ENTREGAS_PRODUCTO">
+              <PropertyRef Name="IDALAMACENES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_ORD_COM_PRO">
+          <End Role="COM_PROVEEDORES" Type="Self.COM_PROVEEDORES" Multiplicity="0..1" />
+          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PROVEEDORES">
+              <PropertyRef Name="CVEPROVEEDOR" />
+            </Principal>
+            <Dependent Role="COM_ORDENCOMPRA">
+              <PropertyRef Name="CVEPROVEEDOR" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -237,23 +317,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_COM_ORDE_REFERENCE_ALM_CAT_">
-          <End Role="ALM_CAT_ALMECENES" Type="Self.ALM_CAT_ALMECENES" Multiplicity="0..1" />
+        <Association Name="FK_COM_ORDE_REFERENCE_COM_CAT_">
+          <End Role="COM_CAT_ESTATUS_COMPRA" Type="Self.COM_CAT_ESTATUS_COMPRA" Multiplicity="0..1" />
           <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ALM_CAT_ALMECENES">
-              <PropertyRef Name="IDALAMACENES" />
-            </Principal>
-            <Dependent Role="COM_ORDENCOMPRA">
-              <PropertyRef Name="IDALAMACENES" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_COM_ORDE_REFERENCE_COM_ESTA">
-          <End Role="COM_ESTATUS_COMPRA" Type="Self.COM_ESTATUS_COMPRA" Multiplicity="0..1" />
-          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="COM_ESTATUS_COMPRA">
+            <Principal Role="COM_CAT_ESTATUS_COMPRA">
               <PropertyRef Name="IDESTATUSCOMPRA" />
             </Principal>
             <Dependent Role="COM_ORDENCOMPRA">
@@ -275,37 +343,73 @@
         </Association>
         <Association Name="FK_COM_PRO_COM_CAT_PRE">
           <End Role="COM_CAT_PRESENTACION" Type="Self.COM_CAT_PRESENTACION" Multiplicity="0..1" />
-          <End Role="COM_PRODUCTOS" Type="Self.COM_PRODUCTOS" Multiplicity="*" />
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COM_CAT_PRESENTACION">
               <PropertyRef Name="IDPRESENTACION" />
             </Principal>
-            <Dependent Role="COM_PRODUCTOS">
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
               <PropertyRef Name="IDPRESENTACION" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_COM_PRO_COMCAT_UNI">
           <End Role="COM_CAT_UNIDADES_MEDIDA" Type="Self.COM_CAT_UNIDADES_MEDIDA" Multiplicity="0..1" />
-          <End Role="COM_PRODUCTOS" Type="Self.COM_PRODUCTOS" Multiplicity="*" />
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COM_CAT_UNIDADES_MEDIDA">
               <PropertyRef Name="IDUNIDADESMEDIDA" />
             </Principal>
-            <Dependent Role="COM_PRODUCTOS">
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
               <PropertyRef Name="IDUNIDADESMEDIDA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PER_PERS_REFERENCE_US_USUAR">
-          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="0..1" />
-          <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="*" />
+        <Association Name="FK_COM_PROD_REFERENCE_ALM_ALME">
+          <End Role="ALM_ALMECENES" Type="Self.ALM_ALMECENES" Multiplicity="0..1" />
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="US_USUARIOS">
-              <PropertyRef Name="IDUSUARIOS" />
+            <Principal Role="ALM_ALMECENES">
+              <PropertyRef Name="IDALAMACENES" />
             </Principal>
-            <Dependent Role="PER_PERSONA">
-              <PropertyRef Name="IDUSUARIOS" />
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="IDALAMACENES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_CAT_">
+          <End Role="COM_CAT_ESTATUS_PRODUCTO" Type="Self.COM_CAT_ESTATUS_PRODUCTO" Multiplicity="0..1" />
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_CAT_ESTATUS_PRODUCTO">
+              <PropertyRef Name="IDESTAUSPRODUCTO" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="IDESTAUSPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_ORDE">
+          <End Role="COM_ORDENCOMPRA" Type="Self.COM_ORDENCOMPRA" Multiplicity="0..1" />
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_ORDENCOMPRA">
+              <PropertyRef Name="NOORDENCOMPRA" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="NOORDENCOMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_">
+          <End Role="FAC_CAT_MONEDA" Type="Self.FAC_CAT_MONEDA" Multiplicity="0..1" />
+          <End Role="FAC_TIPO_CAMBIO_HISTORICO" Type="Self.FAC_TIPO_CAMBIO_HISTORICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAC_CAT_MONEDA">
+              <PropertyRef Name="IDMONEDA" />
+            </Principal>
+            <Dependent Role="FAC_TIPO_CAMBIO_HISTORICO">
+              <PropertyRef Name="IDMONEDA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -369,18 +473,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_US_USUAR_REFERENCE_PER_PERS">
+          <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="0..1" />
+          <End Role="US_USUARIOS" Type="Self.US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PER_PERSONA">
+              <PropertyRef Name="IDPERSONA" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="IDPERSONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FraganciasModelStoreContainer">
-          <EntitySet Name="ALM_CAT_ALMECENES" EntityType="Self.ALM_CAT_ALMECENES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ALM_ALMECENES" EntityType="Self.ALM_ALMECENES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COM_CAT_ESTATUS_COMPRA" EntityType="Self.COM_CAT_ESTATUS_COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COM_CAT_ESTATUS_PRODUCTO" EntityType="Self.COM_CAT_ESTATUS_PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_CAT_PRESENTACION" EntityType="Self.COM_CAT_PRESENTACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_CAT_TIPO_OPERACION" EntityType="Self.COM_CAT_TIPO_OPERACION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_CAT_UNIDADES_MEDIDA" EntityType="Self.COM_CAT_UNIDADES_MEDIDA" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="COM_ESTATUS_COMPRA" EntityType="Self.COM_ESTATUS_COMPRA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COM_ENTREGAS_PRODUCTO" EntityType="Self.COM_ENTREGAS_PRODUCTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_ORDENCOMPRA" EntityType="Self.COM_ORDENCOMPRA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_PRODUCTOS" EntityType="Self.COM_PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COM_PRODUCTOS_PEDIDOS" EntityType="Self.COM_PRODUCTOS_PEDIDOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_PROVEEDORES" EntityType="Self.COM_PROVEEDORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COM_PROVEEDORES_CONTACTOS" EntityType="Self.COM_PROVEEDORES_CONTACTOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_CAT_CONDICIONES_PAGO" EntityType="Self.FAC_CAT_CONDICIONES_PAGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_CAT_IMPUESTO" EntityType="Self.FAC_CAT_IMPUESTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_CAT_MONEDA" EntityType="Self.FAC_CAT_MONEDA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FAC_TIPO_CAMBIO_HISTORICO" EntityType="Self.FAC_TIPO_CAMBIO_HISTORICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOG_COM_OPERACIONES" EntityType="Self.LOG_COM_OPERACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_PERSONA" EntityType="Self.PER_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_MENUARBOL" EntityType="Self.SIS_MENUARBOL" Schema="dbo" store:Type="Tables" />
@@ -392,6 +513,18 @@
             <End Role="LOG_COM_OPERACIONES" EntitySet="LOG_COM_OPERACIONES" />
             <End Role="COM_CAT_TIPO_OPERACION" EntitySet="COM_CAT_TIPO_OPERACION" />
           </AssociationSet>
+          <AssociationSet Name="FK_COM_ENTR_COM_PROD" Association="Self.FK_COM_ENTR_COM_PROD">
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+            <End Role="COM_ENTREGAS_PRODUCTO" EntitySet="COM_ENTREGAS_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_ENTR_REFERENCE_ALM_ALME" Association="Self.FK_COM_ENTR_REFERENCE_ALM_ALME">
+            <End Role="ALM_ALMECENES" EntitySet="ALM_ALMECENES" />
+            <End Role="COM_ENTREGAS_PRODUCTO" EntitySet="COM_ENTREGAS_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_ORD_COM_PRO" Association="Self.FK_COM_ORD_COM_PRO">
+            <End Role="COM_PROVEEDORES" EntitySet="COM_PROVEEDORES" />
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+          </AssociationSet>
           <AssociationSet Name="FK_COM_ORD_FAC_CAT_IMP" Association="Self.FK_COM_ORD_FAC_CAT_IMP">
             <End Role="FAC_CAT_IMPUESTO" EntitySet="FAC_CAT_IMPUESTO" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
@@ -400,12 +533,8 @@
             <End Role="FAC_CAT_MONEDA" EntitySet="FAC_CAT_MONEDA" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
           </AssociationSet>
-          <AssociationSet Name="FK_COM_ORDE_REFERENCE_ALM_CAT_" Association="Self.FK_COM_ORDE_REFERENCE_ALM_CAT_">
-            <End Role="ALM_CAT_ALMECENES" EntitySet="ALM_CAT_ALMECENES" />
-            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_ESTA" Association="Self.FK_COM_ORDE_REFERENCE_COM_ESTA">
-            <End Role="COM_ESTATUS_COMPRA" EntitySet="COM_ESTATUS_COMPRA" />
+          <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_CAT_" Association="Self.FK_COM_ORDE_REFERENCE_COM_CAT_">
+            <End Role="COM_CAT_ESTATUS_COMPRA" EntitySet="COM_CAT_ESTATUS_COMPRA" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
           </AssociationSet>
           <AssociationSet Name="FK_COM_ORDE_REFERENCE_FAC_CAT_" Association="Self.FK_COM_ORDE_REFERENCE_FAC_CAT_">
@@ -414,15 +543,27 @@
           </AssociationSet>
           <AssociationSet Name="FK_COM_PRO_COM_CAT_PRE" Association="Self.FK_COM_PRO_COM_CAT_PRE">
             <End Role="COM_CAT_PRESENTACION" EntitySet="COM_CAT_PRESENTACION" />
-            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
           <AssociationSet Name="FK_COM_PRO_COMCAT_UNI" Association="Self.FK_COM_PRO_COMCAT_UNI">
             <End Role="COM_CAT_UNIDADES_MEDIDA" EntitySet="COM_CAT_UNIDADES_MEDIDA" />
-            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
-          <AssociationSet Name="FK_PER_PERS_REFERENCE_US_USUAR" Association="Self.FK_PER_PERS_REFERENCE_US_USUAR">
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
-            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_ALM_ALME" Association="Self.FK_COM_PROD_REFERENCE_ALM_ALME">
+            <End Role="ALM_ALMECENES" EntitySet="ALM_ALMECENES" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_CAT_" Association="Self.FK_COM_PROD_REFERENCE_COM_CAT_">
+            <End Role="COM_CAT_ESTATUS_PRODUCTO" EntitySet="COM_CAT_ESTATUS_PRODUCTO" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_ORDE" Association="Self.FK_COM_PROD_REFERENCE_COM_ORDE">
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_" Association="Self.FK_FAC_TIPO_REFERENCE_FAC_CAT_">
+            <End Role="FAC_CAT_MONEDA" EntitySet="FAC_CAT_MONEDA" />
+            <End Role="FAC_TIPO_CAMBIO_HISTORICO" EntitySet="FAC_TIPO_CAMBIO_HISTORICO" />
           </AssociationSet>
           <AssociationSet Name="FK_SIS_MENU_REFERENCE_SIS_MENU" Association="Self.FK_SIS_MENU_REFERENCE_SIS_MENU">
             <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
@@ -444,23 +585,32 @@
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
             <End Role="US_PERFILES" EntitySet="US_PERFILES" />
           </AssociationSet>
+          <AssociationSet Name="FK_US_USUAR_REFERENCE_PER_PERS" Association="Self.FK_US_USUAR_REFERENCE_PER_PERS">
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FraganciasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="FraganciasEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ALM_CAT_ALMECENES" EntityType="FraganciasModel.ALM_CAT_ALMECENES" />
+          <EntitySet Name="ALM_ALMECENES" EntityType="FraganciasModel.ALM_ALMECENES" />
+          <EntitySet Name="COM_CAT_ESTATUS_COMPRA" EntityType="FraganciasModel.COM_CAT_ESTATUS_COMPRA" />
+          <EntitySet Name="COM_CAT_ESTATUS_PRODUCTO" EntityType="FraganciasModel.COM_CAT_ESTATUS_PRODUCTO" />
           <EntitySet Name="COM_CAT_PRESENTACION" EntityType="FraganciasModel.COM_CAT_PRESENTACION" />
           <EntitySet Name="COM_CAT_TIPO_OPERACION" EntityType="FraganciasModel.COM_CAT_TIPO_OPERACION" />
           <EntitySet Name="COM_CAT_UNIDADES_MEDIDA" EntityType="FraganciasModel.COM_CAT_UNIDADES_MEDIDA" />
-          <EntitySet Name="COM_ESTATUS_COMPRA" EntityType="FraganciasModel.COM_ESTATUS_COMPRA" />
+          <EntitySet Name="COM_ENTREGAS_PRODUCTO" EntityType="FraganciasModel.COM_ENTREGAS_PRODUCTO" />
           <EntitySet Name="COM_ORDENCOMPRA" EntityType="FraganciasModel.COM_ORDENCOMPRA" />
           <EntitySet Name="COM_PRODUCTOS" EntityType="FraganciasModel.COM_PRODUCTOS" />
+          <EntitySet Name="COM_PRODUCTOS_PEDIDOS" EntityType="FraganciasModel.COM_PRODUCTOS_PEDIDOS" />
           <EntitySet Name="COM_PROVEEDORES" EntityType="FraganciasModel.COM_PROVEEDORES" />
+          <EntitySet Name="COM_PROVEEDORES_CONTACTOS" EntityType="FraganciasModel.COM_PROVEEDORES_CONTACTOS" />
           <EntitySet Name="FAC_CAT_CONDICIONES_PAGO" EntityType="FraganciasModel.FAC_CAT_CONDICIONES_PAGO" />
           <EntitySet Name="FAC_CAT_IMPUESTO" EntityType="FraganciasModel.FAC_CAT_IMPUESTO" />
           <EntitySet Name="FAC_CAT_MONEDA" EntityType="FraganciasModel.FAC_CAT_MONEDA" />
+          <EntitySet Name="FAC_TIPO_CAMBIO_HISTORICO" EntityType="FraganciasModel.FAC_TIPO_CAMBIO_HISTORICO" />
           <EntitySet Name="LOG_COM_OPERACIONES" EntityType="FraganciasModel.LOG_COM_OPERACIONES" />
           <EntitySet Name="PER_PERSONA" EntityType="FraganciasModel.PER_PERSONA" />
           <EntitySet Name="SIS_MENUARBOL" EntityType="FraganciasModel.SIS_MENUARBOL" />
@@ -468,13 +618,25 @@
           <EntitySet Name="US_CAT_PERFILES" EntityType="FraganciasModel.US_CAT_PERFILES" />
           <EntitySet Name="US_PERFILES" EntityType="FraganciasModel.US_PERFILES" />
           <EntitySet Name="US_USUARIOS" EntityType="FraganciasModel.US_USUARIOS" />
-          <AssociationSet Name="FK_COM_ORDE_REFERENCE_ALM_CAT_" Association="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_">
-            <End Role="ALM_CAT_ALMECENES" EntitySet="ALM_CAT_ALMECENES" />
+          <AssociationSet Name="FK_COM_ENTR_REFERENCE_ALM_ALME" Association="FraganciasModel.FK_COM_ENTR_REFERENCE_ALM_ALME">
+            <End Role="ALM_ALMECENES" EntitySet="ALM_ALMECENES" />
+            <End Role="COM_ENTREGAS_PRODUCTO" EntitySet="COM_ENTREGAS_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_ALM_ALME" Association="FraganciasModel.FK_COM_PROD_REFERENCE_ALM_ALME">
+            <End Role="ALM_ALMECENES" EntitySet="ALM_ALMECENES" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_CAT_" Association="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_CAT_">
+            <End Role="COM_CAT_ESTATUS_COMPRA" EntitySet="COM_CAT_ESTATUS_COMPRA" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_CAT_" Association="FraganciasModel.FK_COM_PROD_REFERENCE_COM_CAT_">
+            <End Role="COM_CAT_ESTATUS_PRODUCTO" EntitySet="COM_CAT_ESTATUS_PRODUCTO" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
           <AssociationSet Name="FK_COM_PRO_COM_CAT_PRE" Association="FraganciasModel.FK_COM_PRO_COM_CAT_PRE">
             <End Role="COM_CAT_PRESENTACION" EntitySet="COM_CAT_PRESENTACION" />
-            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
           <AssociationSet Name="FK_COM_CAT__REFERENCE_LOG_COM_" Association="FraganciasModel.FK_COM_CAT__REFERENCE_LOG_COM_">
             <End Role="LOG_COM_OPERACIONES" EntitySet="LOG_COM_OPERACIONES" />
@@ -482,10 +644,14 @@
           </AssociationSet>
           <AssociationSet Name="FK_COM_PRO_COMCAT_UNI" Association="FraganciasModel.FK_COM_PRO_COMCAT_UNI">
             <End Role="COM_CAT_UNIDADES_MEDIDA" EntitySet="COM_CAT_UNIDADES_MEDIDA" />
-            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
-          <AssociationSet Name="FK_COM_ORDE_REFERENCE_COM_ESTA" Association="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA">
-            <End Role="COM_ESTATUS_COMPRA" EntitySet="COM_ESTATUS_COMPRA" />
+          <AssociationSet Name="FK_COM_ENTR_COM_PROD" Association="FraganciasModel.FK_COM_ENTR_COM_PROD">
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+            <End Role="COM_ENTREGAS_PRODUCTO" EntitySet="COM_ENTREGAS_PRODUCTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_ORD_COM_PRO" Association="FraganciasModel.FK_COM_ORD_COM_PRO">
+            <End Role="COM_PROVEEDORES" EntitySet="COM_PROVEEDORES" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
           </AssociationSet>
           <AssociationSet Name="FK_COM_ORD_FAC_CAT_IMP" Association="FraganciasModel.FK_COM_ORD_FAC_CAT_IMP">
@@ -500,9 +666,17 @@
             <End Role="FAC_CAT_CONDICIONES_PAGO" EntitySet="FAC_CAT_CONDICIONES_PAGO" />
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
           </AssociationSet>
-          <AssociationSet Name="FK_PER_PERS_REFERENCE_US_USUAR" Association="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR">
-            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_ORDE" Association="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE">
+            <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_" Association="FraganciasModel.FK_FAC_TIPO_REFERENCE_FAC_CAT_">
+            <End Role="FAC_CAT_MONEDA" EntitySet="FAC_CAT_MONEDA" />
+            <End Role="FAC_TIPO_CAMBIO_HISTORICO" EntitySet="FAC_TIPO_CAMBIO_HISTORICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_US_USUAR_REFERENCE_PER_PERS" Association="FraganciasModel.FK_US_USUAR_REFERENCE_PER_PERS">
             <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+            <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
           </AssociationSet>
           <AssociationSet Name="FK_SIS_MENU_REFERENCE_SIS_MENU" Association="FraganciasModel.FK_SIS_MENU_REFERENCE_SIS_MENU">
             <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
@@ -525,7 +699,7 @@
             <End Role="US_PERFILES" EntitySet="US_PERFILES" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ALM_CAT_ALMECENES">
+        <EntityType Name="ALM_ALMECENES">
           <Key>
             <PropertyRef Name="IDALAMACENES" />
           </Key>
@@ -533,7 +707,28 @@
           <Property Name="NOMBREALMACEN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="ALM_CAT_ALMECENES" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="COM_ENTREGAS_PRODUCTO" Relationship="FraganciasModel.FK_COM_ENTR_REFERENCE_ALM_ALME" FromRole="ALM_ALMECENES" ToRole="COM_ENTREGAS_PRODUCTO" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_ALM_ALME" FromRole="ALM_ALMECENES" ToRole="COM_PRODUCTOS_PEDIDOS" />
+        </EntityType>
+        <EntityType Name="COM_CAT_ESTATUS_COMPRA">
+          <Key>
+            <PropertyRef Name="IDESTATUSCOMPRA" />
+          </Key>
+          <Property Name="IDESTATUSCOMPRA" Type="Int32" Nullable="false" />
+          <Property Name="NOMBREESTATUS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_CAT_" FromRole="COM_CAT_ESTATUS_COMPRA" ToRole="COM_ORDENCOMPRA" />
+        </EntityType>
+        <EntityType Name="COM_CAT_ESTATUS_PRODUCTO">
+          <Key>
+            <PropertyRef Name="IDESTAUSPRODUCTO" />
+          </Key>
+          <Property Name="IDESTAUSPRODUCTO" Type="Int16" Nullable="false" />
+          <Property Name="ESTATUSPRODUCTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_CAT_" FromRole="COM_CAT_ESTATUS_PRODUCTO" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
         <EntityType Name="COM_CAT_PRESENTACION">
           <Key>
@@ -543,7 +738,7 @@
           <Property Name="PRESENTACION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" />
-          <NavigationProperty Name="COM_PRODUCTOS" Relationship="FraganciasModel.FK_COM_PRO_COM_CAT_PRE" FromRole="COM_CAT_PRESENTACION" ToRole="COM_PRODUCTOS" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_PRO_COM_CAT_PRE" FromRole="COM_CAT_PRESENTACION" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
         <EntityType Name="COM_CAT_TIPO_OPERACION">
           <Key>
@@ -564,77 +759,98 @@
           <Property Name="TIPOUNIDAD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" />
-          <NavigationProperty Name="COM_PRODUCTOS" Relationship="FraganciasModel.FK_COM_PRO_COMCAT_UNI" FromRole="COM_CAT_UNIDADES_MEDIDA" ToRole="COM_PRODUCTOS" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_PRO_COMCAT_UNI" FromRole="COM_CAT_UNIDADES_MEDIDA" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
-        <EntityType Name="COM_ESTATUS_COMPRA">
+        <EntityType Name="COM_ENTREGAS_PRODUCTO">
           <Key>
-            <PropertyRef Name="IDESTATUSCOMPRA" />
+            <PropertyRef Name="IDENTREGASPRODUCTO" />
           </Key>
-          <Property Name="IDESTATUSCOMPRA" Type="Int32" Nullable="false" />
-          <Property Name="NOMBREESTATUS" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ESTATUS_COMPRA" ToRole="COM_ORDENCOMPRA" />
+          <Property Name="IDENTREGASPRODUCTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDALAMACENES" Type="Int16" />
+          <Property Name="IDPRODUCTOSPEDIDOS" Type="Int32" />
+          <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PARTIDASENTREGADAS" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
+          <Property Name="PAGOREALIZADO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="ALM_ALMECENES" Relationship="FraganciasModel.FK_COM_ENTR_REFERENCE_ALM_ALME" FromRole="COM_ENTREGAS_PRODUCTO" ToRole="ALM_ALMECENES" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_ENTR_COM_PROD" FromRole="COM_ENTREGAS_PRODUCTO" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
         <EntityType Name="COM_ORDENCOMPRA">
           <Key>
-            <PropertyRef Name="IDORDENCOMPRA" />
             <PropertyRef Name="NOORDENCOMPRA" />
           </Key>
-          <Property Name="IDORDENCOMPRA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOORDENCOMPRA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IDALAMACENES" Type="Int16" />
           <Property Name="IDESTATUSCOMPRA" Type="Int32" />
           <Property Name="IDIMPUESTO" Type="Int32" />
           <Property Name="IDMONEDA" Type="Int32" />
-          <Property Name="IDPROVEEDOR" Type="Int32" />
           <Property Name="CVEPROVEEDOR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDCONDICIONESPAGO" Type="Int16" />
           <Property Name="FECHAORDENCOMPRA" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FECHAPEDIDO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CANTIDADENTREGADA" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="CANTIDADTOTAL" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ENTREGAFRACCIONARIA" Type="Boolean" Nullable="false" />
           <Property Name="SUBTOTAL" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="TOTAL" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ALM_CAT_ALMECENES" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_ALM_CAT_" FromRole="COM_ORDENCOMPRA" ToRole="ALM_CAT_ALMECENES" />
-          <NavigationProperty Name="COM_ESTATUS_COMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_ESTA" FromRole="COM_ORDENCOMPRA" ToRole="COM_ESTATUS_COMPRA" />
+          <NavigationProperty Name="COM_CAT_ESTATUS_COMPRA" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_COM_CAT_" FromRole="COM_ORDENCOMPRA" ToRole="COM_CAT_ESTATUS_COMPRA" />
+          <NavigationProperty Name="COM_PROVEEDORES" Relationship="FraganciasModel.FK_COM_ORD_COM_PRO" FromRole="COM_ORDENCOMPRA" ToRole="COM_PROVEEDORES" />
           <NavigationProperty Name="FAC_CAT_IMPUESTO" Relationship="FraganciasModel.FK_COM_ORD_FAC_CAT_IMP" FromRole="COM_ORDENCOMPRA" ToRole="FAC_CAT_IMPUESTO" />
           <NavigationProperty Name="FAC_CAT_MONEDA" Relationship="FraganciasModel.FK_COM_ORD_FAC_CAT_MON" FromRole="COM_ORDENCOMPRA" ToRole="FAC_CAT_MONEDA" />
           <NavigationProperty Name="FAC_CAT_CONDICIONES_PAGO" Relationship="FraganciasModel.FK_COM_ORDE_REFERENCE_FAC_CAT_" FromRole="COM_ORDENCOMPRA" ToRole="FAC_CAT_CONDICIONES_PAGO" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_ORDENCOMPRA" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
         <EntityType Name="COM_PRODUCTOS">
           <Key>
-            <PropertyRef Name="IDPRODUCTOS" />
+            <PropertyRef Name="CVEPRODUCTO" />
           </Key>
-          <Property Name="IDPRODUCTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CVEPRODUCTO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBREPRODUCTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="COM_PRODUCTOS_PEDIDOS">
+          <Key>
+            <PropertyRef Name="IDPRODUCTOSPEDIDOS" />
+          </Key>
+          <Property Name="IDPRODUCTOSPEDIDOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NOORDENCOMPRA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IDORDENCOMPRA" Type="Int32" />
           <Property Name="IDUNIDADESMEDIDA" Type="Int16" />
           <Property Name="IDPRESENTACION" Type="Int16" />
-          <Property Name="NOMBREPRODUCTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LOTE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CANTIDADPRODUCTO" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="IDESTAUSPRODUCTO" Type="Int16" />
+          <Property Name="IDALAMACENES" Type="Int16" />
+          <Property Name="CVEPRODUCTO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PARTIDA" Type="Int32" Nullable="false" />
+          <Property Name="CANTIDAD" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PRECIOUNITARIO" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PRECIOUNITARIO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
           <Property Name="ENTREGADO" Type="Boolean" Nullable="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="COM_CAT_PRESENTACION" Relationship="FraganciasModel.FK_COM_PRO_COM_CAT_PRE" FromRole="COM_PRODUCTOS" ToRole="COM_CAT_PRESENTACION" />
-          <NavigationProperty Name="COM_CAT_UNIDADES_MEDIDA" Relationship="FraganciasModel.FK_COM_PRO_COMCAT_UNI" FromRole="COM_PRODUCTOS" ToRole="COM_CAT_UNIDADES_MEDIDA" />
+          <NavigationProperty Name="ALM_ALMECENES" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_ALM_ALME" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="ALM_ALMECENES" />
+          <NavigationProperty Name="COM_CAT_ESTATUS_PRODUCTO" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_CAT_" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_CAT_ESTATUS_PRODUCTO" />
+          <NavigationProperty Name="COM_CAT_PRESENTACION" Relationship="FraganciasModel.FK_COM_PRO_COM_CAT_PRE" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_CAT_PRESENTACION" />
+          <NavigationProperty Name="COM_CAT_UNIDADES_MEDIDA" Relationship="FraganciasModel.FK_COM_PRO_COMCAT_UNI" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_CAT_UNIDADES_MEDIDA" />
+          <NavigationProperty Name="COM_ENTREGAS_PRODUCTO" Relationship="FraganciasModel.FK_COM_ENTR_COM_PROD" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_ENTREGAS_PRODUCTO" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_ORDENCOMPRA" />
         </EntityType>
         <EntityType Name="COM_PROVEEDORES">
           <Key>
-            <PropertyRef Name="IDPROVEEDOR" />
             <PropertyRef Name="CVEPROVEEDOR" />
           </Key>
-          <Property Name="IDPROVEEDOR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CVEPROVEEDOR" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBREPROVEEDOR" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRECONTACTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TELEFONOCONTACTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CORREOELECTRONICOCONTACTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IDPROVEEDORESCONTATOS" Type="Int32" />
+          <Property Name="RAZONSOCIAL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DIRECCION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORD_COM_PRO" FromRole="COM_PROVEEDORES" ToRole="COM_ORDENCOMPRA" />
+        </EntityType>
+        <EntityType Name="COM_PROVEEDORES_CONTACTOS">
+          <Key>
+            <PropertyRef Name="IDPROVEEDORESCONTATOS" />
+          </Key>
+          <Property Name="IDPROVEEDORESCONTATOS" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRECOMPLETO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONOFIJO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONOMOVIL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CORREOELECTRONICO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FAC_CAT_CONDICIONES_PAGO">
           <Key>
@@ -654,6 +870,7 @@
           <Property Name="NOMBREIMPUESTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NOMBRECORTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="PORSENTAGEIMPUESTO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORD_FAC_CAT_IMP" FromRole="FAC_CAT_IMPUESTO" ToRole="COM_ORDENCOMPRA" />
         </EntityType>
         <EntityType Name="FAC_CAT_MONEDA">
@@ -663,8 +880,21 @@
           <Property Name="IDMONEDA" Type="Int32" Nullable="false" />
           <Property Name="NOMBREMONEDA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NOMBRECORTO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="VALORPORDOLAR" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORD_FAC_CAT_MON" FromRole="FAC_CAT_MONEDA" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="FAC_TIPO_CAMBIO_HISTORICO" Relationship="FraganciasModel.FK_FAC_TIPO_REFERENCE_FAC_CAT_" FromRole="FAC_CAT_MONEDA" ToRole="FAC_TIPO_CAMBIO_HISTORICO" />
+        </EntityType>
+        <EntityType Name="FAC_TIPO_CAMBIO_HISTORICO">
+          <Key>
+            <PropertyRef Name="IDTIPOCAMBIO" />
+          </Key>
+          <Property Name="IDTIPOCAMBIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDMONEDA" Type="Int32" />
+          <Property Name="VALORCOMPRA" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="VALORVENTA" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="FECHA" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="FAC_CAT_MONEDA" Relationship="FraganciasModel.FK_FAC_TIPO_REFERENCE_FAC_CAT_" FromRole="FAC_TIPO_CAMBIO_HISTORICO" ToRole="FAC_CAT_MONEDA" />
         </EntityType>
         <EntityType Name="LOG_COM_OPERACIONES">
           <Key>
@@ -680,15 +910,14 @@
             <PropertyRef Name="IDPERSONA" />
           </Key>
           <Property Name="IDPERSONA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDUSUARIOS" Type="Int32" />
           <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="APELLIDOP" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOP" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="APELLIDOM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="FECHANACIMINETO" Type="DateTime" Precision="3" />
           <Property Name="GENERO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FECHAREGISTRO" Type="DateTime" Precision="3" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="US_USUARIOS" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR" FromRole="PER_PERSONA" ToRole="US_USUARIOS" />
+          <NavigationProperty Name="US_USUARIOS" Relationship="FraganciasModel.FK_US_USUAR_REFERENCE_PER_PERS" FromRole="PER_PERSONA" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="SIS_MENUARBOL">
           <Key>
@@ -742,33 +971,70 @@
             <PropertyRef Name="IDUSUARIOS" />
           </Key>
           <Property Name="IDUSUARIOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPERSONA" Type="Int32" />
           <Property Name="USUARIO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CONTRASENA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ULTIMASESION" Type="DateTime" Precision="3" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="PER_PERSONA" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_US_USUAR" FromRole="US_USUARIOS" ToRole="PER_PERSONA" />
+          <NavigationProperty Name="PER_PERSONA" Relationship="FraganciasModel.FK_US_USUAR_REFERENCE_PER_PERS" FromRole="US_USUARIOS" ToRole="PER_PERSONA" />
           <NavigationProperty Name="US_PERFILES" Relationship="FraganciasModel.FK_US_PERFI_REFERENCE_US_USUAR" FromRole="US_USUARIOS" ToRole="US_PERFILES" />
         </EntityType>
-        <Association Name="FK_COM_ORDE_REFERENCE_ALM_CAT_">
-          <End Type="FraganciasModel.ALM_CAT_ALMECENES" Role="ALM_CAT_ALMECENES" Multiplicity="0..1" />
-          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="*" />
+        <Association Name="FK_COM_ENTR_REFERENCE_ALM_ALME">
+          <End Type="FraganciasModel.ALM_ALMECENES" Role="ALM_ALMECENES" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_ENTREGAS_PRODUCTO" Role="COM_ENTREGAS_PRODUCTO" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ALM_CAT_ALMECENES">
+            <Principal Role="ALM_ALMECENES">
               <PropertyRef Name="IDALAMACENES" />
             </Principal>
-            <Dependent Role="COM_ORDENCOMPRA">
+            <Dependent Role="COM_ENTREGAS_PRODUCTO">
               <PropertyRef Name="IDALAMACENES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_ALM_ALME">
+          <End Type="FraganciasModel.ALM_ALMECENES" Role="ALM_ALMECENES" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALM_ALMECENES">
+              <PropertyRef Name="IDALAMACENES" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="IDALAMACENES" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_ORDE_REFERENCE_COM_CAT_">
+          <End Type="FraganciasModel.COM_CAT_ESTATUS_COMPRA" Role="COM_CAT_ESTATUS_COMPRA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_CAT_ESTATUS_COMPRA">
+              <PropertyRef Name="IDESTATUSCOMPRA" />
+            </Principal>
+            <Dependent Role="COM_ORDENCOMPRA">
+              <PropertyRef Name="IDESTATUSCOMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_CAT_">
+          <End Type="FraganciasModel.COM_CAT_ESTATUS_PRODUCTO" Role="COM_CAT_ESTATUS_PRODUCTO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_CAT_ESTATUS_PRODUCTO">
+              <PropertyRef Name="IDESTAUSPRODUCTO" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="IDESTAUSPRODUCTO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_COM_PRO_COM_CAT_PRE">
           <End Type="FraganciasModel.COM_CAT_PRESENTACION" Role="COM_CAT_PRESENTACION" Multiplicity="0..1" />
-          <End Type="FraganciasModel.COM_PRODUCTOS" Role="COM_PRODUCTOS" Multiplicity="*" />
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COM_CAT_PRESENTACION">
               <PropertyRef Name="IDPRESENTACION" />
             </Principal>
-            <Dependent Role="COM_PRODUCTOS">
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
               <PropertyRef Name="IDPRESENTACION" />
             </Dependent>
           </ReferentialConstraint>
@@ -787,25 +1053,37 @@
         </Association>
         <Association Name="FK_COM_PRO_COMCAT_UNI">
           <End Type="FraganciasModel.COM_CAT_UNIDADES_MEDIDA" Role="COM_CAT_UNIDADES_MEDIDA" Multiplicity="0..1" />
-          <End Type="FraganciasModel.COM_PRODUCTOS" Role="COM_PRODUCTOS" Multiplicity="*" />
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COM_CAT_UNIDADES_MEDIDA">
               <PropertyRef Name="IDUNIDADESMEDIDA" />
             </Principal>
-            <Dependent Role="COM_PRODUCTOS">
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
               <PropertyRef Name="IDUNIDADESMEDIDA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_COM_ORDE_REFERENCE_COM_ESTA">
-          <End Type="FraganciasModel.COM_ESTATUS_COMPRA" Role="COM_ESTATUS_COMPRA" Multiplicity="0..1" />
+        <Association Name="FK_COM_ENTR_COM_PROD">
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_ENTREGAS_PRODUCTO" Role="COM_ENTREGAS_PRODUCTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="IDPRODUCTOSPEDIDOS" />
+            </Principal>
+            <Dependent Role="COM_ENTREGAS_PRODUCTO">
+              <PropertyRef Name="IDPRODUCTOSPEDIDOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_ORD_COM_PRO">
+          <End Type="FraganciasModel.COM_PROVEEDORES" Role="COM_PROVEEDORES" Multiplicity="0..1" />
           <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="COM_ESTATUS_COMPRA">
-              <PropertyRef Name="IDESTATUSCOMPRA" />
+            <Principal Role="COM_PROVEEDORES">
+              <PropertyRef Name="CVEPROVEEDOR" />
             </Principal>
             <Dependent Role="COM_ORDENCOMPRA">
-              <PropertyRef Name="IDESTATUSCOMPRA" />
+              <PropertyRef Name="CVEPROVEEDOR" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -845,15 +1123,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PER_PERS_REFERENCE_US_USUAR">
-          <End Type="FraganciasModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="0..1" />
-          <End Type="FraganciasModel.PER_PERSONA" Role="PER_PERSONA" Multiplicity="*" />
+        <Association Name="FK_COM_PROD_REFERENCE_COM_ORDE">
+          <End Type="FraganciasModel.COM_ORDENCOMPRA" Role="COM_ORDENCOMPRA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="US_USUARIOS">
-              <PropertyRef Name="IDUSUARIOS" />
+            <Principal Role="COM_ORDENCOMPRA">
+              <PropertyRef Name="NOORDENCOMPRA" />
             </Principal>
-            <Dependent Role="PER_PERSONA">
-              <PropertyRef Name="IDUSUARIOS" />
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="NOORDENCOMPRA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_">
+          <End Type="FraganciasModel.FAC_CAT_MONEDA" Role="FAC_CAT_MONEDA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.FAC_TIPO_CAMBIO_HISTORICO" Role="FAC_TIPO_CAMBIO_HISTORICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FAC_CAT_MONEDA">
+              <PropertyRef Name="IDMONEDA" />
+            </Principal>
+            <Dependent Role="FAC_TIPO_CAMBIO_HISTORICO">
+              <PropertyRef Name="IDMONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_US_USUAR_REFERENCE_PER_PERS">
+          <End Type="FraganciasModel.PER_PERSONA" Role="PER_PERSONA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.US_USUARIOS" Role="US_USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PER_PERSONA">
+              <PropertyRef Name="IDPERSONA" />
+            </Principal>
+            <Dependent Role="US_USUARIOS">
+              <PropertyRef Name="IDPERSONA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -923,13 +1225,33 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="FraganciasModelStoreContainer" CdmEntityContainer="FraganciasEntities">
-          <EntitySetMapping Name="ALM_CAT_ALMECENES">
-            <EntityTypeMapping TypeName="FraganciasModel.ALM_CAT_ALMECENES">
-              <MappingFragment StoreEntitySet="ALM_CAT_ALMECENES">
+          <EntitySetMapping Name="ALM_ALMECENES">
+            <EntityTypeMapping TypeName="FraganciasModel.ALM_ALMECENES">
+              <MappingFragment StoreEntitySet="ALM_ALMECENES">
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="NOMBREALMACEN" ColumnName="NOMBREALMACEN" />
                 <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COM_CAT_ESTATUS_COMPRA">
+            <EntityTypeMapping TypeName="FraganciasModel.COM_CAT_ESTATUS_COMPRA">
+              <MappingFragment StoreEntitySet="COM_CAT_ESTATUS_COMPRA">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBREESTATUS" ColumnName="NOMBREESTATUS" />
+                <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COM_CAT_ESTATUS_PRODUCTO">
+            <EntityTypeMapping TypeName="FraganciasModel.COM_CAT_ESTATUS_PRODUCTO">
+              <MappingFragment StoreEntitySet="COM_CAT_ESTATUS_PRODUCTO">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ESTATUSPRODUCTO" ColumnName="ESTATUSPRODUCTO" />
+                <ScalarProperty Name="IDESTAUSPRODUCTO" ColumnName="IDESTAUSPRODUCTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -964,13 +1286,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="COM_ESTATUS_COMPRA">
-            <EntityTypeMapping TypeName="FraganciasModel.COM_ESTATUS_COMPRA">
-              <MappingFragment StoreEntitySet="COM_ESTATUS_COMPRA">
-                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
-                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="NOMBREESTATUS" ColumnName="NOMBREESTATUS" />
-                <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
+          <EntitySetMapping Name="COM_ENTREGAS_PRODUCTO">
+            <EntityTypeMapping TypeName="FraganciasModel.COM_ENTREGAS_PRODUCTO">
+              <MappingFragment StoreEntitySet="COM_ENTREGAS_PRODUCTO">
+                <ScalarProperty Name="PAGOREALIZADO" ColumnName="PAGOREALIZADO" />
+                <ScalarProperty Name="PARTIDASENTREGADAS" ColumnName="PARTIDASENTREGADAS" />
+                <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
+                <ScalarProperty Name="IDPRODUCTOSPEDIDOS" ColumnName="IDPRODUCTOSPEDIDOS" />
+                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
+                <ScalarProperty Name="IDENTREGASPRODUCTO" ColumnName="IDENTREGASPRODUCTO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -981,50 +1305,66 @@
                 <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
                 <ScalarProperty Name="SUBTOTAL" ColumnName="SUBTOTAL" />
                 <ScalarProperty Name="ENTREGAFRACCIONARIA" ColumnName="ENTREGAFRACCIONARIA" />
-                <ScalarProperty Name="CANTIDADTOTAL" ColumnName="CANTIDADTOTAL" />
-                <ScalarProperty Name="CANTIDADENTREGADA" ColumnName="CANTIDADENTREGADA" />
                 <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
                 <ScalarProperty Name="FECHAPEDIDO" ColumnName="FECHAPEDIDO" />
                 <ScalarProperty Name="FECHAORDENCOMPRA" ColumnName="FECHAORDENCOMPRA" />
                 <ScalarProperty Name="IDCONDICIONESPAGO" ColumnName="IDCONDICIONESPAGO" />
                 <ScalarProperty Name="CVEPROVEEDOR" ColumnName="CVEPROVEEDOR" />
-                <ScalarProperty Name="IDPROVEEDOR" ColumnName="IDPROVEEDOR" />
                 <ScalarProperty Name="IDMONEDA" ColumnName="IDMONEDA" />
                 <ScalarProperty Name="IDIMPUESTO" ColumnName="IDIMPUESTO" />
                 <ScalarProperty Name="IDESTATUSCOMPRA" ColumnName="IDESTATUSCOMPRA" />
-                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
                 <ScalarProperty Name="NOORDENCOMPRA" ColumnName="NOORDENCOMPRA" />
-                <ScalarProperty Name="IDORDENCOMPRA" ColumnName="IDORDENCOMPRA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="COM_PRODUCTOS">
             <EntityTypeMapping TypeName="FraganciasModel.COM_PRODUCTOS">
               <MappingFragment StoreEntitySet="COM_PRODUCTOS">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="NOMBREPRODUCTO" ColumnName="NOMBREPRODUCTO" />
+                <ScalarProperty Name="CVEPRODUCTO" ColumnName="CVEPRODUCTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COM_PRODUCTOS_PEDIDOS">
+            <EntityTypeMapping TypeName="FraganciasModel.COM_PRODUCTOS_PEDIDOS">
+              <MappingFragment StoreEntitySet="COM_PRODUCTOS_PEDIDOS">
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="ENTREGADO" ColumnName="ENTREGADO" />
                 <ScalarProperty Name="PRECIOUNITARIO" ColumnName="PRECIOUNITARIO" />
                 <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
-                <ScalarProperty Name="CANTIDADPRODUCTO" ColumnName="CANTIDADPRODUCTO" />
-                <ScalarProperty Name="LOTE" ColumnName="LOTE" />
-                <ScalarProperty Name="NOMBREPRODUCTO" ColumnName="NOMBREPRODUCTO" />
+                <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
+                <ScalarProperty Name="PARTIDA" ColumnName="PARTIDA" />
+                <ScalarProperty Name="CVEPRODUCTO" ColumnName="CVEPRODUCTO" />
+                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
+                <ScalarProperty Name="IDESTAUSPRODUCTO" ColumnName="IDESTAUSPRODUCTO" />
                 <ScalarProperty Name="IDPRESENTACION" ColumnName="IDPRESENTACION" />
                 <ScalarProperty Name="IDUNIDADESMEDIDA" ColumnName="IDUNIDADESMEDIDA" />
-                <ScalarProperty Name="IDORDENCOMPRA" ColumnName="IDORDENCOMPRA" />
                 <ScalarProperty Name="NOORDENCOMPRA" ColumnName="NOORDENCOMPRA" />
-                <ScalarProperty Name="IDPRODUCTOS" ColumnName="IDPRODUCTOS" />
+                <ScalarProperty Name="IDPRODUCTOSPEDIDOS" ColumnName="IDPRODUCTOSPEDIDOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="COM_PROVEEDORES">
             <EntityTypeMapping TypeName="FraganciasModel.COM_PROVEEDORES">
               <MappingFragment StoreEntitySet="COM_PROVEEDORES">
-                <ScalarProperty Name="CORREOELECTRONICOCONTACTO" ColumnName="CORREOELECTRONICOCONTACTO" />
-                <ScalarProperty Name="TELEFONOCONTACTO" ColumnName="TELEFONOCONTACTO" />
-                <ScalarProperty Name="NOMBRECONTACTO" ColumnName="NOMBRECONTACTO" />
-                <ScalarProperty Name="NOMBREPROVEEDOR" ColumnName="NOMBREPROVEEDOR" />
+                <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
+                <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="RAZONSOCIAL" ColumnName="RAZONSOCIAL" />
+                <ScalarProperty Name="IDPROVEEDORESCONTATOS" ColumnName="IDPROVEEDORESCONTATOS" />
                 <ScalarProperty Name="CVEPROVEEDOR" ColumnName="CVEPROVEEDOR" />
-                <ScalarProperty Name="IDPROVEEDOR" ColumnName="IDPROVEEDOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COM_PROVEEDORES_CONTACTOS">
+            <EntityTypeMapping TypeName="FraganciasModel.COM_PROVEEDORES_CONTACTOS">
+              <MappingFragment StoreEntitySet="COM_PROVEEDORES_CONTACTOS">
+                <ScalarProperty Name="CORREOELECTRONICO" ColumnName="CORREOELECTRONICO" />
+                <ScalarProperty Name="TELEFONOMOVIL" ColumnName="TELEFONOMOVIL" />
+                <ScalarProperty Name="TELEFONOFIJO" ColumnName="TELEFONOFIJO" />
+                <ScalarProperty Name="NOMBRECOMPLETO" ColumnName="NOMBRECOMPLETO" />
+                <ScalarProperty Name="IDPROVEEDORESCONTATOS" ColumnName="IDPROVEEDORESCONTATOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1041,6 +1381,7 @@
           <EntitySetMapping Name="FAC_CAT_IMPUESTO">
             <EntityTypeMapping TypeName="FraganciasModel.FAC_CAT_IMPUESTO">
               <MappingFragment StoreEntitySet="FAC_CAT_IMPUESTO">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="PORSENTAGEIMPUESTO" ColumnName="PORSENTAGEIMPUESTO" />
                 <ScalarProperty Name="NOMBRECORTO" ColumnName="NOMBRECORTO" />
                 <ScalarProperty Name="NOMBREIMPUESTO" ColumnName="NOMBREIMPUESTO" />
@@ -1051,10 +1392,22 @@
           <EntitySetMapping Name="FAC_CAT_MONEDA">
             <EntityTypeMapping TypeName="FraganciasModel.FAC_CAT_MONEDA">
               <MappingFragment StoreEntitySet="FAC_CAT_MONEDA">
-                <ScalarProperty Name="VALORPORDOLAR" ColumnName="VALORPORDOLAR" />
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="NOMBRECORTO" ColumnName="NOMBRECORTO" />
                 <ScalarProperty Name="NOMBREMONEDA" ColumnName="NOMBREMONEDA" />
                 <ScalarProperty Name="IDMONEDA" ColumnName="IDMONEDA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FAC_TIPO_CAMBIO_HISTORICO">
+            <EntityTypeMapping TypeName="FraganciasModel.FAC_TIPO_CAMBIO_HISTORICO">
+              <MappingFragment StoreEntitySet="FAC_TIPO_CAMBIO_HISTORICO">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+                <ScalarProperty Name="VALORVENTA" ColumnName="VALORVENTA" />
+                <ScalarProperty Name="VALORCOMPRA" ColumnName="VALORCOMPRA" />
+                <ScalarProperty Name="IDMONEDA" ColumnName="IDMONEDA" />
+                <ScalarProperty Name="IDTIPOCAMBIO" ColumnName="IDTIPOCAMBIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1077,7 +1430,6 @@
                 <ScalarProperty Name="APELLIDOM" ColumnName="APELLIDOM" />
                 <ScalarProperty Name="APELLIDOP" ColumnName="APELLIDOP" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
-                <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
                 <ScalarProperty Name="IDPERSONA" ColumnName="IDPERSONA" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1131,6 +1483,7 @@
                 <ScalarProperty Name="ULTIMASESION" ColumnName="ULTIMASESION" />
                 <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
                 <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="IDPERSONA" ColumnName="IDPERSONA" />
                 <ScalarProperty Name="IDUSUARIOS" ColumnName="IDUSUARIOS" />
               </MappingFragment>
             </EntityTypeMapping>

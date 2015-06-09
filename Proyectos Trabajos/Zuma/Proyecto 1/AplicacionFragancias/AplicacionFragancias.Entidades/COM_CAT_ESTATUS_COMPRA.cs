@@ -12,9 +12,9 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_ESTATUS_COMPRA
+    public partial class COM_CAT_ESTATUS_COMPRA
     {
-        public COM_ESTATUS_COMPRA()
+        public COM_CAT_ESTATUS_COMPRA()
         {
             this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
         }

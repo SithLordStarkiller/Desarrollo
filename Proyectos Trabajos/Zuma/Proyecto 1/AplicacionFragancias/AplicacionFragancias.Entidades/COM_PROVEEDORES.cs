@@ -14,11 +14,18 @@ namespace AplicacionFragancias.Entidades
     
     public partial class COM_PROVEEDORES
     {
-        public int IDPROVEEDOR { get; set; }
+        public COM_PROVEEDORES()
+        {
+            this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
+        }
+    
         public string CVEPROVEEDOR { get; set; }
-        public string NOMBREPROVEEDOR { get; set; }
-        public string NOMBRECONTACTO { get; set; }
-        public string TELEFONOCONTACTO { get; set; }
-        public string CORREOELECTRONICOCONTACTO { get; set; }
+        public Nullable<int> IDPROVEEDORESCONTATOS { get; set; }
+        public string RAZONSOCIAL { get; set; }
+        public string RFC { get; set; }
+        public string DIRECCION { get; set; }
+        public string TELEFONO { get; set; }
+    
+        public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
     }
 }

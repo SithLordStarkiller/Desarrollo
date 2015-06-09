@@ -16,17 +16,17 @@ namespace AplicacionFragancias.Entidades
     {
         public US_USUARIOS()
         {
-            this.PER_PERSONA = new HashSet<PER_PERSONA>();
             this.US_PERFILES = new HashSet<US_PERFILES>();
         }
     
         public int IDUSUARIOS { get; set; }
+        public Nullable<int> IDPERSONA { get; set; }
         public string USUARIO { get; set; }
         public string CONTRASENA { get; set; }
         public Nullable<System.DateTime> ULTIMASESION { get; set; }
         public bool BORRADO { get; set; }
     
-        public virtual ICollection<PER_PERSONA> PER_PERSONA { get; set; }
+        public virtual PER_PERSONA PER_PERSONA { get; set; }
         public virtual ICollection<US_PERFILES> US_PERFILES { get; set; }
     }
 }

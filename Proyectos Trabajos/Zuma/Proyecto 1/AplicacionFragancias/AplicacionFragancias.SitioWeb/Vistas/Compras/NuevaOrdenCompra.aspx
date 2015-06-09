@@ -43,13 +43,17 @@
             $(document).ready(function () {
                 var cveProv = $("#<%=txtCveProveedor.ClientID%>")[0].value;
                 var nomProv = $("#<%=txtNombreProveedor.ClientID%>")[0].value;
+                var rfcProv = $("#<%=txtRfc.ClientID%>")[0].value;
+                var dirProv = $("#<%=txtDireccion.ClientID%>")[0].value;
+                var telProv = $("#<%=txtTelefonoEmp.ClientID%>")[0].value;
                 var nomCont = $("#<%=txtNombreContaco.ClientID%>")[0].value;
                 var telCont = $("#<%=txtTelefonoContacto.ClientID%>")[0].value;
                 var emailCont = $("#<%=txteMailContacto.ClientID%>")[0].value;
+
                 $.ajax({
                     type: "POST",
                     url: "NuevaOrdenCompra.aspx/GuardaProv",
-                    data: '{cveProv: "' + cveProv + '", nomProv : "' + nomProv + '", nomCont: "' + nomCont + '", telCont: "' + telCont + '", emailCont: "' + emailCont + '"}',
+                    data: '{cveProv: "' + cveProv + '", nomProv : "' + nomProv + '", nomCont: "' + nomCont + '", telCont: "' + telCont + '", emailCont: "' + emailCont + '", rfcProv: "' + rfcProv + '", dirProv: "' + dirProv + '", telProv: "' + telProv + '"}',
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function () {
@@ -62,10 +66,19 @@
                 });
             });
         }
+
+        function Nuevo() {
+            window.location = "NuevaOrdenCompra.aspx";
+        }
+
+        function Redirigir() {
+            window.location = "OrdenesCompra.aspx";
+        }
     </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server" />
     <div class="jumbotron col-md-12">
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
             <div class="panel-heading" style="margin: 5px; padding: 10px;">
@@ -118,65 +131,260 @@
                 <div class="panel-title">
                     <h4>Productos</h4>
                 </div>
-            </div>
-            <div style="float: right;">
-                <button type="button" class="btn btn-primary btn-sm col-lg-offset-1" title="Nuevo Proveedor" data-toggle="modal" data-target="#modalMensaje" data-whatever="@mdo">Nuevo Producto</button>
-            </div>
-            <br />
-            <br />
-        </div>
-    </div>
-
-    <div style="float: right;">
-        <asp:button runat="server" type="button" class="btn btn-success btn-sm" Text="Guardar"/>
-    </div>
-
-    <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="modalLabelMensaje" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="modalLabelMensaje">
-                        <asp:Label runat="server" ID="lblModalTitulo"></asp:Label></h4>
-                </div>
-                <div class="modal-body">
-                    <asp:Label runat="server" ID="lblModalMensaje"></asp:Label>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="modalCreaProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label">Clave Proveedor:</label>
-                        <asp:TextBox type="text" class="form-control" ID="txtCveProveedor" runat="server" />
-                        <label class="control-label">Nombre Proveedor:</label>
-                        <asp:TextBox runat="server" class="form-control" ID="txtNombreProveedor"></asp:TextBox>
-                        <label class="control-label">Nombre Contacto:</label>
-                        <asp:TextBox runat="server" class="form-control" ID="txtNombreContaco"></asp:TextBox>
-                        <label class="control-label">Telefono Contacto:</label>
-                        <asp:TextBox runat="server" class="form-control" ID="txtTelefonoContacto"></asp:TextBox>
-                        <label class="control-label">Correo Electronico Contacto:</label>
-                        <asp:TextBox runat="server" class="form-control" ID="txteMailContacto"></asp:TextBox>
+                <div class="panel-group">
+                    <asp:GridView ID="grvProductos" runat="server"
+                        ShowFooter="True" AutoGenerateColumns="False"
+                        DataKeyNames="PARTIDA,CANTIDAD"
+                        CellPadding="10000" ForeColor="#333333"
+                        GridLines="None" Width="100%" HorizontalAlign="Center"
+                        OnRowDataBound="grvProductos_OnRowDataBound"
+                        OnRowDeleting="grvProductos_OnRowDeleting"
+                        OnRowEditing="grvProductos_OnRowEditing"
+                        >
+                        <Columns>
+                            <asp:TemplateField HeaderText="Partida">
+                                <ItemTemplate>
+                                    <%# Container.DataItemIndex + 1 %>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Clave Producto">
+                                <ItemTemplate>
+                                    <asp:DropDownList ID="ddlClaveProd" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Nombre Producto">
+                                <ItemTemplate>
+                                    <asp:DropDownList ID="ddlNombrePro" runat="server" Class="selectpicker" data-width="170px" disabled="disabled"></asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Cantidad">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblCantidad" runat="server" Text='<%# Eval("CANTIDAD") %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Unidad">
+                                <ItemTemplate>
+                                    <asp:DropDownList ID="ddlUnidadPro" runat="server" Class="selectpicker" data-width="80px" disabled="disabled"></asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Presentacion">
+                                <ItemTemplate>
+                                    <asp:DropDownList ID="ddlPresentacionPro" runat="server" Class="selectpicker" data-width="170px" disabled="disabled"></asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Precio Unitario">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblPrecioUnitario" runat="server" Text='<%# Eval("PRECIOUNITARIO") %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Estatus">
+                                <ItemTemplate>
+                                    <asp:DropDownList ID="ddlEstatusPro" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Fecha de Entrega">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblFechaEntrega" runat="server" Text='<%# Eval("FECHAENTREGA", "{0:d}") %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField HeaderText="SubTotal">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblSubtotal" runat="server" Text='<%# "$" + Convert.ToInt32(Eval("CANTIDAD")) * Convert.ToDecimal(Eval("PRECIOUNITARIO")) %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:CommandField ShowEditButton="True" EditImageUrl="/Imagenes/ico_editar.gif" ButtonType="Image" />
+                            <asp:CommandField ShowDeleteButton="True" DeleteImageUrl="/Imagenes/eliminar.gif" ButtonType="Image" />
+                        </Columns>
+                        <FooterStyle BackColor="#EEEEEE" Font-Bold="True" ForeColor="black" />
+                        <RowStyle BackColor="#FFFFFF" />
+                        <EditRowStyle BackColor="#CCCCCC" />
+                        <SelectedRowStyle BackColor="#888888" Font-Bold="True" ForeColor="#333333" />
+                        <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                        <HeaderStyle BackColor="#EEEEEE" ForeColor="black" HorizontalAlign="Center" />
+                        <AlternatingRowStyle BackColor="White" />
+                    </asp:GridView>
+                    <div class="col-lg-offset-10 col-md-2">
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label">Clave Proveedor:</label>
+                            <asp:TextBox type="text" class="form-control form-group-sm" ID="TextBox1" runat="server" />
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" onclick="GuardaProv();">Guardar</button>
+                <div class="panel-footer">
+                    <br />
+                    <br />
+                </div>
+                <div style="float: right;">
+                    <br />
+                    <br/>
+                    <button type="button" class="btn btn-primary btn-sm col-lg-offset-1" title="Nuevo Proveedor" data-toggle="modal" data-target="#modalCreaProducto" data-whatever="@mdo">Nuevo Producto</button>
+                </div>
+                <br />
+                <br />
+                <br />
+            </div>
+            <br />
+            <br />
+        </div>
+        <br />
+        <div style="float: right;">
+            <asp:Button runat="server" ID="btnGuardar" type="button" class="btn btn-success btn-sm" Text="Guardar" OnClick="btnGuardar_OnClick" />
+        </div>
+        <div class="modal fade" id="modalCreaProducto" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalLabelProducto">Agregar Producto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-md-8">
+                                <div class="input-group" style="margin: 10px; padding: 5px;">
+                                    <label class="input-group-addon">Clave Producto</label>
+                                    <asp:DropDownList ID="ddlClaveProducto" runat="server" Class="selectpicker" AutoPostBack="true" data-live-search="true" title="Clave del Producto" OnTextChanged="ddlClaveProducto_OnTextChanged"></asp:DropDownList>
+                                    <label class="input-group-addon">Nombre Producto</label>
+                                    <asp:DropDownList ID="ddlNombreProducto" runat="server" Class="selectpicker" AutoPostBack="True" data-live-search="true" title="Nombre del Producto" OnTextChanged="ddlNombreProducto_OnTextChanged"></asp:DropDownList>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group" style="margin: 10px; padding: 5px;">
+                                <label class="input-group-addon">Estatus</label>
+                                <asp:DropDownList ID="ddlEstatusPro" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona estatus" />
+                                <label class="col-lg-offset-1 input-group-addon ">Unidad</label>
+                                <asp:DropDownList ID="ddlUnidad" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona unidad" />
+                                <label class="input-group-addon">Presentacion</label>
+                                <asp:DropDownList ID="ddlPresentacion" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona Presentacion" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group" style="margin: 10px; padding: 5px;">
+                                <asp:Label runat="server" Class="input-group-addon">Cantidad</asp:Label>
+                                <asp:TextBox runat="server" Class="form-control" type="text" ID="txtCantidad" placeholder="No Orden de compra" />
+                                <asp:Label runat="server" Class="input-group-addon">Precio Unitario</asp:Label>
+                                <asp:TextBox runat="server" Class="form-control" type="text" ID="txtPrecioUnitario" placeholder="No Orden de compra" />
+                                <asp:Label runat="server" Class="input-group-addon">Fecha de Entrada</asp:Label>
+                                <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtFechaEntrada" placeholder="No Orden de compra" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="btnAgregarPro" runat="server" class="btn btn-primary" Text="Agregar" OnClick="btnAgregarPro_OnClick" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="modalLabelMensaje" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalLabelMensaje">
+                            <asp:Label runat="server" ID="lblModalTitulo"></asp:Label></h4>
+                    </div>
+                    <div class="modal-body">
+                        <asp:Label runat="server" ID="lblModalMensaje">Se a creado la orden de compra. ¿deceas ir a la pagina de inicio o deceas crea otra orden de compra?</asp:Label>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="Nuevo();">Nueva</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="Redirigir();">Redirigir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalCreaProveedor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="exampleModalLabel">Nuevo proveedor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label class="control-label">Clave Proveedor:</label>
+                            <asp:TextBox type="text" class="form-control" ID="txtCveProveedor" runat="server" />
+                            <label class="control-label">Nombre Proveedor:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txtNombreProveedor"></asp:TextBox>
+                            <label class="control-label">RFC:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txtRfc"></asp:TextBox>
+                            <label class="control-label">Direccion:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txtDireccion"></asp:TextBox>
+                            <label class="control-label">Telefono:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txtTelefonoEmp"></asp:TextBox>
+                            <label class="control-label">Nombre Contacto:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txtNombreContaco"></asp:TextBox>
+                            <label class="control-label">Telefono Contacto:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txtTelefonoContacto"></asp:TextBox>
+                            <label class="control-label">Correo Electronico Contacto:</label>
+                            <asp:TextBox runat="server" class="form-control" ID="txteMailContacto"></asp:TextBox>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardaProv();">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalEditaProducto" tabindex="-1" role="dialog" aria-labelledby="modalLabelEditaProducto" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="modalLabelEditaProducto">Editar Producto</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-md-8">
+                                <div class="input-group" style="margin: 10px; padding: 5px;">
+                                    <label class="input-group-addon">Partida</label>
+                                    <asp:TextBox runat="server" ID="txtEditProPartida" CssClass="form-control"></asp:TextBox>
+                                    <label class="input-group-addon">Clave Producto</label>
+                                    <asp:DropDownList ID="DropDownList1" runat="server" Class="selectpicker" AutoPostBack="true" data-live-search="true" title="Clave del Producto" OnTextChanged="ddlClaveProducto_OnTextChanged"></asp:DropDownList>
+                                    <label class="input-group-addon">Nombre Producto</label>
+                                    <asp:DropDownList ID="DropDownList2" runat="server" Class="selectpicker" AutoPostBack="True" data-live-search="true" title="Nombre del Producto" OnTextChanged="ddlNombreProducto_OnTextChanged"></asp:DropDownList>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group" style="margin: 10px; padding: 5px;">
+                                <label class="input-group-addon">Estatus</label>
+                                <asp:DropDownList ID="DropDownList3" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona estatus" />
+                                <label class="col-lg-offset-1 input-group-addon ">Unidad</label>
+                                <asp:DropDownList ID="DropDownList4" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona unidad" />
+                                <label class="input-group-addon">Presentacion</label>
+                                <asp:DropDownList ID="DropDownList5" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona Presentacion" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group" style="margin: 10px; padding: 5px;">
+                                <asp:Label runat="server" Class="input-group-addon">Cantidad</asp:Label>
+                                <asp:TextBox runat="server" Class="form-control" type="text" ID="TextBox2" placeholder="No Orden de compra" />
+                                <asp:Label runat="server" Class="input-group-addon">Precio Unitario</asp:Label>
+                                <asp:TextBox runat="server" Class="form-control" type="text" ID="TextBox3" placeholder="No Orden de compra" />
+                                <asp:Label runat="server" Class="input-group-addon">Fecha de Entrada</asp:Label>
+                                <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="TextBox4" placeholder="No Orden de compra" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <asp:Button ID="Button1" runat="server" class="btn btn-primary" Text="Agregar" OnClick="btnAgregarPro_OnClick" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

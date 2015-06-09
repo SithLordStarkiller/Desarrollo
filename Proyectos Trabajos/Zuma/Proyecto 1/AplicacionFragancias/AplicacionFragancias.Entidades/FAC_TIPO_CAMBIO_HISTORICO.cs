@@ -12,18 +12,15 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class ALM_CAT_ALMECENES
+    public partial class FAC_TIPO_CAMBIO_HISTORICO
     {
-        public ALM_CAT_ALMECENES()
-        {
-            this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
-        }
-    
-        public short IDALAMACENES { get; set; }
-        public string NOMBREALMACEN { get; set; }
-        public string DESCRIPCION { get; set; }
+        public int IDTIPOCAMBIO { get; set; }
+        public Nullable<int> IDMONEDA { get; set; }
+        public decimal VALORCOMPRA { get; set; }
+        public decimal VALORVENTA { get; set; }
+        public System.DateTime FECHA { get; set; }
         public bool BORRADO { get; set; }
     
-        public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
+        public virtual FAC_CAT_MONEDA FAC_CAT_MONEDA { get; set; }
     }
 }

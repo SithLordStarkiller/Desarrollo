@@ -71,9 +71,9 @@
             <div class="row">
                 <div class="input-group form-group col-lg-offset-3 col-md-6">
                     <asp:Label runat="server" Class="input-group-addon">Fecha de compra desde:</asp:Label>
-                    <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtFechaInicio" placeholder="Desde" />
+                    <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtFechaInicio" placeholder="Desde" AutoPostBack="true" OnTextChanged="txtFechaInicio_OnTextChanged"/>
                     <asp:Label runat="server" class="input-group-addon">Hasta: </asp:Label>
-                    <asp:TextBox runat="server" class="form-control datepicker" ID="txtFechaFinal" placeholder="Hasta" />
+                    <asp:TextBox runat="server" class="form-control datepicker" ID="txtFechaFinal" placeholder="Hasta" AutoPostBack="True" OnTextChanged="txtFechaFinal_OnTextChanged" />
                 </div>
             </div>
             <div class="row">
@@ -85,10 +85,12 @@
         </div>
         <br />
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
-            <asp:GridView ID="grvProductos" runat="server"
+            <asp:GridView ID="grvOrdenesCompra" runat="server"
                 ShowFooter="True" AutoGenerateColumns="False"
                 CellPadding="10000" ForeColor="#333333"
-                GridLines="None" Width="100%" HorizontalAlign="Center">
+                GridLines="None" Width="100%" HorizontalAlign="Center"
+                OnRowDataBound="grvOrdenesCompra_OnRowDataBound"
+                >
                 <Columns>
                     <asp:TemplateField HeaderText="Orden de Compra">
                         <ItemTemplate>
@@ -97,53 +99,52 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Estatus">
                         <ItemTemplate>
-                            <asp:Label ID="lblOrdenCompra" runat="server" Text='<%# Bind("NOORDENCOMPRA") %>' />
-                            <asp:TextBox ID="txtEstatus" runat="server" Class="form-control input-sm" placeholder="Estatus"></asp:TextBox>
+                            <asp:DropDownList ID="ddlEstatusCom" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Fecha">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtFechaOrdenCompra" runat="server" Class="form-control input-sm datepicker" placeholder="Fecha"></asp:TextBox>
+                            <asp:TextBox ID="txtFechaOrdenCompra" runat="server" Class="form-control input-sm datepicker disabled" placeholder="Fecha" Text='<%# Bind("FECHAORDENCOMPRA", "{0:d}") %>' disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Clave prov.">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlCveProveedor" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlCveProducto" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Nombre prov.">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlNombreProveedor" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlNombreProv" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Moneda">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlMoneda" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlMoneda" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Partidas">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtPartidas" runat="server" Class="form-control input-sm" placeholder="Subtotal"></asp:TextBox>
+                            <asp:TextBox ID="txtPartidas" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Entregados">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtEntregadas" runat="server" Class="form-control input-sm" placeholder="Subtotal"></asp:TextBox>
+                            <asp:TextBox ID="txtEntregadas" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="SubTotal">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control input-sm" placeholder="Subtotal"></asp:TextBox>
+                            <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Impuestos">
                         <ItemTemplate>
-                            <asp:DropDownList ID="ddlImpuestos" runat="server" Class="selectpicker" data-width="100px"></asp:DropDownList>
+                            <asp:DropDownList ID="ddlImpuestos" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Total">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtTotal" runat="server" Class="form-control input-sm" placeholder="Total"></asp:TextBox>
+                            <asp:TextBox ID="txtTotal" runat="server" Class="form-control input-sm" placeholder="Total" disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:CommandField ShowEditButton="True" EditImageUrl="/Imagenes/ico_editar.gif" ButtonType="Image" />

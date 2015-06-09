@@ -8,7 +8,8 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
 {
     public class OperaionesCompras
     {
-        public COM_ORDENCOMPRA InsertaOrdenCompra(COM_ORDENCOMPRA ordenCompra, List<COM_PRODUCTOS> listaProductos)
+        public COM_ORDENCOMPRA InsertaOrdenCompra(COM_ORDENCOMPRA ordenCompra,
+            List<COM_PRODUCTOS_PEDIDOS> listaProductos)
         {
             var nuevaOrdenCompra = new OperacionesCompras().InsertaOrdenCompra(ordenCompra);
 
@@ -21,9 +22,16 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
             return nuevaOrdenCompra;
         }
 
-        public COM_PROVEEDORES InsertaProveedor(COM_PROVEEDORES proveedor)
+        public COM_PROVEEDORES InsertaProveedor(COM_PROVEEDORES proveedor, COM_PROVEEDORES_CONTACTOS contactos)
         {
-            return new OperacionesCompras().InsertaProveedor(proveedor);
+            proveedor = new OperacionesCompras().InsertaProveedor(proveedor);
+
+            if (proveedor != null)
+            {
+                new OperacionesCompras().InsertaProveedoresContactos(contactos);
+            }
+
+            return proveedor;
         }
 
         public COM_PROVEEDORES ExisteProveedor(string cveProveedor)
@@ -46,14 +54,29 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
             return new OperacionesCompras().ObtenOrdenCompra(noOrdenCompra);
         }
 
-        public List<COM_PRODUCTOS> ObtenListaProductos(COM_ORDENCOMPRA ordenCompra)
+        public List<COM_PRODUCTOS_PEDIDOS> ObtenListaProductos(COM_PRODUCTOS_PEDIDOS ordenCompra)
         {
             return new OperacionesCompras().ObtenListaProductos(ordenCompra);
         }
 
-        public List<COM_ESTATUS_COMPRA> ObtenEstatusCompras()
+        public List<COM_CAT_ESTATUS_COMPRA> ObtenEstatusCompras()
         {
             return new OperacionesCatalogosCompras().ObtenEstatusCompras();
+        }
+
+        public List<COM_PRODUCTOS> ObtenCatProductos()
+        {
+            return new OperacionesCompras().ObtenCatProductos();
+        }
+
+        public List<COM_CAT_UNIDADES_MEDIDA> ObteUnidadesMedidas()
+        {
+            return new OperacionesCatalogosCompras().ObtenUnidadesMedida();
+        }
+
+        public List<COM_CAT_PRESENTACION> ObtenPresentacion()
+        {
+            return new OperacionesCatalogosCompras().ObtenPresentacion();
         }
 
         public bool ActualizaProducto(COM_PRODUCTOS producto)

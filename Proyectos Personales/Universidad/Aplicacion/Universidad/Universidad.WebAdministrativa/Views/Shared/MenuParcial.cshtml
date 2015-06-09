@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<Universidad.Entidades.ControlUsuario.MenuSisWadmE>
+﻿@model List<Universidad.Entidades.ControlUsuario.MenuSisWadmE>
 
 @if (Model != null)
 {
@@ -6,7 +6,15 @@
     {
         <ul>
             <li>
-                @Html.ActionLink(@menuitem.Nombre,menuitem.Method,menuitem.Controller)
+                @if (!string.IsNullOrEmpty(menuitem.Controller) || !string.IsNullOrEmpty(menuitem.Method))
+                {
+                    @Html.ActionLink(@menuitem.Nombre, menuitem.Method, menuitem.Controller)
+                }
+                else
+                {
+                    <a href="#">@menuitem.Nombre</a>
+                }
+
                 @{
                     Html.RenderPartial("MenuParcial", menuitem.Hijos);
                 }

@@ -17,13 +17,15 @@ namespace AplicacionFragancias.Entidades
         public FAC_CAT_MONEDA()
         {
             this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
+            this.FAC_TIPO_CAMBIO_HISTORICO = new HashSet<FAC_TIPO_CAMBIO_HISTORICO>();
         }
     
         public int IDMONEDA { get; set; }
         public string NOMBREMONEDA { get; set; }
         public string NOMBRECORTO { get; set; }
-        public Nullable<decimal> VALORPORDOLAR { get; set; }
+        public bool BORRADO { get; set; }
     
         public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
+        public virtual ICollection<FAC_TIPO_CAMBIO_HISTORICO> FAC_TIPO_CAMBIO_HISTORICO { get; set; }
     }
 }
