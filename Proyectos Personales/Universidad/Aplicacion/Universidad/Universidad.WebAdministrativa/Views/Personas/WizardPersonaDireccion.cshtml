@@ -1,5 +1,4 @@
 ﻿@model Universidad.WebAdministrativa.Models.ModelWizardPersonas
-
 @{
     var titulo = ViewBag.Title = "Registro de personas";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,19 +18,46 @@
 
     var listaEstados = ViewBag.ListaEstados;
 }
+@section Head
+{
+    <script src="/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
+}
 
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#ddlEstados').change(function () {
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                language: 'es',
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
+            });
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#ddlEstados").change(function() {
                 var idEstado = $("#ddlEstados").val();
                 if (idEstado != 0) {
                     $.ajax({
                         type: "POST",
                         data: { 'estado': idEstado },
                         url: '@Url.Action("ObtenMunicipios", "Personas")',
-                        success: function (response) {
+                        success: function(response) {
                             var listado = JSON.parse(response);
                             var result = '';
                             var selectList = $("#ddlMunicipios");
@@ -42,76 +68,81 @@
                                 var texto = listado[i].Text;
                                 result += '<option value="' + id + '">' + texto + '</option>';
                             }
-                            $("#ddlMunicipios").html(result);
+                            $("#ddlMunicipios").html(result).selectpicker('refresh');
+
+                            $('.selectpicker').selectpicker('refresh');
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             alert(status + " : " + error);
                         }
                     });
-                } else {
+                }
+                else
+                {
                     alert("Elige un estado");
                 }
             });
 
-            $('#ddlMunicipios').change(function () {
-                var idEstado = $("#ddlEstados").val();
-                var idMunicipio = $("#ddlMunicipios").val();
-                if (idEstado != 0) {
-                    $.ajax({
-                        type: "POST",
-                        data: { 'estado': idEstado, 'municipio': idMunicipio },
-                        url: '@Url.Action("ObtenColonias", "Personas")',
-                        success: function (response) {
-                            var listado = JSON.parse(response);
-                            var result = '';
-                            var selectList = $("#ddlColonias");
-                            selectList.empty();
-                            for (var i = 0, iL = listado.length; i < iL; i++) {
-                                var id = listado[i].Value;
-                                var texto = listado[i].Text;
-                                result += '<option value="' + id + '">' + texto + '</option>';
-                            }
-                            $("#ddlColonias").html(result);
-                        },
-                        error: function (xhr, status, error) {
-                            alert(status + " : " + error);
+        $("#ddlMunicipios").change(function() {
+            var idEstado = $("#ddlEstados").val();
+            var idMunicipio = $("#ddlMunicipios").val();
+            if (idEstado != 0) {
+                $.ajax({
+                    type: "POST",
+                    data: { 'estado': idEstado, 'municipio': idMunicipio },
+                    url: '@Url.Action("ObtenColonias", "Personas")',
+                    success: function(response) {
+                        var listado = JSON.parse(response);
+                        var result = '';
+                        var selectList = $("#ddlColonias");
+                        selectList.empty();
+                        for (var i = 0, iL = listado.length; i < iL; i++) {
+                            var id = listado[i].Value;
+                            var texto = listado[i].Text;
+                            result += '<option value="' + id + '">' + texto + '</option>';
                         }
-                    });
-                } else {
-                    alert("Elige un municipio y un estado");
-                }
-            });
-
-            $('#ddlColonias').change(function () {
-                var idEstado = $("#ddlEstados").val();
-                var idMunicipio = $("#ddlMunicipios").val();
-                var idColonia = $("#ddlColonias").val();
-                if (idEstado != 0) {
-                    $.ajax({
-                        type: "POST",
-                        data: { 'estado': idEstado, 'municipio': idMunicipio, 'colonia': idColonia },
-                        url: '@Url.Action("ObtenCodigoPostal", "Personas")',
-                        success: function (response) {
-                            var listado = JSON.parse(response);
-                            var cp = listado.CODIGOPOSTAL;
-                            $("#txtCodigoPostal").val(cp);
-                            $("#divCodigoPostal").removeClass("has-danger");
-                            $("#divCodigoPostal").addClass("has-success");
-                            $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
-                        },
-                        error: function (xhr, status, error) {
-                            alert(status + " : " + error);
-                            $("#divCodigoPostal").addClass("has-error");
-                            $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
-                        }
-                    });
-                } else {
-                    alert("No se pudo encontrar el codigo postal");
-                    $("#divCodigoPostal").addClass("has-error");
-                    $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
-                }
-            });
+                        $("#ddlColonias").html(result).selectpicker('refresh');
+                        $('.selectpicker').selectpicker('refresh');
+                    },
+                    error: function(xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+                });
+            } else {
+                alert("Elige un municipio y un estado");
+            }
         });
+
+        $("#ddlColonias").change(function() {
+            var idEstado = $("#ddlEstados").val();
+            var idMunicipio = $("#ddlMunicipios").val();
+            var idColonia = $("#ddlColonias").val();
+            if (idEstado != 0) {
+                $.ajax({
+                    type: "POST",
+                    data: { 'estado': idEstado, 'municipio': idMunicipio, 'colonia': idColonia },
+                    url: '@Url.Action("ObtenCodigoPostal", "Personas")',
+                    success: function(response) {
+                        var listado = JSON.parse(response);
+                        var cp = listado.CODIGOPOSTAL;
+                        $("#txtCodigoPostal").val(cp);
+                        $("#divCodigoPostal").removeClass("has-danger");
+                        $("#divCodigoPostal").addClass("has-success");
+                        $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
+                    },
+                    error: function(xhr, status, error) {
+                        alert(status + " : " + error);
+                        $("#divCodigoPostal").addClass("has-error");
+                        $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
+                    }
+                });
+            } else {
+                alert("No se pudo encontrar el codigo postal");
+                $("#divCodigoPostal").addClass("has-error");
+                $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
+            }
+        });
+    });
 
         function traerDireccion() {
             var codigoPostal = $("#txtCodigoPostal").val();
@@ -132,6 +163,7 @@
 
                     $("#ddlColonias").empty();
                     $("#ddlColonias").html(result);
+                    $('.selectpicker').selectpicker('refresh');
 
                     if (listado.length > 0) {
                         idEstado = listado[0].IDESTADO;
@@ -153,10 +185,13 @@
                                 $("#ddlMunicipios").html(cadena);
                                 $('#ddlEstados').val(idEstado);
                                 $('#ddlMunicipios').val(idMunicipio);
-
+                                $('.selectpicker').selectpicker('refresh');
                                 $("#divCodigoPostal").removeClass("has-danger");
                                 $("#divCodigoPostal").addClass("has-success");
                                 $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
+                                $("#divCodigoPostal").refresh();
+                                $('.selectpicker').selectpicker('refresh');
+                                $("#divCodigoPostal").removeClass("has-danger");
                             },
                             error: function (xhr, status, error) {
                                 alert(status + " : " + error);
@@ -185,14 +220,22 @@
     <br />
     <h2>@titulo</h2>
     <br />
-    <div class="panel panel-default" style="margin: 5px; padding: 10px;">
-        <div class="panel-heading" style="margin: 5px; padding: 10px;">
+    <div class="panel panel-default form-margin">
+        <div class="panel-heading form-margin">
             <div class="panel-title">Llena los campos de la direccion del usario</div>
         </div>
-        @using (Html.BeginForm("DireccionPersona", "Personas", FormMethod.Post))
+        @using (Html.BeginForm("GuardarDatosDireccion", "Personas", FormMethod.Post))
         {
             @Html.ValidationSummary(true)
             <fieldset>
+                @Html.ValidationMessageFor(x => x.Direccion.IdEstado, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.IdMunicipio, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.IdColonia, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.CodigoPostal, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.Calle, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.NoExterior, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.NoInterior, null, new { @class = "label label-danger" })
+                @Html.ValidationMessageFor(x => x.Direccion.ReferenciasAdicionalies, null, new { @class = "label label-danger" })
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="row">
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
@@ -210,19 +253,19 @@
                             <div class="form-group col-md-4">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Direccion.IdEstado, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Direccion.IdEstado, (IEnumerable<SelectListItem>)listaEstados, "Selecciona estado", new { @class = "dropdown-header form-control", @id = "ddlEstados" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdEstado, (IEnumerable<SelectListItem>)listaEstados, "Selecciona estado", new { @class = "selectpicker", @id = "ddlEstados", data_live_search = true })
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Direccion.IdMunicipio, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Direccion.IdMunicipio, (IEnumerable<SelectListItem>)listaMunicipios, "Selecciona municipio", new { @class = "dropdown-header form-control", @id = "ddlMunicipios" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdMunicipio, (IEnumerable<SelectListItem>)listaMunicipios, "Selecciona municipio", new { @class = "selectpicker", @id = "ddlMunicipios", data_live_search = true })
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Direccion.IdColonia, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Direccion.IdColonia, (IEnumerable<SelectListItem>)listaColonias, "Selecciona colonia", new { @class = "dropdown-header form-control", @id = "ddlColonias" })
+                                    @Html.DropDownListFor(x => x.Direccion.IdColonia, (IEnumerable<SelectListItem>)listaColonias, "Selecciona colonia", new { @class = "selectpicker", @id = "ddlColonias", data_live_search = true })
                                 </div>
                             </div>
                         </div>
@@ -261,8 +304,8 @@
             </fieldset>
             <div style="margin-top: 10px; float: right;" class="form-group">
                 <label>&nbsp;</label>
-                @Html.ActionLink("Atras", "PersonaDefault", "Personas", new { @class = "btn btn-info btn-xs", @style = "margin: 10px; padding: 10px;" })
-                <input type="submit" value="Siguiente" class="btn btn-info btn-xs" style="margin: 10px; padding: 10px;">
+                @Html.ActionLink("Atras", "PersonaDefault", "Personas", new { @class = "btn btn-info btn-sm", @style = "margin: 10px; padding: 10px;" })
+                <input type="submit" value="Siguiente" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px;">
             </div>
         }
         @{ Html.EndForm(); }

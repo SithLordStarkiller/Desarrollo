@@ -310,93 +310,93 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras {
         protected global::System.Web.UI.WebControls.TextBox txteMailContacto;
         
         /// <summary>
-        /// txtEditProPartida control.
+        /// txtProEditPartida control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditProPartida;
+        protected global::System.Web.UI.WebControls.TextBox txtProEditPartida;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// ddlProEditClvProd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProEditClvProd;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// ddlProEditNomProd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProEditNomProd;
         
         /// <summary>
-        /// DropDownList3 control.
+        /// ddlProEditEstatus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProEditEstatus;
         
         /// <summary>
-        /// DropDownList4 control.
+        /// ddlProEditUnidades control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProEditUnidades;
         
         /// <summary>
-        /// DropDownList5 control.
+        /// ddlProEditPresentacion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList5;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProEditPresentacion;
         
         /// <summary>
-        /// TextBox2 control.
+        /// txtProEditCantidad control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox txtProEditCantidad;
         
         /// <summary>
-        /// TextBox3 control.
+        /// txtProEditPrecioUnitario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox txtProEditPrecioUnitario;
         
         /// <summary>
-        /// TextBox4 control.
+        /// txtProEditFechaEntrega control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox4;
+        protected global::System.Web.UI.WebControls.TextBox txtProEditFechaEntrega;
         
         /// <summary>
-        /// Button1 control.
+        /// btnEditaProd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnEditaProd;
     }
 }

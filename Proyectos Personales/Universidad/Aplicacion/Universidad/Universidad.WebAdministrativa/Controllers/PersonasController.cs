@@ -136,6 +136,7 @@ namespace Universidad.WebAdministrativa.Controllers
                 }).ToArray();
 
             ViewBag.ListaEstados = estados;
+            Session["listaEstados"] = estados;
 
             var modelo = Session["Modelo"];
 
@@ -189,11 +190,10 @@ namespace Universidad.WebAdministrativa.Controllers
                     Value = c.IDESTADO.ToString(CultureInfo.InvariantCulture),
                     Text = c.NOMBREESTADO
                 }).ToArray();
-
+            Session["listaEstados"] = estados;
             ViewBag.ListaEstados = estados;
 
-            var modelo = TempData["Modelo"];
-            TempData.Keep("Modelo");
+            var modelo = Session["Modelo"];
 
             return View(modelo);
         }
@@ -220,10 +220,10 @@ namespace Universidad.WebAdministrativa.Controllers
         public ActionResult ObtenMunicipiosCompleted(List<DIR_CAT_DELG_MUNICIPIO> listaMunicipios)
         {
             var lista = listaMunicipios.Select(c => new SelectListItem
-                {
-                    Value = c.IDMUNICIPIO.ToString(),
-                    Text = c.NOMBREDELGMUNICIPIO
-                }).ToArray();
+            {
+                Value = c.IDMUNICIPIO.ToString(),
+                Text = c.NOMBREDELGMUNICIPIO
+            }).ToArray();
 
             var resultado = JsonConvert.SerializeObject(lista);
 
@@ -310,6 +310,45 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             var resultado = JsonConvert.SerializeObject(lista);
             return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult GuardarDatosDireccion(ModelWizardPersonas modeloDireccion)
+        {
+
+            if (ModelState.IsValid)
+            {
+                Sesion();
+                CargaListas();
+                var modelo = (ModelWizardPersonas)Session["Modelo"];
+                modelo.Direccion = modeloDireccion.Direccion;
+                Session["Modelo"] = modelo;
+                return
+                    new RedirectToReturnUrlResult(() => RedirectToAction("WizardPersonaMediosElectronicos", "Personas"));
+            }
+
+            Sesion();
+            CargaListas();
+            ViewBag.listaEstados = Session["listaEstados"];
+            return View("WizardPersonaDireccion", modeloDireccion);
+        }
+
+        public ActionResult GuardarDatosTel(ModelWizardPersonas modeloPersona)
+        {
+            if (ModelState.IsValid)
+            {
+                Sesion();
+                CargaListas();
+                var modelo = (ModelWizardPersonas)Session["Modelo"];
+                modelo.TelMed = modeloPersona.TelMed;
+                Session["Modelo"] = modelo;
+                return View("WizardPersonaFotorafia",modelo);
+            }
+
+            Sesion();
+            CargaListas();
+            return View("WizardPersonaMediosElectronicos", modeloPersona);
         }
     }
 

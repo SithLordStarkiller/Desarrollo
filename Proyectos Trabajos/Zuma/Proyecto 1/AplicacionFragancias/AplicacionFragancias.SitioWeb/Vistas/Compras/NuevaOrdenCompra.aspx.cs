@@ -107,6 +107,16 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
             ddlEstatus.DataSource = listaEstatus;
             ddlEstatus.DataBind();
 
+            ddlEstatusPro.DataValueField = "IDESTATUSCOMPRA";
+            ddlEstatusPro.DataTextField = "NOMBREESTATUS";
+            ddlEstatusPro.DataSource = listaEstatus;
+            ddlEstatusPro.DataBind();
+
+            ddlProEditEstatus.DataValueField = "IDESTATUSCOMPRA";
+            ddlProEditEstatus.DataTextField = "NOMBREESTATUS";
+            ddlProEditEstatus.DataSource = listaEstatus;
+            ddlProEditEstatus.DataBind();
+
             var listaProductos = new OperaionesCompras().ObtenCatProductos();
 
             ddlClaveProducto.DataValueField = "CVEPRODUCTO";
@@ -114,10 +124,20 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
             ddlClaveProducto.DataSource = listaProductos;
             ddlClaveProducto.DataBind();
 
+            ddlProEditClvProd.DataValueField = "CVEPRODUCTO";
+            ddlProEditClvProd.DataTextField = "CVEPRODUCTO";
+            ddlProEditClvProd.DataSource = listaProductos;
+            ddlProEditClvProd.DataBind();
+
             ddlNombreProducto.DataValueField = "CVEPRODUCTO";
             ddlNombreProducto.DataTextField = "NOMBREPRODUCTO";
             ddlNombreProducto.DataSource = listaProductos;
             ddlNombreProducto.DataBind();
+
+            ddlProEditNomProd.DataValueField = "CVEPRODUCTO";
+            ddlProEditNomProd.DataTextField = "NOMBREPRODUCTO";
+            ddlProEditNomProd.DataSource = listaProductos;
+            ddlProEditNomProd.DataBind();
 
             var listaUnidades = new OperaionesCompras().ObteUnidadesMedidas();
 
@@ -126,6 +146,11 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
             ddlUnidad.DataSource = listaUnidades;
             ddlUnidad.DataBind();
 
+            ddlProEditUnidades.DataValueField = "IDUNIDADESMEDIDA";
+            ddlProEditUnidades.DataTextField = "TIPOUNIDAD";
+            ddlProEditUnidades.DataSource = listaUnidades;
+            ddlProEditUnidades.DataBind();
+
             var listaPresentacion = new OperaionesCompras().ObtenPresentacion();
 
             ddlPresentacion.DataValueField = "IDPRESENTACION";
@@ -133,10 +158,10 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
             ddlPresentacion.DataSource = listaPresentacion;
             ddlPresentacion.DataBind();
 
-            ddlEstatusPro.DataValueField = "IDESTATUSCOMPRA";
-            ddlEstatusPro.DataTextField = "NOMBREESTATUS";
-            ddlEstatusPro.DataSource = listaEstatus;
-            ddlEstatusPro.DataBind();
+            ddlProEditPresentacion.DataValueField = "IDPRESENTACION";
+            ddlProEditPresentacion.DataTextField = "PRESENTACION";
+            ddlProEditPresentacion.DataSource = listaPresentacion;
+            ddlProEditPresentacion.DataBind();
 
         }
 
@@ -419,11 +444,63 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
 
         protected void grvProductos_OnRowEditing(object sender, GridViewEditEventArgs e)
         {
-            var partida = (int)(grvProductos.DataKeys[e.NewEditIndex]).Values["PARTIDA"];
-            var lista = (List<COM_PRODUCTOS_PEDIDOS>) (Session["Productos"]);
-            var producto = lista.FirstOrDefault(r => r.PARTIDA == partida);
+            try
+            {
 
-            ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page), "Mensaje", "$('#modalEditaProducto').modal('show');", true);
+                var obj = grvProductos.DataKeys[e.NewEditIndex];
+
+                var partida = (int)(obj.Values["PARTIDA"]);
+
+                var lista = (List<COM_PRODUCTOS_PEDIDOS>)(Session["Productos"]);
+                var producto = lista.FirstOrDefault(r => r.PARTIDA == partida);
+
+                txtProEditPartida.Text = producto.PARTIDA.ToString(CultureInfo.InvariantCulture);
+                ddlProEditClvProd.SelectedValue = producto.CVEPRODUCTO;
+                ddlProEditNomProd.SelectedValue = producto.CVEPRODUCTO;
+                ddlProEditEstatus.SelectedValue = producto.IDESTAUSPRODUCTO.ToString();
+                ddlProEditUnidades.SelectedValue = producto.IDUNIDADESMEDIDA.ToString();
+                ddlProEditPresentacion.SelectedValue = producto.IDPRESENTACION.ToString();
+                txtProEditCantidad.Text = producto.CANTIDAD.ToString();
+                txtProEditFechaEntrega.Text = producto.FECHAENTREGA.ToShortDateString();
+                txtProEditPrecioUnitario.Text = producto.PRECIOUNITARIO.ToString();
+
+                ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page), "Mensaje",
+                    "$('#modalEditaProducto').modal('show');", true);
+
+                grvProductos.EditIndex = -1;
+                BindingGrid();
+
+            }
+            catch (NullReferenceException)
+            {
+            }
+        }
+
+        protected void grvProductos_OnRowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            grvProductos.EditIndex = -1;
+            BindingGrid();
+        }
+
+        protected void btnEditaProd_OnClick(object sender, EventArgs e)
+        {
+            var lista = ((List<COM_PRODUCTOS_PEDIDOS>)Session["Productos"]);
+
+            var producto = lista.FirstOrDefault(r => r.PARTIDA == Convert.ToInt32(txtProEditPartida.Text));
+
+            producto.PARTIDA = Convert.ToInt32(txtProEditPartida.Text);
+            producto.CVEPRODUCTO = ddlProEditClvProd.SelectedValue;
+            producto.IDESTAUSPRODUCTO = Convert.ToInt16(ddlProEditEstatus.SelectedValue);
+            producto.IDUNIDADESMEDIDA = Convert.ToInt16(ddlProEditUnidades.SelectedValue);
+            producto.IDPRESENTACION = Convert.ToInt16(ddlProEditPresentacion.SelectedValue);
+            producto.CANTIDAD = Convert.ToDecimal(txtProEditCantidad.Text);
+            producto.FECHAENTREGA = Convert.ToDateTime(txtProEditFechaEntrega.Text);
+            producto.PRECIOUNITARIO = Convert.ToDecimal(txtProEditPrecioUnitario.Text);
+
+            lista = lista.OrderBy(j => j.PARTIDA).ToList();
+            Session["Producto"] = lista;
+            grvProductos.EditIndex = -1;
+            BindingGrid();
         }
     }
 }

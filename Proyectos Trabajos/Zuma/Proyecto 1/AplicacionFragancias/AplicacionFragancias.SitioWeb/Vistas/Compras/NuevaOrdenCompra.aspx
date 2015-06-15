@@ -93,7 +93,7 @@
                 </div>
             </div>
             <div class="col-lg-offset-2 col-md-8">
-                <div class="input-group" style="margin: 10px; padding: 5px;">
+                <div class="input-group input-group-sm" style="margin: 10px; padding: 5px;">
                     <asp:Label runat="server" Class="input-group-addon">Clave del Proveedor</asp:Label>
                     <asp:DropDownList ID="ddlCveProveedor" runat="server" Class="selectpicker" AutoPostBack="true" OnTextChanged="ddlCveProveedor_OnTextChanged" data-live-search="true" title="Selecciona Proveedor"></asp:DropDownList>
                     <asp:Label runat="server" Class="input-group-addon">Nombre del Proveedor</asp:Label>
@@ -134,12 +134,13 @@
                 <div class="panel-group">
                     <asp:GridView ID="grvProductos" runat="server"
                         ShowFooter="True" AutoGenerateColumns="False"
-                        DataKeyNames="PARTIDA,CANTIDAD"
+                        DataKeyNames="PARTIDA"
                         CellPadding="10000" ForeColor="#333333"
                         GridLines="None" Width="100%" HorizontalAlign="Center"
                         OnRowDataBound="grvProductos_OnRowDataBound"
                         OnRowDeleting="grvProductos_OnRowDeleting"
                         OnRowEditing="grvProductos_OnRowEditing"
+                        OnRowCancelingEdit="grvProductos_OnRowCancelingEdit"
                         >
                         <Columns>
                             <asp:TemplateField HeaderText="Partida">
@@ -350,39 +351,39 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-md-8">
-                                <div class="input-group" style="margin: 10px; padding: 5px;">
+                                <div class="input-group input-group-sm" style="margin: 10px; padding: 5px;">
                                     <label class="input-group-addon">Partida</label>
-                                    <asp:TextBox runat="server" ID="txtEditProPartida" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="txtProEditPartida" Width="100" CssClass="form-control" ReadOnly="True"></asp:TextBox>
                                     <label class="input-group-addon">Clave Producto</label>
-                                    <asp:DropDownList ID="DropDownList1" runat="server" Class="selectpicker" AutoPostBack="true" data-live-search="true" title="Clave del Producto" OnTextChanged="ddlClaveProducto_OnTextChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlProEditClvProd" runat="server" Class="selectpicker" AutoPostBack="true" data-live-search="true" title="Clave del Producto" OnTextChanged="ddlClaveProducto_OnTextChanged"></asp:DropDownList>
                                     <label class="input-group-addon">Nombre Producto</label>
-                                    <asp:DropDownList ID="DropDownList2" runat="server" Class="selectpicker" AutoPostBack="True" data-live-search="true" title="Nombre del Producto" OnTextChanged="ddlNombreProducto_OnTextChanged"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlProEditNomProd" runat="server" Class="selectpicker" AutoPostBack="True" data-live-search="true" title="Nombre del Producto" OnTextChanged="ddlNombreProducto_OnTextChanged"></asp:DropDownList>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group" style="margin: 10px; padding: 5px;">
                                 <label class="input-group-addon">Estatus</label>
-                                <asp:DropDownList ID="DropDownList3" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona estatus" />
+                                <asp:DropDownList ID="ddlProEditEstatus" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona estatus" />
                                 <label class="col-lg-offset-1 input-group-addon ">Unidad</label>
-                                <asp:DropDownList ID="DropDownList4" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona unidad" />
+                                <asp:DropDownList ID="ddlProEditUnidades" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona unidad" />
                                 <label class="input-group-addon">Presentacion</label>
-                                <asp:DropDownList ID="DropDownList5" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona Presentacion" />
+                                <asp:DropDownList ID="ddlProEditPresentacion" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona Presentacion" />
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group" style="margin: 10px; padding: 5px;">
                                 <asp:Label runat="server" Class="input-group-addon">Cantidad</asp:Label>
-                                <asp:TextBox runat="server" Class="form-control" type="text" ID="TextBox2" placeholder="No Orden de compra" />
+                                <asp:TextBox runat="server" Class="form-control" type="text" ID="txtProEditCantidad" placeholder="Cantidad" />
                                 <asp:Label runat="server" Class="input-group-addon">Precio Unitario</asp:Label>
-                                <asp:TextBox runat="server" Class="form-control" type="text" ID="TextBox3" placeholder="No Orden de compra" />
+                                <asp:TextBox runat="server" Class="form-control" type="text" ID="txtProEditPrecioUnitario" placeholder="Precio unitario" />
                                 <asp:Label runat="server" Class="input-group-addon">Fecha de Entrada</asp:Label>
-                                <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="TextBox4" placeholder="No Orden de compra" />
+                                <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtProEditFechaEntrega" placeholder="Fecha de entrada" />
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                            <asp:Button ID="Button1" runat="server" class="btn btn-primary" Text="Agregar" OnClick="btnAgregarPro_OnClick" />
+                            <asp:Button ID="btnEditaProd" runat="server" class="btn btn-primary" Text="Agregar" OnClick="btnEditaProd_OnClick" />
                         </div>
                     </div>
                 </div>

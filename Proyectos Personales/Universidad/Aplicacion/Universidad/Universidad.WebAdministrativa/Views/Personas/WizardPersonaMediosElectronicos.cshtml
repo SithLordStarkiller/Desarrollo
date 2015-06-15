@@ -1,8 +1,102 @@
 ﻿@model Universidad.WebAdministrativa.Models.ModelWizardPersonas
 @{
-    ViewBag.Title = "WizardPersonaMediosElectronicos";
+    ViewBag.Title = "Telefonos y Medios electronicos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>WizardPersonaMediosElectronicos</h2>
+@section Head
+{
 
+}
+
+@section Scripts
+{
+
+}
+<div class="jumbotron">
+    <br />
+    <h2>@ViewBag.Title</h2>
+    <br />
+    <div class="panel panel-default form-margin">
+        <div class="panel-heading form-margin">
+            <div class="panel-title">Llena los datos requerida</div>
+        </div>
+        @using (Html.BeginForm("GuardarDatosTel", "Personas", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            <fieldset></fieldset>
+
+            @Html.ValidationMessageFor(x => x.TelMed.TelefonoFijoCasa, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.TelefonoFijoTrabajo, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.TelefonoMovilPersonal, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.TelefonoMovilTrabajo, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.CorreoElectronicoPersonal, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.CorreoElectronicoTrabajo, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.Fax, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.RedSocial1, null, new { @class = "label label-danger" })
+            @Html.ValidationMessageFor(x => x.TelMed.RedSocial2, null, new { @class = "label label-danger" })
+            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.TelMed.TelefonoFijoCasa, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.TelMed.TelefonoFijoCasa, new { @class = "form-control", placeholder = "Telefono Domicilio" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.TelMed.TelefonoFijoTrabajo, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.TelMed.TelefonoFijoTrabajo, new { @class = "form-control", placeholder = "Telefono Trabajo" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.TelMed.TelefonoMovilPersonal, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.TelMed.TelefonoMovilPersonal, new { @class = "form-control", placeholder = "Movil Personal" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.TelMed.TelefonoMovilTrabajo, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.TelMed.TelefonoMovilTrabajo, new { @class = "form-control", placeholder = "Movil Telefono" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.TelMed.CorreoElectronicoPersonal, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.TelMed.CorreoElectronicoPersonal, new { @class = "form-control", placeholder = "Movil Personal" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.LabelFor(x => x.TelMed.CorreoElectronicoTrabajo, new { @class = "input-group-addon" })
+                                @Html.TextBoxFor(x => x.TelMed.CorreoElectronicoTrabajo, new { @class = "form-control", placeholder = "Movil Telefono" })
+                                <label class="input-group-addon">@@universidad.edu</label>
+                                <span class="input-group-btn">
+                                    <a href="#" id="btnCodigoPostal" class="btn btn-default" onclick="traerDireccion();">Verificar</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 10px; float: right;" class="form-group">
+                    <label>&nbsp;</label>
+                    @Html.ActionLink("Atras", "PersonaDefault", "Personas", new { @class = "btn btn-info btn-sm", @style = "margin: 10px; padding: 10px;" })
+                    <input type="submit" value="Siguiente" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px;">
+                </div>
+
+            </div>
+        }
+    </div>
+</div>

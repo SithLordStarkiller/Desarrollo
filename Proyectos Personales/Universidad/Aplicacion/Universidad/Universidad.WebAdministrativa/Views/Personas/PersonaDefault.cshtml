@@ -1,4 +1,5 @@
-﻿@model Universidad.WebAdministrativa.Models.ModelWizardPersonas
+﻿@using System.Web.UI.WebControls
+@model Universidad.WebAdministrativa.Models.ModelWizardPersonas
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,11 +13,14 @@
 
 @section Head
 {
-    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <script src="/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="/Content/bootstrap.css" type="text/css" rel="stylesheet" />
     <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
-    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet"/>
-    <link href="~/Content/bootstrap-datepicker.min.css" type="text/css" rel="stylesheet"/>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
 }
 
 @section Scripts
@@ -26,9 +30,15 @@
             $('.datepicker').datepicker({
                 language: 'es',
                 format: 'dd/mm/yyyy',
-                autoclose:true
+                autoclose: true
+            });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
             });
         });
+
+
     </script>
 }
 <div class="jumbotron">
@@ -36,8 +46,8 @@
     <h2>@titulo</h2>
     <br />
 
-    <div class="panel panel-default" style="margin: 5px; padding: 10px;">
-        <div class="panel-heading" style="margin: 5px; padding: 10px;">
+    <div class="panel panel-default form-margin">
+        <div class="panel-heading form-margin">
             <div class="panel-title">Llena los datos personales</div>
         </div>
         @using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
@@ -74,27 +84,27 @@
                             <div class="form-group col-md-4">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Datos.IdNacionalidad, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Datos.IdNacionalidad, (IEnumerable<SelectListItem>)paises, new { @class = "dropdown-header form-control" })
+                                    @Html.DropDownListFor(x => x.Datos.IdNacionalidad, (IEnumerable<SelectListItem>)paises, new { @class = "selectpicker", data_live_search = true })
                                 </div>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-4">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Datos.IdTipoPersona, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Datos.IdTipoPersona, (IEnumerable<SelectListItem>)tiposPersona, new { @class = "dropdown-header form-control" })
+                                    @Html.DropDownListFor(x => x.Datos.IdTipoPersona, (IEnumerable<SelectListItem>)tiposPersona, new { @class = "selectpicker", @id = "ddlTipoPersona" ,data_live_search = true})
                                 </div>
                             </div>
-                            <div class="form-group col-md-3">
+                            <div class="form-group form-group-sm col-md-2">
                                 <div class="input-group date">
                                     @Html.TextBoxFor(x => x.Datos.FechaNacimiento, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento", @id = "dpkFechaNacimiento" })
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar datepicker"></span>
+                                    <span class="input-group-addon input-group-sm">
+                                        <span class="glyphicon glyphicon-calendar glyphicon-resize-small"></span>
                                     </span>
                                 </div>
                             </div>
                             <div class="form-group col-md-2">
                                 <div class="input-group">
                                     @Html.LabelFor(x => x.Datos.IdSexo, new { @class = "input-group-addon" })
-                                    @Html.DropDownListFor(x => x.Datos.IdSexo, (IEnumerable<SelectListItem>)sexo, new { @class = "dropdown-header form-control" })
+                                    @Html.DropDownListFor(x => x.Datos.IdSexo, (IEnumerable<SelectListItem>)sexo, new { @class = "selectpicker", data_live_search = true })
                                 </div>
                             </div>
                         </div>
@@ -103,7 +113,7 @@
             </fieldset>
             <div style="margin-top: 10px; float: right;" class="form-group">
                 <label>&nbsp;</label>
-                <input type="submit" value="Siguiente" class="btn btn-info btn-xs" style=" margin: 10px; padding: 10px;">
+                <input type="submit" value="Siguiente" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px;">
             </div>
         }
         @{ Html.EndForm(); }
