@@ -334,6 +334,7 @@ namespace Universidad.WebAdministrativa.Controllers
             return View("WizardPersonaDireccion", modeloDireccion);
         }
 
+        [SessionExpireFilter]
         public ActionResult GuardarDatosTel(ModelWizardPersonas modeloPersona)
         {
             if (ModelState.IsValid)
@@ -343,13 +344,22 @@ namespace Universidad.WebAdministrativa.Controllers
                 var modelo = (ModelWizardPersonas)Session["Modelo"];
                 modelo.TelMed = modeloPersona.TelMed;
                 Session["Modelo"] = modelo;
-                return View("WizardPersonaFotorafia",modelo);
+                return View("WizardPersonaFotografia",modelo);
             }
 
             Sesion();
             CargaListas();
             return View("WizardPersonaMediosElectronicos", modeloPersona);
         }
+
+        [SessionExpireFilter]
+        [HttpGet]
+        public ActionResult WizardPersonaFotografia(ModelWizardPersonas model)
+        {
+            Sesion();
+            return View();
+        }
+
     }
 
     public class RedirectToReturnUrlResult : ActionResult
