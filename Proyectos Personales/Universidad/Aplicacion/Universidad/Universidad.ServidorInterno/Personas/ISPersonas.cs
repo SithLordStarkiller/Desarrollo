@@ -1,5 +1,6 @@
 ﻿using System.ServiceModel;
 using Universidad.Entidades;
+using Universidad.Entidades.Personas;
 
 namespace Universidad.ServidorInterno.Personas
 {
@@ -17,5 +18,11 @@ namespace Universidad.ServidorInterno.Personas
         PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos,
             PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona,
             DIR_DIRECCIONES personaDirecciones);
+
+        [OperationContract]
+        PER_PERSONAS BuscarPersona(string idPersonaLink);
+
+        [OperationContract]
+        DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink);
     }
 }

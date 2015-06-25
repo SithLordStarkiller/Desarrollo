@@ -27,35 +27,35 @@
             });
         });
 
-        $("#Camara").webcam({  
-            width: 320,  
-            height: 240,  
-            mode: "save",  
-            swffile: "@Url.Content("~/Scripts/jscam.swf")",  
-            onTick: function () { },  
-        onSave: function () {  
-            UploadPic();  
-        },  
-        onCapture: function () {  
-            webcam.save("/imagenes");  
-        },  
-        debug: function () { },  
-        onLoad: function () { }  
-  
+        $("#Camara").webcam({
+            width: 320,
+            height: 240,
+            mode: "save",
+            swffile: "@Url.Content("~/Scripts/jscam.swf")",
+            onTick: function () { },
+            onSave: function () {
+                UploadPic();
+            },
+            onCapture: function () {
+                webcam.save("/imagenes");
+            },
+            debug: function () { },
+            onLoad: function () { }
+
         });
 
         function UploadPic() {
-            $.ajax({  
-                type: 'POST',  
-                url: ("/imagenes"),  
-            dataType: 'json',  
-            success: function (data) {  
-                $("#show").attr("src", data);  
-                document.getElementById('btnCargaImagen').disabled = false;
-                alert("Photo Capture successfully!");  
-            }  
-        });  
-        }  
+            $.ajax({
+                type: 'POST',
+                url: ("/imagenes"),
+                dataType: 'json',
+                success: function (data) {
+                    $("#show").attr("src", data);
+                    document.getElementById('btnCargaImagen').disabled = false;
+                    alert("Photo Capture successfully!");
+                }
+            });
+        }
     </script>
 
 }
@@ -68,49 +68,55 @@
             <li><a data-toggle="tab" href="#TomarFoto">Tomar fotografia</a></li>
         </ul>
         <br />
-        <div class="tab-content col-md-12">
-            <div id="CargarFoto" class="tab-pane fade in active">
-                <div class="panel panel-default form-margin">
-                    <h3>Cargar Fotografia</h3>
-                    <br />
-                    <div class="panel-heading form-margin">
-                        <div class="panel-title">Llena los campos de la direccion del usuario</div>
-                    </div>
-                    <fieldset></fieldset>
-                    <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-                        <div class="row">
-                            <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                                <div class="thumbnail">
-                                    <img src="/imagenes/TFU-starkiller.jpg" alt="Generic placeholder thumbnail" class="col-md-4 hidden" id="imgFoto">
-                                </div>
-                                <div class="caption">
-                                    <h3>Detalles</h3>
-                                    <p>Some sample text. Some sample text.</p>
-                                    <button href="#" class="btn btn-primary" role="button" id="btnCargaImagen">Default</button>
+        @using (Html.BeginForm("GuardaPersona", "Personas", FormMethod.Post))
+        {
+            <div class="tab-content col-md-12">
+                <div id="CargarFoto" class="tab-pane fade in active">
+                    <div class="panel panel-default form-margin">
+                        <h3>Cargar Fotografia</h3>
+                        <br />
+                        <div class="panel-heading form-margin">
+                            <div class="panel-title">Llena los campos de la direccion del usuario</div>
+                        </div>
+                        <fieldset></fieldset>
+                        <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                            <div class="row">
+                                <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                                    <div class="thumbnail">
+                                        <img src="/imagenes/TFU-starkiller.jpg" alt="Generic placeholder thumbnail" class="col-md-4 hidden" id="imgFoto">
+                                    </div>
+                                    <div class="caption">
+                                        <h3>Detalles</h3>
+                                        <p>Some sample text. Some sample text.</p>
+                                        <button href="#" class="btn btn-primary" role="button" id="btnCargaImagen">Default</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-10">
-                            <div class="input-group">
-                                <label class="input-group-addon input-group-sm">Archivo</label>
-                                <input id="txtFileUpload" class="form-control" type="text">
-                                <span class="input-group-btn">
-                                    <a href="#" class="btn btn-default" role="button">
-                                        Cargar
-                                    </a>
-                                </span>
+                            <div class="form-group col-md-10">
+                                <div class="input-group">
+                                    <label class="input-group-addon input-group-sm">Archivo</label>
+                                    <input id="txtFileUpload" class="form-control" type="text">
+                                    <span class="input-group-btn">
+                                        <a href="#" class="btn btn-default" role="button">
+                                            Cargar
+                                        </a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="TomarFoto" class="tab-pane fade">
+                    <h3>Tomar Fotografia</h3>
+                    <br />
+                    <br />
+                    <div id="Camara"></div>
+                    <button href="#" class="btn btn-primary" role="button" id="btnCargaImagen" onclick=" uploadsubmit(); ">Default</button>
+                </div>
             </div>
-            <div id="TomarFoto" class="tab-pane fade">
-                <h3>Tomar Fotografia</h3>
-                <br />
-                <br />
-                <div id="Camara"></div>
-                <button href="#" class="btn btn-primary" role="button" id="btnCargaImagen" onclick="uploadsubmit();">Default</button>
+            <div style="float: right;">
+                <input type="submit" value="Omitir" class="btn btn-info btn-sm" style="margin: 10px; padding: 10px;">
             </div>
+        }
         </div>
     </div>
-</div>

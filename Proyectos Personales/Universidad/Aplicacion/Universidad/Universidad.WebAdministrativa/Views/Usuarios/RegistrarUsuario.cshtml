@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head
+{
+
+}
+
+@section Scripts
+{
+    <script>
+        function BuscarPersona() {
+            var idPersona = $("#txtIdPersonaLink").val();
+
+            $.ajax({
+                type: "POST",
+                data: { 'idPersona': idPersona },
+                url: '@Url.Action("BuscaPersona", "Usuarios")',
+                success: function (response) {
+                    if (response == "null") {
+                        alert("El ID de la persona es incorrecto");
+                    }
+
+                    else {
+                        var persona = JSON.parse(response);
+                        var result = '<div class="panel panel-default form-margin"><div class="panel-heading form-margin"><div class="panel-title">Datos</div><div class="panel-body">';
+                        $("#DatosPersona").empty();
+
+                        var nombre = persona.NombreCompleto;
+                        var linkId = persona.IdLinkPersona;
+
+                        result += '<h4><label>Id : ' + linkId + '</label></h4>';
+                        result += '<h4><label>Nombre: ' + nombre + '</label></h4>';
+                        result += '</div></div>';
+                        $("#DatosPersona").html(result);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert(status + " : " + error);
+                }
+            });
+        }
+    </script>
+}
+
+<div class="jumbotron">
+    <br />
+    <h2>@ViewBag.Title</h2>
+    <br />
+
+    <div class="panel panel-default form-margin">
+        <div class="panel-heading form-margin">
+            <div class="panel-title">Llena los datos personales</div>
+        </div>
+        @using (Html.BeginForm("CreaUsuario", "Usuarios", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            <fieldset></fieldset>
+
+            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                <div class="input-group form-group col-lg-offset-4 col-md-4">
+                    @Html.Label("Id Persona", null, new { @class = "input-group-addon" })
+                    @Html.TextBox("txtIdPersonaLink", null, new { @class = "form-control", placeholder = "Id Persona" })
+                    <span class="input-group-btn">
+                        <a href="#" id="btnBuscarPersona" class="btn btn-default" onclick="BuscarPersona();">Buscar</a>
+                    </span>
+                </div>
+            </div>
+
+            <input type="submit" value="Editar" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px; visibility:hidden;" />
+        }
+    </div>
+    <div id="DatosPersona"></div>
+</div>

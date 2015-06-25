@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Universidad.Controlador.GestionCatalogos;
+using Universidad.Controlador.Personas;
 using Universidad.Entidades;
+using Universidad.Entidades.ControlUsuario;
 using Universidad.WebAdministrativa.Models;
 
 namespace Universidad.WebAdministrativa.Controllers
@@ -32,7 +35,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenCatNacionalidadFinalizado += delegate(List<PER_CAT_NACIONALIDAD> lista)
@@ -111,7 +114,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenCatEstadosFinalizado += delegate(List<DIR_CAT_ESTADO> lista)
@@ -167,7 +170,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenCatEstadosFinalizado += delegate(List<DIR_CAT_ESTADO> lista)
@@ -203,7 +206,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenMunicipiosFinalizado += delegate(List<DIR_CAT_DELG_MUNICIPIO> lista)
@@ -235,7 +238,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> lista)
@@ -267,7 +270,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenCodigoPostalFinalizado += delegate(DIR_CAT_COLONIAS rColonia)
@@ -292,7 +295,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             Sesion();
 
-            var sesion = (Entidades.ControlUsuario.Sesion)Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SVC_GestionCatalogos(sesion);
 
             servicioCatalogos.ObtenColoniasPorCpFinalizado += delegate(List<DIR_CAT_COLONIAS> lista)
@@ -344,7 +347,7 @@ namespace Universidad.WebAdministrativa.Controllers
                 var modelo = (ModelWizardPersonas)Session["Modelo"];
                 modelo.TelMed = modeloPersona.TelMed;
                 Session["Modelo"] = modelo;
-                return View("WizardPersonaFotografia",modelo);
+                return View("WizardPersonaFotografia", modelo);
             }
 
             Sesion();
@@ -360,6 +363,78 @@ namespace Universidad.WebAdministrativa.Controllers
             return View();
         }
 
+        [SessionExpireFilter]
+        [HttpPost]
+        public async void GuardaPersonaAsync(ModelWizardPersonas model)
+        {
+            var sesion = (Sesion)Session["Sesion"];
+            var persona = (ModelWizardPersonas)Session["Modelo"];
+
+            Sesion();
+
+            //persona.Fotografia = model.Fotografia;
+
+            var direccion = new DIR_DIRECCIONES
+            {
+                IDCOLONIA = Convert.ToInt32(persona.Direccion.IdColonia),
+                IDMUNICIPIO = Convert.ToInt32(persona.Direccion.IdMunicipio),
+                IDESTADO = Convert.ToInt32(persona.Direccion.IdEstado),
+                CALLE = persona.Direccion.Calle,
+                NOEXT = persona.Direccion.NoExterior,
+                NOINT = persona.Direccion.NoInterior,
+                REFERENCIAS = persona.Direccion.ReferenciasAdicionalies
+            };
+
+            var telefonos = new PER_CAT_TELEFONOS
+            {
+                TELEFONO_CELULAR_PERSONAL = persona.TelMed.TelefonoMovilPersonal,
+                TELEFONO_CELULAR_TRABAJO = persona.TelMed.TelefonoMovilTrabajo,
+                TELEFONO_FIJO_DOMICILIO = persona.TelMed.TelefonoFijoCasa,
+                TELEFONO_FIJO_TRABAJO = persona.TelMed.TelefonoFijoTrabajo,
+                FAX = persona.TelMed.Fax
+            };
+
+            var medios = new PER_MEDIOS_ELECTRONICOS
+            {
+                CORREO_ELECTRONICO_PERSONAL = persona.TelMed.CorreoElectronicoPersonal,
+                CORREO_ELECTRONICO_UNIVERSIDAD = persona.TelMed.CorreoElectronicoTrabajo,
+            };
+
+            var fotografia = new PER_FOTOGRAFIA
+            {
+                NOMBRE = "sin foto"
+            };
+
+            var datos = new PER_PERSONAS
+            {
+                CVE_NACIONALIDAD = Convert.ToInt32(persona.Datos.IdNacionalidad),
+                ID_PERSONA = Convert.ToInt32(persona.Datos.IdTipoPersona),
+                NOMBRE = persona.Datos.Nombre,
+                A_PATERNO = persona.Datos.ApellidoP,
+                A_MATERNO = persona.Datos.ApellidoM,
+                CURP = persona.Datos.Curp,
+                IMSS = persona.Datos.Nss,
+                RFC = persona.Datos.Rfc,
+                FECHA_NAC = persona.Datos.FechaNacimiento,
+                SEXO = persona.Datos.IdSexo == "1" ? "Masculino" : "Femenino"
+            };
+
+            var servicio = new SvcPersonas(sesion);
+
+            AsyncManager.OutstandingOperations.Increment();
+            await Task.Factory.StartNew(() =>
+            {
+                var resultado = servicio.InsertarPersona(telefonos, medios, fotografia, datos, direccion);
+                AsyncManager.Parameters["objeto"] = resultado;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        [SessionExpireFilter]
+        public ActionResult GuardaPersonaCompleted(PER_PERSONAS objeto)
+        {
+            return View();
+        }
     }
 
     public class RedirectToReturnUrlResult : ActionResult

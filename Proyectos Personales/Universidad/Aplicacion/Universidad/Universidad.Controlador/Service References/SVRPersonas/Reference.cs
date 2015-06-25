@@ -32,6 +32,18 @@ namespace Universidad.Controlador.SVRPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertarPersona", ReplyAction="http://tempuri.org/ISPersonas/InsertarPersonaResponse")]
         System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> InsertarPersonaAsync(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersona", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaResponse")]
+        Universidad.Entidades.PER_PERSONAS BuscarPersona(string idPersonaLink);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersona", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> BuscarPersonaAsync(string idPersonaLink);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersonaCompleta", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaCompletaResponse")]
+        Universidad.Entidades.Personas.DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersonaCompleta", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaCompletaResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.Personas.DatosCompletosPersona> BuscarPersonaCompletaAsync(string idPersonaLink);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +95,22 @@ namespace Universidad.Controlador.SVRPersonas {
         
         public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> InsertarPersonaAsync(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones) {
             return base.Channel.InsertarPersonaAsync(personaTelefonos, personaMediosElectronicos, personaFotografia, persona, personaDirecciones);
+        }
+        
+        public Universidad.Entidades.PER_PERSONAS BuscarPersona(string idPersonaLink) {
+            return base.Channel.BuscarPersona(idPersonaLink);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> BuscarPersonaAsync(string idPersonaLink) {
+            return base.Channel.BuscarPersonaAsync(idPersonaLink);
+        }
+        
+        public Universidad.Entidades.Personas.DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink) {
+            return base.Channel.BuscarPersonaCompleta(idPersonaLink);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.Personas.DatosCompletosPersona> BuscarPersonaCompletaAsync(string idPersonaLink) {
+            return base.Channel.BuscarPersonaCompletaAsync(idPersonaLink);
         }
     }
 }

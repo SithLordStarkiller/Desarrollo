@@ -1,4 +1,5 @@
 ﻿using Universidad.Entidades;
+using Universidad.Entidades.Personas;
 using Universidad.LogicaNegocios.Personas;
 
 namespace Universidad.ServidorInterno.Personas
@@ -25,5 +26,14 @@ namespace Universidad.ServidorInterno.Personas
                 personaDirecciones);
         }
 
+        public PER_PERSONAS BuscarPersona(string idPersonaLink)
+        {
+            return new Persona().BuscarPersona(idPersonaLink);
+        }
+
+        public DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink)
+        {
+            return new Persona().BuscarPersonaCompleta(idPersonaLink);
+        }
     }
 }
