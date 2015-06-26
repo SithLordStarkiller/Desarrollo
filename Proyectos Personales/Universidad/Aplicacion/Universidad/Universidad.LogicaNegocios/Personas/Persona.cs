@@ -32,9 +32,13 @@ namespace Universidad.LogicaNegocios.Personas
                 persona.IDFOTO = personaFotografia.IDFOTO;
                 persona.ID_MEDIOS_ELECTRONICOS = personaMediosElectronicos.ID_MEDIOS_ELECTRONICOS;
                 persona.ID_TELEFONOS = personaTelefonos.ID_TELEFONOS;
-                var datos = (persona.A_PATERNO.ToCharArray())[0] + (persona.A_MATERNO.ToCharArray())[0] + (persona.NOMBRE.ToCharArray())[0] + (persona.SEXO.ToCharArray())[0];
+                var datos = ((persona.A_PATERNO.ToCharArray())[0]).ToString() + ((persona.A_MATERNO.ToCharArray())[0]).ToString() +
+                            ((persona.NOMBRE.ToCharArray())[0]).ToString() + ((persona.SEXO.ToCharArray())[0]).ToString() + (persona.FECHA_NAC.Day).ToString() +
+                            (persona.FECHA_NAC.Month).ToString() + (persona.FECHA_NAC.Year).ToString() + (new Random().Next(10, 99)).ToString();
+                
                 var fRegistro = DateTime.Now.Day.ToString("D") + DateTime.Now.Month.ToString("D") +
                                 DateTime.Now.Year.ToString("D");
+                
                 var cve = datos + fRegistro + persona.ID_TIPO_PERSONA;
                 persona.NOMBRE_COMPLETO = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
                 persona.ID_PER_LINKID = cve;
@@ -52,12 +56,12 @@ namespace Universidad.LogicaNegocios.Personas
 
         public PER_PERSONAS BuscarPersona(string idPersonaLink)
         {
-            return new AccesoDatos.Personas.Personas().BuscarPersona(idPersonaLink);
+            return new AccesoDatos.Personas.Personas().BuscarPersonaLinq(idPersonaLink);
         }
 
         public DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink)
         {
-            return new AccesoDatos.Personas.Personas().BuscaPersonaCompleta(idPersonaLink);
+            return new AccesoDatos.Personas.Personas().BuscaPersonaCompletaLinq(idPersonaLink);
         }
     }
 }

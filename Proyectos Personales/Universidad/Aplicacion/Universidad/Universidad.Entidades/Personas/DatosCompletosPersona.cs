@@ -27,10 +27,10 @@ namespace Universidad.Entidades.Personas
         public string NombreCompleto { get; set; }
 
         [DataMember]
-        public DateTime FechaNacimiento { get; set; }
+        public string FechaNacimiento { get; set; }
 
         [DataMember]
-        public DateTime FechaIngreso { get; set; }
+        public string FechaIngreso { get; set; }
 
         [DataMember]
         public string Sexo { get; set; }
@@ -44,8 +44,49 @@ namespace Universidad.Entidades.Personas
         [DataMember]
         public string Nss { get; set; }
 
+        [DataMember]
+        public string TipoPersona { get; set; }
+
         //Direccion
         [DataMember]
         public string Estado { get; set; }
+
+        [DataMember]
+        public string Municipio { get; set; }
+
+        [DataMember]
+        public string Colonia { get; set; }
+
+        [DataMember]
+        public string CodigoPostal { get; set; }
+
+        [DataMember]
+        public string Calle { get; set; }
+
+        [DataMember]
+        public string NoInt { get; set; }
+
+        [DataMember]
+        public string NoExt { get; set; }
+
+        [DataMember]
+        public string Referencias { get; set; }
+
+        //Telefonos
+
+        [DataMember]
+        public string TelefonoFijoDomicilio { get; set; }
+
+        [DataMember]
+        public string TelefonoFijoTrabajo { get; set; }
+
+        [DataMember]
+        public string TelefonoMovilPersonal { get; set; }
+
+        [DataMember]
+        public string TelefonoMovilTrabajo { get; set; }
+
+        [DataMember]
+        public string Fax { get; set; }
     }
 }

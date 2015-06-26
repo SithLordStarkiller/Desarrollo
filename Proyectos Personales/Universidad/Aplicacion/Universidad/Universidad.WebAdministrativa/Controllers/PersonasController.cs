@@ -408,7 +408,7 @@ namespace Universidad.WebAdministrativa.Controllers
             var datos = new PER_PERSONAS
             {
                 CVE_NACIONALIDAD = Convert.ToInt32(persona.Datos.IdNacionalidad),
-                ID_PERSONA = Convert.ToInt32(persona.Datos.IdTipoPersona),
+                ID_TIPO_PERSONA = Convert.ToInt32(persona.Datos.IdTipoPersona),
                 NOMBRE = persona.Datos.Nombre,
                 A_PATERNO = persona.Datos.ApellidoP,
                 A_MATERNO = persona.Datos.ApellidoM,
