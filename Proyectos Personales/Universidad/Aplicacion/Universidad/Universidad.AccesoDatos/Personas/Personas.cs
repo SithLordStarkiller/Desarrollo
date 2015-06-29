@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
+﻿using System.Linq;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
 
@@ -31,8 +28,8 @@ namespace Universidad.AccesoDatos.Personas
         {
             var persona = (
                 from pp in _contexto.PER_PERSONAS
-                
-                join pn in _contexto.PER_CAT_NACIONALIDAD on pp.CVE_NACIONALIDAD equals  pn.CVE_NACIONALIDAD into tn
+
+                join pn in _contexto.PER_CAT_NACIONALIDAD on pp.CVE_NACIONALIDAD equals pn.CVE_NACIONALIDAD into tn
                 from pn in tn.DefaultIfEmpty()
 
                 join ptp in _contexto.PER_CAT_TIPO_PERSONA on pp.ID_TIPO_PERSONA equals ptp.ID_TIPO_PERSONA into tptp
@@ -58,6 +55,9 @@ namespace Universidad.AccesoDatos.Personas
 
                 join pf in _contexto.PER_FOTOGRAFIA on pp.IDFOTO equals pf.IDFOTO into tf
                 from pf in tf.DefaultIfEmpty()
+
+                join pu in _contexto.US_USUARIOS on pp.ID_USUARIO equals pu.ID_USUARIO into tu
+                from pu in tu.DefaultIfEmpty()
 
                 where pp.ID_PER_LINKID == idPersonaLink
 
@@ -96,7 +96,9 @@ namespace Universidad.AccesoDatos.Personas
                     RedSocial2 = pp.ID_MEDIOS_ELECTRONICOS == null ? "Sin RedSocial" : pm.TWITTER,
                     NombreFoto = pp.IDFOTO == null ? "Sin Fotografia" : pf.NOMBRE,
                     ExtencionFoto = pp.IDFOTO == null ? "Sin Fotografia" : pf.EXTENCION,
-                    Fotografia = pp.IDFOTO == null ? null : pf.FOTOGRAFIA
+                    Fotografia = pp.IDFOTO == null ? null : pf.FOTOGRAFIA,
+                    Usuario = pp.ID_USUARIO == null ? "Sin usuario" : pu.USUARIO,
+                    Contrasena = pp.ID_USUARIO == null ? "Sin Usuarion" : pu.CONTRASENA
                 }).ToList().FirstOrDefault();
 
             return persona;

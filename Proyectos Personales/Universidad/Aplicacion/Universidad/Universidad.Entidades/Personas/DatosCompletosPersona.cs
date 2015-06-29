@@ -116,5 +116,13 @@ namespace Universidad.Entidades.Personas
 
         [DataMember]
         public byte[] Fotografia{ get; set; }
+
+        //Usuario
+
+        [DataMember]
+        public string Usuario { get; set; }
+
+        [DataMember]
+        public string Contrasena { get; set; }
     }
 }

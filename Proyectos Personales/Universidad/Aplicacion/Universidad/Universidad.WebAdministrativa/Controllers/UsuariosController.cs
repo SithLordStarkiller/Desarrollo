@@ -1,8 +1,7 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
+using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Personas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
@@ -43,16 +42,25 @@ namespace Universidad.WebAdministrativa.Controllers
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
         [SessionExpireFilter]
-        public void CreaUsuarioAsync(string idPersonaLink)
+        public ActionResult CrearCuenta(string personaId)
         {
+            var sesion = (Sesion)Session["Sesion"];
+            var servicosCotalogos = new SVC_GestionCatalogos(sesion);
+            Sesion();
+            ViewBag.PersonaId = personaId;
+            var usuario = new US_USUARIOS();
+            return View(usuario);
         }
 
         [SessionExpireFilter]
-        public string CreaUsuarioCompleted()
+        public ActionResult EditarCuenta(string personaId)
         {
-            return null;
+            Sesion();
+            ViewBag.PersonaId = personaId;
+            var usuario = new US_USUARIOS();
+            return View(usuario);
         }
+
     }
 }

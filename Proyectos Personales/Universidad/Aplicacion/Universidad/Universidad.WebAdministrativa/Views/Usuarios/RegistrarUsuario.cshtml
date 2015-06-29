@@ -23,7 +23,7 @@
                         alert("El ID de la persona es incorrecto");
                     } else {
                         var persona = JSON.parse(response);
-                        var result = '<div class="panel panel-default form-margin"><div class="panel-heading form-margin"><div class="panel-title">Datos</div><div class="panel-body"><div class="col-md-8">';
+                        var result = '<div class="panel panel-default form-margin"><div class="panel-heading form-margin"><div class="panel-title">Datos</div><div class="panel-body"><div class="col-md-7">';
                         $("#DatosPersona").empty();
 
                         var nombre = persona.NombreCompleto;
@@ -34,26 +34,40 @@
                         var formato = persona.ExtencionFoto;
                         var binario = persona.Fotografia;
                         var nombreFoto = persona.NombreFoto;
-
+                        var correoPersonal = persona.CorreoPersonal;
+                        var correoUniversidad = persona.CorreoUniversidad;
+                        var usuario = persona.Usuario;
                         result += '<h4><label>Id : ' + linkId + '</label></h4>';
                         result += '<h5><label>Nombre: ' + nombre + '</label></h5>';
                         result += '<h5><label>Fecha de registro: ' + fechaRegistro + '</label></h5>';
                         result += '<h5><label>Tipo de Persona: ' + tipoPersona + '</label></h5>';
+                        result += '<h5><label>Correo Personal: ' + correoPersonal + '</label></h5>';
+                        result += '<h5><label>correo Universidad: ' + correoUniversidad + '</label></h5>';
+                        result += '<h5><label>Tipo de Persona: ' + tipoPersona + '</label></h5>';
 
-                        if (nombreFoto != "Sin Foto") {
-                            debugger;
-                            result += '</div><div class="col-md-4"><img src="data:image/' + formato + ';base64,' + binario + '" id="id' + nombreFoto + '" />';
+                        if (usuario == "Sin usuario") {
+                            result += '<h5><label>Este persona no cuenta con un usuario</label></h5>';
+                            result += '<a href="CrearCuenta/?personaId=' + linkId + '" id="btnCrearUsuario" class="btn btn-default">Crear Cuenta</a>';
+                        }
+                        else {
+                            result += '<h5><label>El usuario de esta persona es ' + usuario + '</label></h5>';
+                            result += '<a href="EditarCuenta/?personaId=' + linkId + '" id="btnEditarPersona" class="btn btn-default">Editar Cuenta</a>';
                         }
 
-                        result += '</div></div></div>';
+
+                        if (nombreFoto != "Sin Fotografia") {
+                            result += '</div><div class="col-md-5"><img src="data:image/' + formato + ';base64,' + binario + '" id="id' + nombreFoto + '"width="100%" height="100%" />';
+                            result += '</div>';
+                        }
+
+                        result += '</div></div>';
                         $("#DatosPersona").html(result);
                     }
                 },
                 error:
-
-            function (xhr, status, error) {
-                alert(status + " : " + error);
-            }
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
             });
         }
     </script>
@@ -68,23 +82,19 @@
         <div class="panel-heading form-margin">
             <div class="panel-title">Llena los datos personales</div>
         </div>
-        @using (Html.BeginForm("CreaUsuario", "Usuarios", FormMethod.Post))
-        {
-            @Html.ValidationSummary(true)
-            <fieldset></fieldset>
+        @Html.ValidationSummary(true)
+        <fieldset></fieldset>
 
-            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-                <div class="input-group form-group col-lg-offset-4 col-md-4">
-                    @Html.Label("Id Persona", null, new { @class = "input-group-addon" })
-                    @Html.TextBox("txtIdPersonaLink", null, new { @class = "form-control", placeholder = "Id Persona" })
-                    <span class="input-group-btn">
-                        <a href="#" id="btnBuscarPersona" class="btn btn-default" onclick="BuscarPersona();">Buscar</a>
-                    </span>
-                </div>
+        <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+            <div class="input-group form-group col-lg-offset-4 col-md-4">
+                @Html.Label("Id Persona", null, new { @class = "input-group-addon" })
+                @Html.TextBox("txtIdPersonaLink", null, new { @class = "form-control", placeholder = "Id Persona" })
+                <span class="input-group-btn">
+                    <a href="#" id="btnBuscarPersona" class="btn btn-default" onclick="BuscarPersona();">Buscar</a>
+                </span>
             </div>
-
-            <input type="submit" value="Editar" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px; visibility:hidden;" />
-        }
+        </div>
+        <input type="submit" value="Editar" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px; visibility:hidden;" />
     </div>
     <div id="DatosPersona"></div>
 </div>
