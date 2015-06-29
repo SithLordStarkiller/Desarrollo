@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
@@ -29,6 +31,9 @@ namespace Universidad.AccesoDatos.Personas
         {
             var persona = (
                 from pp in _contexto.PER_PERSONAS
+                
+                join pn in _contexto.PER_CAT_NACIONALIDAD on pp.CVE_NACIONALIDAD equals  pn.CVE_NACIONALIDAD into tn
+                from pn in tn.DefaultIfEmpty()
 
                 join ptp in _contexto.PER_CAT_TIPO_PERSONA on pp.ID_TIPO_PERSONA equals ptp.ID_TIPO_PERSONA into tptp
                 from ptp in tptp.DefaultIfEmpty()
@@ -48,6 +53,12 @@ namespace Universidad.AccesoDatos.Personas
                 join pt in _contexto.PER_CAT_TELEFONOS on pp.ID_TELEFONOS equals pt.ID_TELEFONOS into tt
                 from pt in tt.DefaultIfEmpty()
 
+                join pm in _contexto.PER_MEDIOS_ELECTRONICOS on pp.ID_MEDIOS_ELECTRONICOS equals pm.ID_MEDIOS_ELECTRONICOS into tm
+                from pm in tm.DefaultIfEmpty()
+
+                join pf in _contexto.PER_FOTOGRAFIA on pp.IDFOTO equals pf.IDFOTO into tf
+                from pf in tf.DefaultIfEmpty()
+
                 where pp.ID_PER_LINKID == idPersonaLink
 
                 select new DatosCompletosPersona
@@ -58,13 +69,14 @@ namespace Universidad.AccesoDatos.Personas
                     ApellidoP = pp.A_PATERNO,
                     ApellidoM = pp.A_MATERNO,
                     NombreCompleto = pp.NOMBRE_COMPLETO,
-                    FechaNacimiento = pp.FECHA_NAC.ToShortDateString(),
-                    FechaIngreso = pp.FECHAINGRESO.ToShortDateString(),
+                    FechaNacimiento = pp.FECHA_NAC,
+                    FechaIngreso = pp.FECHAINGRESO,
                     Sexo = pp.SEXO,
                     Curp = pp.CURP,
                     Rfc = pp.RFC,
                     Nss = pp.IMSS,
                     TipoPersona = ptp.TIPO_PERSONA,
+                    Nacionalidad = pn.NOMBRE_PAIS,
                     Estado = pp.IDDIRECCION == null ? "Sin direccion" : de.NOMBREESTADO,
                     Municipio = pp.IDDIRECCION == null ? "Sin direccion" : dm.NOMBREDELGMUNICIPIO,
                     Colonia = pp.IDDIRECCION == null ? "Sin direccion" : dc.NOMBRECOLONIA,
@@ -77,7 +89,14 @@ namespace Universidad.AccesoDatos.Personas
                     TelefonoFijoTrabajo = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_FIJO_TRABAJO,
                     TelefonoMovilPersonal = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_CELULAR_PERSONAL,
                     TelefonoMovilTrabajo = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_CELULAR_TRABAJO,
-                    Fax = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.FAX,
+                    Fax = pp.ID_TELEFONOS == null ? "Sin Telefono" : pt.FAX,
+                    CorreoPersonal = pp.ID_MEDIOS_ELECTRONICOS == null ? "Sin correo" : pm.CORREO_ELECTRONICO_PERSONAL,
+                    CorreoUniversidad = pp.ID_MEDIOS_ELECTRONICOS == null ? "Sin corrreo" : pm.CORREO_ELECTRONICO_UNIVERSIDAD,
+                    RedSocial1 = pp.ID_MEDIOS_ELECTRONICOS == null ? "Sin RedSocial" : pm.FACEBOOK,
+                    RedSocial2 = pp.ID_MEDIOS_ELECTRONICOS == null ? "Sin RedSocial" : pm.TWITTER,
+                    NombreFoto = pp.IDFOTO == null ? "Sin Fotografia" : pf.NOMBRE,
+                    ExtencionFoto = pp.IDFOTO == null ? "Sin Fotografia" : pf.EXTENCION,
+                    Fotografia = pp.IDFOTO == null ? null : pf.FOTOGRAFIA
                 }).ToList().FirstOrDefault();
 
             return persona;

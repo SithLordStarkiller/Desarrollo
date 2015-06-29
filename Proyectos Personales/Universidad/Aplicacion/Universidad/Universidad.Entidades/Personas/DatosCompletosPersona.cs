@@ -27,10 +27,10 @@ namespace Universidad.Entidades.Personas
         public string NombreCompleto { get; set; }
 
         [DataMember]
-        public string FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
         [DataMember]
-        public string FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; }
 
         [DataMember]
         public string Sexo { get; set; }
@@ -46,6 +46,9 @@ namespace Universidad.Entidades.Personas
 
         [DataMember]
         public string TipoPersona { get; set; }
+
+        [DataMember]
+        public string Nacionalidad { get; set; }
 
         //Direccion
         [DataMember]
@@ -88,5 +91,30 @@ namespace Universidad.Entidades.Personas
 
         [DataMember]
         public string Fax { get; set; }
+
+        //Medios electronicos
+
+        [DataMember]
+        public string CorreoUniversidad { get; set; }
+
+        [DataMember]
+        public string CorreoPersonal { get; set; }
+
+        [DataMember]
+        public string RedSocial1 { get; set; }
+
+        [DataMember]
+        public string RedSocial2 { get; set; }
+
+        //Fotorafia
+
+        [DataMember]
+        public string NombreFoto { get; set; }
+
+        [DataMember]
+        public string ExtencionFoto { get; set; }
+
+        [DataMember]
+        public byte[] Fotografia{ get; set; }
     }
 }

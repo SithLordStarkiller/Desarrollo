@@ -42,6 +42,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
         private PER_FOTOGRAFIA _personaFotografia;
         private byte[] _fotografiaBinarios;
         private string _nombreFotografia;
+        private string _extencionImagen;
 
         public AltaPersona(Sesion sesion)
         {
@@ -444,9 +445,12 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 tbxRutaImagen.Text = ruta;
                 var imagen = Image.FromFile(ruta);
                 pcbFotografia.Image = imagen;
-                var archivoStream = new MemoryStream();
-                pcbFotografia.Image.Save(archivoStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                _fotografiaBinarios = new byte[archivoStream.Length];
+                
+                using (var archivoStream = new MemoryStream())
+                {
+                    pcbFotografia.Image.Save(archivoStream, imagen.RawFormat);
+                    _fotografiaBinarios = archivoStream.ToArray();
+                }
 
                 btnCargarFotografia.Enabled = true;
                 rbImagen.Enabled = true;
@@ -475,6 +479,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
                 var extencion = ruta.Length - punto;
 
                 _nombreFotografia = ruta.Remove(punto, extencion);
+                _extencionImagen = ruta.Remove(0, punto + 1);
 
             }
             catch (Exception er)
@@ -489,7 +494,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
             {
                 _personaFotografia = new PER_FOTOGRAFIA
                 {
-                    EXTENCION = System.Drawing.Imaging.ImageFormat.Jpeg.ToString(),
+                    EXTENCION = _extencionImagen,
                     FOTOGRAFIA = _fotografiaBinarios,
                     LONGITUD = _fotografiaBinarios.Length,
                     NOMBRE = _nombreFotografia

@@ -21,29 +21,39 @@
                 success: function (response) {
                     if (response == "null") {
                         alert("El ID de la persona es incorrecto");
-                    }
-
-                    else {
+                    } else {
                         var persona = JSON.parse(response);
-                        var result = '<div class="panel panel-default form-margin"><div class="panel-heading form-margin"><div class="panel-title">Datos</div><div class="panel-body">';
+                        var result = '<div class="panel panel-default form-margin"><div class="panel-heading form-margin"><div class="panel-title">Datos</div><div class="panel-body"><div class="col-md-8">';
                         $("#DatosPersona").empty();
 
                         var nombre = persona.NombreCompleto;
                         var linkId = persona.IdLinkPersona;
                         var fechaRegistro = persona.FechaIngreso;
+                        fechaRegistro = fechaRegistro.slice(0, 9);
                         var tipoPersona = persona.TipoPersona;
+                        var formato = persona.ExtencionFoto;
+                        var binario = persona.Fotografia;
+                        var nombreFoto = persona.NombreFoto;
 
                         result += '<h4><label>Id : ' + linkId + '</label></h4>';
                         result += '<h5><label>Nombre: ' + nombre + '</label></h5>';
                         result += '<h5><label>Fecha de registro: ' + fechaRegistro + '</label></h5>';
                         result += '<h5><label>Tipo de Persona: ' + tipoPersona + '</label></h5>';
-                        result += '</div></div>';
+
+                        if (nombreFoto != "Sin Foto") {
+                            debugger;
+                            result += '</div><div class="col-md-4"><img src="data:image/' + formato + ';base64,' + binario + '" id="id' + nombreFoto + '" />';
+                        }
+
+                        result += '</div></div></div>';
                         $("#DatosPersona").html(result);
                     }
                 },
-                error: function(xhr, status, error) {
-                    alert(status + " : " + error);
-                }
+                error:
+
+            function (xhr, status, error) {
+                alert(status + " : " + error);
+            }
             });
         }
     </script>
