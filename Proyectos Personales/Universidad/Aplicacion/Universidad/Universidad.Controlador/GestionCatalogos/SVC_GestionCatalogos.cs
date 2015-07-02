@@ -21,6 +21,75 @@ namespace Universidad.Controlador.GestionCatalogos
 
         #endregion
 
+        #region Obten Catalogo Estatus de usuario
+
+        public delegate void ObtenTablaUsCatEstatusUsuarioArgs(List<US_CAT_ESTATUS_USUARIO> listaEstatusUsuarios);
+
+        public event ObtenTablaUsCatEstatusUsuarioArgs ObtenTablaUsCatEstatusUsuarioAFinalizado;
+
+        public void ObtenTablaUsCatEstatusUsuario()
+        {
+            _servicio.ObtenTablaUsCatEstatusUsuarioAsync();
+            _servicio.ObtenTablaUsCatEstatusUsuarioCompleted += _servicio_ObtenTablaUsCatEstatusUsuarioCompleted;
+        }
+
+        void _servicio_ObtenTablaUsCatEstatusUsuarioCompleted(object sender, ObtenTablaUsCatEstatusUsuarioCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var listaEstatusUsuario = resultado;
+            ObtenTablaUsCatEstatusUsuarioAFinalizado(listaEstatusUsuario);
+            _servicio.ObtenTablaUsCatEstatusUsuarioCompleted -= _servicio_ObtenTablaUsCatEstatusUsuarioCompleted;
+        }
+
+        #endregion
+
+        #region Obten Catalogo Nivel de usuario
+
+        public delegate void ObtenTablaUsCatNivelUsuarioArgs(List<US_CAT_NIVEL_USUARIO> listaNivelUsuarios);
+
+        public event ObtenTablaUsCatNivelUsuarioArgs ObtenTablaUsCatNivelUsuarioFinalizado;
+
+        public void ObtenTablaUsCatNivelUsuario()
+        {
+            _servicio.ObtenTablaUsCatNivelUsuarioAsync();
+            _servicio.ObtenTablaUsCatNivelUsuarioCompleted += _servicio_ObtenTablaUsCatNivelUsuarioCompleted;
+        }
+
+        void _servicio_ObtenTablaUsCatNivelUsuarioCompleted(object sender, ObtenTablaUsCatNivelUsuarioCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var listaNivelUsuario = resultado;
+            ObtenTablaUsCatNivelUsuarioFinalizado(listaNivelUsuario);
+            _servicio.ObtenTablaUsCatNivelUsuarioCompleted -= _servicio_ObtenTablaUsCatNivelUsuarioCompleted;
+        }
+        #endregion
+
+        #region Obten Catalogo de Tipo Usuario
+
+        public delegate void ObtenTablaUsCatTipoUsuariosArgs(List<US_CAT_TIPO_USUARIO> listaTipoUsuarios);
+
+        public event ObtenTablaUsCatTipoUsuariosArgs ObtenTablaUsCatTipoUsuariosFinalizado;
+
+        public void ObtenTablaUsCatTipoUsuario()
+        {
+            _servicio.ObtenTablaUsCatTipoUsuariosAsync();
+            _servicio.ObtenTablaUsCatTipoUsuariosCompleted +=
+                delegate(object sender, ObtenTablaUsCatTipoUsuariosCompletedEventArgs e)
+                {
+                    if (e.Result == null) return;
+
+                    var resultado = e.Result;
+                    var listaTipoUsuario = resultado;
+                    ObtenTablaUsCatTipoUsuariosFinalizado(listaTipoUsuario);
+                    _servicio.ObtenCatTipoUsuarioCompleted -= _servicio_ObtenCatTipoUsuarioCompleted;
+                };
+        }
+        #endregion
+
         #region Obten Tipo de Usuario
 
         public delegate void ObtenTipoUsuarioArgs(US_CAT_TIPO_USUARIO tipoUsuario);
@@ -199,19 +268,19 @@ namespace Universidad.Controlador.GestionCatalogos
 
         public event ObtenCodigoPostalArgs ObtenCodigoPostalFinalizado;
 
-        public void ObtenCodigoPostal(int estado, int municipio,int colonia)
+        public void ObtenCodigoPostal(int estado, int municipio, int colonia)
         {
             _servicio.ObtenCodigoPostalCompleted += _servicio_ObtenCodigoPostalCompleted;
-            _servicio.ObtenCodigoPostalAsync(estado, municipio,colonia);
+            _servicio.ObtenCodigoPostalAsync(estado, municipio, colonia);
         }
 
         void _servicio_ObtenCodigoPostalCompleted(object sender, ObtenCodigoPostalCompletedEventArgs e)
         {
             if (e.Result == null) return;
 
-                var resultado = e.Result;
-                var lista = resultado;
-                ObtenCodigoPostalFinalizado(lista);
+            var resultado = e.Result;
+            var lista = resultado;
+            ObtenCodigoPostalFinalizado(lista);
             _servicio.ObtenCodigoPostalCompleted -= _servicio_ObtenCodigoPostalCompleted;
         }
 

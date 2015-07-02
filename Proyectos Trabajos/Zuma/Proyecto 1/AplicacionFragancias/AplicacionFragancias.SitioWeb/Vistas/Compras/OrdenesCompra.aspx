@@ -38,8 +38,8 @@
                 style: 'btn-default btn-sm'
             });
 
-            $('#exampleModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); 
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
                 var recipient = button.data('whatever');
                 var modal = $(this);
                 modal.find('.modal-title').text('New message to ' + recipient);
@@ -62,6 +62,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server" />
     <div class="jumbotron">
+        <h2>Ordenes de compra</h2>
         <br />
         <div class="panel panel-default" style="margin: 5px; padding: 10px;">
             <div class="panel-heading" style="margin: 5px; padding: 10px;">
@@ -71,7 +72,7 @@
             <div class="row">
                 <div class="input-group form-group col-lg-offset-3 col-md-6">
                     <asp:Label runat="server" Class="input-group-addon">Fecha de compra desde:</asp:Label>
-                    <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtFechaInicio" placeholder="Desde" AutoPostBack="true" OnTextChanged="txtFechaInicio_OnTextChanged"/>
+                    <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtFechaInicio" placeholder="Desde" AutoPostBack="true" OnTextChanged="txtFechaInicio_OnTextChanged" />
                     <asp:Label runat="server" class="input-group-addon">Hasta: </asp:Label>
                     <asp:TextBox runat="server" class="form-control datepicker" ID="txtFechaFinal" placeholder="Hasta" AutoPostBack="True" OnTextChanged="txtFechaFinal_OnTextChanged" />
                 </div>
@@ -88,9 +89,14 @@
             <asp:GridView ID="grvOrdenesCompra" runat="server"
                 ShowFooter="True" AutoGenerateColumns="False"
                 CellPadding="10000" ForeColor="#333333"
+                AllowPaging="false"
+                PageSize="2"
+                DataKeyNames="NOORDENCOMPRA"
                 GridLines="None" Width="100%" HorizontalAlign="Center"
+                OnSelectedIndexChanging="grvOrdenesCompra_OnSelectedIndexChanging"
                 OnRowDataBound="grvOrdenesCompra_OnRowDataBound"
-                >
+                OnRowDeleting="grvOrdenesCompra_OnRowDeleting"
+                OnRowEditing="grvOrdenesCompra_OnRowEditing">
                 <Columns>
                     <asp:TemplateField HeaderText="Orden de Compra">
                         <ItemTemplate>
@@ -107,7 +113,7 @@
                             <asp:TextBox ID="txtFechaOrdenCompra" runat="server" Class="form-control input-sm datepicker disabled" placeholder="Fecha" Text='<%# Bind("FECHAORDENCOMPRA", "{0:d}") %>' disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderText="Clave prov.">
+                    <%--<asp:TemplateField HeaderText="Clave prov.">
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlCveProducto" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
@@ -116,7 +122,7 @@
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlNombreProv" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
                         </ItemTemplate>
-                    </asp:TemplateField>
+                    </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="Moneda">
                         <ItemTemplate>
                             <asp:DropDownList ID="ddlMoneda" runat="server" Class="selectpicker" data-width="100px" disabled="disabled"></asp:DropDownList>
@@ -124,17 +130,17 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Partidas">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtPartidas" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled"></asp:TextBox>
+                            <asp:TextBox ID="txtPartidas" runat="server" Class="form-control input-sm" placeholder="Partidas" disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Entregados">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtEntregadas" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled"></asp:TextBox>
+                            <asp:TextBox ID="txtEntregadas" runat="server" Class="form-control input-sm" placeholder="Entregados" disabled="disabled"></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="SubTotal">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled"></asp:TextBox>
+                            <asp:TextBox ID="txtSubTotal" runat="server" Class="form-control input-sm" placeholder="Subtotal" disabled="disabled" Text='<%# Bind("TOTAL")%>'></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Impuestos">
@@ -144,7 +150,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Total">
                         <ItemTemplate>
-                            <asp:TextBox ID="txtTotal" runat="server" Class="form-control input-sm" placeholder="Total" disabled="disabled"></asp:TextBox>
+                            <asp:TextBox ID="txtTotal" runat="server" Class="form-control input-sm" placeholder="Total" disabled="disabled" Text='<%# Bind("TOTAL") %>'></asp:TextBox>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:CommandField ShowEditButton="True" EditImageUrl="/Imagenes/ico_editar.gif" ButtonType="Image" />
@@ -163,6 +169,55 @@
             </div>
             <br />
             <br />
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditaOrdenCompra" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="modalLabelProducto">Agregar Producto</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-md-8">
+                            <div class="input-group" style="margin: 10px; padding: 5px;">
+                                <label class="input-group-addon">Clave Producto</label>
+                                <asp:DropDownList ID="ddlClaveProducto" runat="server" Class="selectpicker" AutoPostBack="true" data-live-search="true" title="Clave del Producto"></asp:DropDownList>
+                                <label class="input-group-addon">Nombre Producto</label>
+                                <asp:DropDownList ID="ddlNombreProducto" runat="server" Class="selectpicker" AutoPostBack="True" data-live-search="true" title="Nombre del Producto"></asp:DropDownList>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group" style="margin: 10px; padding: 5px;">
+                            <label class="input-group-addon">Estatus</label>
+                            <asp:DropDownList ID="ddlEstatusPro" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona estatus" />
+                            <label class="col-lg-offset-1 input-group-addon ">Unidad</label>
+                            <asp:DropDownList ID="ddlUnidad" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona unidad" />
+                            <label class="input-group-addon">Presentacion</label>
+                            <asp:DropDownList ID="ddlPresentacion" runat="server" Class="selectpicker" data-live-search="true" title="Selecciona Presentacion" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group" style="margin: 10px; padding: 5px;">
+                            <asp:Label runat="server" Class="input-group-addon">Cantidad</asp:Label>
+                            <asp:TextBox runat="server" Class="form-control" type="text" ID="txtCantidad" placeholder="No Orden de compra" />
+                            <asp:Label runat="server" Class="input-group-addon">Precio Unitario</asp:Label>
+                            <asp:TextBox runat="server" Class="form-control" type="text" ID="txtPrecioUnitario" placeholder="No Orden de compra" />
+                            <asp:Label runat="server" Class="input-group-addon">Fecha de Entrada</asp:Label>
+                            <asp:TextBox runat="server" Class="form-control datepicker" type="text" ID="txtFechaEntrada" placeholder="No Orden de compra" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <asp:Button ID="btnAgregarPro" runat="server" class="btn btn-primary" Text="Agregar" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </asp:Content>

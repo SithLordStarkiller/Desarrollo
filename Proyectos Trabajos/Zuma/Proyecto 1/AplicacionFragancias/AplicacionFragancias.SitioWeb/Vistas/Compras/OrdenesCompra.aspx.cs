@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using AplicacionFragancias.Entidades;
 using AplicacionFragancias.LogicaNegocios.Compras;
 using AplicacionFragancias.LogicaNegocios.Facturacion;
 
@@ -51,7 +51,6 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
         {
 
             var listaOperaciones = new List<int>();
-            List<COM_ORDENCOMPRA> ListaOrdenesCompras;
             if (lbxEstatusPedido.Items.Count >= 1 && !string.IsNullOrEmpty(txtFechaFinal.Text) && !string.IsNullOrEmpty(txtFechaInicio.Text))
             {
                 for (var i = 0; i < lbxEstatusPedido.Items.Count; i++)
@@ -59,18 +58,51 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
                     if (lbxEstatusPedido.Items[i].Selected)
                         listaOperaciones.Add(Convert.ToInt32(lbxEstatusPedido.Items[i].Value));
                 }
+
                 var inicio = Convert.ToDateTime(txtFechaInicio.Text);
                 var final = Convert.ToDateTime((txtFechaFinal.Text));
-                ListaOrdenesCompras = new OperaionesCompras().ObtenListasOrdenesDeCompra(inicio, final, listaOperaciones);
-                grvOrdenesCompra.DataSource = ListaOrdenesCompras;
+                
+                var listaOrdenesCompras = new OperaionesCompras().ObtenListasOrdenesDeCompra(inicio, final, listaOperaciones);
+                
+                grvOrdenesCompra.DataSource = listaOrdenesCompras;
                 grvOrdenesCompra.DataBind();
-            }
-            else
-            {
-                //ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page),
-                //            "Mensaje", string.Format("alert('Verifica los campos');"), true);
 
+                var contador = 0;
+
+                foreach (var item in listaOrdenesCompras)
+                {
+                    var listaproductos = new OperaionesCompras().ObtenListaProductos(item.NOORDENCOMPRA);
+
+                    var partidas = listaproductos.Count;
+
+                    var entregadas = listaproductos.Where(r => r.ENTREGADO).ToList().Count;
+                    
+                    var moneda = grvOrdenesCompra.Rows[contador].FindControl("ddlMoneda") as DropDownList;
+                    if (moneda != null) moneda.SelectedValue = item.IDMONEDA.ToString();
+
+                    var estatus = grvOrdenesCompra.Rows[contador].FindControl("ddlEstatusCom") as DropDownList;
+                    if (estatus != null) estatus.SelectedValue = item.IDESTATUSCOMPRA.ToString();
+
+                    var impuestos = grvOrdenesCompra.Rows[contador].FindControl("ddlImpuestos") as DropDownList;
+                    if (impuestos != null) impuestos.SelectedValue = item.IDIMPUESTO.ToString();
+
+                    var tPartidas = grvOrdenesCompra.Rows[contador].FindControl("txtPartidas") as TextBox;
+                    if (tPartidas != null) tPartidas.Text = partidas.ToString();
+
+                    var tPartidasEntregadas = grvOrdenesCompra.Rows[contador].FindControl("txtEntregadas") as TextBox;
+                    if (tPartidasEntregadas != null) tPartidasEntregadas.Text = entregadas.ToString();
+
+                    contador++;
+                }
             }
+
+
+            //else
+            //{
+            //    //ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page),
+            //    //            "Mensaje", string.Format("alert('Verifica los campos');"), true);
+
+            //}
         }
 
         protected void lbxEstatusPedido_OnTextChanged(object sender, EventArgs e)
@@ -98,7 +130,7 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
             {
                 ddlEstatusGv = ((DropDownList)(e.Row.FindControl("ddlEstatusCom")));
                 ddlMonedaGv = ((DropDownList)(e.Row.FindControl("ddlMoneda")));
-                ddlImpuestosGv = ((DropDownList)(e.Row.FindControl("ddlMoneda")));
+                ddlImpuestosGv = ((DropDownList)(e.Row.FindControl("ddlImpuestos")));
             }
 
             if (ddlEstatusGv != null)
@@ -120,6 +152,39 @@ namespace AplicacionFragancias.SitioWeb.Vistas.Compras
                 ddlMonedaGv.DataTextField = "NOMBRECORTO";
                 ddlMonedaGv.DataBind();
             }
+
+            if (ddlImpuestosGv != null)
+            {
+                var listaInpuestos = new OperacionesFacturacion().ObtenCatalogoImpuestos();
+
+                ddlImpuestosGv.DataValueField = "IDIMPUESTO";
+                ddlImpuestosGv.DataTextField = "NOMBRECORTO";
+                ddlImpuestosGv.DataSource = listaInpuestos;
+                ddlImpuestosGv.DataBind();
+            }
+        }
+
+        protected void grvOrdenesCompra_OnRowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            var ordenCompra = ((Label)(grvOrdenesCompra.Rows[e.RowIndex].FindControl("lblOrdenCompra"))).Text;
+
+            new OperaionesCompras().EliminarOrdenCompra(ordenCompra);
+
+            CargarGrid();
+        }
+
+        protected void grvOrdenesCompra_OnRowEditing(object sender, GridViewEditEventArgs e)
+        {
+            var ordenCompra = ((Label)(grvOrdenesCompra.Rows[e.NewEditIndex].FindControl("lblOrdenCompra"))).Text;
+            ScriptManager.RegisterStartupScript(UpdatePanel1, typeof(Page), "Mensaje", "$('#modalEditaOrdenCompra').modal('show');", true);
+            grvOrdenesCompra.EditIndex = -1;
+            CargarGrid();
+        }
+
+        protected void grvOrdenesCompra_OnSelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            grvOrdenesCompra.PageIndex = e.NewSelectedIndex;
+            CargarGrid();
         }
     }
 }

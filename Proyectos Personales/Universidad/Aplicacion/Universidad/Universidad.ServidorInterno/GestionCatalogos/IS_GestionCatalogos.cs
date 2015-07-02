@@ -12,6 +12,12 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios();
 
         [OperationContract]
+        List<US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario();
+
+        [OperationContract]
+        List<US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario();
+
+        [OperationContract]
         US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario);
 
         [OperationContract]

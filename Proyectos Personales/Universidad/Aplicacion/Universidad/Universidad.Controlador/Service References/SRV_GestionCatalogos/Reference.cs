@@ -23,6 +23,22 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         
         System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> EndObtenTablaUsCatTipoUsuarios(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuarioResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuarioResponse")]
+        System.IAsyncResult BeginObtenTablaUsCatNivelUsuario(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> EndObtenTablaUsCatNivelUsuario(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuarioResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuarioResponse")]
+        System.IAsyncResult BeginObtenTablaUsCatEstatusUsuario(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> EndObtenTablaUsCatEstatusUsuario(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoUsuarioResponse")]
         Universidad.Entidades.US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario);
         
@@ -107,6 +123,44 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenTablaUsCatNivelUsuarioCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenTablaUsCatNivelUsuarioCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenTablaUsCatEstatusUsuarioCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenTablaUsCatEstatusUsuarioCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO>)(this.results[0]));
             }
         }
     }
@@ -273,6 +327,18 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         
         private System.Threading.SendOrPostCallback onObtenTablaUsCatTipoUsuariosCompletedDelegate;
         
+        private BeginOperationDelegate onBeginObtenTablaUsCatNivelUsuarioDelegate;
+        
+        private EndOperationDelegate onEndObtenTablaUsCatNivelUsuarioDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenTablaUsCatNivelUsuarioCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginObtenTablaUsCatEstatusUsuarioDelegate;
+        
+        private EndOperationDelegate onEndObtenTablaUsCatEstatusUsuarioDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenTablaUsCatEstatusUsuarioCompletedDelegate;
+        
         private BeginOperationDelegate onBeginObtenCatTipoUsuarioDelegate;
         
         private EndOperationDelegate onEndObtenCatTipoUsuarioDelegate;
@@ -342,6 +408,10 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         
         public event System.EventHandler<ObtenTablaUsCatTipoUsuariosCompletedEventArgs> ObtenTablaUsCatTipoUsuariosCompleted;
         
+        public event System.EventHandler<ObtenTablaUsCatNivelUsuarioCompletedEventArgs> ObtenTablaUsCatNivelUsuarioCompleted;
+        
+        public event System.EventHandler<ObtenTablaUsCatEstatusUsuarioCompletedEventArgs> ObtenTablaUsCatEstatusUsuarioCompleted;
+        
         public event System.EventHandler<ObtenCatTipoUsuarioCompletedEventArgs> ObtenCatTipoUsuarioCompleted;
         
         public event System.EventHandler<ObtenCatalogoNacionalidadesCompletedEventArgs> ObtenCatalogoNacionalidadesCompleted;
@@ -404,6 +474,102 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
                 this.onObtenTablaUsCatTipoUsuariosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenTablaUsCatTipoUsuariosCompleted);
             }
             base.InvokeAsync(this.onBeginObtenTablaUsCatTipoUsuariosDelegate, null, this.onEndObtenTablaUsCatTipoUsuariosDelegate, this.onObtenTablaUsCatTipoUsuariosCompletedDelegate, userState);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario() {
+            return base.Channel.ObtenTablaUsCatNivelUsuario();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenTablaUsCatNivelUsuario(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenTablaUsCatNivelUsuario(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> EndObtenTablaUsCatNivelUsuario(System.IAsyncResult result) {
+            return base.Channel.EndObtenTablaUsCatNivelUsuario(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenTablaUsCatNivelUsuario(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginObtenTablaUsCatNivelUsuario(callback, asyncState);
+        }
+        
+        private object[] OnEndObtenTablaUsCatNivelUsuario(System.IAsyncResult result) {
+            System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> retVal = this.EndObtenTablaUsCatNivelUsuario(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenTablaUsCatNivelUsuarioCompleted(object state) {
+            if ((this.ObtenTablaUsCatNivelUsuarioCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenTablaUsCatNivelUsuarioCompleted(this, new ObtenTablaUsCatNivelUsuarioCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenTablaUsCatNivelUsuarioAsync() {
+            this.ObtenTablaUsCatNivelUsuarioAsync(null);
+        }
+        
+        public void ObtenTablaUsCatNivelUsuarioAsync(object userState) {
+            if ((this.onBeginObtenTablaUsCatNivelUsuarioDelegate == null)) {
+                this.onBeginObtenTablaUsCatNivelUsuarioDelegate = new BeginOperationDelegate(this.OnBeginObtenTablaUsCatNivelUsuario);
+            }
+            if ((this.onEndObtenTablaUsCatNivelUsuarioDelegate == null)) {
+                this.onEndObtenTablaUsCatNivelUsuarioDelegate = new EndOperationDelegate(this.OnEndObtenTablaUsCatNivelUsuario);
+            }
+            if ((this.onObtenTablaUsCatNivelUsuarioCompletedDelegate == null)) {
+                this.onObtenTablaUsCatNivelUsuarioCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenTablaUsCatNivelUsuarioCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenTablaUsCatNivelUsuarioDelegate, null, this.onEndObtenTablaUsCatNivelUsuarioDelegate, this.onObtenTablaUsCatNivelUsuarioCompletedDelegate, userState);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario() {
+            return base.Channel.ObtenTablaUsCatEstatusUsuario();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenTablaUsCatEstatusUsuario(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenTablaUsCatEstatusUsuario(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> EndObtenTablaUsCatEstatusUsuario(System.IAsyncResult result) {
+            return base.Channel.EndObtenTablaUsCatEstatusUsuario(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenTablaUsCatEstatusUsuario(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginObtenTablaUsCatEstatusUsuario(callback, asyncState);
+        }
+        
+        private object[] OnEndObtenTablaUsCatEstatusUsuario(System.IAsyncResult result) {
+            System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> retVal = this.EndObtenTablaUsCatEstatusUsuario(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenTablaUsCatEstatusUsuarioCompleted(object state) {
+            if ((this.ObtenTablaUsCatEstatusUsuarioCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenTablaUsCatEstatusUsuarioCompleted(this, new ObtenTablaUsCatEstatusUsuarioCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenTablaUsCatEstatusUsuarioAsync() {
+            this.ObtenTablaUsCatEstatusUsuarioAsync(null);
+        }
+        
+        public void ObtenTablaUsCatEstatusUsuarioAsync(object userState) {
+            if ((this.onBeginObtenTablaUsCatEstatusUsuarioDelegate == null)) {
+                this.onBeginObtenTablaUsCatEstatusUsuarioDelegate = new BeginOperationDelegate(this.OnBeginObtenTablaUsCatEstatusUsuario);
+            }
+            if ((this.onEndObtenTablaUsCatEstatusUsuarioDelegate == null)) {
+                this.onEndObtenTablaUsCatEstatusUsuarioDelegate = new EndOperationDelegate(this.OnEndObtenTablaUsCatEstatusUsuario);
+            }
+            if ((this.onObtenTablaUsCatEstatusUsuarioCompletedDelegate == null)) {
+                this.onObtenTablaUsCatEstatusUsuarioCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenTablaUsCatEstatusUsuarioCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenTablaUsCatEstatusUsuarioDelegate, null, this.onEndObtenTablaUsCatEstatusUsuarioDelegate, this.onObtenTablaUsCatEstatusUsuarioCompletedDelegate, userState);
         }
         
         public Universidad.Entidades.US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario) {

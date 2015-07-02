@@ -37,7 +37,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
         /// Este metodo se encraga de buscar todos los registro de la tabla US_CAT_NIVEL_USUARIO
         /// </summary>
         /// <returns>regresa una lista de todos los registros de US_CAT_NIVEL_USUARIO</returns>
-        public List<US_CAT_NIVEL_USUARIO> ObtenListaCatTiposUsuario()
+        public List<US_CAT_NIVEL_USUARIO> ObtenListaCatNivelUsuario()
         {
             List<US_CAT_NIVEL_USUARIO> Lista = null;
 
@@ -51,7 +51,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
 
         #endregion
 
-        #region Metodos de Incersion
+        #region Metodos de Insercion
 
         /// <summary>
         /// Este metodo almacenara Un registro de la tabla US_CAT_NIVEL_USUARIO

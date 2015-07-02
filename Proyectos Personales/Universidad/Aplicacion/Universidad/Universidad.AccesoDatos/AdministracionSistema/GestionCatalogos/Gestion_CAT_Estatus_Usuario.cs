@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Universidad.Entidades;
 
 namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
@@ -37,16 +33,16 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
         /// Este metodo se encraga de buscar todos los registro de la tabla US_CAT_NIVEL_USUARIO
         /// </summary>
         /// <returns>regresa una lista de todos los registros de US_CAT_NIVEL_USUARIO</returns>
-        public List<US_CAT_NIVEL_USUARIO> ObtenListaCatTiposUsuario()
+        public List<US_CAT_ESTATUS_USUARIO> ObtenListaCatEstatusUsuario()
         {
-            List<US_CAT_NIVEL_USUARIO> Lista = null;
+            List<US_CAT_ESTATUS_USUARIO> lista;
 
-            using (var r = new Repositorio<US_CAT_NIVEL_USUARIO>())
+            using (var r = new Repositorio<US_CAT_ESTATUS_USUARIO>())
             {
-                Lista = r.TablaCompleta();
+                lista = r.TablaCompleta();
             }
 
-            return Lista;
+            return lista;
         }
 
         #endregion
@@ -56,16 +52,16 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
         /// <summary>
         /// Este metodo almacenara Un registro de la tabla US_CAT_ESTATUS_USUARIO
         /// </summary>
-        /// <param name="EstatusUsuario">Se enviara el objeto del tipo US_CAT_ESTATUS_USUARIO para añadir su Id_Log_Registro</param>
+        /// <param name="estatusUsuario">Se enviara el objeto del tipo US_CAT_ESTATUS_USUARIO para añadir su Id_Log_Registro</param>
         /// <param name="AdicionadoPor">Se Enviara el nobre del usuario que inserta el registro</param>
         /// <returns></returns>
-        public US_CAT_ESTATUS_USUARIO InsertaCatEstatusUsuario(US_CAT_ESTATUS_USUARIO EstatusUsuario)
+        public US_CAT_ESTATUS_USUARIO InsertaCatEstatusUsuario(US_CAT_ESTATUS_USUARIO estatusUsuario)
         {
             using (var r = new Repositorio<US_CAT_ESTATUS_USUARIO>())
             {
-                var Nueva = r.Agregar(EstatusUsuario);
+                var nueva = r.Agregar(estatusUsuario);
 
-                return Nueva;
+                return nueva;
             }
         }
 

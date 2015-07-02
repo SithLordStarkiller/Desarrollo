@@ -29,6 +29,16 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
             return Gestion_CAT_Tipos_Usuario.ClassInstance.ObtenListaCatTiposUsuario();
         }
 
+        public List<US_CAT_NIVEL_USUARIO> ObtenListaCatNivelUsuario()
+        {
+            return Gestion_CAT_Nivel_Usuario.ClassInstance.ObtenListaCatNivelUsuario();
+        }
+
+        public List<US_CAT_ESTATUS_USUARIO> ObtenListaCatEstatusUsuario()
+        {
+            return Gestion_CAT_Estatus_Usuario.ClassInstance.ObtenListaCatEstatusUsuario();
+        }
+
         public US_CAT_TIPO_USUARIO ObtenTipoUsuario(int idTipoUsuario)
         {
             return Gestion_CAT_Tipos_Usuario.ClassInstance.ObtenCatTipoUsuario(idTipoUsuario);

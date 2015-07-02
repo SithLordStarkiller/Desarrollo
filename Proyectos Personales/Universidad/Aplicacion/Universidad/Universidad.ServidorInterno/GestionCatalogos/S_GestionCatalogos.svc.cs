@@ -13,6 +13,16 @@ namespace Universidad.ServidorInterno.GestionCatalogos
             return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
         }
 
+        public List<US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario()
+        {
+            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatNivelUsuario();
+        }
+
+        public List<US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario()
+        {
+            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatEstatusUsuario();
+        }
+
         public List<PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades()
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenNacionalidades();

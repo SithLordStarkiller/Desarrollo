@@ -13,7 +13,7 @@ namespace AplicacionFragancias.AccesoDatos
         private const string Sqlconnectionstring = "connection_string";
 
 
-        private HttpApplicationState _applicationState;
+        private readonly HttpApplicationState _applicationState;
 
         public HttpApplicationState ApplicationState
         {

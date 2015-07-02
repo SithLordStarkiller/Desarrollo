@@ -59,6 +59,11 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
             return new OperacionesCompras().ObtenListaProductos(ordenCompra);
         }
 
+        public List<COM_PRODUCTOS_PEDIDOS> ObtenListaProductos(string odernCompra)
+        {
+            return new OperacionesCompras().ObtenListaProductos(odernCompra);
+        }
+
         public List<COM_CAT_ESTATUS_COMPRA> ObtenEstatusCompras()
         {
             return new OperacionesCatalogosCompras().ObtenEstatusCompras();
@@ -82,6 +87,11 @@ namespace AplicacionFragancias.LogicaNegocios.Compras
         public bool ActualizaProducto(COM_PRODUCTOS producto)
         {
             return new OperacionesCompras().ActualizaProducto(producto);
+        }
+
+        public bool EliminarOrdenCompra(string producto)
+        {
+            return new OperacionesCompras().EliminarOrdenCompra(producto);
         }
     }
 }

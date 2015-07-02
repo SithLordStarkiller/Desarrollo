@@ -62,7 +62,7 @@ namespace AplicacionFragancias.AccesoDatos.Compras
                 return
                     i.Filtro(
                         r =>
-                            r.FECHAORDENCOMPRA >= inicio && r.FECHAORDENCOMPRA <= fin && status.Contains((int)r.IDESTATUSCOMPRA)).ToList();
+                            r.FECHAORDENCOMPRA >= inicio && r.BORRADO == false && r.FECHAORDENCOMPRA <= fin && status.Contains((int)r.IDESTATUSCOMPRA)).ToList();
             }
         }
 
@@ -90,11 +90,31 @@ namespace AplicacionFragancias.AccesoDatos.Compras
             }
         }
 
+        public List<COM_PRODUCTOS_PEDIDOS> ObtenListaProductos(string ordenCompra)
+        {
+            using (var r = new Repositorio<COM_PRODUCTOS_PEDIDOS>())
+            {
+                return r.Filtro(aux => aux.NOORDENCOMPRA == ordenCompra && aux.BORRADO == false);
+            }
+        }
+
         public bool ActualizaProducto(COM_PRODUCTOS producto)
         {
             using (var r = new Repositorio<COM_PRODUCTOS>())
             {
                 return r.Actualizar(producto);
+            }
+        }
+
+        public bool EliminarOrdenCompra(string noOrdenCompra)
+        {
+            var ordenCompra = ObtenOrdenCompra(noOrdenCompra);
+
+            using (var r = new Repositorio<COM_ORDENCOMPRA>())
+            {
+                ordenCompra.BORRADO = true;
+
+                return r.Actualizar(ordenCompra);
             }
         }
     }
