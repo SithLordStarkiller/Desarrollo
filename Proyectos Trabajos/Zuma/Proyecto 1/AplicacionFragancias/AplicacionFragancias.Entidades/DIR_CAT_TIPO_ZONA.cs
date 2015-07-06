@@ -12,20 +12,16 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_PROVEEDORES_CONTACTOS
+    public partial class DIR_CAT_TIPO_ZONA
     {
-        public COM_PROVEEDORES_CONTACTOS()
+        public DIR_CAT_TIPO_ZONA()
         {
-            this.COM_PROVEEDORES = new HashSet<COM_PROVEEDORES>();
+            this.DIR_CAT_COLONIAS = new HashSet<DIR_CAT_COLONIAS>();
         }
     
-        public int IDPROVEEDORESCONTATOS { get; set; }
-        public string NOMBRECOMPLETO { get; set; }
-        public string TELEFONOFIJO { get; set; }
-        public string TELEFONOMOVIL { get; set; }
-        public string CORREOELECTRONICO { get; set; }
-        public bool BORRADO { get; set; }
+        public int IDTIPOZONA { get; set; }
+        public string TIPOZONA { get; set; }
     
-        public virtual ICollection<COM_PROVEEDORES> COM_PROVEEDORES { get; set; }
+        public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
     }
 }

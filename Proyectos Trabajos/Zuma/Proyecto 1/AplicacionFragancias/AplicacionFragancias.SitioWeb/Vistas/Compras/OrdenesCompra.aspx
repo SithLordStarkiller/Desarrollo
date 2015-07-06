@@ -46,6 +46,32 @@
                 modal.find('.modal-body input').val(recipient);
             });
         });
+
+
+        $(function () {
+            var $gv = $("table[id$=grvProductos]");
+            var $rows = $("> tbody > tr:not(:has(th, table))", $gv);
+            var $inputs = $(".datepickers", $rows);
+
+            $rows.css("background-color", "white");
+
+            $inputs.datepicker();
+        });
+
+
+        $(document).ready(function () {
+            $("#<%=grvOrdenesCompra.ClientID%> [id*='txtCantidad']").keyup(function () {
+                var cantidad = $(this).val();
+                var precio = $(this).parent().parent().find("[id*='txtPrecioUnitario']").val();
+                $(this).parent().parent().find("[id*='txtSubTotal']").val(cantidad * precio);
+            });
+
+            $("#<%=grvOrdenesCompra.ClientID%> [id*='txtPrecioUnitario']").keyup(function () {
+                var precio = $(this).val();
+                var cantidad = $(this).parent().parent().find("[id*='txtCantidad']").val();
+                $(this).parent().parent().find("[id*='txtSubTotal']").val(cantidad * precio);
+            });
+        });
     </script>
     <style>
         .selectpicker {

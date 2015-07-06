@@ -12,18 +12,14 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_PRODUCTOS
+    public partial class LOG_OPERACIONES
     {
-        public COM_PRODUCTOS()
-        {
-            this.COM_PRODUCTOS_PEDIDOS = new HashSet<COM_PRODUCTOS_PEDIDOS>();
-        }
-    
-        public string CVEPRODUCTO { get; set; }
-        public string NOMBREPRODUCTO { get; set; }
-        public string DESCRIPCION { get; set; }
-        public bool BORRADO { get; set; }
-    
-        public virtual ICollection<COM_PRODUCTOS_PEDIDOS> COM_PRODUCTOS_PEDIDOS { get; set; }
+        public int IDOPERACIONES { get; set; }
+        public System.DateTime FECHAOPERACION { get; set; }
+        public string XMLREGISTRO { get; set; }
+        public string XMLREGISTROACTUALIZADO { get; set; }
+        public string TABLAMODIFICADA { get; set; }
+        public string TIPODEMOVIMIENTO { get; set; }
+        public string XMLDATOSPC { get; set; }
     }
 }

@@ -7,9 +7,9 @@
     <Schema Namespace="FraganciasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ALM_ALMECENES">
           <Key>
-            <PropertyRef Name="IDALAMACENES" />
+            <PropertyRef Name="CVEALAMACENES" />
           </Key>
-          <Property Name="IDALAMACENES" Type="smallint" Nullable="false" />
+          <Property Name="CVEALAMACENES" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="NOMBREALMACEN" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
           <Property Name="BORRADO" Type="bit" Nullable="false" />
@@ -65,11 +65,13 @@
             <PropertyRef Name="IDENTREGASPRODUCTO" />
           </Key>
           <Property Name="IDENTREGASPRODUCTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IDALAMACENES" Type="smallint" />
           <Property Name="IDPRODUCTOSPEDIDOS" Type="int" />
+          <Property Name="CVEALAMACENES" Type="varchar" MaxLength="20" />
           <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
           <Property Name="PARTIDASENTREGADAS" Type="decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="PAGOREALIZADO" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PARTIDA" Type="int" Nullable="false" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="COM_ORDENCOMPRA">
           <Key>
@@ -96,6 +98,7 @@
           <Property Name="CVEPRODUCTO" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="NOMBREPRODUCTO" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="COM_PRODUCTOS_PEDIDOS">
           <Key>
@@ -106,8 +109,8 @@
           <Property Name="IDUNIDADESMEDIDA" Type="smallint" />
           <Property Name="IDPRESENTACION" Type="smallint" />
           <Property Name="IDESTAUSPRODUCTO" Type="smallint" />
-          <Property Name="IDALAMACENES" Type="smallint" />
           <Property Name="CVEPRODUCTO" Type="varchar" MaxLength="20" />
+          <Property Name="CVEALAMACENES" Type="varchar" MaxLength="20" />
           <Property Name="PARTIDA" Type="int" Nullable="false" />
           <Property Name="CANTIDAD" Type="decimal" Precision="10" Scale="4" Nullable="false" />
           <Property Name="FECHAENTREGA" Type="datetime" Nullable="false" />
@@ -125,6 +128,7 @@
           <Property Name="RFC" Type="varchar" MaxLength="15" />
           <Property Name="DIRECCION" Type="varchar" MaxLength="250" />
           <Property Name="TELEFONO" Type="varchar" MaxLength="10" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="COM_PROVEEDORES_CONTACTOS">
           <Key>
@@ -135,6 +139,76 @@
           <Property Name="TELEFONOFIJO" Type="varchar" MaxLength="10" />
           <Property Name="TELEFONOMOVIL" Type="varchar" MaxLength="10" />
           <Property Name="CORREOELECTRONICO" Type="varchar" MaxLength="50" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CON_CONTACTO">
+          <Key>
+            <PropertyRef Name="IDCONTACTOS" />
+          </Key>
+          <Property Name="IDCONTACTOS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CORREOELECTRONICOPERSONAL" Type="varchar" MaxLength="100" />
+          <Property Name="CORREOELECTRONICOTRABAJO" Type="varchar" MaxLength="100" />
+          <Property Name="ALTERNATIVO1" Type="varchar" MaxLength="100" />
+          <Property Name="ALTERNATIVO2" Type="varchar" MaxLength="100" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_COLONIAS">
+          <Key>
+            <PropertyRef Name="IDCOLONIA" />
+          </Key>
+          <Property Name="IDCOLONIA" Type="int" Nullable="false" />
+          <Property Name="IDESTADO" Type="int" />
+          <Property Name="IDDELGMUNICIPIO" Type="int" />
+          <Property Name="IDTIPOASENTAMIENTO" Type="int" />
+          <Property Name="IDTIPOZONA" Type="int" />
+          <Property Name="IDMUNICIPIO" Type="int" />
+          <Property Name="CODIGOPOSTAL" Type="int" />
+          <Property Name="NOMBRECOLONIA" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_DELG_MUNICIPIO">
+          <Key>
+            <PropertyRef Name="IDDELGMUNICIPIO" />
+          </Key>
+          <Property Name="IDDELGMUNICIPIO" Type="int" Nullable="false" />
+          <Property Name="IDESTADO" Type="int" />
+          <Property Name="IDMUNICIPIO" Type="int" />
+          <Property Name="NOMBREDELGMUNICIPIO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_ESTADO">
+          <Key>
+            <PropertyRef Name="IDESTADO" />
+          </Key>
+          <Property Name="IDESTADO" Type="int" Nullable="false" />
+          <Property Name="NOMBREESTADO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NOMBREESTADOOFICIAL" Type="varchar" MaxLength="50" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ASENTAMIENTO">
+          <Key>
+            <PropertyRef Name="IDTIPOASENTAMIENTO" />
+          </Key>
+          <Property Name="IDTIPOASENTAMIENTO" Type="int" Nullable="false" />
+          <Property Name="TIPOASENTAMIENTO" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ZONA">
+          <Key>
+            <PropertyRef Name="IDTIPOZONA" />
+          </Key>
+          <Property Name="IDTIPOZONA" Type="int" Nullable="false" />
+          <Property Name="TIPOZONA" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="DIR_DIRECCIONES">
+          <Key>
+            <PropertyRef Name="IDDIRECCION" />
+          </Key>
+          <Property Name="IDDIRECCION" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDESTADO" Type="int" />
+          <Property Name="IDMUNICIPIO" Type="int" />
+          <Property Name="IDCOLONIA" Type="int" />
+          <Property Name="CALLE" Type="varchar" MaxLength="100" />
+          <Property Name="NOEXT" Type="varchar" MaxLength="30" />
+          <Property Name="NOINT" Type="varchar" MaxLength="30" />
+          <Property Name="REFERENCIAS" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="FAC_CAT_CONDICIONES_PAGO">
           <Key>
@@ -183,11 +257,26 @@
           <Property Name="TIPOOPERACION" Type="varchar" MaxLength="50" />
           <Property Name="DESCRIPCION" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="LOG_OPERACIONES">
+          <Key>
+            <PropertyRef Name="IDOPERACIONES" />
+          </Key>
+          <Property Name="IDOPERACIONES" Type="int" Nullable="false" />
+          <Property Name="FECHAOPERACION" Type="datetime" Nullable="false" />
+          <Property Name="XMLREGISTRO" Type="xml" Nullable="false" />
+          <Property Name="XMLREGISTROACTUALIZADO" Type="xml" Nullable="false" />
+          <Property Name="TABLAMODIFICADA" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIPODEMOVIMIENTO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="XMLDATOSPC" Type="xml" Nullable="false" />
+        </EntityType>
         <EntityType Name="PER_PERSONA">
           <Key>
             <PropertyRef Name="IDPERSONA" />
           </Key>
           <Property Name="IDPERSONA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDDIRECCION" Type="int" />
+          <Property Name="IDTELEFONOS" Type="int" />
+          <Property Name="IDCONTACTOS" Type="int" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="APELLIDOP" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="APELLIDOM" Type="varchar" MaxLength="100" />
@@ -204,6 +293,7 @@
           <Property Name="IDMENUPADRE" Type="int" />
           <Property Name="NOMBRE" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DIRECCION" Type="varchar(max)" Nullable="false" />
+          <Property Name="BORRADO" Type="bit" />
         </EntityType>
         <EntityType Name="SIS_PERFILES_MENU">
           <Key>
@@ -214,6 +304,27 @@
           <Property Name="IDPERFIL" Type="smallint" />
           <Property Name="ENLICENCIA" Type="bit" Nullable="false" />
           <Property Name="ACTIVO" Type="bit" Nullable="false" />
+          <Property Name="BORRADO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TEL_TELEFONOS">
+          <Key>
+            <PropertyRef Name="IDTELEFONOS" />
+          </Key>
+          <Property Name="IDTELEFONOS" Type="int" Nullable="false" />
+          <Property Name="TELEFONOFIJOPERSONAL" Type="varchar" MaxLength="10" />
+          <Property Name="TELEFONOMOVILPERSONAL" Type="varchar" MaxLength="10" />
+          <Property Name="TELEFONOFIJOTRABAJO" Type="varchar" MaxLength="10" />
+          <Property Name="TELEFONOMOVILTRABAJO" Type="varchar" MaxLength="10" />
           <Property Name="BORRADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="US_CAT_PERFILES">
@@ -274,10 +385,10 @@
           <End Role="COM_ENTREGAS_PRODUCTO" Type="Self.COM_ENTREGAS_PRODUCTO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ALM_ALMECENES">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Principal>
             <Dependent Role="COM_ENTREGAS_PRODUCTO">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -370,10 +481,10 @@
           <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ALM_ALMECENES">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Principal>
             <Dependent Role="COM_PRODUCTOS_PEDIDOS">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -401,6 +512,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_PROD">
+          <End Role="COM_PRODUCTOS" Type="Self.COM_PRODUCTOS" Multiplicity="0..1" />
+          <End Role="COM_PRODUCTOS_PEDIDOS" Type="Self.COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PRODUCTOS">
+              <PropertyRef Name="CVEPRODUCTO" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="CVEPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROV_REFERENCE_COM_PROV">
+          <End Role="COM_PROVEEDORES_CONTACTOS" Type="Self.COM_PROVEEDORES_CONTACTOS" Multiplicity="0..1" />
+          <End Role="COM_PROVEEDORES" Type="Self.COM_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PROVEEDORES_CONTACTOS">
+              <PropertyRef Name="IDPROVEEDORESCONTATOS" />
+            </Principal>
+            <Dependent Role="COM_PROVEEDORES">
+              <PropertyRef Name="IDPROVEEDORESCONTATOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIR_CAT__COLONIAS__DIR_CAT_">
+          <End Role="DIR_CAT_TIPO_ASENTAMIENTO" Type="Self.DIR_CAT_TIPO_ASENTAMIENTO" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_TIPO_ASENTAMIENTO">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIR_CAT__REFERENCE_DIR_CAT_">
+          <End Role="DIR_CAT_TIPO_ZONA" Type="Self.DIR_CAT_TIPO_ZONA" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_TIPO_ZONA">
+              <PropertyRef Name="IDTIPOZONA" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOZONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_">
           <End Role="FAC_CAT_MONEDA" Type="Self.FAC_CAT_MONEDA" Multiplicity="0..1" />
           <End Role="FAC_TIPO_CAMBIO_HISTORICO" Type="Self.FAC_TIPO_CAMBIO_HISTORICO" Multiplicity="*" />
@@ -410,6 +569,42 @@
             </Principal>
             <Dependent Role="FAC_TIPO_CAMBIO_HISTORICO">
               <PropertyRef Name="IDMONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_CON_CONT">
+          <End Role="CON_CONTACTO" Type="Self.CON_CONTACTO" Multiplicity="0..1" />
+          <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CON_CONTACTO">
+              <PropertyRef Name="IDCONTACTOS" />
+            </Principal>
+            <Dependent Role="PER_PERSONA">
+              <PropertyRef Name="IDCONTACTOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_DIR_DIRE">
+          <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="0..1" />
+          <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_DIRECCIONES">
+              <PropertyRef Name="IDDIRECCION" />
+            </Principal>
+            <Dependent Role="PER_PERSONA">
+              <PropertyRef Name="IDDIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_TEL_TELE">
+          <End Role="TEL_TELEFONOS" Type="Self.TEL_TELEFONOS" Multiplicity="0..1" />
+          <End Role="PER_PERSONA" Type="Self.PER_PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEL_TELEFONOS">
+              <PropertyRef Name="IDTELEFONOS" />
+            </Principal>
+            <Dependent Role="PER_PERSONA">
+              <PropertyRef Name="IDTELEFONOS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -485,6 +680,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Reference_26">
+          <End Role="DIR_CAT_ESTADO" Type="Self.DIR_CAT_ESTADO" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_ESTADO">
+              <PropertyRef Name="IDESTADO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_27">
+          <End Role="DIR_CAT_ESTADO" Type="Self.DIR_CAT_ESTADO" Multiplicity="0..1" />
+          <End Role="DIR_CAT_DELG_MUNICIPIO" Type="Self.DIR_CAT_DELG_MUNICIPIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_ESTADO">
+              <PropertyRef Name="IDESTADO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_DELG_MUNICIPIO">
+              <PropertyRef Name="IDESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_28">
+          <End Role="DIR_CAT_ESTADO" Type="Self.DIR_CAT_ESTADO" Multiplicity="0..1" />
+          <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_ESTADO">
+              <PropertyRef Name="IDESTADO" />
+            </Principal>
+            <Dependent Role="DIR_DIRECCIONES">
+              <PropertyRef Name="IDESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_29">
+          <End Role="DIR_CAT_DELG_MUNICIPIO" Type="Self.DIR_CAT_DELG_MUNICIPIO" Multiplicity="0..1" />
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_DELG_MUNICIPIO">
+              <PropertyRef Name="IDDELGMUNICIPIO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDDELGMUNICIPIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_32">
+          <End Role="DIR_CAT_COLONIAS" Type="Self.DIR_CAT_COLONIAS" Multiplicity="0..1" />
+          <End Role="DIR_DIRECCIONES" Type="Self.DIR_DIRECCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDCOLONIA" />
+            </Principal>
+            <Dependent Role="DIR_DIRECCIONES">
+              <PropertyRef Name="IDCOLONIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FraganciasModelStoreContainer">
           <EntitySet Name="ALM_ALMECENES" EntityType="Self.ALM_ALMECENES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_CAT_ESTATUS_COMPRA" EntityType="Self.COM_CAT_ESTATUS_COMPRA" Schema="dbo" store:Type="Tables" />
@@ -498,14 +753,24 @@
           <EntitySet Name="COM_PRODUCTOS_PEDIDOS" EntityType="Self.COM_PRODUCTOS_PEDIDOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_PROVEEDORES" EntityType="Self.COM_PROVEEDORES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="COM_PROVEEDORES_CONTACTOS" EntityType="Self.COM_PROVEEDORES_CONTACTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CON_CONTACTO" EntityType="Self.CON_CONTACTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_COLONIAS" EntityType="Self.DIR_CAT_COLONIAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_DELG_MUNICIPIO" EntityType="Self.DIR_CAT_DELG_MUNICIPIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_ESTADO" EntityType="Self.DIR_CAT_ESTADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_TIPO_ASENTAMIENTO" EntityType="Self.DIR_CAT_TIPO_ASENTAMIENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_CAT_TIPO_ZONA" EntityType="Self.DIR_CAT_TIPO_ZONA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DIR_DIRECCIONES" EntityType="Self.DIR_DIRECCIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_CAT_CONDICIONES_PAGO" EntityType="Self.FAC_CAT_CONDICIONES_PAGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_CAT_IMPUESTO" EntityType="Self.FAC_CAT_IMPUESTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_CAT_MONEDA" EntityType="Self.FAC_CAT_MONEDA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FAC_TIPO_CAMBIO_HISTORICO" EntityType="Self.FAC_TIPO_CAMBIO_HISTORICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LOG_COM_OPERACIONES" EntityType="Self.LOG_COM_OPERACIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOG_OPERACIONES" EntityType="Self.LOG_OPERACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_PERSONA" EntityType="Self.PER_PERSONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_MENUARBOL" EntityType="Self.SIS_MENUARBOL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SIS_PERFILES_MENU" EntityType="Self.SIS_PERFILES_MENU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEL_TELEFONOS" EntityType="Self.TEL_TELEFONOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_CAT_PERFILES" EntityType="Self.US_CAT_PERFILES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_PERFILES" EntityType="Self.US_PERFILES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="US_USUARIOS" EntityType="Self.US_USUARIOS" Schema="dbo" store:Type="Tables" />
@@ -561,9 +826,37 @@
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
             <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_PROD" Association="Self.FK_COM_PROD_REFERENCE_COM_PROD">
+            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROV_REFERENCE_COM_PROV" Association="Self.FK_COM_PROV_REFERENCE_COM_PROV">
+            <End Role="COM_PROVEEDORES_CONTACTOS" EntitySet="COM_PROVEEDORES_CONTACTOS" />
+            <End Role="COM_PROVEEDORES" EntitySet="COM_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIR_CAT__COLONIAS__DIR_CAT_" Association="Self.FK_DIR_CAT__COLONIAS__DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ASENTAMIENTO" EntitySet="DIR_CAT_TIPO_ASENTAMIENTO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIR_CAT__REFERENCE_DIR_CAT_" Association="Self.FK_DIR_CAT__REFERENCE_DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ZONA" EntitySet="DIR_CAT_TIPO_ZONA" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
           <AssociationSet Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_" Association="Self.FK_FAC_TIPO_REFERENCE_FAC_CAT_">
             <End Role="FAC_CAT_MONEDA" EntitySet="FAC_CAT_MONEDA" />
             <End Role="FAC_TIPO_CAMBIO_HISTORICO" EntitySet="FAC_TIPO_CAMBIO_HISTORICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_CON_CONT" Association="Self.FK_PER_PERS_REFERENCE_CON_CONT">
+            <End Role="CON_CONTACTO" EntitySet="CON_CONTACTO" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_DIR_DIRE" Association="Self.FK_PER_PERS_REFERENCE_DIR_DIRE">
+            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_TEL_TELE" Association="Self.FK_PER_PERS_REFERENCE_TEL_TELE">
+            <End Role="TEL_TELEFONOS" EntitySet="TEL_TELEFONOS" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
           </AssociationSet>
           <AssociationSet Name="FK_SIS_MENU_REFERENCE_SIS_MENU" Association="Self.FK_SIS_MENU_REFERENCE_SIS_MENU">
             <End Role="SIS_MENUARBOL" EntitySet="SIS_MENUARBOL" />
@@ -589,6 +882,26 @@
             <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
             <End Role="US_USUARIOS" EntitySet="US_USUARIOS" />
           </AssociationSet>
+          <AssociationSet Name="Reference_26" Association="Self.Reference_26">
+            <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_27" Association="Self.Reference_27">
+            <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
+            <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_28" Association="Self.Reference_28">
+            <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
+            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_29" Association="Self.Reference_29">
+            <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_32" Association="Self.Reference_32">
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -607,14 +920,24 @@
           <EntitySet Name="COM_PRODUCTOS_PEDIDOS" EntityType="FraganciasModel.COM_PRODUCTOS_PEDIDOS" />
           <EntitySet Name="COM_PROVEEDORES" EntityType="FraganciasModel.COM_PROVEEDORES" />
           <EntitySet Name="COM_PROVEEDORES_CONTACTOS" EntityType="FraganciasModel.COM_PROVEEDORES_CONTACTOS" />
+          <EntitySet Name="CON_CONTACTO" EntityType="FraganciasModel.CON_CONTACTO" />
+          <EntitySet Name="DIR_CAT_COLONIAS" EntityType="FraganciasModel.DIR_CAT_COLONIAS" />
+          <EntitySet Name="DIR_CAT_DELG_MUNICIPIO" EntityType="FraganciasModel.DIR_CAT_DELG_MUNICIPIO" />
+          <EntitySet Name="DIR_CAT_ESTADO" EntityType="FraganciasModel.DIR_CAT_ESTADO" />
+          <EntitySet Name="DIR_CAT_TIPO_ASENTAMIENTO" EntityType="FraganciasModel.DIR_CAT_TIPO_ASENTAMIENTO" />
+          <EntitySet Name="DIR_CAT_TIPO_ZONA" EntityType="FraganciasModel.DIR_CAT_TIPO_ZONA" />
+          <EntitySet Name="DIR_DIRECCIONES" EntityType="FraganciasModel.DIR_DIRECCIONES" />
           <EntitySet Name="FAC_CAT_CONDICIONES_PAGO" EntityType="FraganciasModel.FAC_CAT_CONDICIONES_PAGO" />
           <EntitySet Name="FAC_CAT_IMPUESTO" EntityType="FraganciasModel.FAC_CAT_IMPUESTO" />
           <EntitySet Name="FAC_CAT_MONEDA" EntityType="FraganciasModel.FAC_CAT_MONEDA" />
           <EntitySet Name="FAC_TIPO_CAMBIO_HISTORICO" EntityType="FraganciasModel.FAC_TIPO_CAMBIO_HISTORICO" />
           <EntitySet Name="LOG_COM_OPERACIONES" EntityType="FraganciasModel.LOG_COM_OPERACIONES" />
+          <EntitySet Name="LOG_OPERACIONES" EntityType="FraganciasModel.LOG_OPERACIONES" />
           <EntitySet Name="PER_PERSONA" EntityType="FraganciasModel.PER_PERSONA" />
           <EntitySet Name="SIS_MENUARBOL" EntityType="FraganciasModel.SIS_MENUARBOL" />
           <EntitySet Name="SIS_PERFILES_MENU" EntityType="FraganciasModel.SIS_PERFILES_MENU" />
+          <EntitySet Name="sysdiagrams" EntityType="FraganciasModel.sysdiagrams" />
+          <EntitySet Name="TEL_TELEFONOS" EntityType="FraganciasModel.TEL_TELEFONOS" />
           <EntitySet Name="US_CAT_PERFILES" EntityType="FraganciasModel.US_CAT_PERFILES" />
           <EntitySet Name="US_PERFILES" EntityType="FraganciasModel.US_PERFILES" />
           <EntitySet Name="US_USUARIOS" EntityType="FraganciasModel.US_USUARIOS" />
@@ -670,9 +993,57 @@
             <End Role="COM_ORDENCOMPRA" EntitySet="COM_ORDENCOMPRA" />
             <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
           </AssociationSet>
+          <AssociationSet Name="FK_COM_PROD_REFERENCE_COM_PROD" Association="FraganciasModel.FK_COM_PROD_REFERENCE_COM_PROD">
+            <End Role="COM_PRODUCTOS" EntitySet="COM_PRODUCTOS" />
+            <End Role="COM_PRODUCTOS_PEDIDOS" EntitySet="COM_PRODUCTOS_PEDIDOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_COM_PROV_REFERENCE_COM_PROV" Association="FraganciasModel.FK_COM_PROV_REFERENCE_COM_PROV">
+            <End Role="COM_PROVEEDORES_CONTACTOS" EntitySet="COM_PROVEEDORES_CONTACTOS" />
+            <End Role="COM_PROVEEDORES" EntitySet="COM_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_CON_CONT" Association="FraganciasModel.FK_PER_PERS_REFERENCE_CON_CONT">
+            <End Role="CON_CONTACTO" EntitySet="CON_CONTACTO" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIR_CAT__COLONIAS__DIR_CAT_" Association="FraganciasModel.FK_DIR_CAT__COLONIAS__DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ASENTAMIENTO" EntitySet="DIR_CAT_TIPO_ASENTAMIENTO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DIR_CAT__REFERENCE_DIR_CAT_" Association="FraganciasModel.FK_DIR_CAT__REFERENCE_DIR_CAT_">
+            <End Role="DIR_CAT_TIPO_ZONA" EntitySet="DIR_CAT_TIPO_ZONA" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_26" Association="FraganciasModel.Reference_26">
+            <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_29" Association="FraganciasModel.Reference_29">
+            <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_32" Association="FraganciasModel.Reference_32">
+            <End Role="DIR_CAT_COLONIAS" EntitySet="DIR_CAT_COLONIAS" />
+            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_27" Association="FraganciasModel.Reference_27">
+            <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
+            <End Role="DIR_CAT_DELG_MUNICIPIO" EntitySet="DIR_CAT_DELG_MUNICIPIO" />
+          </AssociationSet>
+          <AssociationSet Name="Reference_28" Association="FraganciasModel.Reference_28">
+            <End Role="DIR_CAT_ESTADO" EntitySet="DIR_CAT_ESTADO" />
+            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_DIR_DIRE" Association="FraganciasModel.FK_PER_PERS_REFERENCE_DIR_DIRE">
+            <End Role="DIR_DIRECCIONES" EntitySet="DIR_DIRECCIONES" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
+          </AssociationSet>
           <AssociationSet Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_" Association="FraganciasModel.FK_FAC_TIPO_REFERENCE_FAC_CAT_">
             <End Role="FAC_CAT_MONEDA" EntitySet="FAC_CAT_MONEDA" />
             <End Role="FAC_TIPO_CAMBIO_HISTORICO" EntitySet="FAC_TIPO_CAMBIO_HISTORICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PER_PERS_REFERENCE_TEL_TELE" Association="FraganciasModel.FK_PER_PERS_REFERENCE_TEL_TELE">
+            <End Role="TEL_TELEFONOS" EntitySet="TEL_TELEFONOS" />
+            <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
           </AssociationSet>
           <AssociationSet Name="FK_US_USUAR_REFERENCE_PER_PERS" Association="FraganciasModel.FK_US_USUAR_REFERENCE_PER_PERS">
             <End Role="PER_PERSONA" EntitySet="PER_PERSONA" />
@@ -701,9 +1072,9 @@
         </EntityContainer>
         <EntityType Name="ALM_ALMECENES">
           <Key>
-            <PropertyRef Name="IDALAMACENES" />
+            <PropertyRef Name="CVEALAMACENES" />
           </Key>
-          <Property Name="IDALAMACENES" Type="Int16" Nullable="false" />
+          <Property Name="CVEALAMACENES" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="NOMBREALMACEN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
@@ -766,11 +1137,13 @@
             <PropertyRef Name="IDENTREGASPRODUCTO" />
           </Key>
           <Property Name="IDENTREGASPRODUCTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IDALAMACENES" Type="Int16" />
           <Property Name="IDPRODUCTOSPEDIDOS" Type="Int32" />
+          <Property Name="CVEALAMACENES" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PARTIDASENTREGADAS" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
           <Property Name="PAGOREALIZADO" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="PARTIDA" Type="Int32" Nullable="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="ALM_ALMECENES" Relationship="FraganciasModel.FK_COM_ENTR_REFERENCE_ALM_ALME" FromRole="COM_ENTREGAS_PRODUCTO" ToRole="ALM_ALMECENES" />
           <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_ENTR_COM_PROD" FromRole="COM_ENTREGAS_PRODUCTO" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
@@ -805,6 +1178,8 @@
           <Property Name="CVEPRODUCTO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="NOMBREPRODUCTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="COM_PRODUCTOS_PEDIDOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_PROD" FromRole="COM_PRODUCTOS" ToRole="COM_PRODUCTOS_PEDIDOS" />
         </EntityType>
         <EntityType Name="COM_PRODUCTOS_PEDIDOS">
           <Key>
@@ -815,8 +1190,8 @@
           <Property Name="IDUNIDADESMEDIDA" Type="Int16" />
           <Property Name="IDPRESENTACION" Type="Int16" />
           <Property Name="IDESTAUSPRODUCTO" Type="Int16" />
-          <Property Name="IDALAMACENES" Type="Int16" />
           <Property Name="CVEPRODUCTO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CVEALAMACENES" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="PARTIDA" Type="Int32" Nullable="false" />
           <Property Name="CANTIDAD" Type="Decimal" Nullable="false" Precision="10" Scale="4" />
           <Property Name="FECHAENTREGA" Type="DateTime" Nullable="false" Precision="3" />
@@ -829,6 +1204,7 @@
           <NavigationProperty Name="COM_CAT_UNIDADES_MEDIDA" Relationship="FraganciasModel.FK_COM_PRO_COMCAT_UNI" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_CAT_UNIDADES_MEDIDA" />
           <NavigationProperty Name="COM_ENTREGAS_PRODUCTO" Relationship="FraganciasModel.FK_COM_ENTR_COM_PROD" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_ENTREGAS_PRODUCTO" />
           <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_ORDE" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="COM_PRODUCTOS" Relationship="FraganciasModel.FK_COM_PROD_REFERENCE_COM_PROD" FromRole="COM_PRODUCTOS_PEDIDOS" ToRole="COM_PRODUCTOS" />
         </EntityType>
         <EntityType Name="COM_PROVEEDORES">
           <Key>
@@ -840,7 +1216,9 @@
           <Property Name="RFC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="DIRECCION" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="TELEFONO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="COM_ORDENCOMPRA" Relationship="FraganciasModel.FK_COM_ORD_COM_PRO" FromRole="COM_PROVEEDORES" ToRole="COM_ORDENCOMPRA" />
+          <NavigationProperty Name="COM_PROVEEDORES_CONTACTOS" Relationship="FraganciasModel.FK_COM_PROV_REFERENCE_COM_PROV" FromRole="COM_PROVEEDORES" ToRole="COM_PROVEEDORES_CONTACTOS" />
         </EntityType>
         <EntityType Name="COM_PROVEEDORES_CONTACTOS">
           <Key>
@@ -851,6 +1229,93 @@
           <Property Name="TELEFONOFIJO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="TELEFONOMOVIL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="CORREOELECTRONICO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="COM_PROVEEDORES" Relationship="FraganciasModel.FK_COM_PROV_REFERENCE_COM_PROV" FromRole="COM_PROVEEDORES_CONTACTOS" ToRole="COM_PROVEEDORES" />
+        </EntityType>
+        <EntityType Name="CON_CONTACTO">
+          <Key>
+            <PropertyRef Name="IDCONTACTOS" />
+          </Key>
+          <Property Name="IDCONTACTOS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CORREOELECTRONICOPERSONAL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CORREOELECTRONICOTRABAJO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ALTERNATIVO1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ALTERNATIVO2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PER_PERSONA" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_CON_CONT" FromRole="CON_CONTACTO" ToRole="PER_PERSONA" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_COLONIAS">
+          <Key>
+            <PropertyRef Name="IDCOLONIA" />
+          </Key>
+          <Property Name="IDCOLONIA" Type="Int32" Nullable="false" />
+          <Property Name="IDESTADO" Type="Int32" />
+          <Property Name="IDDELGMUNICIPIO" Type="Int32" />
+          <Property Name="IDTIPOASENTAMIENTO" Type="Int32" />
+          <Property Name="IDTIPOZONA" Type="Int32" />
+          <Property Name="IDMUNICIPIO" Type="Int32" />
+          <Property Name="CODIGOPOSTAL" Type="Int32" />
+          <Property Name="NOMBRECOLONIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_TIPO_ASENTAMIENTO" Relationship="FraganciasModel.FK_DIR_CAT__COLONIAS__DIR_CAT_" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_TIPO_ASENTAMIENTO" />
+          <NavigationProperty Name="DIR_CAT_TIPO_ZONA" Relationship="FraganciasModel.FK_DIR_CAT__REFERENCE_DIR_CAT_" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_TIPO_ZONA" />
+          <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="FraganciasModel.Reference_26" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_ESTADO" />
+          <NavigationProperty Name="DIR_CAT_DELG_MUNICIPIO" Relationship="FraganciasModel.Reference_29" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_CAT_DELG_MUNICIPIO" />
+          <NavigationProperty Name="DIR_DIRECCIONES" Relationship="FraganciasModel.Reference_32" FromRole="DIR_CAT_COLONIAS" ToRole="DIR_DIRECCIONES" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_DELG_MUNICIPIO">
+          <Key>
+            <PropertyRef Name="IDDELGMUNICIPIO" />
+          </Key>
+          <Property Name="IDDELGMUNICIPIO" Type="Int32" Nullable="false" />
+          <Property Name="IDESTADO" Type="Int32" />
+          <Property Name="IDMUNICIPIO" Type="Int32" />
+          <Property Name="NOMBREDELGMUNICIPIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="FraganciasModel.Reference_29" FromRole="DIR_CAT_DELG_MUNICIPIO" ToRole="DIR_CAT_COLONIAS" />
+          <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="FraganciasModel.Reference_27" FromRole="DIR_CAT_DELG_MUNICIPIO" ToRole="DIR_CAT_ESTADO" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_ESTADO">
+          <Key>
+            <PropertyRef Name="IDESTADO" />
+          </Key>
+          <Property Name="IDESTADO" Type="Int32" Nullable="false" />
+          <Property Name="NOMBREESTADO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBREESTADOOFICIAL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ESTADO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="FraganciasModel.Reference_26" FromRole="DIR_CAT_ESTADO" ToRole="DIR_CAT_COLONIAS" />
+          <NavigationProperty Name="DIR_CAT_DELG_MUNICIPIO" Relationship="FraganciasModel.Reference_27" FromRole="DIR_CAT_ESTADO" ToRole="DIR_CAT_DELG_MUNICIPIO" />
+          <NavigationProperty Name="DIR_DIRECCIONES" Relationship="FraganciasModel.Reference_28" FromRole="DIR_CAT_ESTADO" ToRole="DIR_DIRECCIONES" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ASENTAMIENTO">
+          <Key>
+            <PropertyRef Name="IDTIPOASENTAMIENTO" />
+          </Key>
+          <Property Name="IDTIPOASENTAMIENTO" Type="Int32" Nullable="false" />
+          <Property Name="TIPOASENTAMIENTO" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="FraganciasModel.FK_DIR_CAT__COLONIAS__DIR_CAT_" FromRole="DIR_CAT_TIPO_ASENTAMIENTO" ToRole="DIR_CAT_COLONIAS" />
+        </EntityType>
+        <EntityType Name="DIR_CAT_TIPO_ZONA">
+          <Key>
+            <PropertyRef Name="IDTIPOZONA" />
+          </Key>
+          <Property Name="IDTIPOZONA" Type="Int32" Nullable="false" />
+          <Property Name="TIPOZONA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="FraganciasModel.FK_DIR_CAT__REFERENCE_DIR_CAT_" FromRole="DIR_CAT_TIPO_ZONA" ToRole="DIR_CAT_COLONIAS" />
+        </EntityType>
+        <EntityType Name="DIR_DIRECCIONES">
+          <Key>
+            <PropertyRef Name="IDDIRECCION" />
+          </Key>
+          <Property Name="IDDIRECCION" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDESTADO" Type="Int32" />
+          <Property Name="IDMUNICIPIO" Type="Int32" />
+          <Property Name="IDCOLONIA" Type="Int32" />
+          <Property Name="CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NOEXT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NOINT" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="REFERENCIAS" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="DIR_CAT_COLONIAS" Relationship="FraganciasModel.Reference_32" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_COLONIAS" />
+          <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="FraganciasModel.Reference_28" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_ESTADO" />
+          <NavigationProperty Name="PER_PERSONA" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_DIR_DIRE" FromRole="DIR_DIRECCIONES" ToRole="PER_PERSONA" />
         </EntityType>
         <EntityType Name="FAC_CAT_CONDICIONES_PAGO">
           <Key>
@@ -905,11 +1370,26 @@
           <Property Name="DESCRIPCION" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="COM_CAT_TIPO_OPERACION" Relationship="FraganciasModel.FK_COM_CAT__REFERENCE_LOG_COM_" FromRole="LOG_COM_OPERACIONES" ToRole="COM_CAT_TIPO_OPERACION" />
         </EntityType>
+        <EntityType Name="LOG_OPERACIONES">
+          <Key>
+            <PropertyRef Name="IDOPERACIONES" />
+          </Key>
+          <Property Name="IDOPERACIONES" Type="Int32" Nullable="false" />
+          <Property Name="FECHAOPERACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="XMLREGISTRO" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="XMLREGISTROACTUALIZADO" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TABLAMODIFICADA" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIPODEMOVIMIENTO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="XMLDATOSPC" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="PER_PERSONA">
           <Key>
             <PropertyRef Name="IDPERSONA" />
           </Key>
           <Property Name="IDPERSONA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDDIRECCION" Type="Int32" />
+          <Property Name="IDTELEFONOS" Type="Int32" />
+          <Property Name="IDCONTACTOS" Type="Int32" />
           <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="APELLIDOP" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="APELLIDOM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -917,6 +1397,9 @@
           <Property Name="GENERO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="FECHAREGISTRO" Type="DateTime" Precision="3" />
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CON_CONTACTO" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_CON_CONT" FromRole="PER_PERSONA" ToRole="CON_CONTACTO" />
+          <NavigationProperty Name="DIR_DIRECCIONES" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_DIR_DIRE" FromRole="PER_PERSONA" ToRole="DIR_DIRECCIONES" />
+          <NavigationProperty Name="TEL_TELEFONOS" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_TEL_TELE" FromRole="PER_PERSONA" ToRole="TEL_TELEFONOS" />
           <NavigationProperty Name="US_USUARIOS" Relationship="FraganciasModel.FK_US_USUAR_REFERENCE_PER_PERS" FromRole="PER_PERSONA" ToRole="US_USUARIOS" />
         </EntityType>
         <EntityType Name="SIS_MENUARBOL">
@@ -927,6 +1410,7 @@
           <Property Name="IDMENUPADRE" Type="Int32" />
           <Property Name="NOMBRE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DIRECCION" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" />
           <NavigationProperty Name="SIS_MENUARBOL1" Relationship="FraganciasModel.FK_SIS_MENU_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL" ToRole="SIS_MENUARBOL1" />
           <NavigationProperty Name="SIS_MENUARBOL2" Relationship="FraganciasModel.FK_SIS_MENU_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL1" ToRole="SIS_MENUARBOL" />
           <NavigationProperty Name="SIS_PERFILES_MENU" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_SIS_MENU" FromRole="SIS_MENUARBOL" ToRole="SIS_PERFILES_MENU" />
@@ -943,6 +1427,28 @@
           <Property Name="BORRADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="SIS_MENUARBOL" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_SIS_MENU" FromRole="SIS_PERFILES_MENU" ToRole="SIS_MENUARBOL" />
           <NavigationProperty Name="US_CAT_PERFILES" Relationship="FraganciasModel.FK_SIS_PERF_REFERENCE_US_CAT_P" FromRole="SIS_PERFILES_MENU" ToRole="US_CAT_PERFILES" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TEL_TELEFONOS">
+          <Key>
+            <PropertyRef Name="IDTELEFONOS" />
+          </Key>
+          <Property Name="IDTELEFONOS" Type="Int32" Nullable="false" />
+          <Property Name="TELEFONOFIJOPERSONAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONOMOVILPERSONAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONOFIJOTRABAJO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TELEFONOMOVILTRABAJO" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BORRADO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PER_PERSONA" Relationship="FraganciasModel.FK_PER_PERS_REFERENCE_TEL_TELE" FromRole="TEL_TELEFONOS" ToRole="PER_PERSONA" />
         </EntityType>
         <EntityType Name="US_CAT_PERFILES">
           <Key>
@@ -984,10 +1490,10 @@
           <End Type="FraganciasModel.COM_ENTREGAS_PRODUCTO" Role="COM_ENTREGAS_PRODUCTO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ALM_ALMECENES">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Principal>
             <Dependent Role="COM_ENTREGAS_PRODUCTO">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -996,10 +1502,10 @@
           <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ALM_ALMECENES">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Principal>
             <Dependent Role="COM_PRODUCTOS_PEDIDOS">
-              <PropertyRef Name="IDALAMACENES" />
+              <PropertyRef Name="CVEALAMACENES" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1135,6 +1641,138 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_COM_PROD_REFERENCE_COM_PROD">
+          <End Type="FraganciasModel.COM_PRODUCTOS" Role="COM_PRODUCTOS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PRODUCTOS_PEDIDOS" Role="COM_PRODUCTOS_PEDIDOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PRODUCTOS">
+              <PropertyRef Name="CVEPRODUCTO" />
+            </Principal>
+            <Dependent Role="COM_PRODUCTOS_PEDIDOS">
+              <PropertyRef Name="CVEPRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_COM_PROV_REFERENCE_COM_PROV">
+          <End Type="FraganciasModel.COM_PROVEEDORES_CONTACTOS" Role="COM_PROVEEDORES_CONTACTOS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.COM_PROVEEDORES" Role="COM_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COM_PROVEEDORES_CONTACTOS">
+              <PropertyRef Name="IDPROVEEDORESCONTATOS" />
+            </Principal>
+            <Dependent Role="COM_PROVEEDORES">
+              <PropertyRef Name="IDPROVEEDORESCONTATOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_CON_CONT">
+          <End Type="FraganciasModel.CON_CONTACTO" Role="CON_CONTACTO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.PER_PERSONA" Role="PER_PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CON_CONTACTO">
+              <PropertyRef Name="IDCONTACTOS" />
+            </Principal>
+            <Dependent Role="PER_PERSONA">
+              <PropertyRef Name="IDCONTACTOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIR_CAT__COLONIAS__DIR_CAT_">
+          <End Type="FraganciasModel.DIR_CAT_TIPO_ASENTAMIENTO" Role="DIR_CAT_TIPO_ASENTAMIENTO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_TIPO_ASENTAMIENTO">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOASENTAMIENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DIR_CAT__REFERENCE_DIR_CAT_">
+          <End Type="FraganciasModel.DIR_CAT_TIPO_ZONA" Role="DIR_CAT_TIPO_ZONA" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_TIPO_ZONA">
+              <PropertyRef Name="IDTIPOZONA" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDTIPOZONA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_26">
+          <End Type="FraganciasModel.DIR_CAT_ESTADO" Role="DIR_CAT_ESTADO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_ESTADO">
+              <PropertyRef Name="IDESTADO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_29">
+          <End Type="FraganciasModel.DIR_CAT_DELG_MUNICIPIO" Role="DIR_CAT_DELG_MUNICIPIO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_DELG_MUNICIPIO">
+              <PropertyRef Name="IDDELGMUNICIPIO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDDELGMUNICIPIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_32">
+          <End Type="FraganciasModel.DIR_CAT_COLONIAS" Role="DIR_CAT_COLONIAS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_COLONIAS">
+              <PropertyRef Name="IDCOLONIA" />
+            </Principal>
+            <Dependent Role="DIR_DIRECCIONES">
+              <PropertyRef Name="IDCOLONIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_27">
+          <End Type="FraganciasModel.DIR_CAT_ESTADO" Role="DIR_CAT_ESTADO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_CAT_DELG_MUNICIPIO" Role="DIR_CAT_DELG_MUNICIPIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_ESTADO">
+              <PropertyRef Name="IDESTADO" />
+            </Principal>
+            <Dependent Role="DIR_CAT_DELG_MUNICIPIO">
+              <PropertyRef Name="IDESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Reference_28">
+          <End Type="FraganciasModel.DIR_CAT_ESTADO" Role="DIR_CAT_ESTADO" Multiplicity="0..1" />
+          <End Type="FraganciasModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_CAT_ESTADO">
+              <PropertyRef Name="IDESTADO" />
+            </Principal>
+            <Dependent Role="DIR_DIRECCIONES">
+              <PropertyRef Name="IDESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_DIR_DIRE">
+          <End Type="FraganciasModel.DIR_DIRECCIONES" Role="DIR_DIRECCIONES" Multiplicity="0..1" />
+          <End Type="FraganciasModel.PER_PERSONA" Role="PER_PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DIR_DIRECCIONES">
+              <PropertyRef Name="IDDIRECCION" />
+            </Principal>
+            <Dependent Role="PER_PERSONA">
+              <PropertyRef Name="IDDIRECCION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FAC_TIPO_REFERENCE_FAC_CAT_">
           <End Type="FraganciasModel.FAC_CAT_MONEDA" Role="FAC_CAT_MONEDA" Multiplicity="0..1" />
           <End Type="FraganciasModel.FAC_TIPO_CAMBIO_HISTORICO" Role="FAC_TIPO_CAMBIO_HISTORICO" Multiplicity="*" />
@@ -1144,6 +1782,18 @@
             </Principal>
             <Dependent Role="FAC_TIPO_CAMBIO_HISTORICO">
               <PropertyRef Name="IDMONEDA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PER_PERS_REFERENCE_TEL_TELE">
+          <End Type="FraganciasModel.TEL_TELEFONOS" Role="TEL_TELEFONOS" Multiplicity="0..1" />
+          <End Type="FraganciasModel.PER_PERSONA" Role="PER_PERSONA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TEL_TELEFONOS">
+              <PropertyRef Name="IDTELEFONOS" />
+            </Principal>
+            <Dependent Role="PER_PERSONA">
+              <PropertyRef Name="IDTELEFONOS" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1231,7 +1881,7 @@
                 <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="NOMBREALMACEN" ColumnName="NOMBREALMACEN" />
-                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
+                <ScalarProperty Name="CVEALAMACENES" ColumnName="CVEALAMACENES" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1289,11 +1939,13 @@
           <EntitySetMapping Name="COM_ENTREGAS_PRODUCTO">
             <EntityTypeMapping TypeName="FraganciasModel.COM_ENTREGAS_PRODUCTO">
               <MappingFragment StoreEntitySet="COM_ENTREGAS_PRODUCTO">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="PARTIDA" ColumnName="PARTIDA" />
                 <ScalarProperty Name="PAGOREALIZADO" ColumnName="PAGOREALIZADO" />
                 <ScalarProperty Name="PARTIDASENTREGADAS" ColumnName="PARTIDASENTREGADAS" />
                 <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
+                <ScalarProperty Name="CVEALAMACENES" ColumnName="CVEALAMACENES" />
                 <ScalarProperty Name="IDPRODUCTOSPEDIDOS" ColumnName="IDPRODUCTOSPEDIDOS" />
-                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
                 <ScalarProperty Name="IDENTREGASPRODUCTO" ColumnName="IDENTREGASPRODUCTO" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1320,6 +1972,7 @@
           <EntitySetMapping Name="COM_PRODUCTOS">
             <EntityTypeMapping TypeName="FraganciasModel.COM_PRODUCTOS">
               <MappingFragment StoreEntitySet="COM_PRODUCTOS">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="NOMBREPRODUCTO" ColumnName="NOMBREPRODUCTO" />
                 <ScalarProperty Name="CVEPRODUCTO" ColumnName="CVEPRODUCTO" />
@@ -1335,8 +1988,8 @@
                 <ScalarProperty Name="FECHAENTREGA" ColumnName="FECHAENTREGA" />
                 <ScalarProperty Name="CANTIDAD" ColumnName="CANTIDAD" />
                 <ScalarProperty Name="PARTIDA" ColumnName="PARTIDA" />
+                <ScalarProperty Name="CVEALAMACENES" ColumnName="CVEALAMACENES" />
                 <ScalarProperty Name="CVEPRODUCTO" ColumnName="CVEPRODUCTO" />
-                <ScalarProperty Name="IDALAMACENES" ColumnName="IDALAMACENES" />
                 <ScalarProperty Name="IDESTAUSPRODUCTO" ColumnName="IDESTAUSPRODUCTO" />
                 <ScalarProperty Name="IDPRESENTACION" ColumnName="IDPRESENTACION" />
                 <ScalarProperty Name="IDUNIDADESMEDIDA" ColumnName="IDUNIDADESMEDIDA" />
@@ -1348,6 +2001,7 @@
           <EntitySetMapping Name="COM_PROVEEDORES">
             <EntityTypeMapping TypeName="FraganciasModel.COM_PROVEEDORES">
               <MappingFragment StoreEntitySet="COM_PROVEEDORES">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="TELEFONO" ColumnName="TELEFONO" />
                 <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
                 <ScalarProperty Name="RFC" ColumnName="RFC" />
@@ -1360,11 +2014,88 @@
           <EntitySetMapping Name="COM_PROVEEDORES_CONTACTOS">
             <EntityTypeMapping TypeName="FraganciasModel.COM_PROVEEDORES_CONTACTOS">
               <MappingFragment StoreEntitySet="COM_PROVEEDORES_CONTACTOS">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="CORREOELECTRONICO" ColumnName="CORREOELECTRONICO" />
                 <ScalarProperty Name="TELEFONOMOVIL" ColumnName="TELEFONOMOVIL" />
                 <ScalarProperty Name="TELEFONOFIJO" ColumnName="TELEFONOFIJO" />
                 <ScalarProperty Name="NOMBRECOMPLETO" ColumnName="NOMBRECOMPLETO" />
                 <ScalarProperty Name="IDPROVEEDORESCONTATOS" ColumnName="IDPROVEEDORESCONTATOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CON_CONTACTO">
+            <EntityTypeMapping TypeName="FraganciasModel.CON_CONTACTO">
+              <MappingFragment StoreEntitySet="CON_CONTACTO">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="ALTERNATIVO2" ColumnName="ALTERNATIVO2" />
+                <ScalarProperty Name="ALTERNATIVO1" ColumnName="ALTERNATIVO1" />
+                <ScalarProperty Name="CORREOELECTRONICOTRABAJO" ColumnName="CORREOELECTRONICOTRABAJO" />
+                <ScalarProperty Name="CORREOELECTRONICOPERSONAL" ColumnName="CORREOELECTRONICOPERSONAL" />
+                <ScalarProperty Name="IDCONTACTOS" ColumnName="IDCONTACTOS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_COLONIAS">
+            <EntityTypeMapping TypeName="FraganciasModel.DIR_CAT_COLONIAS">
+              <MappingFragment StoreEntitySet="DIR_CAT_COLONIAS">
+                <ScalarProperty Name="NOMBRECOLONIA" ColumnName="NOMBRECOLONIA" />
+                <ScalarProperty Name="CODIGOPOSTAL" ColumnName="CODIGOPOSTAL" />
+                <ScalarProperty Name="IDMUNICIPIO" ColumnName="IDMUNICIPIO" />
+                <ScalarProperty Name="IDTIPOZONA" ColumnName="IDTIPOZONA" />
+                <ScalarProperty Name="IDTIPOASENTAMIENTO" ColumnName="IDTIPOASENTAMIENTO" />
+                <ScalarProperty Name="IDDELGMUNICIPIO" ColumnName="IDDELGMUNICIPIO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+                <ScalarProperty Name="IDCOLONIA" ColumnName="IDCOLONIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_DELG_MUNICIPIO">
+            <EntityTypeMapping TypeName="FraganciasModel.DIR_CAT_DELG_MUNICIPIO">
+              <MappingFragment StoreEntitySet="DIR_CAT_DELG_MUNICIPIO">
+                <ScalarProperty Name="NOMBREDELGMUNICIPIO" ColumnName="NOMBREDELGMUNICIPIO" />
+                <ScalarProperty Name="IDMUNICIPIO" ColumnName="IDMUNICIPIO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+                <ScalarProperty Name="IDDELGMUNICIPIO" ColumnName="IDDELGMUNICIPIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_ESTADO">
+            <EntityTypeMapping TypeName="FraganciasModel.DIR_CAT_ESTADO">
+              <MappingFragment StoreEntitySet="DIR_CAT_ESTADO">
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+                <ScalarProperty Name="NOMBREESTADOOFICIAL" ColumnName="NOMBREESTADOOFICIAL" />
+                <ScalarProperty Name="NOMBREESTADO" ColumnName="NOMBREESTADO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_TIPO_ASENTAMIENTO">
+            <EntityTypeMapping TypeName="FraganciasModel.DIR_CAT_TIPO_ASENTAMIENTO">
+              <MappingFragment StoreEntitySet="DIR_CAT_TIPO_ASENTAMIENTO">
+                <ScalarProperty Name="TIPOASENTAMIENTO" ColumnName="TIPOASENTAMIENTO" />
+                <ScalarProperty Name="IDTIPOASENTAMIENTO" ColumnName="IDTIPOASENTAMIENTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_CAT_TIPO_ZONA">
+            <EntityTypeMapping TypeName="FraganciasModel.DIR_CAT_TIPO_ZONA">
+              <MappingFragment StoreEntitySet="DIR_CAT_TIPO_ZONA">
+                <ScalarProperty Name="TIPOZONA" ColumnName="TIPOZONA" />
+                <ScalarProperty Name="IDTIPOZONA" ColumnName="IDTIPOZONA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DIR_DIRECCIONES">
+            <EntityTypeMapping TypeName="FraganciasModel.DIR_DIRECCIONES">
+              <MappingFragment StoreEntitySet="DIR_DIRECCIONES">
+                <ScalarProperty Name="REFERENCIAS" ColumnName="REFERENCIAS" />
+                <ScalarProperty Name="NOINT" ColumnName="NOINT" />
+                <ScalarProperty Name="NOEXT" ColumnName="NOEXT" />
+                <ScalarProperty Name="CALLE" ColumnName="CALLE" />
+                <ScalarProperty Name="IDCOLONIA" ColumnName="IDCOLONIA" />
+                <ScalarProperty Name="IDMUNICIPIO" ColumnName="IDMUNICIPIO" />
+                <ScalarProperty Name="IDESTADO" ColumnName="IDESTADO" />
+                <ScalarProperty Name="IDDIRECCION" ColumnName="IDDIRECCION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1420,6 +2151,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LOG_OPERACIONES">
+            <EntityTypeMapping TypeName="FraganciasModel.LOG_OPERACIONES">
+              <MappingFragment StoreEntitySet="LOG_OPERACIONES">
+                <ScalarProperty Name="XMLDATOSPC" ColumnName="XMLDATOSPC" />
+                <ScalarProperty Name="TIPODEMOVIMIENTO" ColumnName="TIPODEMOVIMIENTO" />
+                <ScalarProperty Name="TABLAMODIFICADA" ColumnName="TABLAMODIFICADA" />
+                <ScalarProperty Name="XMLREGISTROACTUALIZADO" ColumnName="XMLREGISTROACTUALIZADO" />
+                <ScalarProperty Name="XMLREGISTRO" ColumnName="XMLREGISTRO" />
+                <ScalarProperty Name="FECHAOPERACION" ColumnName="FECHAOPERACION" />
+                <ScalarProperty Name="IDOPERACIONES" ColumnName="IDOPERACIONES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PER_PERSONA">
             <EntityTypeMapping TypeName="FraganciasModel.PER_PERSONA">
               <MappingFragment StoreEntitySet="PER_PERSONA">
@@ -1430,6 +2174,9 @@
                 <ScalarProperty Name="APELLIDOM" ColumnName="APELLIDOM" />
                 <ScalarProperty Name="APELLIDOP" ColumnName="APELLIDOP" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="IDCONTACTOS" ColumnName="IDCONTACTOS" />
+                <ScalarProperty Name="IDTELEFONOS" ColumnName="IDTELEFONOS" />
+                <ScalarProperty Name="IDDIRECCION" ColumnName="IDDIRECCION" />
                 <ScalarProperty Name="IDPERSONA" ColumnName="IDPERSONA" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1437,6 +2184,7 @@
           <EntitySetMapping Name="SIS_MENUARBOL">
             <EntityTypeMapping TypeName="FraganciasModel.SIS_MENUARBOL">
               <MappingFragment StoreEntitySet="SIS_MENUARBOL">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
                 <ScalarProperty Name="DIRECCION" ColumnName="DIRECCION" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="IDMENUPADRE" ColumnName="IDMENUPADRE" />
@@ -1453,6 +2201,29 @@
                 <ScalarProperty Name="IDPERFIL" ColumnName="IDPERFIL" />
                 <ScalarProperty Name="IDMENU" ColumnName="IDMENU" />
                 <ScalarProperty Name="IDPERFILESMENU" ColumnName="IDPERFILESMENU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FraganciasModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEL_TELEFONOS">
+            <EntityTypeMapping TypeName="FraganciasModel.TEL_TELEFONOS">
+              <MappingFragment StoreEntitySet="TEL_TELEFONOS">
+                <ScalarProperty Name="BORRADO" ColumnName="BORRADO" />
+                <ScalarProperty Name="TELEFONOMOVILTRABAJO" ColumnName="TELEFONOMOVILTRABAJO" />
+                <ScalarProperty Name="TELEFONOFIJOTRABAJO" ColumnName="TELEFONOFIJOTRABAJO" />
+                <ScalarProperty Name="TELEFONOMOVILPERSONAL" ColumnName="TELEFONOMOVILPERSONAL" />
+                <ScalarProperty Name="TELEFONOFIJOPERSONAL" ColumnName="TELEFONOFIJOPERSONAL" />
+                <ScalarProperty Name="IDTELEFONOS" ColumnName="IDTELEFONOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

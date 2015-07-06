@@ -12,18 +12,12 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_PRODUCTOS
+    public partial class sysdiagrams
     {
-        public COM_PRODUCTOS()
-        {
-            this.COM_PRODUCTOS_PEDIDOS = new HashSet<COM_PRODUCTOS_PEDIDOS>();
-        }
-    
-        public string CVEPRODUCTO { get; set; }
-        public string NOMBREPRODUCTO { get; set; }
-        public string DESCRIPCION { get; set; }
-        public bool BORRADO { get; set; }
-    
-        public virtual ICollection<COM_PRODUCTOS_PEDIDOS> COM_PRODUCTOS_PEDIDOS { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

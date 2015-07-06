@@ -24,6 +24,7 @@ namespace AplicacionFragancias.Entidades
         public Nullable<int> IDMENUPADRE { get; set; }
         public string NOMBRE { get; set; }
         public string DIRECCION { get; set; }
+        public Nullable<bool> BORRADO { get; set; }
     
         public virtual ICollection<SIS_MENUARBOL> SIS_MENUARBOL1 { get; set; }
         public virtual SIS_MENUARBOL SIS_MENUARBOL2 { get; set; }

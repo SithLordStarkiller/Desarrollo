@@ -67,6 +67,20 @@
             });
         }
 
+        <%--$(document).ready(function() {
+            $("#<%=grvProductos.ClientID%> [id*='lblPrecioUnitario']").keyup(function () {
+                var cantidad = $(this).val();
+                var precio = $(this).parent().parent().find("[id*='txtPrecioUnitario']").val();
+                $(this).parent().parent().find("[id*='txtSubTotal']").val(cantidad * precio);
+            });
+
+            $("#<%=grvProductos.ClientID%> [id*='txtPrecioUnitario']").keyup(function() {
+                var precio = $(this).val();
+                var cantidad = $(this).parent().parent().find("[id*='txtCantidad']").val();
+                $(this).parent().parent().find("[id*='txtSubTotal']").val(cantidad * precio);
+            });
+        });--%>
+
         function Nuevo() {
             window.location = "NuevaOrdenCompra.aspx";
         }

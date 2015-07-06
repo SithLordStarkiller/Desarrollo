@@ -20,6 +20,9 @@ namespace AplicacionFragancias.Entidades
         }
     
         public int IDPERSONA { get; set; }
+        public Nullable<int> IDDIRECCION { get; set; }
+        public Nullable<int> IDTELEFONOS { get; set; }
+        public Nullable<int> IDCONTACTOS { get; set; }
         public string NOMBRE { get; set; }
         public string APELLIDOP { get; set; }
         public string APELLIDOM { get; set; }
@@ -28,6 +31,9 @@ namespace AplicacionFragancias.Entidades
         public Nullable<System.DateTime> FECHAREGISTRO { get; set; }
         public bool BORRADO { get; set; }
     
+        public virtual CON_CONTACTO CON_CONTACTO { get; set; }
+        public virtual DIR_DIRECCIONES DIR_DIRECCIONES { get; set; }
+        public virtual TEL_TELEFONOS TEL_TELEFONOS { get; set; }
         public virtual ICollection<US_USUARIOS> US_USUARIOS { get; set; }
     }
 }

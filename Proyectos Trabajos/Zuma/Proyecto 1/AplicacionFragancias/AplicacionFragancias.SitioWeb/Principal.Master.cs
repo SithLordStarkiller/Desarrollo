@@ -13,14 +13,15 @@ namespace AplicacionFragancias.SitioWeb
         List<SIS_MENUARBOL> _lista;
         protected void Page_Load(object sender, EventArgs e)
         {
-            CargaMenuArbol();
+            var sesion = (US_USUARIOS)Session["Sesion"];
+            CargaMenuArbol(sesion);
             
         }
 
-        private void CargaMenuArbol()
+        private void CargaMenuArbol(US_USUARIOS usuario)
         {
             menuBar.Items.Clear();
-            _lista = new OperacionSistema().ObtenListaMenuArbol();
+            _lista = new OperacionSistema().ObtenListaMenuArbol(usuario);
             
             var listaPadre = _lista.Where(r => r.IDMENUPADRE == null).ToList();
 

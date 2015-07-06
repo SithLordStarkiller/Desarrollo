@@ -15,11 +15,13 @@ namespace AplicacionFragancias.Entidades
     public partial class COM_ENTREGAS_PRODUCTO
     {
         public int IDENTREGASPRODUCTO { get; set; }
-        public Nullable<short> IDALAMACENES { get; set; }
         public Nullable<int> IDPRODUCTOSPEDIDOS { get; set; }
+        public string CVEALAMACENES { get; set; }
         public System.DateTime FECHAENTREGA { get; set; }
         public decimal PARTIDASENTREGADAS { get; set; }
         public decimal PAGOREALIZADO { get; set; }
+        public int PARTIDA { get; set; }
+        public bool BORRADO { get; set; }
     
         public virtual ALM_ALMECENES ALM_ALMECENES { get; set; }
         public virtual COM_PRODUCTOS_PEDIDOS COM_PRODUCTOS_PEDIDOS { get; set; }

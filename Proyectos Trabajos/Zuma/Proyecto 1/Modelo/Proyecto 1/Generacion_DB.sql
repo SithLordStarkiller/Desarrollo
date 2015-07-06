@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     01/06/2015 10:07:39 a. m.                    */
+/* Created on:     06/07/2015 01:17:30 p. m.                    */
 /*==============================================================*/
 
 
@@ -13,16 +13,16 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('COM_ENTREGAS_PRODUCTO') and o.name = 'FK_COM_ENTR_REFERENCE_ALM_ALME')
+   where r.fkeyid = object_id('COM_ENTREGAS_PRODUCTO') and o.name = 'FK_COM_ENTR_COM_PROD')
 alter table COM_ENTREGAS_PRODUCTO
-   drop constraint FK_COM_ENTR_REFERENCE_ALM_ALME
+   drop constraint FK_COM_ENTR_COM_PROD
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('COM_ENTREGAS_PRODUCTO') and o.name = 'FK_COM_ENTR_REFERENCE_COM_PROD')
+   where r.fkeyid = object_id('COM_ENTREGAS_PRODUCTO') and o.name = 'FK_COM_ENTR_REFERENCE_ALM_ALME')
 alter table COM_ENTREGAS_PRODUCTO
-   drop constraint FK_COM_ENTR_REFERENCE_COM_PROD
+   drop constraint FK_COM_ENTR_REFERENCE_ALM_ALME
 go
 
 if exists (select 1
@@ -90,16 +90,16 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('COM_PRODUCTOS_PEDIDOS') and o.name = 'FK_COM_PROD_REFERENCE_ALM_ALME')
+   where r.fkeyid = object_id('COM_PRODUCTOS_PEDIDOS') and o.name = 'FK_COM_PROD_REFERENCE_COM_PROD')
 alter table COM_PRODUCTOS_PEDIDOS
-   drop constraint FK_COM_PROD_REFERENCE_ALM_ALME
+   drop constraint FK_COM_PROD_REFERENCE_COM_PROD
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('COM_PRODUCTOS_PEDIDOS') and o.name = 'FK_COM_PROD_REFERENCE_COM_PROD')
+   where r.fkeyid = object_id('COM_PRODUCTOS_PEDIDOS') and o.name = 'FK_COM_PROD_REFERENCE_ALM_ALME')
 alter table COM_PRODUCTOS_PEDIDOS
-   drop constraint FK_COM_PROD_REFERENCE_COM_PROD
+   drop constraint FK_COM_PROD_REFERENCE_ALM_ALME
 go
 
 if exists (select 1
@@ -111,9 +111,79 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'FK_DIR_CAT__COLONIAS__DIR_CAT_')
+alter table DIR_CAT_COLONIAS
+   drop constraint FK_DIR_CAT__COLONIAS__DIR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'FK_DIR_CAT__REFERENCE_DIR_CAT_')
+alter table DIR_CAT_COLONIAS
+   drop constraint FK_DIR_CAT__REFERENCE_DIR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'Reference_26')
+alter table DIR_CAT_COLONIAS
+   drop constraint Reference_26
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_COLONIAS') and o.name = 'Reference_29')
+alter table DIR_CAT_COLONIAS
+   drop constraint Reference_29
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_CAT_DELG_MUNICIPIO') and o.name = 'Reference_27')
+alter table DIR_CAT_DELG_MUNICIPIO
+   drop constraint Reference_27
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_DIRECCIONES') and o.name = 'Reference_28')
+alter table DIR_DIRECCIONES
+   drop constraint Reference_28
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('DIR_DIRECCIONES') and o.name = 'Reference_32')
+alter table DIR_DIRECCIONES
+   drop constraint Reference_32
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('FAC_TIPO_CAMBIO_HISTORICO') and o.name = 'FK_FAC_TIPO_REFERENCE_FAC_CAT_')
 alter table FAC_TIPO_CAMBIO_HISTORICO
    drop constraint FK_FAC_TIPO_REFERENCE_FAC_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PER_PERSONA') and o.name = 'FK_PER_PERS_REFERENCE_DIR_DIRE')
+alter table PER_PERSONA
+   drop constraint FK_PER_PERS_REFERENCE_DIR_DIRE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PER_PERSONA') and o.name = 'FK_PER_PERS_REFERENCE_TEL_TELE')
+alter table PER_PERSONA
+   drop constraint FK_PER_PERS_REFERENCE_TEL_TELE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('PER_PERSONA') and o.name = 'FK_PER_PERS_REFERENCE_CON_CONT')
+alter table PER_PERSONA
+   drop constraint FK_PER_PERS_REFERENCE_CON_CONT
 go
 
 if exists (select 1
@@ -244,6 +314,55 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('CON_CONTACTO')
+            and   type = 'U')
+   drop table CON_CONTACTO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_COLONIAS')
+            and   type = 'U')
+   drop table DIR_CAT_COLONIAS
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_DELG_MUNICIPIO')
+            and   type = 'U')
+   drop table DIR_CAT_DELG_MUNICIPIO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_ESTADO')
+            and   type = 'U')
+   drop table DIR_CAT_ESTADO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_TIPO_ASENTAMIENTO')
+            and   type = 'U')
+   drop table DIR_CAT_TIPO_ASENTAMIENTO
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_CAT_TIPO_ZONA')
+            and   type = 'U')
+   drop table DIR_CAT_TIPO_ZONA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('DIR_DIRECCIONES')
+            and   type = 'U')
+   drop table DIR_DIRECCIONES
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('FAC_CAT_CONDICIONES_PAGO')
             and   type = 'U')
    drop table FAC_CAT_CONDICIONES_PAGO
@@ -279,6 +398,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('LOG_OPERACIONES')
+            and   type = 'U')
+   drop table LOG_OPERACIONES
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('PER_PERSONA')
             and   type = 'U')
    drop table PER_PERSONA
@@ -296,6 +422,13 @@ if exists (select 1
            where  id = object_id('SIS_PERFILES_MENU')
             and   type = 'U')
    drop table SIS_PERFILES_MENU
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('TEL_TELEFONOS')
+            and   type = 'U')
+   drop table TEL_TELEFONOS
 go
 
 if exists (select 1
@@ -323,11 +456,11 @@ go
 /* Table: ALM_ALMECENES                                         */
 /*==============================================================*/
 create table ALM_ALMECENES (
-   IDALAMACENES         smallint             not null,
+   CVEALAMACENES        varchar(20)          not null,
    NOMBREALMACEN        varchar(50)          not null,
    DESCRIPCION          varchar(100)         null,
    BORRADO              bit                  not null,
-   constraint PK_ALM_ALMECENES primary key (IDALAMACENES)
+   constraint PK_ALM_ALMECENES primary key (CVEALAMACENES)
 )
 go
 
@@ -397,11 +530,13 @@ go
 /*==============================================================*/
 create table COM_ENTREGAS_PRODUCTO (
    IDENTREGASPRODUCTO   int                  identity,
-   IDALAMACENES         smallint             null,
    IDPRODUCTOSPEDIDOS   int                  null,
+   CVEALAMACENES        varchar(20)          null,
    FECHAENTREGA         datetime             not null,
    PARTIDASENTREGADAS   decimal(10,4)        not null,
    PAGOREALIZADO        decimal(10,2)        not null,
+   PARTIDA              int                  not null,
+   BORRADO              bit                  not null,
    constraint PK_COM_ENTREGAS_PRODUCTO primary key (IDENTREGASPRODUCTO)
 )
 go
@@ -431,10 +566,11 @@ go
 /* Table: COM_PRODUCTOS                                         */
 /*==============================================================*/
 create table COM_PRODUCTOS (
-   IDPRODUCTO           int                  not null,
+   CVEPRODUCTO          varchar(20)          not null,
    NOMBREPRODUCTO       varchar(100)         not null,
    DESCRIPCION          varchar(200)         not null,
-   constraint PK_COM_PRODUCTOS primary key (IDPRODUCTO)
+   BORRADO              bit                  not null,
+   constraint PK_COM_PRODUCTOS primary key (CVEPRODUCTO)
 )
 go
 
@@ -447,11 +583,10 @@ create table COM_PRODUCTOS_PEDIDOS (
    IDUNIDADESMEDIDA     smallint             null,
    IDPRESENTACION       smallint             null,
    IDESTAUSPRODUCTO     smallint             null,
-   IDALAMACENES         smallint             null,
-   IDPRODUCTO           int                  null,
-   CANTIDAD             decimal(10,2)        not null,
-   PARTIDAS             double precision     not null,
-   TOTALPARTIDAS        double precision     not null,
+   CVEPRODUCTO          varchar(20)          null,
+   CVEALAMACENES        varchar(20)          null,
+   PARTIDA              int                  not null,
+   CANTIDAD             decimal(10,4)        not null,
    FECHAENTREGA         datetime             not null,
    PRECIOUNITARIO       decimal(10,2)        not null,
    ENTREGADO            bit                  not null,
@@ -470,6 +605,7 @@ create table COM_PROVEEDORES (
    RFC                  varchar(15)          null,
    DIRECCION            varchar(250)         null,
    TELEFONO             varchar(10)          null,
+   BORRADO              bit                  not null,
    constraint PK_COM_PROVEEDORES primary key (CVEPROVEEDOR)
 )
 go
@@ -479,13 +615,102 @@ go
 /*==============================================================*/
 create table COM_PROVEEDORES_CONTACTOS (
    IDPROVEEDORESCONTATOS int                  not null,
-   NOMBRE               varchar(100)         not null,
-   APELLIDOP            varchar(100)         null,
-   APELLIDOM            varchar(100)         null,
+   NOMBRECOMPLETO       varchar(100)         not null,
    TELEFONOFIJO         varchar(10)          null,
    TELEFONOMOVIL        varchar(10)          null,
    CORREOELECTRONICO    varchar(50)          null,
+   BORRADO              bit                  not null,
    constraint PK_COM_PROVEEDORES_CONTACTOS primary key (IDPROVEEDORESCONTATOS)
+)
+go
+
+/*==============================================================*/
+/* Table: CON_CONTACTO                                          */
+/*==============================================================*/
+create table CON_CONTACTO (
+   IDCONTACTOS          int                  identity,
+   CORREOELECTRONICOPERSONAL varchar(100)         null,
+   CORREOELECTRONICOTRABAJO varchar(100)         null,
+   ALTERNATIVO1         varchar(100)         null,
+   ALTERNATIVO2         varchar(100)         null,
+   BORRADO              bit                  not null,
+   constraint PK_CON_CONTACTO primary key (IDCONTACTOS)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_COLONIAS                                      */
+/*==============================================================*/
+create table DIR_CAT_COLONIAS (
+   IDCOLONIA            int                  not null,
+   IDESTADO             int                  null,
+   IDDELGMUNICIPIO      int                  null,
+   IDTIPOASENTAMIENTO   int                  null,
+   IDTIPOZONA           int                  null,
+   IDMUNICIPIO          int                  null,
+   CODIGOPOSTAL         int                  null,
+   NOMBRECOLONIA        varchar(100)         null,
+   constraint PK_DIR_CAT_COLONIAS primary key (IDCOLONIA)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_DELG_MUNICIPIO                                */
+/*==============================================================*/
+create table DIR_CAT_DELG_MUNICIPIO (
+   IDDELGMUNICIPIO      int                  not null,
+   IDESTADO             int                  null,
+   IDMUNICIPIO          int                  null,
+   NOMBREDELGMUNICIPIO  varchar(50)          null,
+   constraint PK_DIR_CAT_DELG_MUNICIPIO primary key (IDDELGMUNICIPIO)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_ESTADO                                        */
+/*==============================================================*/
+create table DIR_CAT_ESTADO (
+   IDESTADO             int                  not null,
+   NOMBREESTADO         varchar(50)          not null,
+   NOMBREESTADOOFICIAL  varchar(50)          null,
+   ESTADO               varchar(50)          null,
+   constraint PK_DIR_CAT_ESTADO primary key (IDESTADO)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_TIPO_ASENTAMIENTO                             */
+/*==============================================================*/
+create table DIR_CAT_TIPO_ASENTAMIENTO (
+   IDTIPOASENTAMIENTO   int                  not null,
+   TIPOASENTAMIENTO     varchar(100)         not null,
+   constraint PK_DIR_CAT_TIPO_ASENTAMIENTO primary key (IDTIPOASENTAMIENTO)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_CAT_TIPO_ZONA                                     */
+/*==============================================================*/
+create table DIR_CAT_TIPO_ZONA (
+   IDTIPOZONA           int                  not null,
+   TIPOZONA             varchar(100)         null,
+   constraint PK_DIR_CAT_TIPO_ZONA primary key (IDTIPOZONA)
+)
+go
+
+/*==============================================================*/
+/* Table: DIR_DIRECCIONES                                       */
+/*==============================================================*/
+create table DIR_DIRECCIONES (
+   IDDIRECCION          int                  identity,
+   IDESTADO             int                  null,
+   IDMUNICIPIO          int                  null,
+   IDCOLONIA            int                  null,
+   CALLE                varchar(100)         null,
+   NOEXT                varchar(30)          null,
+   NOINT                varchar(30)          null,
+   REFERENCIAS          varchar(150)         null,
+   constraint PK_DIR_DIRECCIONES primary key (IDDIRECCION)
 )
 go
 
@@ -552,10 +777,28 @@ create table LOG_COM_OPERACIONES (
 go
 
 /*==============================================================*/
+/* Table: LOG_OPERACIONES                                       */
+/*==============================================================*/
+create table LOG_OPERACIONES (
+   IDOPERACIONES        int                  not null,
+   FECHAOPERACION       datetime             not null,
+   XMLREGISTRO          xml                  not null,
+   XMLREGISTROACTUALIZADO xml                  not null,
+   TABLAMODIFICADA      varchar(50)          not null,
+   TIPODEMOVIMIENTO     varchar(50)          not null,
+   XMLDATOSPC           xml                  not null,
+   constraint PK_LOG_OPERACIONES primary key (IDOPERACIONES)
+)
+go
+
+/*==============================================================*/
 /* Table: PER_PERSONA                                           */
 /*==============================================================*/
 create table PER_PERSONA (
    IDPERSONA            int                  identity,
+   IDDIRECCION          int                  null,
+   IDTELEFONOS          int                  null,
+   IDCONTACTOS          int                  null,
    NOMBRE               varchar(100)         not null,
    APELLIDOP            varchar(100)         not null,
    APELLIDOM            varchar(100)         null,
@@ -575,6 +818,7 @@ create table SIS_MENUARBOL (
    IDMENUPADRE          int                  null,
    NOMBRE               varchar(50)          not null,
    DIRECCION            varchar(MAX)         not null,
+   BORRADO              bit                  null,
    constraint PK_SIS_MENUARBOL primary key (IDMENU)
 )
 go
@@ -590,6 +834,20 @@ create table SIS_PERFILES_MENU (
    ACTIVO               bit                  not null,
    BORRADO              bit                  not null,
    constraint PK_SIS_PERFILES_MENU primary key (IDPERFILESMENU)
+)
+go
+
+/*==============================================================*/
+/* Table: TEL_TELEFONOS                                         */
+/*==============================================================*/
+create table TEL_TELEFONOS (
+   IDTELEFONOS          int                  not null,
+   TELEFONOFIJOPERSONAL varchar(10)          null,
+   TELEFONOMOVILPERSONAL varchar(10)          null,
+   TELEFONOFIJOTRABAJO  varchar(10)          null,
+   TELEFONOMOVILTRABAJO varchar(10)          null,
+   BORRADO              bit                  not null,
+   constraint PK_TEL_TELEFONOS primary key (IDTELEFONOS)
 )
 go
 
@@ -637,13 +895,13 @@ alter table COM_CAT_TIPO_OPERACION
 go
 
 alter table COM_ENTREGAS_PRODUCTO
-   add constraint FK_COM_ENTR_REFERENCE_ALM_ALME foreign key (IDALAMACENES)
-      references ALM_ALMECENES (IDALAMACENES)
+   add constraint FK_COM_ENTR_COM_PROD foreign key (IDPRODUCTOSPEDIDOS)
+      references COM_PRODUCTOS_PEDIDOS (IDPRODUCTOSPEDIDOS)
 go
 
 alter table COM_ENTREGAS_PRODUCTO
-   add constraint FK_COM_ENTR_REFERENCE_COM_PROD foreign key (IDPRODUCTOSPEDIDOS)
-      references COM_PRODUCTOS_PEDIDOS (IDPRODUCTOSPEDIDOS)
+   add constraint FK_COM_ENTR_REFERENCE_ALM_ALME foreign key (CVEALAMACENES)
+      references ALM_ALMECENES (CVEALAMACENES)
 go
 
 alter table COM_ORDENCOMPRA
@@ -692,13 +950,13 @@ alter table COM_PRODUCTOS_PEDIDOS
 go
 
 alter table COM_PRODUCTOS_PEDIDOS
-   add constraint FK_COM_PROD_REFERENCE_ALM_ALME foreign key (IDALAMACENES)
-      references ALM_ALMECENES (IDALAMACENES)
+   add constraint FK_COM_PROD_REFERENCE_COM_PROD foreign key (CVEPRODUCTO)
+      references COM_PRODUCTOS (CVEPRODUCTO)
 go
 
 alter table COM_PRODUCTOS_PEDIDOS
-   add constraint FK_COM_PROD_REFERENCE_COM_PROD foreign key (IDPRODUCTO)
-      references COM_PRODUCTOS (IDPRODUCTO)
+   add constraint FK_COM_PROD_REFERENCE_ALM_ALME foreign key (CVEALAMACENES)
+      references ALM_ALMECENES (CVEALAMACENES)
 go
 
 alter table COM_PROVEEDORES
@@ -706,9 +964,59 @@ alter table COM_PROVEEDORES
       references COM_PROVEEDORES_CONTACTOS (IDPROVEEDORESCONTATOS)
 go
 
+alter table DIR_CAT_COLONIAS
+   add constraint FK_DIR_CAT__COLONIAS__DIR_CAT_ foreign key (IDTIPOASENTAMIENTO)
+      references DIR_CAT_TIPO_ASENTAMIENTO (IDTIPOASENTAMIENTO)
+go
+
+alter table DIR_CAT_COLONIAS
+   add constraint FK_DIR_CAT__REFERENCE_DIR_CAT_ foreign key (IDTIPOZONA)
+      references DIR_CAT_TIPO_ZONA (IDTIPOZONA)
+go
+
+alter table DIR_CAT_COLONIAS
+   add constraint Reference_26 foreign key (IDESTADO)
+      references DIR_CAT_ESTADO (IDESTADO)
+go
+
+alter table DIR_CAT_COLONIAS
+   add constraint Reference_29 foreign key (IDDELGMUNICIPIO)
+      references DIR_CAT_DELG_MUNICIPIO (IDDELGMUNICIPIO)
+go
+
+alter table DIR_CAT_DELG_MUNICIPIO
+   add constraint Reference_27 foreign key (IDESTADO)
+      references DIR_CAT_ESTADO (IDESTADO)
+go
+
+alter table DIR_DIRECCIONES
+   add constraint Reference_28 foreign key (IDESTADO)
+      references DIR_CAT_ESTADO (IDESTADO)
+go
+
+alter table DIR_DIRECCIONES
+   add constraint Reference_32 foreign key (IDCOLONIA)
+      references DIR_CAT_COLONIAS (IDCOLONIA)
+go
+
 alter table FAC_TIPO_CAMBIO_HISTORICO
    add constraint FK_FAC_TIPO_REFERENCE_FAC_CAT_ foreign key (IDMONEDA)
       references FAC_CAT_MONEDA (IDMONEDA)
+go
+
+alter table PER_PERSONA
+   add constraint FK_PER_PERS_REFERENCE_DIR_DIRE foreign key (IDDIRECCION)
+      references DIR_DIRECCIONES (IDDIRECCION)
+go
+
+alter table PER_PERSONA
+   add constraint FK_PER_PERS_REFERENCE_TEL_TELE foreign key (IDTELEFONOS)
+      references TEL_TELEFONOS (IDTELEFONOS)
+go
+
+alter table PER_PERSONA
+   add constraint FK_PER_PERS_REFERENCE_CON_CONT foreign key (IDCONTACTOS)
+      references CON_CONTACTO (IDCONTACTOS)
 go
 
 alter table SIS_MENUARBOL

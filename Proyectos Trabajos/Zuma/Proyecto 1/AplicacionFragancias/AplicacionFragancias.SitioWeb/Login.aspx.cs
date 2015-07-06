@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using AplicacionFragancias.LogicaNegocios.OperacionSistema;
 
 namespace AplicacionFragancias.SitioWeb
 {
@@ -16,7 +12,17 @@ namespace AplicacionFragancias.SitioWeb
 
         protected void btnLogin_OnClick(object sender, EventArgs e)
         {
-            Response.Redirect("index.aspx");
+            var usuario = tbxUsuario.Text;
+            var contrasena = tbxContrasena.Text;
+
+            var login = new OperacionSistema().ObtenUsuario(usuario, contrasena);
+
+            if (login != null)
+            {
+                Session["Sesion"] = login;
+                Response.Redirect("index.aspx");
+            }
+
         }
     }
 }

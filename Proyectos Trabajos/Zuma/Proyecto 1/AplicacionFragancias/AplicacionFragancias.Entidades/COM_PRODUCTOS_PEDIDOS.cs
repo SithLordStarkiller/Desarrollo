@@ -24,8 +24,8 @@ namespace AplicacionFragancias.Entidades
         public Nullable<short> IDUNIDADESMEDIDA { get; set; }
         public Nullable<short> IDPRESENTACION { get; set; }
         public Nullable<short> IDESTAUSPRODUCTO { get; set; }
-        public Nullable<short> IDALAMACENES { get; set; }
         public string CVEPRODUCTO { get; set; }
+        public string CVEALAMACENES { get; set; }
         public int PARTIDA { get; set; }
         public decimal CANTIDAD { get; set; }
         public System.DateTime FECHAENTREGA { get; set; }
@@ -39,5 +39,6 @@ namespace AplicacionFragancias.Entidades
         public virtual COM_CAT_UNIDADES_MEDIDA COM_CAT_UNIDADES_MEDIDA { get; set; }
         public virtual ICollection<COM_ENTREGAS_PRODUCTO> COM_ENTREGAS_PRODUCTO { get; set; }
         public virtual COM_ORDENCOMPRA COM_ORDENCOMPRA { get; set; }
+        public virtual COM_PRODUCTOS COM_PRODUCTOS { get; set; }
     }
 }

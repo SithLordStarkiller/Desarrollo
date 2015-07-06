@@ -12,22 +12,20 @@ namespace AplicacionFragancias.Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class COM_PROVEEDORES
+    public partial class TEL_TELEFONOS
     {
-        public COM_PROVEEDORES()
+        public TEL_TELEFONOS()
         {
-            this.COM_ORDENCOMPRA = new HashSet<COM_ORDENCOMPRA>();
+            this.PER_PERSONA = new HashSet<PER_PERSONA>();
         }
     
-        public string CVEPROVEEDOR { get; set; }
-        public Nullable<int> IDPROVEEDORESCONTATOS { get; set; }
-        public string RAZONSOCIAL { get; set; }
-        public string RFC { get; set; }
-        public string DIRECCION { get; set; }
-        public string TELEFONO { get; set; }
+        public int IDTELEFONOS { get; set; }
+        public string TELEFONOFIJOPERSONAL { get; set; }
+        public string TELEFONOMOVILPERSONAL { get; set; }
+        public string TELEFONOFIJOTRABAJO { get; set; }
+        public string TELEFONOMOVILTRABAJO { get; set; }
         public bool BORRADO { get; set; }
     
-        public virtual ICollection<COM_ORDENCOMPRA> COM_ORDENCOMPRA { get; set; }
-        public virtual COM_PROVEEDORES_CONTACTOS COM_PROVEEDORES_CONTACTOS { get; set; }
+        public virtual ICollection<PER_PERSONA> PER_PERSONA { get; set; }
     }
 }
