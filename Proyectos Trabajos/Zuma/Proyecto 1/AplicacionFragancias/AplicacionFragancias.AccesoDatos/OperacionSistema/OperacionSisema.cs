@@ -39,7 +39,6 @@ namespace AplicacionFragancias.AccesoDatos.OperacionSistema
                          }).ToList();
 
             return lista;
-
         }
     }
 }

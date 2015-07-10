@@ -46,17 +46,12 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public async void CrearCuentaAsync(string personaId)
+        public void CrearCuentaAsync(string personaId)
         {
             var sesion = (Sesion)Session["Sesion"];
             var servicosCatalogos = new SVC_GestionCatalogos(sesion);
-            var serviciosPersona = new SvcPersonas(sesion);
-
-            AsyncManager.Parameters["personaId"] = personaId;
-
-            var persona = await serviciosPersona.BuscarPersona(personaId);
             
-            AsyncManager.Parameters["persona"] = persona;
+            AsyncManager.Parameters["personaId"] = personaId;
 
             servicosCatalogos.ObtenTablaUsCatEstatusUsuarioAFinalizado +=
                 delegate(List<US_CAT_ESTATUS_USUARIO> listaEstatusUsuarios)
@@ -88,9 +83,17 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public ActionResult CrearCuentaCompleted(List<US_CAT_ESTATUS_USUARIO> listaEstatus, List<US_CAT_NIVEL_USUARIO> listaNivelUsuario, List<US_CAT_TIPO_USUARIO> listaTipoUsuario, PER_PERSONAS persona)
+        public ActionResult CrearCuentaCompleted(List<US_CAT_ESTATUS_USUARIO> listaEstatus, List<US_CAT_NIVEL_USUARIO> listaNivelUsuario, List<US_CAT_TIPO_USUARIO> listaTipoUsuario, string personaId)
         {
             Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+
+            var serviciosPersona = new SvcPersonas(sesion);
+
+            var persona = serviciosPersona.BuscarPersona(personaId);
+
+            ViewBag.Persona = persona;
 
             ViewBag.ListaEstatusUsuario = listaEstatus.Select(c => new SelectListItem
             {
