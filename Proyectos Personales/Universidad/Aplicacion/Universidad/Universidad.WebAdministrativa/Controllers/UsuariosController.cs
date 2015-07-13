@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Newtonsoft.Json;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Personas;
+using Universidad.Controlador.Usuarios;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
@@ -83,6 +84,18 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
+        public async Task<ActionResult> ObtenUsuario(string usuario)
+        {
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcUsuarios(sesion);
+
+            var persona = await servicio.ObtenUsuario(usuario);
+            var resultado = JsonConvert.SerializeObject(persona);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
         public ActionResult CrearCuentaCompleted(List<US_CAT_ESTATUS_USUARIO> listaEstatus, List<US_CAT_NIVEL_USUARIO> listaNivelUsuario, List<US_CAT_TIPO_USUARIO> listaTipoUsuario, string personaId)
         {
             Sesion();
@@ -101,7 +114,7 @@ namespace Universidad.WebAdministrativa.Controllers
                 Text = c.ESTATUS_USUARIO
             }).ToArray();
 
-            ViewBag.ListaNivelUSuario = listaNivelUsuario.Select(c => new SelectListItem
+            ViewBag.ListaNivelUsuario = listaNivelUsuario.Select(c => new SelectListItem
             {
                 Value = c.ID_NIVEL_USUARIO.ToString(CultureInfo.InvariantCulture),
                 Text = c.NIVEL_USUARIO

@@ -1,5 +1,4 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Universidad.Controlador.SVRPersonas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
