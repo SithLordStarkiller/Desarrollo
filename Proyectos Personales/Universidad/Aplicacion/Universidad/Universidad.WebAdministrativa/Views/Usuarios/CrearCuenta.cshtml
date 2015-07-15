@@ -29,14 +29,11 @@
                 if (c == cc && (c != "" && cc != "")) {
                     $("#divContrasena").removeClass('btn-success').addClass('btn-danger');
                     $("#divContrasena").addClass('has-success').removeClass('has-error');
-                    $("#btnCrear").removeAttr("disabled", "disabled");
-
-                }
-                else {
+                    ValidaUsuario();
+                } else {
                     $("#divContrasena").removeClass('btn-danger').addClass('btn-success');
                     $("#divContrasena").addClass('has-error').removeClass('has-success');
                     $("#btnCrear").attr("disabled", "disabled");
-
                 }
             });
 
@@ -48,8 +45,8 @@
                     $("#divContrasena").removeClass('btn-success').addClass('btn-danger');
                     $("#divContrasena").addClass('has-success').removeClass('has-error');
                     $("#btnCrear").removeAttr("disabled", "disabled");
-                }
-                else {
+                    ValidaUsuario();
+                } else {
                     $("#divContrasena").removeClass('btn-danger').addClass('btn-success');
                     $("#divContrasena").addClass('has-error').removeClass('has-success');
                     $("#btnCrear").attr("disabled", "disabled");
@@ -59,33 +56,39 @@
 
         function ValidaUsuario() {
             var usuario = $("#txtUsuario").val();
+            if (usuario != "") {
 
-            $.ajax({
-                type: "POST",
-                data: { 'usuario': usuario },
-                url: '@Url.Action("ObtenUsuario", "Usuarios")',
-                success: function(response) {
-                    if (response == "null") {
-                        //alert("No existe usuario");
-                        $("#divUsuario").addClass('has-success').removeClass('has-error');
-                        $("#btnValidaUsuario").addClass('btn-success').removeClass('btn-danger');
-                        $("#btnCrear").removeAttr("disabled", "disabled");
+                $.ajax({
+                    type: "POST",
+                    data: { 'usuario': usuario },
+                    url: '@Url.Action("ObtenUsuario", "Usuarios")',
+                    success: function(response) {
+                        if (response == "null") {
+                            //alert("No existe usuario");
+                            $("#divUsuario").addClass('has-success').removeClass('has-error');
+                            $("#btnValidaUsuario").addClass('btn-success').removeClass('btn-danger');
+                            $("#btnCrear").removeAttr("disabled", "disabled");
 
-                    } else {
-                        //var objeto = JSON.parse(response);
-                        //var existe = objeto.USUARIO;
-                        //alert("Existe Usuario " + existe);
-                        //$("#divUsuario").removeClass('has-success');
-                        $("#divUsuario").addClass('has-error').removeClass('has-success');
-                        $("#btnValidaUsuario").addClass('btn-danger').removeClass('btn-success');
-                        $("#btnCrear").attr("disabled", "disabled");
-                    }
-                },
-                error:
-                    function(xhr, status, error) {
-                        alert(status + " : " + error);
-                    }
-            });
+                        } else {
+                            //var objeto = JSON.parse(response);
+                            //var existe = objeto.USUARIO;
+                            //alert("Existe Usuario " + existe);
+                            //$("#divUsuario").removeClass('has-success');
+                            $("#divUsuario").addClass('has-error').removeClass('has-success');
+                            $("#btnValidaUsuario").addClass('btn-danger').removeClass('btn-success');
+                            $("#btnCrear").attr("disabled", "disabled");
+                        }
+                    },
+                    error:
+                        function(xhr, status, error) {
+                            alert(status + " : " + error);
+                        }
+                });
+            } else {
+                $("#divUsuario").addClass('has-error').removeClass('has-success');
+                $("#btnValidaUsuario").addClass('btn-danger').removeClass('btn-success');
+                $("#btnCrear").attr("disabled", "disabled");
+            }
         }
     </script>
 }
@@ -98,9 +101,8 @@
             <div class="panel-heading form-margin">
                 <div class="panel-title">Llena los datos del usuario</div>
             </div>
-            @using (Html.BeginForm("NuevaPersona", "Personas", FormMethod.Post))
+            @using (Html.BeginForm("GuardaCuentaUsuario", "Usuarios", FormMethod.Post))
             {
-                @Html.ValidationSummary(true)
                 <fieldset></fieldset>
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="row">
@@ -130,7 +132,7 @@
                             <div class="form-group col-md-4">
                                 <div class="input-group" id="divUsuario">
                                     @Html.Label("Nuevo Usuario", new {@class = "input-group-addon"})
-                                    @Html.TextBoxFor(x => x.USUARIO, new { @class = "form-control", @id = "txtUsuario", placeholder = "Nuevo Usuario", autocomplete = "off" })
+                                    @Html.TextBoxFor(r => r.USUARIO, new { @class = "form-control", @id = "txtUsuario", placeholder = "Nuevo Usuario", autocomplete = "off" })
                                     <span class="input-group-btn">
                                         <a href="#" id="btnValidaUsuario" class="btn btn-default" onclick=" ValidaUsuario(); ">Buscar</a>
                                     </span>
@@ -139,7 +141,7 @@
                             <div class="form-group col-md-8">
                                 <div class="input-group" id="divContrasena">
                                     @Html.Label("Nueva Contraseña", new {@class = "input-group-addon"})
-                                    @Html.TextBoxFor(x => x.CONTRASENA, new { @id = "txtContrasena", @class = "form-control", @type = "password", placeholder = "Nueva contraseña", autocomplete = "off" })
+                                    @Html.TextBoxFor(r => r.CONTRASENA, new { @id = "txtContrasena", @class = "form-control", @type = "password", placeholder = "Nueva contraseña", autocomplete = "off" })
                                     @Html.Label("Confirma contraseña", new {@class = "input-group-addon"})
                                     @Html.TextBox("txtConfirmaContrasena", null, new { @class = "form-control", @type = "password", placeholder = "Confirma Contraseña", autocomplete = "off" })
                                 </div>
@@ -152,5 +154,6 @@
                     <input type="submit" id="btnCrear" value="Crear cuenta" class="btn btn-info btn-sm" style="margin: 10px; padding: 10px;">
                 </div>
             }
+            @{ Html.EndForm(); }
         </div>
     </div>

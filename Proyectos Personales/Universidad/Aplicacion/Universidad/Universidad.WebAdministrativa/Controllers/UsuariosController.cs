@@ -84,18 +84,6 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public async Task<ActionResult> ObtenUsuario(string usuario)
-        {
-            var sesion = (Sesion)Session["Sesion"];
-            var servicio = new SvcUsuarios(sesion);
-
-            var persona = await servicio.ObtenUsuario(usuario);
-            var resultado = JsonConvert.SerializeObject(persona);
-
-            return Json(resultado, JsonRequestBehavior.AllowGet);
-        }
-
-        [SessionExpireFilter]
         public ActionResult CrearCuentaCompleted(List<US_CAT_ESTATUS_USUARIO> listaEstatus, List<US_CAT_NIVEL_USUARIO> listaNivelUsuario, List<US_CAT_TIPO_USUARIO> listaTipoUsuario, string personaId)
         {
             Sesion();
@@ -127,6 +115,26 @@ namespace Universidad.WebAdministrativa.Controllers
                 }).ToArray();
 
             return View();
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> ObtenUsuario(string usuario)
+        {
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcUsuarios(sesion);
+
+            var persona = await servicio.ObtenUsuario(usuario);
+            var resultado = JsonConvert.SerializeObject(persona);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult GuardaCuentaUsuario(US_USUARIOS usuario)
+        {
+            return View();
+            //return Json(usuario, JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpireFilter]
