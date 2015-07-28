@@ -131,10 +131,11 @@ namespace Universidad.WebAdministrativa.Controllers
 
         [HttpPost]
         [SessionExpireFilter]
-        public ActionResult GuardaCuentaUsuario(US_USUARIOS usuario)
+        public void GuardaCuentaUsuario(Models.ModelUsuario usuario)
         {
-            return View();
+            //return View();
             //return Json(usuario, JsonRequestBehavior.AllowGet);
+            //return null;
         }
 
         [SessionExpireFilter]
@@ -145,6 +146,5 @@ namespace Universidad.WebAdministrativa.Controllers
             var usuario = new US_USUARIOS();
             return View(usuario);
         }
-
     }
 }
