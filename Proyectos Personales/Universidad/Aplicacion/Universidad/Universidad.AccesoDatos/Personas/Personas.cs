@@ -16,6 +16,14 @@ namespace Universidad.AccesoDatos.Personas
             }
         }
 
+        public bool ActualizaPersonaLinq(PER_PERSONAS persona)
+        {
+            using (var r = new Repositorio<PER_PERSONAS>())
+            {
+                return r.Actualizar(persona);
+            }
+        }
+
         public PER_PERSONAS BuscarPersonaLinq(string idPersonaLink)
         {
             using (var r = new Repositorio<PER_PERSONAS>())

@@ -13,16 +13,54 @@
   <wsdl:message name="ISUsuarios_ObtenUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="ISUsuarios_ObtenUsuarioPorId_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenUsuarioPorId" />
+  </wsdl:message>
+  <wsdl:message name="ISUsuarios_ObtenUsuarioPorId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenUsuarioPorIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISUsuarios_CrearCuantaUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:CrearCuantaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="ISUsuarios_CrearCuantaUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CrearCuantaUsuarioResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISUsuarios">
     <wsdl:operation name="ObtenUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/ISUsuarios/ObtenUsuario" message="tns:ISUsuarios_ObtenUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISUsuarios/ObtenUsuarioResponse" message="tns:ISUsuarios_ObtenUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenUsuarioPorId">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISUsuarios/ObtenUsuarioPorId" message="tns:ISUsuarios_ObtenUsuarioPorId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISUsuarios/ObtenUsuarioPorIdResponse" message="tns:ISUsuarios_ObtenUsuarioPorId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CrearCuantaUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuario" message="tns:ISUsuarios_CrearCuantaUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuarioResponse" message="tns:ISUsuarios_CrearCuantaUsuario_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISUsuarios" type="tns:ISUsuarios">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ObtenUsuario">
       <soap:operation soapAction="http://tempuri.org/ISUsuarios/ObtenUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenUsuarioPorId">
+      <soap:operation soapAction="http://tempuri.org/ISUsuarios/ObtenUsuarioPorId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CrearCuantaUsuario">
+      <soap:operation soapAction="http://tempuri.org/ISUsuarios/CrearCuantaUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

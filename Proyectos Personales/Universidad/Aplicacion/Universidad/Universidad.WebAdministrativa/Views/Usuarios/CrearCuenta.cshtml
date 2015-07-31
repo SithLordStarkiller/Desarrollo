@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Crear cuenta de usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var personaId = ViewBag.PersonaId;
 }
 
 @section Head
@@ -64,16 +65,11 @@
                     url: '@Url.Action("ObtenUsuario", "Usuarios")',
                     success: function (response) {
                         if (response == "null") {
-                            //alert("No existe usuario");
                             $("#divUsuario").addClass('has-success').removeClass('has-error');
                             $("#btnValidaUsuario").addClass('btn-success').removeClass('btn-danger');
                             $("#btnCrear").removeAttr("disabled", "disabled");
 
                         } else {
-                            //var objeto = JSON.parse(response);
-                            //var existe = objeto.USUARIO;
-                            //alert("Existe Usuario " + existe);
-                            //$("#divUsuario").removeClass('has-success');
                             $("#divUsuario").addClass('has-error').removeClass('has-success');
                             $("#btnValidaUsuario").addClass('btn-danger').removeClass('btn-success');
                             $("#btnCrear").attr("disabled", "disabled");
@@ -90,6 +86,38 @@
                 $("#btnCrear").attr("disabled", "disabled");
             }
         }
+
+        function GuardaUsuario() {
+            var usuario = $("#txtUsuario").val();
+            var contrasena = $("#txtContrasena").val();
+            var tipoUsuario = $("#txtTipoUsuario").val();
+            var nivelUsuario = $("#txtNivelUsuario").val();
+            var estatusUsuario = $("#txtEstatusUsuario").val();
+            var personaId = '@personaId.ToString()';
+            $.ajax({
+                type: "POST",
+                data: {
+                    'usuario': usuario,
+                    'contrasena': contrasena,
+                    'tipoUsuario': tipoUsuario,
+                    'nivelUsuario': nivelUsuario,
+                    'estatusUsuario': estatusUsuario,
+                    'personaId': personaId
+                },
+                url: '@Url.Action("GuardaCuentaUsuario", "Usuarios")',
+                success: function (response) {
+                    if (response == "0") {
+                        alert("Error al crear cuenta de usuario");
+                    } else {
+                        alert("Se creo cuenta de usuario " + response);
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+            });
+        }
     </script>
 }
 <div class="jumbotron">
@@ -101,59 +129,55 @@
         <div class="panel-heading form-margin">
             <div class="panel-title">Llena los datos del usuario</div>
         </div>
-        @using (Html.BeginForm("GuardaCuentaUsuario", "Usuarios", FormMethod.Post, new { usuario = Model }))
-        {
-            <fieldset></fieldset>
-            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-                <div class="row">
-                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                        <div class="form-group col-md-4">
-                            <div class="input-group">
-                                @Html.Label("Estatus de usuario", null, new { @class = "input-group-addon" })
-                                @Html.DropDownListFor(r => r.IdEstatusUsuario, (IEnumerable<SelectListItem>)ViewBag.ListaEstatusUsuario, new { @class = "selectpicker", data_live_search = true })
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <div class="input-group">
-                                @Html.Label("Tipo de usuario", null, new { @class = "input-group-addon" })
-                                @Html.DropDownListFor(r => r.IdTipoUsuario, (IEnumerable<SelectListItem>)ViewBag.ListaTipoUsuario, new { @class = "selectpicker", data_live_search = true })
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <div class="input-group">
-                                @Html.Label("Nivel de usuario", null, new { @class = "input-group-addon" })
-                                @Html.DropDownListFor(r => r.IdNivelUsuario, (IEnumerable<SelectListItem>)ViewBag.ListaNivelUsuario, new { @class = "selectpicker", data_live_search = true })
-                            </div>
+        <fieldset></fieldset>
+        <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+            <div class="row">
+                <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                    <div class="form-group col-md-4">
+                        <div class="input-group">
+                            @Html.Label("Estatus de usuario", null, new { @class = "input-group-addon" })
+                            @Html.DropDownList("txtEstatusUsuario", (IEnumerable<SelectListItem>)ViewBag.ListaEstatusUsuario, new { @class = "selectpicker", data_live_search = true })
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                        <div class="form-group col-md-4">
-                            <div class="input-group" id="divUsuario">
-                                @Html.Label("Nuevo Usuario", new { @class = "input-group-addon" })
-                                @Html.TextBoxFor(r => r.Usuario, new { @class = "form-control", @id = "txtUsuario", placeholder = "Nuevo Usuario", autocomplete = "off" })
-                                <span class="input-group-btn">
-                                    <a href="#" id="btnValidaUsuario" class="btn btn-default" onclick=" ValidaUsuario(); ">Buscar</a>
-                                </span>
-                            </div>
+                    <div class="form-group col-md-4">
+                        <div class="input-group">
+                            @Html.Label("Tipo de usuario", null, new { @class = "input-group-addon" })
+                            @Html.DropDownList("txtTipoUsuario", (IEnumerable<SelectListItem>)ViewBag.ListaTipoUsuario, new { @class = "selectpicker", data_live_search = true })
                         </div>
-                        <div class="form-group col-md-8">
-                            <div class="input-group" id="divContrasena">
-                                @Html.Label("Nueva Contraseña", new { @class = "input-group-addon" })
-                                @Html.TextBoxFor(r => r.Contrasena, new { @id = "txtContrasena", @class = "form-control", @type = "password", placeholder = "Nueva contraseña", autocomplete = "off" })
-                                @Html.Label("Confirma contraseña", new { @class = "input-group-addon" })
-                                @Html.TextBoxFor(r => r.ConfirmacionContrasena, new { id = "txtConfirmaContrasena", @class = "form-control", @type = "password", placeholder = "Confirma Contraseña", autocomplete = "off" })
-                            </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="input-group">
+                            @Html.Label("Nivel de usuario", null, new { @class = "input-group-addon" })
+                            @Html.DropDownList("txtNivelUsuario", (IEnumerable<SelectListItem>)ViewBag.ListaNivelUsuario, new { @class = "selectpicker", data_live_search = true })
                         </div>
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 10px; float: right;" class="form-group">
-                <label>&nbsp;</label>
-                <input type="submit" id="btnCrear" value="Crear cuenta" class="btn btn-info btn-sm" style="margin: 10px; padding: 10px;">
+            <div class="row">
+                <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                    <div class="form-group col-md-4">
+                        <div class="input-group" id="divUsuario">
+                            @Html.Label("Nuevo Usuario", new { @class = "input-group-addon" })
+                            @Html.TextBox("txtNuevoUsuario", "", new { @class = "form-control", @id = "txtUsuario", placeholder = "Nuevo Usuario", autocomplete = "off" })
+                            <span class="input-group-btn">
+                                <a href="#" id="btnValidaUsuario" class="btn btn-default" onclick=" ValidaUsuario(); ">Buscar</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <div class="input-group" id="divContrasena">
+                            @Html.Label("Nueva Contraseña", new { @class = "input-group-addon" })
+                            @Html.TextBox("txtContrasena", "", new { @class = "form-control", @type = "password", placeholder = "Nueva contraseña", autocomplete = "off" })
+                            @Html.Label("Confirma contraseña", new { @class = "input-group-addon" })
+                            @Html.TextBox("txtConfirmaContrasena", "", new { @class = "form-control", @type = "password", placeholder = "Confirma Contraseña", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
             </div>
-        }
-        @{ Html.EndForm(); }
+        </div>
+        <div style="margin-top: 10px; float: right;" class="form-group">
+            <label>&nbsp;</label>
+            <input type="button" id="btnCrear" value="Crear cuenta" class="btn btn-info btn-sm" style="margin: 10px; padding: 10px;" onclick="GuardaUsuario();">
+        </div>
     </div>
 </div>

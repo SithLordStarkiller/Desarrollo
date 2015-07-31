@@ -20,6 +20,18 @@ namespace Universidad.Controlador.SVRUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioResponse")]
         System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioAsync(string usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuarioPorId", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioPorIdResponse")]
+        Universidad.Entidades.US_USUARIOS ObtenUsuarioPorId(int idUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuarioPorId", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioPorIdResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioPorIdAsync(int idUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/CrearCuantaUsuarioResponse")]
+        Universidad.Entidades.US_USUARIOS CrearCuantaUsuario(Universidad.Entidades.US_USUARIOS usuario, string personaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/CrearCuantaUsuarioResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> CrearCuantaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario, string personaId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +67,22 @@ namespace Universidad.Controlador.SVRUsuarios {
         
         public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioAsync(string usuario) {
             return base.Channel.ObtenUsuarioAsync(usuario);
+        }
+        
+        public Universidad.Entidades.US_USUARIOS ObtenUsuarioPorId(int idUsuario) {
+            return base.Channel.ObtenUsuarioPorId(idUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioPorIdAsync(int idUsuario) {
+            return base.Channel.ObtenUsuarioPorIdAsync(idUsuario);
+        }
+        
+        public Universidad.Entidades.US_USUARIOS CrearCuantaUsuario(Universidad.Entidades.US_USUARIOS usuario, string personaId) {
+            return base.Channel.CrearCuantaUsuario(usuario, personaId);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> CrearCuantaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario, string personaId) {
+            return base.Channel.CrearCuantaUsuarioAsync(usuario, personaId);
         }
     }
 }

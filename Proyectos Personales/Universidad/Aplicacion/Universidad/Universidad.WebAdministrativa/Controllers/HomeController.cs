@@ -41,7 +41,7 @@ namespace Universidad.WebAdministrativa.Controllers
             };
 
             AsyncManager.OutstandingOperations.Increment();
-            serviciosCatalogos.ObtenTipoUsuario(usuario.ID_USUARIO);
+            if (usuario.ID_TIPO_USUARIO != null) serviciosCatalogos.ObtenTipoUsuario((int)usuario.ID_TIPO_USUARIO);
         }
 
         [SessionExpireFilter]

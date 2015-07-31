@@ -9,5 +9,12 @@
     {
         [OperationContract]
         US_USUARIOS ObtenUsuario(string usuario);
+
+        [OperationContract]
+        US_USUARIOS ObtenUsuarioPorId(int idUsuario);
+
+        [OperationContract]
+        US_USUARIOS CrearCuantaUsuario(US_USUARIOS usuario, string personaId);
+
     }
 }

@@ -41,7 +41,7 @@ namespace Universidad.LogicaNegocios.Personas
                 
                 var cve = datos + fRegistro + persona.ID_TIPO_PERSONA;
                 persona.NOMBRE_COMPLETO = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
-                persona.ID_PER_LINKID = cve;
+                persona.ID_PER_LINKID = cve.ToUpper();
                 persona.FECHAINGRESO = DateTime.Now;
 
                 persona = new AccesoDatos.Personas.Personas().InsertaPersonaLinq(persona);

@@ -131,20 +131,125 @@ namespace Universidad.WebAdministrativa.Controllers
 
         [HttpPost]
         [SessionExpireFilter]
-        public void GuardaCuentaUsuario(Models.ModelUsuario usuario)
+        public async Task<int> GuardaCuentaUsuario(string usuario, string contrasena, int tipoUsuario, int nivelUsuario, int estatusUsuario, string personaId)
         {
-            //return View();
-            //return Json(usuario, JsonRequestBehavior.AllowGet);
-            //return null;
+            var nuevoUsuario = new US_USUARIOS
+            {
+                USUARIO = usuario,
+                CONTRASENA = contrasena,
+                ID_TIPO_USUARIO = tipoUsuario,
+                ID_NIVEL_USUARIO = nivelUsuario,
+                ID_ESTATUS_USUARIOS = estatusUsuario
+            };
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcUsuarios(sesion);
+
+            nuevoUsuario = await servicio.CreaCuentaUsuario(nuevoUsuario, personaId);
+
+            return nuevoUsuario == null ? 0 : nuevoUsuario.ID_USUARIO;
         }
 
         [SessionExpireFilter]
-        public ActionResult EditarCuenta(string personaId)
+        public void EditarCuentaAsync(string personaId)
         {
-            Sesion();
-            ViewBag.PersonaId = personaId;
-            var usuario = new US_USUARIOS();
-            return View(usuario);
+            var sesion = (Sesion)Session["Sesion"];
+            var servicosCatalogos = new SVC_GestionCatalogos(sesion);
+
+            AsyncManager.Parameters["personaId"] = personaId;
+
+            servicosCatalogos.ObtenTablaUsCatEstatusUsuarioAFinalizado +=
+                delegate(List<US_CAT_ESTATUS_USUARIO> listaEstatusUsuarios)
+                {
+                    AsyncManager.Parameters["listaEstatus"] = listaEstatusUsuarios;
+                    AsyncManager.OutstandingOperations.Decrement();
+                };
+
+            servicosCatalogos.ObtenTablaUsCatNivelUsuarioFinalizado +=
+                delegate(List<US_CAT_NIVEL_USUARIO> listaNivelUsuarios)
+                {
+                    AsyncManager.Parameters["listaNivelUsuario"] = listaNivelUsuarios;
+                    AsyncManager.OutstandingOperations.Decrement();
+                };
+
+            servicosCatalogos.ObtenTablaUsCatTipoUsuariosFinalizado +=
+                delegate(List<US_CAT_TIPO_USUARIO> listaTipoUsuarios)
+                {
+                    AsyncManager.Parameters["listaTipoUsuario"] = listaTipoUsuarios;
+                    AsyncManager.OutstandingOperations.Decrement();
+                };
+
+            AsyncManager.OutstandingOperations.Increment(3);
+            servicosCatalogos.ObtenTablaUsCatTipoUsuario();
+            servicosCatalogos.ObtenTablaUsCatEstatusUsuario();
+            servicosCatalogos.ObtenTablaUsCatNivelUsuario();
         }
+
+        [SessionExpireFilter]
+        public ActionResult EditarCuentaCompleted(List<US_CAT_ESTATUS_USUARIO> listaEstatus, List<US_CAT_NIVEL_USUARIO> listaNivelUsuario, List<US_CAT_TIPO_USUARIO> listaTipoUsuario, string personaId)
+        {
+
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+
+            var serviciosPersona = new SvcPersonas(sesion);
+
+            var persona = serviciosPersona.BuscarPersona(personaId);
+
+            ViewBag.Persona = persona;
+
+            ViewBag.ListaEstatusUsuario = listaEstatus.Select(c => new SelectListItem
+            {
+                Value = c.ID_ESTATUS_USUARIOS.ToString(CultureInfo.InvariantCulture),
+                Text = c.ESTATUS_USUARIO
+            }).ToArray();
+
+            ViewBag.ListaNivelUsuario = listaNivelUsuario.Select(c => new SelectListItem
+            {
+                Value = c.ID_NIVEL_USUARIO.ToString(CultureInfo.InvariantCulture),
+                Text = c.NIVEL_USUARIO
+            }).ToArray();
+
+            ViewBag.ListaTipoUsuario = listaTipoUsuario.Select(c => new SelectListItem
+            {
+                Value = c.ID_TIPO_USUARIO.ToString(CultureInfo.InvariantCulture),
+                Text = c.TIPO_USUARIO
+            }).ToArray();
+
+            ViewBag.PersonaId = personaId;
+
+
+            return View();
+        }
+
+        private async Task<US_USUARIOS> ObtenUsuario(Sesion sesion)
+        {
+            var servicio = new SvcUsuarios(sesion);
+
+            var usuario = await servicio.ObtenUsuarioPorId((int)((PER_PERSONAS) Session["Persona"]).ID_USUARIO);
+
+            return usuario;
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public int EditaCuentaUsuario(string usuario, string contrasena, int tipoUsuario, int nivelUsuario, int estatusUsuario, string personaId)
+        {
+            var nuevoUsuario = new US_USUARIOS
+            {
+                USUARIO = usuario,
+                CONTRASENA = contrasena,
+                ID_TIPO_USUARIO = tipoUsuario,
+                ID_NIVEL_USUARIO = nivelUsuario,
+                ID_ESTATUS_USUARIOS = estatusUsuario
+            };
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcUsuarios(sesion);
+
+            return 0;
+        }
+
     }
 }

@@ -13,5 +13,21 @@
                 return r.Extraer(a => a.USUARIO == usuario);
             }
         }
+
+        public US_USUARIOS ObtenUsuarioLinq(int idUsuario)
+        {
+            using (var r = new Repositorio<US_USUARIOS>())
+            {
+                return r.Extraer(a => a.ID_USUARIO == idUsuario);
+            }
+        }
+
+        public US_USUARIOS InsertaUsuarioLinq(US_USUARIOS usuario)
+        {
+            using (var r = new Repositorio<US_USUARIOS>())
+            {
+                return r.Agregar(usuario);
+            }
+        }
     }
 }
