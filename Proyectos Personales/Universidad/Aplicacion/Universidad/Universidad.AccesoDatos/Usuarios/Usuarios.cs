@@ -29,5 +29,13 @@
                 return r.Agregar(usuario);
             }
         }
+
+        public bool ActulizaUsuarioLinq(US_USUARIOS usuario)
+        {
+            using (var r = new Repositorio<US_USUARIOS>())
+            {
+                return r.Actualizar(usuario);
+            }
+        }
     }
 }

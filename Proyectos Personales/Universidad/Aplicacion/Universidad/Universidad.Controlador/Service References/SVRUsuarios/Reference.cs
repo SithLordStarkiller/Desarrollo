@@ -32,6 +32,12 @@ namespace Universidad.Controlador.SVRUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/CrearCuantaUsuarioResponse")]
         System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> CrearCuantaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario, string personaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuarioResponse")]
+        Universidad.Entidades.US_USUARIOS ActualizaCuentaUsuario(Universidad.Entidades.US_USUARIOS usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuarioResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ActualizaCuentaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -83,6 +89,14 @@ namespace Universidad.Controlador.SVRUsuarios {
         
         public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> CrearCuantaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario, string personaId) {
             return base.Channel.CrearCuantaUsuarioAsync(usuario, personaId);
+        }
+        
+        public Universidad.Entidades.US_USUARIOS ActualizaCuentaUsuario(Universidad.Entidades.US_USUARIOS usuario) {
+            return base.Channel.ActualizaCuentaUsuario(usuario);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ActualizaCuentaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario) {
+            return base.Channel.ActualizaCuentaUsuarioAsync(usuario);
         }
     }
 }

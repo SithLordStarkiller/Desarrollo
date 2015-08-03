@@ -43,6 +43,7 @@
                         var correoPersonal = persona.CorreoPersonal;
                         var correoUniversidad = persona.CorreoUniversidad;
                         var usuario = persona.Usuario;
+
                         result += '<h4><label>Id : ' + linkId + '</label></h4>';
                         result += '<h5><label>Nombre: ' + nombre + '</label></h5>';
                         result += '<h5><label>Fecha de registro: ' + fechaRegistro + '</label></h5>';
@@ -65,7 +66,10 @@
                             result += '</div><div class="col-md-5"><img src="data:image/' + formato + ';base64,' + binario + '" id="id' + nombreFoto + '"width="100%" height="100%" />';
                             result += '</div>';
                         }
-
+                        else {
+                            result += '</div><div class="col-md-5"><img src="../imagenes/user.jpg" width="100%" height="100%" />';
+                            result += '</div>';
+                        }
                         result += '</div></div>';
                         $("#DatosPersona").html(result);
                     }
@@ -84,6 +88,8 @@
     <h2>@ViewBag.Title</h2>
     <br />
 
+    <div id="DatosPersona"></div>
+
     <div class="panel panel-default form-margin">
         <div class="panel-heading form-margin">
             <div class="panel-title">Llena los datos del usuario</div>
@@ -91,7 +97,7 @@
         @Html.ValidationSummary(true)
         <fieldset></fieldset>
 
-        <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+        <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;" id="">
             <div class="input-group form-group col-lg-offset-4 col-md-4">
                 @Html.Label("Id Persona", null, new { @class = "input-group-addon" })
                 @Html.TextBox("txtIdPersonaLink", null, new { @class = "form-control", placeholder = "Id Persona" })
@@ -100,7 +106,5 @@
                 </span>
             </div>
         </div>
-        <input type="submit" value="Editar" class="btn btn-info btn-sm" style=" margin: 10px; padding: 10px; visibility:hidden;" />
     </div>
-    <div id="DatosPersona"></div>
 </div>

@@ -51,7 +51,7 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             var sesion = (Sesion)Session["Sesion"];
             var servicosCatalogos = new SVC_GestionCatalogos(sesion);
-            
+
             AsyncManager.Parameters["personaId"] = personaId;
 
             servicosCatalogos.ObtenTablaUsCatEstatusUsuarioAFinalizado +=
@@ -195,7 +195,7 @@ namespace Universidad.WebAdministrativa.Controllers
 
             var serviciosPersona = new SvcPersonas(sesion);
 
-            var persona = serviciosPersona.BuscarPersona(personaId);
+            var persona = (serviciosPersona.BuscarPersona(personaId)).Result;
 
             ViewBag.Persona = persona;
 
@@ -217,27 +217,26 @@ namespace Universidad.WebAdministrativa.Controllers
                 Text = c.TIPO_USUARIO
             }).ToArray();
 
-            ViewBag.PersonaId = personaId;
-
-
-            return View();
-        }
-
-        private async Task<US_USUARIOS> ObtenUsuario(Sesion sesion)
-        {
             var servicio = new SvcUsuarios(sesion);
 
-            var usuario = await servicio.ObtenUsuarioPorId((int)((PER_PERSONAS) Session["Persona"]).ID_USUARIO);
+            var idUsuario = (persona).ID_USUARIO;
+            
+            if (idUsuario == null) return View();
+            
+            var usuario = (servicio.ObtenUsuarioPorId((int) idUsuario)).Result;
 
-            return usuario;
+            ViewBag.PersonaId = personaId;
+
+            return View(usuario);
         }
 
         [HttpPost]
         [SessionExpireFilter]
-        public int EditaCuentaUsuario(string usuario, string contrasena, int tipoUsuario, int nivelUsuario, int estatusUsuario, string personaId)
+        public async Task<bool> EditaCuentaUsuario(int idUsuario,string usuario, string contrasena, int tipoUsuario, int nivelUsuario, int estatusUsuario)
         {
             var nuevoUsuario = new US_USUARIOS
             {
+                ID_USUARIO = idUsuario,
                 USUARIO = usuario,
                 CONTRASENA = contrasena,
                 ID_TIPO_USUARIO = tipoUsuario,
@@ -248,7 +247,9 @@ namespace Universidad.WebAdministrativa.Controllers
             var sesion = (Sesion)Session["Sesion"];
             var servicio = new SvcUsuarios(sesion);
 
-            return 0;
+            nuevoUsuario = await servicio.ActualizaCuentaUsuario(nuevoUsuario);
+
+            return nuevoUsuario != null;
         }
 
     }

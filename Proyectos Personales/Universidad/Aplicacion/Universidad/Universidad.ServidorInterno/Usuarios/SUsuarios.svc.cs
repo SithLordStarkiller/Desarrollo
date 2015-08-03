@@ -19,5 +19,10 @@
         {
             return new Usuarios().CreaCuentaUsuario(usuario, personaId);
         }
+
+        public US_USUARIOS ActualizaCuentaUsuario(US_USUARIOS usuario)
+        {
+            return new Usuarios().ActualizaCuentaUsuarios(usuario);
+        }
     }
 }

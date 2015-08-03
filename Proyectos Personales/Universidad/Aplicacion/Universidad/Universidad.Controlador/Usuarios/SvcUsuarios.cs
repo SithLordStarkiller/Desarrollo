@@ -34,5 +34,10 @@
         {
             return Task.Run(() => _servicio.ObtenUsuarioPorIdAsync(idUsuario));
         }
+
+        public Task<US_USUARIOS> ActualizaCuentaUsuario(US_USUARIOS usuario)
+        {
+            return Task.Run(() => _servicio.ActualizaCuentaUsuarioAsync(usuario));
+        }
     }
 }

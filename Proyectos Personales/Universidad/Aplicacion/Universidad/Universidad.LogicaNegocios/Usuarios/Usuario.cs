@@ -25,5 +25,12 @@
 
             return actualizado ? nuevoUsuario : null;
         }
+
+        public US_USUARIOS ActualizaCuentaUsuarios(US_USUARIOS usuario)
+        {
+            var actualizado = new AccesoDatos.Usuarios.Usuarios().ActulizaUsuarioLinq(usuario);
+
+            return actualizado ? usuario : null;
+        }
     }
 }

@@ -1,8 +1,8 @@
-﻿@model Universidad.Entidades.US_USUARIOS
+﻿@using System.Globalization
+@model Universidad.Entidades.US_USUARIOS
 @{
     ViewBag.Title = "Crear cuenta de usuario";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var personaId = ViewBag.PersonaId;
 }
 
 @section Head
@@ -30,11 +30,10 @@
                 if (c == cc && (c != "" && cc != "")) {
                     $("#divContrasena").removeClass('btn-success').addClass('btn-danger');
                     $("#divContrasena").addClass('has-success').removeClass('has-error');
-                    ValidaUsuario();
                 } else {
                     $("#divContrasena").removeClass('btn-danger').addClass('btn-success');
                     $("#divContrasena").addClass('has-error').removeClass('has-success');
-                    $("#btnCrear").attr("disabled", "disabled");
+                    $("#btnEditar").attr("disabled", "disabled");
                 }
             });
 
@@ -45,47 +44,16 @@
                 if (c == cc && (c != "" && cc != "")) {
                     $("#divContrasena").removeClass('btn-success').addClass('btn-danger');
                     $("#divContrasena").addClass('has-success').removeClass('has-error');
-                    $("#btnCrear").removeAttr("disabled", "disabled");
-                    ValidaUsuario();
+                    $("#btnEditar").removeAttr("disabled", "disabled");
                 } else {
                     $("#divContrasena").removeClass('btn-danger').addClass('btn-success');
                     $("#divContrasena").addClass('has-error').removeClass('has-success');
-                    $("#btnCrear").attr("disabled", "disabled");
+                    $("#btnEditar").attr("disabled", "disabled");
                 }
             });
         });
 
-        function ValidaUsuario() {
-            var usuario = $("#txtUsuario").val();
-            if (usuario != "") {
 
-                $.ajax({
-                    type: "POST",
-                    data: { 'usuario': usuario },
-                    url: '@Url.Action("ObtenUsuario", "Usuarios")',
-                    success: function (response) {
-                        if (response == "null") {
-                            $("#divUsuario").addClass('has-success').removeClass('has-error');
-                            $("#btnValidaUsuario").addClass('btn-success').removeClass('btn-danger');
-                            $("#btnCrear").removeAttr("disabled", "disabled");
-
-                        } else {
-                            $("#divUsuario").addClass('has-error').removeClass('has-success');
-                            $("#btnValidaUsuario").addClass('btn-danger').removeClass('btn-success');
-                            $("#btnCrear").attr("disabled", "disabled");
-                        }
-                    },
-                    error:
-                        function (xhr, status, error) {
-                            alert(status + " : " + error);
-                        }
-                });
-            } else {
-                $("#divUsuario").addClass('has-error').removeClass('has-success');
-                $("#btnValidaUsuario").addClass('btn-danger').removeClass('btn-success');
-                $("#btnCrear").attr("disabled", "disabled");
-            }
-        }
 
         function EditaUsuario() {
             var usuario = $("#txtUsuario").val();
@@ -93,7 +61,8 @@
             var tipoUsuario = $("#txtTipoUsuario").val();
             var nivelUsuario = $("#txtNivelUsuario").val();
             var estatusUsuario = $("#txtEstatusUsuario").val();
-            var personaId = '@personaId.ToString()';
+
+            var idUsuario = '@Model.ID_USUARIO.ToString(CultureInfo.InvariantCulture)';
             $.ajax({
                 type: "POST",
                 data: {
@@ -102,7 +71,7 @@
                     'tipoUsuario': tipoUsuario,
                     'nivelUsuario': nivelUsuario,
                     'estatusUsuario': estatusUsuario,
-                    'personaId': personaId
+                    'idUsuario': idUsuario
                 },
                 url: '@Url.Action("EditaCuentaUsuario", "Usuarios")',
                 success: function (response) {
@@ -136,19 +105,19 @@
                     <div class="form-group col-md-4">
                         <div class="input-group">
                             @Html.Label("Estatus de usuario", null, new { @class = "input-group-addon" })
-                            @Html.DropDownList("txtEstatusUsuario", (IEnumerable<SelectListItem>)ViewBag.ListaEstatusUsuario, new { @class = "selectpicker", data_live_search = true })
+                            @Html.DropDownListFor(r => r.ID_ESTATUS_USUARIOS, (IEnumerable<SelectListItem>)ViewBag.ListaEstatusUsuario, new { id = "txtEstatusUsuario", @class = "selectpicker", data_live_search = true })
                         </div>
                     </div>
                     <div class="form-group col-md-4">
                         <div class="input-group">
                             @Html.Label("Tipo de usuario", null, new { @class = "input-group-addon" })
-                            @Html.DropDownList("txtTipoUsuario", (IEnumerable<SelectListItem>)ViewBag.ListaTipoUsuario, new { @class = "selectpicker", data_live_search = true })
+                            @Html.DropDownListFor(r => r.ID_TIPO_USUARIO, (IEnumerable<SelectListItem>)ViewBag.ListaTipoUsuario, new { id = "txtTipoUsuario", @class = "selectpicker", data_live_search = true })
                         </div>
                     </div>
                     <div class="form-group col-md-4">
                         <div class="input-group">
                             @Html.Label("Nivel de usuario", null, new { @class = "input-group-addon" })
-                            @Html.DropDownList("txtNivelUsuario", (IEnumerable<SelectListItem>)ViewBag.ListaNivelUsuario, new { @class = "selectpicker", data_live_search = true })
+                            @Html.DropDownListFor(r => r.ID_NIVEL_USUARIO, (IEnumerable<SelectListItem>)ViewBag.ListaNivelUsuario, new { id = "txtNivelUsuario", @class = "selectpicker", data_live_search = true })
                         </div>
                     </div>
                 </div>
@@ -158,18 +127,15 @@
                     <div class="form-group col-md-4">
                         <div class="input-group" id="divUsuario">
                             @Html.Label("Nuevo Usuario", new { @class = "input-group-addon" })
-                            @Html.TextBox("txtNuevoUsuario", "", new { @class = "form-control", @id = "txtUsuario", placeholder = "Nuevo Usuario", autocomplete = "off" })
-                            <span class="input-group-btn">
-                                <a href="#" id="btnValidaUsuario" class="btn btn-default" onclick=" ValidaUsuario(); ">Buscar</a>
-                            </span>
+                            @Html.TextBoxFor(r => r.USUARIO, "", new { @class = "form-control", @id = "txtUsuario", placeholder = "Nuevo Usuario", autocomplete = "off", disabled = "disabled" })
                         </div>
                     </div>
                     <div class="form-group col-md-8">
                         <div class="input-group" id="divContrasena">
                             @Html.Label("Nueva Contraseña", new { @class = "input-group-addon" })
-                            @Html.TextBox("txtContrasena", "", new { @class = "form-control", @type = "password", placeholder = "Nueva contraseña", autocomplete = "off" })
+                            @Html.TextBoxFor(r => r.CONTRASENA, "", new { @id = "txtContrasena", @class = "form-control", @type = "password", placeholder = "Nueva contraseña", autocomplete = "off" })
                             @Html.Label("Confirma contraseña", new { @class = "input-group-addon" })
-                            @Html.TextBox("txtConfirmaContrasena", "", new { @class = "form-control", @type = "password", placeholder = "Confirma Contraseña", autocomplete = "off" })
+                            @Html.TextBoxFor(r => r.CONTRASENA, "", new { @id = "txtConfirmaContrasena", @class = "form-control", @type = "password", placeholder = "Confirma Contraseña", autocomplete = "off" })
                         </div>
                     </div>
                 </div>
@@ -177,7 +143,7 @@
         </div>
         <div style="margin-top: 10px; float: right;" class="form-group">
             <label>&nbsp;</label>
-            <input type="button" id="btnEditar" value="Crear cuenta" class="btn btn-info btn-sm" style="margin: 10px; padding: 10px;" onclick="EditaUsuario();">
+            <input type="button" id="btnEditar" value="Editar cuenta" class="btn btn-info btn-sm" style="margin: 10px; padding: 10px;" onclick="EditaUsuario();">
         </div>
     </div>
 </div>

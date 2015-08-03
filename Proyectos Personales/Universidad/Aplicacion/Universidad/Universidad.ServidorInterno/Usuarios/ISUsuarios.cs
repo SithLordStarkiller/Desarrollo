@@ -16,5 +16,8 @@
         [OperationContract]
         US_USUARIOS CrearCuantaUsuario(US_USUARIOS usuario, string personaId);
 
+        [OperationContract]
+        US_USUARIOS ActualizaCuentaUsuario(US_USUARIOS usuario);
+
     }
 }
