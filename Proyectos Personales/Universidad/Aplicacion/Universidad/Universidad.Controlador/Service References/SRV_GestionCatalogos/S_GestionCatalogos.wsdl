@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades" />
+      <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades.Catalogos" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_InputMessage">
@@ -73,6 +74,18 @@
   <wsdl:message name="IS_GestionCatalogos_ObtenCodigoPostal_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenCodigoPostalResponse" />
   </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenTablasCatalogos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTablasCatalogos" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenTablasCatalogos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTablasCatalogosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCatalogosColonias_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatalogosColonias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCatalogosColonias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatalogosColoniasResponse" />
+  </wsdl:message>
   <wsdl:portType name="IS_GestionCatalogos">
     <wsdl:operation name="ObtenTablaUsCatTipoUsuarios">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios" message="tns:IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_InputMessage" />
@@ -117,6 +130,14 @@
     <wsdl:operation name="ObtenCodigoPostal">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal" message="tns:IS_GestionCatalogos_ObtenCodigoPostal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostalResponse" message="tns:IS_GestionCatalogos_ObtenCodigoPostal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTablasCatalogos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogos" message="tns:IS_GestionCatalogos_ObtenTablasCatalogos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogosResponse" message="tns:IS_GestionCatalogos_ObtenTablasCatalogos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatalogosColonias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColonias" message="tns:IS_GestionCatalogos_ObtenCatalogosColonias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColoniasResponse" message="tns:IS_GestionCatalogos_ObtenCatalogosColonias_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_GestionCatalogos" type="tns:IS_GestionCatalogos">
@@ -213,6 +234,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenCodigoPostal">
       <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTablasCatalogos">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatalogosColonias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColonias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

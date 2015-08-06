@@ -4,7 +4,7 @@ namespace Universidad.WebAdministrativa.Controllers
 {
     public class ReportesController : Controller
     {
-        public ActionResult index()
+        public ActionResult Index()
         {
             return View();
         }

@@ -1,8 +1,85 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Catalogos";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var lista = ViewBag.ListaTablasCatalogos;
+
 }
 
-<h2>Catalogos</h2>
+@section Head
+{
+    <script src="/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
+}
 
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                language: 'es',
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
+            });
+        });
+
+        function DetallesCatalogos() {
+            var tabla = $("#ddlCatalogo option:selected").text();
+            window.location.href = '@Url.Action("ObtenCatalogo", "Catalogos")' + '?tabla=' + tabla;
+
+            @*$.ajax({
+                type: "POST",
+                data: { 'tabla': tabla },
+                url: '@Url.Action("ObtenCatalogo", "Catalogos")',
+                success: function (response) {
+                    if (response == "null") {
+                    } else {
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+            });*@
+        }
+
+    </script>
+}
+<div class="jumbotron">
+    <br />
+    <h2>@ViewBag.Title</h2>
+    <br />
+
+    <div class="panel panel-default form-margin">
+        <div class="panel-heading form-margin">
+            <div class="panel-title">Selecciona uno de los cataogos del sistema</div>
+        </div>
+        <fieldset>
+            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                        <div class="form-group col-lg-offset-4 col-md-4">
+                            <div class="input-group">
+                                @Html.Label("Catalogos", new { @class = "input-group-addon" })
+                                @Html.DropDownList("ddlCatalogo", (IEnumerable<SelectListItem>)lista, new { @class = "selectpicker", data_live_search = true })
+                            </div>
+                            <span class="input-group-btn">
+                                <a href="#" id="btnEditarCatalogo" class="btn btn-default" onclick="DetallesCatalogos();">ver detalles del catalogo</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

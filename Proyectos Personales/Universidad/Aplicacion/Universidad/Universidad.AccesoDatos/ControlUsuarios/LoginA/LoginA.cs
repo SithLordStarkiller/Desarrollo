@@ -31,8 +31,6 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
             const string executesqlstr = "SELECT TOP 1 * FROM US_USUARIOS WHERE USUARIO = @Usuario AND CONTRASENA = @Contrasena";
             var resultado = new US_USUARIOS();
 
-            //var contrasenaEncriptada = new Encriptacion().DesencriptarTexto(contrasena);
-
             var para = new[] { 
                 new SqlParameter("@Usuario",nombre),
                 new SqlParameter("@Contrasena",contrasena)                    

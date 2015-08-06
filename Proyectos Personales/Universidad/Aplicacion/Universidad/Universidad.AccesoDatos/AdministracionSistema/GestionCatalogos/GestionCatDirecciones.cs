@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Universidad.Entidades;
 
 namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
 {
     public class GestionCatDirecciones
     {
-        private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
+        //private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
 
         public List<DIR_CAT_COLONIAS> ObtenColoniasPorCpLinq(int codigoPostal)
         {
@@ -48,6 +45,38 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
             using (var aux = new Repositorio<DIR_CAT_COLONIAS>())
             {
                 return aux.Filtro(r => r.IDESTADO == estado && r.IDMUNICIPIO == municipio && r.IDCOLONIA == colonia).FirstOrDefault();
+            }
+        }
+
+        public List<DIR_CAT_COLONIAS> ObtenCatalogoColonias()
+        {
+            using (var aux = new Repositorio<DIR_CAT_COLONIAS>())
+            {
+                return aux.TablaCompleta();
+            }
+        }
+
+        public List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogoMunicipios()
+        {
+            using (var aux = new Repositorio<DIR_CAT_DELG_MUNICIPIO>())
+            {
+                return aux.TablaCompleta();
+            }
+        }
+
+        public List<DIR_CAT_ESTADO> ObtenCatalogoEstados()
+        {
+            using (var aux = new Repositorio<DIR_CAT_ESTADO>())
+            {
+                return aux.TablaCompleta();
+            }
+        }
+
+        public List<DIR_CAT_TIPO_ASENTAMIENTO> ObtenCatalogosTipoAsentamiento()
+        {
+            using (var aux = new Repositorio<DIR_CAT_TIPO_ASENTAMIENTO>())
+            {
+                return aux.TablaCompleta();
             }
         }
     }

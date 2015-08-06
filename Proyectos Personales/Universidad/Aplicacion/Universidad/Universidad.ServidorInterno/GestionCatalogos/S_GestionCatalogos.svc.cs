@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Universidad.Entidades;
+using Universidad.Entidades.Catalogos;
 
 
 namespace Universidad.ServidorInterno.GestionCatalogos
@@ -62,6 +63,16 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         public DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia)
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCodigoPostal(estado, municipio, colonia);
+        }
+
+        public List<ListasGenerica> ObtenTablasCatalogos()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenTablasCatalogos();
+        }
+
+        public List<DIR_CAT_COLONIAS> ObtenCatalogosColonias()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatalogosColonias();
         }
     }
 }

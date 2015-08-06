@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades" />
+  <xs:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades.Catalogos" />
   <xs:element name="ObtenTablaUsCatTipoUsuarios">
     <xs:complexType>
       <xs:sequence />
@@ -143,6 +144,30 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Universidad.Entidades" minOccurs="0" name="ObtenCodigoPostalResult" nillable="true" type="q11:DIR_CAT_COLONIAS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenTablasCatalogos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenTablasCatalogosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Universidad.Entidades.Catalogos" minOccurs="0" name="ObtenTablasCatalogosResult" nillable="true" type="q12:ArrayOfListasGenerica" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenCatalogosColonias">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenCatalogosColoniasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Universidad.Entidades" minOccurs="0" name="ObtenCatalogosColoniasResult" nillable="true" type="q13:ArrayOfDIR_CAT_COLONIAS" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

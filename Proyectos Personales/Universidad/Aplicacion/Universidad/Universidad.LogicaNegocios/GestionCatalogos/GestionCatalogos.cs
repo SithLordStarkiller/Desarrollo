@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Universidad.Entidades;
 using Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos;
+using Universidad.Entidades.Catalogos;
 
 namespace Universidad.LogicaNegocios.GestionCatalogos
 {
@@ -54,6 +55,11 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
             return new GestionCatTipoPersona().ObtenCatTipoPersonaLinq();
         }
 
+        public List<ListasGenerica> ObtenTablasCatalogos()
+        {
+            return new AccesoDatos.AdministracionSistema.GestionCatalogos.GestionCatalogos().ObtenTablasCatalogosTsql();
+        }
+
         #region Gestion de catalogos Direcciones
 
         public List<DIR_CAT_ESTADO> ObtenCatEstados()
@@ -79,6 +85,11 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
         public DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia)
         {
             return new GestionCatDirecciones().ObtenCodigoPostalLinq(estado, municipio, colonia);
+        }
+
+        public List<DIR_CAT_COLONIAS> ObtenCatalogosColonias()
+        {
+            return new GestionCatDirecciones().ObtenCatalogoColonias();
         }
 
         #endregion

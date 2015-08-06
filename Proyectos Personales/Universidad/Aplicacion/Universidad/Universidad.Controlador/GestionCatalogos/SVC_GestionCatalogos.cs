@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Universidad.Controlador.SRV_GestionCatalogos;
 using Universidad.Entidades;
+using Universidad.Entidades.Catalogos;
 using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.Controlador.GestionCatalogos
@@ -282,6 +283,54 @@ namespace Universidad.Controlador.GestionCatalogos
             var lista = resultado;
             ObtenCodigoPostalFinalizado(lista);
             _servicio.ObtenCodigoPostalCompleted -= _servicio_ObtenCodigoPostalCompleted;
+        }
+
+        #endregion
+
+        #region Obten Catalogo DIR_CAT_COLONIAS
+
+        public delegate void ObtenCatalogosColoniasArgs(List<DIR_CAT_COLONIAS> colonia);
+
+        public event ObtenCatalogosColoniasArgs ObtenCatalogosColoniasFinalizado;
+
+        public void ObtenCatalogosColonias()
+        {
+            _servicio.ObtenCatalogosColoniasCompleted +=_servicio_ObtenCatalogosColoniasCompleted;
+            _servicio.ObtenCatalogosColoniasAsync();
+        }
+
+        private void _servicio_ObtenCatalogosColoniasCompleted(object sender, ObtenCatalogosColoniasCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = resultado;
+            ObtenCatalogosColoniasFinalizado(lista);
+            _servicio.ObtenCatalogosColoniasCompleted -= _servicio_ObtenCatalogosColoniasCompleted;
+        }
+
+        #endregion
+
+        #region Obten Tablas Catalogos
+
+        public delegate void ObtenTablasCatalogosArgs(List<ListasGenerica> colonia);
+
+        public event ObtenTablasCatalogosArgs ObtenTablasCatalogosFinalizado;
+
+        public void ObtenTablasCatalogos()
+        {
+            _servicio.ObtenTablasCatalogosCompleted +=_servicio_ObtenTablasCatalogosCompleted;
+            _servicio.ObtenTablasCatalogosAsync();
+        }
+
+        private void _servicio_ObtenTablasCatalogosCompleted(object sender, ObtenTablasCatalogosCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = resultado;
+            ObtenTablasCatalogosFinalizado(lista);
+            _servicio.ObtenTablasCatalogosCompleted -= _servicio_ObtenTablasCatalogosCompleted;
         }
 
         #endregion

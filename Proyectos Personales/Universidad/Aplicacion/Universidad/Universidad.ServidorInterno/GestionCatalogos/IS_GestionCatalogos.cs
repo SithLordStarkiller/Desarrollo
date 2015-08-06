@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ServiceModel;
 using Universidad.Entidades;
+using Universidad.Entidades.Catalogos;
 
 namespace Universidad.ServidorInterno.GestionCatalogos
 {
@@ -40,5 +41,11 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia);
+
+        [OperationContract]
+        List<ListasGenerica> ObtenTablasCatalogos();
+
+        [OperationContract]
+        List<DIR_CAT_COLONIAS> ObtenCatalogosColonias();
     }
 }

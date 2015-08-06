@@ -14,10 +14,10 @@ namespace Universidad.WebAdministrativa
         {
             ShowReport();
 
-            
+
         }
 
-        private void ShowCustomReport(string reporte, string dataSet, DataTable source,ReportParameterCollection parametes)
+        private void ShowCustomReport(string reporte, string dataSet, DataTable source, ReportParameterCollection parametes)
         {
             var datasource = source;
             ReportViewer1.Reset();

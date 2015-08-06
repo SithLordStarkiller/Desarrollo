@@ -102,6 +102,22 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         System.IAsyncResult BeginObtenCodigoPostal(int estado, int municipio, int colonia, System.AsyncCallback callback, object asyncState);
         
         Universidad.Entidades.DIR_CAT_COLONIAS EndObtenCodigoPostal(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogos", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogosResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> ObtenTablasCatalogos();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogos", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogosResponse")]
+        System.IAsyncResult BeginObtenTablasCatalogos(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> EndObtenTablasCatalogos(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColonias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColoniasResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenCatalogosColonias();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColonias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColoniasResponse")]
+        System.IAsyncResult BeginObtenCatalogosColonias(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> EndObtenCatalogosColonias(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -319,6 +335,44 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenTablasCatalogosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenTablasCatalogosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenCatalogosColoniasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenCatalogosColoniasCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class S_GestionCatalogosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos>, Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos {
         
         private BeginOperationDelegate onBeginObtenTablaUsCatTipoUsuariosDelegate;
@@ -387,6 +441,18 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         
         private System.Threading.SendOrPostCallback onObtenCodigoPostalCompletedDelegate;
         
+        private BeginOperationDelegate onBeginObtenTablasCatalogosDelegate;
+        
+        private EndOperationDelegate onEndObtenTablasCatalogosDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenTablasCatalogosCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginObtenCatalogosColoniasDelegate;
+        
+        private EndOperationDelegate onEndObtenCatalogosColoniasDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenCatalogosColoniasCompletedDelegate;
+        
         public S_GestionCatalogosClient() {
         }
         
@@ -427,6 +493,10 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         public event System.EventHandler<ObtenColoniasCompletedEventArgs> ObtenColoniasCompleted;
         
         public event System.EventHandler<ObtenCodigoPostalCompletedEventArgs> ObtenCodigoPostalCompleted;
+        
+        public event System.EventHandler<ObtenTablasCatalogosCompletedEventArgs> ObtenTablasCatalogosCompleted;
+        
+        public event System.EventHandler<ObtenCatalogosColoniasCompletedEventArgs> ObtenCatalogosColoniasCompleted;
         
         public System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios() {
             return base.Channel.ObtenTablaUsCatTipoUsuarios();
@@ -970,6 +1040,102 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
                         estado,
                         municipio,
                         colonia}, this.onEndObtenCodigoPostalDelegate, this.onObtenCodigoPostalCompletedDelegate, userState);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> ObtenTablasCatalogos() {
+            return base.Channel.ObtenTablasCatalogos();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenTablasCatalogos(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenTablasCatalogos(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> EndObtenTablasCatalogos(System.IAsyncResult result) {
+            return base.Channel.EndObtenTablasCatalogos(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenTablasCatalogos(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginObtenTablasCatalogos(callback, asyncState);
+        }
+        
+        private object[] OnEndObtenTablasCatalogos(System.IAsyncResult result) {
+            System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> retVal = this.EndObtenTablasCatalogos(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenTablasCatalogosCompleted(object state) {
+            if ((this.ObtenTablasCatalogosCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenTablasCatalogosCompleted(this, new ObtenTablasCatalogosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenTablasCatalogosAsync() {
+            this.ObtenTablasCatalogosAsync(null);
+        }
+        
+        public void ObtenTablasCatalogosAsync(object userState) {
+            if ((this.onBeginObtenTablasCatalogosDelegate == null)) {
+                this.onBeginObtenTablasCatalogosDelegate = new BeginOperationDelegate(this.OnBeginObtenTablasCatalogos);
+            }
+            if ((this.onEndObtenTablasCatalogosDelegate == null)) {
+                this.onEndObtenTablasCatalogosDelegate = new EndOperationDelegate(this.OnEndObtenTablasCatalogos);
+            }
+            if ((this.onObtenTablasCatalogosCompletedDelegate == null)) {
+                this.onObtenTablasCatalogosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenTablasCatalogosCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenTablasCatalogosDelegate, null, this.onEndObtenTablasCatalogosDelegate, this.onObtenTablasCatalogosCompletedDelegate, userState);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenCatalogosColonias() {
+            return base.Channel.ObtenCatalogosColonias();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenCatalogosColonias(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenCatalogosColonias(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> EndObtenCatalogosColonias(System.IAsyncResult result) {
+            return base.Channel.EndObtenCatalogosColonias(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenCatalogosColonias(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginObtenCatalogosColonias(callback, asyncState);
+        }
+        
+        private object[] OnEndObtenCatalogosColonias(System.IAsyncResult result) {
+            System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> retVal = this.EndObtenCatalogosColonias(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenCatalogosColoniasCompleted(object state) {
+            if ((this.ObtenCatalogosColoniasCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenCatalogosColoniasCompleted(this, new ObtenCatalogosColoniasCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenCatalogosColoniasAsync() {
+            this.ObtenCatalogosColoniasAsync(null);
+        }
+        
+        public void ObtenCatalogosColoniasAsync(object userState) {
+            if ((this.onBeginObtenCatalogosColoniasDelegate == null)) {
+                this.onBeginObtenCatalogosColoniasDelegate = new BeginOperationDelegate(this.OnBeginObtenCatalogosColonias);
+            }
+            if ((this.onEndObtenCatalogosColoniasDelegate == null)) {
+                this.onEndObtenCatalogosColoniasDelegate = new EndOperationDelegate(this.OnEndObtenCatalogosColonias);
+            }
+            if ((this.onObtenCatalogosColoniasCompletedDelegate == null)) {
+                this.onObtenCatalogosColoniasCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCatalogosColoniasCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenCatalogosColoniasDelegate, null, this.onEndObtenCatalogosColoniasDelegate, this.onObtenCatalogosColoniasCompletedDelegate, userState);
         }
     }
 }
