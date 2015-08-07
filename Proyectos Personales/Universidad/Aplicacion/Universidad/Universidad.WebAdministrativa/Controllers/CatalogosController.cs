@@ -60,7 +60,7 @@ namespace Universidad.WebAdministrativa.Controllers
                     servicio.ObtenCatalogosColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> colonias)
                     {
                         AsyncManager.Parameters["lista"] = colonias;
-                        AsyncManager.Parameters["tipo"] = colonias.GetType().GetGenericArguments().Single();
+                        AsyncManager.Parameters["tipo"] = GetItemType(typeof(colonias))
                         AsyncManager.OutstandingOperations.Decrement();
                     };
                     AsyncManager.OutstandingOperations.Increment();
@@ -71,7 +71,7 @@ namespace Universidad.WebAdministrativa.Controllers
                     servicio.ObtenCatalogosMunicipiosFinalizado += delegate(List<DIR_CAT_DELG_MUNICIPIO> municipios)
                     {
                         AsyncManager.Parameters["lista"] = municipios;
-                        AsyncManager.Parameters["tipo"] = municipios.GetType().GetGenericArguments().Single(); ;
+                        AsyncManager.Parameters["tipo"] = municipios.GetType().GetGenericArguments().Single();
                         AsyncManager.OutstandingOperations.Decrement();
                     };
                     AsyncManager.OutstandingOperations.Increment();
