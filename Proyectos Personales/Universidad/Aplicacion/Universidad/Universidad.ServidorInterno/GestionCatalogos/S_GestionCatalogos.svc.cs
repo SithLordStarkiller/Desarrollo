@@ -74,5 +74,10 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatalogosColonias();
         }
+
+        public List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatalogosMunicipios();
+        }
     }
 }

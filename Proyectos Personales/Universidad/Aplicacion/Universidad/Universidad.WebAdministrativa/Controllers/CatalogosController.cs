@@ -53,26 +53,42 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             var sesion = (Sesion)Session["Sesion"];
             var servicio = new SVC_GestionCatalogos(sesion);
-            
-            if (tabla == "DIR_CAT_COLONIAS")
+
+            switch (tabla)
             {
-                servicio.ObtenCatalogosColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> colonias)
-                {
-                    AsyncManager.Parameters["listaColonias"] = colonias;
-                    AsyncManager.OutstandingOperations.Decrement();
-                };
+                case "DIR_CAT_COLONIAS":
+                    servicio.ObtenCatalogosColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> colonias)
+                    {
+                        AsyncManager.Parameters["lista"] = colonias;
+                        AsyncManager.Parameters["tipo"] = colonias.GetType().GetGenericArguments().Single();
+                        AsyncManager.OutstandingOperations.Decrement();
+                    };
+                    AsyncManager.OutstandingOperations.Increment();
+                    servicio.ObtenCatalogosColonias();
+                    break;
                 
-                AsyncManager.OutstandingOperations.Increment();
-                servicio.ObtenCatalogosColonias();
+                case "DIR_CAT_DELG_MUNICIPIO":
+                    servicio.ObtenCatalogosMunicipiosFinalizado += delegate(List<DIR_CAT_DELG_MUNICIPIO> municipios)
+                    {
+                        AsyncManager.Parameters["lista"] = municipios;
+                        AsyncManager.Parameters["tipo"] = municipios.GetType().GetGenericArguments().Single(); ;
+                        AsyncManager.OutstandingOperations.Decrement();
+                    };
+                    AsyncManager.OutstandingOperations.Increment();
+                    servicio.ObtenCatalogosMunicipios();
+                    break;
             }
         }
 
+
         [SessionExpireFilter]
-        public ActionResult ObtenCatalogoCompleted(List<DIR_CAT_COLONIAS> listaColonias)
+        public ActionResult ObtenCatalogoCompleted(List<object> lista,string tipo)
         {
             Sesion();
 
-            //ViewBag.ListaColonias = listaColonias;
+            ViewBag.ListaColonias = lista;
+            ViewBag.Tipo = tipo;
+
             return View();
         }
     }

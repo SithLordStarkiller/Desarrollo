@@ -311,6 +311,30 @@ namespace Universidad.Controlador.GestionCatalogos
 
         #endregion
 
+        #region Obten Catalogo DIR_CAT_DELG_MUNICIPIO
+
+        public delegate void ObtenCatalogosMunicipiosArgs(List<DIR_CAT_DELG_MUNICIPIO> municipios);
+
+        public event ObtenCatalogosMunicipiosArgs ObtenCatalogosMunicipiosFinalizado;
+
+        public void ObtenCatalogosMunicipios()
+        {
+            _servicio.ObtenCatalogosMunicipiosCompleted +=_servicio_ObtenCatalogosMunicipiosCompleted;
+            _servicio.ObtenCatalogosMunicipiosAsync();
+        }
+
+        private void _servicio_ObtenCatalogosMunicipiosCompleted(object sender, ObtenCatalogosMunicipiosCompletedEventArgs e)
+        {
+            if (e.Result == null) return;
+
+            var resultado = e.Result;
+            var lista = resultado;
+            ObtenCatalogosMunicipiosFinalizado(lista);
+            _servicio.ObtenCatalogosMunicipiosCompleted -= _servicio_ObtenCatalogosMunicipiosCompleted;
+        }
+
+        #endregion
+
         #region Obten Tablas Catalogos
 
         public delegate void ObtenTablasCatalogosArgs(List<ListasGenerica> colonia);

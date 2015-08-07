@@ -47,5 +47,8 @@ namespace Universidad.ServidorInterno.GestionCatalogos
 
         [OperationContract]
         List<DIR_CAT_COLONIAS> ObtenCatalogosColonias();
+
+        [OperationContract]
+        List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios();
     }
 }

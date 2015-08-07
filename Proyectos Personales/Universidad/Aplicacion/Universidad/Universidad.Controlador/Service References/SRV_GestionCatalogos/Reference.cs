@@ -118,6 +118,14 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         System.IAsyncResult BeginObtenCatalogosColonias(System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> EndObtenCatalogosColonias(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipiosResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipiosResponse")]
+        System.IAsyncResult BeginObtenCatalogosMunicipios(System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> EndObtenCatalogosMunicipios(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -373,6 +381,25 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ObtenCatalogosMunicipiosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ObtenCatalogosMunicipiosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class S_GestionCatalogosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos>, Universidad.Controlador.SRV_GestionCatalogos.IS_GestionCatalogos {
         
         private BeginOperationDelegate onBeginObtenTablaUsCatTipoUsuariosDelegate;
@@ -453,6 +480,12 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         
         private System.Threading.SendOrPostCallback onObtenCatalogosColoniasCompletedDelegate;
         
+        private BeginOperationDelegate onBeginObtenCatalogosMunicipiosDelegate;
+        
+        private EndOperationDelegate onEndObtenCatalogosMunicipiosDelegate;
+        
+        private System.Threading.SendOrPostCallback onObtenCatalogosMunicipiosCompletedDelegate;
+        
         public S_GestionCatalogosClient() {
         }
         
@@ -497,6 +530,8 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
         public event System.EventHandler<ObtenTablasCatalogosCompletedEventArgs> ObtenTablasCatalogosCompleted;
         
         public event System.EventHandler<ObtenCatalogosColoniasCompletedEventArgs> ObtenCatalogosColoniasCompleted;
+        
+        public event System.EventHandler<ObtenCatalogosMunicipiosCompletedEventArgs> ObtenCatalogosMunicipiosCompleted;
         
         public System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios() {
             return base.Channel.ObtenTablaUsCatTipoUsuarios();
@@ -1136,6 +1171,54 @@ namespace Universidad.Controlador.SRV_GestionCatalogos {
                 this.onObtenCatalogosColoniasCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCatalogosColoniasCompleted);
             }
             base.InvokeAsync(this.onBeginObtenCatalogosColoniasDelegate, null, this.onEndObtenCatalogosColoniasDelegate, this.onObtenCatalogosColoniasCompletedDelegate, userState);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios() {
+            return base.Channel.ObtenCatalogosMunicipios();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginObtenCatalogosMunicipios(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginObtenCatalogosMunicipios(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> EndObtenCatalogosMunicipios(System.IAsyncResult result) {
+            return base.Channel.EndObtenCatalogosMunicipios(result);
+        }
+        
+        private System.IAsyncResult OnBeginObtenCatalogosMunicipios(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginObtenCatalogosMunicipios(callback, asyncState);
+        }
+        
+        private object[] OnEndObtenCatalogosMunicipios(System.IAsyncResult result) {
+            System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> retVal = this.EndObtenCatalogosMunicipios(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnObtenCatalogosMunicipiosCompleted(object state) {
+            if ((this.ObtenCatalogosMunicipiosCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ObtenCatalogosMunicipiosCompleted(this, new ObtenCatalogosMunicipiosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ObtenCatalogosMunicipiosAsync() {
+            this.ObtenCatalogosMunicipiosAsync(null);
+        }
+        
+        public void ObtenCatalogosMunicipiosAsync(object userState) {
+            if ((this.onBeginObtenCatalogosMunicipiosDelegate == null)) {
+                this.onBeginObtenCatalogosMunicipiosDelegate = new BeginOperationDelegate(this.OnBeginObtenCatalogosMunicipios);
+            }
+            if ((this.onEndObtenCatalogosMunicipiosDelegate == null)) {
+                this.onEndObtenCatalogosMunicipiosDelegate = new EndOperationDelegate(this.OnEndObtenCatalogosMunicipios);
+            }
+            if ((this.onObtenCatalogosMunicipiosCompletedDelegate == null)) {
+                this.onObtenCatalogosMunicipiosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenCatalogosMunicipiosCompleted);
+            }
+            base.InvokeAsync(this.onBeginObtenCatalogosMunicipiosDelegate, null, this.onEndObtenCatalogosMunicipiosDelegate, this.onObtenCatalogosMunicipiosCompletedDelegate, userState);
         }
     }
 }

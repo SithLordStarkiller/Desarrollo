@@ -92,6 +92,11 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
             return new GestionCatDirecciones().ObtenCatalogoColonias();
         }
 
+        public List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios()
+        {
+            return new GestionCatDirecciones().ObtenCatalogoMunicipios();
+        }
+
         #endregion
 
         #endregion

@@ -1,6 +1,12 @@
-﻿@{
+﻿@using Universidad.Entidades
+@{
     ViewBag.Title = "ObtenCatalogo";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var tipo = ViewBag.Tipo;
+    
+    
+    var lista = (List<DIR_CAT_COLONIAS>)ViewBag.ListaColonias;
 }
 <div class="jumbotron">
     <br />
@@ -14,8 +20,9 @@
         <fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                 <div class="row">
-                    @*@foreach (var item in ViewBag.ListaColonias)
-                    {*@
+                    @foreach (var item in lista)
+                    {
+                        <h1>@item.CODIGOPOSTAL</h1>
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                             <div class="panel panel-default">
                                 <!-- Default panel contents -->
@@ -42,7 +49,7 @@
                                 </table>
                             </div>
                         </div>
-                    @*}*@
+                    }
                 </div>
             </div>
         </fieldset>
