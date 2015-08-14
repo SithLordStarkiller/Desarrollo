@@ -11,34 +11,34 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLCargarCEPOMEX"
   DTS:PackageType="5"
-  DTS:VersionBuild="31"
-  DTS:VersionGUID="{F8D40DD2-75ED-4B34-9F14-82CEA6679D0A}">
+  DTS:VersionBuild="35"
+  DTS:VersionGUID="{3170C46C-5547-4A3F-8543-5ADCF6B0ADEB}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[DR5Q402\MSSQLSERVER2014.Universidad.sa]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{F12822D6-E273-49A0-826D-86E3370CF076}"
-      DTS:ObjectName="DR5Q402\MSSQLSERVER2014.Universidad.sa">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DR5Q402\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
-          <DTS:Password
-            DTS:Name="Password"
-            Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAbByF8a63XUmC72LT4TDJDwAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACps0dqDX6s+67zNBwKvO7jKsRweAK8TEciyLn5XwnrZAAAAAAOgAAAAAIAACAAAAAcE/r5ZkdAgCGdprbSCXOShpvVFnNoq3J8uehmuyO4siAAAACls3ET5D4TQWc77s9Dtw99GNQddePyCQfRuGytwNWWnkAAAAAlBeCpQIT3pn8PRJShP/wmEBpwKJZ9yQvjRPspM8yAj8IXIg7jqmzDhpoiSerd0FvkvotScw9PvTPHOEM4/nwf</DTS:Password>
-        </DTS:ConnectionManager>
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Excel Connection Manager 1]"
+      DTS:refId="Package.ConnectionManagers[Catalogo Sepomex]"
       DTS:CreationName="EXCEL"
       DTS:DTSID="{B0844CF0-B62B-400B-B92F-0D60E9C4335C}"
-      DTS:ObjectName="Excel Connection Manager 1">
+      DTS:ObjectName="Catalogo Sepomex">
       <DTS:ObjectData>
         <DTS:ConnectionManager
           DTS:ConnectionString="Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Catalogos Sepomex\CPdescarga.xls;Extended Properties=&quot;EXCEL 8.0;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Conexion DB]"
+      DTS:CreationName="ADO.NET:System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+      DTS:DTSID="{7D07440B-EDD7-4E5F-95A1-A8D6B3019102}"
+      DTS:ObjectName="Conexion DB">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=DR5Q402\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Application Name=SSIS-ETLCargarCEPOMEX-{7D07440B-EDD7-4E5F-95A1-A8D6B3019102}DR5Q402\MSSQLSERVER2014.Universidad.sa1;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD97fwmsPcqEdx5b76z1Ar0vSSf+9UKIoOtavvimEhAlQAAAAAOgAAAAAIAACAAAAAStOFjX1zqsKBFmZoaAKAEL1cH8VaB5JqFUHl/4+7cCSAAAACCMWWT/gLSsM56JwueerWhuj7nUg1AbgacN1ecRlYMkEAAAADPFSIhZnFZXZm6FEK2QDU6S3lekc1D1Ih60dXjQaLX1zVK9YI73UNpsGaKhX7EdHOnKThHSP2rJQmuaFwx82Jw</DTS:Password>
+        </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
@@ -61,18 +61,19 @@
           DTS:ConnectionString="C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Aplicacion\Base de Datos\Scrips\InsertaEstadosETL.sql" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[STARKILLER\MSSQLSERVER2014.Universidad.sa1]"
-      DTS:CreationName="OLEDB"
-      DTS:DTSID="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
-      DTS:ObjectName="STARKILLER\MSSQLSERVER2014.Universidad.sa1">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=STARKILLER\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
-  <DTS:Variables />
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6C91F7B1-65D2-4916-ADE4-1143FCDD27E6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CadenaConexion">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
   <DTS:Executables>
     <DTS:Executable
       DTS:refId="Package\Eliminar CEPOMEX"
@@ -87,8 +88,8 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
-          SQLTask:SqlStatementSource="DELETE FROM CEPOMEX&#xA;&#xA;SET IDENTITY_INSERT DIR_DIRECCIONES ON&#xA;   insert into DIR_DIRECCIONES (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES_R&#xA;      SET IDENTITY_INSERT DIR_DIRECCIONES OFF&#xA;&#x9;  drop table DIR_DIRECCIONES_R" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:Connection="{7D07440B-EDD7-4E5F-95A1-A8D6B3019102}"
+          SQLTask:SqlStatementSource="DELETE FROM CEPOMEX&#xA;&#xA;SET IDENTITY_INSERT DIR_DIRECCIONES ON&#xA;   insert into DIR_DIRECCIONES (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES_R&#xA;      SET IDENTITY_INSERT DIR_DIRECCIONES OFF&#xA;&#x9;  drop table DIR_DIRECCIONES_R" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -104,7 +105,7 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
+          SQLTask:Connection="{7D07440B-EDD7-4E5F-95A1-A8D6B3019102}"
           SQLTask:SqlStmtSourceType="FileConnection"
           SQLTask:SqlStatementSource="InsertaCatalogosDireccionesETL.sql" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
@@ -122,8 +123,8 @@
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
-          SQLTask:Connection="{C04957DC-039F-43C9-A701-3C1C0EE04E2A}"
-          SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDDELGMUNICIPIO      int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                int                  null,&#xA;   NOINT                int                  null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;   DELETE FROM DIR_DIRECCIONES&#xA;&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:Connection="{7D07440B-EDD7-4E5F-95A1-A8D6B3019102}"
+          SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDDELGMUNICIPIO      int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                varchar(100)         null,&#xA;   NOINT                varchar(100)         null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;   DELETE FROM DIR_DIRECCIONES&#xA;&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -183,8 +184,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Aguascalientes.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Excel Connection Manager 1]"
-                  connectionManagerRefId="Package.ConnectionManagers[Excel Connection Manager 1]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -578,8 +579,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Baja California Norte.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -973,8 +974,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Baja California Sur.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1362,8 +1363,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Aguascalientes.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -1622,8 +1623,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C BCN.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -1882,8 +1883,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C BCS.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2142,8 +2143,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Campeche.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2402,8 +2403,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Chiapas.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2662,8 +2663,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Chihuahua.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -2922,8 +2923,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Coahuila.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3182,8 +3183,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Colima.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3442,8 +3443,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Distrito Federal.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3702,8 +3703,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Durango.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -3962,8 +3963,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Edo Mexico.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4222,8 +4223,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Guanajuato.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4482,8 +4483,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Guerrero.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -4742,8 +4743,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Hidalgo.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5002,8 +5003,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Jalisco.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5262,8 +5263,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Michoacan.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5522,8 +5523,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Morelos.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -5782,8 +5783,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Nayarit.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6042,8 +6043,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Nuevo Leon.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6302,8 +6303,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Oaxaca.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6562,8 +6563,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Puebla.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -6822,8 +6823,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Queretaro.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7082,8 +7083,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Quintana Roo.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7342,8 +7343,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Sanluis Potosi.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7602,8 +7603,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Sinaloa.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -7862,8 +7863,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Sonora.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8122,8 +8123,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Tabasco.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8382,8 +8383,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Tamaulipas.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8642,8 +8643,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Tlaxcala.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -8902,8 +8903,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Veracruz.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -9162,8 +9163,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Yucatan.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -9422,8 +9423,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\C Zacatecas.Connections[IDbConnection]"
-                  connectionManagerID="{4CDF8C2F-4A39-43BA-91F2-12D671366F83}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[STARKILLER_MSSQLSERVER2014.Universidad.sa]"
+                  connectionManagerID="Package.ConnectionManagers[Conexion DB]"
+                  connectionManagerRefId="Package.ConnectionManagers[Conexion DB]"
                   description="Managed connection manager"
                   name="IDbConnection" />
               </connections>
@@ -9688,8 +9689,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Campeche.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -10083,8 +10084,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Chiapas.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -10478,8 +10479,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Chihuahua.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -10873,8 +10874,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Coahuila.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -11268,8 +11269,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Colima.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -11663,8 +11664,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Distrito Federal.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -12058,8 +12059,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Durango.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -12453,8 +12454,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Edo Mexico.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -12848,8 +12849,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Guanajuato.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -13243,8 +13244,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Guerrero.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -13638,8 +13639,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Hidalgo.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -14033,8 +14034,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Jalisco.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -14428,8 +14429,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Michoacan.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -14823,8 +14824,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Morelos.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -15218,8 +15219,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Nayarit.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -15613,8 +15614,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Nuevo Leon.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -16008,8 +16009,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Oaxaca.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -16403,8 +16404,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Puebla.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -16798,8 +16799,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Queretaro.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -17193,8 +17194,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Quintana roo.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -17588,8 +17589,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Sanluis Potosi.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -17983,8 +17984,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Sinaloa.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -18378,8 +18379,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Sonora.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -18773,8 +18774,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Tabasco.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -19168,8 +19169,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Tamaulipas.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -19563,8 +19564,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Tlaxcala.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -19958,8 +19959,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Veracruz.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -20353,8 +20354,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Yucatan.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -20748,8 +20749,8 @@
               <connections>
                 <connection
                   refId="Package\Llenar CEPOMEX\Zacatecas.Connections[OleDbConnection]"
-                  connectionManagerID="{4E1FFC16-46C8-495F-A3A8-7739770E8C14}:external"
-                  connectionManagerRefId="Project.ConnectionManagers[Excel Connection Manager]"
+                  connectionManagerID="Package.ConnectionManagers[Catalogo Sepomex]"
+                  connectionManagerRefId="Package.ConnectionManagers[Catalogo Sepomex]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -21394,7 +21395,7 @@
     design-time-name="Package\Llenar CEPOMEX">
     <LayoutInfo>
       <GraphLayout
-        Capacity="128" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="128" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="142,42"
           Id="Package\Llenar CEPOMEX\C Edo Mexico"
@@ -21670,7 +21671,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21692,7 +21695,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21714,7 +21719,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21736,7 +21743,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21758,7 +21767,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21780,7 +21791,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21802,7 +21815,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21824,7 +21839,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21846,7 +21863,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21868,7 +21887,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21890,7 +21911,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21912,7 +21935,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21934,7 +21959,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21956,7 +21983,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -21978,7 +22007,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22000,7 +22031,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22022,7 +22055,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22044,7 +22079,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22066,7 +22103,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22088,7 +22127,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22110,7 +22151,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22132,7 +22175,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22154,7 +22199,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22176,7 +22223,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22198,7 +22247,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22220,7 +22271,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22242,7 +22295,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22264,7 +22319,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22286,7 +22343,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22308,7 +22367,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22330,7 +22391,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -22352,7 +22415,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
