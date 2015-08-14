@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLCargarCEPOMEX"
   DTS:PackageType="5"
-  DTS:VersionBuild="35"
-  DTS:VersionGUID="{3170C46C-5547-4A3F-8543-5ADCF6B0ADEB}">
+  DTS:VersionBuild="36"
+  DTS:VersionGUID="{655A92FB-6A13-442F-96A5-6CB14E685FF3}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -37,7 +37,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAD97fwmsPcqEdx5b76z1Ar0vSSf+9UKIoOtavvimEhAlQAAAAAOgAAAAAIAACAAAAAStOFjX1zqsKBFmZoaAKAEL1cH8VaB5JqFUHl/4+7cCSAAAACCMWWT/gLSsM56JwueerWhuj7nUg1AbgacN1ecRlYMkEAAAADPFSIhZnFZXZm6FEK2QDU6S3lekc1D1Ih60dXjQaLX1zVK9YI73UNpsGaKhX7EdHOnKThHSP2rJQmuaFwx82Jw</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADbnSMCdn6uquzwIU4wNdIvn3qM5sflt7/Tk0v9ZiC4PwAAAAAOgAAAAAIAACAAAACuQMwuoavhfPUiukY2YndY4rOB0jEAD4sawAQludm7cCAAAAD1w+p/ABYjtxUlrmN93r+U00jNvgi0aZhjFiLsfl6ypUAAAACPX0rinlE4uvVEmAtUL2bWkmsb5UWga6PFVhew/zQtA2dIODgFyC9hZ2RpCfw11VXCu6KOC/a9ig+ogVwAOIss</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -124,7 +124,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{7D07440B-EDD7-4E5F-95A1-A8D6B3019102}"
-          SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDDELGMUNICIPIO      int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                varchar(100)         null,&#xA;   NOINT                varchar(100)         null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;   DELETE FROM DIR_DIRECCIONES&#xA;&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDDELGMUNICIPIO      int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                varchar(100)         null,&#xA;   NOINT                varchar(100)         null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;Create table DireccionesPorPersona(&#xA;IdDireccion int NOT NULL,&#xA;IdPersona int NOT NULL&#xA;)&#xA;&#xA;insert into DireccionesPorPersona(&#xA;IdDireccion,&#xA;IdPersona&#xA;)&#xA;SELECT PP.IDDIRECCION, PP.ID_PERSONA FROM PER_PERSONAS AS PP&#xA;INNER JOIN DIR_DIRECCIONES AS DD ON PP.IDDIRECCION = DD.IDDIRECCION&#xA;&#xA;UPDATE PER_PERSONAS SET IDDIRECCION = NULL &#xA;&#xA;DELETE FROM DIR_DIRECCIONES&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
