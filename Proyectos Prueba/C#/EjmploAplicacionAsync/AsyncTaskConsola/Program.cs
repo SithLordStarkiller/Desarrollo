@@ -51,10 +51,10 @@ namespace AsyncTaskConsola
             _evento.AlfinalizarOperaciones += _evento_AlfinalizarOperaciones;
 
             Console.WriteLine("Inserta numero 1");
-            var a = 42;
+            var a = 90;
 
             Console.WriteLine("Inserta numero 2");
-            var b = 40;
+            var b = 100;
 
             new Program().CalcularSuma(a, b);
             Console.WriteLine("Se envio Suma");

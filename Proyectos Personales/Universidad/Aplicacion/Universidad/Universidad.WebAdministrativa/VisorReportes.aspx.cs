@@ -10,11 +10,13 @@ namespace Universidad.WebAdministrativa
 {
     public partial class VisorReportes : System.Web.UI.Page
     {
+        private string _urlReportServer;
+        private const string CarpetaReporte = "";
         protected void Page_Load(object sender, EventArgs e)
         {
-            ShowReport();
-
-
+            _urlReportServer = System.Configuration.ConfigurationManager.AppSettings["ServidorReportes"];
+            var nombreReporte = Request.QueryString["Reporte"];
+            MuestraReportePorNombre(nombreReporte);
         }
 
         private void ShowCustomReport(string reporte, string dataSet, DataTable source, ReportParameterCollection parametes)
@@ -46,15 +48,26 @@ namespace Universidad.WebAdministrativa
             ReportViewer1.LocalReport.Refresh();
         }
 
+        public void MuestraReportePorNombre(string nombreReporte)
+        {
+            ReportViewer1.ProcessingMode = ProcessingMode.Remote;
+
+            ReportViewer1.ServerReport.ReportServerUrl = new Uri(_urlReportServer);
+
+            ReportViewer1.ServerReport.ReportPath = CarpetaReporte + nombreReporte;
+
+            ReportViewer1.ServerReport.Refresh();
+        }
+
         public void ShowReport()
         {
-            const string urlReportServer = "http://localhost/ReportServer_MSSQLSERVER2014";
+            //_urlReportServer = "http://localhost/ReportServer_MSSQLSERVER2014";
 
             // ProcessingMode will be Either Remote or Local  
             ReportViewer1.ProcessingMode = ProcessingMode.Remote;
 
             //Set the ReportServer Url  
-            ReportViewer1.ServerReport.ReportServerUrl = new Uri(urlReportServer);
+            ReportViewer1.ServerReport.ReportServerUrl = new Uri(_urlReportServer);
 
             // setting report path  
             //Passing the Report Path with report name no need to add report extension   

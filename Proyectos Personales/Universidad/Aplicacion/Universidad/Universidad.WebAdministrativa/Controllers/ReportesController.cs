@@ -9,10 +9,16 @@ namespace Universidad.WebAdministrativa.Controllers
             return View();
         }
 
-        // GET: Reportes
+        [SessionExpireFilter]
         public ActionResult Reportes()
         {
             return Redirect("../VisorReportes.aspx");
+        }
+
+        [SessionExpireFilter]
+        public ActionResult ReportesDinamico(string reporte)
+        {
+            return Redirect("../VisorReportes.aspx?Reporte=" + reporte);
         }
     }
 }

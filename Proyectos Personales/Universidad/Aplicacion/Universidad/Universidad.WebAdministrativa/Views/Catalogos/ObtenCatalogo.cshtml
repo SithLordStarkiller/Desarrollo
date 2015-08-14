@@ -4,15 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var tipo = ViewBag.Tipo;
-    
-    
-    var lista = (List<DIR_CAT_COLONIAS>)ViewBag.ListaColonias;
+    var lista = ViewBag.Lista;
 }
 <div class="jumbotron">
-    <br />
-    <h2>@ViewBag.Title</h2>
-    <br />
-
     <div class="panel panel-default form-margin">
         <div class="panel-heading form-margin">
             <div class="panel-title">Selecciona uno de los cataogos del sistema</div>
@@ -20,35 +14,79 @@
         <fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                 <div class="row">
-                    @foreach (var item in lista)
+                    @if (tipo == "DIR_CAT_COLONIAS")
                     {
-                        <h1>@item.CODIGOPOSTAL</h1>
-                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                            <div class="panel panel-default">
-                                <!-- Default panel contents -->
-                                <div class="panel-heading">Panel heading</div>
-                                <div class="panel-body">
-                                    <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                                </div>
+                        var listaColonias = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DIR_CAT_COLONIAS>>(lista);
 
-                                <!-- Table -->
-                                <table class="table">
-                                    <caption>Monthly savings</caption>
-                                    <tr>
-                                        <th>Month</th>
-                                        <th>Savings</th>
-                                    </tr>
-                                    <tr>
-                                        <td>January</td>
-                                        <td>$100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>February</td>
-                                        <td>$50</td>
-                                    </tr>
-                                </table>
+                        foreach (var item in listaColonias)
+                        {
+                            <h1>@item.CODIGOPOSTAL</h1>
+                            <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                                <div class="panel panel-default">
+                                    <!-- Default panel contents -->
+                                    <div class="panel-heading">Panel heading</div>
+                                    <div class="panel-body">
+                                        <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                    </div>
+
+                                    <!-- Table -->
+                                    <table class="table">
+                                        <caption>Monthly savings</caption>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Savings</th>
+                                        </tr>
+                                        <tr>
+                                            <td>January</td>
+                                            <td>$100</td>
+                                        </tr>
+                                        <tr>
+                                            <td>February</td>
+                                            <td>$50</td>
+                                        </tr>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        }
+                    }
+
+                    @if (tipo == "DIR_CAT_DELG_MUNICIPIO")
+                    {
+                        var listaMunicipios = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DIR_CAT_DELG_MUNICIPIO>>(lista);
+                        <table class="table">
+                            <tr>
+                                <th>
+                                    IdDelegMunicipio
+                                </th>
+                                <th>
+                                    IdEstado
+                                </th>
+                                <th>
+                                    IdMunicipio
+                                </th>
+                                <th>
+                                    Nombre Municipio
+                                </th>
+                            </tr>
+
+                            @foreach (var item in listaMunicipios)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.IDDELGMUNICIPIO
+                                    </td>
+                                    <td>
+                                        @item.IDESTADO
+                                    </td>
+                                    <td>
+                                        @item.IDMUNICIPIO
+                                    </td>
+                                    <td>
+                                        @item.NOMBREDELGMUNICIPIO
+                                    </td>
+                                </tr>
+                            }
+                        </table>
                     }
                 </div>
             </div>

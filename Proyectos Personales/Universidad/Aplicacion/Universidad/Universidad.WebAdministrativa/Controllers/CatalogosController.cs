@@ -6,6 +6,7 @@ using Universidad.Controlador.GestionCatalogos;
 using Universidad.Entidades;
 using Universidad.Entidades.Catalogos;
 using Universidad.Entidades.ControlUsuario;
+using Newtonsoft.Json;
 
 namespace Universidad.WebAdministrativa.Controllers
 {
@@ -59,19 +60,23 @@ namespace Universidad.WebAdministrativa.Controllers
                 case "DIR_CAT_COLONIAS":
                     servicio.ObtenCatalogosColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> colonias)
                     {
-                        AsyncManager.Parameters["lista"] = colonias;
-                        AsyncManager.Parameters["tipo"] = GetItemType(typeof(colonias))
+                        var tipo = (colonias.GetType().GetGenericArguments()[0]).Name;
+                        var lista = JsonConvert.SerializeObject(colonias);
+                        AsyncManager.Parameters["lista"] = lista;
+                        AsyncManager.Parameters["tipo"] = tipo;
                         AsyncManager.OutstandingOperations.Decrement();
                     };
                     AsyncManager.OutstandingOperations.Increment();
                     servicio.ObtenCatalogosColonias();
                     break;
-                
+
                 case "DIR_CAT_DELG_MUNICIPIO":
                     servicio.ObtenCatalogosMunicipiosFinalizado += delegate(List<DIR_CAT_DELG_MUNICIPIO> municipios)
                     {
-                        AsyncManager.Parameters["lista"] = municipios;
-                        AsyncManager.Parameters["tipo"] = municipios.GetType().GetGenericArguments().Single();
+                        var tipo = (municipios.GetType().GetGenericArguments()[0]).Name;
+                        var lista = JsonConvert.SerializeObject(municipios);
+                        AsyncManager.Parameters["lista"] = lista;
+                        AsyncManager.Parameters["tipo"] = tipo;
                         AsyncManager.OutstandingOperations.Decrement();
                     };
                     AsyncManager.OutstandingOperations.Increment();
@@ -82,11 +87,11 @@ namespace Universidad.WebAdministrativa.Controllers
 
 
         [SessionExpireFilter]
-        public ActionResult ObtenCatalogoCompleted(List<object> lista,string tipo)
+        public ActionResult ObtenCatalogoCompleted(string lista, string tipo)
         {
             Sesion();
 
-            ViewBag.ListaColonias = lista;
+            ViewBag.Lista = lista;
             ViewBag.Tipo = tipo;
 
             return View();
