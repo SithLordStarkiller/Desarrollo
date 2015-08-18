@@ -1,7 +1,6 @@
-insert into DIR_CAT_ESTADO (IDESTADO,NOMBREESTADO) 
+insert into DIR_CAT_ESTADO (IDESTADO,NOMBREESTADO,NOMBREOFICIAL) 
 SELECT 
 c_estado
---, d_estado 
 ,CASE c_estado 
 	WHEN 2 THEN 'Baja California Norte' 
 	WHEN 5 THEN 'Coahuila' 
@@ -10,6 +9,7 @@ c_estado
 	WHEN 30 THEN 'Veracruz'
 	ELSE d_estado
 END
+,d_estado
 FROM CEPOMEX Group by c_estado,d_estado order by c_estado
 
 insert into DIR_CAT_DELG_MUNICIPIO (IDDELGMUNICIPIO,IDMUNICIPIO,NOMBREDELGMUNICIPIO,IDESTADO)
