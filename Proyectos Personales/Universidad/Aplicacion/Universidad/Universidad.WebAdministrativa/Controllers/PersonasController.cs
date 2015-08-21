@@ -435,6 +435,71 @@ namespace Universidad.WebAdministrativa.Controllers
         {
             return View();
         }
+
+        [SessionExpireFilter]
+        public async void ListadoPersonasAsync()
+        {
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcPersonas(sesion);
+
+            AsyncManager.OutstandingOperations.Increment();
+            await Task.Factory.StartNew(() =>
+            {
+                var resultado = servicio.ObtenListaPersonas();
+                AsyncManager.Parameters["listaPersonas"] = resultado.Result;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        [SessionExpireFilter]
+        public ActionResult ListadoPersonasCompleted(List<PER_PERSONAS> listaPersonas)
+        {
+            Sesion();
+            return View(listaPersonas);
+        }
+
+        [SessionExpireFilter]
+        public async void OrdenaListadoPersonasAsync(string ordenamiento)
+        {
+            var sesion = (Sesion) Session["Sesion"];
+            var servicio = new SvcPersonas(sesion);
+
+            AsyncManager.OutstandingOperations.Increment();
+            await Task.Factory.StartNew(() =>
+            {
+                var lista = servicio.ObtenListaPersonas().Result;
+                AsyncManager.Parameters["listaPersonas"] = lista;
+                AsyncManager.Parameters["ordenamiento"] = ordenamiento;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        [SessionExpireFilter]
+        public ActionResult OrdenaListadoPersonasCompleted(List<PER_PERSONAS> listaPersonas, string ordenamiento)
+        {
+            Sesion();
+            switch (ordenamiento)
+            {
+                case "Paterno_A":
+                    listaPersonas = listaPersonas.OrderBy(r => r.A_PATERNO).ToList();
+                    break;
+                case "Paterno_D":
+                    listaPersonas = listaPersonas.OrderByDescending(r => r.A_PATERNO).ToList();
+                    break;
+                case "Alta_A":
+                    listaPersonas = listaPersonas.OrderBy(r => r.FECHAINGRESO).ToList();
+                    break;
+                case "Alta_D":
+                    listaPersonas = listaPersonas.OrderByDescending(r => r.FECHAINGRESO).ToList();
+                    break;
+            }
+            return View("ListadoPersonas", null, listaPersonas);
+        }
+
+        [SessionExpireFilter]
+        public void ReportePersonaAsync(int personaId)
+        {
+        }
     }
 
     public class RedirectToReturnUrlResult : ActionResult

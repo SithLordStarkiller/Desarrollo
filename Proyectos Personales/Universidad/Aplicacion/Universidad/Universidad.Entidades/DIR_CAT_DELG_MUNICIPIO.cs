@@ -21,7 +21,6 @@ namespace Universidad.Entidades
         public DIR_CAT_DELG_MUNICIPIO()
         {
             this.DIR_CAT_COLONIAS = new HashSet<DIR_CAT_COLONIAS>();
-            this.DIR_DIRECCIONES = new HashSet<DIR_DIRECCIONES>();
         }
     
     
@@ -43,6 +42,5 @@ namespace Universidad.Entidades
     
         public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
         public virtual DIR_CAT_ESTADO DIR_CAT_ESTADO { get; set; }
-        public virtual ICollection<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }
     }
 }

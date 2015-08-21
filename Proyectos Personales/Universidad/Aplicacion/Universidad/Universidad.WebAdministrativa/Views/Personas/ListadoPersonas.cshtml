@@ -1,0 +1,76 @@
+﻿@model List<PER_PERSONAS>
+@using Universidad.Entidades
+@{
+    var titulo = ViewBag.Title = "Listado de Personas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listado = Model; @*(List<PER_PERSONAS>)ViewBag.ListaPersonas;*@
+}
+
+@section Scripts
+{
+    <script src="/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
+}
+
+<h2>@titulo</h2>
+
+<div class="jumbotron">
+    <div class="panel panel-default form-margin">
+        <div class="panel-heading form-margin">
+            <div class="panel-title">Selecciona uno de los catalogos del sistema</div>
+        </div>
+        <fieldset>
+            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        @*<div class="panel panel-default">
+                            <div class="panel-heading">Panel heading</div>
+                            <div class="panel-body">
+                                <p>Some default panel content here. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            </div>*@
+
+                        <table class="table">
+                            <caption>Monthly savings</caption>
+                            <tr>
+                                <th>
+                                    Apellido Paterno
+                                    @Html.ActionLink((Html.Raw("▴")).ToHtmlString(), "OrdenaListadoPersonas", "Personas", new { ordenamiento = "Paterno_A", listaPersonas = Model }, null)
+                                    @Html.ActionLink((Html.Raw("▾").ToHtmlString()), "OrdenaListadoPersonas", "Personas", new { ordenamiento = "Paterno_D", listaPersonas = Model }, null)
+                                </th>
+                                <th>
+                                    Fecha de Inscripcion
+                                    @Html.ActionLink((Html.Raw("▴")).ToHtmlString(), "OrdenaListadoPersonas", "Personas", new { ordenamiento = "Alta_A", listaPersonas = Model }, null)
+                                    @Html.ActionLink((Html.Raw("▾").ToHtmlString()), "OrdenaListadoPersonas", "Personas", new { ordenamiento = "Alta_D", listaPersonas = Model }, null)
+                                </th>
+                            </tr>
+                            @foreach (var item in listado)
+                            {
+
+                                <tr>
+                                    <td>@item.A_PATERNO</td>
+                                    <td>@item.FECHAINGRESO.ToShortDateString()</td>
+                                    <td>
+                                        @Html.ActionLink("Reporte", "ReportePersona", "Personas", new { personaId = item.ID_PERSONA }, new { @class = "btn btn-default" })
+                                        @Html.ActionLink("Editar", "ReportePersona", "Personas", new { personaId = item.ID_PERSONA }, new { @class = "btn btn-default" })
+                                    </td>
+                                </tr>
+
+                            }
+                            @*<tr>
+                                    <td>February</td>
+                                    <td>$50</td>
+                                </tr>*@
+                        </table>
+                    </div>
+                    @*</div>*@
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

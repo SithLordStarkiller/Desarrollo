@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
 
@@ -110,7 +111,14 @@ namespace Universidad.AccesoDatos.Personas
                 }).ToList().FirstOrDefault();
 
             return persona;
+        }
 
+        public List<PER_PERSONAS> ObtenListaPersonas()
+        {
+            using (var r = new Repositorio<PER_PERSONAS>())
+            {
+                return r.TablaCompleta();
+            }
         }
     }
 }

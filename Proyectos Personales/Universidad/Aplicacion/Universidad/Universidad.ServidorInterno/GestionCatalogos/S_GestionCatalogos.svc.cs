@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Universidad.Entidades;
 using Universidad.Entidades.Catalogos;
+using Universidad.LogicaNegocios.Personas;
 
 
 namespace Universidad.ServidorInterno.GestionCatalogos

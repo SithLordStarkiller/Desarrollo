@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLCargarCEPOMEX"
   DTS:PackageType="5"
-  DTS:VersionBuild="69"
-  DTS:VersionGUID="{94598AEE-31D1-458B-8356-39F2C7617C91}">
+  DTS:VersionBuild="75"
+  DTS:VersionGUID="{4A4FD6BB-0091-432B-B500-CC93836E8C4A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADklOB7GVwKV44BhwBeTryNPsn7D+jiYoSu+XwiPGq9HwAAAAAOgAAAAAIAACAAAAAWtGoUIybGw4vQOr12gCBazXgHiQfgBxKcmyj3zXw9tSAAAAAhPSidOP7IAMG6qEPNObx+5q/XI7jP7IxizzLoC2WbKkAAAABf5nTSaQfbmTjGSbvTJ2sWvRevjcC1ho7dOqnGyaHqPRLzwdxvs/aDK88UPSHgcT1ksJ8cprmdsDj66i3P9D8P</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB5IK9NdJEYgT7eGjbgnMlTLo32mpXCAhRmSVC5fFuhGgAAAAAOgAAAAAIAACAAAACbucAAAz2aWyG6vDEShwj+XwOqTasFrV/j/1/Z9lgc2iAAAACp+n+wVe3KHrxst2m7gqUz0qFWwF2h9GbErYk3wNwyJkAAAAB4KqppkYOqJ0suOyaC+sXaRdRNt7zf9cs6e6g34w/6oakM8Z5f4brOPoeWLQM9kGZstKvkmgeKwQPmWz6pQOIU</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -121,7 +121,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{B2C4F5E1-DD53-45C7-89BC-D03036E80A8F}"
-          SQLTask:SqlStatementSource="DELETE FROM CEPOMEX&#xA;&#xA;SET IDENTITY_INSERT DIR_DIRECCIONES ON&#xA;   insert into DIR_DIRECCIONES (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES_R&#xA;      SET IDENTITY_INSERT DIR_DIRECCIONES OFF&#xA;&#x9;  drop table DIR_DIRECCIONES_R&#xA;&#xA;UPDATE&#xA;    T&#xA;SET&#xA;    T.IDDIRECCION = OT.IdDireccion&#xA;FROM&#xA;    PER_PERSONAS T&#xA;INNER JOIN&#xA;    DireccionesPorPersona OT&#xA;ON&#xA;    T.ID_PERSONA = OT.IdPersona&#xA;WHERE&#xA;    T.ID_PERSONA = OT.IdPersona&#xA;&#xA;&#xA;DROP TABLE DireccionesPorPersona" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="DELETE FROM CEPOMEX&#xA;&#xA;DBCC CHECKIDENT ('DIR_DIRECCIONES', RESEED, 0) &#xA;SET IDENTITY_INSERT DIR_DIRECCIONES ON&#xA;   insert into DIR_DIRECCIONES (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;   IDCOLONIA,&#xA;&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES_R&#xA;      SET IDENTITY_INSERT DIR_DIRECCIONES OFF&#xA;&#x9;  drop table DIR_DIRECCIONES_R&#xA;&#xA;UPDATE&#xA;    T&#xA;SET&#xA;    T.IDDIRECCION = OT.IdDireccion&#xA;FROM&#xA;    PER_PERSONAS T&#xA;INNER JOIN&#xA;    DireccionesPorPersona OT&#xA;ON&#xA;    T.ID_PERSONA = OT.IdPersona&#xA;WHERE&#xA;    T.ID_PERSONA = OT.IdPersona&#xA;&#xA;&#xA;DROP TABLE DireccionesPorPersona" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -156,7 +156,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{B2C4F5E1-DD53-45C7-89BC-D03036E80A8F}"
-          SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDDELGMUNICIPIO      int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                varchar(100)         null,&#xA;   NOINT                varchar(100)         null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;&#x9;IDDELGMUNICIPIO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;Create table DireccionesPorPersona(&#xA;IdDireccion int NOT NULL,&#xA;IdPersona int NOT NULL&#xA;)&#xA;&#xA;insert into DireccionesPorPersona(&#xA;IdDireccion,&#xA;IdPersona&#xA;)&#xA;SELECT PP.IDDIRECCION, PP.ID_PERSONA FROM PER_PERSONAS AS PP&#xA;INNER JOIN DIR_DIRECCIONES AS DD ON PP.IDDIRECCION = DD.IDDIRECCION&#xA;&#xA;UPDATE PER_PERSONAS SET IDDIRECCION = NULL &#xA;&#xA;DELETE FROM DIR_DIRECCIONES&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="create table DIR_DIRECCIONES_R (&#xA;   IDDIRECCION          int                  ,&#xA;   IDESTADO             int                  null,&#xA;   IDCOLONIA            int                  null,&#xA;   IDMUNICIPIO          int                  null,&#xA;   CALLE                varchar(100)         null,&#xA;   NOEXT                varchar(100)         null,&#xA;   NOINT                varchar(100)         null,&#xA;   REFERENCIAS          varchar(150)         null&#xA;)&#xA;&#xA;insert into DIR_DIRECCIONES_R (&#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS)&#xA;select &#xA;&#x9;IDDIRECCION,&#xA;&#x9;IDESTADO,&#xA;   IDCOLONIA,&#xA;   IDMUNICIPIO,&#xA;   CALLE,&#xA;   NOEXT,&#xA;   NOINT,&#xA;   REFERENCIAS from DIR_DIRECCIONES&#xA;&#xA;Create table DireccionesPorPersona(&#xA;IdDireccion int NOT NULL,&#xA;IdPersona int NOT NULL&#xA;)&#xA;&#xA;insert into DireccionesPorPersona(&#xA;IdDireccion,&#xA;IdPersona&#xA;)&#xA;SELECT PP.IDDIRECCION, PP.ID_PERSONA FROM PER_PERSONAS AS PP&#xA;INNER JOIN DIR_DIRECCIONES AS DD ON PP.IDDIRECCION = DD.IDDIRECCION&#xA;&#xA;UPDATE PER_PERSONAS SET IDDIRECCION = NULL &#xA;&#xA;DELETE FROM DIR_DIRECCIONES&#xA;DELETE FROM CEPOMEX&#xA;DELETE FROM DIR_CAT_COLONIAS&#xA;DELETE FROM DIR_CAT_DELG_MUNICIPIO&#xA;DELETE FROM DIR_CAT_ESTADO&#xA;DELETE FROM DIR_CAT_TIPO_ASENTAMIENTO&#xA;DELETE FROM DIR_CAT_TIPO_ZONA&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -925,15 +925,6 @@
               ReadOnlyVariables="User::ListaTablas"
               ReadWriteVariables="User::Sheet">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -1153,6 +1144,35 @@
   </ProjectExtensions>
 </Project>]]></ProjectItem>
               <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_5bf9a1f103574e199e0904c230a69463.Properties.Settings.get_Default():ST_5bf9a1f103574e199e0904c230a69463.Properties.Sett" +
+    "ings")]
+
+namespace ST_5bf9a1f103574e199e0904c230a69463.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+              <ProjectItem
                 Name="ScriptMain.cs"
                 Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
 /* The Script Task allows you to perform virtually any operation that can be accomplished in
@@ -1293,35 +1313,6 @@ namespace ST_5bf9a1f103574e199e0904c230a69463
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_5bf9a1f103574e199e0904c230a69463.Properties.Settings.get_Default():ST_5bf9a1f103574e199e0904c230a69463.Properties.Sett" +
-    "ings")]
-
-namespace ST_5bf9a1f103574e199e0904c230a69463.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\AssemblyInfo.cs"
                 Encoding="UTF8"><![CDATA[using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -1351,6 +1342,15 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -1614,7 +1614,15 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <NodeLayout
           Size="166,42"
           Id="Package\Eliminar CEPOMEX"
-          TopLeft="422,555" />
+          TopLeft="423.428571428571,502.142857142857" />
+        <NodeLayout
+          Size="214,42"
+          Id="Package\Inserta registros a Catalogos"
+          TopLeft="395.428571428571,419.142857142857" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\Limpiar"
+          TopLeft="451.428571428571,57.1428571428571" />
         <NodeLayout
           Size="184,42"
           Id="Package\Recorrer Sheets Excel\Cargar tabla Cepomex"
@@ -1705,40 +1713,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           PanelSize="393,206"
           Size="393,249"
           Id="Package\Recorrer Sheets Excel"
-          TopLeft="312,190" />
-        <NodeLayout
-          Size="214,42"
-          Id="Package\Inserta registros a Catalogos"
-          TopLeft="394,472" />
-        <NodeLayout
-          Size="113,42"
-          Id="Package\Limpiar"
-          TopLeft="450,110" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="503,514">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,41"
-              Start="0,0"
-              End="0,33.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,33.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="313.428571428571,137.142857142857" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="504.75,439">
+          TopLeft="506.178571428571,386.142857142857">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -1760,7 +1738,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="507.5,152">
+          TopLeft="508.928571428571,99.1428571428571">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -1772,6 +1750,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="504.428571428571,461.142857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

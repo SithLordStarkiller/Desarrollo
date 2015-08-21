@@ -33,10 +33,6 @@ namespace Universidad.Entidades
     
     
     	[DataMember]
-        public Nullable<int> IDDELGMUNICIPIO { get; set; }
-    
-    
-    	[DataMember]
         public Nullable<int> IDMUNICIPIO { get; set; }
     
     
@@ -61,7 +57,6 @@ namespace Universidad.Entidades
     
     
         public virtual DIR_CAT_COLONIAS DIR_CAT_COLONIAS { get; set; }
-        public virtual DIR_CAT_DELG_MUNICIPIO DIR_CAT_DELG_MUNICIPIO { get; set; }
         public virtual DIR_CAT_ESTADO DIR_CAT_ESTADO { get; set; }
         public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
     }

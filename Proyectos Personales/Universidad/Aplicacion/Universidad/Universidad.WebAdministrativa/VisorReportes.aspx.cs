@@ -4,8 +4,6 @@ using System.Net;
 using System.Security.Principal;
 using Microsoft.Reporting.WebForms;
 
-
-
 namespace Universidad.WebAdministrativa
 {
     public partial class VisorReportes : System.Web.UI.Page

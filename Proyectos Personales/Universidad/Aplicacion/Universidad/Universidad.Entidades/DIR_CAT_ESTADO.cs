@@ -34,6 +34,10 @@ namespace Universidad.Entidades
         public string NOMBREESTADO { get; set; }
     
     
+    	[DataMember]
+        public string NOMBREOFICIAL { get; set; }
+    
+    
         public virtual ICollection<DIR_CAT_COLONIAS> DIR_CAT_COLONIAS { get; set; }
         public virtual ICollection<DIR_CAT_DELG_MUNICIPIO> DIR_CAT_DELG_MUNICIPIO { get; set; }
         public virtual ICollection<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }

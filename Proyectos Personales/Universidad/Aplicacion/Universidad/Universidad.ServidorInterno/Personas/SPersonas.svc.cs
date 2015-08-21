@@ -1,4 +1,5 @@
-﻿using Universidad.Entidades;
+﻿using System.Collections.Generic;
+using Universidad.Entidades;
 using Universidad.Entidades.Personas;
 using Universidad.LogicaNegocios.Personas;
 
@@ -34,6 +35,11 @@ namespace Universidad.ServidorInterno.Personas
         public DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink)
         {
             return new Persona().BuscarPersonaCompleta(idPersonaLink);
+        }
+
+        public List<PER_PERSONAS> ObtenListaPersonas()
+        {
+            return new Persona().ObtenListaPersonas();
         }
     }
 }

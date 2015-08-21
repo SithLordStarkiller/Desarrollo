@@ -38,6 +38,12 @@
   <wsdl:message name="ISPersonas_BuscarPersonaCompleta_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuscarPersonaCompletaResponse" />
   </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenListaPersonas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaPersonas" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenListaPersonas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaPersonasResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISPersonas">
     <wsdl:operation name="ExisteCorreoUniversidad">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad" message="tns:ISPersonas_ExisteCorreoUniversidad_InputMessage" />
@@ -58,6 +64,10 @@
     <wsdl:operation name="BuscarPersonaCompleta">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/BuscarPersonaCompleta" message="tns:ISPersonas_BuscarPersonaCompleta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/BuscarPersonaCompletaResponse" message="tns:ISPersonas_BuscarPersonaCompleta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenListaPersonas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenListaPersonas" message="tns:ISPersonas_ObtenListaPersonas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse" message="tns:ISPersonas_ObtenListaPersonas_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISPersonas" type="tns:ISPersonas">
@@ -100,6 +110,15 @@
     </wsdl:operation>
     <wsdl:operation name="BuscarPersonaCompleta">
       <soap:operation soapAction="http://tempuri.org/ISPersonas/BuscarPersonaCompleta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenListaPersonas">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenListaPersonas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

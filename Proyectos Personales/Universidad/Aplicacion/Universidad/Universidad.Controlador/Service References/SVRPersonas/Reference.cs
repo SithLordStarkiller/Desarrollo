@@ -44,6 +44,12 @@ namespace Universidad.Controlador.SVRPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersonaCompleta", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaCompletaResponse")]
         System.Threading.Tasks.Task<Universidad.Entidades.Personas.DatosCompletosPersona> BuscarPersonaCompletaAsync(string idPersonaLink);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonas", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonas();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonas", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonasAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -111,6 +117,14 @@ namespace Universidad.Controlador.SVRPersonas {
         
         public System.Threading.Tasks.Task<Universidad.Entidades.Personas.DatosCompletosPersona> BuscarPersonaCompletaAsync(string idPersonaLink) {
             return base.Channel.BuscarPersonaCompletaAsync(idPersonaLink);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonas() {
+            return base.Channel.ObtenListaPersonas();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonasAsync() {
+            return base.Channel.ObtenListaPersonasAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Universidad.Controlador.SVRPersonas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
@@ -45,6 +46,11 @@ namespace Universidad.Controlador.Personas
         public Task<DatosCompletosPersona> BuscarPersonaCompleta(string idPersonaLink)
         {
             return Task.Run(() => _servicio.BuscarPersonaCompletaAsync(idPersonaLink));
+        }
+
+        public Task<List<PER_PERSONAS>> ObtenListaPersonas()
+        {
+            return Task.Run(() => _servicio.ObtenListaPersonas());
         }
     }
 }

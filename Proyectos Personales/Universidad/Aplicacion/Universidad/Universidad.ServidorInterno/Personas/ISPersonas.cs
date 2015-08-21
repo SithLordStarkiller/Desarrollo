@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
 
@@ -24,5 +25,8 @@ namespace Universidad.ServidorInterno.Personas
 
         [OperationContract]
         DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink);
+
+        [OperationContract]
+        List<PER_PERSONAS> ObtenListaPersonas();
     }
 }
