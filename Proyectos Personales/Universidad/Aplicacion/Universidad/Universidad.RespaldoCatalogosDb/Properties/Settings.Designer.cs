@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Universidad.RespaldoCatalogosDB.Properties
+namespace Universidad.RespaldoCatalogosDb.Properties
 {
 
 
