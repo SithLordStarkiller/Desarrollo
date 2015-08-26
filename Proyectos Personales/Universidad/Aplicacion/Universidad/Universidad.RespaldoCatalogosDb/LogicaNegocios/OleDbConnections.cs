@@ -18,12 +18,13 @@
             
             if (_connectionString.IntegratedSecurity)
             {
-                url = "Provider=SQLOLEDB.1;Data Source = " + _connectionString.DataSource +
+                //Provider=SQLOLEDB.1;
+                url = "Data Source = " + _connectionString.DataSource +
                       ";Initial Catalog=" + _connectionString.InitialCatalog + ";Trusted_Connection=yes";
             }
             else
             {
-                url = "Provider=SQLOLEDB.1;Data Source = " + _connectionString.DataSource + ";User Id =" +
+                url = "Data Source = " + _connectionString.DataSource + ";User Id =" +
                           _connectionString.UserID + ";password=" + _connectionString.Password + ";Initial Catalog=" +
                           _connectionString.InitialCatalog;
             }
