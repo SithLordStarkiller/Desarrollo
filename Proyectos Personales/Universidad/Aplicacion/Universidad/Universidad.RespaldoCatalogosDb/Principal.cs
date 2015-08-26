@@ -27,7 +27,7 @@ namespace Universidad.RespaldoCatalogosDb
             {
 
                 var fbd = new FolderBrowserDialog();
-                var result = fbd.ShowDialog();
+                fbd.ShowDialog();
 
                 var fileList = (Directory.EnumerateFiles(fbd.SelectedPath, "*.xlsx", SearchOption.AllDirectories).Select(Path.GetFileName).ToList());
 
@@ -54,21 +54,28 @@ namespace Universidad.RespaldoCatalogosDb
             EnlistarInstaciasSqlServer();
             cbxDataBase.Enabled = false;
             txtConnectionString.Enabled = false;
+            rdbSqlSesion.Checked = true;
         }
 
         private void ListarDataBase()
         {
             try
             {
-                var databases = new List<String>();
                 var connection = new SqlConnectionStringBuilder();
                 var instacia = ListaServidores.Find(r => r.IdServidor == (int)cbxInstacias.SelectedValue);
 
                 connection.DataSource = instacia.CompleteName;
                 // enter credentials if you want
-                connection.UserID = txtUsuario.Text;
-                connection.Password = txtContrasena.Text;
-                //connection.IntegratedSecurity = true;
+
+                if (rdbSqlSesion.Checked)
+                {
+                    connection.UserID = txtUsuario.Text;
+                    connection.Password = txtContrasena.Text;
+                }
+                else
+                {
+                    connection.IntegratedSecurity = true;
+                }
 
                 var strConn = connection.ToString();
 
@@ -85,19 +92,17 @@ namespace Universidad.RespaldoCatalogosDb
                 sqlConn.Close();
 
                 //add to list
-                foreach (DataRow row in tblDatabases.Rows)
-                {
-                    var dataBaseName = row["database_name"].ToString();
-                    databases.Add(dataBaseName);
-                }
+                var databases = (from DataRow row in tblDatabases.Rows select row["database_name"].ToString()).ToList();
 
                 cbxDataBase.DisplayMember = "dataBaseName";
                 cbxDataBase.DataSource = databases;
                 cbxDataBase.Enabled = true;
+
+                txtConnectionString.Text = strConn;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //MessageBox.Show(@"Problema con la conexion");
+                throw;
             }
         }
 
@@ -146,8 +151,17 @@ namespace Universidad.RespaldoCatalogosDb
                 var instacia = ListaServidores.Find(r => r.IdServidor == (int)cbxInstacias.SelectedValue);
 
                 connection.DataSource = instacia.CompleteName;
-                connection.UserID = txtUsuario.Text;
-                connection.Password = txtContrasena.Text;
+
+                if (rdbSqlSesion.Checked)
+                {
+                    connection.UserID = txtUsuario.Text;
+                    connection.Password = txtContrasena.Text;
+                }
+                else
+                {
+                    connection.IntegratedSecurity = true;
+                }
+
                 var strConn = connection.ToString();
                 var sqlConn = new SqlConnection(strConn);
                 sqlConn.Open();
@@ -187,11 +201,54 @@ namespace Universidad.RespaldoCatalogosDb
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
-            var lista = (from object item in lbxSeleccionados.Items select item.ToString()).ToList();
+            try
+            {
+                var url = txtUrlCarpetaExcel.Text;
+                var lista = (from object item in lbxSeleccionados.Items select item.ToString()).ToList();
 
-            var form = new CargaDatos(SqlConnection, lista, UrlExcels);
-            Hide();
-            form.Show();
+                var form = new CargaDatos(this,SqlConnection, lista, url);
+                Hide();
+                form.Show();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"error");
+            }
+        }
+
+        private void rdbSqlSesion_CheckedChanged(object sender, EventArgs e)
+        {
+            txtContrasena.Enabled = true;
+            txtUsuario.Enabled = true;
+        }
+
+        private void rdbWindowsSesion_CheckedChanged(object sender, EventArgs e)
+        {
+            txtContrasena.Enabled = false;
+            txtUsuario.Enabled = false;
+            ListarDataBase();
+        }
+
+        private void txtUrlCarpetaExcel_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var fileList =
+                    (Directory.EnumerateFiles(txtUrlCarpetaExcel.Text, "*.xlsx", SearchOption.AllDirectories)
+                        .Select(Path.GetFileName)
+                        .ToList());
+
+                txtUrlCarpetaExcel.Text = txtUrlCarpetaExcel.Text;
+
+                UrlExcels = txtUrlCarpetaExcel.Text;
+
+                clbListaExcel.DataSource = fileList;
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(@"No se encontraron archiosenla ruta seleccionada");
+            }
         }
     }
 }

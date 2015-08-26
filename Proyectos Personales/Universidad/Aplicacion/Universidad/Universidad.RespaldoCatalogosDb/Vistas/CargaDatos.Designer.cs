@@ -33,7 +33,7 @@
             // 
             // btnIniciar
             // 
-            this.btnIniciar.Location = new System.Drawing.Point(481, 98);
+            this.btnIniciar.Location = new System.Drawing.Point(855, 461);
             this.btnIniciar.Name = "btnIniciar";
             this.btnIniciar.Size = new System.Drawing.Size(75, 23);
             this.btnIniciar.TabIndex = 0;
@@ -45,10 +45,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(846, 391);
+            this.ClientSize = new System.Drawing.Size(972, 496);
             this.Controls.Add(this.btnIniciar);
             this.Name = "CargaDatos";
             this.Text = "CargaDatos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CargaDatos_FormClosing);
             this.Load += new System.EventHandler(this.CargaDatos_Load);
             this.ResumeLayout(false);
 

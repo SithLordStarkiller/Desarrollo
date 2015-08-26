@@ -14,7 +14,20 @@
 
         public OleDbConnection Connect()
         {
-            var url = "Provider=SQLOLEDB.1;Data Source = " + _connectionString.DataSource + ";User Id =" + _connectionString.UserID + ";password=" + _connectionString.Password + ";Initial Catalog=" + _connectionString.InitialCatalog;
+            string url;
+            
+            if (_connectionString.IntegratedSecurity)
+            {
+                url = "Provider=SQLOLEDB.1;Data Source = " + _connectionString.DataSource +
+                      ";Initial Catalog=" + _connectionString.InitialCatalog + ";Trusted_Connection=yes";
+            }
+            else
+            {
+                url = "Provider=SQLOLEDB.1;Data Source = " + _connectionString.DataSource + ";User Id =" +
+                          _connectionString.UserID + ";password=" + _connectionString.Password + ";Initial Catalog=" +
+                          _connectionString.InitialCatalog;
+            }
+
             var myConnection = new OleDbConnection
             {
                 ConnectionString = url
@@ -23,6 +36,15 @@
             myConnection.Open();
 
             return myConnection;
+        }
+
+        public void ExecuteQuery(OleDbConnection connetion,string query)
+        {
+            connetion.Open();
+
+            var command = new OleDbCommand(query, connetion);
+
+            command.ExecuteNonQuery();
         }
 
         public void CloseConnection(OleDbConnection oleDbConnection)
