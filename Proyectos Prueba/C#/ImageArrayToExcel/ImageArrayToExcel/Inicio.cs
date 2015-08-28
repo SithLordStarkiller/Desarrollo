@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
@@ -146,14 +147,24 @@ namespace ImageArrayToExcel
                 
             } while (contadorCadena == cadena.Length);
 
-            imagen = new byte[listaValoresArray.Count-1];
+            imagen = new byte[listaValoresArray.Count];
 
             var contadorByte = 0;
 
             foreach (var item in listaValoresArray)
             {
-                imagen[contadorByte] = new byte[](item);
+                byte num = Convert.ToByte(item);
+                imagen[contadorByte] = num;
+                contadorByte++;
             }
+
+            var str = new MemoryStream();
+            str.Write(imagen, 0, imagen.Length);
+            var bit = new Bitmap(str);
+
+            //bit.Save(@"C:\imagen.gif", ImageFormat.Gif);
+
+            pbxImagenBinario.Image = bit;
         }
 
         private void btnConvertir_Click(object sender, EventArgs e)

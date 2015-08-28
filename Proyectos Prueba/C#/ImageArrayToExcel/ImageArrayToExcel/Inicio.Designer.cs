@@ -34,11 +34,11 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.pbxImagen = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbxImagenBinario = new System.Windows.Forms.PictureBox();
             this.txtBinario = new System.Windows.Forms.TextBox();
             this.btnConvertir = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImagenBinario)).BeginInit();
             this.SuspendLayout();
             // 
             // txtRutaImagen
@@ -95,13 +95,13 @@
             this.pbxImagen.TabIndex = 9;
             this.pbxImagen.TabStop = false;
             // 
-            // pictureBox1
+            // pbxImagenBinario
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(342, 84);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(288, 220);
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.pbxImagenBinario.Location = new System.Drawing.Point(342, 84);
+            this.pbxImagenBinario.Name = "pbxImagenBinario";
+            this.pbxImagenBinario.Size = new System.Drawing.Size(288, 220);
+            this.pbxImagenBinario.TabIndex = 10;
+            this.pbxImagenBinario.TabStop = false;
             // 
             // txtBinario
             // 
@@ -128,7 +128,7 @@
             this.ClientSize = new System.Drawing.Size(643, 425);
             this.Controls.Add(this.btnConvertir);
             this.Controls.Add(this.txtBinario);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbxImagenBinario);
             this.Controls.Add(this.pbxImagen);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnSalir);
@@ -139,7 +139,7 @@
             this.Text = "Inicio";
             this.Load += new System.EventHandler(this.pan_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxImagenBinario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,7 +153,7 @@
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.PictureBox pbxImagen;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbxImagenBinario;
         private System.Windows.Forms.TextBox txtBinario;
         private System.Windows.Forms.Button btnConvertir;
     }
