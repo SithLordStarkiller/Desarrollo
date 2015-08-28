@@ -121,7 +121,6 @@ namespace ImageArrayToExcel
         {
             byte[] imagen;
             var contadorCadena = 1;
-            var contadorArray = 0;
             var listaValoresArray = new List<string>();
 
             do
