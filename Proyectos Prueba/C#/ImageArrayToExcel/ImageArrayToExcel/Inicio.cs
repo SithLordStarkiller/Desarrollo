@@ -42,7 +42,7 @@ namespace ImageArrayToExcel
         {
             try
             {
-                var rutaImagen = @"C:\Users\Admin\Pictures\Descargas\Hello.gif";
+                var rutaImagen = txtRutaImagen.Text;//@"C:\Users\Admin\Pictures\Descargas\Hello.gif";
                 //txtRutaImagen.Text;
                 var imagen = Image.FromFile(rutaImagen);
                 pbxImagen.Image = imagen;
@@ -51,9 +51,8 @@ namespace ImageArrayToExcel
                 using (var archivoStream = new MemoryStream())
                 {
                     pbxImagen.Image.Save(archivoStream, imagen.RawFormat);
-                    _fotografia = archivoStream.ToArray();
+                    _fotografia = File.ReadAllBytes(rutaImagen);
                 }
-
 
                 var diagonal = 0;
                 int i;
