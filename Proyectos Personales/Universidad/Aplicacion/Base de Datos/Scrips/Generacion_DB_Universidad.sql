@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     21/08/2015 04:49:26 p. m.                    */
+/* Created on:     03/09/2015 06:37:52 p. m.                    */
 /*==============================================================*/
 
 
@@ -30,6 +30,27 @@ if exists (select 1
    where r.fkeyid = object_id('AUL_AULA_CLASES') and o.name = 'FK_AUL_AULA_REFERENCE_AUL_CAT_')
 alter table AUL_AULA_CLASES
    drop constraint FK_AUL_AULA_REFERENCE_AUL_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REFERENCE_CLA_CLAS')
+alter table CAL_CALIFICACIONES
+   drop constraint FK_CAL_CALI_REFERENCE_CLA_CLAS
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REFERENCE_ALU_ALUM')
+alter table CAL_CALIFICACIONES
+   drop constraint FK_CAL_CALI_REFERENCE_ALU_ALUM
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REFERENCE_GEN_CAT_')
+alter table CAL_CALIFICACIONES
+   drop constraint FK_CAL_CALI_REFERENCE_GEN_CAT_
 go
 
 if exists (select 1
@@ -349,6 +370,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('CAL_CALIFICACIONES')
+            and   type = 'U')
+   drop table CAL_CALIFICACIONES
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('CAR_CAT_CARRERAS')
             and   type = 'U')
    drop table CAR_CAT_CARRERAS
@@ -415,6 +443,13 @@ if exists (select 1
            where  id = object_id('DIR_DIRECCIONES')
             and   type = 'U')
    drop table DIR_DIRECCIONES
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('GEN_CAT_SEMESTRE_PERIODOS')
+            and   type = 'U')
+   drop table GEN_CAT_SEMESTRE_PERIODOS
 go
 
 if exists (select 1
@@ -625,6 +660,22 @@ create table AUL_CAT_TIPO_AULA (
 go
 
 /*==============================================================*/
+/* Table: CAL_CALIFICACIONES                                    */
+/*==============================================================*/
+create table CAL_CALIFICACIONES (
+   IDCALIFICACION       int                  not null,
+   IDCLASE              int                  null,
+   IDALUMNOS            int                  null,
+   IDSEMESTRE           int                  null,
+   CALIFICACIONPRIMERPERIODO decimal(2,2)         null,
+   CALFIICACIONSEGUNDOPERIODO decimal(2,2)         null,
+   CALIFICACIONTERCERPERIODO decimal(2,2)         null,
+   CALIFICACIONFINAL    decimal(2,2)         null,
+   constraint PK_CAL_CALIFICACIONES primary key (IDCALIFICACION)
+)
+go
+
+/*==============================================================*/
 /* Table: CAR_CAT_CARRERAS                                      */
 /*==============================================================*/
 create table CAR_CAT_CARRERAS (
@@ -740,6 +791,16 @@ create table DIR_DIRECCIONES (
    NOINT                varchar(30)          null,
    REFERENCIAS          varchar(150)         null,
    constraint PK_DIR_DIRECCIONES primary key (IDDIRECCION)
+)
+go
+
+/*==============================================================*/
+/* Table: GEN_CAT_SEMESTRE_PERIODOS                             */
+/*==============================================================*/
+create table GEN_CAT_SEMESTRE_PERIODOS (
+   IDSEMESTRE           int                  not null,
+   PERIODOSEMESTRE      varchar(100)         null,
+   constraint PK_GEN_CAT_SEMESTRE_PERIODOS primary key (IDSEMESTRE)
 )
 go
 
@@ -1053,6 +1114,21 @@ go
 alter table AUL_AULA_CLASES
    add constraint FK_AUL_AULA_REFERENCE_AUL_CAT_ foreign key (IDTIPOAULA)
       references AUL_CAT_TIPO_AULA (IDTIPOAULA)
+go
+
+alter table CAL_CALIFICACIONES
+   add constraint FK_CAL_CALI_REFERENCE_CLA_CLAS foreign key (IDCLASE)
+      references CLA_CLASE (IDCLASE)
+go
+
+alter table CAL_CALIFICACIONES
+   add constraint FK_CAL_CALI_REFERENCE_ALU_ALUM foreign key (IDALUMNOS)
+      references ALU_ALUMNOS (IDALUMNOS)
+go
+
+alter table CAL_CALIFICACIONES
+   add constraint FK_CAL_CALI_REFERENCE_GEN_CAT_ foreign key (IDSEMESTRE)
+      references GEN_CAT_SEMESTRE_PERIODOS (IDSEMESTRE)
 go
 
 alter table CAR_CAT_CARRERAS
