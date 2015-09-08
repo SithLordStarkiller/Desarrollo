@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
 using Universidad.LogicaNegocios.Personas;
@@ -40,6 +41,11 @@ namespace Universidad.ServidorInterno.Personas
         public List<PER_PERSONAS> ObtenListaPersonas()
         {
             return new Persona().ObtenListaPersonas();
+        }
+
+        public List<PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal,int? idTipoPersona)
+        {
+            return new Persona().ObtenListaPersonasFiltro(idPersona,fechaInicio,fechaFinal,idTipoPersona);
         }
 
         public List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona()

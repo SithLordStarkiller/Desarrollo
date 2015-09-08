@@ -100,4 +100,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenListaPersonaFiltro">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPersona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaInicio" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="fechaFinal" nillable="true" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="idTipoPersona" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenListaPersonaFiltroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Universidad.Entidades" minOccurs="0" name="ObtenListaPersonaFiltroResult" nillable="true" type="q13:ArrayOfPER_PERSONAS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

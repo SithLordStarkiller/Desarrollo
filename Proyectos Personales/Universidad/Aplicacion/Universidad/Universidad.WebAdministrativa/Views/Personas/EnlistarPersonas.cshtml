@@ -25,7 +25,7 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('.datepicker').datepicker({
                 language: 'es',
                 format: 'dd/mm/yyyy',
@@ -38,7 +38,7 @@
         });
 
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#ddlTipoPersona").change(function () {
                 debugger;
                 FiltraPersonas();
@@ -48,92 +48,97 @@
         function FiltraPersonas() {
 
             var idTipoPersona = $("#ddlTipoPersona").val();
-            window.location.href = '/Personas/EnlistarPersonas?idTipoPersona=' + idTipoPersona + '&idPersona=1&fechaInicio=23/05/1987&fechaFinal=23/05/1987&page=1';
+            var fechaInicio = $("#txtFechaIngresoDe").val();
+            var fechaFin = $("#txtFechaIngresoHasta").val();
+            var idPersona = $("#txtIdLinkPersona").val();
+            
+            var path = '@Url.Action("EnlistarPersonas", "Personas")' + '?idTipoPersona=' + idTipoPersona + '&idPersona=' + idPersona + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin + '&page=1';
+            window.location.href(path);
         }
     </script>
 }
-    <br />
-    <h3>@titulo</h3>
-    <br />
-    <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-        <div class="row">
-            <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                <div class="form-group col-lg-offset-3 col-md-6">
-                    <div class="input-group input-group-sm">
-                        @Html.Label("Fecha Ingreso de", new {@class = "input-group-addon"})
-                        @Html.TextBox("txtFechaIngresoDe", null, new {@class = "form-control"})
-                        @Html.Label("Hasta", new {@class = "input-group-addon"})
-                        @Html.TextBox("txtFechaIngresoHsta", null, new {@class = "form-control"})
-                    </div>
+<br />
+<h3>@titulo</h3>
+<br />
+<div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+    <div class="row">
+        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+            <div class="form-group col-lg-offset-3 col-md-6">
+                <div class="input-group input-group-sm">
+                    @Html.Label("Fecha Ingreso de", new { @class = "input-group-addon" })
+                    @Html.TextBox("txtFechaIngresoDe", null, new { @class = "form-control datepicker" })
+                    @Html.Label("Hasta", new { @class = "input-group-addon" })
+                    @Html.TextBox("txtFechaIngresoHasta", null, new { @class = "form-control datepicker" })
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
-                <div class="form-group input-group-sm form-group-sm">
-                    <div class="col-lg-offset-2 col-md-4">
-                        <div class="input-group">
-                            @Html.Label("No de Persona", new {@class = "input-group-addon"})
-                            @Html.TextBox("txtIdLinkPersona", null, new {@class = "form-control"})
-                        </div>
+    </div>
+    <div class="row">
+        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+            <div class="form-group input-group-sm form-group-sm">
+                <div class="col-lg-offset-2 col-md-4">
+                    <div class="input-group">
+                        @Html.Label("No de Persona", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtIdLinkPersona", null, new { @class = "form-control" })
                     </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            @Html.Label("Tipo de Persona", new {@class = "input-group-addon"})
-                            @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new {@class = "selectpicker", data_live_search = true})
-                        </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
+                        @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new { @class = "selectpicker", data_live_search = true })
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <br />
-    <div>
-        <table class="table">
+</div>
+<br />
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                Id
+                @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Apellido Paterno
+                @*@Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })*@
+            </th>
+            <th>
+                Apellido Materno
+            </th>
+            <th>
+                Fecha de ingreso
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>
-                    Id
-                    @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
-                </th>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    Apellido Paterno
-                    @*@Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })*@
-                </th>
-                <th>
-                    Apellido Materno
-                </th>
-                <th>
-                    Fecha de ingreso
-                </th>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID_PER_LINKID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.A_PATERNO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.A_MATERNO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FECHAINGRESO)
+                </td>
             </tr>
+        }
+    </table>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ID_PER_LINKID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NOMBRE)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.A_PATERNO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.A_MATERNO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FECHAINGRESO)
-                    </td>
-                </tr>
-            }
-        </table>
+    <br />
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-        <br />
-        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-        @Html.PagedListPager(Model, page => Url.Action("EnlistarPersonas", new {page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))
-    </div>
+    @Html.PagedListPager(Model, page => Url.Action("EnlistarPersonas", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

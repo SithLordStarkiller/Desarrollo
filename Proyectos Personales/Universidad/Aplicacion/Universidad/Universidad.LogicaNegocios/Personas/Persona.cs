@@ -14,11 +14,14 @@ namespace Universidad.LogicaNegocios.Personas
         {
             try
             {
-
-                var taskTelefonos = Task<PER_CAT_TELEFONOS>.Factory.StartNew(() => new Telefonos().InsertaTelefonosLinq(personaTelefonos));
-                var taskMediosElectronicos = Task<PER_MEDIOS_ELECTRONICOS>.Factory.StartNew(() => new AccesoDatos.Personas.MediosElectronicos().InsertaMediosElectronicosLinq(personaMediosElectronicos));
-                var taskFotografia = Task<PER_FOTOGRAFIA>.Factory.StartNew(() => new Fotografias().InsertaFotografiaLinq(personaFotografia));
-                var taskDirecciones = Task<DIR_DIRECCIONES>.Factory.StartNew(() => new Direcciones().InsertaDireccionesLinq(personaDirecciones));
+                var telefonos = personaTelefonos;
+                var taskTelefonos = Task<PER_CAT_TELEFONOS>.Factory.StartNew(() => new Telefonos().InsertaTelefonosLinq(telefonos));
+                var electronicos = personaMediosElectronicos;
+                var taskMediosElectronicos = Task<PER_MEDIOS_ELECTRONICOS>.Factory.StartNew(() => new AccesoDatos.Personas.MediosElectronicos().InsertaMediosElectronicosLinq(electronicos));
+                var fotografia = personaFotografia;
+                var taskFotografia = Task<PER_FOTOGRAFIA>.Factory.StartNew(() => new Fotografias().InsertaFotografiaLinq(fotografia));
+                var direcciones = personaDirecciones;
+                var taskDirecciones = Task<DIR_DIRECCIONES>.Factory.StartNew(() => new Direcciones().InsertaDireccionesLinq(direcciones));
 
                 var resultados = new Task[] { taskTelefonos, taskMediosElectronicos, taskFotografia, taskDirecciones };
 
@@ -33,9 +36,10 @@ namespace Universidad.LogicaNegocios.Personas
                 persona.IDFOTO = personaFotografia.IDFOTO;
                 persona.ID_MEDIOS_ELECTRONICOS = personaMediosElectronicos.ID_MEDIOS_ELECTRONICOS;
                 persona.ID_TELEFONOS = personaTelefonos.ID_TELEFONOS;
-                var datos = ((persona.A_PATERNO.ToCharArray())[0]).ToString() + ((persona.A_MATERNO.ToCharArray())[0]).ToString() +
-                            ((persona.NOMBRE.ToCharArray())[0]).ToString() + ((persona.SEXO.ToCharArray())[0]).ToString() + (persona.FECHA_NAC.Day).ToString() +
-                            (persona.FECHA_NAC.Month).ToString() + (persona.FECHA_NAC.Year).ToString() + (new Random().Next(10, 99)).ToString();
+                
+                var datos = ((persona.A_PATERNO.ToCharArray())[0]) + ((persona.A_MATERNO.ToCharArray())[0]) +
+                            ((persona.NOMBRE.ToCharArray())[0]) + ((persona.SEXO.ToCharArray())[0]) + (persona.FECHA_NAC.Day) +
+                            (persona.FECHA_NAC.Month) + (persona.FECHA_NAC.Year) + (new Random().Next(10, 99));
                 
                 var fRegistro = DateTime.Now.Day.ToString("D") + DateTime.Now.Month.ToString("D") +
                                 DateTime.Now.Year.ToString("D");
@@ -68,6 +72,11 @@ namespace Universidad.LogicaNegocios.Personas
         public List<PER_PERSONAS> ObtenListaPersonas()
         {
             return new AccesoDatos.Personas.Personas().ObtenListaPersonas();
+        }
+
+        public List<PER_PERSONAS> ObtenListaPersonasFiltro(string idPersona,DateTime? fechaInicio,DateTime? fechaFinal,int? idTipoPersona)
+        {
+            return new AccesoDatos.Personas.Personas().ObtenPersonasFiltro(idPersona, fechaInicio, fechaFinal,idTipoPersona);
         }
     }
 }

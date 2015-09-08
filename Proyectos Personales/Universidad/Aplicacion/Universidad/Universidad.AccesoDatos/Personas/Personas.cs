@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
@@ -119,6 +120,16 @@ namespace Universidad.AccesoDatos.Personas
             {
                 return r.TablaCompleta();
             }
+        }
+
+        public List<PER_PERSONAS> ObtenPersonasFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal, int? idTipoPersona)
+        {
+            var personas = (
+                from pp in _contexto.PER_PERSONAS
+                where pp.ID_PER_LINKID == idPersona
+                select pp).ToList();
+
+            return personas;
         }
     }
 }

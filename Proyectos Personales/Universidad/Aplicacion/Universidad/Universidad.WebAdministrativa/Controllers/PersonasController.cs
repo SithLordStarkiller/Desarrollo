@@ -462,7 +462,7 @@ namespace Universidad.WebAdministrativa.Controllers
         [SessionExpireFilter]
         public async void OrdenaListadoPersonasAsync(string ordenamiento)
         {
-            var sesion = (Sesion) Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicio = new SvcPersonas(sesion);
 
             AsyncManager.OutstandingOperations.Increment();
@@ -503,7 +503,7 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public async Task<ActionResult> EnlistarPersonas(int? page,DateTime? fechaInicio,DateTime? fechaFinal,int? idTipoPersona,string idPersona)
+        public async Task<ActionResult> EnlistarPersonas(int? page, DateTime? fechaInicio, DateTime? fechaFin, int? idTipoPersona, string idPersona)
         {
             Sesion();
 
@@ -512,13 +512,13 @@ namespace Universidad.WebAdministrativa.Controllers
 
             List<PER_PERSONAS> listaPersonas;
 
-            if (fechaInicio == null && fechaFinal == null && idPersona == null && idTipoPersona == null)
+            if (fechaInicio == null && fechaFin == null && idPersona == null && idTipoPersona == null)
             {
                 listaPersonas = await servicioPersonas.ObtenListaPersonas();
             }
             else
             {
-                listaPersonas = null;
+                listaPersonas = await servicioPersonas.ObtenListaPersonasFiltro(idPersona, fechaInicio, fechaFin, idTipoPersona);
             }
 
             var listaTipoPersona = await servicioPersonas.ObtenCatTipoPersona();
@@ -534,7 +534,7 @@ namespace Universidad.WebAdministrativa.Controllers
             const int pageSize = 7;
             var pageNumber = (page ?? 1);
 
-            return View(listaPersonas.ToPagedList(pageNumber,pageSize));
+            return View(listaPersonas.ToPagedList(pageNumber, pageSize));
         }
 
         [SessionExpireFilter]
@@ -559,7 +559,7 @@ namespace Universidad.WebAdministrativa.Controllers
             const int pageSize = 7;
             var pageNumber = (page ?? 1);
 
-            return View("EnlistarPersonas",listaPersonas.ToPagedList(pageNumber, pageSize));
+            return View("EnlistarPersonas", listaPersonas.ToPagedList(pageNumber, pageSize));
         }
     }
 

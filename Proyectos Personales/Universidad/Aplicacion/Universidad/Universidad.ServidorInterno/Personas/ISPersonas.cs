@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using Universidad.Entidades;
 using Universidad.Entidades.Personas;
@@ -31,5 +32,8 @@ namespace Universidad.ServidorInterno.Personas
 
         [OperationContract]
         List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
+
+        [OperationContract]
+        List<PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal, int? idTipoPersona);
     }
 }

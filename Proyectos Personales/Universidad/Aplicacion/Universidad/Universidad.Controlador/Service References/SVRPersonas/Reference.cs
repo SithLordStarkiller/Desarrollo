@@ -56,6 +56,12 @@ namespace Universidad.Controlador.SVRPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenCatTipoPersonaResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltroResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltroResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -139,6 +145,14 @@ namespace Universidad.Controlador.SVRPersonas {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync() {
             return base.Channel.ObtenCatTipoPersonaAsync();
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
+            return base.Channel.ObtenListaPersonaFiltro(idPersona, fechaInicio, fechaFinal, idTipoPersona);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
+            return base.Channel.ObtenListaPersonaFiltroAsync(idPersona, fechaInicio, fechaFinal, idTipoPersona);
         }
     }
 }
