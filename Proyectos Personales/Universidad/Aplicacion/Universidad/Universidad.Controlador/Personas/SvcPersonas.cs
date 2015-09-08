@@ -50,7 +50,12 @@ namespace Universidad.Controlador.Personas
 
         public Task<List<PER_PERSONAS>> ObtenListaPersonas()
         {
-            return Task.Run(() => _servicio.ObtenListaPersonas());
+            return Task.Run(() => _servicio.ObtenListaPersonasAsync());
+        }
+
+        public Task<List<PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersona()
+        {
+            return Task.Run(() => _servicio.ObtenCatTipoPersonaAsync());
         }
     }
 }

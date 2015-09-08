@@ -44,6 +44,12 @@
   <wsdl:message name="ISPersonas_ObtenListaPersonas_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenListaPersonasResponse" />
   </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenCatTipoPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatTipoPersona" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenCatTipoPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatTipoPersonaResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISPersonas">
     <wsdl:operation name="ExisteCorreoUniversidad">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad" message="tns:ISPersonas_ExisteCorreoUniversidad_InputMessage" />
@@ -68,6 +74,10 @@
     <wsdl:operation name="ObtenListaPersonas">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenListaPersonas" message="tns:ISPersonas_ObtenListaPersonas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse" message="tns:ISPersonas_ObtenListaPersonas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatTipoPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersona" message="tns:ISPersonas_ObtenCatTipoPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersonaResponse" message="tns:ISPersonas_ObtenCatTipoPersona_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISPersonas" type="tns:ISPersonas">
@@ -119,6 +129,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenListaPersonas">
       <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenListaPersonas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatTipoPersona">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenCatTipoPersona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

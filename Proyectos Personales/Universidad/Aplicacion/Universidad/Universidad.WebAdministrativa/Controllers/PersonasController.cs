@@ -10,6 +10,7 @@ using Universidad.Controlador.Personas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 using Universidad.WebAdministrativa.Models;
+using PagedList;
 
 namespace Universidad.WebAdministrativa.Controllers
 {
@@ -499,6 +500,66 @@ namespace Universidad.WebAdministrativa.Controllers
         [SessionExpireFilter]
         public void ReportePersonaAsync(int personaId)
         {
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EnlistarPersonas(int? page,DateTime? fechaInicio,DateTime? fechaFinal,int? idTipoPersona,string idPersona)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicioPersonas = new SvcPersonas(sesion);
+
+            List<PER_PERSONAS> listaPersonas;
+
+            if (fechaInicio == null && fechaFinal == null && idPersona == null && idTipoPersona == null)
+            {
+                listaPersonas = await servicioPersonas.ObtenListaPersonas();
+            }
+            else
+            {
+                listaPersonas = null;
+            }
+
+            var listaTipoPersona = await servicioPersonas.ObtenCatTipoPersona();
+
+            var enlistarTipoPersona = listaTipoPersona.Select(c => new SelectListItem
+            {
+                Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
+                Text = c.TIPO_PERSONA
+            }).ToArray();
+
+            ViewBag.ListaTipoPersona = enlistarTipoPersona;
+
+            const int pageSize = 7;
+            var pageNumber = (page ?? 1);
+
+            return View(listaPersonas.ToPagedList(pageNumber,pageSize));
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EnlistarPersonasFiltro(int? page)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicioPersonas = new SvcPersonas(sesion);
+
+            var listaPersonas = await servicioPersonas.ObtenListaPersonas();
+            var listaTipoPersona = await servicioPersonas.ObtenCatTipoPersona();
+
+            var enlistarTipoPersona = listaTipoPersona.Select(c => new SelectListItem
+            {
+                Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
+                Text = c.TIPO_PERSONA
+            }).ToArray();
+
+            ViewBag.ListaTipoPersona = enlistarTipoPersona;
+
+            const int pageSize = 7;
+            var pageNumber = (page ?? 1);
+
+            return View("EnlistarPersonas",listaPersonas.ToPagedList(pageNumber, pageSize));
         }
     }
 

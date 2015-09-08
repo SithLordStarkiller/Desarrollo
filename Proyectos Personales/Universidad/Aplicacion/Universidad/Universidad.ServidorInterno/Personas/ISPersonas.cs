@@ -28,5 +28,8 @@ namespace Universidad.ServidorInterno.Personas
 
         [OperationContract]
         List<PER_PERSONAS> ObtenListaPersonas();
+
+        [OperationContract]
+        List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
     }
 }

@@ -59,7 +59,6 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CALLE" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IDCOLONIA" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="IDDELGMUNICIPIO" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="IDDIRECCION" type="xs:int" />
       <xs:element minOccurs="0" name="IDESTADO" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="IDMUNICIPIO" nillable="true" type="xs:int" />
@@ -75,4 +74,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfPER_PERSONAS" nillable="true" type="tns:ArrayOfPER_PERSONAS" />
+  <xs:complexType name="ArrayOfPER_CAT_TIPO_PERSONA">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PER_CAT_TIPO_PERSONA" nillable="true" type="tns:PER_CAT_TIPO_PERSONA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPER_CAT_TIPO_PERSONA" nillable="true" type="tns:ArrayOfPER_CAT_TIPO_PERSONA" />
+  <xs:complexType name="PER_CAT_TIPO_PERSONA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DESCRIPCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TIPO_PERSONA" type="xs:int" />
+      <xs:element minOccurs="0" name="TIPO_PERSONA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PER_CAT_TIPO_PERSONA" nillable="true" type="tns:PER_CAT_TIPO_PERSONA" />
 </xs:schema>

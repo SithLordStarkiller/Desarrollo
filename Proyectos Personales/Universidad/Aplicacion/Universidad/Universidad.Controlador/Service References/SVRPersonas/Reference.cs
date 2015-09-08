@@ -50,6 +50,12 @@ namespace Universidad.Controlador.SVRPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonas", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenCatTipoPersonaResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenCatTipoPersonaResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -125,6 +131,14 @@ namespace Universidad.Controlador.SVRPersonas {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonasAsync() {
             return base.Channel.ObtenListaPersonasAsync();
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona() {
+            return base.Channel.ObtenCatTipoPersona();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync() {
+            return base.Channel.ObtenCatTipoPersonaAsync();
         }
     }
 }

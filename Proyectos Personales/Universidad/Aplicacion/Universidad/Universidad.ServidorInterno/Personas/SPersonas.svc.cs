@@ -41,5 +41,10 @@ namespace Universidad.ServidorInterno.Personas
         {
             return new Persona().ObtenListaPersonas();
         }
+
+        public List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatTipoPersona();
+        }
     }
 }
