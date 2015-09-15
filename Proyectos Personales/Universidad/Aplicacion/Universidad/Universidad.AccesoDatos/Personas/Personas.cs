@@ -124,10 +124,41 @@ namespace Universidad.AccesoDatos.Personas
 
         public List<PER_PERSONAS> ObtenPersonasFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal, int? idTipoPersona)
         {
-            var personas = (
-                from pp in _contexto.PER_PERSONAS
-                where pp.ID_PER_LINKID == idPersona
-                select pp).ToList();
+            List<PER_PERSONAS> personas;
+
+            using (var r = new Repositorio<PER_PERSONAS>())
+            {
+                 personas = r.TablaCompleta();
+            }
+
+            if (fechaInicio != null && fechaFinal != null && idPersona == "" && idTipoPersona == null)
+            {
+                personas = personas.Where(r => r.FECHAINGRESO >= fechaInicio && r.FECHAINGRESO <= fechaFinal).ToList();
+            }
+            else if (fechaInicio == null && fechaFinal == null && idPersona != "" && idTipoPersona == null)
+            {
+                personas = personas.Where(r => r.ID_PER_LINKID == idPersona).ToList();
+            }
+            else if (fechaInicio == null && fechaFinal == null && idPersona == "" && idTipoPersona != null)
+            {
+                personas = personas.Where(r => r.ID_TIPO_PERSONA == idTipoPersona).ToList();
+            }
+            else if (fechaInicio == null && fechaFinal == null && idPersona != "" && idTipoPersona != null)
+            {
+                personas = personas.Where(r => r.ID_PER_LINKID == idPersona && r.ID_TIPO_PERSONA == idTipoPersona).ToList();
+            }
+            else if (fechaInicio != null && fechaFinal != null && idPersona != "" && idTipoPersona == null)
+            {
+                personas = personas.Where(r => r.FECHAINGRESO >= fechaInicio && r.FECHAINGRESO <= fechaFinal && r.ID_PER_LINKID == idPersona).ToList();
+            }
+            else if (fechaInicio != null && fechaFinal != null && idPersona == "" && idTipoPersona != null)
+            {
+                personas = personas.Where(r => r.FECHAINGRESO >= fechaInicio && r.FECHAINGRESO <= fechaFinal && r.ID_TIPO_PERSONA == idTipoPersona).ToList();
+            }
+            else if (fechaInicio != null && fechaFinal != null && idPersona != "" && idTipoPersona != null)
+            {
+                personas = personas.Where(r => r.FECHAINGRESO >= fechaInicio && r.FECHAINGRESO <= fechaFinal && r.ID_PER_LINKID == idPersona && r.ID_TIPO_PERSONA == idTipoPersona).ToList();
+            }
 
             return personas;
         }

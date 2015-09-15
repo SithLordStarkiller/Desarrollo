@@ -2,7 +2,6 @@
 @model PagedList.IPagedList<Universidad.Entidades.PER_PERSONAS>
 
 @{
-
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     var titulo = ViewBag.Title = "Lista de personas";
@@ -39,8 +38,7 @@
 
 
         $(document).ready(function () {
-            $("#ddlTipoPersona").change(function () {
-                debugger;
+            $('#ddlTipoPersona').change(function(){
                 FiltraPersonas();
             });
         });
@@ -85,7 +83,7 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
-                        @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new { @class = "selectpicker", data_live_search = true })
+                        @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new { @class = "selectpicker", @onchange = "FiltraPersonas();", data_live_search = true })
                     </div>
                 </div>
             </div>
@@ -98,14 +96,12 @@
         <tr>
             <th>
                 Id
-                @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th>
                 Nombre
             </th>
             <th>
                 Apellido Paterno
-                @*@Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })*@
             </th>
             <th>
                 Apellido Materno
@@ -138,7 +134,7 @@
     </table>
 
     <br />
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
 
     @Html.PagedListPager(Model, page => Url.Action("EnlistarPersonas", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 </div>

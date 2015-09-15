@@ -503,7 +503,7 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public async Task<ActionResult> EnlistarPersonas(int? page, DateTime? fechaInicio, DateTime? fechaFin, int? idTipoPersona, string idPersona)
+        public async Task<ActionResult> EnlistarPersonasAsync(int? page, string fechaInicio, string fechaFin, int? idTipoPersona, string idPersona)
         {
             Sesion();
 
@@ -518,7 +518,29 @@ namespace Universidad.WebAdministrativa.Controllers
             }
             else
             {
-                listaPersonas = await servicioPersonas.ObtenListaPersonasFiltro(idPersona, fechaInicio, fechaFin, idTipoPersona);
+                DateTime? fechaInicioS;
+                
+                if (fechaInicio == "")
+                {
+                    fechaInicioS = null;
+                }
+                else
+                {
+                    fechaInicioS = Convert.ToDateTime(fechaInicio);
+                }
+
+                DateTime? fechaFinS;
+
+                if (fechaFin == "")
+                {
+                    fechaFinS = null;
+                }
+                else
+                {  
+                     fechaFinS = Convert.ToDateTime(fechaFin);
+                }
+
+                listaPersonas = await servicioPersonas.ObtenListaPersonasFiltro(idPersona, fechaInicioS, fechaFinS, idTipoPersona);
             }
 
             var listaTipoPersona = await servicioPersonas.ObtenCatTipoPersona();
