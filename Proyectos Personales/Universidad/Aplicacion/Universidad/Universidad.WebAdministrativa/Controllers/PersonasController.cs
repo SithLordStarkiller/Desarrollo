@@ -553,7 +553,12 @@ namespace Universidad.WebAdministrativa.Controllers
 
             ViewBag.ListaTipoPersona = enlistarTipoPersona;
 
-            const int pageSize = 7;
+            ViewData["fechaInicial"] = fechaInicio;
+            ViewData["fechaFinal"] = fechaFin;
+            ViewData["idTipoPersona"] = idTipoPersona;
+            ViewData["idPersona"] = idPersona;
+
+            const int pageSize = 6;
             var pageNumber = (page ?? 1);
 
             return View(listaPersonas.ToPagedList(pageNumber, pageSize));

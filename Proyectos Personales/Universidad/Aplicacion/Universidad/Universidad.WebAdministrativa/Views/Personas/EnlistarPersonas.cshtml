@@ -7,6 +7,30 @@
     var titulo = ViewBag.Title = "Lista de personas";
 
     var listaTipoPersona = (IEnumerable<SelectListItem>)ViewBag.ListaTipoPersona;
+
+    string fechaInicial = "", fechaFinal = "", idPersona = "";
+    var idTipoPersona = 1;
+
+    if (ViewData["fechaInicial"] != null)
+    {
+        fechaInicial = (ViewData["fechaInicial"]).ToString();
+    }
+
+    if (ViewData["fechaFinal"] != null)
+    {
+        fechaFinal = (ViewData["fechaFinal"]).ToString();
+    }
+
+    if (ViewData["idPersona"] != null)
+    {
+        idPersona = (ViewData["idPersona"]).ToString();
+    }
+
+    if (ViewData["idTipoPersona"] != null)
+    {
+        idTipoPersona = (int)ViewData["idTipoPersona"];
+    }
+
 }
 
 @section Head
@@ -34,11 +58,13 @@
             $('.selectpicker').selectpicker({
                 style: 'btn-default btn-sm'
             });
+
+            LlenarCampos();
         });
 
 
         $(document).ready(function () {
-            $('#ddlTipoPersona').change(function(){
+            $('#btnEnviar').click(function () {
                 FiltraPersonas();
             });
         });
@@ -49,9 +75,26 @@
             var fechaInicio = $("#txtFechaIngresoDe").val();
             var fechaFin = $("#txtFechaIngresoHasta").val();
             var idPersona = $("#txtIdLinkPersona").val();
-            
-            var path = '@Url.Action("EnlistarPersonas", "Personas")' + '?idTipoPersona=' + idTipoPersona + '&idPersona=' + idPersona + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin + '&page=1';
-            window.location.href(path);
+
+            var startDate = new Date(fechaInicio);
+            var endDate = new Date(fechaFin);
+
+            if (startDate > endDate) {
+                alert("La fecha final es menor a la inicial");
+            } else {
+                var path = '@Url.Action("EnlistarPersonas", "Personas")' + '?idTipoPersona=' + idTipoPersona + '&idPersona=' + idPersona + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin + '&page=1';
+                window.location.href(path);
+            }
+        }
+
+        function LlenarCampos() {
+            var idTipoPersona = "@idTipoPersona";
+
+            $("#txtFechaIngresoDe").val("@fechaInicial");
+            $("#txtFechaIngresoHasta").val("@fechaFinal");
+            $("#txtIdLinkPersona").val("@idPersona");
+            $('#ddlTipoPersona').val(idTipoPersona);
+            $('.selectpicker').selectpicker('refresh');
         }
     </script>
 }
@@ -74,7 +117,7 @@
     <div class="row">
         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
             <div class="form-group input-group-sm form-group-sm">
-                <div class="col-lg-offset-2 col-md-4">
+                <div class="col-lg-offset-2 col-md-3">
                     <div class="input-group">
                         @Html.Label("No de Persona", new { @class = "input-group-addon" })
                         @Html.TextBox("txtIdLinkPersona", null, new { @class = "form-control" })
@@ -83,7 +126,12 @@
                 <div class="col-md-4">
                     <div class="input-group">
                         @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
-                        @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new { @class = "selectpicker", @onchange = "FiltraPersonas();", data_live_search = true })
+                        @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new { @class = "selectpicker", data_live_search = true })
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="input-group">
+                        <button name="btnEnviar" class="btn btn-default btn-sm" onclick="FiltraPersonas();">Enviar</button>
                     </div>
                 </div>
             </div>
