@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLRespaldarTablasBinarias"
   DTS:PackageType="5"
-  DTS:VersionBuild="100"
-  DTS:VersionGUID="{FCC5C275-875F-48E6-9B32-98EBAEC31BD7}">
+  DTS:VersionBuild="104"
+  DTS:VersionGUID="{E37D8E30-46EA-4337-84DD-DA4D9FE2377A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -39,18 +39,18 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAB6ezkUh2Xaz3ZxkkDwjTOueObNQYXb148CchxuNnPmRQAAAAAOgAAAAAIAACAAAADFePwIKAhFW+fUV6m8+0zZ12xJ8AcasfrfOvk8U4ZS4CAAAADKMmGY6TNSF7fmsuHpSMN/EFyfd0oIlpv/W6i8l7eoikAAAAD8D9dYOYPetk83lBvaGMbYiH/pq0vkalr3TDdswX35jsL8FItnrBsemJm5a8ib48Vs5IXby3yTdQdUczvfrZkw</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAvZPHUWBSwU6cWgnTNzSKawAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADtiV/NUilKN7Ouivzzj+jwuKJifXdoNbyo9Xxx2BwprQAAAAAOgAAAAAIAACAAAADVmCAlz0xXIAEcYjaqE9ZCdi82076uPo9Hmes4+lJvFyAAAAAzA7A43/m2qJez/u1rAwkDzbcbd92mCaJ+MO4cjRQQSkAAAADPLLMWwA5k1bwmr8yWkKszVfrgZk7Cd3h2xoO2FGqgOrpb9oUQuQHoJco/xEmlmb53+R8AMeD3GjTNifnTf2EE</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
     <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[Template.csv]"
+      DTS:refId="Package.ConnectionManagers[Template.txt]"
       DTS:CreationName="FILE"
       DTS:DTSID="{78C8E7AF-9C58-4688-9E45-808AE667EC4A}"
-      DTS:ObjectName="Template.csv">
+      DTS:ObjectName="Template.txt">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Templete.csv" />
+          DTS:ConnectionString="C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Documentacion\Catalogos\Templete.txt" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -748,7 +748,7 @@ namespace ST_d23d1be5c6a84e339d9e238e0ca54573
             var columnaBinaria = (string)Dts.Variables["ColumnaBinaria"].Value;
             var enlistarColumnas = (string)Dts.Variables["EnlistarColumnas"].Value;
             var nombreCompletoArchivo = Dts.Variables["Path"].Value + "" + Dts.Variables["NombreTabla"].Value + ".xlsx";
-            var nombreCompletoArchivoPlano = Dts.Variables["Path"].Value + "" + Dts.Variables["NombreTabla"].Value + ".csv";
+            var nombreCompletoArchivoPlano = Dts.Variables["Path"].Value + "" + Dts.Variables["NombreTabla"].Value + ".txt";
             var nombreTabla = (string)Dts.Variables["NombreTabla"].Value;
             var tablaBinaria = (string)Dts.Variables["TablaBinaria"].Value;
             var registros = Dts.Variables["RegistrosTablaBinaria"].Value;
@@ -848,7 +848,7 @@ namespace ST_d23d1be5c6a84e339d9e238e0ca54573
 
                 for (i = 0; i < array.Length - 1; i++)
                 {
-                    sw.Write(array[i].ToString() + ";");
+                    sw.Write(array[i] + ";");
                 }
                 sw.Write(array[i].ToString());
                 sw.WriteLine();
@@ -894,28 +894,6 @@ namespace ST_d23d1be5c6a84e339d9e238e0ca54573
 		<msb:File Include="Model\ListaBinarios.cs"/>
 		<msb:File Include="Properties\Settings.Designer.cs"/>
 		<msb:File Include="ScriptMain.cs"/>
-		<msb:Breakpoint Include="d90de394f70547b6b87327058df054bf">
-			<msb:FileName>ScriptMain.cs</msb:FileName>
-			<msb:LineNumber>177</msb:LineNumber>
-			<msb:ColumnNumber>13</msb:ColumnNumber>
-			<msb:Enabled>True</msb:Enabled>
-			<msb:ConditionType>1</msb:ConditionType>
-			<msb:Condition></msb:Condition>
-			<msb:Language>C#</msb:Language>
-			<msb:HitCountType>1</msb:HitCountType>
-			<msb:HitCountTarget>1</msb:HitCountTarget>
-		</msb:Breakpoint>
-		<msb:Breakpoint Include="10c6175d091a472ebf40eb6c3815d59b">
-			<msb:FileName>ScriptMain.cs</msb:FileName>
-			<msb:LineNumber>163</msb:LineNumber>
-			<msb:ColumnNumber>17</msb:ColumnNumber>
-			<msb:Enabled>True</msb:Enabled>
-			<msb:ConditionType>1</msb:ConditionType>
-			<msb:Condition></msb:Condition>
-			<msb:Language>C#</msb:Language>
-			<msb:HitCountType>1</msb:HitCountType>
-			<msb:HitCountTarget>1</msb:HitCountTarget>
-		</msb:Breakpoint>
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
@@ -1028,14 +1006,14 @@ namespace ST_d23d1be5c6a84e339d9e238e0ca54573.Properties {
               <BinaryItem
                 Name="ST_d23d1be5c6a84e339d9e238e0ca54573.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAJWc+FUAAAAAAAAAAOAAAiELAQsAAB4AAAAIAAAAAAAAfjwA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAGtD+1UAAAAAAAAAAOAAAiELAQsAAB4AAAAIAAAAAAAAfjwA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAEAAAAAAAAAACAAAAAAgAAAAAAAAMAQIUAABAA
 ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAACw8AABPAAAAAEAAAAgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAhBwAAAAgAAAAHgAAAAIA
 AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAAgEAAAAQAAAAAYAAAAgAAAAAAAAAAAAAAAAAABAAABA
 LnJlbG9jAAAMAAAAAGAAAAACAAAAJgAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABg
-PAAAAAAAAEgAAAACAAUAkCYAAJwVAAABAAAAAAAAANglAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+PAAAAAAAAEgAAAACAAUAiCYAAKQVAAABAAAAAAAAANAlAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CewEAAAQqIgIDfQEAAAQqHgJ7AgAABCoiAgN9AgAABCoe
 AigOAAAKKh4CKA4AAAoqAAATMAIALQAAAAEAABF+AwAABC0gcgEAAHDQAwAAAigQAAAKbxEAAApz
 EgAACgoGgAMAAAR+AwAABCoafgQAAAQqHgKABAAABCoafgUAAAQqLnMLAAAGgAUAAAQqHgIoFAAA
@@ -1056,112 +1034,112 @@ bzoAAAorIBENcvgBAHARBnL8AQBwKDsAAAoTDREQERERBm86AAAKEhUoPAAACjp3////3g4SFf4W
 BAAAG28nAAAK3BEJbygAAAoREG89AAAKERRvJgAACjqh/v//3hURFHUoAAABExcRFywHERdvJwAA
 CtwCEQkIKA4AAAYRCG8+AAAKEQhvPwAACgIoFwAAChZvQAAACioAAEFkAAACAAAAawEAADkAAACk
 AQAAFQAAAAAAAAACAAAAOgIAAB4AAABYAgAADAAAAAAAAAACAAAAdgIAAI0AAAADAwAADgAAAAAA
-AAACAAAAxwEAAGYBAAAtAwAAFQAAAAAAAAAbMAMA6AAAAAMAABEWChQLBBZzQQAACgsWCislBwNv
+AAACAAAAxwEAAGYBAAAtAwAAFQAAAAAAAAAbMAMA4wAAAAMAABEWChQLBBZzQQAACgsWCislBwNv
 IgAACgZvQgAACm8WAAAKcgICAHAoQwAACm9EAAAKBhdYCgYDbyIAAApvRQAAChdZMssHA28iAAAK
-Bm9CAAAKbxYAAApvRAAACgdvRgAACgNvKAAACm8jAAAKEwQrUBEEbyQAAAp0KgAAAQwIb0cAAAoN
-FgorHAcJBppvSAAACnICAgBwKEMAAApvRAAACgYXWAoGCY5pF1ky3AcJBppvSAAACm9EAAAKB29G
-AAAKEQRvJgAACi2n3hURBHUoAAABEwURBSwHEQVvJwAACtwHb0kAAAoqARAAAAIAbwBdzAAVAAAA
-AB4CKEoAAAoqAAAAALQAAADOyu++AQAAAJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJl
-YWRlciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNL
-ZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNl
-U2V0AgAAAAAAAAAAAAAAUEFEUEFEULQAAABCU0pCAQABAAAAAAAMAAAAdjQuMC4zMDMxOQAAAAAF
-AGwAAACoBgAAI34AABQHAACcCQAAI1N0cmluZ3MAAAAAsBAAAAgCAAAjVVMAuBIAABAAAAAjR1VJ
-RAAAAMgSAADUAgAAI0Jsb2IAAAAAAAAAAgAAAVcdogkJCwAAAPolMwAWAAABAAAANgAAAAYAAAAJ
-AAAAEAAAAAYAAABKAAAAAgAAABcAAAADAAAAAwAAAAUAAAAIAAAABAAAAAEAAAAGAAAAAQAAAAEA
-AAADAAAAAAAKAAEAAAAAAAYA+QDyAAoAFQEAAQ4AdQFMAQYAkQHyAAYACwL6AQYAPAInAhIAwQK1
-AgYAOAMeAwYAYwNRAwYAegNRAwYAlwNRAwYAtgNRAwYAzwNRAwYA6ANRAwYAAwRRAwYAHgRRAwYA
-NwRRAwYAcARQBAYAkARQBAYArgRQBAYA3ATJBAYA+QTyAAYA/gTyAAYAIgVRAwoATgU4BQoAZwU4
-BQ4AgwVMARIApQW1AgYAvgXyAA4A+wVMARYAVAY0BhYAbAY0BgYAiAbyABIAqAaWBhIAxQaWBhIA
-6AbVBhIA+ga1AhIAGwe1AgYASQc2BwYAfAfyABIAkAe1AhIAqwe1AhoAywe/BwYA8QfWBwYA/wc2
-BwYAFwjWBwYASghACAYAhghXCAYAlghACAYArwjyALsAzQgAAAoA9Qg4BQYADglACAYAGwlACAAA
-AAABAAAAAAABAAEAAQAQADIAQAAFAAEAAQAAABAAagB0AAUAAwAGAAABEACjAHQACQAFAAoAAQAQ
-AKwAtwANAAYADQADAQAA2wAAABEABwARAAEAwgEpAAEA1gEsABEAGwI3ABEASAI7ABEAjAJZABEA
-xQWtAAYG2wIpAFaA4wJuAFaA6wJuAFAgAAAAAIYIlgETAAEAWCAAAAAAhgidARcAAQBhIAAAAACG
-CKQBHAACAGkgAAAAAIYIsAEgAAIAciAAAAAAhhi8ASUAAwB6IAAAAACDGLwBJQADAIQgAAAAAJMI
-WAI/AAMAvSAAAAAAkwhsAkQAAwDEIAAAAACTCHgCSQADAMwgAAAAAJYInAJdAAQA3yAAAAAAhhi8
-ASUABADTIAAAAACRGHwFowAEAPAgAAAAAIYAsAIlAAQAyCQAAAAAgQDLAmcABADMJQAAAACGGLwB
-JQAGAOcgAAAAAJEAsAWnAAYAAAABAPMCAAABAPMCAAABAPMCAAABAPkCAAACAAwDAAABALsFQQC8
-ASAASQC8ASAAUQC8ASAAWQC8ASAAYQC8ASAAaQC8ASAAcQC8ASAAeQC8ASAAgQC8ASAAiQC8ASAA
-kQC8ARcAmQC8ASUAoQC8ASUACQC8ASUAqQC8ASUAsQAQBXwAsQArBYMAKQC8AYgAyQC8AZQAEQC8
-ASUA2QC8ASUA4QDsBRwAGQANBrYA8QBeBrsA+QB1BsAAAQF+BscACQGPBssAOQC8ASUAEQG8ASUA
-EQG5BtIACQG+BtkAGQG8ASAAIQH1BiUAOQAPB98AMQFVB+UAOQFjB8cAKQFvB+sAOQFzB/MAQQGI
-ByUAOQCiB/cAWQELCP0ADAC8ARgBWQEQCB4BWQEeCD4BUQF1BlQBCQAlCFwBsQAtCPMAeQG8ASUA
-gQG8ASUAgQGdCGEBeQGnCGkBkQG3CG4BOQDGCHQBHABVB4EBJABjB5IBCQHYCJcBCQGPBp0BUQHm
-CKMBCQGPBqkBJABzB/MASQFvB7EBIQHvCCUAoQGIByUA8QD/CBcAqQG8AfMBKQF1BvkBCQGPBv8B
-sQEmCSAAMQEsCRMAsQE2CSUAUQFACQUCCQBOCRwAsQHvCCUAGQC8ASUACAAgAHIACAAkAHcAIABr
-AHcAIQBrAHcALgBDAI0CLgBjALMCLgA7AJMCLgATAGQCLgAzAGQCLgBbAKoCLgALABwCLgAbAI0C
-LgAjAI0CLgArAI0CQABrAHcAQQBrAHcAYABrAHcAYwB7AHcAaQCbAJoAgABrAHcAiQCbAJoAoQBr
-AHcAowCrAHcAwQBrAHcAAAJrAHcAjwC4AQoCAgABAAMAAwAEAAUAAADvAS8AAADyATMAAAALAk8A
-AACEAlQAAACoAmIAAgABAAMAAQACAAMAAQAEAAUAAgADAAUAAgAHAAcAAgAIAAkAAQAJAAkAAgAK
-AAsAEAFZAXoBiwEEgAAAAQAAAGgWWnQAAAAAAAC3AAAABAAAAAAAAAAAAAAAAQDpAAAAAAAEAAAA
-AAAAAAAAAAABAPIAAAAAAAwAAAAAAAAAAAAAAAoALQEAAAAABAAAAAAAAAAAAAAAAQC1AgAAAAAM
-AAAAAAAAAAAAAAAKABUGAAAAAAQAAAAAAAAAAAAAAAEAswcAAAAAAAAAAAEAAABXCQAABgAFAFMA
-CwFXADgBWQBQAQAAAAAAPE1vZHVsZT4AU1RfZDIzZDFiZTVjNmE4NGUzMzlkOWUyMzhlMGNhNTQ1
-NzMuZGxsAExpc3RhQmluYXJpb3MAU1RfZDIzZDFiZTVjNmE4NGUzMzlkOWUyMzhlMGNhNTQ1NzMu
-TW9kZWwAUmVzb3VyY2VzAFNUX2QyM2QxYmU1YzZhODRlMzM5ZDllMjM4ZTBjYTU0NTczLlByb3Bl
-cnRpZXMAU2V0dGluZ3MAU2NyaXB0TWFpbgBTVF9kMjNkMWJlNWM2YTg0ZTMzOWQ5ZTIzOGUwY2E1
-NDU3MwBTY3JpcHRSZXN1bHRzAG1zY29ybGliAFN5c3RlbQBPYmplY3QAU3lzdGVtLkNvbmZpZ3Vy
-YXRpb24AQXBwbGljYXRpb25TZXR0aW5nc0Jhc2UATWljcm9zb2Z0LlNxbFNlcnZlci5TY3JpcHRU
-YXNrAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlRhc2tzLlNjcmlwdFRhc2sAVlNUQVJUU2NyaXB0
-T2JqZWN0TW9kZWxCYXNlAEVudW0AZ2V0X0lkAHNldF9JZABnZXRfQmluYXJpbwBzZXRfQmluYXJp
-bwAuY3RvcgA8SWQ+a19fQmFja2luZ0ZpZWxkADxCaW5hcmlvPmtfX0JhY2tpbmdGaWVsZABJZABC
-aW5hcmlvAFN5c3RlbS5SZXNvdXJjZXMAUmVzb3VyY2VNYW5hZ2VyAHJlc291cmNlTWFuAFN5c3Rl
-bS5HbG9iYWxpemF0aW9uAEN1bHR1cmVJbmZvAHJlc291cmNlQ3VsdHVyZQBnZXRfUmVzb3VyY2VN
-YW5hZ2VyAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAEN1bHR1cmUAZGVmYXVsdEluc3RhbmNlAGdl
-dF9EZWZhdWx0AERlZmF1bHQATWFpbgBTeXN0ZW0uRGF0YQBEYXRhVGFibGUAV3JpdGVEYXRhVG9G
-aWxlAHZhbHVlX18AU3VjY2VzcwBGYWlsdXJlAHZhbHVlAHN1Ym1pdHRlZERhdGFUYWJsZQBzdWJt
-aXR0ZWRGaWxlUGF0aABTeXN0ZW0uUnVudGltZS5WZXJzaW9uaW5nAFRhcmdldEZyYW1ld29ya0F0
-dHJpYnV0ZQBTeXN0ZW0uUmVmbGVjdGlvbgBBc3NlbWJseVRpdGxlQXR0cmlidXRlAEFzc2VtYmx5
-RGVzY3JpcHRpb25BdHRyaWJ1dGUAQXNzZW1ibHlDb25maWd1cmF0aW9uQXR0cmlidXRlAEFzc2Vt
-Ymx5Q29tcGFueUF0dHJpYnV0ZQBBc3NlbWJseVByb2R1Y3RBdHRyaWJ1dGUAQXNzZW1ibHlDb3B5
-cmlnaHRBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRyaWJ1dGUAQXNzZW1ibHlDdWx0dXJl
-QXR0cmlidXRlAEFzc2VtYmx5VmVyc2lvbkF0dHJpYnV0ZQBTeXN0ZW0uUnVudGltZS5Db21waWxl
-clNlcnZpY2VzAENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRyaWJ1dGUAUnVudGltZUNvbXBhdGli
-aWxpdHlBdHRyaWJ1dGUAQ29tcGlsZXJHZW5lcmF0ZWRBdHRyaWJ1dGUAU3lzdGVtLkRpYWdub3N0
-aWNzAERlYnVnZ2VyTm9uVXNlckNvZGVBdHRyaWJ1dGUAVHlwZQBSdW50aW1lVHlwZUhhbmRsZQBH
-ZXRUeXBlRnJvbUhhbmRsZQBBc3NlbWJseQBnZXRfQXNzZW1ibHkAU3lzdGVtLkNvbXBvbmVudE1v
-ZGVsAEVkaXRvckJyb3dzYWJsZUF0dHJpYnV0ZQBFZGl0b3JCcm93c2FibGVTdGF0ZQAuY2N0b3IA
-U1NJU1NjcmlwdFRhc2tFbnRyeVBvaW50QXR0cmlidXRlAERhdGFDb2x1bW4APE1haW4+Yl9fMABk
-YwBGdW5jYDIAQ1MkPD45X19DYWNoZWRBbm9ueW1vdXNNZXRob2REZWxlZ2F0ZTEAZ2V0X0NvbHVt
-bk5hbWUAU2NyaXB0T2JqZWN0TW9kZWwAZ2V0X0R0cwBNaWNyb3NvZnQuU3FsU2VydmVyLk1hbmFn
-ZWREVFMATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUnVudGltZQBWYXJpYWJsZXMAZ2V0X1Zhcmlh
-YmxlcwBWYXJpYWJsZQBnZXRfSXRlbQBnZXRfVmFsdWUAU3RyaW5nAENvbmNhdABTeXN0ZW0uRGF0
-YS5PbGVEYgBPbGVEYkRhdGFBZGFwdGVyAEZpbGwARm9ybWF0AE9sZURiQ29ubmVjdGlvbgBTeXN0
-ZW0uRGF0YS5Db21tb24ARGJDb25uZWN0aW9uAE9wZW4ARGF0YUNvbHVtbkNvbGxlY3Rpb24AZ2V0
-X0NvbHVtbnMASW50ZXJuYWxEYXRhQ29sbGVjdGlvbkJhc2UAU3lzdGVtLkNvbGxlY3Rpb25zAElF
-bnVtZXJhdG9yAEdldEVudW1lcmF0b3IAZ2V0X0N1cnJlbnQAQWRkAE1vdmVOZXh0AElEaXNwb3Nh
-YmxlAERpc3Bvc2UARGF0YVJvd0NvbGxlY3Rpb24AZ2V0X1Jvd3MARGF0YVJvdwBTeXN0ZW0uQ29y
-ZQBTeXN0ZW0uTGlucQBFbnVtZXJhYmxlAFN5c3RlbS5Db2xsZWN0aW9ucy5HZW5lcmljAElFbnVt
-ZXJhYmxlYDEASUVudW1lcmFibGUAQ2FzdABTZWxlY3QATGlzdGAxAFRvTGlzdABHZXRUeXBlAGdl
-dF9Jc1NlcmlhbGl6YWJsZQBTeXN0ZW0uSU8ATWVtb3J5U3RyZWFtAFN5c3RlbS5SdW50aW1lLlNl
-cmlhbGl6YXRpb24uRm9ybWF0dGVycy5CaW5hcnkAQmluYXJ5Rm9ybWF0dGVyAFN0cmVhbQBTZXJp
-YWxpemUAVG9BcnJheQBDb252ZXJ0AFRvQmFzZTY0U3RyaW5nAE5ld1JvdwBFbnVtZXJhdG9yAG9w
-X0luZXF1YWxpdHkAc2V0X0l0ZW0AQ2xvc2UAQ29tcG9uZW50AHNldF9UYXNrUmVzdWx0AFN0cmVh
-bVdyaXRlcgBUZXh0V3JpdGVyAFdyaXRlAGdldF9Db3VudABXcml0ZUxpbmUAZ2V0X0l0ZW1BcnJh
-eQBUb1N0cmluZwBTVF9kMjNkMWJlNWM2YTg0ZTMzOWQ5ZTIzOGUwY2E1NDU3My5Qcm9wZXJ0aWVz
-LlJlc291cmNlcy5yZXNvdXJjZXMAAAAAcVMAVABfAGQAMgAzAGQAMQBiAGUANQBjADYAYQA4ADQA
-ZQAzADMAOQBkADkAZQAyADMAOABlADAAYwBhADUANAA1ADcAMwAuAFAAcgBvAHAAZQByAHQAaQBl
-AHMALgBSAGUAcwBvAHUAcgBjAGUAcwAAHUMAbwBsAHUAbQBuAGEAQgBpAG4AYQByAGkAYQAAIUUA
-bgBsAGkAcwB0AGEAcgBDAG8AbAB1AG0AbgBhAHMAAAlQAGEAdABoAAAXTgBvAG0AYgByAGUAVABh
-AGIAbABhAAALLgB4AGwAcwB4AAAJLgBjAHMAdgAAGVQAYQBiAGwAYQBCAGkAbgBhAHIAaQBhAAAr
-UgBlAGcAaQBzAHQAcgBvAHMAVABhAGIAbABhAEIAaQBuAGEAcgBpAGEAAAEAgMNQAHIAbwB2AGkA
-ZABlAHIAPQBNAGkAYwByAG8AcwBvAGYAdAAuAEEAQwBFAC4ATwBMAEUARABCAC4AMQAyAC4AMAA7
-AEQAYQB0AGEAIABTAG8AdQByAGMAZQA9AHsAMAB9ADsARQB4AHQAZQBuAGQAZQBkACAAUAByAG8A
-cABlAHIAdABpAGUAcwA9ACcARQB4AGMAZQBsACAAMQAyAC4AMAA7AEgARABSAD0AWQBFAFMAOwBJ
-AE0ARQBYAD0AMAAnAAEDJwABBScALAABAzsAAAAAeadeQvHn6kiB7SmFxELpTgAIt3pcVhk04IkI
-iYRdzYCAzJEDIAAIBCABAQgDIAAOBCABAQ4DIAABAgYIAgYOAygACAMoAA4DBhIVAwYSGQQAABIV
-BAAAEhkFAAEBEhkECAASFQQIABIZAwYSEAQAABIQBAgAEhAGIAIBEh0OAwYRGAQAAAAABAEAAAAG
-AAESWRFdBCAAEmEGIAIBDhJhBAcBEhUFIAEBEWkIAQACAAAAAAADAAABBQABDhJxCAYVEnUCEnEO
-BCAAEnkEIAASfQYgARKAgRwDIAAcBgADDhwcHAYgAggSHRwFAAIODhwFIAASgJUFIAASgJ0HIAIS
-cQ4SWQMgAAIFIAASgKUNEAEBFRKAsQEeABKAtQQKARJxBxUSdQIScQ4FIAIBHBgZEAICFRKAsQEe
-ARUSgLEBHgAVEnUCHgAeAQUKAhJxDhEQAQEVEoC5AR4AFRKAsQEeAAMKAQ4EIAEcDgIdBQQgABJZ
-ByACARKAxRwEIAAdBQUAAQ4dBQUgABKAqQYVEoC5AQ4JIAAVEYDNARMABhURgM0BDgQgABMABQAC
-Ag4OBQABDh0cBSACAQ4cBwAEDg4ODg4GIAEBEoCpOgcYDg4OHBIdEoCJDg4SgI0SHRwSgKkVEoC5
-AQ4OHQUSgL0SgKkOEoCdEoChEoCdFRGAzQEOHRwSgKEFIAIBDgIFIAEScQgFAAIODg4EIAAdHBEH
-BggSgNUSgKkdHBKAnRKAoUcBABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuMAEAVA4URnJhbWV3
-b3JrRGlzcGxheU5hbWUQLk5FVCBGcmFtZXdvcmsgNCgBACNTVF9kMjNkMWJlNWM2YTg0ZTMzOWQ5
-ZTIzOGUwY2E1NDU3MwAABQEAAAAAFgEAEUNvcHlyaWdodCBAICAyMDE1AAAIAQAIAAAAAAAeAQAB
-AFQCFldyYXBOb25FeGNlcHRpb25UaHJvd3MBAABUPAAAAAAAAAAAAABuPAAAACAAAAAAAAAAAAAA
+Bm9CAAAKbxYAAApvRAAACgdvRgAACgNvKAAACm8jAAAKEwQrSxEEbyQAAAp0KgAAAQwIb0cAAAoN
+FgorFwcJBppyAgIAcChIAAAKb0QAAAoGF1gKBgmOaRdZMuEHCQaab0kAAApvRAAACgdvRgAAChEE
+byYAAAotrN4VEQR1KAAAARMFEQUsBxEFbycAAArcB29KAAAKKgABEAAAAgBvAFjHABUAAAAAHgIo
+SwAACiq0AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1z
+Y29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49
+Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAA
+AAAAAAAAAFBBRFBBRFC0AAAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAArAYA
+ACN+AAAYBwAAnAkAACNTdHJpbmdzAAAAALQQAAAIAgAAI1VTALwSAAAQAAAAI0dVSUQAAADMEgAA
+2AIAACNCbG9iAAAAAAAAAAIAAAFXHaIJCQsAAAD6JTMAFgAAAQAAADYAAAAGAAAACQAAABAAAAAG
+AAAASwAAAAIAAAAXAAAAAwAAAAMAAAAFAAAACAAAAAQAAAABAAAABgAAAAEAAAABAAAAAwAAAAAA
+CgABAAAAAAAGAPkA8gAKABUBAAEOAHUBTAEGAJEB8gAGAAsC+gEGADwCJwISAMECtQIGADgDHgMG
+AGMDUQMGAHoDUQMGAJcDUQMGALYDUQMGAM8DUQMGAOgDUQMGAAMEUQMGAB4EUQMGADcEUQMGAHAE
+UAQGAJAEUAQGAK4EUAQGANwEyQQGAPkE8gAGAP4E8gAGACIFUQMKAE4FOAUKAGcFOAUOAIMFTAES
+AKUFtQIGAL4F8gAOAPsFTAEWAFQGNAYWAGwGNAYGAIgG8gASAKgGlgYSAMUGlgYSAOgG1QYSAPoG
+tQISABsHtQIGAEkHNgcGAHwH8gASAJAHtQISAKsHtQIaAMsHvwcGAPEH1gcGAP8HNgcGABcI1gcG
+AEoIQAgGAIYIVwgGAJYIQAgGAK8I8gC7AM0IAAAKAPUIOAUGAA4JQAgGABsJQAgAAAAAAQAAAAAA
+AQABAAEAEAAyAEAABQABAAEAAAAQAGoAdAAFAAMABgAAARAAowB0AAkABQAKAAEAEACsALcADQAG
+AA0AAwEAANsAAAARAAcAEQABAMIBKQABANYBLAARABsCNwARAEgCOwARAIwCWQARAMUFrQAGBtsC
+KQBWgOMCbgBWgOsCbgBQIAAAAACGCJYBEwABAFggAAAAAIYInQEXAAEAYSAAAAAAhgikARwAAgBp
+IAAAAACGCLABIAACAHIgAAAAAIYYvAElAAMAeiAAAAAAgxi8ASUAAwCEIAAAAACTCFgCPwADAL0g
+AAAAAJMIbAJEAAMAxCAAAAAAkwh4AkkAAwDMIAAAAACWCJwCXQAEAN8gAAAAAIYYvAElAAQA0yAA
+AAAAkRh8BaMABADwIAAAAACGALACJQAEAMgkAAAAAIEAywJnAAQAyCUAAAAAhhi8ASUABgDnIAAA
+AACRALAFpwAGAAAAAQDzAgAAAQDzAgAAAQDzAgAAAQD5AgAAAgAMAwAAAQC7BUEAvAEgAEkAvAEg
+AFEAvAEgAFkAvAEgAGEAvAEgAGkAvAEgAHEAvAEgAHkAvAEgAIEAvAEgAIkAvAEgAJEAvAEXAJkA
+vAElAKEAvAElAAkAvAElAKkAvAElALEAEAV8ALEAKwWDACkAvAGIAMkAvAGUABEAvAElANkAvAEl
+AOEA7AUcABkADQa2APEAXga7APkAdQbAAAEBfgbHAAkBjwbLADkAvAElABEBvAElABEBuQbSAAkB
+vgbZABkBvAEgACEB9QYlADkADwffADEBVQflADkBYwfHACkBbwfrADkBcwfzAEEBiAclADkAogf3
+AFkBCwj9AAwAvAEYAVkBEAgeAVkBHgg+AVEBdQZUAQkAJQhcAbEALQjzAHkBvAElAIEBvAElAIEB
+nQhhAXkBpwhpAZEBtwhuATkAxgh0ARwAVQeBASQAYweSAQkB2AiXAQkBjwadAVEB5gijAQkBjwap
+ASQAcwfzAEkBbwexASEB7wglAKEBiAclAPEA/wgXAKkBvAHzASkBdQb5AQkBjwb/AbEBJgkgADEB
+LAkTALEBNgklAFEBQAkFAgkBjwYKAgkATgkcALEB7wglABkAvAElAAgAIAByAAgAJAB3ACAAawB3
+ACEAawB3AC4AQwCTAi4AYwC5Ai4AOwCZAi4AEwBqAi4AMwBqAi4AWwCwAi4ACwAiAi4AGwCTAi4A
+IwCTAi4AKwCTAkAAawB3AEEAawB3AGAAawB3AGMAewB3AGkAmwCaAIAAawB3AIkAmwCaAKEAawB3
+AKMAqwB3AMEAawB3AAACawB3AI8AuAEQAgIAAQADAAMABAAFAAAA7wEvAAAA8gEzAAAACwJPAAAA
+hAJUAAAAqAJiAAIAAQADAAEAAgADAAEABAAFAAIAAwAFAAIABwAHAAIACAAJAAEACQAJAAIACgAL
+ABABWQF6AYsBBIAAAAEAAABqFkV2AAAAAAAAtwAAAAQAAAAAAAAAAAAAAAEA6QAAAAAABAAAAAAA
+AAAAAAAAAQDyAAAAAAAMAAAAAAAAAAAAAAAKAC0BAAAAAAQAAAAAAAAAAAAAAAEAtQIAAAAADAAA
+AAAAAAAAAAAACgAVBgAAAAAEAAAAAAAAAAAAAAABALMHAAAAAAAAAAABAAAAVwkAAAYABQBTAAsB
+VwA4AVkAUAEAAAA8TW9kdWxlPgBTVF9kMjNkMWJlNWM2YTg0ZTMzOWQ5ZTIzOGUwY2E1NDU3My5k
+bGwATGlzdGFCaW5hcmlvcwBTVF9kMjNkMWJlNWM2YTg0ZTMzOWQ5ZTIzOGUwY2E1NDU3My5Nb2Rl
+bABSZXNvdXJjZXMAU1RfZDIzZDFiZTVjNmE4NGUzMzlkOWUyMzhlMGNhNTQ1NzMuUHJvcGVydGll
+cwBTZXR0aW5ncwBTY3JpcHRNYWluAFNUX2QyM2QxYmU1YzZhODRlMzM5ZDllMjM4ZTBjYTU0NTcz
+AFNjcmlwdFJlc3VsdHMAbXNjb3JsaWIAU3lzdGVtAE9iamVjdABTeXN0ZW0uQ29uZmlndXJhdGlv
+bgBBcHBsaWNhdGlvblNldHRpbmdzQmFzZQBNaWNyb3NvZnQuU3FsU2VydmVyLlNjcmlwdFRhc2sA
+TWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuVGFza3MuU2NyaXB0VGFzawBWU1RBUlRTY3JpcHRPYmpl
+Y3RNb2RlbEJhc2UARW51bQBnZXRfSWQAc2V0X0lkAGdldF9CaW5hcmlvAHNldF9CaW5hcmlvAC5j
+dG9yADxJZD5rX19CYWNraW5nRmllbGQAPEJpbmFyaW8+a19fQmFja2luZ0ZpZWxkAElkAEJpbmFy
+aW8AU3lzdGVtLlJlc291cmNlcwBSZXNvdXJjZU1hbmFnZXIAcmVzb3VyY2VNYW4AU3lzdGVtLkds
+b2JhbGl6YXRpb24AQ3VsdHVyZUluZm8AcmVzb3VyY2VDdWx0dXJlAGdldF9SZXNvdXJjZU1hbmFn
+ZXIAZ2V0X0N1bHR1cmUAc2V0X0N1bHR1cmUAQ3VsdHVyZQBkZWZhdWx0SW5zdGFuY2UAZ2V0X0Rl
+ZmF1bHQARGVmYXVsdABNYWluAFN5c3RlbS5EYXRhAERhdGFUYWJsZQBXcml0ZURhdGFUb0ZpbGUA
+dmFsdWVfXwBTdWNjZXNzAEZhaWx1cmUAdmFsdWUAc3VibWl0dGVkRGF0YVRhYmxlAHN1Ym1pdHRl
+ZEZpbGVQYXRoAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAVGFyZ2V0RnJhbWV3b3JrQXR0cmli
+dXRlAFN5c3RlbS5SZWZsZWN0aW9uAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlEZXNj
+cmlwdGlvbkF0dHJpYnV0ZQBBc3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlD
+b21wYW55QXR0cmlidXRlAEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdo
+dEF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJpYnV0ZQBBc3NlbWJseUN1bHR1cmVBdHRy
+aWJ1dGUAQXNzZW1ibHlWZXJzaW9uQXR0cmlidXRlAFN5c3RlbS5SdW50aW1lLkNvbXBpbGVyU2Vy
+dmljZXMAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0
+eUF0dHJpYnV0ZQBDb21waWxlckdlbmVyYXRlZEF0dHJpYnV0ZQBTeXN0ZW0uRGlhZ25vc3RpY3MA
+RGVidWdnZXJOb25Vc2VyQ29kZUF0dHJpYnV0ZQBUeXBlAFJ1bnRpbWVUeXBlSGFuZGxlAEdldFR5
+cGVGcm9tSGFuZGxlAEFzc2VtYmx5AGdldF9Bc3NlbWJseQBTeXN0ZW0uQ29tcG9uZW50TW9kZWwA
+RWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZVN0YXRlAC5jY3RvcgBTU0lT
+U2NyaXB0VGFza0VudHJ5UG9pbnRBdHRyaWJ1dGUARGF0YUNvbHVtbgA8TWFpbj5iX18wAGRjAEZ1
+bmNgMgBDUyQ8PjlfX0NhY2hlZEFub255bW91c01ldGhvZERlbGVnYXRlMQBnZXRfQ29sdW1uTmFt
+ZQBTY3JpcHRPYmplY3RNb2RlbABnZXRfRHRzAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuTWFuYWdlZERU
+UwBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5SdW50aW1lAFZhcmlhYmxlcwBnZXRfVmFyaWFibGVz
+AFZhcmlhYmxlAGdldF9JdGVtAGdldF9WYWx1ZQBTdHJpbmcAQ29uY2F0AFN5c3RlbS5EYXRhLk9s
+ZURiAE9sZURiRGF0YUFkYXB0ZXIARmlsbABGb3JtYXQAT2xlRGJDb25uZWN0aW9uAFN5c3RlbS5E
+YXRhLkNvbW1vbgBEYkNvbm5lY3Rpb24AT3BlbgBEYXRhQ29sdW1uQ29sbGVjdGlvbgBnZXRfQ29s
+dW1ucwBJbnRlcm5hbERhdGFDb2xsZWN0aW9uQmFzZQBTeXN0ZW0uQ29sbGVjdGlvbnMASUVudW1l
+cmF0b3IAR2V0RW51bWVyYXRvcgBnZXRfQ3VycmVudABBZGQATW92ZU5leHQASURpc3Bvc2FibGUA
+RGlzcG9zZQBEYXRhUm93Q29sbGVjdGlvbgBnZXRfUm93cwBEYXRhUm93AFN5c3RlbS5Db3JlAFN5
+c3RlbS5MaW5xAEVudW1lcmFibGUAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMASUVudW1lcmFi
+bGVgMQBJRW51bWVyYWJsZQBDYXN0AFNlbGVjdABMaXN0YDEAVG9MaXN0AEdldFR5cGUAZ2V0X0lz
+U2VyaWFsaXphYmxlAFN5c3RlbS5JTwBNZW1vcnlTdHJlYW0AU3lzdGVtLlJ1bnRpbWUuU2VyaWFs
+aXphdGlvbi5Gb3JtYXR0ZXJzLkJpbmFyeQBCaW5hcnlGb3JtYXR0ZXIAU3RyZWFtAFNlcmlhbGl6
+ZQBUb0FycmF5AENvbnZlcnQAVG9CYXNlNjRTdHJpbmcATmV3Um93AEVudW1lcmF0b3IAb3BfSW5l
+cXVhbGl0eQBzZXRfSXRlbQBDbG9zZQBDb21wb25lbnQAc2V0X1Rhc2tSZXN1bHQAU3RyZWFtV3Jp
+dGVyAFRleHRXcml0ZXIAV3JpdGUAZ2V0X0NvdW50AFdyaXRlTGluZQBnZXRfSXRlbUFycmF5AFRv
+U3RyaW5nAFNUX2QyM2QxYmU1YzZhODRlMzM5ZDllMjM4ZTBjYTU0NTczLlByb3BlcnRpZXMuUmVz
+b3VyY2VzLnJlc291cmNlcwAAAABxUwBUAF8AZAAyADMAZAAxAGIAZQA1AGMANgBhADgANABlADMA
+MwA5AGQAOQBlADIAMwA4AGUAMABjAGEANQA0ADUANwAzAC4AUAByAG8AcABlAHIAdABpAGUAcwAu
+AFIAZQBzAG8AdQByAGMAZQBzAAAdQwBvAGwAdQBtAG4AYQBCAGkAbgBhAHIAaQBhAAAhRQBuAGwA
+aQBzAHQAYQByAEMAbwBsAHUAbQBuAGEAcwAACVAAYQB0AGgAABdOAG8AbQBiAHIAZQBUAGEAYgBs
+AGEAAAsuAHgAbABzAHgAAAkuAHQAeAB0AAAZVABhAGIAbABhAEIAaQBuAGEAcgBpAGEAACtSAGUA
+ZwBpAHMAdAByAG8AcwBUAGEAYgBsAGEAQgBpAG4AYQByAGkAYQAAAQCAw1AAcgBvAHYAaQBkAGUA
+cgA9AE0AaQBjAHIAbwBzAG8AZgB0AC4AQQBDAEUALgBPAEwARQBEAEIALgAxADIALgAwADsARABh
+AHQAYQAgAFMAbwB1AHIAYwBlAD0AewAwAH0AOwBFAHgAdABlAG4AZABlAGQAIABQAHIAbwBwAGUA
+cgB0AGkAZQBzAD0AJwBFAHgAYwBlAGwAIAAxADIALgAwADsASABEAFIAPQBZAEUAUwA7AEkATQBF
+AFgAPQAwACcAAQMnAAEFJwAsAAEDOwAAAABk8GK/XjAUQ4bNlMDUV+NiAAi3elxWGTTgiQiJhF3N
+gIDMkQMgAAgEIAEBCAMgAA4EIAEBDgMgAAECBggCBg4DKAAIAygADgMGEhUDBhIZBAAAEhUEAAAS
+GQUAAQESGQQIABIVBAgAEhkDBhIQBAAAEhAECAASEAYgAgESHQ4DBhEYBAAAAAAEAQAAAAYAARJZ
+EV0EIAASYQYgAgEOEmEEBwESFQUgAQERaQgBAAIAAAAAAAMAAAEFAAEOEnEIBhUSdQIScQ4EIAAS
+eQQgABJ9BiABEoCBHAMgABwGAAMOHBwcBiACCBIdHAUAAg4OHAUgABKAlQUgABKAnQcgAhJxDhJZ
+AyAAAgUgABKApQ0QAQEVEoCxAR4AEoC1BAoBEnEHFRJ1AhJxDgUgAgEcGBkQAgIVEoCxAR4BFRKA
+sQEeABUSdQIeAB4BBQoCEnEOERABARUSgLkBHgAVEoCxAR4AAwoBDgQgARwOAh0FBCAAElkHIAIB
+EoDFHAQgAB0FBQABDh0FBSAAEoCpBhUSgLkBDgkgABURgM0BEwAGFRGAzQEOBCAAEwAFAAICDg4F
+AAEOHRwFIAIBDhwHAAQODg4ODgYgAQESgKk6BxgODg4cEh0SgIkODhKAjRIdHBKAqRUSgLkBDg4d
+BRKAvRKAqQ4SgJ0SgKESgJ0VEYDNAQ4dHBKAoQUgAgEOAgUgARJxCAUAAg4ODgQgAB0cBQACDhwc
+EQcGCBKA1RKAqR0cEoCdEoChRwEAGi5ORVRGcmFtZXdvcmssVmVyc2lvbj12NC4wAQBUDhRGcmFt
+ZXdvcmtEaXNwbGF5TmFtZRAuTkVUIEZyYW1ld29yayA0KAEAI1NUX2QyM2QxYmU1YzZhODRlMzM5
+ZDllMjM4ZTBjYTU0NTczAAAFAQAAAAAWAQARQ29weXJpZ2h0IEAgIDIwMTUAAAgBAAgAAAAAAB4B
+AAEAVAIWV3JhcE5vbkV4Y2VwdGlvblRocm93cwFUPAAAAAAAAAAAAABuPAAAACAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAYDwAAAAAAAAAAAAAAABfQ29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUA
 IAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1172,13 +1150,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA
 EAAAABgAAIAAAAAAAAAAAAAAAAAAAAEAAQAAADAAAIAAAAAAAAAAAAAAAAAAAAEAAAAAAEgAAABY
 QAAAsAMAAAAAAAAAAAAAsAM0AAAAVgBTAF8AVgBFAFIAUwBJAE8ATgBfAEkATgBGAE8AAAAAAL0E
-7/4AAAEAAAABAFp0aBYAAAEAWnRoFj8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBW
+7/4AAAEAAAABAEV2ahYAAAEARXZqFj8AAAAAAAAABAAAAAIAAAAAAAAAAAAAAAAAAABEAAAAAQBW
 AGEAcgBGAGkAbABlAEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAAAAAA
 AACwBBADAAABAFMAdAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAAOwCAAABADAAMAAwADAAMAA0
 AGIAMAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAAAABTAFQAXwBkADIA
 MwBkADEAYgBlADUAYwA2AGEAOAA0AGUAMwAzADkAZAA5AGUAMgAzADgAZQAwAGMAYQA1ADQANQA3
-ADMAAABAAA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4ANQA3ADMANgAuADIA
-OQA3ADgANgAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAFQAXwBkADIAMwBk
+ADMAAABAAA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4ANQA3ADMAOAAuADMA
+MAAyADcANwAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAFQAXwBkADIAMwBk
 ADEAYgBlADUAYwA2AGEAOAA0AGUAMwAzADkAZAA5AGUAMgAzADgAZQAwAGMAYQA1ADQANQA3ADMA
 LgBkAGwAbAAAAEgAEgABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBp
 AGcAaAB0ACAAQAAgACAAMgAwADEANQAAAHgAKAABAE8AcgBpAGcAaQBuAGEAbABGAGkAbABlAG4A
@@ -1186,8 +1164,8 @@ YQBtAGUAAABTAFQAXwBkADIAMwBkADEAYgBlADUAYwA2AGEAOAA0AGUAMwAzADkAZAA5AGUAMgAz
 ADgAZQAwAGMAYQA1ADQANQA3ADMALgBkAGwAbAAAAGgAJAABAFAAcgBvAGQAdQBjAHQATgBhAG0A
 ZQAAAAAAUwBUAF8AZAAyADMAZAAxAGIAZQA1AGMANgBhADgANABlADMAMwA5AGQAOQBlADIAMwA4
 AGUAMABjAGEANQA0ADUANwAzAAAARAAPAAEAUAByAG8AZAB1AGMAdABWAGUAcgBzAGkAbwBuAAAA
-MQAuADAALgA1ADcAMwA2AC4AMgA5ADcAOAA2AAAAAABIAA8AAQBBAHMAcwBlAG0AYgBsAHkAIABW
-AGUAcgBzAGkAbwBuAAAAMQAuADAALgA1ADcAMwA2AC4AMgA5ADcAOAA2AAAAAAAAAAAAAAAAAAAA
+MQAuADAALgA1ADcAMwA4AC4AMwAwADIANwA3AAAAAABIAA8AAQBBAHMAcwBlAG0AYgBsAHkAIABW
+AGUAcgBzAGkAbwBuAAAAMQAuADAALgA1ADcAMwA4AC4AMwAwADIANwA3AAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1206,16 +1184,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
-              <Breakpoint
-                Enabled="True"
-                File="ScriptMain.cs"
-                Line="177"
-                Column="13" />
-              <Breakpoint
-                Enabled="True"
-                File="ScriptMain.cs"
-                Line="163"
-                Column="17" />
             </ScriptProject>
           </DTS:ObjectData>
         </DTS:Executable>
@@ -1295,36 +1263,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==</BinaryItem>
                   VSTAMinorVersion="0"
                   Language="CSharp"
                   ReadWriteVariables="User::Auxiliar,User::Columna,User::ColumnaBinaria">
-                  <ProjectItem
-                    Name="Properties\AssemblyInfo.cs"
-                    Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd")]
-[assembly: AssemblyCopyright("Copyright @  2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
                   <ProjectItem
                     Name="ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.csproj"
                     Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -1545,6 +1483,35 @@ using System.Runtime.CompilerServices;
   </resheader>
 </root>]]></ProjectItem>
                   <ProjectItem
+                    Name="Properties\Settings.Designer.cs"
+                    Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.Properties.Settings.get_Default():ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.Properties.Sett" +
+    "ings")]
+
+namespace ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+                  <ProjectItem
                     Name="ScriptMain.cs"
                     Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
 /* The Script Task allows you to perform virtually any operation that can be accomplished in
@@ -1688,34 +1655,35 @@ namespace ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
                   <ProjectItem
-                    Name="Properties\Settings.Designer.cs"
-                    Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
+                    Name="Properties\AssemblyInfo.cs"
+                    Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
 //
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd")]
+[assembly: AssemblyCopyright("Copyright @  2015")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
 
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.Properties.Settings.get_Default():ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.Properties.Sett" +
-    "ings")]
-
-namespace ST_c0d7f3d4d0a74c9a9996bd4b77c60bcd.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
                   <ProjectItem
                     Name="Properties\Settings.settings"
                     Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
@@ -1960,14 +1928,35 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
               Language="CSharp"
               ReadWriteVariables="User::ColumnaBinaria,User::EnlistarColumnas">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_7d9b5738271e43dc8bfab2d9b2632fbf")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_7d9b5738271e43dc8bfab2d9b2632fbf")]
+[assembly: AssemblyCopyright("Copyright @  2015")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -2358,35 +2347,14 @@ namespace ST_7d9b5738271e43dc8bfab2d9b2632fbf.Properties {
     }
 }]]></ProjectItem>
               <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_7d9b5738271e43dc8bfab2d9b2632fbf")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_7d9b5738271e43dc8bfab2d9b2632fbf")]
-[assembly: AssemblyCopyright("Copyright @  2015")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -2805,28 +2773,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Recorrer tablas binarias.PrecedenceConstraints[Constraint 6]"
-          TopLeft="146.75,653">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40"
-              Start="0,0"
-              End="0,32.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
           Id="Package\Recorrer tablas binarias.PrecedenceConstraints[Constraint 3]"
           TopLeft="147.25,575">
           <EdgeLayout.Curve>
@@ -2840,6 +2786,28 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Recorrer tablas binarias.PrecedenceConstraints[Constraint 6]"
+          TopLeft="146.75,653">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40"
+              Start="0,0"
+              End="0,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
