@@ -51,7 +51,7 @@ namespace Universidad.AccesoDatos.Personas
                 join de in _contexto.DIR_CAT_ESTADO on pd.IDESTADO equals de.IDESTADO into tde
                 from de in tde.DefaultIfEmpty()
 
-                join dm in _contexto.DIR_CAT_DELG_MUNICIPIO on pd.IDMUNICIPIO equals dm.IDMUNICIPIO into tdm
+                join dm in _contexto.DIR_CAT_DELG_MUNICIPIO on new { idMunicipio = pd.IDMUNICIPIO, idEstado = (pd.IDESTADO == de.IDESTADO) } equals new { idMunicipio = dm.IDMUNICIPIO, idEstado = true} into tdm
                 from dm in tdm.DefaultIfEmpty()
 
                 join dc in _contexto.DIR_CAT_COLONIAS on pd.IDCOLONIA equals dc.IDCOLONIA into tdc
@@ -93,7 +93,7 @@ namespace Universidad.AccesoDatos.Personas
                     CodigoPostal = pp.IDDIRECCION == null ? "Sin direccion" : dc.CODIGOPOSTAL.ToString(),
                     Calle = pp.IDDIRECCION == null ? "Sin Direccion" : pd.CALLE,
                     NoExt = pp.IDDIRECCION == null ? "Sin Direccion" : pd.NOEXT,
-                    NoInt = pp.IDDIRECCION == null ? "Sin direccion" : pd.NOINT,
+                    NoInt = pp.IDDIRECCION == null ? "Sin Direccion" : pd.NOINT,
                     Referencias = pp.IDDIRECCION == null ? "Sin Direccion" : pd.REFERENCIAS,
                     TelefonoFijoDomicilio = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_FIJO_DOMICILIO,
                     TelefonoFijoTrabajo = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_FIJO_TRABAJO,
@@ -108,7 +108,7 @@ namespace Universidad.AccesoDatos.Personas
                     ExtencionFoto = pp.IDFOTO == null ? "Sin Fotografia" : pf.EXTENCION,
                     Fotografia = pp.IDFOTO == null ? null : pf.FOTOGRAFIA,
                     Usuario = pp.ID_USUARIO == null ? "Sin usuario" : pu.USUARIO,
-                    Contrasena = pp.ID_USUARIO == null ? "Sin Usuarion" : pu.CONTRASENA
+                    Contrasena = pp.ID_USUARIO == null ? "Sin Usuario" : pu.CONTRASENA
                 }).ToList().FirstOrDefault();
 
             return persona;

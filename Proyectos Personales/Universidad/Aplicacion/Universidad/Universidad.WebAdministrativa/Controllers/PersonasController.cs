@@ -588,6 +588,19 @@ namespace Universidad.WebAdministrativa.Controllers
 
             return View("EnlistarPersonas", listaPersonas.ToPagedList(pageNumber, pageSize));
         }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> ObtenDatosPersona(string idPersonaLink)
+        {
+            var session = (Sesion) Session["Sesion"];
+            var servicioPersonas = new SvcPersonas(session);
+
+            var per = await servicioPersonas.BuscarPersonaCompleta(idPersonaLink);
+
+            var resultado = JsonConvert.SerializeObject(per);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
     }
 
     public class RedirectToReturnUrlResult : ActionResult
