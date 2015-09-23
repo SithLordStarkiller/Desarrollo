@@ -1,4 +1,6 @@
-﻿namespace Universidad.AccesoDatos.Usuarios
+﻿using Universidad.Helpers;
+
+namespace Universidad.AccesoDatos.Usuarios
 {
     using Entidades;
 
@@ -10,7 +12,13 @@
         {
             using (var r = new Repositorio<US_USUARIOS>())
             {
-                return r.Extraer(a => a.USUARIO == usuario);
+                var registro = r.Extraer(a => a.USUARIO == usuario);
+
+                var textoEncriptado = new Encriptacion().DesencriptarTexto(registro.CONTRASENA);
+
+                registro.CONTRASENA = textoEncriptado;
+
+                return registro;
             }
         }
 
@@ -18,12 +26,22 @@
         {
             using (var r = new Repositorio<US_USUARIOS>())
             {
-                return r.Extraer(a => a.ID_USUARIO == idUsuario);
+                var registro = r.Extraer(a => a.ID_USUARIO == idUsuario);
+
+                var textoEncriptado = new Encriptacion().DesencriptarTexto(registro.CONTRASENA);
+
+                registro.CONTRASENA = textoEncriptado;
+
+                return registro;
             }
         }
 
         public US_USUARIOS InsertaUsuarioLinq(US_USUARIOS usuario)
         {
+            var textoEncriptado = new Encriptacion().EncriptarTexto(usuario.CONTRASENA);
+
+            usuario.CONTRASENA = textoEncriptado;
+            
             using (var r = new Repositorio<US_USUARIOS>())
             {
                 return r.Agregar(usuario);
@@ -32,6 +50,10 @@
 
         public bool ActulizaUsuarioLinq(US_USUARIOS usuario)
         {
+            var textoEncriptado = new Encriptacion().EncriptarTexto(usuario.CONTRASENA);
+
+            usuario.CONTRASENA = textoEncriptado;
+
             using (var r = new Repositorio<US_USUARIOS>())
             {
                 return r.Actualizar(usuario);

@@ -115,6 +115,7 @@
                         $("#txtNombre").val(list.Nombre);
                         $("#txtApellidoP").val(list.ApellidoP);
                         $("#txtApellidoM").val(list.ApellidoM);
+                        var fechaNacimiento = list.FechaNacimiento;
                         var formato = list.ExtencionFoto;
                         var binario = list.Fotografia;
                         var nombreFoto = list.NombreFoto;
@@ -144,6 +145,14 @@
                         alert(status + " : " + error);
                     }
             });
+        }
+
+        function cambioFechaSalida(fecha) {
+            var ahora = new Date($('#<%=tbSalida.ClientID %>').datepicker('getDate'));
+            var evento = new Date($('#tbRegreso').datepicker('getDate'));
+            var tiempo = evento.getTime() - ahora.getTime();
+            var dias = Math.floor(tiempo / (1000 * 60 * 60 * 24));
+            $("#ddlNoches").val(dias);
         }
     </script>
 }
@@ -258,12 +267,14 @@
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-8">
                             <div class="" id="divUsuario">
-                                @Html.Label("Nombre completo", null, new { @class = "" })
-                                @Html.TextBox("txtNombre", "", new { @class = "form-control", placeholder = "Nuevo Usuario", autocomplete = "off", disabled = "disabled" })
                                 @Html.Label("Nombre", null, new { @class = "" })
-                                @Html.TextBox("txtApellidoP", "", new { @class = "form-control", placeholder = "Nuevo Usuario", autocomplete = "off", disabled = "disabled" })
-                                @Html.Label("Nombre", null, new { @class = "" })
-                                @Html.TextBox("txtApellidoM", "", new { @class = "form-control", placeholder = "Nuevo Usuario", autocomplete = "off", disabled = "disabled" })
+                                @Html.TextBox("txtNombre", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Apellido Paterno", null, new { @class = "" })
+                                @Html.TextBox("txtApellidoP", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Apellido Materno", null, new { @class = "" })
+                                @Html.TextBox("txtApellidoM", "", new { @class = "form-control", placeholder = "Apellido Materno", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Edad", null, new { @class = "" })
+                                @Html.TextBox("txtEdad", "", new { @class = "form-control", placeholder = "Edad", autocomplete = "off", disabled = "disabled" })
                             </div>
                         </div>
                         <div class="form-group col-md-4">

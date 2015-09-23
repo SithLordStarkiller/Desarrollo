@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Data.SqlClient;
 using Universidad.Entidades;
+using Universidad.Helpers;
 
 namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 {
@@ -18,9 +19,11 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
         {
             US_USUARIOS usuario;
 
+            var textoEncriptado = new Encriptacion().EncriptarTexto(contrasena);
+
             using (var aux = new Repositorio<US_USUARIOS>())
             {
-                usuario = aux.Extraer(r => r.USUARIO == nombre && r.CONTRASENA == contrasena);
+                usuario = aux.Extraer(r => r.USUARIO == nombre && r.CONTRASENA == textoEncriptado);
             }
 
             return usuario;
@@ -31,9 +34,11 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
             const string executesqlstr = "SELECT TOP 1 * FROM US_USUARIOS WHERE USUARIO = @Usuario AND CONTRASENA = @Contrasena";
             var resultado = new US_USUARIOS();
 
+            var textoEncriptado = new Encriptacion().EncriptarTexto(contrasena);
+
             var para = new[] { 
                 new SqlParameter("@Usuario",nombre),
-                new SqlParameter("@Contrasena",contrasena)                    
+                new SqlParameter("@Contrasena",textoEncriptado)                    
             };
             var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.Text, executesqlstr, para);
 
