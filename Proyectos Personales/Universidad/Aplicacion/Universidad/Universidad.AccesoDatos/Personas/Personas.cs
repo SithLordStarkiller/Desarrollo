@@ -51,7 +51,7 @@ namespace Universidad.AccesoDatos.Personas
                 join de in _contexto.DIR_CAT_ESTADO on pd.IDESTADO equals de.IDESTADO into tde
                 from de in tde.DefaultIfEmpty()
 
-                join dm in _contexto.DIR_CAT_DELG_MUNICIPIO on new { idMunicipio = pd.IDMUNICIPIO, idEstado = (pd.IDESTADO == de.IDESTADO) } equals new { idMunicipio = dm.IDMUNICIPIO, idEstado = true} into tdm
+                join dm in _contexto.DIR_CAT_DELG_MUNICIPIO on new { idMunicipio = pd.IDMUNICIPIO, idEstado = pd.IDESTADO } equals new { idMunicipio = dm.IDMUNICIPIO, idEstado = dm.IDESTADO} into tdm
                 from dm in tdm.DefaultIfEmpty()
 
                 join dc in _contexto.DIR_CAT_COLONIAS on pd.IDCOLONIA equals dc.IDCOLONIA into tdc
@@ -92,8 +92,8 @@ namespace Universidad.AccesoDatos.Personas
                     Colonia = pp.IDDIRECCION == null ? "Sin direccion" : dc.NOMBRECOLONIA,
                     CodigoPostal = pp.IDDIRECCION == null ? "Sin direccion" : dc.CODIGOPOSTAL.ToString(),
                     Calle = pp.IDDIRECCION == null ? "Sin Direccion" : pd.CALLE,
-                    NoExt = pp.IDDIRECCION == null ? "Sin Direccion" : pd.NOEXT,
-                    NoInt = pp.IDDIRECCION == null ? "Sin Direccion" : pd.NOINT,
+                    NoExt = pp.IDDIRECCION == null || pd.NOEXT != "" ? "" : pd.NOEXT,
+                    NoInt = pp.IDDIRECCION == null || pd.NOINT != "" ? "" : pd.NOINT,
                     Referencias = pp.IDDIRECCION == null ? "Sin Direccion" : pd.REFERENCIAS,
                     TelefonoFijoDomicilio = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_FIJO_DOMICILIO,
                     TelefonoFijoTrabajo = pt.ID_TELEFONOS == null ? "Sin Telefono" : pt.TELEFONO_FIJO_TRABAJO,

@@ -112,14 +112,26 @@
                 success: function (response) {
                     var list = JSON.parse(response);
                     if (response) {
-                        $("#txtNombre").val(list.Nombre);
-                        $("#txtApellidoP").val(list.ApellidoP);
-                        $("#txtApellidoM").val(list.ApellidoM);
-                        var fechaNacimiento = list.FechaNacimiento;
+                        $("#txtNombreCompleto").val(list.NombreCompleto);
+                        $("#txtFechaNacimiento").val(formattedDate(list.FechaNacimiento));
+                        $("#txtSexo").val(list.Sexo);
+                        $("#txtCurp").val(list.Curp);
+                        $("#lblUsuario").text(list.IdLinkPersona);
+
                         var formato = list.ExtencionFoto;
                         var binario = list.Fotografia;
                         var nombreFoto = list.NombreFoto;
 
+                        var direccion = "";
+
+                        if (list.Estado == "Sin Direccion") {
+                            direccion = "Sin direccion";
+                        }
+                        else {
+                            direccion = list.Estado + " " + list.Municipio + ", CP " + list.CodigoPostal + " " + list.Colonia + " " + list.Calle + " " + list.NoExt + " " + list.NoInt;
+                        }
+
+                        $("#txtDireccion").val(direccion);
 
                         var result = '<div>';
                         $("#DatosPersona").empty();
@@ -127,8 +139,7 @@
                         if (nombreFoto != "Sin Fotografia") {
                             result += '</div><div><img src="data:image/' + formato + ';base64,' + binario + '" id="id' + nombreFoto + '"width="100%" height="100%" />';
                             result += '</div>';
-                        }
-                        else {
+                        } else {
                             result += '</div><div><img src="../imagenes/user.jpg" width="100%" height="100%" />';
                             result += '</div>';
                         }
@@ -147,12 +158,16 @@
             });
         }
 
-        function cambioFechaSalida(fecha) {
-            var ahora = new Date($('#<%=tbSalida.ClientID %>').datepicker('getDate'));
-            var evento = new Date($('#tbRegreso').datepicker('getDate'));
-            var tiempo = evento.getTime() - ahora.getTime();
-            var dias = Math.floor(tiempo / (1000 * 60 * 60 * 24));
-            $("#ddlNoches").val(dias);
+        function formattedDate(date) {
+            var d = new Date(date || Date.now()),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [day, month, year].join('/');
         }
     </script>
 }
@@ -236,7 +251,7 @@
                     @Html.DisplayFor(modelItem => item.A_MATERNO)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FECHAINGRESO)
+                    @item.FECHAINGRESO.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     <a href="#" onclick="ObtenDetalles('@item.ID_PER_LINKID');">Ver</a>
@@ -260,21 +275,24 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="modalLabelProducto">Detalles</h4>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label"></label>
+                </h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-8">
+                            <br />
                             <div class="" id="divUsuario">
-                                @Html.Label("Nombre", null, new { @class = "" })
-                                @Html.TextBox("txtNombre", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off", disabled = "disabled" })
-                                @Html.Label("Apellido Paterno", null, new { @class = "" })
-                                @Html.TextBox("txtApellidoP", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off", disabled = "disabled" })
-                                @Html.Label("Apellido Materno", null, new { @class = "" })
-                                @Html.TextBox("txtApellidoM", "", new { @class = "form-control", placeholder = "Apellido Materno", autocomplete = "off", disabled = "disabled" })
-                                @Html.Label("Edad", null, new { @class = "" })
-                                @Html.TextBox("txtEdad", "", new { @class = "form-control", placeholder = "Edad", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Nombre Completo", null, new { @class = "" })
+                                @Html.TextBox("txtNombreCompleto", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Fecha de nacimiento", null, new { @class = "" })
+                                @Html.TextBox("txtFechaNacimiento", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Sexo", null, new { @class = "" })
+                                @Html.TextBox("txtSexo", "", new { @class = "form-control", placeholder = "Apellido Materno", autocomplete = "off", disabled = "disabled" })
+                                @Html.Label("Curp", null, new { @class = "" })
+                                @Html.TextBox("txtCurp", "", new { @class = "form-control", placeholder = "Edad", autocomplete = "off", disabled = "disabled" })
                             </div>
                         </div>
                         <div class="form-group col-md-4">
@@ -283,9 +301,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="input-group" style="margin: 10px; padding: 5px;">
-
+                <br />
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("Direccion", null, new { @class = "" })
+                            @Html.TextBox("txtDireccion", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off", disabled = "disabled" })
+                            @Html.Label("Apellido Paterno", null, new { @class = "" })
+                            @Html.TextBox("txtApellidoP", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off", disabled = "disabled" })
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

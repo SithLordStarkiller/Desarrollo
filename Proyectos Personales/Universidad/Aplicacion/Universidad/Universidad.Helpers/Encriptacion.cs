@@ -8,27 +8,34 @@ namespace Universidad.Helpers
     {
         public string EncriptarTexto(string cadena)
         {
-            var arregloCifrar = Encoding.UTF8.GetBytes(cadena);
-            var hashmd5 = new MD5CryptoServiceProvider();
-            var keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes("password"));
-
-            hashmd5.Clear();
-
-            var tdes = new TripleDESCryptoServiceProvider
+            try
             {
-                Key = keyArray,
-                Mode = CipherMode.ECB,
-                Padding = PaddingMode.PKCS7
-            };
+                var arregloCifrar = Encoding.UTF8.GetBytes(cadena);
+                var hashmd5 = new MD5CryptoServiceProvider();
+                var keyArray = hashmd5.ComputeHash(Encoding.UTF8.GetBytes("password"));
 
-            var cTransform = tdes.CreateEncryptor();
-            var arrayResultado = cTransform.TransformFinalBlock(arregloCifrar, 0, arregloCifrar.Length);
+                hashmd5.Clear();
 
-            tdes.Clear();
+                var tdes = new TripleDESCryptoServiceProvider
+                {
+                    Key = keyArray,
+                    Mode = CipherMode.ECB,
+                    Padding = PaddingMode.PKCS7
+                };
 
-            var encriptado = Convert.ToBase64String(arrayResultado, 0, arrayResultado.Length);
+                var cTransform = tdes.CreateEncryptor();
+                var arrayResultado = cTransform.TransformFinalBlock(arregloCifrar, 0, arregloCifrar.Length);
 
-            return encriptado;
+                tdes.Clear();
+
+                var encriptado = Convert.ToBase64String(arrayResultado, 0, arrayResultado.Length);
+
+                return encriptado;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public string DesencriptarTexto(string textoEncriptado)
