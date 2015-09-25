@@ -31,5 +31,14 @@ namespace Universidad.WebAdministrativa.Properties {
                 return ((string)(this["RutaServidorInterno"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost/ReportServer_MSSQLSERVER2014")]
+        public string ServidorReportes {
+            get {
+                return ((string)(this["ServidorReportes"]));
+            }
+        }
     }
 }

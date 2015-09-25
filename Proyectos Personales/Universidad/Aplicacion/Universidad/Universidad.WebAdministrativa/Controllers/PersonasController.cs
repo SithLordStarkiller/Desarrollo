@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Personas;
@@ -498,8 +499,16 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public void ReportePersonaAsync(int personaId)
+        public void ReportePersona(int? personaId)
         {
+            var parametros = new ReportParameterCollection
+            {
+                new ReportParameter("PersonaId", personaId.ToString())
+            };
+
+            var param = JsonConvert.SerializeObject(parametros);
+
+            Response.Redirect("../VisorReportes.aspx?TipoPeticion=MuestraReportePorNombreConParametros&nombreReporte=DescripcionPersona&parametros=" + param);
         }
 
         [SessionExpireFilter]
@@ -519,7 +528,7 @@ namespace Universidad.WebAdministrativa.Controllers
             else
             {
                 DateTime? fechaInicioS;
-                
+
                 if (fechaInicio == "")
                 {
                     fechaInicioS = null;
@@ -536,8 +545,8 @@ namespace Universidad.WebAdministrativa.Controllers
                     fechaFinS = null;
                 }
                 else
-                {  
-                     fechaFinS = Convert.ToDateTime(fechaFin);
+                {
+                    fechaFinS = Convert.ToDateTime(fechaFin);
                 }
 
                 listaPersonas = await servicioPersonas.ObtenListaPersonasFiltro(idPersona, fechaInicioS, fechaFinS, idTipoPersona);
@@ -592,7 +601,7 @@ namespace Universidad.WebAdministrativa.Controllers
         [SessionExpireFilter]
         public async Task<ActionResult> ObtenDatosPersona(string idPersonaLink)
         {
-            var session = (Sesion) Session["Sesion"];
+            var session = (Sesion)Session["Sesion"];
             var servicioPersonas = new SvcPersonas(session);
 
             var per = await servicioPersonas.BuscarPersonaCompleta(idPersonaLink);

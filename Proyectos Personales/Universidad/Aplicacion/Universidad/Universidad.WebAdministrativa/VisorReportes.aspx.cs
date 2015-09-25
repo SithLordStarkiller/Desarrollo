@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Net;
 using System.Security.Principal;
@@ -9,12 +11,30 @@ namespace Universidad.WebAdministrativa
     public partial class VisorReportes : System.Web.UI.Page
     {
         private string _urlReportServer;
-        private const string CarpetaReporte = "";
+        private const string CarpetaReporte = "/Reportes/";
         protected void Page_Load(object sender, EventArgs e)
         {
-            _urlReportServer = System.Configuration.ConfigurationManager.AppSettings["ServidorReportes"];
-            var nombreReporte = Request.QueryString["Reporte"];
-            MuestraReportePorNombre(nombreReporte);
+            _urlReportServer = Properties.Settings.Default.ServidorReportes;
+
+            var nombreReporte = Request.QueryString["nombreReporte"];
+            var peticion = Request.QueryString["TipoPeticion"];
+            var parametros = Request.QueryString["parametros"];
+
+            switch (peticion)
+            {
+                case "MuestraReportePorNombre":
+                    MuestraReportePorNombre(nombreReporte);
+                    break;
+
+                case "ReportePrueba":
+                    ReportePrueba();
+                    break;
+
+                case "MuestraReportePorNombreConParametros":
+                    var param = Newtonsoft.Json.JsonConvert.DeserializeObject<ReportParameterCollection>(parametros);
+                    MuestraReportePorNombreConParametros(nombreReporte, param);
+                    break;
+            }
         }
 
         private void ShowCustomReport(string reporte, string dataSet, DataTable source, ReportParameterCollection parametes)
@@ -57,7 +77,20 @@ namespace Universidad.WebAdministrativa
             ReportViewer1.ServerReport.Refresh();
         }
 
-        public void ShowReport()
+        public void MuestraReportePorNombreConParametros(string nombreReporte, ReportParameterCollection parametros )
+        {
+            ReportViewer1.ProcessingMode = ProcessingMode.Remote;
+
+            ReportViewer1.ServerReport.ReportServerUrl = new Uri(_urlReportServer);
+
+            ReportViewer1.ServerReport.ReportPath = CarpetaReporte + nombreReporte;
+
+            ReportViewer1.LocalReport.SetParameters(parametros);
+
+            ReportViewer1.ServerReport.Refresh();
+        }
+
+        public void ReportePrueba()
         {
             //_urlReportServer = "http://localhost/ReportServer_MSSQLSERVER2014";
 
