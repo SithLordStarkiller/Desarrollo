@@ -2,54 +2,40 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="ID_PERSONA">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=Sum(Fields!ID_PERSONA.Value, "DataSetPersona")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>ID_PERSONA</rd:DefaultName>
-        <Top>1.53141cm</Top>
-        <Left>8.04016cm</Left>
-        <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+      <Image Name="Image2">
+        <Source>Database</Source>
+        <Value>=First(Fields!Fotografia.Value, "DataSetPersona")</Value>
+        <MIMEType>image/jpeg</MIMEType>
+        <Sizing>FitProportional</Sizing>
+        <Top>0.17639cm</Top>
+        <Left>13.49058cm</Left>
+        <Height>4.54271cm</Height>
+        <Width>7.36963cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
-      </Textbox>
-      <Textbox Name="NOMBRE_COMPLETO">
+      </Image>
+      <Textbox Name="NombreCompleto">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!NOMBRE_COMPLETO.Value, "DataSetPersona")</Value>
+                <Value>=First(Fields!NombreCompleto.Value, "DataSetPersona")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>NOMBRE_COMPLETO</rd:DefaultName>
-        <Top>1.53141cm</Top>
-        <Left>11.90308cm</Left>
+        <rd:DefaultName>NombreCompleto</rd:DefaultName>
+        <Top>0.17639cm</Top>
+        <Left>1cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>9.72313cm</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -106,7 +92,7 @@
           </Paragraphs>
           <rd:DefaultName>Textbox13</rd:DefaultName>
           <Top>0.94932cm</Top>
-          <Left>17.64453cm</Left>
+          <Left>18.36021cm</Left>
           <Height>0.6cm</Height>
           <Width>2.5cm</Width>
           <ZIndex>1</ZIndex>
@@ -225,85 +211,198 @@
             <rd:UserDefined>true</rd:UserDefined>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>SELECT        *
-FROM            PER_PERSONAS 
-WHERE  Id_Persona = @Parametro</CommandText>
+        <CommandText>SELECT 
+pp.ID_PERSONA as IdPersona,
+pp.ID_PER_LINKID as IdLinkPersona,
+pp.NOMBRE as Nombre,
+pp.A_PATERNO as ApellidoP,
+pp.A_MATERNO as ApellidoM,
+pp.NOMBRE_COMPLETO as NombreCompleto,
+pp.FECHA_NAC as FechaNacimiento,
+pp.FECHAINGRESO as FechaIngreso,
+pp.SEXO as Sexo,
+pp.CURP as Curp,
+pp.RFC as Rfc,
+pp.IMSS as Nss,
+ptp.TIPO_PERSONA as TipoPersona,
+pn.NOMBRE_PAIS as Nacionalidad,
+de.NOMBREESTADO as Estado,
+dm.NOMBREDELGMUNICIPIO as Municipio,
+dc.NOMBRECOLONIA as Colonia,
+dc.CODIGOPOSTAL as CodigoPostal,
+pd.CALLE as Calle,
+pd.NOEXT as NoExt,
+pd.NOINT as NoInt,
+pd.REFERENCIAS as Referencias,
+pt.TELEFONO_FIJO_DOMICILIO as TelefonoFijoDomicilio,
+pt.TELEFONO_FIJO_TRABAJO as TelefonoFijoTrabajo,
+pt.TELEFONO_CELULAR_PERSONAL as TelefonoMovilPersonal,
+pt.TELEFONO_CELULAR_TRABAJO as TelefonoMovilTrabajo,
+pt.FAX as Fax,
+pm.CORREO_ELECTRONICO_PERSONAL as CorreoPersonal,
+pm.CORREO_ELECTRONICO_UNIVERSIDAD as CorreoUniversidad,
+pm.FACEBOOK as RedSocial1,
+pm.TWITTER as RedSocial2,
+pf.NOMBRE as NombreFoto,
+pf.EXTENCION as ExtencionFoto,
+pf.FOTOGRAFIA as Fotografia,
+pu.USUARIO as Usuario,pu.CONTRASENA as Contrasena
+from PER_PERSONAS AS pp
+left outer join PER_CAT_NACIONALIDAD AS pn on pp.CVE_NACIONALIDAD = pn.CVE_NACIONALIDAD
+left outer join PER_CAT_TIPO_PERSONA as ptp on pp.ID_TIPO_PERSONA = ptp.ID_TIPO_PERSONA 
+left outer join DIR_DIRECCIONES as pd on pp.IDDIRECCION = pd.IDDIRECCION
+left outer join DIR_CAT_ESTADO as de on pd.IDESTADO = de.IDESTADO 
+left outer join DIR_CAT_DELG_MUNICIPIO as dm on dm.IDMUNICIPIO = pd.IDMUNICIPIO  and pd.IDESTADO = dm.IDESTADO
+left outer join DIR_CAT_COLONIAS as dc on pd.IDCOLONIA = dc.IDCOLONIA 
+left outer join  PER_CAT_TELEFONOS as pt on pp.ID_TELEFONOS = pt.ID_TELEFONOS
+left outer join PER_MEDIOS_ELECTRONICOS as pm on pp.ID_MEDIOS_ELECTRONICOS = pm.ID_MEDIOS_ELECTRONICOS
+left outer join PER_FOTOGRAFIA as pf on pp.IDFOTO = pf.IDFOTO 
+left outer join US_USUARIOS as pu on pp.ID_USUARIO = pu.ID_USUARIO 
+where pp.ID_PER_LINKID = @Parametro</CommandText>
       </Query>
       <Fields>
-        <Field Name="ID_PERSONA">
-          <DataField>ID_PERSONA</DataField>
+        <Field Name="IdPersona">
+          <DataField>IdPersona</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="ID_PER_LINKID">
-          <DataField>ID_PER_LINKID</DataField>
+        <Field Name="IdLinkPersona">
+          <DataField>IdLinkPersona</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IDDIRECCION">
-          <DataField>IDDIRECCION</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="CVE_NACIONALIDAD">
-          <DataField>CVE_NACIONALIDAD</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ID_TELEFONOS">
-          <DataField>ID_TELEFONOS</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ID_TIPO_PERSONA">
-          <DataField>ID_TIPO_PERSONA</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ID_USUARIO">
-          <DataField>ID_USUARIO</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="ID_MEDIOS_ELECTRONICOS">
-          <DataField>ID_MEDIOS_ELECTRONICOS</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="IDFOTO">
-          <DataField>IDFOTO</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="NOMBRE">
-          <DataField>NOMBRE</DataField>
+        <Field Name="Nombre">
+          <DataField>Nombre</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="A_PATERNO">
-          <DataField>A_PATERNO</DataField>
+        <Field Name="ApellidoP">
+          <DataField>ApellidoP</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="A_MATERNO">
-          <DataField>A_MATERNO</DataField>
+        <Field Name="ApellidoM">
+          <DataField>ApellidoM</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NOMBRE_COMPLETO">
-          <DataField>NOMBRE_COMPLETO</DataField>
+        <Field Name="NombreCompleto">
+          <DataField>NombreCompleto</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="FECHA_NAC">
-          <DataField>FECHA_NAC</DataField>
+        <Field Name="FechaNacimiento">
+          <DataField>FechaNacimiento</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="FECHAINGRESO">
-          <DataField>FECHAINGRESO</DataField>
+        <Field Name="FechaIngreso">
+          <DataField>FechaIngreso</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="SEXO">
-          <DataField>SEXO</DataField>
+        <Field Name="Sexo">
+          <DataField>Sexo</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CURP">
-          <DataField>CURP</DataField>
+        <Field Name="Curp">
+          <DataField>Curp</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="RFC">
-          <DataField>RFC</DataField>
+        <Field Name="Rfc">
+          <DataField>Rfc</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IMSS">
-          <DataField>IMSS</DataField>
+        <Field Name="Nss">
+          <DataField>Nss</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TipoPersona">
+          <DataField>TipoPersona</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Nacionalidad">
+          <DataField>Nacionalidad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Estado">
+          <DataField>Estado</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Municipio">
+          <DataField>Municipio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Colonia">
+          <DataField>Colonia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CodigoPostal">
+          <DataField>CodigoPostal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Calle">
+          <DataField>Calle</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NoExt">
+          <DataField>NoExt</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NoInt">
+          <DataField>NoInt</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Referencias">
+          <DataField>Referencias</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoFijoDomicilio">
+          <DataField>TelefonoFijoDomicilio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoFijoTrabajo">
+          <DataField>TelefonoFijoTrabajo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoMovilPersonal">
+          <DataField>TelefonoMovilPersonal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TelefonoMovilTrabajo">
+          <DataField>TelefonoMovilTrabajo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fax">
+          <DataField>Fax</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoPersonal">
+          <DataField>CorreoPersonal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CorreoUniversidad">
+          <DataField>CorreoUniversidad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RedSocial1">
+          <DataField>RedSocial1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RedSocial2">
+          <DataField>RedSocial2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreFoto">
+          <DataField>NombreFoto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ExtencionFoto">
+          <DataField>ExtencionFoto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fotografia">
+          <DataField>Fotografia</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
+        </Field>
+        <Field Name="Usuario">
+          <DataField>Usuario</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Contrasena">
+          <DataField>Contrasena</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

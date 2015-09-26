@@ -99,6 +99,10 @@
             $("#txtIdLinkPersona").val("@idPersona");
             $('#ddlTipoPersona').val(idTipoPersona);
             $('.selectpicker').selectpicker('refresh');
+
+            var link = "@Url.Action("ReportePersona", "Personas")" + "?personaId=" + idTipoPersona;
+
+            $("#lnkReporte").attr("href", link);
         }
 
         function ObtenDetalles(id) {
@@ -122,7 +126,7 @@
                         var binario = list.Fotografia;
                         var nombreFoto = list.NombreFoto;
 
-                        var direccion = "";
+                        var direccion;
 
                         if (list.Estado == "Sin Direccion") {
                             direccion = "Sin direccion";
@@ -278,7 +282,7 @@
                 <h4 class="modal-title" id="modalLabelProducto">
                     <label id="lblUsuario" text="label"></label>
                 </h4>
-                <a id="lnkReporte" href="@Url.Action("ReportePersona", "Personas", new { personaId = idPersona})">Reporte Completo</a>
+                <a id="lnkReporte" target="_blank" href="#">Reporte Completo</a>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -314,7 +318,6 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>

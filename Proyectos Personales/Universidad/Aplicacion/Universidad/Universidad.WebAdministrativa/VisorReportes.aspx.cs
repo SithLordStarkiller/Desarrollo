@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using System.Net;
 using System.Security.Principal;
 using Microsoft.Reporting.WebForms;
@@ -14,6 +11,9 @@ namespace Universidad.WebAdministrativa
         private const string CarpetaReporte = "/Reportes/";
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack)
+                return;
+
             _urlReportServer = Properties.Settings.Default.ServidorReportes;
 
             var nombreReporte = Request.QueryString["nombreReporte"];
@@ -37,35 +37,6 @@ namespace Universidad.WebAdministrativa
             }
         }
 
-        private void ShowCustomReport(string reporte, string dataSet, DataTable source, ReportParameterCollection parametes)
-        {
-            var datasource = source;
-            ReportViewer1.Reset();
-            ReportViewer1.LocalReport.ReportPath = Server.MapPath(reporte);
-
-            var rds = new ReportDataSource(dataSet, datasource);
-
-            const string error1Value = "Test Error 1";
-            const string error2Value = "Test Error 2";
-            const string error3Value = "Test Error 3";
-            const string error4Value = "Test Error 4";
-
-
-            var parametros = new ReportParameterCollection
-            {
-                new ReportParameter("Error_1", error1Value),
-                new ReportParameter("Error_2", error2Value),
-                new ReportParameter("Error_3", error3Value),
-                new ReportParameter("Error_4", error4Value)
-            };
-
-            ReportViewer1.LocalReport.SetParameters(parametros);
-            ReportViewer1.LocalReport.DataSources.Clear();
-            ReportViewer1.LocalReport.DataSources.Add(rds);
-            ReportViewer1.DataBind();
-            ReportViewer1.LocalReport.Refresh();
-        }
-
         public void MuestraReportePorNombre(string nombreReporte)
         {
             ReportViewer1.ProcessingMode = ProcessingMode.Remote;
@@ -85,7 +56,7 @@ namespace Universidad.WebAdministrativa
 
             ReportViewer1.ServerReport.ReportPath = CarpetaReporte + nombreReporte;
 
-            ReportViewer1.LocalReport.SetParameters(parametros);
+            ReportViewer1.ServerReport.SetParameters(parametros);
 
             ReportViewer1.ServerReport.Refresh();
         }
