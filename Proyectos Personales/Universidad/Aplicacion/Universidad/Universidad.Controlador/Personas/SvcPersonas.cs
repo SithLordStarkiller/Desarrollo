@@ -63,5 +63,25 @@ namespace Universidad.Controlador.Personas
         {
             return Task.Run(() => _servicio.ObtenCatTipoPersonaAsync());
         }
+
+        public Task<DIR_DIRECCIONES> ObtenDireccion(PER_PERSONAS persona)
+        {
+            return Task.Run(() => _servicio.ObtenDireccionesAsync(persona));
+        }
+
+        public Task<PER_CAT_TELEFONOS> ObtenTelefonos(PER_PERSONAS persona)
+        {
+            return Task.Run(() => _servicio.ObtenTelefonosAsync(persona));
+        }
+
+        public Task<PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicos(PER_PERSONAS persona)
+        {
+            return Task.Run(() => _servicio.ObtenMediosElectronicosAsync(persona));
+        }
+
+        public Task<PER_FOTOGRAFIA> ObtenFotografia(PER_PERSONAS persona)
+        {
+            return Task.Run(() => _servicio.ObtenFotografiaAsync(persona));
+        }
     }
 }

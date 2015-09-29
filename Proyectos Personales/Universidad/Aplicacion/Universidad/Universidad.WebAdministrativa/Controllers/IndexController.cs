@@ -36,11 +36,11 @@ namespace Universidad.WebAdministrativa.Controllers
             {
                 if (usuario.USUARIO == "Problema de conexion con el servidor")
                 {
-                    resultado = "Error de conexicon conservidor";
+                    resultado = "Error de conexicon con servidor";
                     
                 }
 
-                switch (usuario.ID_NIVEL_USUARIO)
+                switch (usuario.ID_ESTATUS_USUARIOS)
                 {
                     case 1:
                         System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";

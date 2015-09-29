@@ -1,6 +1,4 @@
-﻿using Universidad.AccesoDatos;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Universidad.AccesoDatos.Personas;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Universidad.AccesoDatos.UnitTest
 {
@@ -8,10 +6,9 @@ namespace Universidad.AccesoDatos.UnitTest
     public class AccesoDatosTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CrearClasePersonas()
         {
-            var clase = new Direcciones();// new Personas.Personas();
-            Assert;
+            var clase = new Universidad.AccesoDatos.Personas.Personas();
         }
     }
 }

@@ -114,7 +114,7 @@ namespace Universidad.AccesoDatos.Personas
             return persona;
         }
 
-        public List<PER_PERSONAS> ObtenListaPersonas()
+        public List<PER_PERSONAS> ObtenListaPersonasLinq()
         {
             using (var r = new Repositorio<PER_PERSONAS>())
             {
@@ -122,7 +122,7 @@ namespace Universidad.AccesoDatos.Personas
             }
         }
 
-        public List<PER_PERSONAS> ObtenPersonasFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal, int? idTipoPersona)
+        public List<PER_PERSONAS> ObtenPersonasFiltroLinq(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal, int? idTipoPersona)
         {
             List<PER_PERSONAS> personas;
 
@@ -161,6 +161,38 @@ namespace Universidad.AccesoDatos.Personas
             }
 
             return personas;
+        }
+
+        public DIR_DIRECCIONES ObtenDireccionLinq(PER_PERSONAS persona)
+        {
+            using (var x = new Repositorio<DIR_DIRECCIONES>())
+            {
+                return x.Extraer(r => r.IDDIRECCION == persona.IDDIRECCION);
+            }
+        }
+
+        public PER_CAT_TELEFONOS ObtenTelefonosLinq(PER_PERSONAS persona)
+        {
+            using (var x = new Repositorio<PER_CAT_TELEFONOS>())
+            {
+                return x.Extraer(r => r.ID_TELEFONOS == persona.ID_TELEFONOS);
+            }
+        }
+
+        public PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicosLinq(PER_PERSONAS personas)
+        {
+            using (var x = new Repositorio<PER_MEDIOS_ELECTRONICOS>())
+            {
+                return x.Extraer(r => r.ID_MEDIOS_ELECTRONICOS == personas.ID_MEDIOS_ELECTRONICOS);
+            }
+        }
+
+        public PER_FOTOGRAFIA ObtenFotografiaLinq(PER_PERSONAS persona)
+        {
+            using (var x = new Repositorio<PER_FOTOGRAFIA>())
+            {
+                return x.Extraer(r => r.IDFOTO == persona.ID_PERSONA);
+            }
         }
     }
 }

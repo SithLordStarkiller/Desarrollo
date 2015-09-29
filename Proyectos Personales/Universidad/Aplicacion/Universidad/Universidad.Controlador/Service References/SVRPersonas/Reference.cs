@@ -62,6 +62,30 @@ namespace Universidad.Controlador.SVRPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltroResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenDirecciones", ReplyAction="http://tempuri.org/ISPersonas/ObtenDireccionesResponse")]
+        Universidad.Entidades.DIR_DIRECCIONES ObtenDirecciones(Universidad.Entidades.PER_PERSONAS persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenDirecciones", ReplyAction="http://tempuri.org/ISPersonas/ObtenDireccionesResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.DIR_DIRECCIONES> ObtenDireccionesAsync(Universidad.Entidades.PER_PERSONAS persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTelefonos", ReplyAction="http://tempuri.org/ISPersonas/ObtenTelefonosResponse")]
+        Universidad.Entidades.PER_CAT_TELEFONOS ObtenTelefonos(Universidad.Entidades.PER_PERSONAS persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTelefonos", ReplyAction="http://tempuri.org/ISPersonas/ObtenTelefonosResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TELEFONOS> ObtenTelefonosAsync(Universidad.Entidades.PER_PERSONAS persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/ObtenMediosElectronicosResponse")]
+        Universidad.Entidades.PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(Universidad.Entidades.PER_PERSONAS personas);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/ObtenMediosElectronicosResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicosAsync(Universidad.Entidades.PER_PERSONAS personas);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenFotografia", ReplyAction="http://tempuri.org/ISPersonas/ObtenFotografiaResponse")]
+        Universidad.Entidades.PER_FOTOGRAFIA ObtenFotografia(Universidad.Entidades.PER_PERSONAS personas);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenFotografia", ReplyAction="http://tempuri.org/ISPersonas/ObtenFotografiaResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_FOTOGRAFIA> ObtenFotografiaAsync(Universidad.Entidades.PER_PERSONAS personas);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -153,6 +177,38 @@ namespace Universidad.Controlador.SVRPersonas {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
             return base.Channel.ObtenListaPersonaFiltroAsync(idPersona, fechaInicio, fechaFinal, idTipoPersona);
+        }
+        
+        public Universidad.Entidades.DIR_DIRECCIONES ObtenDirecciones(Universidad.Entidades.PER_PERSONAS persona) {
+            return base.Channel.ObtenDirecciones(persona);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.DIR_DIRECCIONES> ObtenDireccionesAsync(Universidad.Entidades.PER_PERSONAS persona) {
+            return base.Channel.ObtenDireccionesAsync(persona);
+        }
+        
+        public Universidad.Entidades.PER_CAT_TELEFONOS ObtenTelefonos(Universidad.Entidades.PER_PERSONAS persona) {
+            return base.Channel.ObtenTelefonos(persona);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TELEFONOS> ObtenTelefonosAsync(Universidad.Entidades.PER_PERSONAS persona) {
+            return base.Channel.ObtenTelefonosAsync(persona);
+        }
+        
+        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(Universidad.Entidades.PER_PERSONAS personas) {
+            return base.Channel.ObtenMediosElectronicos(personas);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicosAsync(Universidad.Entidades.PER_PERSONAS personas) {
+            return base.Channel.ObtenMediosElectronicosAsync(personas);
+        }
+        
+        public Universidad.Entidades.PER_FOTOGRAFIA ObtenFotografia(Universidad.Entidades.PER_PERSONAS personas) {
+            return base.Channel.ObtenFotografia(personas);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_FOTOGRAFIA> ObtenFotografiaAsync(Universidad.Entidades.PER_PERSONAS personas) {
+            return base.Channel.ObtenFotografiaAsync(personas);
         }
     }
 }

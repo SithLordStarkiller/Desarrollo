@@ -35,5 +35,17 @@ namespace Universidad.ServidorInterno.Personas
 
         [OperationContract]
         List<PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal, int? idTipoPersona);
+
+        [OperationContract]
+        DIR_DIRECCIONES ObtenDirecciones(PER_PERSONAS persona);
+
+        [OperationContract]
+        PER_CAT_TELEFONOS ObtenTelefonos(PER_PERSONAS persona);
+
+        [OperationContract]
+        PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(PER_PERSONAS personas);
+
+        [OperationContract]
+        PER_FOTOGRAFIA ObtenFotografia(PER_PERSONAS personas);
     }
 }

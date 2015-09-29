@@ -56,6 +56,30 @@
   <wsdl:message name="ISPersonas_ObtenListaPersonaFiltro_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenListaPersonaFiltroResponse" />
   </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenDirecciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenDirecciones" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenDirecciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenDireccionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenTelefonos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTelefonos" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenTelefonos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTelefonosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenMediosElectronicos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenMediosElectronicos" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenMediosElectronicos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenMediosElectronicosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenFotografia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenFotografia" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenFotografia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenFotografiaResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISPersonas">
     <wsdl:operation name="ExisteCorreoUniversidad">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad" message="tns:ISPersonas_ExisteCorreoUniversidad_InputMessage" />
@@ -88,6 +112,22 @@
     <wsdl:operation name="ObtenListaPersonaFiltro">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro" message="tns:ISPersonas_ObtenListaPersonaFiltro_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltroResponse" message="tns:ISPersonas_ObtenListaPersonaFiltro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenDirecciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenDirecciones" message="tns:ISPersonas_ObtenDirecciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenDireccionesResponse" message="tns:ISPersonas_ObtenDirecciones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTelefonos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenTelefonos" message="tns:ISPersonas_ObtenTelefonos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenTelefonosResponse" message="tns:ISPersonas_ObtenTelefonos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenMediosElectronicos">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenMediosElectronicos" message="tns:ISPersonas_ObtenMediosElectronicos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenMediosElectronicosResponse" message="tns:ISPersonas_ObtenMediosElectronicos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenFotografia">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenFotografia" message="tns:ISPersonas_ObtenFotografia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenFotografiaResponse" message="tns:ISPersonas_ObtenFotografia_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISPersonas" type="tns:ISPersonas">
@@ -157,6 +197,42 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenListaPersonaFiltro">
       <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenDirecciones">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenDirecciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTelefonos">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenTelefonos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenMediosElectronicos">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenMediosElectronicos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenFotografia">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenFotografia" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

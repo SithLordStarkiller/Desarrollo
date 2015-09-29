@@ -52,5 +52,25 @@ namespace Universidad.ServidorInterno.Personas
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatTipoPersona();
         }
+
+        public DIR_DIRECCIONES ObtenDirecciones(PER_PERSONAS persona)
+        {
+            return new Persona().ObtenDirecciones(persona);
+        }
+
+        public PER_CAT_TELEFONOS ObtenTelefonos(PER_PERSONAS persona)
+        {
+            return new Persona().ObtenTelefonos(persona);
+        }
+
+        public PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(PER_PERSONAS personas)
+        {
+            return new Persona().ObtenMediosElectronicos(personas);
+        }
+
+        public PER_FOTOGRAFIA ObtenFotografia(PER_PERSONAS personas)
+        {
+            return new Persona().ObtenFotografia(personas);
+        }
     }
 }

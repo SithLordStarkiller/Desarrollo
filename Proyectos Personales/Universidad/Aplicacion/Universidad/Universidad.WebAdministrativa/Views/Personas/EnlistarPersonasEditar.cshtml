@@ -1,0 +1,216 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<Universidad.Entidades.PER_PERSONAS>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var titulo = ViewBag.Title = "Lista de personas";
+
+    var listaTipoPersona = (IEnumerable<SelectListItem>)ViewBag.ListaTipoPersona;
+
+    string fechaInicial = "", fechaFinal = "", idPersona = "";
+    var idTipoPersona = 1;
+
+    if (ViewData["fechaInicial"] != null)
+    {
+        fechaInicial = (ViewData["fechaInicial"]).ToString();
+    }
+
+    if (ViewData["fechaFinal"] != null)
+    {
+        fechaFinal = (ViewData["fechaFinal"]).ToString();
+    }
+
+    if (ViewData["idPersona"] != null)
+    {
+        idPersona = (ViewData["idPersona"]).ToString();
+    }
+
+    if (ViewData["idTipoPersona"] != null)
+    {
+        idTipoPersona = (int)ViewData["idTipoPersona"];
+    }
+
+}
+
+@section Head
+{
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                language: 'es',
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
+            });
+
+            LlenarCampos();
+        });
+
+
+        $(document).ready(function () {
+            $('#btnEnviar').click(function () {
+                FiltraPersonas();
+            });
+        });
+
+        function FiltraPersonas() {
+
+            var idTipoPersona = $("#ddlTipoPersona").val();
+            var fechaInicio = $("#txtFechaIngresoDe").val();
+            var fechaFin = $("#txtFechaIngresoHasta").val();
+            var idPersona = $("#txtIdLinkPersona").val();
+
+            var startDate = new Date(fechaInicio);
+            var endDate = new Date(fechaFin);
+
+            if (startDate > endDate) {
+                alert("La fecha final es menor a la inicial");
+            } else {
+                var path = '@Url.Action("EnlistarPersonasEditar", "Personas")' + '?idTipoPersona=' + idTipoPersona + '&idPersona=' + idPersona + '&fechaInicio=' + fechaInicio + '&fechaFin=' + fechaFin + '&page=1';
+                window.location.href(path);
+            }
+        }
+
+        function show_modal() {
+            $('#modalCreaProducto').modal('show');
+        }
+
+        function LlenarCampos() {
+            var idTipoPersona = "@idTipoPersona";
+
+            $("#txtFechaIngresoDe").val("@fechaInicial");
+            $("#txtFechaIngresoHasta").val("@fechaFinal");
+            $("#txtIdLinkPersona").val("@idPersona");
+            $('#ddlTipoPersona').val(idTipoPersona);
+            $('.selectpicker').selectpicker('refresh');
+
+            var link = "@Url.Action("EditarPersona", "Personas")" + "?idPersona=" + idTipoPersona;
+
+            $("#lnkEditar").attr("href", link);
+        }
+
+        function formattedDate(date) {
+            var d = new Date(date || Date.now()),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [day, month, year].join('/');
+        }
+    </script>
+}
+<br />
+<h3>@titulo</h3>
+<br />
+<div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+    <div class="row">
+        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+            <div class="form-group col-lg-offset-3 col-md-6">
+                <div class="input-group input-group-sm">
+                    @Html.Label("Fecha Ingreso de", new { @class = "input-group-addon" })
+                    @Html.TextBox("txtFechaIngresoDe", null, new { @class = "form-control datepicker" })
+                    @Html.Label("Hasta", new { @class = "input-group-addon" })
+                    @Html.TextBox("txtFechaIngresoHasta", null, new { @class = "form-control datepicker" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+            <div class="form-group input-group-sm form-group-sm">
+                <div class="col-lg-offset-2 col-md-3">
+                    <div class="input-group">
+                        @Html.Label("No de Persona", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtIdLinkPersona", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="input-group">
+                        @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
+                        @Html.DropDownList("ddlTipoPersona", listaTipoPersona, new { @class = "selectpicker", data_live_search = true })
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="input-group">
+                        <button name="btnEnviar" class="btn btn-default btn-sm" onclick="FiltraPersonas();">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Apellido Paterno
+            </th>
+            <th>
+                Apellido Materno
+            </th>
+            <th>
+                Fecha de registro
+            </th>
+            <th>
+                Detalles
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID_PER_LINKID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NOMBRE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.A_PATERNO)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.A_MATERNO)
+                </td>
+                <td>
+                    @item.FECHAINGRESO.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    <a id="lnkEditar" href="#" class="btn btn-default btn-sm">Editar</a>
+                </td>
+            </tr>
+        }
+    </table>
+
+    <br />
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("EnlistarPersonasEditar", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+    @*<button type="button" data-toggle="modal" data-target="#modalCreaProducto" data-whatever="@@mdo">boton</button>*@
+</div>

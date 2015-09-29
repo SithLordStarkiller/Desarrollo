@@ -610,6 +610,125 @@ namespace Universidad.WebAdministrativa.Controllers
 
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EnlistarPersonasEditarAsync(int? page, string fechaInicio, string fechaFin, int? idTipoPersona, string idPersona)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicioPersonas = new SvcPersonas(sesion);
+
+            List<PER_PERSONAS> listaPersonas;
+
+            if (fechaInicio == null && fechaFin == null && idPersona == null && idTipoPersona == null)
+            {
+                listaPersonas = await servicioPersonas.ObtenListaPersonas();
+            }
+            else
+            {
+                DateTime? fechaInicioS;
+
+                if (fechaInicio == "")
+                {
+                    fechaInicioS = null;
+                }
+                else
+                {
+                    fechaInicioS = Convert.ToDateTime(fechaInicio);
+                }
+
+                DateTime? fechaFinS;
+
+                if (fechaFin == "")
+                {
+                    fechaFinS = null;
+                }
+                else
+                {
+                    fechaFinS = Convert.ToDateTime(fechaFin);
+                }
+
+                listaPersonas = await servicioPersonas.ObtenListaPersonasFiltro(idPersona, fechaInicioS, fechaFinS, idTipoPersona);
+            }
+
+            var listaTipoPersona = await servicioPersonas.ObtenCatTipoPersona();
+
+            var enlistarTipoPersona = listaTipoPersona.Select(c => new SelectListItem
+            {
+                Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
+                Text = c.TIPO_PERSONA
+            }).ToArray();
+
+            ViewBag.ListaTipoPersona = enlistarTipoPersona;
+
+            ViewData["fechaInicial"] = fechaInicio;
+            ViewData["fechaFinal"] = fechaFin;
+            ViewData["idTipoPersona"] = idTipoPersona;
+            ViewData["idPersona"] = idPersona;
+
+            const int pageSize = 6;
+            var pageNumber = (page ?? 1);
+
+            return View(listaPersonas.ToPagedList(pageNumber, pageSize));
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EnlistarPersonasEditarFiltro(int? page)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicioPersonas = new SvcPersonas(sesion);
+
+            var listaPersonas = await servicioPersonas.ObtenListaPersonas();
+            var listaTipoPersona = await servicioPersonas.ObtenCatTipoPersona();
+
+            var enlistarTipoPersona = listaTipoPersona.Select(c => new SelectListItem
+            {
+                Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
+                Text = c.TIPO_PERSONA
+            }).ToArray();
+
+            ViewBag.ListaTipoPersona = enlistarTipoPersona;
+
+            const int pageSize = 7;
+            var pageNumber = (page ?? 1);
+
+            return View("EnlistarPersonasEditar", listaPersonas.ToPagedList(pageNumber, pageSize));
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EditarPersona(string idPersona)
+        {
+            Sesion();
+            var sesion = (Sesion) Session["Sesion"];
+            var servicioPersona = new SvcPersonas(sesion);
+
+            var personaDatos = await servicioPersona.BuscarPersona(idPersona);
+            var direccion = servicioPersona.ObtenDireccion(personaDatos);
+            var telefonos = servicioPersona.ObtenTelefonos(personaDatos);
+            var mediosElectronicos = servicioPersona.ObtenMediosElectronicos(personaDatos);
+            var fotografia = servicioPersona.ObtenFotografia(personaDatos);
+
+            var listTask = new List<Task>
+            {
+                direccion,
+                telefonos,
+                mediosElectronicos,
+                fotografia
+            };
+
+            Task.WaitAll(listTask.ToArray());
+
+            ViewBag.Datos = personaDatos;
+            ViewBag.Direccion = direccion.Result;
+            ViewBag.Telefonos = telefonos.Result;
+            ViewBag.MedElec = mediosElectronicos.Result;
+            ViewBag.Fotografia = fotografia.Result;
+            
+            return View();
+        }
     }
 
     public class RedirectToReturnUrlResult : ActionResult
