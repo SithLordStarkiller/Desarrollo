@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Universidad.AccesoDatos.ControlUsuarios.LoginA;
+using Universidad.AccesoDatos.Personas;
 using Universidad.Entidades;
 using Universidad.Helpers;
 using Universidad.ServidorInterno.Personas;
@@ -12,6 +14,24 @@ namespace Universidad.AccesoDatos.UnitTest
         public void CrearClasePersonas()
         {
             new Personas.Personas();
+        }
+
+        [TestMethod]
+        public void Usuarios()
+        {
+            new Usuarios.Usuarios();
+        }
+
+        [TestMethod]
+        public void CrearDirecciones()
+        {
+            new Direcciones();
+        }
+
+        [TestMethod]
+        public void CreaLoginA()
+        {
+            new LoginA();
         }
 
         [TestMethod]

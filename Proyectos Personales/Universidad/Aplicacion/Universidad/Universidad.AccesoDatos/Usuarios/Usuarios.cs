@@ -6,7 +6,7 @@ namespace Universidad.AccesoDatos.Usuarios
 
     public class Usuarios
     {
-        //private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
+        private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
 
         public US_USUARIOS ObtenUsuarioLinq(string usuario)
         {
