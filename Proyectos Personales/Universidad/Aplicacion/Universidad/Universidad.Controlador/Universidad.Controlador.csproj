@@ -50,13 +50,31 @@
   <ItemGroup>
     <Compile Include="Controlador\ControladorServicios.cs" />
     <Compile Include="Controlador\SerializacionXml.cs" />
+    <Compile Include="GestionCatalogos\SvcGestionCatalogos.cs" />
     <Compile Include="GestionCatalogos\SVC_GestionCatalogos.cs" />
+    <Compile Include="Login\SvcLogin.cs" />
     <Compile Include="Login\SVC_LoginAdministrativos.cs" />
+    <Compile Include="MenuSistema\SvcMenuSistema.cs" />
     <Compile Include="MenuSistema\SvcMenuSistemaC.cs" />
     <Compile Include="Personas\SvcPersonas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Prueba.cs" />
+    <Compile Include="Service References\SvcLogin\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\SRV_GestionCatalogos\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SvcGestionCatalogos\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SvcMenuSistema\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -116,6 +134,16 @@
     <None Include="Properties\DataSources\Universidad.Entidades.US_CAT_NIVEL_USUARIO.datasource" />
     <None Include="Properties\DataSources\Universidad.Entidades.US_CAT_TIPO_USUARIO.datasource" />
     <None Include="Properties\DataSources\Universidad.Entidades.US_USUARIOS.datasource" />
+    <None Include="Service References\SvcLogin\S_Login.wsdl" />
+    <None Include="Service References\SvcLogin\S_Login.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcLogin\S_Login1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcLogin\S_Login2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\SRV_GestionCatalogos\S_GestionCatalogos.wsdl" />
     <None Include="Service References\SRV_GestionCatalogos\S_GestionCatalogos.xsd">
       <SubType>Designer</SubType>
@@ -130,6 +158,32 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\SRV_GestionCatalogos\S_GestionCatalogos2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcGestionCatalogos\S_GestionCatalogos.wsdl" />
+    <None Include="Service References\SvcGestionCatalogos\S_GestionCatalogos.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcGestionCatalogos\S_GestionCatalogos1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcGestionCatalogos\S_GestionCatalogos2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcGestionCatalogos\S_GestionCatalogos3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcMenuSistema\MenusSistemaS.wsdl" />
+    <None Include="Service References\SvcMenuSistema\MenusSistemaS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcMenuSistema\MenusSistemaS1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcMenuSistema\MenusSistemaS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcMenuSistema\MenusSistemaS3.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\SVRMenuSistema\MenusSistemaS.wsdl" />
@@ -187,7 +241,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SvcLogin\" />
     <WCFMetadataStorage Include="Service References\SRV_GestionCatalogos\" />
+    <WCFMetadataStorage Include="Service References\SvcGestionCatalogos\" />
+    <WCFMetadataStorage Include="Service References\SvcMenuSistema\" />
     <WCFMetadataStorage Include="Service References\SVRMenuSistema\" />
     <WCFMetadataStorage Include="Service References\SVRPersonas\" />
     <WCFMetadataStorage Include="Service References\SVRUsuarios\" />
@@ -212,6 +269,27 @@
   <ItemGroup>
     <Content Include="Newtonsoft.Json.dll" />
     <Content Include="Newtonsoft.Json.pdb" />
+    <None Include="Service References\SvcMenuSistema\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SvcMenuSistema\configuration.svcinfo" />
+    <None Include="Service References\SvcMenuSistema\configuration91.svcinfo" />
+    <None Include="Service References\SvcMenuSistema\MenusSistemaS.disco" />
+    <None Include="Service References\SvcLogin\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SvcLogin\configuration.svcinfo" />
+    <None Include="Service References\SvcLogin\configuration91.svcinfo" />
+    <None Include="Service References\SvcLogin\S_Login.disco" />
+    <None Include="Service References\SvcGestionCatalogos\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\SvcGestionCatalogos\configuration.svcinfo" />
+    <None Include="Service References\SvcGestionCatalogos\configuration91.svcinfo" />
+    <None Include="Service References\SvcGestionCatalogos\S_GestionCatalogos.disco" />
     <None Include="Service References\SVRUsuarios\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
