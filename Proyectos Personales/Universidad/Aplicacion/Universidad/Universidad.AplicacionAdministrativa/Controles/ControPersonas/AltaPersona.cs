@@ -23,7 +23,7 @@ namespace Universidad.AplicacionAdministrativa.Controles.ControPersonas
 
         private Evento _eventos;
         private readonly Sesion _sesion;
-        private readonly SVC_GestionCatalogos _servicioCatalogos;
+        private readonly SvcGestionCatalogos _servicioCatalogos;
         private readonly SvcPersonas _serviciosPersonas;
 
         private List<DIR_CAT_COLONIAS> _listaColonias;

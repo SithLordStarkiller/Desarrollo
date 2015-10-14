@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Universidad.Controlador.SVRPersonas;
+using Universidad.Controlador.SvcPersonas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 using Universidad.Entidades.Personas;

@@ -1,7 +1,7 @@
 ﻿namespace Universidad.Controlador.Usuarios
 {
     using System.Threading.Tasks;
-    using SVRUsuarios;
+    using Universidad.Controlador.SvcUsuarios;
     using Entidades.ControlUsuario;
     using Entidades;
 

@@ -29,7 +29,7 @@ namespace Universidad.AplicacionAdministrativa
                 _contrasena = _sesion.Contrasena;
                 _inicioAutomatico = _sesion.RecordarSesion;
 
-                var login = new SVC_LoginAdministrativos(_sesion);
+                var login = new SvcLogin(_sesion);
                 login.LoginAdministrativo(_sesion.Usuario, _sesion.Contrasena);
                 login.LoginAdministrativosFinalizado += Login_LoginAdministrativosFinalizado;
 
@@ -64,7 +64,7 @@ namespace Universidad.AplicacionAdministrativa
                 _inicioAutomatico = !_sesion.RecordarSesion && ckbRecordarSesion.Checked;
                 _recordarDatos = ckbRecodarDatos.Checked;
 
-                var login = new SVC_LoginAdministrativos(_sesion);
+                var login = new SvcLogin(_sesion);
 
                 login.LoginAdministrativo(_usuario, _contrasena);
                 login.LoginAdministrativosFinalizado += Login_LoginAdministrativosFinalizado;

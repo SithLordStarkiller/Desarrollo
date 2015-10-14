@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Universidad.Controlador.SVRPersonas {
+namespace Universidad.Controlador.SvcPersonas {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SVRPersonas.ISPersonas")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SvcPersonas.ISPersonas")]
     public interface ISPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad", ReplyAction="http://tempuri.org/ISPersonas/ExisteCorreoUniversidadResponse")]
@@ -89,12 +89,12 @@ namespace Universidad.Controlador.SVRPersonas {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ISPersonasChannel : Universidad.Controlador.SVRPersonas.ISPersonas, System.ServiceModel.IClientChannel {
+    public interface ISPersonasChannel : Universidad.Controlador.SvcPersonas.ISPersonas, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SPersonasClient : System.ServiceModel.ClientBase<Universidad.Controlador.SVRPersonas.ISPersonas>, Universidad.Controlador.SVRPersonas.ISPersonas {
+    public partial class SPersonasClient : System.ServiceModel.ClientBase<Universidad.Controlador.SvcPersonas.ISPersonas>, Universidad.Controlador.SvcPersonas.ISPersonas {
         
         public SPersonasClient() {
         }

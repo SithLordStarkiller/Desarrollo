@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
@@ -13,47 +14,35 @@ namespace Universidad.WebAdministrativa.Controllers
     {
 
         [SessionExpireFilter]
-        public void DefaultAsync()
+        public ViewResult Default()
         {
             var sesion = (Sesion)Session["Sesion"];
             var usuario = (US_USUARIOS)Session["Usuario"];
-            var servicioLogin = new SVC_LoginAdministrativos(sesion);
-            var serviciosCatalogos = new SVC_GestionCatalogos(sesion);
+            
+            var servicioLogin = new SvcLogin(sesion);
+            var serviciosCatalogos = new SvcGestionCatalogos(sesion);
 
-            AsyncManager.Parameters["sesion"] = sesion;
-            AsyncManager.Parameters["usuario"] = usuario;
+            var persona = servicioLogin.ObtenNombreCompleto(usuario);
+            
+            if (usuario.ID_TIPO_USUARIO == null) return View();
+            var tipoUsuario = serviciosCatalogos.ObtenTipoUsuario((int) usuario.ID_TIPO_USUARIO);
 
-            servicioLogin.ObtenNombreCompletoFinalizado += delegate(PER_PERSONAS persona)
+            var listTask = new List<Task>
             {
-                AsyncManager.Parameters["persona"] = persona;
-                Session["Persona"] = persona;
-                AsyncManager.OutstandingOperations.Decrement();
+                persona,
+                tipoUsuario
             };
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioLogin.ObtenNombreCompleto(usuario);
-
-
-            serviciosCatalogos.ObtenTipoUsuarioFinalizado += delegate(US_CAT_TIPO_USUARIO tipoUsuario)
-            {
-                AsyncManager.Parameters["tipoUsuario"] = tipoUsuario;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
-
-            AsyncManager.OutstandingOperations.Increment();
-            if (usuario.ID_TIPO_USUARIO != null) serviciosCatalogos.ObtenTipoUsuario((int)usuario.ID_TIPO_USUARIO);
-        }
-
-        [SessionExpireFilter]
-        public ActionResult DefaultCompleted(Sesion sesion, US_USUARIOS usuario, PER_PERSONAS persona,
-            US_CAT_TIPO_USUARIO tipoUsuario)
-        {
-            ViewBag.Nombre = persona.NOMBRE + " " + persona.A_PATERNO + " " + persona.A_MATERNO;
-            ViewBag.TipoUsuario = tipoUsuario.TIPO_USUARIO;
+            Task.WaitAll(listTask.ToArray());
+            
+            ViewBag.Nombre = persona.Result.NOMBRE + " " + persona.Result.A_PATERNO + " " + persona.Result.A_MATERNO;
+            ViewBag.TipoUsuario = tipoUsuario.Result.TIPO_USUARIO;
+            
             Session["Sesion"] = sesion;
             Session["Usuario"] = usuario;
-            Session["Persona"] = persona;
-            Session["TipoPersona"] = tipoUsuario;
+            Session["Persona"] = persona.Result;
+            Session["TipoPersona"] = tipoUsuario.Result;
+
             return View();
         }
 
@@ -79,14 +68,12 @@ namespace Universidad.WebAdministrativa.Controllers
         [SessionExpireFilter]
         public PartialViewResult ObtenArbolMenuWadm()
         {
-            //SesionActiva();
-
             var sesion = (Sesion)Session["Sesion"];
             var usuario = (US_USUARIOS)Session["Usuario"];
 
-            var serviciosSistema = new SvcMenuSistemaC(sesion);
+            var serviciosSistema = new SvcMenuSistema(sesion);
 
-            var listaArbol = serviciosSistema.TraeArbolMenuSyncrono(usuario);
+            var listaArbol = serviciosSistema.TraeArbolMenuMvc(usuario).Result;
 
             var lista = ObtenArbol(listaArbol, null);
             ViewBag.listaArbol = lista;

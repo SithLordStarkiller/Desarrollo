@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Universidad.Controlador.Login;
-using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.WebAdministrativa.Controllers
@@ -14,22 +14,14 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [HttpPost]
-        public void LogInAsync(Sesion sesion)
+        public async Task<string> LogIn(Sesion sesion)
         {
             sesion.Conexion = Properties.Settings.Default.RutaServidorInterno;
-            AsyncManager.Parameters["sesion"] = sesion;
-            var servidorLogin = new SVC_LoginAdministrativos(sesion);
-            servidorLogin.LoginAdministrativosFinalizado += delegate(US_USUARIOS usuarios)
-            {
-                AsyncManager.Parameters["usuario"] = usuarios;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
-            AsyncManager.OutstandingOperations.Increment();
-            servidorLogin.LoginAdministrativo(sesion.Usuario, sesion.Contrasena);
-        }
 
-        public string LogInCompleted(US_USUARIOS usuario, Sesion sesion)
-        {
+            var servidorLogin = new SvcLogin(sesion);
+            
+            var usuario = await servidorLogin.LoginAdministrativo(sesion.Usuario, sesion.Contrasena);
+
             var resultado = "";
 
             if (usuario != null)

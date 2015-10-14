@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Universidad.Controlador.SVRUsuarios {
+namespace Universidad.Controlador.SvcUsuarios {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SVRUsuarios.ISUsuarios")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SvcUsuarios.ISUsuarios")]
     public interface ISUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioResponse")]
@@ -41,12 +41,12 @@ namespace Universidad.Controlador.SVRUsuarios {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ISUsuariosChannel : Universidad.Controlador.SVRUsuarios.ISUsuarios, System.ServiceModel.IClientChannel {
+    public interface ISUsuariosChannel : Universidad.Controlador.SvcUsuarios.ISUsuarios, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SUsuariosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SVRUsuarios.ISUsuarios>, Universidad.Controlador.SVRUsuarios.ISUsuarios {
+    public partial class SUsuariosClient : System.ServiceModel.ClientBase<Universidad.Controlador.SvcUsuarios.ISUsuarios>, Universidad.Controlador.SvcUsuarios.ISUsuarios {
         
         public SUsuariosClient() {
         }

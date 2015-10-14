@@ -33,43 +33,33 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public void PersonaDefaultAsync()
+        public ActionResult PersonaDefault()
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenCatNacionalidadFinalizado += delegate(List<PER_CAT_NACIONALIDAD> lista)
+            var listaPaises = servicioCatalogos.ObtenCatNacionalidad();
+
+            var listaTiposPersona = servicioCatalogos.ObtenCatTipoPersona();
+
+            var listTask = new List<Task>
             {
-                AsyncManager.Parameters["listaPaises"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
+                listaPaises,
+                listaTiposPersona
             };
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenCatNacionalidad();
+            Task.WaitAll(listTask.ToArray());
 
-            servicioCatalogos.ObtenCatTipoPersonaFinalizado += delegate(List<PER_CAT_TIPO_PERSONA> lista)
-            {
-                AsyncManager.Parameters["listaTiposPersona"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenCatTipoPersona();
-        }
-
-        [SessionExpireFilter]
-        public ActionResult PersonaDefaultCompleted(List<PER_CAT_NACIONALIDAD> listaPaises,
-            List<PER_CAT_TIPO_PERSONA> listaTiposPersona)
-        {
-            var paises = listaPaises
+            var paises = listaPaises.Result
                 .Select(c => new SelectListItem
                 {
                     Value = c.CVE_NACIONALIDAD.ToString(CultureInfo.InvariantCulture),
                     Text = c.NOMBRE_PAIS
                 }).ToArray();
 
-            var tiposPersona = listaTiposPersona
+            var tiposPersona = listaTiposPersona.Result
                 .Select(c => new SelectListItem
                 {
                     Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
@@ -112,27 +102,15 @@ namespace Universidad.WebAdministrativa.Controllers
 
         [HttpGet]
         [SessionExpireFilter]
-        public void WizardPersonaDireccionAsync(ModelWizardPersonas modelo)
+        public async Task<ActionResult> WizardPersonaDireccion(ModelWizardPersonas modelo)
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenCatEstadosFinalizado += delegate(List<DIR_CAT_ESTADO> lista)
-            {
-                AsyncManager.Parameters["listaEstados"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var listaEstados = await servicioCatalogos.ObtenCatEstados();
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenCatEstados();
-        }
-
-        [HttpPost]
-        [SessionExpireFilter]
-        public ActionResult WizardPersonaDireccionCompleted(List<DIR_CAT_ESTADO> listaEstados)
-        {
             var estados = listaEstados
                 .Select(c => new SelectListItem
                 {
@@ -142,8 +120,6 @@ namespace Universidad.WebAdministrativa.Controllers
 
             ViewBag.ListaEstados = estados;
             Session["listaEstados"] = estados;
-
-            var modelo = Session["Modelo"];
 
             return View(modelo);
         }
@@ -168,27 +144,15 @@ namespace Universidad.WebAdministrativa.Controllers
 
         [HttpGet]
         [SessionExpireFilter]
-        public void WizardPersonaMediosElectronicosAsync(ModelWizardPersonas modelo)
+        public async Task<ActionResult> WizardPersonaMediosElectronicos(ModelWizardPersonas modelo)
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenCatEstadosFinalizado += delegate(List<DIR_CAT_ESTADO> lista)
-            {
-                AsyncManager.Parameters["listaEstados"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var listaEstados = await servicioCatalogos.ObtenCatEstados();
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenCatEstados();
-        }
-
-        [HttpPost]
-        [SessionExpireFilter]
-        public ActionResult WizardPersonaMediosElectronicosCompleted(List<DIR_CAT_ESTADO> listaEstados)
-        {
             var estados = listaEstados
                 .Select(c => new SelectListItem
                 {
@@ -198,32 +162,19 @@ namespace Universidad.WebAdministrativa.Controllers
             Session["listaEstados"] = estados;
             ViewBag.ListaEstados = estados;
 
-            var modelo = Session["Modelo"];
-
             return View(modelo);
         }
 
         [SessionExpireFilter]
-        public void ObtenMunicipiosAsync(int estado)
+        public async Task<ActionResult> ObtenMunicipios(int estado)
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenMunicipiosFinalizado += delegate(List<DIR_CAT_DELG_MUNICIPIO> lista)
-            {
-                AsyncManager.Parameters["listaMunicipios"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var listaMunicipios = await servicioCatalogos.ObtenMunicipios(estado);
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenMunicipios(estado);
-        }
-
-        [SessionExpireFilter]
-        public ActionResult ObtenMunicipiosCompleted(List<DIR_CAT_DELG_MUNICIPIO> listaMunicipios)
-        {
             var lista = listaMunicipios.Select(c => new SelectListItem
             {
                 Value = c.IDMUNICIPIO.ToString(),
@@ -236,26 +187,15 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public void ObtenColoniasAsync(int estado, int municipio)
+        public async Task<ActionResult> ObtenColonias(int estado, int municipio)
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenColoniasFinalizado += delegate(List<DIR_CAT_COLONIAS> lista)
-            {
-                AsyncManager.Parameters["listaColonias"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var listaColonias= await servicioCatalogos.ObtenColonias(estado, municipio);
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenColonias(estado, municipio);
-        }
-
-        [SessionExpireFilter]
-        public ActionResult ObtenColoniasCompleted(List<DIR_CAT_COLONIAS> listaColonias)
-        {
             var lista = listaColonias.Select(c => new SelectListItem
             {
                 Value = c.IDCOLONIA.ToString(CultureInfo.InvariantCulture),
@@ -268,51 +208,29 @@ namespace Universidad.WebAdministrativa.Controllers
         }
 
         [SessionExpireFilter]
-        public void ObtenCodigoPostalAsync(int estado, int municipio, int colonia)
+        public async Task<ActionResult> ObtenCodigoPostal(int estado, int municipio, int colonia)
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenCodigoPostalFinalizado += delegate(DIR_CAT_COLONIAS rColonia)
-            {
-                AsyncManager.Parameters["colonia"] = rColonia;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var direccion = await servicioCatalogos.ObtenCodigoPostal(estado, municipio, colonia);
+            var resultado = JsonConvert.SerializeObject(direccion);
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenCodigoPostal(estado, municipio, colonia);
-        }
-
-        [SessionExpireFilter]
-        public ActionResult ObtenCodigoPostalCompleted(DIR_CAT_COLONIAS colonia)
-        {
-            var resultado = JsonConvert.SerializeObject(colonia);
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
 
         [SessionExpireFilter]
-        public void ObtenColoniasPorCpAsync(int codigoPostal)
+        public async Task<ActionResult> ObtenColoniasPorCp(int codigoPostal)
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
-            var servicioCatalogos = new SVC_GestionCatalogos(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            servicioCatalogos.ObtenColoniasPorCpFinalizado += delegate(List<DIR_CAT_COLONIAS> lista)
-            {
-                AsyncManager.Parameters["lista"] = lista;
-                AsyncManager.OutstandingOperations.Decrement();
-            };
+            var lista = await servicioCatalogos.ObtenColoniasPorCpPersona(codigoPostal);
 
-            AsyncManager.OutstandingOperations.Increment();
-            servicioCatalogos.ObtenColoniasPorCpPersona(codigoPostal);
-        }
-
-        [SessionExpireFilter]
-        public ActionResult ObtenColoniasPorCpCompleted(List<DIR_CAT_COLONIAS> lista)
-        {
             var resultado = JsonConvert.SerializeObject(lista);
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
@@ -702,7 +620,7 @@ namespace Universidad.WebAdministrativa.Controllers
         public async Task<ActionResult> EditarPersona(string idPersona)
         {
             Sesion();
-            var sesion = (Sesion) Session["Sesion"];
+            var sesion = (Sesion)Session["Sesion"];
             var servicioPersona = new SvcPersonas(sesion);
 
             var personaDatos = await servicioPersona.BuscarPersona(idPersona);
@@ -726,7 +644,7 @@ namespace Universidad.WebAdministrativa.Controllers
             ViewBag.Telefonos = telefonos.Result;
             ViewBag.MedElec = mediosElectronicos.Result;
             ViewBag.Fotografia = fotografia.Result;
-            
+
             return View();
         }
     }

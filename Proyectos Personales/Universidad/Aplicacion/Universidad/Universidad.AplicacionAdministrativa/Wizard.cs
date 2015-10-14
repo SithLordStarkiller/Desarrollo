@@ -28,7 +28,7 @@ namespace Universidad.AplicacionAdministrativa
 
         private void PuebaConexion(Sesion sesion)
         {
-            var login = new SVC_LoginAdministrativos(sesion);
+            var login = new SvcLogin(sesion);
 
             login.PruebaServicioCompleto();
             login.PruebaServicioFinalizado += login_PruebaServicioFinalizado;

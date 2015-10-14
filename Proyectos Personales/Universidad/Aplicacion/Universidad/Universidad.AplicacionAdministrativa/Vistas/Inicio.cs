@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Login;
 using Universidad.Controlador.MenuSistema;
+using Universidad.Controlador.Personas;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
@@ -16,8 +17,8 @@ namespace Universidad.AplicacionAdministrativa.Vistas
         private readonly Form _padre;
         private readonly US_USUARIOS _usuario;
         private readonly Sesion _sesion;
-        private SVC_GestionCatalogos _gestionCatalogos;
-        private SVC_LoginAdministrativos _persona;
+        private SvcGestionCatalogos _gestionCatalogos;
+        private SvcPersonas _persona;
         private List<MenuSistemaE> _listaSistema;
         private List<SIS_AADM_ARBOLMENUS> _listaArbol;
 
@@ -36,7 +37,7 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
         private void CargarArbol()
         {
-            var menuSistema = new SvcMenuSistemaC(_sesion);
+            var menuSistema = new SvcMenuSistema(_sesion);
             menuSistema.MenuArbol();
             menuSistema.MenuSistema(_usuario);
 
@@ -81,8 +82,8 @@ namespace Universidad.AplicacionAdministrativa.Vistas
 
         private void Inicio_Load(object sender, EventArgs e)
         {
-            _gestionCatalogos = new SVC_GestionCatalogos(_sesion);
-            _persona = new SVC_LoginAdministrativos(_sesion);
+            _gestionCatalogos = new SvcGestionCatalogos(_sesion);
+            _persona = new SvcPersonas(_sesion);
 
             _persona.ObtenNombreCompleto(_usuario);
             _persona.ObtenNombreCompletoFinalizado += Persona_ObtenNombreCompletoFinalizado;
