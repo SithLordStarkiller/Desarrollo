@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,6 +42,54 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\SvcUsuarios\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceController\ServiceController.cs" />
+    <Compile Include="Usuarios\ControllerUsuarios.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\ExamenEdenred.Entities.Entities.UsUsuarios.datasource" />
+    <None Include="Service References\SvcUsuarios\Usuarios.wsdl" />
+    <None Include="Service References\SvcUsuarios\Usuarios.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcUsuarios\Usuarios1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcUsuarios\Usuarios2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SvcUsuarios\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcUsuarios\Usuarios.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcUsuarios\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcUsuarios\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcUsuarios\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExamenEdenred.Entities\ExamenEdenred.Entities.csproj">
+      <Project>{0E11B522-395E-4FD3-A872-68B9339096DE}</Project>
+      <Name>ExamenEdenred.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

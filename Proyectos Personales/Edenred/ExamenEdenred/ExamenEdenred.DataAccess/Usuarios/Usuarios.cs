@@ -8,9 +8,9 @@
 
     public class Usuarios
     {
-        public bool ObtenUsuario(int usuarioId)
+        public UsUsuarios ObtenUsuario(int usuarioId)
         {
-            const string executesqlstr = "SELECT TOP 1 * FROM US_USUARIOS WHERE ID_USUARIO = @Usuario";
+            const string executesqlstr = "SELECT * FROM US_USUARIOS WHERE ID_USUARIO = @Usuario";
 
             var para = new[] { 
                 new SqlParameter("@Usuario",usuarioId)
@@ -35,7 +35,7 @@
                              }).ToList().FirstOrDefault();
             }
 
-            return resultado != null;
+            return resultado;
         }
     }
 }
