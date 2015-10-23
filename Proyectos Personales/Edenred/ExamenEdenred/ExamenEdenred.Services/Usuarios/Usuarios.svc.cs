@@ -8,5 +8,10 @@
         {
             return new BusinessLogic.Usuarios.Usuarios().ObtenUsuario(idUsuario);
         }
+
+        public void GuardaArchivo(string archivo)
+        {
+            
+        }
     }
 }

@@ -3,16 +3,22 @@
     ViewBag.Title = "Index";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <html>
     <head>
         <title>Index</title>
+        <script></script>
     </head>
     <body>
         @if (Model != null)
         {
-            <h1>@Model.Usuario;</h1>
+            <h1>@Model.Usuario</h1>
+        }
+        
+        @using (Html.BeginForm("CargaArchivo", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="FileUpload" />
+            <input type="submit" name="Submit" id="Submit" value="Upload" />
         }
     </body>
 </html>
-
-
