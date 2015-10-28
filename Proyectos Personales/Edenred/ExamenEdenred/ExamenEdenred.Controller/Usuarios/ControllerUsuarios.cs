@@ -19,5 +19,10 @@
         {
             return Task.Run(() => _servicio.ExisteUsuarioAsync(1));
         }
+
+        public Task<bool> GuardaArchivo(string texto)
+        {
+            return Task.Run(() => _servicio.GuardaArchivoAsync(texto));
+        }
     }
 }

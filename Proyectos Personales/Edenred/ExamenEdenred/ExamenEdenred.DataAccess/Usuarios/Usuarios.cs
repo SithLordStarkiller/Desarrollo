@@ -1,8 +1,4 @@
-﻿using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Microsoft.VisualBasic.FileIO;
-
-namespace ExamenEdenred.DataAccess.Usuarios
+﻿namespace ExamenEdenred.DataAccess.Usuarios
 {
     using System.Data;
     using System.Data.SqlClient;
@@ -14,7 +10,7 @@ namespace ExamenEdenred.DataAccess.Usuarios
     {
         public UsUsuarios ObtenUsuario(int usuarioId)
         {
-            const string executesqlstr = "SELECT * FROM US_USUARIOS WHERE ID_USUARIO = @Usuario";
+            const string executesqlstr = "SELECT * FROM US_USUARIOS WHERE IdUsuario = @Usuario";
 
             var para = new[]
             {
@@ -33,13 +29,7 @@ namespace ExamenEdenred.DataAccess.Usuarios
                     {
                         Contrasena = (string) row["CONTRASENA"],
                         Usuario = (string) row["Usuario"],
-                        IdEstatusUsuario =
-                            Convert.IsDBNull(row["ID_ESTATUS_USUARIOS"]) ? null : (int?) row["ID_ESTATUS_USUARIOS"],
-                        IdUsuario = (int) row["ID_USUARIO"],
-                        IdHistorial = Convert.IsDBNull(row["ID_HISTORIAL"]) ? null : (int?) row["ID_HISTORIAL"],
-                        IdNivelUsuario =
-                            Convert.IsDBNull(row["ID_NIVEL_USUARIO"]) ? null : (int?) row["ID_NIVEL_USUARIO"],
-                        IdTipoUsuario = Convert.IsDBNull(row["ID_TIPO_USUARIO"]) ? null : (int?) row["ID_TIPO_USUARIO"]
+                        IdUsuario = (int) row["IdUsuario"],
                     }).ToList().FirstOrDefault();
             }
 
@@ -48,11 +38,46 @@ namespace ExamenEdenred.DataAccess.Usuarios
 
         public bool GuardaArchivo(string texto)
         {
-            var csvData = new DataTable("Tabla");
+            try
+            {
+                var dt = new DataTable();
 
-            csvReader.SetDelimiters(new[] { ";", "," });
-            csvReader.HasFieldsEnclosedInQuotes = true;
-            var colFields = csvReader.ReadFields();
+                var tableData = texto.Split("\r\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                var col = from cl in tableData[0].Split(";".ToCharArray())
+                    select new DataColumn(cl);
+                dt.Columns.AddRange(col.ToArray());
+
+                (from st in tableData.Skip(1)
+                    select dt.Rows.Add(st.Split(";".ToCharArray()))).ToList();
+
+
+                var resultado = (from DataRow row in dt.Rows
+                    select new PerPersonas
+                    {
+                        IdPersona = -1,
+                        Nombre = (string)row["Nombre"],
+                        Sexo = (string)row["Sexo"],
+                        Edad = Convert.ToInt32(row["Edad"])
+                    }).ToList();
+
+                foreach (var para in resultado.Select(item => new[]
+                {
+                    new SqlParameter("@Nombre", item.Nombre),
+                    new SqlParameter("@Sexo", item.Sexo),
+                    new SqlParameter("@Edad", item.Edad),
+                    new SqlParameter("@IdPersona", -1)
+                }))
+                {
+                    ControllerSqlServer.ExecuteNonQuery(ParametersSql.StrConDbLsWebApp,
+                        CommandType.StoredProcedure, "Usp_InsertaPersonas", para);
+                }
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

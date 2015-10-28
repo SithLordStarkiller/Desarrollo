@@ -18,7 +18,7 @@ namespace ExamenEdenred.SitioWeb.Controllers
                 Conexion = Properties.Settings.Default.PathService
             };
 
-            Session["Session"] = Session;
+            Session["Session"] = session;
 
             var servicioUsuarios = new ControllerUsuarios(session);
 
@@ -35,8 +35,6 @@ namespace ExamenEdenred.SitioWeb.Controllers
             
             var sb = new StringBuilder();
 
-            string texto;
-
             if (file == null || file.ContentLength <= 0) return View();
 
             var sr = new StreamReader(file.FileName);
@@ -49,7 +47,13 @@ namespace ExamenEdenred.SitioWeb.Controllers
             }
 
 
-            texto = sb.ToString();
+            var texto = sb.ToString();
+
+            var session = (Session) Session["Session"];
+
+            var servicioUsuarios = new ControllerUsuarios(session);
+
+            var seGuardo = await servicioUsuarios.GuardaArchivo(texto);
 
 
 

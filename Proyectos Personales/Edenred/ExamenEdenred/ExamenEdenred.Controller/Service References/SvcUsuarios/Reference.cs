@@ -20,6 +20,12 @@ namespace ExamenEdenred.Controller.SvcUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarios/ExisteUsuarioResponse")]
         System.Threading.Tasks.Task<ExamenEdenred.Entities.Entities.UsUsuarios> ExisteUsuarioAsync(int idUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/GuardaArchivo", ReplyAction="http://tempuri.org/IUsuarios/GuardaArchivoResponse")]
+        bool GuardaArchivo(string texto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/GuardaArchivo", ReplyAction="http://tempuri.org/IUsuarios/GuardaArchivoResponse")]
+        System.Threading.Tasks.Task<bool> GuardaArchivoAsync(string texto);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace ExamenEdenred.Controller.SvcUsuarios {
         
         public System.Threading.Tasks.Task<ExamenEdenred.Entities.Entities.UsUsuarios> ExisteUsuarioAsync(int idUsuario) {
             return base.Channel.ExisteUsuarioAsync(idUsuario);
+        }
+        
+        public bool GuardaArchivo(string texto) {
+            return base.Channel.GuardaArchivo(texto);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GuardaArchivoAsync(string texto) {
+            return base.Channel.GuardaArchivoAsync(texto);
         }
     }
 }

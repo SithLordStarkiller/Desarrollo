@@ -13,16 +13,35 @@
   <wsdl:message name="IUsuarios_ExisteUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:ExisteUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarios_GuardaArchivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GuardaArchivo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarios_GuardaArchivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GuardaArchivoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarios">
     <wsdl:operation name="ExisteUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarios/ExisteUsuario" message="tns:IUsuarios_ExisteUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarios/ExisteUsuarioResponse" message="tns:IUsuarios_ExisteUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GuardaArchivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarios/GuardaArchivo" message="tns:IUsuarios_GuardaArchivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarios/GuardaArchivoResponse" message="tns:IUsuarios_GuardaArchivo_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarios" type="tns:IUsuarios">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ExisteUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarios/ExisteUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GuardaArchivo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarios/GuardaArchivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

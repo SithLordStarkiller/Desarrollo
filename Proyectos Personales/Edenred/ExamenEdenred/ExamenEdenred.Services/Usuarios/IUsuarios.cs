@@ -8,5 +8,8 @@
     {
         [OperationContract]
         UsUsuarios ExisteUsuario(int idUsuario);
+
+        [OperationContract]
+        bool GuardaArchivo(string texto);
     }
 }

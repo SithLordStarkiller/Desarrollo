@@ -8,5 +8,10 @@ namespace ExamenEdenred.BusinessLogic.Usuarios
         {
             return new DataAccess.Usuarios.Usuarios().ObtenUsuario(usuarioId);
         }
+
+        public bool GuardaArchivo(string texto)
+        {
+            return new DataAccess.Usuarios.Usuarios().GuardaArchivo(texto);
+        }
     }
 }

@@ -64,6 +64,59 @@
             return dt;
         }
 
+        public static int ExecuteNonQuery(string connectionString, CommandType commandType, string commandText)
+        {
+            // Pass through the call providing null for the set of SqlParameters
+            return ExecuteNonQuery(connectionString, commandType, commandText, null);
+        }
+
+        public static int ExecuteNonQuery(string connectionString, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            if (string.IsNullOrEmpty(connectionString)) throw new ArgumentNullException("connectionString");
+            try
+            {
+                // Create & open a SqlConnection, and dispose of it after we are done
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Call the overload that takes a connection in place of the connection string
+                    return ExecuteNonQuery(connection, commandType, commandText, commandParameters);
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Errors);
+                return -1;
+            }
+        }
+
+        public static int ExecuteNonQuery(SqlConnection connection, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
+        {
+            if (connection == null) throw new ArgumentNullException("connection");
+            var cmd = new SqlCommand();
+            bool mustCloseConnection;
+            int retval;
+
+            try
+            {
+                // Create a command and prepare it for execution                
+                PrepareCommand(cmd, connection, null, commandType, commandText, commandParameters, out mustCloseConnection);
+                // Finally, execute the command
+                retval = cmd.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Errors);
+                return -1;
+            }
+            // Detach the SqlParameters from the command object, so they can be used again
+            cmd.Parameters.Clear();
+            if (mustCloseConnection)
+                connection.Close();
+            return retval;
+        }
+
         private static void PrepareCommand(SqlCommand command, SqlConnection connection, SqlTransaction transaction, CommandType commandType, string commandText, IEnumerable<SqlParameter> commandParameters, out bool mustCloseConnection)
         {
             if (command == null) throw new ArgumentNullException("command");
