@@ -1,13 +1,12 @@
-﻿using System;
-using System.Text;
-
-namespace ExamenEdenred.SitioWeb.Controllers
+﻿namespace ExamenEdenred.SitioWeb.Controllers
 {
     using System.Threading.Tasks;
     using Controller.Usuarios;
     using Entities.Models;
     using System.Web.Mvc;
     using System.IO;
+    using System;
+    using System.Text;
 
     public class HomeController : AsyncController
     {

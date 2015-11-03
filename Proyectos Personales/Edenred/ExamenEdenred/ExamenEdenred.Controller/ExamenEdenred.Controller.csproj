@@ -41,7 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Personas\ControllerPersonas.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\SvcPersonas\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\SvcUsuarios\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -56,6 +62,13 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\DataSources\ExamenEdenred.Entities.Entities.UsUsuarios.datasource" />
+    <None Include="Service References\SvcPersonas\Personas.wsdl" />
+    <None Include="Service References\SvcPersonas\Personas.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcPersonas\Personas1.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\SvcUsuarios\Usuarios.wsdl" />
     <None Include="Service References\SvcUsuarios\Usuarios.xsd">
       <SubType>Designer</SubType>
@@ -68,6 +81,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SvcPersonas\" />
     <WCFMetadataStorage Include="Service References\SvcUsuarios\" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +104,21 @@
       <Project>{0E11B522-395E-4FD3-A872-68B9339096DE}</Project>
       <Name>ExamenEdenred.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcPersonas\Personas.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcPersonas\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcPersonas\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcPersonas\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
