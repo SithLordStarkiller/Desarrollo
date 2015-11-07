@@ -1,5 +1,6 @@
 ﻿namespace ExamenEdenred.Controller.Usuarios
 {
+    using System.Collections.Generic;
     using System.Threading.Tasks;
     using Entities.Entities;
     using SvcUsuarios;
@@ -23,6 +24,11 @@
         public Task<bool> GuardaArchivo(string texto)
         {
             return Task.Run(() => _servicio.GuardaArchivoAsync(texto));
+        }
+        
+        public Task<List<UsCatTipoUsuarios>> ObtenTipoPersonas()
+        {
+            return Task.Run(() => _servicio.ObtenCatTipoUsuariosAsync());
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace ExamenEdenred.DataAccess.Usuarios
 {
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     using System;
@@ -78,6 +79,32 @@
             {
                 return false;
             }
+        }
+
+        public List<UsCatTipoUsuarios> ObtenTiposUsuarios()
+        {
+            var para = new[]
+            {
+                new SqlParameter("@IdTipoUsuario", 1)
+            };
+
+            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
+                "Usp_ObtenTiposUsuario", para);
+
+            var resultado = new List<UsCatTipoUsuarios>();
+
+            if (obj != null)
+            {
+                resultado = (from DataRow row in obj.Rows
+                             select new UsCatTipoUsuarios
+                             {
+                                 IdTipoUsuario = (int)row["IdTiposUsuarios"],
+                                 TipoUsuario = (string)row["TipoUsuario"],
+                                 Descripcion = (string)row["Descripcion"]
+                             }).ToList();
+            }
+
+            return resultado;
         }
     }
 }

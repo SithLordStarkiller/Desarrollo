@@ -1,10 +1,6 @@
-﻿using System;
-using System.Data;
-using System.IO;
-using System.Linq;
-
-namespace ExamenEdenred.Services.Usuarios
+﻿namespace ExamenEdenred.Services.Usuarios
 {
+    using System.Collections.Generic;
     using Entities.Entities;
 
     public class Usuarios : IUsuarios
@@ -17,6 +13,11 @@ namespace ExamenEdenred.Services.Usuarios
         public bool GuardaArchivo(string texto)
         {
             return new BusinessLogic.Usuarios.Usuarios().GuardaArchivo(texto);
+        }
+
+        public List<UsCatTipoUsuarios> ObtenCatTipoUsuarios()
+        {
+            return new BusinessLogic.Usuarios.Usuarios().ObtenTipoUsuarios();
         }
     }
 }

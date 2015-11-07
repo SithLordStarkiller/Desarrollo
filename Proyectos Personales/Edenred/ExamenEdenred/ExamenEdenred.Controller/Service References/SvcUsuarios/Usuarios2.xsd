@@ -12,4 +12,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UsUsuarios" nillable="true" type="tns:UsUsuarios" />
+  <xs:complexType name="ArrayOfUsCatTipoUsuarios">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UsCatTipoUsuarios" nillable="true" type="tns:UsCatTipoUsuarios" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsCatTipoUsuarios" nillable="true" type="tns:ArrayOfUsCatTipoUsuarios" />
+  <xs:complexType name="UsCatTipoUsuarios">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdTipoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoUsuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsCatTipoUsuarios" nillable="true" type="tns:UsCatTipoUsuarios" />
 </xs:schema>

@@ -54,9 +54,18 @@
 
             var seGuardo = await servicioUsuarios.GuardaArchivo(texto);
 
-
-
             return View();
+        }
+
+        public async Task<ActionResult> CatalogoTipoPersona()
+        {
+            var session = (Session) Session["Session"];
+
+            var servicioUsuarios = new ControllerUsuarios(session);
+
+            var lista = await servicioUsuarios.ObtenTipoPersonas();
+
+            return View(lista);
         }
     }
 }

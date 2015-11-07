@@ -1,7 +1,8 @@
-﻿using ExamenEdenred.Entities.Entities;
-
-namespace ExamenEdenred.BusinessLogic.Usuarios
+﻿namespace ExamenEdenred.BusinessLogic.Usuarios
 {
+    using System.Collections.Generic;
+    using Entities.Entities;
+
     public class Usuarios
     {
         public UsUsuarios ObtenUsuario(int usuarioId)
@@ -12,6 +13,11 @@ namespace ExamenEdenred.BusinessLogic.Usuarios
         public bool GuardaArchivo(string texto)
         {
             return new DataAccess.Usuarios.Usuarios().GuardaArchivo(texto);
+        }
+
+        public List<UsCatTipoUsuarios> ObtenTipoUsuarios()
+        {
+            return new DataAccess.Usuarios.Usuarios().ObtenTiposUsuarios();
         }
     }
 }

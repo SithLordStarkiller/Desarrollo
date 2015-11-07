@@ -1,0 +1,32 @@
+﻿@model List<ExamenEdenred.Entities.Entities.UsCatTipoUsuarios>
+@{
+    ViewBag.Title = "CatalogoTipoPersona";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Catalogo Tipos Personas</h2>
+
+<table>
+    <tr>
+        <th>
+            Id
+        </th>
+        <th>
+            Tipo de Persona
+        </th>
+        <th>
+            Descripcion
+        </th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.IdTipoUsuario</td>
+            <td>@item.TipoUsuario</td>
+            <td>@item.Descripcion</td>
+            <td><a href="@Url.Action("EditarTipoUsuario", "Catalogos")?idTipoPersona=@item.IdTipoUsuario">Editar</a></td>
+        </tr>
+    }
+</table>

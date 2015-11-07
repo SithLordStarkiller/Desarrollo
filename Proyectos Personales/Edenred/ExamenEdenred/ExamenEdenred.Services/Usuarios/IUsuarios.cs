@@ -1,5 +1,6 @@
 ﻿namespace ExamenEdenred.Services.Usuarios
 {
+    using System.Collections.Generic;
     using System.ServiceModel;
     using Entities.Entities;
     
@@ -11,5 +12,8 @@
 
         [OperationContract]
         bool GuardaArchivo(string texto);
+
+        [OperationContract]
+        List<UsCatTipoUsuarios> ObtenCatTipoUsuarios();
     }
 }

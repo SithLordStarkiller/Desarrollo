@@ -1,7 +1,7 @@
-﻿using System.ServiceModel;
-
-namespace ExamenEdenred.Services.Personas
+﻿namespace ExamenEdenred.Services.Personas
 {
+    using System.ServiceModel;
+
     [ServiceContract]
     public interface IPersonas
     {

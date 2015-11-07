@@ -26,6 +26,12 @@ namespace ExamenEdenred.Controller.SvcUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/GuardaArchivo", ReplyAction="http://tempuri.org/IUsuarios/GuardaArchivoResponse")]
         System.Threading.Tasks.Task<bool> GuardaArchivoAsync(string texto);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/ObtenCatTipoUsuarios", ReplyAction="http://tempuri.org/IUsuarios/ObtenCatTipoUsuariosResponse")]
+        System.Collections.Generic.List<ExamenEdenred.Entities.Entities.UsCatTipoUsuarios> ObtenCatTipoUsuarios();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/ObtenCatTipoUsuarios", ReplyAction="http://tempuri.org/IUsuarios/ObtenCatTipoUsuariosResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<ExamenEdenred.Entities.Entities.UsCatTipoUsuarios>> ObtenCatTipoUsuariosAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,6 +75,14 @@ namespace ExamenEdenred.Controller.SvcUsuarios {
         
         public System.Threading.Tasks.Task<bool> GuardaArchivoAsync(string texto) {
             return base.Channel.GuardaArchivoAsync(texto);
+        }
+        
+        public System.Collections.Generic.List<ExamenEdenred.Entities.Entities.UsCatTipoUsuarios> ObtenCatTipoUsuarios() {
+            return base.Channel.ObtenCatTipoUsuarios();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<ExamenEdenred.Entities.Entities.UsCatTipoUsuarios>> ObtenCatTipoUsuariosAsync() {
+            return base.Channel.ObtenCatTipoUsuariosAsync();
         }
     }
 }
