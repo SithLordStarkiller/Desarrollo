@@ -1,20 +1,20 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using System.Collections.Generic;
-using Microsoft.Reporting.WebForms;
-using Newtonsoft.Json;
-using Universidad.Controlador.GestionCatalogos;
-using Universidad.Controlador.Personas;
-using Universidad.Entidades;
-using Universidad.Entidades.ControlUsuario;
-using Universidad.WebAdministrativa.Models;
-using PagedList;
-
-namespace Universidad.WebAdministrativa.Controllers
+﻿namespace Universidad.WebAdministrativa.Controllers
 {
+    using System;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using System.Collections.Generic;
+    using Microsoft.Reporting.WebForms;
+    using Newtonsoft.Json;
+    using Controlador.GestionCatalogos;
+    using Controlador.Personas;
+    using Entidades;
+    using Entidades.ControlUsuario;
+    using Models;
+    using PagedList;
+
     public class PersonasController : AsyncController
     {
         [SessionExpireFilter]
@@ -622,19 +622,28 @@ namespace Universidad.WebAdministrativa.Controllers
             Sesion();
             var sesion = (Sesion)Session["Sesion"];
             var servicioPersona = new SvcPersonas(sesion);
+            var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
             var personaDatos = await servicioPersona.BuscarPersona(idPersona);
             var direccion = servicioPersona.ObtenDireccion(personaDatos);
             var telefonos = servicioPersona.ObtenTelefonos(personaDatos);
             var mediosElectronicos = servicioPersona.ObtenMediosElectronicos(personaDatos);
             var fotografia = servicioPersona.ObtenFotografia(personaDatos);
+            var tipoPersona = servicioPersona.ObtenTipoPersona(Convert.ToInt32(personaDatos.ID_TIPO_PERSONA));
+            var pais = servicioPersona.ObtenPersonaPais(Convert.ToInt32(personaDatos.CVE_NACIONALIDAD));
+            var catalogoTipoPersona = servicioCatalogos.ObtenCatNacionalidad();
+            var catalogoNacionalidad = servicioCatalogos.ObtenCatNacionalidad();
 
             var listTask = new List<Task>
             {
                 direccion,
                 telefonos,
                 mediosElectronicos,
-                fotografia
+                fotografia,
+                tipoPersona,
+                pais,
+                catalogoNacionalidad,
+                catalogoTipoPersona
             };
 
             Task.WaitAll(listTask.ToArray());
@@ -644,6 +653,10 @@ namespace Universidad.WebAdministrativa.Controllers
             ViewBag.Telefonos = telefonos.Result;
             ViewBag.MedElec = mediosElectronicos.Result;
             ViewBag.Fotografia = fotografia.Result;
+            ViewBag.Nacionalidad = pais.Result;
+            ViewBag.TipoPersona = tipoPersona.Result;
+            ViewBag.CatalogoNacionalidad = catalogoNacionalidad.Result;
+            ViewBag.CatalogoTipoPersona = catalogoTipoPersona.Result;
 
             return View();
         }

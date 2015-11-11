@@ -194,5 +194,21 @@ namespace Universidad.AccesoDatos.Personas
                 return x.Extraer(r => r.IDFOTO == persona.ID_PERSONA);
             }
         }
+
+        public PER_CAT_TIPO_PERSONA ObtentipoPersonaLinq(int idTipoPersona)
+        {
+            using (var r = new Repositorio<PER_CAT_TIPO_PERSONA>())
+            {
+                return r.Extraer(a => a.ID_TIPO_PERSONA == idTipoPersona);
+            }
+        }
+
+        public PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais)
+        {
+            using (var r = new Repositorio<PER_CAT_NACIONALIDAD>())
+            {
+                return r.Extraer(a => a.CVE_NACIONALIDAD == idPersonaPais);
+            }
+        }
     }
 }

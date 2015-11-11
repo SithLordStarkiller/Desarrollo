@@ -47,5 +47,11 @@ namespace Universidad.ServidorInterno.Personas
 
         [OperationContract]
         PER_FOTOGRAFIA ObtenFotografia(PER_PERSONAS personas);
+
+        [OperationContract]
+        PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona);
+
+        [OperationContract]
+        PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais);
     }
 }

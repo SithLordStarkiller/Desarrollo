@@ -107,5 +107,15 @@ namespace Universidad.LogicaNegocios.Personas
         {
             return new AccesoDatos.Personas.Personas().ObtenFotografiaLinq(personas);
         }
+
+        public PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona)
+        {
+            return new AccesoDatos.Personas.Personas().ObtentipoPersonaLinq(idTipoPersona);
+        }
+
+        public PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaNacionalidad)
+        {
+            return new AccesoDatos.Personas.Personas().ObtenPersonaPais(idPersonaNacionalidad);
+        }
     }
 }

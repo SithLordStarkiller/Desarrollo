@@ -83,5 +83,15 @@ namespace Universidad.Controlador.Personas
         {
             return Task.Run(() => _servicio.ObtenFotografiaAsync(persona));
         }
+
+        public Task<PER_CAT_NACIONALIDAD> ObtenPersonaPais(int idPersonaPais)
+        {
+            return Task.Run(() => _servicio.ObtenPersonaPaisAsync(idPersonaPais));
+        }
+
+        public Task<PER_CAT_TIPO_PERSONA> ObtenTipoPersona(int idTipoPersona)
+        {
+            return Task.Run(() => _servicio.ObtenTipoPersonaAsync(idTipoPersona));
+        }
     }
 }

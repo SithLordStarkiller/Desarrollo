@@ -72,5 +72,15 @@ namespace Universidad.ServidorInterno.Personas
         {
             return new Persona().ObtenFotografia(personas);
         }
+
+        public PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona)
+        {
+            return new Persona().ObtenTipoPersona(idTipoPersona);
+        }
+
+        public PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais)
+        {
+            return new Persona().ObtenPersonaPais(idPersonaPais);
+        }
     }
 }

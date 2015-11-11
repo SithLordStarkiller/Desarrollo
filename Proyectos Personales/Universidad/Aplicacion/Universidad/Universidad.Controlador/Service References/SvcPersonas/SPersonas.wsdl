@@ -80,6 +80,18 @@
   <wsdl:message name="ISPersonas_ObtenFotografia_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenFotografiaResponse" />
   </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenTipoPersona_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTipoPersona" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenTipoPersona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTipoPersonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenPersonaPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenPersonaPais" />
+  </wsdl:message>
+  <wsdl:message name="ISPersonas_ObtenPersonaPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenPersonaPaisResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISPersonas">
     <wsdl:operation name="ExisteCorreoUniversidad">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ExisteCorreoUniversidad" message="tns:ISPersonas_ExisteCorreoUniversidad_InputMessage" />
@@ -128,6 +140,14 @@
     <wsdl:operation name="ObtenFotografia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenFotografia" message="tns:ISPersonas_ObtenFotografia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenFotografiaResponse" message="tns:ISPersonas_ObtenFotografia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTipoPersona">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenTipoPersona" message="tns:ISPersonas_ObtenTipoPersona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenTipoPersonaResponse" message="tns:ISPersonas_ObtenTipoPersona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenPersonaPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISPersonas/ObtenPersonaPais" message="tns:ISPersonas_ObtenPersonaPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISPersonas/ObtenPersonaPaisResponse" message="tns:ISPersonas_ObtenPersonaPais_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISPersonas" type="tns:ISPersonas">
@@ -233,6 +253,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenFotografia">
       <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenFotografia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTipoPersona">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenTipoPersona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenPersonaPais">
+      <soap:operation soapAction="http://tempuri.org/ISPersonas/ObtenPersonaPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

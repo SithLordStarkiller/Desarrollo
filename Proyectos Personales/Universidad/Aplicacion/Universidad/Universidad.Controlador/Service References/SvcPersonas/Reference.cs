@@ -86,6 +86,18 @@ namespace Universidad.Controlador.SvcPersonas {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenFotografia", ReplyAction="http://tempuri.org/ISPersonas/ObtenFotografiaResponse")]
         System.Threading.Tasks.Task<Universidad.Entidades.PER_FOTOGRAFIA> ObtenFotografiaAsync(Universidad.Entidades.PER_PERSONAS personas);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenTipoPersonaResponse")]
+        Universidad.Entidades.PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenTipoPersonaResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenTipoPersonaAsync(int idTipoPersona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenPersonaPais", ReplyAction="http://tempuri.org/ISPersonas/ObtenPersonaPaisResponse")]
+        Universidad.Entidades.PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenPersonaPais", ReplyAction="http://tempuri.org/ISPersonas/ObtenPersonaPaisResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_NACIONALIDAD> ObtenPersonaPaisAsync(int idPersonaPais);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -209,6 +221,22 @@ namespace Universidad.Controlador.SvcPersonas {
         
         public System.Threading.Tasks.Task<Universidad.Entidades.PER_FOTOGRAFIA> ObtenFotografiaAsync(Universidad.Entidades.PER_PERSONAS personas) {
             return base.Channel.ObtenFotografiaAsync(personas);
+        }
+        
+        public Universidad.Entidades.PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona) {
+            return base.Channel.ObtenTipoPersona(idTipoPersona);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenTipoPersonaAsync(int idTipoPersona) {
+            return base.Channel.ObtenTipoPersonaAsync(idTipoPersona);
+        }
+        
+        public Universidad.Entidades.PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais) {
+            return base.Channel.ObtenPersonaPais(idPersonaPais);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_NACIONALIDAD> ObtenPersonaPaisAsync(int idPersonaPais) {
+            return base.Channel.ObtenPersonaPaisAsync(idPersonaPais);
         }
     }
 }
