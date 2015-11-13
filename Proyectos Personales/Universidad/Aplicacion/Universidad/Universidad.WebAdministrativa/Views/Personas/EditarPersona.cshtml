@@ -10,6 +10,9 @@
     var fotografia = new PER_FOTOGRAFIA();
     var pais = new PER_CAT_NACIONALIDAD();
     var tipoPersona = new PER_CAT_TIPO_PERSONA();
+    IEnumerable<SelectListItem> catalogoNacionalidad = null;
+    IEnumerable<SelectListItem> catalogoTipoPersona = null;
+    IEnumerable<SelectListItem> catalogoSexo = null;
 
     if (ViewBag.Direccion != null)
     {
@@ -45,6 +48,21 @@
     {
         tipoPersona = (PER_CAT_TIPO_PERSONA) ViewBag.TipoPersona;
     }
+
+    if (ViewBag.CatalogoNacionalidad != null)
+    {
+        catalogoNacionalidad = (IEnumerable<SelectListItem>)ViewBag.CatalogoNacionalidad;
+    }
+
+    if (ViewBag.CatalogoTipoPersona != null)
+    {
+        catalogoTipoPersona = (IEnumerable<SelectListItem>)ViewBag.CatalogoTipoPersona;
+    }
+
+    if (ViewBag.CatalogoSexo != null)
+    {
+        catalogoSexo = (IEnumerable<SelectListItem>) ViewBag.CatalogoSexo;
+    }
 }
 <br />
 <br />
@@ -64,9 +82,56 @@
             <div class="panel-heading form-margin">
                 <div class="panel-title">Llena los campos de la direccion del usuario</div>
             </div>
-            <fieldset></fieldset>
-            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-            </div>
+            <fieldset>
+                <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                    <div class="input-group form-group col-md-12">
+                        @Html.Label("Nombre", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtNombre",null, new { @class = "form-control", placeholder = "Nombre" })
+                        @Html.Label("Apellido Paterno", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtApellidoP",null, new { @class = "form-control", placeholder = "Apellido Paterno" })
+                        @Html.Label("Apellido Materno", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtApellidoM",null, new { @class = "form-control", placeholder = "Apellido Materno" })
+                    </div>
+                    <div class="input-group form-group col-md-12">
+                        @Html.Label("CURP", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtCurp",null, new { @class = "form-control", placeholder = "CURP" })
+                        @Html.Label("RFC", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtRfc",null, new { @class = "form-control", placeholder = "RFC" })
+                        @Html.Label("NSS", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtNss", null,new { @class = "form-control", placeholder = "Numero de seguro social" })
+                    </div>
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.Label("Nacionalidad", new { @class = "input-group-addon" })
+                                    @Html.DropDownList("ddlTipoPersona", catalogoNacionalidad, new { @class = "selectpicker", data_live_search = true })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="input-group"> 
+                                    @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
+                                    @Html.DropDownList("ddlTipoPersona", catalogoTipoPersona, new { @class = "selectpicker", @id = "ddlTipoPersona", data_live_search = true })
+                                </div>
+                            </div>
+                            <div class="form-group form-group-sm col-md-2">
+                                <div class="input-group date">
+                                    @Html.TextBox("txtFechaNacimiento", null, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento", @id = "dpkFechaNacimiento" })
+                                    <span class="input-group-addon input-group-sm">
+                                        <span class="glyphicon glyphicon-calendar glyphicon-resize-small"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <div class="input-group">
+                                    @Html.Label("Sexo", new { @class = "input-group-addon" })
+                                    @Html.DropDownList("ddlSexo", catalogoSexo, new { @class = "selectpicker", data_live_search = true })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
     <div id="Direccion" class="tab-pane">
@@ -94,6 +159,7 @@
             </div>
             <fieldset></fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                @telefonos.TELEFONO_CELULAR_PERSONAL
             </div>
         </div>
     </div>
@@ -103,6 +169,7 @@
             <br />
             <div class="panel-heading form-margin">
                 <div class="panel-title">Llena los campos de la direccion del usuario</div>
+                @medElec.CORREO_ELECTRONICO_PERSONAL
             </div>
             <fieldset></fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
@@ -115,6 +182,7 @@
             <br />
             <div class="panel-heading form-margin">
                 <div class="panel-title">Llena los campos de la direccion del usuario</div>
+                @fotografia.NOMBRE
             </div>
             <fieldset></fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">

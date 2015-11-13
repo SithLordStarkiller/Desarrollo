@@ -631,8 +631,8 @@
             var fotografia = servicioPersona.ObtenFotografia(personaDatos);
             var tipoPersona = servicioPersona.ObtenTipoPersona(Convert.ToInt32(personaDatos.ID_TIPO_PERSONA));
             var pais = servicioPersona.ObtenPersonaPais(Convert.ToInt32(personaDatos.CVE_NACIONALIDAD));
-            var catalogoTipoPersona = servicioCatalogos.ObtenCatNacionalidad();
-            var catalogoNacionalidad = servicioCatalogos.ObtenCatNacionalidad();
+            var listaTipoPersona = servicioCatalogos.ObtenCatTipoPersona();
+            var listaNacionalidad = servicioCatalogos.ObtenCatNacionalidad();
 
             var listTask = new List<Task>
             {
@@ -642,11 +642,29 @@
                 fotografia,
                 tipoPersona,
                 pais,
-                catalogoNacionalidad,
-                catalogoTipoPersona
+                listaNacionalidad,
+                listaTipoPersona
             };
 
             Task.WaitAll(listTask.ToArray());
+
+            var catalogoTipoPersona = listaNacionalidad.Result.Select(c => new SelectListItem
+            {
+                Value = c.CVE_NACIONALIDAD.ToString(CultureInfo.InvariantCulture),
+                Text = c.NOMBRE_PAIS
+            }).ToArray();
+
+            var catalogoNacionalidad = listaTipoPersona.Result.Select(c => new SelectListItem
+            {
+                Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
+                Text = c.TIPO_PERSONA
+            }).ToArray();
+
+            var catalogoSexo = new List<SelectListItem>
+            {
+                new SelectListItem {Value = "1", Text = "M"},
+                new SelectListItem {Value = "2", Text = "F"}
+            }.ToArray();
 
             ViewBag.Datos = personaDatos;
             ViewBag.Direccion = direccion.Result;
@@ -655,8 +673,9 @@
             ViewBag.Fotografia = fotografia.Result;
             ViewBag.Nacionalidad = pais.Result;
             ViewBag.TipoPersona = tipoPersona.Result;
-            ViewBag.CatalogoNacionalidad = catalogoNacionalidad.Result;
-            ViewBag.CatalogoTipoPersona = catalogoTipoPersona.Result;
+            ViewBag.CatalogoNacionalidad = catalogoNacionalidad;
+            ViewBag.CatalogoTipoPersona = catalogoTipoPersona;
+            ViewBag.CatalogoSexo = catalogoSexo;
 
             return View();
         }
