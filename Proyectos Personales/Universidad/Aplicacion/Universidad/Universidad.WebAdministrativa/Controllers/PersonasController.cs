@@ -194,7 +194,7 @@
             var sesion = (Sesion)Session["Sesion"];
             var servicioCatalogos = new SvcGestionCatalogos(sesion);
 
-            var listaColonias= await servicioCatalogos.ObtenColonias(estado, municipio);
+            var listaColonias = await servicioCatalogos.ObtenColonias(estado, municipio);
 
             var lista = listaColonias.Select(c => new SelectListItem
             {
@@ -648,16 +648,16 @@
 
             Task.WaitAll(listTask.ToArray());
 
-            var catalogoTipoPersona = listaNacionalidad.Result.Select(c => new SelectListItem
-            {
-                Value = c.CVE_NACIONALIDAD.ToString(CultureInfo.InvariantCulture),
-                Text = c.NOMBRE_PAIS
-            }).ToArray();
-
-            var catalogoNacionalidad = listaTipoPersona.Result.Select(c => new SelectListItem
+            var catalogoTipoPersona = listaTipoPersona.Result.Select(c => new SelectListItem
             {
                 Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
                 Text = c.TIPO_PERSONA
+            }).ToArray();
+
+            var catalogoNacionalidad = listaNacionalidad.Result.Select(c => new SelectListItem
+            {
+                Value = c.CVE_NACIONALIDAD.ToString(CultureInfo.InvariantCulture),
+                Text = c.NOMBRE_PAIS
             }).ToArray();
 
             var catalogoSexo = new List<SelectListItem>
@@ -665,6 +665,53 @@
                 new SelectListItem {Value = "1", Text = "M"},
                 new SelectListItem {Value = "2", Text = "F"}
             }.ToArray();
+            
+            var listaEstados = await servicioCatalogos.ObtenCatEstados();
+
+            var catalogoEstados = listaEstados
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDESTADO.ToString(CultureInfo.InvariantCulture),
+                    Text = c.NOMBREESTADO
+                }).ToArray();
+
+            catalogoEstados.FirstOrDefault(r => r.Value == direccion.Result.IDESTADO.ToString()).Selected = true;
+
+            ViewBag.CatalogoEstados = catalogoEstados;
+
+            var listaMunicipios = await servicioCatalogos.ObtenMunicipios((int) direccion.Result.IDESTADO);
+
+            var catalogoMunicipios = listaMunicipios
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDMUNICIPIO.ToString(),
+                    Text = c.NOMBREDELGMUNICIPIO
+                }).ToArray();
+
+            catalogoMunicipios.FirstOrDefault(r => r.Value == direccion.Result.IDMUNICIPIO.ToString()).Selected = true;
+
+            ViewBag.CatalogoMunicipios = catalogoMunicipios;
+
+            var listaColonias = await servicioCatalogos.ObtenColonias((int)direccion.Result.IDESTADO,(int)direccion.Result.IDMUNICIPIO);
+
+            var catalogoColonias = listaColonias
+                .Select(c => new SelectListItem
+                {
+                    Value = c.IDCOLONIA.ToString(),
+                    Text = c.NOMBRECOLONIA
+                }).ToArray();
+
+            catalogoColonias.FirstOrDefault(r => r.Value == direccion.Result.IDCOLONIA.ToString()).Selected = true;
+
+            var colonia = listaColonias.FirstOrDefault(r => r.IDCOLONIA == direccion.Result.IDCOLONIA);
+
+            ViewBag.Colonia = colonia;
+
+            ViewBag.CatalogoColonias = catalogoColonias;
+
+            ((catalogoSexo.FirstOrDefault(r => r.Text == (personaDatos.SEXO == "Masculino" ? "M" : "F")))).Selected = true;
+            ((catalogoNacionalidad.FirstOrDefault(r => r.Value == personaDatos.CVE_NACIONALIDAD.ToString()))).Selected = true;
+            ((catalogoTipoPersona.FirstOrDefault(r => r.Value == personaDatos.ID_TIPO_PERSONA.ToString()))).Selected = true;
 
             ViewBag.Datos = personaDatos;
             ViewBag.Direccion = direccion.Result;

@@ -8,45 +8,39 @@
     var telefonos = new PER_CAT_TELEFONOS();
     var medElec = new PER_MEDIOS_ELECTRONICOS();
     var fotografia = new PER_FOTOGRAFIA();
-    var pais = new PER_CAT_NACIONALIDAD();
-    var tipoPersona = new PER_CAT_TIPO_PERSONA();
+    DIR_CAT_COLONIAS colonia = null;
+
     IEnumerable<SelectListItem> catalogoNacionalidad = null;
     IEnumerable<SelectListItem> catalogoTipoPersona = null;
     IEnumerable<SelectListItem> catalogoSexo = null;
 
+    IEnumerable<SelectListItem> catalogoEstados = null;
+    IEnumerable<SelectListItem> catalogoMunicipios = null;
+    IEnumerable<SelectListItem> catalogoColonias = null;
+
     if (ViewBag.Direccion != null)
     {
-        direcciones = (DIR_DIRECCIONES) ViewBag.Direccion;
+        direcciones = (DIR_DIRECCIONES)ViewBag.Direccion;
     }
 
     if (ViewBag.Datos != null)
     {
-        datos = (PER_PERSONAS) ViewBag.Datos;
+        datos = (PER_PERSONAS)ViewBag.Datos;
     }
 
     if (ViewBag.Telefonos != null)
     {
-        telefonos = (PER_CAT_TELEFONOS) ViewBag.Telefonos;
+        telefonos = (PER_CAT_TELEFONOS)ViewBag.Telefonos;
     }
 
     if (ViewBag.MedElec != null)
     {
-        medElec = (PER_MEDIOS_ELECTRONICOS) ViewBag.MedElec;
+        medElec = (PER_MEDIOS_ELECTRONICOS)ViewBag.MedElec;
     }
 
     if (ViewBag.Fotografia != null)
     {
-        fotografia = (PER_FOTOGRAFIA) ViewBag.Fotografia;
-    }
-
-    if (ViewBag.Pais != null)
-    {
-        pais = (PER_CAT_NACIONALIDAD) ViewBag.Pais;
-    }
-
-    if (ViewBag.TipoPersona != null)
-    {
-        tipoPersona = (PER_CAT_TIPO_PERSONA) ViewBag.TipoPersona;
+        fotografia = (PER_FOTOGRAFIA)ViewBag.Fotografia;
     }
 
     if (ViewBag.CatalogoNacionalidad != null)
@@ -61,8 +55,225 @@
 
     if (ViewBag.CatalogoSexo != null)
     {
-        catalogoSexo = (IEnumerable<SelectListItem>) ViewBag.CatalogoSexo;
+        catalogoSexo = (IEnumerable<SelectListItem>)ViewBag.CatalogoSexo;
     }
+
+    if (ViewBag.CatalogoEstados != null)
+    {
+        catalogoEstados = (IEnumerable<SelectListItem>)ViewBag.CatalogoEstados;
+    }
+
+    if (ViewBag.CatalogoMunicipios != null)
+    {
+        catalogoMunicipios = (IEnumerable<SelectListItem>)ViewBag.catalogoMunicipios;
+    }
+
+    if (ViewBag.CatalogoColonias != null)
+    {
+        catalogoColonias = (IEnumerable<SelectListItem>)ViewBag.CatalogoColonias;
+    }
+
+    if (ViewBag.Colonia != null)
+    {
+        colonia = (DIR_CAT_COLONIAS)ViewBag.Colonia;
+    }
+}
+
+@section Head
+{
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                language: 'es',
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            });
+
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
+            });
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ddlEstados").change(function () {
+                var idEstado = $("#ddlEstados").val();
+                if (idEstado != 0) {
+                    $.ajax({
+                        type: "POST",
+                        data: { 'estado': idEstado },
+                        url: '@Url.Action("ObtenMunicipios", "Personas")',
+                        success: function (response) {
+                            var listado = JSON.parse(response);
+                            var result = '';
+                            var selectList = $("#ddlMunicipios");
+                            selectList.empty();
+                            $("#ddlColonias").empty();
+                            for (var i = 0, iL = listado.length; i < iL; i++) {
+                                var id = listado[i].Value;
+                                var texto = listado[i].Text;
+                                result += '<option value="' + id + '">' + texto + '</option>';
+                            }
+                            $("#ddlMunicipios").html(result).selectpicker('refresh');
+
+                            $('.selectpicker').selectpicker('refresh');
+                        },
+                        error: function (xhr, status, error) {
+                            alert(status + " : " + error);
+                        }
+                    });
+                }
+                else {
+                    alert("Elige un estado");
+                }
+            });
+
+            $("#ddlMunicipios").change(function () {
+                var idEstado = $("#ddlEstados").val();
+                var idMunicipio = $("#ddlMunicipios").val();
+                if (idEstado != 0) {
+                    $.ajax({
+                        type: "POST",
+                        data: { 'estado': idEstado, 'municipio': idMunicipio },
+                        url: '@Url.Action("ObtenColonias", "Personas")',
+                        success: function (response) {
+                            var listado = JSON.parse(response);
+                            var result = '';
+                            var selectList = $("#ddlColonias");
+                            selectList.empty();
+                            for (var i = 0, iL = listado.length; i < iL; i++) {
+                                var id = listado[i].Value;
+                                var texto = listado[i].Text;
+                                result += '<option value="' + id + '">' + texto + '</option>';
+                            }
+                            $("#ddlColonias").html(result).selectpicker('refresh');
+                            $('.selectpicker').selectpicker('refresh');
+                        },
+                        error: function (xhr, status, error) {
+                            alert(status + " : " + error);
+                        }
+                    });
+                } else {
+                    alert("Elige un municipio y un estado");
+                }
+            });
+
+            $("#ddlColonias").change(function () {
+                var idEstado = $("#ddlEstados").val();
+                var idMunicipio = $("#ddlMunicipios").val();
+                var idColonia = $("#ddlColonias").val();
+                if (idEstado != 0) {
+                    $.ajax({
+                        type: "POST",
+                        data: { 'estado': idEstado, 'municipio': idMunicipio, 'colonia': idColonia },
+                        url: '@Url.Action("ObtenCodigoPostal", "Personas")',
+                        success: function (response) {
+                            var listado = JSON.parse(response);
+                            var cp = listado.CODIGOPOSTAL;
+                            $("#txtCodigoPostal").val(cp);
+                            $("#divCodigoPostal").removeClass("has-danger");
+                            $("#divCodigoPostal").addClass("has-success");
+                            $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
+                        },
+                        error: function (xhr, status, error) {
+                            alert(status + " : " + error);
+                            $("#divCodigoPostal").addClass("has-error");
+                            $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
+                        }
+                    });
+                } else {
+                    alert("No se pudo encontrar el codigo postal");
+                    $("#divCodigoPostal").addClass("has-error");
+                    $("#btnCodigoPostal").removeClass("btn-default btn-success").addClass("btn-danger");
+                }
+            });
+        });
+
+        function traerDireccion() {
+            var codigoPostal = $("#txtCodigoPostal").val();
+            var idEstado = '';
+            var idMunicipio = '';
+            $.ajax({
+                type: "POST",
+                data: { 'codigoPostal': codigoPostal },
+                url: '@Url.Action("ObtenColoniasPorCp", "Personas")',
+                success: function (response) {
+                    var listado = JSON.parse(response);
+                    var result = '';
+                    for (var i = 0, iL = listado.length; i < iL; i++) {
+                        var id = listado[i].IDMUNICIPIO;
+                        var texto = listado[i].NOMBRECOLONIA;
+                        result += '<option value="' + id + '">' + texto + '</option>';
+                    }
+
+                    $("#ddlColonias").empty();
+                    $("#ddlColonias").html(result);
+                    $('.selectpicker').selectpicker('refresh');
+
+                    if (listado.length > 0) {
+                        idEstado = listado[0].IDESTADO;
+                        idMunicipio = listado[0].IDMUNICIPIO;
+
+                        $.ajax({
+                            type: "POST",
+                            data: { 'estado': idEstado },
+                            url: '@Url.Action("ObtenMunicipios", "Personas")',
+                            success: function (lista) {
+                                var list = JSON.parse(lista);
+                                var cadena = '';
+                                for (var j = 0, l = list.length; j < l; j++) {
+                                    var idColonias = list[j].Value;
+                                    var nombreColonia = list[j].Text;
+                                    cadena += '<option value="' + idColonias + '">' + nombreColonia + '</option>';
+                                }
+                                $("#ddlMunicipios").empty();
+                                $("#ddlMunicipios").html(cadena);
+                                $('#ddlEstados').val(idEstado);
+                                $('#ddlMunicipios').val(idMunicipio);
+                                $('.selectpicker').selectpicker('refresh');
+                                $("#divCodigoPostal").removeClass("has-danger");
+                                $("#divCodigoPostal").addClass("has-success");
+                                $("#btnCodigoPostal").removeClass("btn-default btn-danger").addClass("btn-success");
+                                $("#divCodigoPostal").refresh();
+                                $('.selectpicker').selectpicker('refresh');
+                                $("#divCodigoPostal").removeClass("has-danger");
+                            },
+                            error: function (xhr, status, error) {
+                                alert(status + " : " + error);
+                                $("#divCodigoPostal").addClass("has-error");
+                                $("#btnCodigoPostal").removeClass("btn-default").addClass("btn-danger");
+                            }
+                        });
+                    } else {
+                        alert("No se pudo encontrar el codigo postal");
+                        $("#divCodigoPostal").addClass("has-error");
+                        $("#btnCodigoPostal").removeClass("btn-default").addClass("btn-danger");
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                        $("#divCodigoPostal").addClass("has-danger");
+                        $("#btnCodigoPostal").removeClass("btn-default").addClass("btn-danger");
+                    }
+            });
+        }
+    </script>
 }
 <br />
 <br />
@@ -77,28 +288,28 @@
 <div class="tab-content col-md-12">
     <div id="DatosPersonales" class="tab-pane fade in active">
         <div class="panel panel-default form-margin">
-            <h3>Datos</h3>
+            <h3>Datos personales</h3>
             <br />
             <div class="panel-heading form-margin">
-                <div class="panel-title">Llena los campos de la direccion del usuario</div>
+                <div class="panel-title">Actualiza los datos del registro</div>
             </div>
             <fieldset>
                 <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
                     <div class="input-group form-group col-md-12">
                         @Html.Label("Nombre", new { @class = "input-group-addon" })
-                        @Html.TextBox("txtNombre",null, new { @class = "form-control", placeholder = "Nombre" })
+                        @Html.TextBox("txtNombre", @datos.NOMBRE, new { @class = "form-control", placeholder = "Nombre" })
                         @Html.Label("Apellido Paterno", new { @class = "input-group-addon" })
-                        @Html.TextBox("txtApellidoP",null, new { @class = "form-control", placeholder = "Apellido Paterno" })
+                        @Html.TextBox("txtApellidoP", @datos.A_PATERNO, new { @class = "form-control", placeholder = "Apellido Paterno" })
                         @Html.Label("Apellido Materno", new { @class = "input-group-addon" })
-                        @Html.TextBox("txtApellidoM",null, new { @class = "form-control", placeholder = "Apellido Materno" })
+                        @Html.TextBox("txtApellidoM", @datos.A_MATERNO, new { @class = "form-control", placeholder = "Apellido Materno" })
                     </div>
                     <div class="input-group form-group col-md-12">
                         @Html.Label("CURP", new { @class = "input-group-addon" })
-                        @Html.TextBox("txtCurp",null, new { @class = "form-control", placeholder = "CURP" })
+                        @Html.TextBox("txtCurp", @datos.CURP, new { @class = "form-control", placeholder = "CURP" })
                         @Html.Label("RFC", new { @class = "input-group-addon" })
-                        @Html.TextBox("txtRfc",null, new { @class = "form-control", placeholder = "RFC" })
+                        @Html.TextBox("txtRfc", @datos.RFC, new { @class = "form-control", placeholder = "RFC" })
                         @Html.Label("NSS", new { @class = "input-group-addon" })
-                        @Html.TextBox("txtNss", null,new { @class = "form-control", placeholder = "Numero de seguro social" })
+                        @Html.TextBox("txtNss", @datos.IMSS, new { @class = "form-control", placeholder = "Numero de seguro social" })
                     </div>
                     <div class="row">
                         <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0 ;">
@@ -109,14 +320,14 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
-                                <div class="input-group"> 
+                                <div class="input-group">
                                     @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
                                     @Html.DropDownList("ddlTipoPersona", catalogoTipoPersona, new { @class = "selectpicker", @id = "ddlTipoPersona", data_live_search = true })
                                 </div>
                             </div>
                             <div class="form-group form-group-sm col-md-2">
                                 <div class="input-group date">
-                                    @Html.TextBox("txtFechaNacimiento", null, new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento", @id = "dpkFechaNacimiento" })
+                                    @Html.TextBox("txtFechaNacimiento", @datos.FECHA_NAC.ToShortDateString(), new { @class = "form-control datepicker", placeholder = "Fecha de nacimiento", @id = "dpkFechaNacimiento" })
                                     <span class="input-group-addon input-group-sm">
                                         <span class="glyphicon glyphicon-calendar glyphicon-resize-small"></span>
                                     </span>
@@ -130,6 +341,10 @@
                             </div>
                         </div>
                     </div>
+                    <div style="margin-top: 10px; float: right;" class="form-group">
+                        <label>&nbsp;</label>
+                        <button name="btnEnviar" class="btn btn-default btn-sm">Actualizar</button>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -141,13 +356,78 @@
             <div class="panel-heading form-margin">
                 <div class="panel-title">Llena los campos de la direccion del usuario</div>
             </div>
-            <fieldset></fieldset>
-            <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-                @direcciones.CALLE
-                @direcciones.IDCOLONIA
-                @direcciones.IDESTADO
-                @direcciones.IDMUNICIPIO
-            </div>
+            @Html.ValidationSummary(true)
+            <fieldset>
+                <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                            <div class="input-group form-group col-lg-offset-4 col-md-4" id="divCodigoPostal">
+                                @Html.Label("Codio Postal", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtCodigoPostal", @colonia.CODIGOPOSTAL, new { @class = "form-control", placeholder = "Codigo Postal", @id = "txtCodigoPostal" })
+                                <span class="input-group-btn">
+                                    <a href="#" id="btnCodigoPostal" class="btn btn-default" onclick="traerDireccion();">Buscar</a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.Label("Estado", new { @class = "input-group-addon" })
+                                    @Html.DropDownList("ddlCatalogoEstado", catalogoEstados, new { @class = "selectpicker", data_live_search = true })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.Label("Municipio", new { @class = "input-group-addon" })
+                                    @Html.DropDownList("ddlCatalogoMunicipio", catalogoMunicipios, new { @class = "selectpicker", data_live_search = true })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <div class="input-group">
+                                    @Html.Label("Colonia", new { @class = "input-group-addon" })
+                                    @Html.DropDownList("ddlCatalogoColonia", catalogoColonias, new { @class = "selectpicker", data_live_search = true })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    @Html.Label("Calle", new { @class = "input-group-addon" })
+                                    @Html.TextBox("txtCalle", @direcciones.CALLE, new { @class = "form-control", placeholder = "Calle" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    @Html.Label("No Ext", new { @class = "input-group-addon" })
+                                    @Html.TextBox("txtNoExt", @direcciones.NOEXT, new { @class = "form-control", placeholder = "No Exterior" })
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    @Html.Label("No Int", new { @class = "input-group-addon" })
+                                    @Html.TextBox("txtNoInt", @direcciones.NOINT, new { @class = "form-control", placeholder = "No Interior" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <div>
+                                @Html.Label("Referencias", new { @class = "control-label" })
+                                @Html.TextArea("txtRefAdicionales", @direcciones.REFERENCIAS, new { @class = "form-control", placeholder = "Calle", @rows = "3", @maxlength = "150" })
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 10px; float: right;" class="form-group">
+                        <label>&nbsp;</label>
+                        <button name="btnEnviar" class="btn btn-default btn-sm">Actualizar</button>
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
     <div id="Telefonos" class="tab-pane">
