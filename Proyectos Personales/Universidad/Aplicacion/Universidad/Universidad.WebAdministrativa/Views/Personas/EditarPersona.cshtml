@@ -8,6 +8,7 @@
     var telefonos = new PER_CAT_TELEFONOS();
     var medElec = new PER_MEDIOS_ELECTRONICOS();
     var fotografia = new PER_FOTOGRAFIA();
+
     DIR_CAT_COLONIAS colonia = null;
 
     IEnumerable<SelectListItem> catalogoNacionalidad = null;
@@ -17,6 +18,8 @@
     IEnumerable<SelectListItem> catalogoEstados = null;
     IEnumerable<SelectListItem> catalogoMunicipios = null;
     IEnumerable<SelectListItem> catalogoColonias = null;
+
+    var cadenaBinario = "";
 
     if (ViewBag.Direccion != null)
     {
@@ -40,6 +43,7 @@
 
     if (ViewBag.Fotografia != null)
     {
+        cadenaBinario = ViewBag.StringBinario;
         fotografia = (PER_FOTOGRAFIA)ViewBag.Fotografia;
     }
 
@@ -435,11 +439,42 @@
             <h3>Telefonos</h3>
             <br />
             <div class="panel-heading form-margin">
-                <div class="panel-title">Llena los campos de la direccion del usuario</div>
+                <div class="panel-title">Actualiza los datos de contacto telefonico</div>
             </div>
             <fieldset></fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
-                @telefonos.TELEFONO_CELULAR_PERSONAL
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.Label("Telefono Fijo", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtTelefono", @telefonos.TELEFONO_FIJO_DOMICILIO, new { @class = "form-control", placeholder = "Telefono Domicilio" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.Label("Telefono Trabajo", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtTelefonoTraabajo", @telefonos.TELEFONO_FIJO_TRABAJO, new { @class = "form-control", placeholder = "Telefono Trabajo" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.Label("Telefono movil", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtTelefonoMovil", @telefonos.TELEFONO_CELULAR_PERSONAL, new { @class = "form-control", placeholder = "Movil Personal" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.Label("Telefono Movil Trabajo", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtTelefonoTrabajo", @telefonos.TELEFONO_CELULAR_TRABAJO, new { @class = "form-control", placeholder = "Movil Telefono" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -448,11 +483,26 @@
             <h3>Medios Electronicos</h3>
             <br />
             <div class="panel-heading form-margin">
-                <div class="panel-title">Llena los campos de la direccion del usuario</div>
-                @medElec.CORREO_ELECTRONICO_PERSONAL
+                <div class="panel-title">Actualiza los datos electronicos del usuario</div>
             </div>
             <fieldset></fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.Label("Correo electronico personal", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtMailPersonal", @medElec.CORREO_ELECTRONICO_PERSONAL, new { @class = "form-control", placeholder = "Movil Personal" })
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                @Html.Label("Correo electronico universidad", new { @class = "input-group-addon" })
+                                @Html.TextBox("txtMailUniversidad", @medElec.CORREO_ELECTRONICO_UNIVERSIDAD, new { @class = "form-control", placeholder = "eMail Universidad", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -461,11 +511,23 @@
             <h3>Fotografia</h3>
             <br />
             <div class="panel-heading form-margin">
-                <div class="panel-title">Llena los campos de la direccion del usuario</div>
-                @fotografia.NOMBRE
+                <div class="panel-title">Actualiza la fotografia del usuario</div>
             </div>
             <fieldset></fieldset>
             <div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-8">
+                            <div class="input-group">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <div class="input-group">
+                                <img src="data:image/jpg;base64,@cadenaBinario" id="id @fotografia.NOMBRE" width="100%" height="100%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

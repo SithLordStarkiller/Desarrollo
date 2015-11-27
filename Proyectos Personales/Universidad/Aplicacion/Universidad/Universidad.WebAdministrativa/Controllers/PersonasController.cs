@@ -6,6 +6,8 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Collections.Generic;
+    using System.IO;
+    using System.Runtime.Serialization.Formatters.Binary;
     using Microsoft.Reporting.WebForms;
     using Newtonsoft.Json;
     using Controlador.GestionCatalogos;
@@ -648,6 +650,14 @@
 
             Task.WaitAll(listTask.ToArray());
 
+            string cadenaBinario;
+
+            using (var stream = new MemoryStream())
+            {
+                new BinaryFormatter().Serialize(stream, fotografia.Result.FOTOGRAFIA);
+                cadenaBinario = Convert.ToBase64String(stream.ToArray());
+            }
+
             var catalogoTipoPersona = listaTipoPersona.Result.Select(c => new SelectListItem
             {
                 Value = c.ID_TIPO_PERSONA.ToString(CultureInfo.InvariantCulture),
@@ -723,6 +733,7 @@
             ViewBag.CatalogoNacionalidad = catalogoNacionalidad;
             ViewBag.CatalogoTipoPersona = catalogoTipoPersona;
             ViewBag.CatalogoSexo = catalogoSexo;
+            ViewBag.StringBinario = cadenaBinario;
 
             return View();
         }
