@@ -655,7 +655,8 @@
             using (var stream = new MemoryStream())
             {
                 new BinaryFormatter().Serialize(stream, fotografia.Result.FOTOGRAFIA);
-                cadenaBinario = Convert.ToBase64String(stream.ToArray());
+                var imageBase64 = Convert.ToBase64String(fotografia.Result.FOTOGRAFIA);
+                cadenaBinario = string.Format("data:image/{0};base64,{1}", fotografia.Result.EXTENCION, imageBase64);
             }
 
             var catalogoTipoPersona = listaTipoPersona.Result.Select(c => new SelectListItem
