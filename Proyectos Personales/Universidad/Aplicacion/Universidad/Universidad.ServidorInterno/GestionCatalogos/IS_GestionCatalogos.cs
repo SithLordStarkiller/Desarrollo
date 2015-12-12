@@ -10,6 +10,15 @@ namespace Universidad.ServidorInterno.GestionCatalogos
     public interface IS_GestionCatalogos
     {
         [OperationContract]
+        List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA();
+
+        [OperationContract]
+        List<CatalogosSistema> ObtenCatalogosSistemas();
+
+        [OperationContract]
+        bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro);
+        
+        [OperationContract]
         List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios();
 
         [OperationContract]

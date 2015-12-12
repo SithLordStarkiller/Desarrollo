@@ -15,6 +15,7 @@ namespace Universidad.Entidades
     
     
     [DataContract]
+    [Serializable]
     public partial class PER_CAT_TIPO_PERSONA
     
     {

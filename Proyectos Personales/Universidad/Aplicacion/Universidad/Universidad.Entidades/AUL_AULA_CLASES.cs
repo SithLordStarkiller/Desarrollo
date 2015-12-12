@@ -15,6 +15,7 @@ namespace Universidad.Entidades
     
     
     [DataContract]
+    [Serializable]
     public partial class AUL_AULA_CLASES
     
     {

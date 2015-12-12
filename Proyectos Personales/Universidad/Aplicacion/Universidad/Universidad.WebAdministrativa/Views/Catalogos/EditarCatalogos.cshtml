@@ -1,0 +1,56 @@
+﻿@using Universidad.Entidades.Catalogos
+
+@{
+    ViewBag.Title = "EditarCatalogos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var lista = (List<CatalogosSistema>)ViewBag.ListaCatalogos;
+    var contador = 1;
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function Editar(tabla) {
+            var tab = tabla.toString();
+            alert(tab);
+        }
+    </script>
+}
+<h2>Catalogos del sistema</h2>
+
+<br />
+<div class="col-md-8 col-lg-offset-2">
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Nombre de la tabla
+            </th>
+            <th>
+                Acciones
+            </th>
+        </tr>
+
+        @foreach (var item in lista)
+        {
+            <tr>
+                <td>
+                    @contador
+                </td>
+                <td>
+                    @item.NombreTabla
+                </td>
+                <td style="align-content: center;">
+                    <a id="btnEditar" href="@Url.Action("EditaCatalogo", "Catalogos", new { nombreTabla = item.NombreTabla })" class="btn btn-default btn-sm">Editar</a>
+                   
+                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.NombreTabla')">Listado</button>
+                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.NombreTabla')">Reporte</button>
+                </td>
+            </tr>
+            contador++;
+        }
+
+    </table>
+</div>

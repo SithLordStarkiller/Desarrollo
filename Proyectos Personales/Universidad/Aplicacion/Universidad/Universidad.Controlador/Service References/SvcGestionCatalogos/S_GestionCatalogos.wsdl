@@ -8,6 +8,24 @@
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades.Catalogos" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaAUL_CAT_TIPO_AULA" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaAUL_CAT_TIPO_AULAResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCatalogosSistemas_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatalogosSistemas" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenCatalogosSistemas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenCatalogosSistemasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ActualizaRegistroAUL_CAT_TIPO_AULA_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizaRegistroAUL_CAT_TIPO_AULA" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ActualizaRegistroAUL_CAT_TIPO_AULA_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizaRegistroAUL_CAT_TIPO_AULAResponse" />
+  </wsdl:message>
   <wsdl:message name="IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenTablaUsCatTipoUsuarios" />
   </wsdl:message>
@@ -93,6 +111,18 @@
     <wsdl:part name="parameters" element="tns:ObtenCatalogosMunicipiosResponse" />
   </wsdl:message>
   <wsdl:portType name="IS_GestionCatalogos">
+    <wsdl:operation name="ObtenListaAUL_CAT_TIPO_AULA">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA" message="tns:IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse" message="tns:IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatalogosSistemas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemas" message="tns:IS_GestionCatalogos_ObtenCatalogosSistemas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemasResponse" message="tns:IS_GestionCatalogos_ObtenCatalogosSistemas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizaRegistroAUL_CAT_TIPO_AULA">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULA" message="tns:IS_GestionCatalogos_ActualizaRegistroAUL_CAT_TIPO_AULA_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULAResponse" message="tns:IS_GestionCatalogos_ActualizaRegistroAUL_CAT_TIPO_AULA_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenTablaUsCatTipoUsuarios">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios" message="tns:IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuariosResponse" message="tns:IS_GestionCatalogos_ObtenTablaUsCatTipoUsuarios_OutputMessage" />
@@ -152,6 +182,33 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_GestionCatalogos" type="tns:IS_GestionCatalogos">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenListaAUL_CAT_TIPO_AULA">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenCatalogosSistemas">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizaRegistroAUL_CAT_TIPO_AULA">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenTablaUsCatTipoUsuarios">
       <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios" style="document" />
       <wsdl:input>

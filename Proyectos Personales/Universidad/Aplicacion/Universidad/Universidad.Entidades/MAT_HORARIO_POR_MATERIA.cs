@@ -15,6 +15,7 @@ namespace Universidad.Entidades
     
     
     [DataContract]
+    [Serializable]
     public partial class MAT_HORARIO_POR_MATERIA
     
     {

@@ -85,5 +85,20 @@
         {
             return Task.Run(() => _servicio.ObtenTablasCatalogosAsync());
         }
+
+        public Task<List<CatalogosSistema>> ObtenCatalogosSistema()
+        {
+            return Task.Run(() => _servicio.ObtenCatalogosSistemasAsync());
+        }
+
+        public Task<List<AUL_CAT_TIPO_AULA>> ObntenListaAUL_CAT_TIPO_AULA()
+        {
+            return Task.Run(() => _servicio.ObtenListaAUL_CAT_TIPO_AULAAsync());
+        }
+
+        public Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            return Task.Run(() => _servicio.ActualizaRegistroAUL_CAT_TIPO_AULAAsync(registro));
+        }
     }
 }

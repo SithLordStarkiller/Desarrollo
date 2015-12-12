@@ -15,6 +15,7 @@ namespace Universidad.Entidades
     
     
     [DataContract]
+    [Serializable]
     public partial class CAR_CAT_ESPECIALIDAD
     
     {

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
-using Universidad.Entidades;
-using Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos;
-using Universidad.Entidades.Catalogos;
-
-namespace Universidad.LogicaNegocios.GestionCatalogos
+﻿namespace Universidad.LogicaNegocios.GestionCatalogos
 {
+    using System.Collections.Generic;
+    using Entidades;
+    using AccesoDatos.AdministracionSistema.GestionCatalogos;
+    using Entidades.Catalogos;
+    
+
     public class GestionCatalogos
     {
         #region Propiedades de la clase
@@ -58,6 +59,21 @@ namespace Universidad.LogicaNegocios.GestionCatalogos
         public List<ListasGenerica> ObtenTablasCatalogos()
         {
             return new AccesoDatos.AdministracionSistema.GestionCatalogos.GestionCatalogos().ObtenTablasCatalogosTsql();
+        }
+
+        public List<CatalogosSistema> ObtenCatalogosSistema()
+        {
+            return new Catalogos().ObtenCatalogosTSql();
+        }
+
+        public List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA()
+        {
+            return new Catalogos().ObtenListaAUL_CAT_TIPO_AULATSql();
+        }
+
+        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            return new Catalogos().ActualizaRegistroAUL_CAT_TIPO_AULATSql(registro);
         }
 
         #region Gestion de catalogos Direcciones

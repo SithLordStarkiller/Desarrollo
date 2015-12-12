@@ -15,6 +15,26 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SvcGestionCatalogos.IS_GestionCatalogos")]
     public interface IS_GestionCatalogos {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemas", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemasResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.Catalogos.CatalogosSistema> ObtenCatalogosSistemas();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemas", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemasResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.Catalogos.CatalogosSistema>> ObtenCatalogosSistemasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULAResponse" +
+            "")]
+        bool ActualizaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULAResponse" +
+            "")]
+        System.Threading.Tasks.Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuariosResponse")]
         System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios();
         
@@ -125,6 +145,30 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         public S_GestionCatalogosClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA() {
+            return base.Channel.ObtenListaAUL_CAT_TIPO_AULA();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync() {
+            return base.Channel.ObtenListaAUL_CAT_TIPO_AULAAsync();
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.Catalogos.CatalogosSistema> ObtenCatalogosSistemas() {
+            return base.Channel.ObtenCatalogosSistemas();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.Catalogos.CatalogosSistema>> ObtenCatalogosSistemasAsync() {
+            return base.Channel.ObtenCatalogosSistemasAsync();
+        }
+        
+        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.ActualizaRegistroAUL_CAT_TIPO_AULA(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.ActualizaRegistroAUL_CAT_TIPO_AULAAsync(registro);
         }
         
         public System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios() {

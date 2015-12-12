@@ -15,6 +15,7 @@ namespace Universidad.Entidades
     
     
     [DataContract]
+    [Serializable]
     public partial class SIS_WADM_ARBOLMENU_MVC
     
     {

@@ -10,6 +10,11 @@ namespace Universidad.ServidorInterno.GestionCatalogos
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione S_GestionCatalogos.svc o S_GestionCatalogos.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class S_GestionCatalogos : IS_GestionCatalogos
     {
+        public List<CatalogosSistema> ObtenCatalogosSistemas()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatalogosSistema();
+        }
+
         public List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios()
         {
             return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
@@ -79,6 +84,16 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         public List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios()
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenCatalogosMunicipios();
+        }
+
+        public List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaAUL_CAT_TIPO_AULA();
+        }
+
+        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaRegistroAUL_CAT_TIPO_AULA(registro);
         }
     }
 }

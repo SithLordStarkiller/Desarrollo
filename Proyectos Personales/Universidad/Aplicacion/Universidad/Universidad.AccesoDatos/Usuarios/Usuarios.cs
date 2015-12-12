@@ -1,7 +1,6 @@
-﻿using Universidad.Helpers;
-
-namespace Universidad.AccesoDatos.Usuarios
+﻿namespace Universidad.AccesoDatos.Usuarios
 {
+    using Helpers;
     using Entidades;
 
     public class Usuarios
