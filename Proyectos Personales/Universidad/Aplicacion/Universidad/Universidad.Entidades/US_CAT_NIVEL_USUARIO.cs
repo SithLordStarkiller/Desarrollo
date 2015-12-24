@@ -15,7 +15,6 @@ namespace Universidad.Entidades
     
     
     [DataContract]
-    [Serializable]
     public partial class US_CAT_NIVEL_USUARIO
     
     {

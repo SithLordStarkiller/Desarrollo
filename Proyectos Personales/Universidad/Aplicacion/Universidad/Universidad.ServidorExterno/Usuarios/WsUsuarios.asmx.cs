@@ -1,10 +1,7 @@
 ﻿namespace Universidad.ServidorExterno.Usuarios
 {
-    using System;
-    using System.Runtime.Serialization;
     using System.Web.Services;
-    using Entidades;
-    using LogicaNegocios;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Summary description for WebService1
@@ -24,42 +21,30 @@
             var xmlUser = new UsUsuarios
             {
                 IdUsuario = user.ID_USUARIO,
-                Usuario=user.USUARIO,
-                Contrasena=user.CONTRASENA
+                Usuario = user.USUARIO,
+                Contrasena = user.CONTRASENA
             };
             return xmlUser;
         }
 
         [WebMethod]
-        public Suma Sumar(int a, int b)
+        public List<UsUsuarios> ObtenerListaUsarios(string a)
         {
-            var res = new Suma
+            var lista = new List<UsUsuarios>
             {
-                A = a,
-                B = b,
-                Resultado = a + b
+                new UsUsuarios {IdUsuario = 1, Usuario = "Esteban", Contrasena = "bjhbjhbjh"},
+                new UsUsuarios {IdUsuario = 2, Usuario = "Alberto", Contrasena = "kjjknkj"},
+                new UsUsuarios {IdUsuario = 3, Usuario = "Sara", Contrasena = "lknlknnoi"}
             };
-            return res;
+
+            return lista;
         }
     }
+
     public class UsUsuarios
     {
         public int IdUsuario { get; set; }
         public string Usuario { get; set; }
         public string Contrasena { get; set; }
-    }
-
-
-    //[DataContract]
-    public class Suma
-    {
-        //[DataMember]
-        public int A { get; set; }
-
-        //[DataMember]
-        public int B { get; set; }
-
-        //[DataMember]
-        public int Resultado { get; set; }
     }
 }

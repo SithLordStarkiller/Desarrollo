@@ -15,7 +15,6 @@ namespace Universidad.Entidades
     
     
     [DataContract]
-    [Serializable]
     public partial class DIR_CAT_DELG_MUNICIPIO
     
     {

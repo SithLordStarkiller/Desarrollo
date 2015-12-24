@@ -15,7 +15,6 @@ namespace Universidad.Entidades
     
     
     [DataContract]
-    [Serializable]
     public partial class HOR_CAT_HORAS
     
     {
