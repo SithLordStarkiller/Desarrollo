@@ -113,45 +113,53 @@ namespace Kiosko.Controles
                 ObtenSiguiente();
         }
         bool Ejecutando = false;
-        void ObtenSiguiente()
+
+        private void ObtenSiguiente()
         {
-            if (Ejecutando)
-                return;
-            // Ejecutando = true;
-            if (Actual == null)
-                Actual = Listado.First();
-            else
+            try
             {
-                int Pos = Listado.IndexOf(Actual);
-                if (Pos >= 0)
+                if (Ejecutando)
+                    return;
+                // Ejecutando = true;
+                if (Actual == null)
+                    Actual = Listado.First();
+                else
                 {
-                    if (++Pos < Listado.Count)
-                        Actual = Listado[Pos];
+                    int Pos = Listado.IndexOf(Actual);
+                    if (Pos >= 0)
+                    {
+                        if (++Pos < Listado.Count)
+                            Actual = Listado[Pos];
+                        else
+                            Actual = Listado[0];
+                    }
                     else
                         Actual = Listado[0];
                 }
+                if (Actual.PUBLICIDAD == null)
+                {
+                    eClockBase.Controladores.Publicidad Publicidad = new eClockBase.Controladores.Publicidad(m_Sesion);
+                    Publicidad.ObtenImagenEvent += Publicidad_ObtenImagenEvent;
+                    Publicidad.ObtenImagen(Actual.PUBLICIDAD_ID);
+                }
                 else
-                    Actual = Listado[0];
+                {
+                    ActualizaImagen();
+                }
+                Timer = new DispatcherTimer();
+                Timer.Tick += Timer_Tick;
+                Timer.Interval = new TimeSpan(0, 0, Actual.PUBLICIDAD_SEGUNDOS);
+                Timer.Start();
             }
-            if (Actual.PUBLICIDAD == null)
+            catch (Exception)
             {
-                eClockBase.Controladores.Publicidad Publicidad = new eClockBase.Controladores.Publicidad(m_Sesion);
-                Publicidad.ObtenImagenEvent += Publicidad_ObtenImagenEvent;
-                Publicidad.ObtenImagen(Actual.PUBLICIDAD_ID);
+                throw;
             }
-            else
-            {
-                ActualizaImagen();
-            }
-            Timer = new DispatcherTimer();
-            Timer.Tick += Timer_Tick;
-            Timer.Interval = new TimeSpan(0, 0, Actual.PUBLICIDAD_SEGUNDOS);
-            Timer.Start();
         }
 
         void Timer_Tick(object sender, EventArgs e)
         {
-            
+
             ((DispatcherTimer)sender).Stop();
             ObtenSiguiente();
         }
@@ -162,7 +170,7 @@ namespace Kiosko.Controles
         {
             Actual.PUBLICIDAD = Imagen;
             ImagenSiguiente = Imagen;
-            
+
             ActualizaImagen();
         }
         void ActualizaImagen()
