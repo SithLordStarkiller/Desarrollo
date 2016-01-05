@@ -130,5 +130,40 @@
 
             return actualizado;
         }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroAUL_CAT_TIPO_AULA(string idTipoAula, string tipoAula, string descripcion)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new AUL_CAT_TIPO_AULA
+            {
+                IDTIPOAULA = Convert.ToInt16(idTipoAula),
+                TIPOAULA = tipoAula,
+                DESCRIPCION = descripcion
+            };
+
+            var nuevo = await servicio.InsertaRegistroAUL_CAT_TIPO_AULA(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var nuevo = await servicio.EliminaResgistroAUL_CAT_TIPO_AULA(idTipoAula);
+
+            return nuevo;
+        }
     }
 }

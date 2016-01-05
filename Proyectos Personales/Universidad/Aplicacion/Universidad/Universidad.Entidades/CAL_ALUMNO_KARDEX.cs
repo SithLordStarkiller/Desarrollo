@@ -15,32 +15,28 @@ namespace Universidad.Entidades
     
     
     [DataContract]
-    public partial class AUL_AULA_CLASES
+    public partial class CAL_ALUMNO_KARDEX
     
     {
-        public AUL_AULA_CLASES()
-        {
-            this.MAT_HORARIO_POR_MATERIA = new HashSet<MAT_HORARIO_POR_MATERIA>();
-        }
+    
+    	[DataMember]
+        public int IDKARDEX { get; set; }
     
     
     	[DataMember]
-        public short IDAULACLASES { get; set; }
+        public Nullable<int> IDALUMNOS { get; set; }
     
     
     	[DataMember]
-        public Nullable<short> IDTIPOAULA { get; set; }
+        public Nullable<int> IDCALIFICACION { get; set; }
     
     
     	[DataMember]
-        public string AULA { get; set; }
+        public Nullable<short> IDCARRERA { get; set; }
     
     
-    	[DataMember]
-        public Nullable<short> MAXLUGARES { get; set; }
-    
-    
-        public virtual AUL_CAT_TIPO_AULA AUL_CAT_TIPO_AULA { get; set; }
-        public virtual ICollection<MAT_HORARIO_POR_MATERIA> MAT_HORARIO_POR_MATERIA { get; set; }
+        public virtual ALU_ALUMNOS ALU_ALUMNOS { get; set; }
+        public virtual CAL_CALIFICACIONES CAL_CALIFICACIONES { get; set; }
+        public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
     }
 }

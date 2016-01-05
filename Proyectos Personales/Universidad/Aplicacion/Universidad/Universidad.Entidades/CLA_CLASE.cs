@@ -21,6 +21,7 @@ namespace Universidad.Entidades
         public CLA_CLASE()
         {
             this.ALU_HORARIO = new HashSet<ALU_HORARIO>();
+            this.CAL_CALIFICACIONES = new HashSet<CAL_CALIFICACIONES>();
             this.CLA_HORARIO = new HashSet<CLA_HORARIO>();
         }
     
@@ -41,8 +42,14 @@ namespace Universidad.Entidades
         public Nullable<short> IDCARRERA { get; set; }
     
     
+    	[DataMember]
+        public Nullable<int> IDSEMESTRE { get; set; }
+    
+    
         public virtual ICollection<ALU_HORARIO> ALU_HORARIO { get; set; }
+        public virtual ICollection<CAL_CALIFICACIONES> CAL_CALIFICACIONES { get; set; }
         public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
+        public virtual GEN_CAT_SEMESTRE_PERIODOS GEN_CAT_SEMESTRE_PERIODOS { get; set; }
         public virtual MAT_CAT_MATERIAS MAT_CAT_MATERIAS { get; set; }
         public virtual PRO_PROFESOR PRO_PROFESOR { get; set; }
         public virtual ICollection<CLA_HORARIO> CLA_HORARIO { get; set; }

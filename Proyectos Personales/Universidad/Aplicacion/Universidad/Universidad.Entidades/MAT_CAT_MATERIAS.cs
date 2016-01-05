@@ -36,6 +36,10 @@ namespace Universidad.Entidades
         public string NOMBREMATERIA { get; set; }
     
     
+    	[DataMember]
+        public Nullable<decimal> CREDITOS { get; set; }
+    
+    
         public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
         public virtual ICollection<CLA_CLASE> CLA_CLASE { get; set; }
     }

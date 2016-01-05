@@ -29,6 +29,45 @@
             $('#' + modalName + '').modal('show');
         }
 
+        function Nuevo() {
+            $("#txtIdTipoAula").val('');
+            $("#txtTipoAula").val('');
+            $("#txtDescripcion").val('');
+            $('#modalNuevoRegistro').modal('show');
+        }
+
+        function NuevoRegistro() {
+            var idTipoAula = $("#txtIdTipoAulaNuevo").val();
+            var tipoAula = $("#txtTipoAulaNuevo").val();
+            var descripcion = $("#txtDescripcionNuevo").val();
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'idTipoAula': idTipoAula,
+                    'tipoAula': tipoAula,
+                    'Descripcion': descripcion
+                },
+                url: '@Url.Action("NuevoRegistroAUL_CAT_TIPO_AULA", "Catalogos")',
+                success: function (response) {
+
+                    $('#modalCreaProducto').modal('hide');
+
+                    if (response) {
+                        if (response == true)
+                            alert("true");
+                        location.reload();
+                    } else {
+                        alert("false");
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+            });
+        }
+
         function Actualiza() {
 
             var idTipoAula = $("#txtIdTipoAula").val();
@@ -40,7 +79,40 @@
                 data: {
                     'idTipoAula': idTipoAula,
                     'tipoAula': tipoAula,
-                    'Descripcion':descripcion
+                    'Descripcion': descripcion
+                },
+                url: '@Url.Action("ActualizaRegistroAUL_CAT_TIPO_AULA", "Catalogos")',
+                success: function(response) {
+
+                    $('#modalCreaProducto').modal('hide');
+
+                    if (response) {
+                        if (response == true)
+                            alert("true");
+                        location.reload();
+                    } else {
+                        alert("false");
+                    }
+                },
+                error:
+                    function(xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+            });
+        }
+
+        function Ver() {
+
+            var idTipoAula = $("#txtIdTipoAulaVer").val();
+            var tipoAula = $("#txtTipoAulaVer").val();
+            var descripcion = $("#txtDescripcionVer").val();
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'idTipoAula': idTipoAula,
+                    'tipoAula': tipoAula,
+                    'Descripcion': descripcion
                 },
                 url: '@Url.Action("ActualizaRegistroAUL_CAT_TIPO_AULA", "Catalogos")',
                 success: function (response) {
@@ -102,13 +174,17 @@
                     @item.DESCRIPCION
                 </td>
                 <td style="align-content: center;">
-                    <a id="btnEliminar" href="@Url.Action("EditaCatalogo", "Catalogos", new { nombreTabla = item.IDTIPOAULA })" class="btn btn-default btn-sm">Elimina</a>
+                    <a id="btnEliminar" href="@Url.Action("EliminaRegistroAUL_CAT_TIPO_AULA", "Catalogos", new { nombreTabla = item.IDTIPOAULA })" class="btn btn-default btn-sm">Elimina</a>
                     <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalCreaProducto','@item.IDTIPOAULA','@item.TIPOAULA','@item.DESCRIPCION')">Editar</button>
-                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.IDTIPOAULA')">ver</button>
+                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDTIPOAULA','@item.TIPOAULA','@item.DESCRIPCION')">ver</button>
                 </td>
             </tr>
         }
     </table>
+    <br />
+    <div style="margin-top: 10px; float: right;" class="form-group">
+        <button type="button" class="btn btn-default" onclick="Nuevo();">Nuevo</button>
+    </div>
 </div>
 
 <div class="modal fade" id="modalCreaProducto" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
@@ -119,9 +195,8 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="modalLabelProducto">
-                    <label id="lblUsuario" text="label"></label>
+                    <label id="lblUsuario" text="label">Actualizar registro</label>
                 </h4>
-                <a id="lnkReporte" target="_blank" href="#">Reporte Completo</a>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -138,6 +213,72 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="Actualiza();">Actualizar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalNuevoRegistro" tabindex="-1" role="dialog" aria-labelledby="modalNuevoRegistro" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label">Nuevo registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdTipoAula", null, new { @class = "" })
+                            @Html.TextBox("txtIdTipoAulaNuevo", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off" })
+                            @Html.Label("TipoAula", null, new { @class = "" })
+                            @Html.TextBox("txtTipoAulaNuevo", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionNuevo", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="NuevoRegistro();">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVerRegistro" tabindex="-1" role="dialog" aria-labelledby="modalNuevoRegistro" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label">Registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdTipoAula", null, new { @class = "" })
+                            @Html.TextBox("txtIdTipoAulaVer", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off" })
+                            @Html.Label("TipoAula", null, new { @class = "" })
+                            @Html.TextBox("txtTipoAulaVer", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionVer", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>

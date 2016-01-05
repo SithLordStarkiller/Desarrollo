@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Universidad.Entidades;
 using Universidad.Entidades.Catalogos;
-using Universidad.LogicaNegocios.Personas;
 
 
 namespace Universidad.ServidorInterno.GestionCatalogos
@@ -94,6 +93,15 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaRegistroAUL_CAT_TIPO_AULA(registro);
+        }
+
+        public AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaRegistroAUL_CAT_TIPO_AULA(registro);
+        }
+        public bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaRegistroAUL_CAT_TIPO_AULA(idTipoAula);
         }
     }
 }

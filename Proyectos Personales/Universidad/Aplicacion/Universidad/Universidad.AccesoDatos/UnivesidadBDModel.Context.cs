@@ -30,6 +30,8 @@ namespace Universidad.AccesoDatos
         public DbSet<ALU_HORARIO> ALU_HORARIO { get; set; }
         public DbSet<AUL_AULA_CLASES> AUL_AULA_CLASES { get; set; }
         public DbSet<AUL_CAT_TIPO_AULA> AUL_CAT_TIPO_AULA { get; set; }
+        public DbSet<CAL_ALUMNO_KARDEX> CAL_ALUMNO_KARDEX { get; set; }
+        public DbSet<CAL_CALIFICACIONES> CAL_CALIFICACIONES { get; set; }
         public DbSet<CAR_CAT_CARRERAS> CAR_CAT_CARRERAS { get; set; }
         public DbSet<CAR_CAT_ESPECIALIDAD> CAR_CAT_ESPECIALIDAD { get; set; }
         public DbSet<CLA_CLASE> CLA_CLASE { get; set; }
@@ -40,6 +42,7 @@ namespace Universidad.AccesoDatos
         public DbSet<DIR_CAT_TIPO_ASENTAMIENTO> DIR_CAT_TIPO_ASENTAMIENTO { get; set; }
         public DbSet<DIR_CAT_TIPO_ZONA> DIR_CAT_TIPO_ZONA { get; set; }
         public DbSet<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }
+        public DbSet<GEN_CAT_SEMESTRE_PERIODOS> GEN_CAT_SEMESTRE_PERIODOS { get; set; }
         public DbSet<HOR_CAT_DIAS_SEMANA> HOR_CAT_DIAS_SEMANA { get; set; }
         public DbSet<HOR_CAT_HORAS> HOR_CAT_HORAS { get; set; }
         public DbSet<HOR_CAT_TURNO> HOR_CAT_TURNO { get; set; }

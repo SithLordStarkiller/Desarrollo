@@ -22,6 +22,17 @@
         {
             return Gestion_CAT_Tipos_Usuario.ClassInstance.InsertaRegistro(registro);
         }
+
+        public AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            return new Catalogos().NuevoRegistroAUL_CAT_TIPO_AULATSql(registro);
+        }
+
+        public bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula)
+        {
+            return new Catalogos().EliminaRegistroAUL_CAT_TIPO_AULATSql(idTipoAula);
+        }
+
         #endregion
 
         #region Metodos de Extraccion

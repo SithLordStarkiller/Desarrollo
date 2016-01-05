@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     21/09/2015 10:46:52 a. m.                    */
+/* Created on:     29/12/2015 11:52:37 a. m.                    */
 /*==============================================================*/
 
 
@@ -30,6 +30,27 @@ if exists (select 1
    where r.fkeyid = object_id('AUL_AULA_CLASES') and o.name = 'FK_AUL_AULA_REFERENCE_AUL_CAT_')
 alter table AUL_AULA_CLASES
    drop constraint FK_AUL_AULA_REFERENCE_AUL_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_ALUMNO_KARDEX') and o.name = 'FK_CAL_ALUM_REFERENCE_ALU_ALUM')
+alter table CAL_ALUMNO_KARDEX
+   drop constraint FK_CAL_ALUM_REFERENCE_ALU_ALUM
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_ALUMNO_KARDEX') and o.name = 'FK_CAL_ALUM_REFERENCE_CAR_CAT_')
+alter table CAL_ALUMNO_KARDEX
+   drop constraint FK_CAL_ALUM_REFERENCE_CAR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_ALUMNO_KARDEX') and o.name = 'FK_CAL_ALUM_REFERENCE_CAL_CALI')
+alter table CAL_ALUMNO_KARDEX
+   drop constraint FK_CAL_ALUM_REFERENCE_CAL_CALI
 go
 
 if exists (select 1
@@ -79,6 +100,13 @@ if exists (select 1
    where r.fkeyid = object_id('CLA_CLASE') and o.name = 'FK_CLA_CLAS_REFERENCE_CAR_CAT_')
 alter table CLA_CLASE
    drop constraint FK_CLA_CLAS_REFERENCE_CAR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CLA_CLASE') and o.name = 'FK_CLA_CLAS_REFERENCE_GEN_CAT_')
+alter table CLA_CLASE
+   drop constraint FK_CLA_CLAS_REFERENCE_GEN_CAT_
 go
 
 if exists (select 1
@@ -370,6 +398,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('CAL_ALUMNO_KARDEX')
+            and   type = 'U')
+   drop table CAL_ALUMNO_KARDEX
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('CAL_CALIFICACIONES')
             and   type = 'U')
    drop table CAL_CALIFICACIONES
@@ -642,7 +677,6 @@ create table AUL_AULA_CLASES (
    IDAULACLASES         smallint             not null,
    IDTIPOAULA           smallint             null,
    AULA                 varchar(10)          not null,
-   NOLUGARES            smallint             not null,
    MAXLUGARES           smallint             null,
    constraint PK_AUL_AULA_CLASES primary key (IDAULACLASES)
 )
@@ -656,6 +690,18 @@ create table AUL_CAT_TIPO_AULA (
    TIPOAULA             varchar(100)         not null,
    DESCRIPCION          varchar(100)         not null,
    constraint PK_AUL_CAT_TIPO_AULA primary key (IDTIPOAULA)
+)
+go
+
+/*==============================================================*/
+/* Table: CAL_ALUMNO_KARDEX                                     */
+/*==============================================================*/
+create table CAL_ALUMNO_KARDEX (
+   IDKARDEX             int                  not null,
+   IDALUMNOS            int                  null,
+   IDCALIFICACION       int                  null,
+   IDCARRERA            smallint             null,
+   constraint PK_CAL_ALUMNO_KARDEX primary key (IDKARDEX)
 )
 go
 
@@ -704,6 +750,7 @@ create table CLA_CLASE (
    IDMATERIA            smallint             null,
    IDPROFESOR           int                  null,
    IDCARRERA            smallint             null,
+   IDSEMESTRE           int                  null,
    constraint PK_CLA_CLASE primary key (IDCLASE)
 )
 go
@@ -800,7 +847,7 @@ go
 create table GEN_CAT_SEMESTRE_PERIODOS (
    IDSEMESTRE           int                  not null,
    PERIODOSEMESTRE      varchar(100)         null,
-   constraint PK_GEN_CAT_SEMESTRE_PERIODOS primary key (IDSEMESTRE)
+   constraint PK_GEN_CAT_SEMESTRE_PERIODOS primary key nonclustered (IDSEMESTRE)
 )
 go
 
@@ -821,8 +868,8 @@ create table HOR_CAT_HORAS (
    IDHORA               smallint             not null,
    IDTURNO              smallint             null,
    NOMBREHORA           varchar(100)         not null,
-   TIEMPOINICIO         datetime             not null,
-   TIEMPOFINALIZACION   datetime             not null,
+   HORAINICIO           datetime             not null,
+   HORATERMINO          datetime             not null,
    DESCRIPCION          varchar(100)         null,
    constraint PK_HOR_CAT_HORAS primary key (IDHORA)
 )
@@ -855,7 +902,8 @@ go
 create table MAT_CAT_MATERIAS (
    IDMATERIA            smallint             not null,
    IDCARRERA            smallint             null,
-   NOMBREMATERIA        varchar(100)         null,
+   NOMBREMATERIA        varchar(100)         not null,
+   CREDITOS             decimal(3,2)         null,
    constraint PK_MAT_CAT_MATERIAS primary key (IDMATERIA)
 )
 go
@@ -1116,6 +1164,21 @@ alter table AUL_AULA_CLASES
       references AUL_CAT_TIPO_AULA (IDTIPOAULA)
 go
 
+alter table CAL_ALUMNO_KARDEX
+   add constraint FK_CAL_ALUM_REFERENCE_ALU_ALUM foreign key (IDALUMNOS)
+      references ALU_ALUMNOS (IDALUMNOS)
+go
+
+alter table CAL_ALUMNO_KARDEX
+   add constraint FK_CAL_ALUM_REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
+      references CAR_CAT_CARRERAS (IDCARRERA)
+go
+
+alter table CAL_ALUMNO_KARDEX
+   add constraint FK_CAL_ALUM_REFERENCE_CAL_CALI foreign key (IDCALIFICACION)
+      references CAL_CALIFICACIONES (IDCALIFICACION)
+go
+
 alter table CAL_CALIFICACIONES
    add constraint FK_CAL_CALI_REFERENCE_CLA_CLAS foreign key (IDCLASE)
       references CLA_CLASE (IDCLASE)
@@ -1149,6 +1212,11 @@ go
 alter table CLA_CLASE
    add constraint FK_CLA_CLAS_REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
       references CAR_CAT_CARRERAS (IDCARRERA)
+go
+
+alter table CLA_CLASE
+   add constraint FK_CLA_CLAS_REFERENCE_GEN_CAT_ foreign key (IDSEMESTRE)
+      references GEN_CAT_SEMESTRE_PERIODOS (IDSEMESTRE)
 go
 
 alter table CLA_HORARIO

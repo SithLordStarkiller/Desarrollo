@@ -21,6 +21,18 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULAResponse")]
+        Universidad.Entidades.AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULAResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaRegistroAUL_CAT_TIPO_AULAResponse")]
+        bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaRegistroAUL_CAT_TIPO_AULAResponse")]
+        System.Threading.Tasks.Task<bool> EliminaRegistroAUL_CAT_TIPO_AULAAsync(int idTipoAula);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemas", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosSistemasResponse")]
         System.Collections.Generic.List<Universidad.Entidades.Catalogos.CatalogosSistema> ObtenCatalogosSistemas();
         
@@ -153,6 +165,22 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync() {
             return base.Channel.ObtenListaAUL_CAT_TIPO_AULAAsync();
+        }
+        
+        public Universidad.Entidades.AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.InsertaRegistroAUL_CAT_TIPO_AULA(registro);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.InsertaRegistroAUL_CAT_TIPO_AULAAsync(registro);
+        }
+        
+        public bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula) {
+            return base.Channel.EliminaRegistroAUL_CAT_TIPO_AULA(idTipoAula);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaRegistroAUL_CAT_TIPO_AULAAsync(int idTipoAula) {
+            return base.Channel.EliminaRegistroAUL_CAT_TIPO_AULAAsync(idTipoAula);
         }
         
         public System.Collections.Generic.List<Universidad.Entidades.Catalogos.CatalogosSistema> ObtenCatalogosSistemas() {

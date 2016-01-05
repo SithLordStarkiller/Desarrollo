@@ -20,6 +20,7 @@ namespace Universidad.Entidades
     {
         public CAR_CAT_CARRERAS()
         {
+            this.CAL_ALUMNO_KARDEX = new HashSet<CAL_ALUMNO_KARDEX>();
             this.CLA_CLASE = new HashSet<CLA_CLASE>();
             this.MAT_CAT_MATERIAS = new HashSet<MAT_CAT_MATERIAS>();
         }
@@ -37,6 +38,7 @@ namespace Universidad.Entidades
         public string NOMBRECARRERA { get; set; }
     
     
+        public virtual ICollection<CAL_ALUMNO_KARDEX> CAL_ALUMNO_KARDEX { get; set; }
         public virtual CAR_CAT_ESPECIALIDAD CAR_CAT_ESPECIALIDAD { get; set; }
         public virtual ICollection<CLA_CLASE> CLA_CLASE { get; set; }
         public virtual ICollection<MAT_CAT_MATERIAS> MAT_CAT_MATERIAS { get; set; }

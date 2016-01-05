@@ -13,6 +13,12 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA();
 
         [OperationContract]
+        AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro);
+
+        [OperationContract]
+        bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula);
+
+        [OperationContract]
         List<CatalogosSistema> ObtenCatalogosSistemas();
 
         [OperationContract]

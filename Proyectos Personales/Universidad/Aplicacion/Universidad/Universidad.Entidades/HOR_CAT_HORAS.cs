@@ -37,11 +37,11 @@ namespace Universidad.Entidades
     
     
     	[DataMember]
-        public System.DateTime TIEMPOINICIO { get; set; }
+        public System.DateTime HORAINICIO { get; set; }
     
     
     	[DataMember]
-        public System.DateTime TIEMPOFINALIZACION { get; set; }
+        public System.DateTime HORATERMINO { get; set; }
     
     
     	[DataMember]

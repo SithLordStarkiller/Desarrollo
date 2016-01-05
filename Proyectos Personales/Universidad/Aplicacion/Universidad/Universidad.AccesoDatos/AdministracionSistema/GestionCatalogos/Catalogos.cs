@@ -72,5 +72,47 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
                 return false;
             }
         }
+
+        public AUL_CAT_TIPO_AULA NuevoRegistroAUL_CAT_TIPO_AULATSql(AUL_CAT_TIPO_AULA registro)
+        {
+            try
+            {
+                var para = new[]
+                {
+                    new SqlParameter("@IdTipoAula", registro.IDTIPOAULA),
+                    new SqlParameter("@TipoAula", registro.TIPOAULA),
+                    new SqlParameter("@Descripcion", registro.DESCRIPCION)
+                };
+
+                var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
+                    "Usp_InsertaAUL_CAT_TIPO_AULA", para);
+
+                return registro;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public bool EliminaRegistroAUL_CAT_TIPO_AULATSql(int idTipoAula)
+        {
+            try
+            {
+                var para = new[]
+                {
+                    new SqlParameter("@IdTipoAula", idTipoAula)
+                };
+
+                var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
+                    "Usp_EliminaRegistroAUL_CAT_TIPO_AULA", para);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

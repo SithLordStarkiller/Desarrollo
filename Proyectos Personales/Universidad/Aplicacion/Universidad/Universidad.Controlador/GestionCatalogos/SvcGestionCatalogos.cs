@@ -100,5 +100,15 @@
         {
             return Task.Run(() => _servicio.ActualizaRegistroAUL_CAT_TIPO_AULAAsync(registro));
         }
+
+        public Task<AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            return Task.Run(() => _servicio.InsertaRegistroAUL_CAT_TIPO_AULAAsync(registro));
+        }
+
+        public Task<bool> EliminaResgistroAUL_CAT_TIPO_AULA(int idTipoAula)
+        {
+            return Task.Run(() => _servicio.EliminaRegistroAUL_CAT_TIPO_AULAAsync(idTipoAula));
+        }
     }
 }

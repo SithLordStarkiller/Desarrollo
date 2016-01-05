@@ -21,6 +21,8 @@ namespace Universidad.Entidades
         public ALU_ALUMNOS()
         {
             this.ALU_HORARIO = new HashSet<ALU_HORARIO>();
+            this.CAL_ALUMNO_KARDEX = new HashSet<CAL_ALUMNO_KARDEX>();
+            this.CAL_CALIFICACIONES = new HashSet<CAL_CALIFICACIONES>();
         }
     
     
@@ -38,5 +40,7 @@ namespace Universidad.Entidades
     
         public virtual PER_PERSONAS PER_PERSONAS { get; set; }
         public virtual ICollection<ALU_HORARIO> ALU_HORARIO { get; set; }
+        public virtual ICollection<CAL_ALUMNO_KARDEX> CAL_ALUMNO_KARDEX { get; set; }
+        public virtual ICollection<CAL_CALIFICACIONES> CAL_CALIFICACIONES { get; set; }
     }
 }

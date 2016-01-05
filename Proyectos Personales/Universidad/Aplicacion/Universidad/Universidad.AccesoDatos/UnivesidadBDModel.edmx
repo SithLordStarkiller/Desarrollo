@@ -28,7 +28,6 @@
           <Property Name="IDAULACLASES" Type="smallint" Nullable="false" />
           <Property Name="IDTIPOAULA" Type="smallint" />
           <Property Name="AULA" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="NOLUGARES" Type="smallint" Nullable="false" />
           <Property Name="MAXLUGARES" Type="smallint" />
         </EntityType>
         <EntityType Name="AUL_CAT_TIPO_AULA">
@@ -38,6 +37,28 @@
           <Property Name="IDTIPOAULA" Type="smallint" Nullable="false" />
           <Property Name="TIPOAULA" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CAL_ALUMNO_KARDEX">
+          <Key>
+            <PropertyRef Name="IDKARDEX" />
+          </Key>
+          <Property Name="IDKARDEX" Type="int" Nullable="false" />
+          <Property Name="IDALUMNOS" Type="int" />
+          <Property Name="IDCALIFICACION" Type="int" />
+          <Property Name="IDCARRERA" Type="smallint" />
+        </EntityType>
+        <EntityType Name="CAL_CALIFICACIONES">
+          <Key>
+            <PropertyRef Name="IDCALIFICACION" />
+          </Key>
+          <Property Name="IDCALIFICACION" Type="int" Nullable="false" />
+          <Property Name="IDCLASE" Type="int" />
+          <Property Name="IDALUMNOS" Type="int" />
+          <Property Name="IDSEMESTRE" Type="int" />
+          <Property Name="CALIFICACIONPRIMERPERIODO" Type="decimal" Precision="2" Scale="2" />
+          <Property Name="CALFIICACIONSEGUNDOPERIODO" Type="decimal" Precision="2" Scale="2" />
+          <Property Name="CALIFICACIONTERCERPERIODO" Type="decimal" Precision="2" Scale="2" />
+          <Property Name="CALIFICACIONFINAL" Type="decimal" Precision="2" Scale="2" />
         </EntityType>
         <EntityType Name="CAR_CAT_CARRERAS">
           <Key>
@@ -81,6 +102,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDMATERIA" Type="smallint" />
           <Property Name="IDPROFESOR" Type="int" />
           <Property Name="IDCARRERA" Type="smallint" />
+          <Property Name="IDSEMESTRE" Type="int" />
         </EntityType>
         <EntityType Name="CLA_HORARIO">
           <Key>
@@ -147,6 +169,13 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="NOINT" Type="varchar" MaxLength="30" />
           <Property Name="REFERENCIAS" Type="varchar" MaxLength="150" />
         </EntityType>
+        <EntityType Name="GEN_CAT_SEMESTRE_PERIODOS">
+          <Key>
+            <PropertyRef Name="IDSEMESTRE" />
+          </Key>
+          <Property Name="IDSEMESTRE" Type="int" Nullable="false" />
+          <Property Name="PERIODOSEMESTRE" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="HOR_CAT_DIAS_SEMANA">
           <Key>
             <PropertyRef Name="IDDIA" />
@@ -161,8 +190,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDHORA" Type="smallint" Nullable="false" />
           <Property Name="IDTURNO" Type="smallint" />
           <Property Name="NOMBREHORA" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="TIEMPOINICIO" Type="datetime" Nullable="false" />
-          <Property Name="TIEMPOFINALIZACION" Type="datetime" Nullable="false" />
+          <Property Name="HORAINICIO" Type="datetime" Nullable="false" />
+          <Property Name="HORATERMINO" Type="datetime" Nullable="false" />
           <Property Name="DESCRIPCION" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="HOR_CAT_TURNO">
@@ -186,7 +215,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           </Key>
           <Property Name="IDMATERIA" Type="smallint" Nullable="false" />
           <Property Name="IDCARRERA" Type="smallint" />
-          <Property Name="NOMBREMATERIA" Type="varchar" MaxLength="100" />
+          <Property Name="NOMBREMATERIA" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CREDITOS" Type="decimal" Precision="3" Scale="2" />
         </EntityType>
         <EntityType Name="MAT_HORARIO_POR_MATERIA">
           <Key>
@@ -421,6 +451,78 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CAL_ALUM_REFERENCE_ALU_ALUM">
+          <End Role="ALU_ALUMNOS" Type="Self.ALU_ALUMNOS" Multiplicity="0..1" />
+          <End Role="CAL_ALUMNO_KARDEX" Type="Self.CAL_ALUMNO_KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALU_ALUMNOS">
+              <PropertyRef Name="IDALUMNOS" />
+            </Principal>
+            <Dependent Role="CAL_ALUMNO_KARDEX">
+              <PropertyRef Name="IDALUMNOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_ALUM_REFERENCE_CAL_CALI">
+          <End Role="CAL_CALIFICACIONES" Type="Self.CAL_CALIFICACIONES" Multiplicity="0..1" />
+          <End Role="CAL_ALUMNO_KARDEX" Type="Self.CAL_ALUMNO_KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDCALIFICACION" />
+            </Principal>
+            <Dependent Role="CAL_ALUMNO_KARDEX">
+              <PropertyRef Name="IDCALIFICACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_ALUM_REFERENCE_CAR_CAT_">
+          <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="0..1" />
+          <End Role="CAL_ALUMNO_KARDEX" Type="Self.CAL_ALUMNO_KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAR_CAT_CARRERAS">
+              <PropertyRef Name="IDCARRERA" />
+            </Principal>
+            <Dependent Role="CAL_ALUMNO_KARDEX">
+              <PropertyRef Name="IDCARRERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_CALI_REFERENCE_ALU_ALUM">
+          <End Role="ALU_ALUMNOS" Type="Self.ALU_ALUMNOS" Multiplicity="0..1" />
+          <End Role="CAL_CALIFICACIONES" Type="Self.CAL_CALIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALU_ALUMNOS">
+              <PropertyRef Name="IDALUMNOS" />
+            </Principal>
+            <Dependent Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDALUMNOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_CALI_REFERENCE_CLA_CLAS">
+          <End Role="CLA_CLASE" Type="Self.CLA_CLASE" Multiplicity="0..1" />
+          <End Role="CAL_CALIFICACIONES" Type="Self.CAL_CALIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLA_CLASE">
+              <PropertyRef Name="IDCLASE" />
+            </Principal>
+            <Dependent Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDCLASE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_CALI_REFERENCE_GEN_CAT_">
+          <End Role="GEN_CAT_SEMESTRE_PERIODOS" Type="Self.GEN_CAT_SEMESTRE_PERIODOS" Multiplicity="0..1" />
+          <End Role="CAL_CALIFICACIONES" Type="Self.CAL_CALIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GEN_CAT_SEMESTRE_PERIODOS">
+              <PropertyRef Name="IDSEMESTRE" />
+            </Principal>
+            <Dependent Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDSEMESTRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CAR_CAT__REFERENCE_CAR_CAT_">
           <End Role="CAR_CAT_ESPECIALIDAD" Type="Self.CAR_CAT_ESPECIALIDAD" Multiplicity="0..1" />
           <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="*" />
@@ -442,6 +544,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Principal>
             <Dependent Role="CLA_CLASE">
               <PropertyRef Name="IDCARRERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLA_CLAS_REFERENCE_GEN_CAT_">
+          <End Role="GEN_CAT_SEMESTRE_PERIODOS" Type="Self.GEN_CAT_SEMESTRE_PERIODOS" Multiplicity="0..1" />
+          <End Role="CLA_CLASE" Type="Self.CLA_CLASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GEN_CAT_SEMESTRE_PERIODOS">
+              <PropertyRef Name="IDSEMESTRE" />
+            </Principal>
+            <Dependent Role="CLA_CLASE">
+              <PropertyRef Name="IDSEMESTRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -920,6 +1034,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="ALU_HORARIO" EntityType="Self.ALU_HORARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AUL_AULA_CLASES" EntityType="Self.AUL_AULA_CLASES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AUL_CAT_TIPO_AULA" EntityType="Self.AUL_CAT_TIPO_AULA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAL_ALUMNO_KARDEX" EntityType="Self.CAL_ALUMNO_KARDEX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CAL_CALIFICACIONES" EntityType="Self.CAL_CALIFICACIONES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAR_CAT_CARRERAS" EntityType="Self.CAR_CAT_CARRERAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CAR_CAT_ESPECIALIDAD" EntityType="Self.CAR_CAT_ESPECIALIDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLA_CLASE" EntityType="Self.CLA_CLASE" Schema="dbo" store:Type="Tables" />
@@ -930,6 +1046,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="DIR_CAT_TIPO_ASENTAMIENTO" EntityType="Self.DIR_CAT_TIPO_ASENTAMIENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_CAT_TIPO_ZONA" EntityType="Self.DIR_CAT_TIPO_ZONA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DIR_DIRECCIONES" EntityType="Self.DIR_DIRECCIONES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GEN_CAT_SEMESTRE_PERIODOS" EntityType="Self.GEN_CAT_SEMESTRE_PERIODOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOR_CAT_DIAS_SEMANA" EntityType="Self.HOR_CAT_DIAS_SEMANA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOR_CAT_HORAS" EntityType="Self.HOR_CAT_HORAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOR_CAT_TURNO" EntityType="Self.HOR_CAT_TURNO" Schema="dbo" store:Type="Tables" />
@@ -969,12 +1086,40 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <End Role="AUL_CAT_TIPO_AULA" EntitySet="AUL_CAT_TIPO_AULA" />
             <End Role="AUL_AULA_CLASES" EntitySet="AUL_AULA_CLASES" />
           </AssociationSet>
+          <AssociationSet Name="FK_CAL_ALUM_REFERENCE_ALU_ALUM" Association="Self.FK_CAL_ALUM_REFERENCE_ALU_ALUM">
+            <End Role="ALU_ALUMNOS" EntitySet="ALU_ALUMNOS" />
+            <End Role="CAL_ALUMNO_KARDEX" EntitySet="CAL_ALUMNO_KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_ALUM_REFERENCE_CAL_CALI" Association="Self.FK_CAL_ALUM_REFERENCE_CAL_CALI">
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+            <End Role="CAL_ALUMNO_KARDEX" EntitySet="CAL_ALUMNO_KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_ALUM_REFERENCE_CAR_CAT_" Association="Self.FK_CAL_ALUM_REFERENCE_CAR_CAT_">
+            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
+            <End Role="CAL_ALUMNO_KARDEX" EntitySet="CAL_ALUMNO_KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_CALI_REFERENCE_ALU_ALUM" Association="Self.FK_CAL_CALI_REFERENCE_ALU_ALUM">
+            <End Role="ALU_ALUMNOS" EntitySet="ALU_ALUMNOS" />
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_CALI_REFERENCE_CLA_CLAS" Association="Self.FK_CAL_CALI_REFERENCE_CLA_CLAS">
+            <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_CALI_REFERENCE_GEN_CAT_" Association="Self.FK_CAL_CALI_REFERENCE_GEN_CAT_">
+            <End Role="GEN_CAT_SEMESTRE_PERIODOS" EntitySet="GEN_CAT_SEMESTRE_PERIODOS" />
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+          </AssociationSet>
           <AssociationSet Name="FK_CAR_CAT__REFERENCE_CAR_CAT_" Association="Self.FK_CAR_CAT__REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_ESPECIALIDAD" EntitySet="CAR_CAT_ESPECIALIDAD" />
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_CAR_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
+            <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_GEN_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_GEN_CAT_">
+            <End Role="GEN_CAT_SEMESTRE_PERIODOS" EntitySet="GEN_CAT_SEMESTRE_PERIODOS" />
             <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_MAT_CAT_">
@@ -1143,6 +1288,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="ALU_HORARIO" EntityType="UniversidadDBModel.ALU_HORARIO" />
           <EntitySet Name="AUL_AULA_CLASES" EntityType="UniversidadDBModel.AUL_AULA_CLASES" />
           <EntitySet Name="AUL_CAT_TIPO_AULA" EntityType="UniversidadDBModel.AUL_CAT_TIPO_AULA" />
+          <EntitySet Name="CAL_ALUMNO_KARDEX" EntityType="UniversidadDBModel.CAL_ALUMNO_KARDEX" />
+          <EntitySet Name="CAL_CALIFICACIONES" EntityType="UniversidadDBModel.CAL_CALIFICACIONES" />
           <EntitySet Name="CAR_CAT_CARRERAS" EntityType="UniversidadDBModel.CAR_CAT_CARRERAS" />
           <EntitySet Name="CAR_CAT_ESPECIALIDAD" EntityType="UniversidadDBModel.CAR_CAT_ESPECIALIDAD" />
           <EntitySet Name="CLA_CLASE" EntityType="UniversidadDBModel.CLA_CLASE" />
@@ -1153,6 +1300,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="DIR_CAT_TIPO_ASENTAMIENTO" EntityType="UniversidadDBModel.DIR_CAT_TIPO_ASENTAMIENTO" />
           <EntitySet Name="DIR_CAT_TIPO_ZONA" EntityType="UniversidadDBModel.DIR_CAT_TIPO_ZONA" />
           <EntitySet Name="DIR_DIRECCIONES" EntityType="UniversidadDBModel.DIR_DIRECCIONES" />
+          <EntitySet Name="GEN_CAT_SEMESTRE_PERIODOS" EntityType="UniversidadDBModel.GEN_CAT_SEMESTRE_PERIODOS" />
           <EntitySet Name="HOR_CAT_DIAS_SEMANA" EntityType="UniversidadDBModel.HOR_CAT_DIAS_SEMANA" />
           <EntitySet Name="HOR_CAT_HORAS" EntityType="UniversidadDBModel.HOR_CAT_HORAS" />
           <EntitySet Name="HOR_CAT_TURNO" EntityType="UniversidadDBModel.HOR_CAT_TURNO" />
@@ -1184,6 +1332,14 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <End Role="ALU_ALUMNOS" EntitySet="ALU_ALUMNOS" />
             <End Role="ALU_HORARIO" EntitySet="ALU_HORARIO" />
           </AssociationSet>
+          <AssociationSet Name="FK_CAL_ALUM_REFERENCE_ALU_ALUM" Association="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_ALU_ALUM">
+            <End Role="ALU_ALUMNOS" EntitySet="ALU_ALUMNOS" />
+            <End Role="CAL_ALUMNO_KARDEX" EntitySet="CAL_ALUMNO_KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_CALI_REFERENCE_ALU_ALUM" Association="UniversidadDBModel.FK_CAL_CALI_REFERENCE_ALU_ALUM">
+            <End Role="ALU_ALUMNOS" EntitySet="ALU_ALUMNOS" />
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+          </AssociationSet>
           <AssociationSet Name="FK_ALU_HORA_REFERENCE_CLA_CLAS" Association="UniversidadDBModel.FK_ALU_HORA_REFERENCE_CLA_CLAS">
             <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
             <End Role="ALU_HORARIO" EntitySet="ALU_HORARIO" />
@@ -1196,6 +1352,22 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <End Role="AUL_AULA_CLASES" EntitySet="AUL_AULA_CLASES" />
             <End Role="MAT_HORARIO_POR_MATERIA" EntitySet="MAT_HORARIO_POR_MATERIA" />
           </AssociationSet>
+          <AssociationSet Name="FK_CAL_ALUM_REFERENCE_CAL_CALI" Association="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_CAL_CALI">
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+            <End Role="CAL_ALUMNO_KARDEX" EntitySet="CAL_ALUMNO_KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_ALUM_REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_CAR_CAT_">
+            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
+            <End Role="CAL_ALUMNO_KARDEX" EntitySet="CAL_ALUMNO_KARDEX" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_CALI_REFERENCE_CLA_CLAS" Association="UniversidadDBModel.FK_CAL_CALI_REFERENCE_CLA_CLAS">
+            <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CAL_CALI_REFERENCE_GEN_CAT_" Association="UniversidadDBModel.FK_CAL_CALI_REFERENCE_GEN_CAT_">
+            <End Role="GEN_CAT_SEMESTRE_PERIODOS" EntitySet="GEN_CAT_SEMESTRE_PERIODOS" />
+            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
+          </AssociationSet>
           <AssociationSet Name="FK_CAR_CAT__REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_CAR_CAT__REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_ESPECIALIDAD" EntitySet="CAR_CAT_ESPECIALIDAD" />
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
@@ -1207,6 +1379,10 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <AssociationSet Name="FK_MAT_CAT__REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
             <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_GEN_CAT_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_GEN_CAT_">
+            <End Role="GEN_CAT_SEMESTRE_PERIODOS" EntitySet="GEN_CAT_SEMESTRE_PERIODOS" />
+            <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_">
             <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
@@ -1366,6 +1542,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="ID_PER_LINKID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.FK_ALU_ALUM_REFERENCE_PER_PERS" FromRole="ALU_ALUMNOS" ToRole="PER_PERSONAS" />
           <NavigationProperty Name="ALU_HORARIO" Relationship="UniversidadDBModel.FK_ALU_HORA_REFERENCE_ALU_ALUM" FromRole="ALU_ALUMNOS" ToRole="ALU_HORARIO" />
+          <NavigationProperty Name="CAL_ALUMNO_KARDEX" Relationship="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_ALU_ALUM" FromRole="ALU_ALUMNOS" ToRole="CAL_ALUMNO_KARDEX" />
+          <NavigationProperty Name="CAL_CALIFICACIONES" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_ALU_ALUM" FromRole="ALU_ALUMNOS" ToRole="CAL_CALIFICACIONES" />
         </EntityType>
         <EntityType Name="ALU_HORARIO">
           <Key>
@@ -1384,7 +1562,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDAULACLASES" Type="Int16" Nullable="false" />
           <Property Name="IDTIPOAULA" Type="Int16" />
           <Property Name="AULA" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="NOLUGARES" Type="Int16" Nullable="false" />
           <Property Name="MAXLUGARES" Type="Int16" />
           <NavigationProperty Name="AUL_CAT_TIPO_AULA" Relationship="UniversidadDBModel.FK_AUL_AULA_REFERENCE_AUL_CAT_" FromRole="AUL_AULA_CLASES" ToRole="AUL_CAT_TIPO_AULA" />
           <NavigationProperty Name="MAT_HORARIO_POR_MATERIA" Relationship="UniversidadDBModel.FK_MAT_HORA_REFERENCE_AUL_AULA" FromRole="AUL_AULA_CLASES" ToRole="MAT_HORARIO_POR_MATERIA" />
@@ -1398,6 +1575,35 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="DESCRIPCION" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AUL_AULA_CLASES" Relationship="UniversidadDBModel.FK_AUL_AULA_REFERENCE_AUL_CAT_" FromRole="AUL_CAT_TIPO_AULA" ToRole="AUL_AULA_CLASES" />
         </EntityType>
+        <EntityType Name="CAL_ALUMNO_KARDEX">
+          <Key>
+            <PropertyRef Name="IDKARDEX" />
+          </Key>
+          <Property Name="IDKARDEX" Type="Int32" Nullable="false" />
+          <Property Name="IDALUMNOS" Type="Int32" />
+          <Property Name="IDCALIFICACION" Type="Int32" />
+          <Property Name="IDCARRERA" Type="Int16" />
+          <NavigationProperty Name="ALU_ALUMNOS" Relationship="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_ALU_ALUM" FromRole="CAL_ALUMNO_KARDEX" ToRole="ALU_ALUMNOS" />
+          <NavigationProperty Name="CAL_CALIFICACIONES" Relationship="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_CAL_CALI" FromRole="CAL_ALUMNO_KARDEX" ToRole="CAL_CALIFICACIONES" />
+          <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_CAR_CAT_" FromRole="CAL_ALUMNO_KARDEX" ToRole="CAR_CAT_CARRERAS" />
+        </EntityType>
+        <EntityType Name="CAL_CALIFICACIONES">
+          <Key>
+            <PropertyRef Name="IDCALIFICACION" />
+          </Key>
+          <Property Name="IDCALIFICACION" Type="Int32" Nullable="false" />
+          <Property Name="IDCLASE" Type="Int32" />
+          <Property Name="IDALUMNOS" Type="Int32" />
+          <Property Name="IDSEMESTRE" Type="Int32" />
+          <Property Name="CALIFICACIONPRIMERPERIODO" Type="Decimal" Precision="2" Scale="2" />
+          <Property Name="CALFIICACIONSEGUNDOPERIODO" Type="Decimal" Precision="2" Scale="2" />
+          <Property Name="CALIFICACIONTERCERPERIODO" Type="Decimal" Precision="2" Scale="2" />
+          <Property Name="CALIFICACIONFINAL" Type="Decimal" Precision="2" Scale="2" />
+          <NavigationProperty Name="ALU_ALUMNOS" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_ALU_ALUM" FromRole="CAL_CALIFICACIONES" ToRole="ALU_ALUMNOS" />
+          <NavigationProperty Name="CAL_ALUMNO_KARDEX" Relationship="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_CAL_CALI" FromRole="CAL_CALIFICACIONES" ToRole="CAL_ALUMNO_KARDEX" />
+          <NavigationProperty Name="CLA_CLASE" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_CLA_CLAS" FromRole="CAL_CALIFICACIONES" ToRole="CLA_CLASE" />
+          <NavigationProperty Name="GEN_CAT_SEMESTRE_PERIODOS" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_GEN_CAT_" FromRole="CAL_CALIFICACIONES" ToRole="GEN_CAT_SEMESTRE_PERIODOS" />
+        </EntityType>
         <EntityType Name="CAR_CAT_CARRERAS">
           <Key>
             <PropertyRef Name="IDCARRERA" />
@@ -1405,6 +1611,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDCARRERA" Type="Int16" Nullable="false" />
           <Property Name="IDESPECIALIDAD" Type="Int16" />
           <Property Name="NOMBRECARRERA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CAL_ALUMNO_KARDEX" Relationship="UniversidadDBModel.FK_CAL_ALUM_REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="CAL_ALUMNO_KARDEX" />
           <NavigationProperty Name="CAR_CAT_ESPECIALIDAD" Relationship="UniversidadDBModel.FK_CAR_CAT__REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="CAR_CAT_ESPECIALIDAD" />
           <NavigationProperty Name="CLA_CLASE" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="CLA_CLASE" />
           <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="MAT_CAT_MATERIAS" />
@@ -1425,8 +1632,11 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDMATERIA" Type="Int16" />
           <Property Name="IDPROFESOR" Type="Int32" />
           <Property Name="IDCARRERA" Type="Int16" />
+          <Property Name="IDSEMESTRE" Type="Int32" />
           <NavigationProperty Name="ALU_HORARIO" Relationship="UniversidadDBModel.FK_ALU_HORA_REFERENCE_CLA_CLAS" FromRole="CLA_CLASE" ToRole="ALU_HORARIO" />
+          <NavigationProperty Name="CAL_CALIFICACIONES" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_CLA_CLAS" FromRole="CLA_CLASE" ToRole="CAL_CALIFICACIONES" />
           <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_" FromRole="CLA_CLASE" ToRole="CAR_CAT_CARRERAS" />
+          <NavigationProperty Name="GEN_CAT_SEMESTRE_PERIODOS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_GEN_CAT_" FromRole="CLA_CLASE" ToRole="GEN_CAT_SEMESTRE_PERIODOS" />
           <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_" FromRole="CLA_CLASE" ToRole="MAT_CAT_MATERIAS" />
           <NavigationProperty Name="PRO_PROFESOR" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF" FromRole="CLA_CLASE" ToRole="PRO_PROFESOR" />
           <NavigationProperty Name="CLA_HORARIO" Relationship="UniversidadDBModel.FK_CLA_HORA_REFERENCE_CLA_CLAS" FromRole="CLA_CLASE" ToRole="CLA_HORARIO" />
@@ -1513,6 +1723,15 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <NavigationProperty Name="DIR_CAT_ESTADO" Relationship="UniversidadDBModel.Reference_28" FromRole="DIR_DIRECCIONES" ToRole="DIR_CAT_ESTADO" />
           <NavigationProperty Name="PER_PERSONAS" Relationship="UniversidadDBModel.Reference_6" FromRole="DIR_DIRECCIONES" ToRole="PER_PERSONAS" />
         </EntityType>
+        <EntityType Name="GEN_CAT_SEMESTRE_PERIODOS">
+          <Key>
+            <PropertyRef Name="IDSEMESTRE" />
+          </Key>
+          <Property Name="IDSEMESTRE" Type="Int32" Nullable="false" />
+          <Property Name="PERIODOSEMESTRE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CAL_CALIFICACIONES" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_GEN_CAT_" FromRole="GEN_CAT_SEMESTRE_PERIODOS" ToRole="CAL_CALIFICACIONES" />
+          <NavigationProperty Name="CLA_CLASE" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_GEN_CAT_" FromRole="GEN_CAT_SEMESTRE_PERIODOS" ToRole="CLA_CLASE" />
+        </EntityType>
         <EntityType Name="HOR_CAT_DIAS_SEMANA">
           <Key>
             <PropertyRef Name="IDDIA" />
@@ -1528,8 +1747,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDHORA" Type="Int16" Nullable="false" />
           <Property Name="IDTURNO" Type="Int16" />
           <Property Name="NOMBREHORA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TIEMPOINICIO" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TIEMPOFINALIZACION" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HORAINICIO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="HORATERMINO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="HOR_CAT_TURNO" Relationship="UniversidadDBModel.FK_HOR_CAT__REFERENCE_HOR_CAT_" FromRole="HOR_CAT_HORAS" ToRole="HOR_CAT_TURNO" />
           <NavigationProperty Name="HOR_HORAS_POR_DIA" Relationship="UniversidadDBModel.FK_HOR_HORA_HOR_HOR_P_HOR_CAT_" FromRole="HOR_CAT_HORAS" ToRole="HOR_HORAS_POR_DIA" />
@@ -1559,7 +1778,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           </Key>
           <Property Name="IDMATERIA" Type="Int16" Nullable="false" />
           <Property Name="IDCARRERA" Type="Int16" />
-          <Property Name="NOMBREMATERIA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBREMATERIA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CREDITOS" Type="Decimal" Precision="3" Scale="2" />
           <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CAR_CAT_CARRERAS" />
           <NavigationProperty Name="CLA_CLASE" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CLA_CLASE" />
         </EntityType>
@@ -1820,6 +2040,30 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CAL_ALUM_REFERENCE_ALU_ALUM">
+          <End Type="UniversidadDBModel.ALU_ALUMNOS" Role="ALU_ALUMNOS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CAL_ALUMNO_KARDEX" Role="CAL_ALUMNO_KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALU_ALUMNOS">
+              <PropertyRef Name="IDALUMNOS" />
+            </Principal>
+            <Dependent Role="CAL_ALUMNO_KARDEX">
+              <PropertyRef Name="IDALUMNOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_CALI_REFERENCE_ALU_ALUM">
+          <End Type="UniversidadDBModel.ALU_ALUMNOS" Role="ALU_ALUMNOS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CAL_CALIFICACIONES" Role="CAL_CALIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ALU_ALUMNOS">
+              <PropertyRef Name="IDALUMNOS" />
+            </Principal>
+            <Dependent Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDALUMNOS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ALU_HORA_REFERENCE_CLA_CLAS">
           <End Type="UniversidadDBModel.CLA_CLASE" Role="CLA_CLASE" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.ALU_HORARIO" Role="ALU_HORARIO" Multiplicity="*" />
@@ -1856,6 +2100,54 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CAL_ALUM_REFERENCE_CAL_CALI">
+          <End Type="UniversidadDBModel.CAL_CALIFICACIONES" Role="CAL_CALIFICACIONES" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CAL_ALUMNO_KARDEX" Role="CAL_ALUMNO_KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDCALIFICACION" />
+            </Principal>
+            <Dependent Role="CAL_ALUMNO_KARDEX">
+              <PropertyRef Name="IDCALIFICACION" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_ALUM_REFERENCE_CAR_CAT_">
+          <End Type="UniversidadDBModel.CAR_CAT_CARRERAS" Role="CAR_CAT_CARRERAS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CAL_ALUMNO_KARDEX" Role="CAL_ALUMNO_KARDEX" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAR_CAT_CARRERAS">
+              <PropertyRef Name="IDCARRERA" />
+            </Principal>
+            <Dependent Role="CAL_ALUMNO_KARDEX">
+              <PropertyRef Name="IDCARRERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_CALI_REFERENCE_CLA_CLAS">
+          <End Type="UniversidadDBModel.CLA_CLASE" Role="CLA_CLASE" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CAL_CALIFICACIONES" Role="CAL_CALIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLA_CLASE">
+              <PropertyRef Name="IDCLASE" />
+            </Principal>
+            <Dependent Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDCLASE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CAL_CALI_REFERENCE_GEN_CAT_">
+          <End Type="UniversidadDBModel.GEN_CAT_SEMESTRE_PERIODOS" Role="GEN_CAT_SEMESTRE_PERIODOS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CAL_CALIFICACIONES" Role="CAL_CALIFICACIONES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GEN_CAT_SEMESTRE_PERIODOS">
+              <PropertyRef Name="IDSEMESTRE" />
+            </Principal>
+            <Dependent Role="CAL_CALIFICACIONES">
+              <PropertyRef Name="IDSEMESTRE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CAR_CAT__REFERENCE_CAR_CAT_">
           <End Type="UniversidadDBModel.CAR_CAT_ESPECIALIDAD" Role="CAR_CAT_ESPECIALIDAD" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.CAR_CAT_CARRERAS" Role="CAR_CAT_CARRERAS" Multiplicity="*" />
@@ -1889,6 +2181,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             </Principal>
             <Dependent Role="MAT_CAT_MATERIAS">
               <PropertyRef Name="IDCARRERA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLA_CLAS_REFERENCE_GEN_CAT_">
+          <End Type="UniversidadDBModel.GEN_CAT_SEMESTRE_PERIODOS" Role="GEN_CAT_SEMESTRE_PERIODOS" Multiplicity="0..1" />
+          <End Type="UniversidadDBModel.CLA_CLASE" Role="CLA_CLASE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GEN_CAT_SEMESTRE_PERIODOS">
+              <PropertyRef Name="IDSEMESTRE" />
+            </Principal>
+            <Dependent Role="CLA_CLASE">
+              <PropertyRef Name="IDSEMESTRE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2366,7 +2670,6 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <EntityTypeMapping TypeName="UniversidadDBModel.AUL_AULA_CLASES">
               <MappingFragment StoreEntitySet="AUL_AULA_CLASES">
                 <ScalarProperty Name="MAXLUGARES" ColumnName="MAXLUGARES" />
-                <ScalarProperty Name="NOLUGARES" ColumnName="NOLUGARES" />
                 <ScalarProperty Name="AULA" ColumnName="AULA" />
                 <ScalarProperty Name="IDTIPOAULA" ColumnName="IDTIPOAULA" />
                 <ScalarProperty Name="IDAULACLASES" ColumnName="IDAULACLASES" />
@@ -2379,6 +2682,30 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
                 <ScalarProperty Name="TIPOAULA" ColumnName="TIPOAULA" />
                 <ScalarProperty Name="IDTIPOAULA" ColumnName="IDTIPOAULA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAL_ALUMNO_KARDEX">
+            <EntityTypeMapping TypeName="UniversidadDBModel.CAL_ALUMNO_KARDEX">
+              <MappingFragment StoreEntitySet="CAL_ALUMNO_KARDEX">
+                <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
+                <ScalarProperty Name="IDCALIFICACION" ColumnName="IDCALIFICACION" />
+                <ScalarProperty Name="IDALUMNOS" ColumnName="IDALUMNOS" />
+                <ScalarProperty Name="IDKARDEX" ColumnName="IDKARDEX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CAL_CALIFICACIONES">
+            <EntityTypeMapping TypeName="UniversidadDBModel.CAL_CALIFICACIONES">
+              <MappingFragment StoreEntitySet="CAL_CALIFICACIONES">
+                <ScalarProperty Name="CALIFICACIONFINAL" ColumnName="CALIFICACIONFINAL" />
+                <ScalarProperty Name="CALIFICACIONTERCERPERIODO" ColumnName="CALIFICACIONTERCERPERIODO" />
+                <ScalarProperty Name="CALFIICACIONSEGUNDOPERIODO" ColumnName="CALFIICACIONSEGUNDOPERIODO" />
+                <ScalarProperty Name="CALIFICACIONPRIMERPERIODO" ColumnName="CALIFICACIONPRIMERPERIODO" />
+                <ScalarProperty Name="IDSEMESTRE" ColumnName="IDSEMESTRE" />
+                <ScalarProperty Name="IDALUMNOS" ColumnName="IDALUMNOS" />
+                <ScalarProperty Name="IDCLASE" ColumnName="IDCLASE" />
+                <ScalarProperty Name="IDCALIFICACION" ColumnName="IDCALIFICACION" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2402,6 +2729,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySetMapping Name="CLA_CLASE">
             <EntityTypeMapping TypeName="UniversidadDBModel.CLA_CLASE">
               <MappingFragment StoreEntitySet="CLA_CLASE">
+                <ScalarProperty Name="IDSEMESTRE" ColumnName="IDSEMESTRE" />
                 <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
                 <ScalarProperty Name="IDPROFESOR" ColumnName="IDPROFESOR" />
                 <ScalarProperty Name="IDMATERIA" ColumnName="IDMATERIA" />
@@ -2481,6 +2809,14 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GEN_CAT_SEMESTRE_PERIODOS">
+            <EntityTypeMapping TypeName="UniversidadDBModel.GEN_CAT_SEMESTRE_PERIODOS">
+              <MappingFragment StoreEntitySet="GEN_CAT_SEMESTRE_PERIODOS">
+                <ScalarProperty Name="PERIODOSEMESTRE" ColumnName="PERIODOSEMESTRE" />
+                <ScalarProperty Name="IDSEMESTRE" ColumnName="IDSEMESTRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HOR_CAT_DIAS_SEMANA">
             <EntityTypeMapping TypeName="UniversidadDBModel.HOR_CAT_DIAS_SEMANA">
               <MappingFragment StoreEntitySet="HOR_CAT_DIAS_SEMANA">
@@ -2493,8 +2829,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <EntityTypeMapping TypeName="UniversidadDBModel.HOR_CAT_HORAS">
               <MappingFragment StoreEntitySet="HOR_CAT_HORAS">
                 <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
-                <ScalarProperty Name="TIEMPOFINALIZACION" ColumnName="TIEMPOFINALIZACION" />
-                <ScalarProperty Name="TIEMPOINICIO" ColumnName="TIEMPOINICIO" />
+                <ScalarProperty Name="HORATERMINO" ColumnName="HORATERMINO" />
+                <ScalarProperty Name="HORAINICIO" ColumnName="HORAINICIO" />
                 <ScalarProperty Name="NOMBREHORA" ColumnName="NOMBREHORA" />
                 <ScalarProperty Name="IDTURNO" ColumnName="IDTURNO" />
                 <ScalarProperty Name="IDHORA" ColumnName="IDHORA" />
@@ -2521,6 +2857,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySetMapping Name="MAT_CAT_MATERIAS">
             <EntityTypeMapping TypeName="UniversidadDBModel.MAT_CAT_MATERIAS">
               <MappingFragment StoreEntitySet="MAT_CAT_MATERIAS">
+                <ScalarProperty Name="CREDITOS" ColumnName="CREDITOS" />
                 <ScalarProperty Name="NOMBREMATERIA" ColumnName="NOMBREMATERIA" />
                 <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
                 <ScalarProperty Name="IDMATERIA" ColumnName="IDMATERIA" />
