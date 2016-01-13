@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     29/12/2015 11:52:37 a. m.                    */
+/* Created on:     12/01/2016 01:19:19 p. m.                    */
 /*==============================================================*/
 
 
@@ -41,23 +41,9 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('CAL_ALUMNO_KARDEX') and o.name = 'FK_CAL_ALUM_REFERENCE_CAR_CAT_')
-alter table CAL_ALUMNO_KARDEX
-   drop constraint FK_CAL_ALUM_REFERENCE_CAR_CAT_
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('CAL_ALUMNO_KARDEX') and o.name = 'FK_CAL_ALUM_REFERENCE_CAL_CALI')
 alter table CAL_ALUMNO_KARDEX
    drop constraint FK_CAL_ALUM_REFERENCE_CAL_CALI
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REFERENCE_CLA_CLAS')
-alter table CAL_CALIFICACIONES
-   drop constraint FK_CAL_CALI_REFERENCE_CLA_CLAS
 go
 
 if exists (select 1
@@ -69,9 +55,44 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REFERENCE_GEN_CAT_')
+   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REFERENCE_MAT_CAT_')
 alter table CAL_CALIFICACIONES
-   drop constraint FK_CAL_CALI_REFERENCE_GEN_CAT_
+   drop constraint FK_CAL_CALI_REFERENCE_MAT_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REF_CAL_C_CAL_CAT_')
+alter table CAL_CALIFICACIONES
+   drop constraint FK_CAL_CALI_REF_CAL_C_CAL_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACIONES') and o.name = 'FK_CAL_CALI_REF_CAL_C_CAL_CALI')
+alter table CAL_CALIFICACIONES
+   drop constraint FK_CAL_CALI_REF_CAL_C_CAL_CALI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACION_CLASE') and o.name = 'FK_CAL_CALI_CAL_CAL_C_CAL_CAT_')
+alter table CAL_CALIFICACION_CLASE
+   drop constraint FK_CAL_CALI_CAL_CAL_C_CAL_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACION_CLASE') and o.name = 'FK_CAL_CALI_CAL_CLA_C_CAL_CALI')
+alter table CAL_CALIFICACION_CLASE
+   drop constraint FK_CAL_CALI_CAL_CLA_C_CAL_CALI
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('CAL_CALIFICACION_CLASE') and o.name = 'FK_CAL_CALI_REFERENCE_CLA_CLAS')
+alter table CAL_CALIFICACION_CLASE
+   drop constraint FK_CAL_CALI_REFERENCE_CLA_CLAS
 go
 
 if exists (select 1
@@ -191,6 +212,20 @@ if exists (select 1
    where r.fkeyid = object_id('HOR_HORAS_POR_DIA') and o.name = 'FK_HOR_HORA_HOR_HOR_P_HOR_CAT_')
 alter table HOR_HORAS_POR_DIA
    drop constraint FK_HOR_HORA_HOR_HOR_P_HOR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('MAT_ARBOL_MATERIA') and o.name = 'FK_MAT_ARBO_REFERENCE_MAT_ARBO')
+alter table MAT_ARBOL_MATERIA
+   drop constraint FK_MAT_ARBO_REFERENCE_MAT_ARBO
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('MAT_ARBOL_MATERIA') and o.name = 'FK_MAT_ARBO_REFERENCE_MAT_CAT_')
+alter table MAT_ARBOL_MATERIA
+   drop constraint FK_MAT_ARBO_REFERENCE_MAT_CAT_
 go
 
 if exists (select 1
@@ -362,13 +397,6 @@ alter table US_USUARIOS
 go
 
 if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('US_USUARIOS') and o.name = 'Reference_13')
-alter table US_USUARIOS
-   drop constraint Reference_13
-go
-
-if exists (select 1
             from  sysobjects
            where  id = object_id('ALU_ALUMNOS')
             and   type = 'U')
@@ -408,6 +436,27 @@ if exists (select 1
            where  id = object_id('CAL_CALIFICACIONES')
             and   type = 'U')
    drop table CAL_CALIFICACIONES
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('CAL_CALIFICACIONES_FECHAS')
+            and   type = 'U')
+   drop table CAL_CALIFICACIONES_FECHAS
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('CAL_CALIFICACION_CLASE')
+            and   type = 'U')
+   drop table CAL_CALIFICACION_CLASE
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('CAL_CAT_TIPO_EVALUACION')
+            and   type = 'U')
+   drop table CAL_CAT_TIPO_EVALUACION
 go
 
 if exists (select 1
@@ -513,6 +562,13 @@ if exists (select 1
            where  id = object_id('HOR_HORAS_POR_DIA')
             and   type = 'U')
    drop table HOR_HORAS_POR_DIA
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('MAT_ARBOL_MATERIA')
+            and   type = 'U')
+   drop table MAT_ARBOL_MATERIA
 go
 
 if exists (select 1
@@ -636,13 +692,6 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('US_HISTORIAL')
-            and   type = 'U')
-   drop table US_HISTORIAL
-go
-
-if exists (select 1
-            from  sysobjects
            where  id = object_id('US_USUARIOS')
             and   type = 'U')
    drop table US_USUARIOS
@@ -700,7 +749,6 @@ create table CAL_ALUMNO_KARDEX (
    IDKARDEX             int                  not null,
    IDALUMNOS            int                  null,
    IDCALIFICACION       int                  null,
-   IDCARRERA            smallint             null,
    constraint PK_CAL_ALUMNO_KARDEX primary key (IDKARDEX)
 )
 go
@@ -709,15 +757,70 @@ go
 /* Table: CAL_CALIFICACIONES                                    */
 /*==============================================================*/
 create table CAL_CALIFICACIONES (
-   IDCALIFICACION       int                  not null,
-   IDCLASE              int                  null,
+   IDCALIFICACION       int                  identity,
    IDALUMNOS            int                  null,
-   IDSEMESTRE           int                  null,
-   CALIFICACIONPRIMERPERIODO decimal(2,2)         null,
-   CALFIICACIONSEGUNDOPERIODO decimal(2,2)         null,
-   CALIFICACIONTERCERPERIODO decimal(2,2)         null,
-   CALIFICACIONFINAL    decimal(2,2)         null,
+   IDCALIFICACIONESFECHAS int                  null,
+   IDMATERIA            smallint             null,
+   IDTIPOEVALUACION     smallint             null,
+   CALIFICACIONPRIMERPERIODOORDINARIO decimal(2,2)         null,
+   CALFIICACIONSEGUNDOPERIODOORDINARIO decimal(2,2)         null,
+   CALIFICACIONTERCERPERIODOORDINARIO decimal(2,2)         null,
+   CALIFICACIONFINALORDINARIA decimal(2,2)         null,
+   CALIFICACIONPRIMERPERIODORECURSAMIENTO decimal(2,2)         null,
+   CALIFICACIONSEGUNDOPERIODORECURSAMIENTO decimal(2,2)         null,
+   CALIFICACIONTERCERPERIODORECUSAMIENTO decimal(2,2)         null,
+   CALIFICACIONFINALRECURSAMIENTO decimal(2,2)         null,
+   CALIFICACIONETS1     decimal(2,2)         null,
+   CALIFICACIONETS2     decimal(2,2)         null,
+   CALIFICACIONETS3     decimal(2,2)         null,
+   CALIFICACIONETS4     decimal(2,2)         null,
+   CREDITOSOBTENIDOS    int                  null,
+   ACREDITADA           bit                  not null,
    constraint PK_CAL_CALIFICACIONES primary key (IDCALIFICACION)
+)
+go
+
+/*==============================================================*/
+/* Table: CAL_CALIFICACIONES_FECHAS                             */
+/*==============================================================*/
+create table CAL_CALIFICACIONES_FECHAS (
+   IDCALIFICACIONESFECHAS int                  identity,
+   FECHACALIFICACIONPRIMERPERIODOORDINARIO datetime             null,
+   FECHACALIFICACIONSEGUNDOPERIODOORDINARIO datetime             null,
+   FECHACALIFICACIONTERCERPERIODOORDINARIO datetime             null,
+   FECHACALIFICACIONFINALORDINARIA datetime             null,
+   FECHACALIFICACIONPRIMERPERIODORECURSAMIENTO datetime             null,
+   FECHACALIFICACIONSEGUNDOPERIODORECURSAMIENTO datetime             null,
+   FECHACALIFICACIONTERCERPERIODORECURSAMIENTO datetime             null,
+   FECHACALIFICACIONFINALRECURSAMIENTO datetime             null,
+   FECHACALIFICACIONETS1 datetime             null,
+   FECHACALIFICACIONETS2 datetime             null,
+   FECHACALIFICACIONETS3 datetime             null,
+   FECHACALIFICACIONETS4 datetime             null,
+   constraint PK_CAL_CALIFICACIONES_FECHAS primary key (IDCALIFICACIONESFECHAS)
+)
+go
+
+/*==============================================================*/
+/* Table: CAL_CALIFICACION_CLASE                                */
+/*==============================================================*/
+create table CAL_CALIFICACION_CLASE (
+   IDCALIFICACIONCLASE  int                  not null,
+   IDCLASE              int                  null,
+   IDCALIFICACION       int                  null,
+   IDTIPOEVALUACION     smallint             null,
+   constraint PK_CAL_CALIFICACION_CLASE primary key (IDCALIFICACIONCLASE)
+)
+go
+
+/*==============================================================*/
+/* Table: CAL_CAT_TIPO_EVALUACION                               */
+/*==============================================================*/
+create table CAL_CAT_TIPO_EVALUACION (
+   IDTIPOEVALUACION     smallint             identity,
+   TIPOEVALUACION       varchar(100)         not null,
+   DESCRIPCION          varchar(300)         null,
+   constraint PK_CAL_CAT_TIPO_EVALUACION primary key (IDTIPOEVALUACION)
 )
 go
 
@@ -893,6 +996,17 @@ create table HOR_HORAS_POR_DIA (
    IDHORA               smallint             null,
    IDDIA                smallint             null,
    constraint PK_HOR_HORAS_POR_DIA primary key (IDHORASPORDIA)
+)
+go
+
+/*==============================================================*/
+/* Table: MAT_ARBOL_MATERIA                                     */
+/*==============================================================*/
+create table MAT_ARBOL_MATERIA (
+   IDMATERIADEPENDENCIA int                  not null,
+   IDMATERIADEPENDENCIAHIJO int                  null,
+   IDMATERIA            smallint             null,
+   constraint PK_MAT_ARBOL_MATERIA primary key (IDMATERIADEPENDENCIA)
 )
 go
 
@@ -1118,18 +1232,6 @@ create table US_CAT_TIPO_USUARIO (
 go
 
 /*==============================================================*/
-/* Table: US_HISTORIAL                                          */
-/*==============================================================*/
-create table US_HISTORIAL (
-   ID_HISTORIAL         int                  identity,
-   FECHA_ULTIMA_CESION  datetime             null,
-   FECHA_CAMBIOCONTRASENA_ULTIMO datetime             null,
-   ULTIMA_CONTRASENA    varchar(30)          null,
-   constraint PK_US_HISTORIAL primary key (ID_HISTORIAL)
-)
-go
-
-/*==============================================================*/
 /* Table: US_USUARIOS                                           */
 /*==============================================================*/
 create table US_USUARIOS (
@@ -1137,7 +1239,6 @@ create table US_USUARIOS (
    ID_TIPO_USUARIO      int                  null,
    ID_ESTATUS_USUARIOS  int                  null,
    ID_NIVEL_USUARIO     int                  null,
-   ID_HISTORIAL         int                  null,
    USUARIO              varchar(50)          null,
    CONTRASENA           varchar(30)          null,
    constraint PK_US_USUARIOS primary key (ID_USUARIO)
@@ -1170,18 +1271,8 @@ alter table CAL_ALUMNO_KARDEX
 go
 
 alter table CAL_ALUMNO_KARDEX
-   add constraint FK_CAL_ALUM_REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
-      references CAR_CAT_CARRERAS (IDCARRERA)
-go
-
-alter table CAL_ALUMNO_KARDEX
    add constraint FK_CAL_ALUM_REFERENCE_CAL_CALI foreign key (IDCALIFICACION)
       references CAL_CALIFICACIONES (IDCALIFICACION)
-go
-
-alter table CAL_CALIFICACIONES
-   add constraint FK_CAL_CALI_REFERENCE_CLA_CLAS foreign key (IDCLASE)
-      references CLA_CLASE (IDCLASE)
 go
 
 alter table CAL_CALIFICACIONES
@@ -1190,8 +1281,33 @@ alter table CAL_CALIFICACIONES
 go
 
 alter table CAL_CALIFICACIONES
-   add constraint FK_CAL_CALI_REFERENCE_GEN_CAT_ foreign key (IDSEMESTRE)
-      references GEN_CAT_SEMESTRE_PERIODOS (IDSEMESTRE)
+   add constraint FK_CAL_CALI_REFERENCE_MAT_CAT_ foreign key (IDMATERIA)
+      references MAT_CAT_MATERIAS (IDMATERIA)
+go
+
+alter table CAL_CALIFICACIONES
+   add constraint FK_CAL_CALI_REF_CAL_C_CAL_CAT_ foreign key (IDTIPOEVALUACION)
+      references CAL_CAT_TIPO_EVALUACION (IDTIPOEVALUACION)
+go
+
+alter table CAL_CALIFICACIONES
+   add constraint FK_CAL_CALI_REF_CAL_C_CAL_CALI foreign key (IDCALIFICACIONESFECHAS)
+      references CAL_CALIFICACIONES_FECHAS (IDCALIFICACIONESFECHAS)
+go
+
+alter table CAL_CALIFICACION_CLASE
+   add constraint FK_CAL_CALI_CAL_CAL_C_CAL_CAT_ foreign key (IDTIPOEVALUACION)
+      references CAL_CAT_TIPO_EVALUACION (IDTIPOEVALUACION)
+go
+
+alter table CAL_CALIFICACION_CLASE
+   add constraint FK_CAL_CALI_CAL_CLA_C_CAL_CALI foreign key (IDCALIFICACION)
+      references CAL_CALIFICACIONES (IDCALIFICACION)
+go
+
+alter table CAL_CALIFICACION_CLASE
+   add constraint FK_CAL_CALI_REFERENCE_CLA_CLAS foreign key (IDCLASE)
+      references CLA_CLASE (IDCLASE)
 go
 
 alter table CAR_CAT_CARRERAS
@@ -1277,6 +1393,16 @@ go
 alter table HOR_HORAS_POR_DIA
    add constraint FK_HOR_HORA_HOR_HOR_P_HOR_CAT_ foreign key (IDHORA)
       references HOR_CAT_HORAS (IDHORA)
+go
+
+alter table MAT_ARBOL_MATERIA
+   add constraint FK_MAT_ARBO_REFERENCE_MAT_ARBO foreign key (IDMATERIADEPENDENCIAHIJO)
+      references MAT_ARBOL_MATERIA (IDMATERIADEPENDENCIA)
+go
+
+alter table MAT_ARBOL_MATERIA
+   add constraint FK_MAT_ARBO_REFERENCE_MAT_CAT_ foreign key (IDMATERIA)
+      references MAT_CAT_MATERIAS (IDMATERIA)
 go
 
 alter table MAT_CAT_MATERIAS
@@ -1397,10 +1523,5 @@ go
 alter table US_USUARIOS
    add constraint Reference_12 foreign key (ID_NIVEL_USUARIO)
       references US_CAT_NIVEL_USUARIO (ID_NIVEL_USUARIO)
-go
-
-alter table US_USUARIOS
-   add constraint Reference_13 foreign key (ID_HISTORIAL)
-      references US_HISTORIAL (ID_HISTORIAL)
 go
 
