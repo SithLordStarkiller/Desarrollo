@@ -22,22 +22,22 @@ namespace Universidad.Controlador.SvcPersonas {
         System.Threading.Tasks.Task<bool> ExisteCorreoUniversidadAsync(string correo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
-        Universidad.Entidades.PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos);
+        PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertaMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/InsertaMediosElectronicosResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos);
+        System.Threading.Tasks.Task<PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosAsync(PER_MEDIOS_ELECTRONICOS mediosElectronicos);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertarPersona", ReplyAction="http://tempuri.org/ISPersonas/InsertarPersonaResponse")]
-        Universidad.Entidades.PER_PERSONAS InsertarPersona(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones);
+        PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos, PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/InsertarPersona", ReplyAction="http://tempuri.org/ISPersonas/InsertarPersonaResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> InsertarPersonaAsync(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones);
+        System.Threading.Tasks.Task<PER_PERSONAS> InsertarPersonaAsync(PER_CAT_TELEFONOS personaTelefonos, PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersona", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaResponse")]
-        Universidad.Entidades.PER_PERSONAS BuscarPersona(string idPersonaLink);
+        PER_PERSONAS BuscarPersona(string idPersonaLink);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersona", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> BuscarPersonaAsync(string idPersonaLink);
+        System.Threading.Tasks.Task<PER_PERSONAS> BuscarPersonaAsync(string idPersonaLink);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/BuscarPersonaCompleta", ReplyAction="http://tempuri.org/ISPersonas/BuscarPersonaCompletaResponse")]
         Universidad.Entidades.Personas.DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink);
@@ -46,58 +46,58 @@ namespace Universidad.Controlador.SvcPersonas {
         System.Threading.Tasks.Task<Universidad.Entidades.Personas.DatosCompletosPersona> BuscarPersonaCompletaAsync(string idPersonaLink);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonas", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse")]
-        System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonas();
+        System.Collections.Generic.List<PER_PERSONAS> ObtenListaPersonas();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonas", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonasResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonasAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<PER_PERSONAS>> ObtenListaPersonasAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenCatTipoPersonaResponse")]
-        System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
+        System.Collections.Generic.List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenCatTipoPersonaResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltroResponse")]
-        System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
+        System.Collections.Generic.List<PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltro", ReplyAction="http://tempuri.org/ISPersonas/ObtenListaPersonaFiltroResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenDirecciones", ReplyAction="http://tempuri.org/ISPersonas/ObtenDireccionesResponse")]
-        Universidad.Entidades.DIR_DIRECCIONES ObtenDirecciones(Universidad.Entidades.PER_PERSONAS persona);
+        DIR_DIRECCIONES ObtenDirecciones(PER_PERSONAS persona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenDirecciones", ReplyAction="http://tempuri.org/ISPersonas/ObtenDireccionesResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.DIR_DIRECCIONES> ObtenDireccionesAsync(Universidad.Entidades.PER_PERSONAS persona);
+        System.Threading.Tasks.Task<DIR_DIRECCIONES> ObtenDireccionesAsync(PER_PERSONAS persona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTelefonos", ReplyAction="http://tempuri.org/ISPersonas/ObtenTelefonosResponse")]
-        Universidad.Entidades.PER_CAT_TELEFONOS ObtenTelefonos(Universidad.Entidades.PER_PERSONAS persona);
+        PER_CAT_TELEFONOS ObtenTelefonos(PER_PERSONAS persona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTelefonos", ReplyAction="http://tempuri.org/ISPersonas/ObtenTelefonosResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TELEFONOS> ObtenTelefonosAsync(Universidad.Entidades.PER_PERSONAS persona);
+        System.Threading.Tasks.Task<PER_CAT_TELEFONOS> ObtenTelefonosAsync(PER_PERSONAS persona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/ObtenMediosElectronicosResponse")]
-        Universidad.Entidades.PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(Universidad.Entidades.PER_PERSONAS personas);
+        PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(PER_PERSONAS personas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenMediosElectronicos", ReplyAction="http://tempuri.org/ISPersonas/ObtenMediosElectronicosResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicosAsync(Universidad.Entidades.PER_PERSONAS personas);
+        System.Threading.Tasks.Task<PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicosAsync(PER_PERSONAS personas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenFotografia", ReplyAction="http://tempuri.org/ISPersonas/ObtenFotografiaResponse")]
-        Universidad.Entidades.PER_FOTOGRAFIA ObtenFotografia(Universidad.Entidades.PER_PERSONAS personas);
+        PER_FOTOGRAFIA ObtenFotografia(PER_PERSONAS personas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenFotografia", ReplyAction="http://tempuri.org/ISPersonas/ObtenFotografiaResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_FOTOGRAFIA> ObtenFotografiaAsync(Universidad.Entidades.PER_PERSONAS personas);
+        System.Threading.Tasks.Task<PER_FOTOGRAFIA> ObtenFotografiaAsync(PER_PERSONAS personas);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenTipoPersonaResponse")]
-        Universidad.Entidades.PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona);
+        PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenTipoPersona", ReplyAction="http://tempuri.org/ISPersonas/ObtenTipoPersonaResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenTipoPersonaAsync(int idTipoPersona);
+        System.Threading.Tasks.Task<PER_CAT_TIPO_PERSONA> ObtenTipoPersonaAsync(int idTipoPersona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenPersonaPais", ReplyAction="http://tempuri.org/ISPersonas/ObtenPersonaPaisResponse")]
-        Universidad.Entidades.PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais);
+        PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISPersonas/ObtenPersonaPais", ReplyAction="http://tempuri.org/ISPersonas/ObtenPersonaPaisResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_NACIONALIDAD> ObtenPersonaPaisAsync(int idPersonaPais);
+        System.Threading.Tasks.Task<PER_CAT_NACIONALIDAD> ObtenPersonaPaisAsync(int idPersonaPais);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -135,27 +135,27 @@ namespace Universidad.Controlador.SvcPersonas {
             return base.Channel.ExisteCorreoUniversidadAsync(correo);
         }
         
-        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
+        public PER_MEDIOS_ELECTRONICOS InsertaMediosElectronicos(PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
             return base.Channel.InsertaMediosElectronicos(mediosElectronicos);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosAsync(Universidad.Entidades.PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
+        public System.Threading.Tasks.Task<PER_MEDIOS_ELECTRONICOS> InsertaMediosElectronicosAsync(PER_MEDIOS_ELECTRONICOS mediosElectronicos) {
             return base.Channel.InsertaMediosElectronicosAsync(mediosElectronicos);
         }
         
-        public Universidad.Entidades.PER_PERSONAS InsertarPersona(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones) {
+        public PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos, PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones) {
             return base.Channel.InsertarPersona(personaTelefonos, personaMediosElectronicos, personaFotografia, persona, personaDirecciones);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> InsertarPersonaAsync(Universidad.Entidades.PER_CAT_TELEFONOS personaTelefonos, Universidad.Entidades.PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, Universidad.Entidades.PER_FOTOGRAFIA personaFotografia, Universidad.Entidades.PER_PERSONAS persona, Universidad.Entidades.DIR_DIRECCIONES personaDirecciones) {
+        public System.Threading.Tasks.Task<PER_PERSONAS> InsertarPersonaAsync(PER_CAT_TELEFONOS personaTelefonos, PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona, DIR_DIRECCIONES personaDirecciones) {
             return base.Channel.InsertarPersonaAsync(personaTelefonos, personaMediosElectronicos, personaFotografia, persona, personaDirecciones);
         }
         
-        public Universidad.Entidades.PER_PERSONAS BuscarPersona(string idPersonaLink) {
+        public PER_PERSONAS BuscarPersona(string idPersonaLink) {
             return base.Channel.BuscarPersona(idPersonaLink);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> BuscarPersonaAsync(string idPersonaLink) {
+        public System.Threading.Tasks.Task<PER_PERSONAS> BuscarPersonaAsync(string idPersonaLink) {
             return base.Channel.BuscarPersonaAsync(idPersonaLink);
         }
         
@@ -167,75 +167,75 @@ namespace Universidad.Controlador.SvcPersonas {
             return base.Channel.BuscarPersonaCompletaAsync(idPersonaLink);
         }
         
-        public System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonas() {
+        public System.Collections.Generic.List<PER_PERSONAS> ObtenListaPersonas() {
             return base.Channel.ObtenListaPersonas();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonasAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<PER_PERSONAS>> ObtenListaPersonasAsync() {
             return base.Channel.ObtenListaPersonasAsync();
         }
         
-        public System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona() {
+        public System.Collections.Generic.List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona() {
             return base.Channel.ObtenCatTipoPersona();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync() {
             return base.Channel.ObtenCatTipoPersonaAsync();
         }
         
-        public System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
+        public System.Collections.Generic.List<PER_PERSONAS> ObtenListaPersonaFiltro(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
             return base.Channel.ObtenListaPersonaFiltro(idPersona, fechaInicio, fechaFinal, idTipoPersona);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<PER_PERSONAS>> ObtenListaPersonaFiltroAsync(string idPersona, System.Nullable<System.DateTime> fechaInicio, System.Nullable<System.DateTime> fechaFinal, System.Nullable<int> idTipoPersona) {
             return base.Channel.ObtenListaPersonaFiltroAsync(idPersona, fechaInicio, fechaFinal, idTipoPersona);
         }
         
-        public Universidad.Entidades.DIR_DIRECCIONES ObtenDirecciones(Universidad.Entidades.PER_PERSONAS persona) {
+        public DIR_DIRECCIONES ObtenDirecciones(PER_PERSONAS persona) {
             return base.Channel.ObtenDirecciones(persona);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.DIR_DIRECCIONES> ObtenDireccionesAsync(Universidad.Entidades.PER_PERSONAS persona) {
+        public System.Threading.Tasks.Task<DIR_DIRECCIONES> ObtenDireccionesAsync(PER_PERSONAS persona) {
             return base.Channel.ObtenDireccionesAsync(persona);
         }
         
-        public Universidad.Entidades.PER_CAT_TELEFONOS ObtenTelefonos(Universidad.Entidades.PER_PERSONAS persona) {
+        public PER_CAT_TELEFONOS ObtenTelefonos(PER_PERSONAS persona) {
             return base.Channel.ObtenTelefonos(persona);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TELEFONOS> ObtenTelefonosAsync(Universidad.Entidades.PER_PERSONAS persona) {
+        public System.Threading.Tasks.Task<PER_CAT_TELEFONOS> ObtenTelefonosAsync(PER_PERSONAS persona) {
             return base.Channel.ObtenTelefonosAsync(persona);
         }
         
-        public Universidad.Entidades.PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(Universidad.Entidades.PER_PERSONAS personas) {
+        public PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(PER_PERSONAS personas) {
             return base.Channel.ObtenMediosElectronicos(personas);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicosAsync(Universidad.Entidades.PER_PERSONAS personas) {
+        public System.Threading.Tasks.Task<PER_MEDIOS_ELECTRONICOS> ObtenMediosElectronicosAsync(PER_PERSONAS personas) {
             return base.Channel.ObtenMediosElectronicosAsync(personas);
         }
         
-        public Universidad.Entidades.PER_FOTOGRAFIA ObtenFotografia(Universidad.Entidades.PER_PERSONAS personas) {
+        public PER_FOTOGRAFIA ObtenFotografia(PER_PERSONAS personas) {
             return base.Channel.ObtenFotografia(personas);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_FOTOGRAFIA> ObtenFotografiaAsync(Universidad.Entidades.PER_PERSONAS personas) {
+        public System.Threading.Tasks.Task<PER_FOTOGRAFIA> ObtenFotografiaAsync(PER_PERSONAS personas) {
             return base.Channel.ObtenFotografiaAsync(personas);
         }
         
-        public Universidad.Entidades.PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona) {
+        public PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona) {
             return base.Channel.ObtenTipoPersona(idTipoPersona);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenTipoPersonaAsync(int idTipoPersona) {
+        public System.Threading.Tasks.Task<PER_CAT_TIPO_PERSONA> ObtenTipoPersonaAsync(int idTipoPersona) {
             return base.Channel.ObtenTipoPersonaAsync(idTipoPersona);
         }
         
-        public Universidad.Entidades.PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais) {
+        public PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaPais) {
             return base.Channel.ObtenPersonaPais(idPersonaPais);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_CAT_NACIONALIDAD> ObtenPersonaPaisAsync(int idPersonaPais) {
+        public System.Threading.Tasks.Task<PER_CAT_NACIONALIDAD> ObtenPersonaPaisAsync(int idPersonaPais) {
             return base.Channel.ObtenPersonaPaisAsync(idPersonaPais);
         }
     }

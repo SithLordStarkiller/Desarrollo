@@ -16,16 +16,16 @@ namespace Universidad.Controlador.SvcLogin {
     public interface IS_Login {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/LoginAdministrador", ReplyAction="http://tempuri.org/IS_Login/LoginAdministradorResponse")]
-        Universidad.Entidades.US_USUARIOS LoginAdministrador(string Usuario, string Contrasena);
+        US_USUARIOS LoginAdministrador(string Usuario, string Contrasena);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/LoginAdministrador", ReplyAction="http://tempuri.org/IS_Login/LoginAdministradorResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> LoginAdministradorAsync(string Usuario, string Contrasena);
+        System.Threading.Tasks.Task<US_USUARIOS> LoginAdministradorAsync(string Usuario, string Contrasena);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/ObtenPersona", ReplyAction="http://tempuri.org/IS_Login/ObtenPersonaResponse")]
-        Universidad.Entidades.PER_PERSONAS ObtenPersona(Universidad.Entidades.US_USUARIOS usuario);
+        PER_PERSONAS ObtenPersona(US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/ObtenPersona", ReplyAction="http://tempuri.org/IS_Login/ObtenPersonaResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> ObtenPersonaAsync(Universidad.Entidades.US_USUARIOS usuario);
+        System.Threading.Tasks.Task<PER_PERSONAS> ObtenPersonaAsync(US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/Funciona", ReplyAction="http://tempuri.org/IS_Login/FuncionaResponse")]
         bool Funciona();
@@ -34,10 +34,10 @@ namespace Universidad.Controlador.SvcLogin {
         System.Threading.Tasks.Task<bool> FuncionaAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/ObtenPersonas", ReplyAction="http://tempuri.org/IS_Login/ObtenPersonasResponse")]
-        Universidad.Entidades.PER_PERSONAS ObtenPersonas(Universidad.Entidades.US_USUARIOS usuario);
+        PER_PERSONAS ObtenPersonas(US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_Login/ObtenPersonas", ReplyAction="http://tempuri.org/IS_Login/ObtenPersonasResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> ObtenPersonasAsync(Universidad.Entidades.US_USUARIOS usuario);
+        System.Threading.Tasks.Task<PER_PERSONAS> ObtenPersonasAsync(US_USUARIOS usuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,19 +67,19 @@ namespace Universidad.Controlador.SvcLogin {
                 base(binding, remoteAddress) {
         }
         
-        public Universidad.Entidades.US_USUARIOS LoginAdministrador(string Usuario, string Contrasena) {
+        public US_USUARIOS LoginAdministrador(string Usuario, string Contrasena) {
             return base.Channel.LoginAdministrador(Usuario, Contrasena);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> LoginAdministradorAsync(string Usuario, string Contrasena) {
+        public System.Threading.Tasks.Task<US_USUARIOS> LoginAdministradorAsync(string Usuario, string Contrasena) {
             return base.Channel.LoginAdministradorAsync(Usuario, Contrasena);
         }
         
-        public Universidad.Entidades.PER_PERSONAS ObtenPersona(Universidad.Entidades.US_USUARIOS usuario) {
+        public PER_PERSONAS ObtenPersona(US_USUARIOS usuario) {
             return base.Channel.ObtenPersona(usuario);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> ObtenPersonaAsync(Universidad.Entidades.US_USUARIOS usuario) {
+        public System.Threading.Tasks.Task<PER_PERSONAS> ObtenPersonaAsync(US_USUARIOS usuario) {
             return base.Channel.ObtenPersonaAsync(usuario);
         }
         
@@ -91,11 +91,11 @@ namespace Universidad.Controlador.SvcLogin {
             return base.Channel.FuncionaAsync();
         }
         
-        public Universidad.Entidades.PER_PERSONAS ObtenPersonas(Universidad.Entidades.US_USUARIOS usuario) {
+        public PER_PERSONAS ObtenPersonas(US_USUARIOS usuario) {
             return base.Channel.ObtenPersonas(usuario);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.PER_PERSONAS> ObtenPersonasAsync(Universidad.Entidades.US_USUARIOS usuario) {
+        public System.Threading.Tasks.Task<PER_PERSONAS> ObtenPersonasAsync(US_USUARIOS usuario) {
             return base.Channel.ObtenPersonasAsync(usuario);
         }
     }

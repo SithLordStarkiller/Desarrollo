@@ -16,28 +16,28 @@ namespace Universidad.Controlador.SvcUsuarios {
     public interface ISUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioResponse")]
-        Universidad.Entidades.US_USUARIOS ObtenUsuario(string usuario);
+        US_USUARIOS ObtenUsuario(string usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioAsync(string usuario);
+        System.Threading.Tasks.Task<US_USUARIOS> ObtenUsuarioAsync(string usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuarioPorId", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioPorIdResponse")]
-        Universidad.Entidades.US_USUARIOS ObtenUsuarioPorId(int idUsuario);
+        US_USUARIOS ObtenUsuarioPorId(int idUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ObtenUsuarioPorId", ReplyAction="http://tempuri.org/ISUsuarios/ObtenUsuarioPorIdResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioPorIdAsync(int idUsuario);
+        System.Threading.Tasks.Task<US_USUARIOS> ObtenUsuarioPorIdAsync(int idUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/CrearCuantaUsuarioResponse")]
-        Universidad.Entidades.US_USUARIOS CrearCuantaUsuario(Universidad.Entidades.US_USUARIOS usuario, string personaId);
+        US_USUARIOS CrearCuantaUsuario(US_USUARIOS usuario, string personaId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/CrearCuantaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/CrearCuantaUsuarioResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> CrearCuantaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario, string personaId);
+        System.Threading.Tasks.Task<US_USUARIOS> CrearCuantaUsuarioAsync(US_USUARIOS usuario, string personaId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuarioResponse")]
-        Universidad.Entidades.US_USUARIOS ActualizaCuentaUsuario(Universidad.Entidades.US_USUARIOS usuario);
+        US_USUARIOS ActualizaCuentaUsuario(US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuario", ReplyAction="http://tempuri.org/ISUsuarios/ActualizaCuentaUsuarioResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ActualizaCuentaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario);
+        System.Threading.Tasks.Task<US_USUARIOS> ActualizaCuentaUsuarioAsync(US_USUARIOS usuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,35 +67,35 @@ namespace Universidad.Controlador.SvcUsuarios {
                 base(binding, remoteAddress) {
         }
         
-        public Universidad.Entidades.US_USUARIOS ObtenUsuario(string usuario) {
+        public US_USUARIOS ObtenUsuario(string usuario) {
             return base.Channel.ObtenUsuario(usuario);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioAsync(string usuario) {
+        public System.Threading.Tasks.Task<US_USUARIOS> ObtenUsuarioAsync(string usuario) {
             return base.Channel.ObtenUsuarioAsync(usuario);
         }
         
-        public Universidad.Entidades.US_USUARIOS ObtenUsuarioPorId(int idUsuario) {
+        public US_USUARIOS ObtenUsuarioPorId(int idUsuario) {
             return base.Channel.ObtenUsuarioPorId(idUsuario);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ObtenUsuarioPorIdAsync(int idUsuario) {
+        public System.Threading.Tasks.Task<US_USUARIOS> ObtenUsuarioPorIdAsync(int idUsuario) {
             return base.Channel.ObtenUsuarioPorIdAsync(idUsuario);
         }
         
-        public Universidad.Entidades.US_USUARIOS CrearCuantaUsuario(Universidad.Entidades.US_USUARIOS usuario, string personaId) {
+        public US_USUARIOS CrearCuantaUsuario(US_USUARIOS usuario, string personaId) {
             return base.Channel.CrearCuantaUsuario(usuario, personaId);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> CrearCuantaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario, string personaId) {
+        public System.Threading.Tasks.Task<US_USUARIOS> CrearCuantaUsuarioAsync(US_USUARIOS usuario, string personaId) {
             return base.Channel.CrearCuantaUsuarioAsync(usuario, personaId);
         }
         
-        public Universidad.Entidades.US_USUARIOS ActualizaCuentaUsuario(Universidad.Entidades.US_USUARIOS usuario) {
+        public US_USUARIOS ActualizaCuentaUsuario(US_USUARIOS usuario) {
             return base.Channel.ActualizaCuentaUsuario(usuario);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.US_USUARIOS> ActualizaCuentaUsuarioAsync(Universidad.Entidades.US_USUARIOS usuario) {
+        public System.Threading.Tasks.Task<US_USUARIOS> ActualizaCuentaUsuarioAsync(US_USUARIOS usuario) {
             return base.Channel.ActualizaCuentaUsuarioAsync(usuario);
         }
     }

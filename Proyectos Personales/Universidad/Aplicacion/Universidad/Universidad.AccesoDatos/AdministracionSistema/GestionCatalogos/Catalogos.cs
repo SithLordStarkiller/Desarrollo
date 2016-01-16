@@ -30,6 +30,14 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
             return resultado;
         }
 
+        public List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULALinq()
+        {
+            using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
         public List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULATSql()
         {
             var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
@@ -73,6 +81,21 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
             }
         }
 
+        public bool ActualizaRegistroAUL_CAT_TIPO_AULALinq(AUL_CAT_TIPO_AULA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+                {
+                    return r.Actualizar(registro) != null;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public AUL_CAT_TIPO_AULA NuevoRegistroAUL_CAT_TIPO_AULATSql(AUL_CAT_TIPO_AULA registro)
         {
             try
@@ -95,6 +118,14 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
             }
         }
 
+        public AUL_CAT_TIPO_AULA NuevoRegistroAUL_CAT_TIPO_AULALinq(AUL_CAT_TIPO_AULA registro)
+        {
+            using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
         public bool EliminaRegistroAUL_CAT_TIPO_AULATSql(int idTipoAula)
         {
             try
@@ -108,6 +139,22 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
                     "Usp_EliminaRegistroAUL_CAT_TIPO_AULA", para);
 
                 return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaRegistroAUL_CAT_TIPO_AULATLinq(int idTipoAula)
+        {
+            try
+            {
+                using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+                {
+                    r.Eliminar(new AUL_CAT_TIPO_AULA {IDTIPOAULA = (short) idTipoAula});
+                    return true;
+                }
             }
             catch (Exception)
             {

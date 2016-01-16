@@ -12,7 +12,6 @@
     using Newtonsoft.Json;
     using Controlador.GestionCatalogos;
     using Controlador.Personas;
-    using Entidades;
     using Entidades.ControlUsuario;
     using Models;
     using PagedList;
@@ -489,8 +488,9 @@
 
             const int pageSize = 6;
             var pageNumber = (page ?? 1);
+            var listaAux = listaPersonas.ToPagedList(pageNumber, pageSize);
 
-            return View(listaPersonas.ToPagedList(pageNumber, pageSize));
+            return View(listaAux);
         }
 
         [SessionExpireFilter]

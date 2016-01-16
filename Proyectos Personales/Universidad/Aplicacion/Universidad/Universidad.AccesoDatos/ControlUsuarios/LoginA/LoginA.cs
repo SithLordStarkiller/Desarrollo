@@ -52,7 +52,6 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
                                  USUARIO = (string)row["Usuario"],
                                  ID_ESTATUS_USUARIOS = Convert.IsDBNull(row["ID_ESTATUS_USUARIOS"]) ? null : (int?)row["ID_ESTATUS_USUARIOS"],
                                  ID_USUARIO = (int)row["ID_USUARIO"],
-                                 ID_HISTORIAL = Convert.IsDBNull(row["ID_HISTORIAL"]) ? null : (int?)row["ID_HISTORIAL"],
                                  ID_NIVEL_USUARIO = Convert.IsDBNull(row["ID_NIVEL_USUARIO"]) ? null : (int?)row["ID_NIVEL_USUARIO"],
                                  ID_TIPO_USUARIO = Convert.IsDBNull(row["ID_TIPO_USUARIO"]) ? null : (int?)row["ID_TIPO_USUARIO"]
 

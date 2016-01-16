@@ -25,12 +25,20 @@
 
         public AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
         {
-            return new Catalogos().NuevoRegistroAUL_CAT_TIPO_AULATSql(registro);
+            //return new Catalogos().NuevoRegistroAUL_CAT_TIPO_AULATSql(registro);
+            return new Catalogos().NuevoRegistroAUL_CAT_TIPO_AULALinq(registro);
+        }
+
+        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
+        {
+            //return new Catalogos().ActualizaRegistroAUL_CAT_TIPO_AULATSql(registro);
+            return new Catalogos().ActualizaRegistroAUL_CAT_TIPO_AULALinq(registro);
         }
 
         public bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula)
         {
-            return new Catalogos().EliminaRegistroAUL_CAT_TIPO_AULATSql(idTipoAula);
+            //return new Catalogos().EliminaRegistroAUL_CAT_TIPO_AULATSql(idTipoAula);
+            return new Catalogos().EliminaRegistroAUL_CAT_TIPO_AULATLinq(idTipoAula);
         }
 
         #endregion
@@ -79,12 +87,8 @@
 
         public List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA()
         {
-            return new Catalogos().ObtenListaAUL_CAT_TIPO_AULATSql();
-        }
-
-        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
-        {
-            return new Catalogos().ActualizaRegistroAUL_CAT_TIPO_AULATSql(registro);
+            //return new Catalogos().ObtenListaAUL_CAT_TIPO_AULATSql();
+            return new Catalogos().ObtenListaAUL_CAT_TIPO_AULALinq();
         }
 
         #region Gestion de catalogos Direcciones
