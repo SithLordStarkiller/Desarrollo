@@ -130,6 +130,156 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipiosResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO>> ObtenCatalogosMunicipiosAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurnoResponse")]
+        System.Collections.Generic.List<HOR_CAT_TURNO> ObtenListaHorCatTurno();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurnoResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_TURNO>> ObtenListaHorCatTurnoAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurnoResponse")]
+        HOR_CAT_TURNO InsertaHorCatTurno(HOR_CAT_TURNO registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurnoResponse")]
+        System.Threading.Tasks.Task<HOR_CAT_TURNO> InsertaHorCatTurnoAsync(HOR_CAT_TURNO registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurnoResponse")]
+        bool ActualizaHorCatTurno(HOR_CAT_TURNO registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurnoResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaHorCatTurnoAsync(HOR_CAT_TURNO registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurnoResponse")]
+        bool EliminaHorCatTurno(HOR_CAT_TURNO registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurnoResponse")]
+        System.Threading.Tasks.Task<bool> EliminaHorCatTurnoAsync(HOR_CAT_TURNO registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurnoResponse")]
+        HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurnoResponse")]
+        System.Threading.Tasks.Task<HOR_CAT_TURNO> ExtraeHorCatTurnoAsync(int idTurno);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemanaResponse")]
+        System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemanaResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA>> ObtenListaHorCatDiasSemanaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemanaResponse")]
+        HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemanaResponse")]
+        System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> InsertaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemanaResponse")]
+        bool ActualizaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemanaResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemanaResponse")]
+        bool EliminaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemanaResponse")]
+        System.Threading.Tasks.Task<bool> EliminaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemanaResponse")]
+        HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemanaResponse")]
+        System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> ExtraerHorCatDiasSemanaAsync(int idTurno);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAulaResponse")]
+        System.Collections.Generic.List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAulaResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<AUL_CAT_TIPO_AULA>> ObtenListaAulCatTipoAulaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAulaResponse")]
+        AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAulaResponse")]
+        System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> InsertaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAulaResponse")]
+        bool ActualizaAulCatTipoAula(AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAulaResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAulaResponse")]
+        bool EliminaAulCatTipoAula(AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAulaResponse")]
+        System.Threading.Tasks.Task<bool> EliminaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAulaResponse")]
+        AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAulaResponse")]
+        System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> ExtraerAulCatTipoAulaAsync(int idTurno);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidadResponse")]
+        System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidadResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD>> ObtenListaCarCatEspecialidadAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidadResponse")]
+        CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidadResponse")]
+        System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> InsertaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidadResponse")]
+        bool ActualizaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidadResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidadResponse")]
+        bool EliminaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidadResponse")]
+        System.Threading.Tasks.Task<bool> EliminaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidadResponse")]
+        CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidadResponse")]
+        System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> ExtraerCarCatEspecialidadAsync(int idEspecialidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacionResponse")]
+        System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacionResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION>> ObtenListaCalCatTipoEvaluacionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacionResponse")]
+        CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacionResponse")]
+        System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> InsertaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacionResponse")]
+        bool ActualizaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacionResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacionResponse")]
+        bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacionResponse")]
+        System.Threading.Tasks.Task<bool> EliminaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacionResponse")]
+        CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacionResponse")]
+        System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -309,6 +459,206 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO>> ObtenCatalogosMunicipiosAsync() {
             return base.Channel.ObtenCatalogosMunicipiosAsync();
+        }
+        
+        public System.Collections.Generic.List<HOR_CAT_TURNO> ObtenListaHorCatTurno() {
+            return base.Channel.ObtenListaHorCatTurno();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_TURNO>> ObtenListaHorCatTurnoAsync() {
+            return base.Channel.ObtenListaHorCatTurnoAsync();
+        }
+        
+        public HOR_CAT_TURNO InsertaHorCatTurno(HOR_CAT_TURNO registro) {
+            return base.Channel.InsertaHorCatTurno(registro);
+        }
+        
+        public System.Threading.Tasks.Task<HOR_CAT_TURNO> InsertaHorCatTurnoAsync(HOR_CAT_TURNO registro) {
+            return base.Channel.InsertaHorCatTurnoAsync(registro);
+        }
+        
+        public bool ActualizaHorCatTurno(HOR_CAT_TURNO registro) {
+            return base.Channel.ActualizaHorCatTurno(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaHorCatTurnoAsync(HOR_CAT_TURNO registro) {
+            return base.Channel.ActualizaHorCatTurnoAsync(registro);
+        }
+        
+        public bool EliminaHorCatTurno(HOR_CAT_TURNO registro) {
+            return base.Channel.EliminaHorCatTurno(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaHorCatTurnoAsync(HOR_CAT_TURNO registro) {
+            return base.Channel.EliminaHorCatTurnoAsync(registro);
+        }
+        
+        public HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno) {
+            return base.Channel.ExtraeHorCatTurno(idTurno);
+        }
+        
+        public System.Threading.Tasks.Task<HOR_CAT_TURNO> ExtraeHorCatTurnoAsync(int idTurno) {
+            return base.Channel.ExtraeHorCatTurnoAsync(idTurno);
+        }
+        
+        public System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana() {
+            return base.Channel.ObtenListaHorCatDiasSemana();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA>> ObtenListaHorCatDiasSemanaAsync() {
+            return base.Channel.ObtenListaHorCatDiasSemanaAsync();
+        }
+        
+        public HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro) {
+            return base.Channel.InsertaHorCatDiasSemana(registro);
+        }
+        
+        public System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> InsertaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro) {
+            return base.Channel.InsertaHorCatDiasSemanaAsync(registro);
+        }
+        
+        public bool ActualizaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro) {
+            return base.Channel.ActualizaHorCatDiasSemana(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro) {
+            return base.Channel.ActualizaHorCatDiasSemanaAsync(registro);
+        }
+        
+        public bool EliminaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro) {
+            return base.Channel.EliminaHorCatDiasSemana(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro) {
+            return base.Channel.EliminaHorCatDiasSemanaAsync(registro);
+        }
+        
+        public HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno) {
+            return base.Channel.ExtraerHorCatDiasSemana(idTurno);
+        }
+        
+        public System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> ExtraerHorCatDiasSemanaAsync(int idTurno) {
+            return base.Channel.ExtraerHorCatDiasSemanaAsync(idTurno);
+        }
+        
+        public System.Collections.Generic.List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula() {
+            return base.Channel.ObtenListaAulCatTipoAula();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<AUL_CAT_TIPO_AULA>> ObtenListaAulCatTipoAulaAsync() {
+            return base.Channel.ObtenListaAulCatTipoAulaAsync();
+        }
+        
+        public AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.InsertaAulCatTipoAula(registro);
+        }
+        
+        public System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> InsertaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.InsertaAulCatTipoAulaAsync(registro);
+        }
+        
+        public bool ActualizaAulCatTipoAula(AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.ActualizaAulCatTipoAula(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.ActualizaAulCatTipoAulaAsync(registro);
+        }
+        
+        public bool EliminaAulCatTipoAula(AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.EliminaAulCatTipoAula(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro) {
+            return base.Channel.EliminaAulCatTipoAulaAsync(registro);
+        }
+        
+        public AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno) {
+            return base.Channel.ExtraerAulCatTipoAula(idTurno);
+        }
+        
+        public System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> ExtraerAulCatTipoAulaAsync(int idTurno) {
+            return base.Channel.ExtraerAulCatTipoAulaAsync(idTurno);
+        }
+        
+        public System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad() {
+            return base.Channel.ObtenListaCarCatEspecialidad();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD>> ObtenListaCarCatEspecialidadAsync() {
+            return base.Channel.ObtenListaCarCatEspecialidadAsync();
+        }
+        
+        public CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro) {
+            return base.Channel.InsertaCarCatEspecialidad(registro);
+        }
+        
+        public System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> InsertaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro) {
+            return base.Channel.InsertaCarCatEspecialidadAsync(registro);
+        }
+        
+        public bool ActualizaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro) {
+            return base.Channel.ActualizaCarCatEspecialidad(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro) {
+            return base.Channel.ActualizaCarCatEspecialidadAsync(registro);
+        }
+        
+        public bool EliminaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro) {
+            return base.Channel.EliminaCarCatEspecialidad(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro) {
+            return base.Channel.EliminaCarCatEspecialidadAsync(registro);
+        }
+        
+        public CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad) {
+            return base.Channel.ExtraerCarCatEspecialidad(idEspecialidad);
+        }
+        
+        public System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> ExtraerCarCatEspecialidadAsync(int idEspecialidad) {
+            return base.Channel.ExtraerCarCatEspecialidadAsync(idEspecialidad);
+        }
+        
+        public System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion() {
+            return base.Channel.ObtenListaCalCatTipoEvaluacion();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION>> ObtenListaCalCatTipoEvaluacionAsync() {
+            return base.Channel.ObtenListaCalCatTipoEvaluacionAsync();
+        }
+        
+        public CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro) {
+            return base.Channel.InsertaCalCatTipoEvaluacion(registro);
+        }
+        
+        public System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> InsertaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro) {
+            return base.Channel.InsertaCalCatTipoEvaluacionAsync(registro);
+        }
+        
+        public bool ActualizaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro) {
+            return base.Channel.ActualizaCalCatTipoEvaluacion(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro) {
+            return base.Channel.ActualizaCalCatTipoEvaluacionAsync(registro);
+        }
+        
+        public bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro) {
+            return base.Channel.EliminaCalCatTipoEvaluacion(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro) {
+            return base.Channel.EliminaCalCatTipoEvaluacionAsync(registro);
+        }
+        
+        public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad) {
+            return base.Channel.ExtraerCalCatTipoEvaluacion(idEspecialidad);
+        }
+        
+        public System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad) {
+            return base.Channel.ExtraerCalCatTipoEvaluacionAsync(idEspecialidad);
         }
     }
 }

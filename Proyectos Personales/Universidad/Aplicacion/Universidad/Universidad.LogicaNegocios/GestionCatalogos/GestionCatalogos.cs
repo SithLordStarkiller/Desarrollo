@@ -1,7 +1,6 @@
 ﻿namespace Universidad.LogicaNegocios.GestionCatalogos
 {
     using System.Collections.Generic;
-    using Entidades;
     using AccesoDatos.AdministracionSistema.GestionCatalogos;
     using Entidades.Catalogos;
     
@@ -91,6 +90,8 @@
             return new Catalogos().ObtenListaAUL_CAT_TIPO_AULALinq();
         }
 
+        #endregion
+
         #region Gestion de catalogos Direcciones
 
         public List<DIR_CAT_ESTADO> ObtenCatEstados()
@@ -129,6 +130,149 @@
         }
 
         #endregion
+
+        #region HOR_CAT_TURNO
+
+        public List<HOR_CAT_TURNO> ObtenListaHorCatTurno()
+        {
+            return new Catalogos().ObtenListaHorCatTurnoLinq();
+        }
+
+        public HOR_CAT_TURNO InsertaHorCatTurno(HOR_CAT_TURNO registro)
+        {
+            return new Catalogos().InsertaHorCatTurnoLinq(registro);
+        }
+
+        public bool ActualizaHorCatTurno(HOR_CAT_TURNO registro)
+        {
+            return new Catalogos().ActualizaHorCatTurnoLinq(registro);
+        }
+
+        public bool EliminaHorCatTurno(HOR_CAT_TURNO registro)
+        {
+            return new Catalogos().EliminaHorCatTurnoLinq(registro);
+        }
+
+        public HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno)
+        {
+            return new Catalogos().ExtraeHorCatTurnoLinq(idTurno);
+        }
+
+        #endregion
+        
+        #region HOR_CAT_DIAS_SEMANA
+
+        public List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana()
+        {
+            return new Catalogos().ObtenListaHorCatDiasSemanaLinq();
+        }
+
+        public HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro)
+        {
+            return new Catalogos().InsertaHorCatDiasSemanaLinq(registro);
+        }
+
+        public bool ActualizaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro)
+        {
+            return new Catalogos().ActualizaHorCatDiasSemanaLinq(registro);
+        }
+
+        public bool EliminaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro)
+        {
+            return new Catalogos().EliminaHorCatDiasSemanaLinq(registro);
+        }
+
+        public HOR_CAT_DIAS_SEMANA ExtraeHorCatDiasSemana(int idDia)
+        {
+            return new Catalogos().ExtraeHorCatDiasSemanaLinq(idDia);
+        }
+
+        #endregion
+
+        #region AUL_CAT_TIPO_AULA
+
+        public List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula()
+        {
+            return new Catalogos().ObtenListaAulCatTipoAulaLinq();
+        }
+
+        public AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(AUL_CAT_TIPO_AULA registro)
+        {
+            return new Catalogos().InsertaAulCatTipoAulaLinq(registro);
+        }
+
+        public bool ActualizaAulCatTipoAula(AUL_CAT_TIPO_AULA registro)
+        {
+            return new Catalogos().ActualizaAulCatTipoAulaLinq(registro);
+        }
+
+        public bool EliminaAulCatTipoAula(AUL_CAT_TIPO_AULA registro)
+        {
+            return new Catalogos().EliminaAulCatTipoAulaLinq(registro);
+        }
+
+        public AUL_CAT_TIPO_AULA ExtraerAulCatTipoAulaSemana(int idTipoAula)
+        {
+            return new Catalogos().ExtraeAulCatTipoAulaLinq(idTipoAula);
+        }
+
+        #endregion
+
+        #region CAR_CAT_ESPECIALIDAD
+
+        public List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad()
+        {
+            return new Catalogos().ObtenListaCarCatEspecialidadLinq();
+        }
+
+        public CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro)
+        {
+            return new Catalogos().InsertaCarCatEspecialidadLinq(registro);
+        }
+
+        public bool ActualizaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro)
+        {
+            return new Catalogos().ActualizaCarCatEspecialidadLinq(registro);
+        }
+
+        public bool EliminaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro)
+        {
+            return new Catalogos().EliminaCarCatEspecialidadLinq(registro);
+        }
+
+        public CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad)
+        {
+            return new Catalogos().ExtraeCarCatEspecialidadLinq(idEspecialidad);
+        }
+
+        #endregion
+
+        #region CAL_CAT_TIPO_EVALUACION
+
+        public List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion()
+        {
+            return new Catalogos().ObtenListaCalCatTipoEvaluacionLinq();
+        }
+
+        public CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            return new Catalogos().InsertaCalCatTipoEvaluacionLinq(registro);
+        }
+
+        public bool ActualizaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            return new Catalogos().ActualizaCalCatTipoEvaluacionLinq(registro);
+        }
+
+        public bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            return new Catalogos().ActualizaCalCatTipoEvaluacionLinq(registro);
+        }
+
+        public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idTipoEvaluacion)
+        {
+            return new Catalogos().ExtraerCalCatTipoEvaluacionLinq(idTipoEvaluacion);
+        }
 
         #endregion
     }

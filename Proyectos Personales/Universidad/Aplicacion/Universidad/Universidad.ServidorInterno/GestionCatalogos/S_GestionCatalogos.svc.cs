@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Universidad.Entidades;
-using Universidad.Entidades.Catalogos;
-
-
-namespace Universidad.ServidorInterno.GestionCatalogos
+﻿namespace Universidad.ServidorInterno.GestionCatalogos
 {
+    using System.Collections.Generic;
+    using Entidades.Catalogos;
+
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "S_GestionCatalogos" en el código, en svc y en el archivo de configuración a la vez.
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione S_GestionCatalogos.svc o S_GestionCatalogos.svc.cs en el Explorador de soluciones e inicie la depuración.
+    
     public class S_GestionCatalogos : IS_GestionCatalogos
     {
         public List<CatalogosSistema> ObtenCatalogosSistemas()
@@ -103,5 +102,151 @@ namespace Universidad.ServidorInterno.GestionCatalogos
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaRegistroAUL_CAT_TIPO_AULA(idTipoAula);
         }
+
+        #region HOR_CAT_TURNO
+
+        public List<HOR_CAT_TURNO> ObtenListaHorCatTurno()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaHorCatTurno();
+        }
+
+        public HOR_CAT_TURNO InsertaHorCatTurno(HOR_CAT_TURNO registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaHorCatTurno(registro);
+        }
+
+        public bool ActualizaHorCatTurno(HOR_CAT_TURNO registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaHorCatTurno(registro);
+        }
+
+        public bool EliminaHorCatTurno(HOR_CAT_TURNO registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaHorCatTurno(registro);
+        }
+
+        public HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraeHorCatTurno(idTurno);
+        }
+
+        #endregion
+
+        #region HOR_CAT_DIAS_SEMANA
+
+        public List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaHorCatDiasSemana();
+        }
+
+        public HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaHorCatDiasSemana(registro);
+        }
+
+        public bool ActualizaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaHorCatDiasSemana(registro);
+        }
+
+        public bool EliminaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaHorCatDiasSemana(registro);
+        }
+
+        public HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraeHorCatDiasSemana(idTurno);
+        }
+
+        #endregion
+
+
+        #region AUL_CAT_TIPO_AULA
+
+        public List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaAulCatTipoAula();
+        }
+
+        public AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(AUL_CAT_TIPO_AULA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaAulCatTipoAula(registro);
+        }
+
+        public bool ActualizaAulCatTipoAula(AUL_CAT_TIPO_AULA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaAulCatTipoAula(registro);
+        }
+
+        public bool EliminaAulCatTipoAula(AUL_CAT_TIPO_AULA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaAulCatTipoAula(registro);
+        }
+
+        public AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerAulCatTipoAulaSemana(idTurno);
+        }
+
+        #endregion
+
+        #region CAR_CAT_ESPECIALIDAD
+
+        public List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaCarCatEspecialidad();
+        }
+
+        public CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaCarCatEspecialidad(registro);
+        }
+
+        public bool ActualizaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaCarCatEspecialidad(registro);
+        }
+
+        public bool EliminaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaCarCatEspecialidad(registro);
+        }
+
+        public CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerCarCatEspecialidad(idEspecialidad);
+        }
+
+        #endregion
+
+        #region CAL_CAT_TIPO_EVALUACION
+
+        public List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaCalCatTipoEvaluacion();
+        }
+
+        public CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaCalCatTipoEvaluacion(registro);
+        }
+
+        public bool ActualizaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaCalCatTipoEvaluacion(registro);
+        }
+
+        public bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaCalCatTipoEvaluacion(registro);
+        }
+
+        public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerCalCatTipoEvaluacion(idEspecialidad);
+        }
+
+        #endregion
     }
 }

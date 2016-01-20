@@ -1,7 +1,7 @@
 ﻿@{
-    ViewBag.Title = "AUL_CAT_TIPO_AULA";
+    ViewBag.Title = "HOR_CAT_DIAS_SEMANA";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var lista = (List<AUL_CAT_TIPO_AULA>)ViewBag.ListaCatalogo;
+    var lista = (List<HOR_CAT_DIAS_SEMANA>)ViewBag.ListaCatalogo;
 }
 
 @section Head
@@ -19,44 +19,42 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function show_modal(modalName, idTipoAula, tipoAula, descripcion) {
-            $("#txtIdTipoAula").val(idTipoAula);
-            $("#txtTipoAula").val(tipoAula);
-            $("#txtDescripcion").val(descripcion);
+        function show_modal(modalName, idTipoAula, tipoAula) {
+            $("#txtIdDiaActualiza").val(idTipoAula);
+            $("#txtDiaSemanaActualiza").val(tipoAula);
+            $("#txtIdDiaVer").val(idTipoAula);
+            $("#txtDiaSemanaVer").val(tipoAula);
 
             $('#' + modalName + '').modal('show');
         }
 
         function Nuevo() {
-            $("#txtIdTipoAula").val('');
-            $("#txtTipoAula").val('');
-            $("#txtDescripcion").val('');
+            $("#txtIdDiaNuevo").val('');
+            $("#txtDiaSemanaNuevo").val('');
             $('#modalNuevoRegistro').modal('show');
         }
 
         function NuevoRegistro() {
-            var idTipoAula = $("#txtIdTipoAulaNuevo").val();
-            var tipoAula = $("#txtTipoAulaNuevo").val();
-            var descripcion = $("#txtDescripcionNuevo").val();
+            var idDia = $("#txtIdDiaNuevo").val();
+            var diaSemana = $("#txtDiaSemanaNuevo").val();
 
             $.ajax({
                 type: "POST",
                 data: {
-                    'idTipoAula': idTipoAula,
-                    'tipoAula': tipoAula,
-                    'Descripcion': descripcion
+                    'idDia': idDia,
+                    'diaSemana': diaSemana
                 },
-                url: '@Url.Action("NuevoRegistroAUL_CAT_TIPO_AULA", "Catalogos")',
+                url: '@Url.Action("NuevoRegistroHorCatDiasSemana", "Catalogos")',
                 success: function (response) {
 
-                    $('#modalCreaProducto').modal('hide');
+                    $('#modalNuevoRegistro').modal('hide');
 
                     if (response) {
                         if (response == true)
                             alert("true");
                         location.reload();
                     } else {
-                        alert("false");
+                        alert("No se guardo el registro");
                     }
                 },
                 error:
@@ -68,54 +66,19 @@
 
         function Actualiza() {
 
-            var idTipoAula = $("#txtIdTipoAula").val();
-            var tipoAula = $("#txtTipoAula").val();
-            var descripcion = $("#txtDescripcion").val();
+            var idDia = $("#txtIdDiaActualiza").val();
+            var diaSemana = $("#txtDiaSemanaActualiza").val();
 
             $.ajax({
                 type: "POST",
                 data: {
-                    'idTipoAula': idTipoAula,
-                    'tipoAula': tipoAula,
-                    'Descripcion': descripcion
+                    'idDia': idDia,
+                    'diaSemana': diaSemana
                 },
-                url: '@Url.Action("ActualizaRegistroAUL_CAT_TIPO_AULA", "Catalogos")',
-                success: function(response) {
-
-                    $('#modalCreaProducto').modal('hide');
-
-                    if (response) {
-                        if (response == true)
-                            alert("true");
-                        location.reload();
-                    } else {
-                        alert("false");
-                    }
-                },
-                error:
-                    function(xhr, status, error) {
-                        alert(status + " : " + error);
-                    }
-            });
-        }
-
-        function Ver() {
-
-            var idTipoAula = $("#txtIdTipoAulaVer").val();
-            var tipoAula = $("#txtTipoAulaVer").val();
-            var descripcion = $("#txtDescripcionVer").val();
-
-            $.ajax({
-                type: "POST",
-                data: {
-                    'idTipoAula': idTipoAula,
-                    'tipoAula': tipoAula,
-                    'Descripcion': descripcion
-                },
-                url: '@Url.Action("ActualizaRegistroAUL_CAT_TIPO_AULA", "Catalogos")',
+                url: '@Url.Action("ActualizaHorCatDiasSemana", "Catalogos")',
                 success: function (response) {
 
-                    $('#modalCreaProducto').modal('hide');
+                    $('#modalActualizaRegistro').modal('hide');
 
                     if (response) {
                         if (response == true)
@@ -131,14 +94,21 @@
                     }
             });
         }
+
+        function Ver(modal, idTurno, nombreTurno) {
+
+            $("#txtIdDiaVer").val(idTurno);
+            $("#txtDiaSemanaVer").val(nombreTurno);
+            $('#modalVerRegistro').modal('show');
+        }
     </script>
 }
 
 <br />
 
-<h4>Catalogo AUL_CAT_TIPO_AULA</h4>
+<h4>Catalogo @ViewBag.Title</h4>
 
-<h5>En este catalogo se descriven los distintos tipos de salon con los cuales se cuenta</h5>
+<h5>En este catalogo se describen los distintos tipos de horarios con los cuales se cuenta</h5>
 
 <br />
 
@@ -152,9 +122,6 @@
                 TipoAula
             </th>
             <th>
-                Descripcion
-            </th>
-            <th>
                 Operaciones
             </th>
         </tr>
@@ -163,18 +130,15 @@
         {
             <tr>
                 <td>
-                    @item.IDTIPOAULA
+                    @item.IDDIA
                 </td>
                 <td>
-                    @item.TIPOAULA
-                </td>
-                <td>
-                    @item.DESCRIPCION
+                    @item.DIASEMANA
                 </td>
                 <td style="align-content: center;">
-                    <a id="btnEliminar" href="@Url.Action("EliminaRegistroAUL_CAT_TIPO_AULA", "Catalogos", new { nombreTabla = item.IDTIPOAULA })" class="btn btn-default btn-sm">Elimina</a>
-                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalCreaProducto','@item.IDTIPOAULA','@item.TIPOAULA','@item.DESCRIPCION')">Editar</button>
-                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDTIPOAULA','@item.TIPOAULA','@item.DESCRIPCION')">ver</button>
+                    <a id="btnEliminar" href="@Url.Action("EliminaHorCatDiasSemana", "Catalogos", new { idDia = item.IDDIA, diaSemana = item.DIASEMANA })" class="btn btn-default btn-sm">Elimina</a>
+                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro','@item.IDDIA','@item.DIASEMANA')">Editar</button>
+                    <button name="btnVer" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDDIA','@item.DIASEMANA')">ver</button>
                 </td>
             </tr>
         }
@@ -185,7 +149,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalCreaProducto" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
+<div class="modal fade" id="modalActualizaRegistro" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -200,12 +164,10 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdTipoAula", null, new { @class = "" })
-                            @Html.TextBox("txtIdTipoAula", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off" })
-                            @Html.Label("TipoAula", null, new { @class = "" })
-                            @Html.TextBox("txtTipoAula", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
-                            @Html.Label("Descripcion", null, new { @class = "" })
-                            @Html.TextBox("txtDescripcion", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                            @Html.Label("IdDia", null, new { @class = "" })
+                            @Html.TextBox("txtIdDiaActualiza", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("DiaSemana", null, new { @class = "" })
+                            @Html.TextBox("txtDiaSemanaActualiza", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
                         </div>
                     </div>
                 </div>
@@ -234,12 +196,10 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdTipoAula", null, new { @class = "" })
-                            @Html.TextBox("txtIdTipoAulaNuevo", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off" })
-                            @Html.Label("TipoAula", null, new { @class = "" })
-                            @Html.TextBox("txtTipoAulaNuevo", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
-                            @Html.Label("Descripcion", null, new { @class = "" })
-                            @Html.TextBox("txtDescripcionNuevo", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                            @Html.Label("IdDia", null, new { @class = "" })
+                            @Html.TextBox("txtIdDiaNuevo", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("DiaSemana", null, new { @class = "" })
+                            @Html.TextBox("txtDiaSemanaNuevo", "", new { @class = "form-control", placeholder = "Nombre Turno", autocomplete = "off" })
                         </div>
                     </div>
                 </div>
@@ -267,12 +227,10 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdTipoAula", null, new { @class = "" })
-                            @Html.TextBox("txtIdTipoAulaVer", "", new { @class = "form-control", placeholder = "Nombre", autocomplete = "off" })
-                            @Html.Label("TipoAula", null, new { @class = "" })
-                            @Html.TextBox("txtTipoAulaVer", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
-                            @Html.Label("Descripcion", null, new { @class = "" })
-                            @Html.TextBox("txtDescripcionVer", "", new { @class = "form-control", placeholder = "Apellido Paterno", autocomplete = "off" })
+                            @Html.Label("IdDia", null, new { @class = "" })
+                            @Html.TextBox("txtIdDiaVer", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("DiaSemana", null, new { @class = "" })
+                            @Html.TextBox("txtDiaSemanaVer", "", new { @class = "form-control", placeholder = "Nombre Turno", autocomplete = "off" })
                         </div>
                     </div>
                 </div>

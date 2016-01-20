@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 using Universidad.Controlador.GestionCatalogos;
 using Universidad.Controlador.Personas;
 using Universidad.Controlador.Usuarios;
-using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
 
 namespace Universidad.WebAdministrativa.Controllers

@@ -6,7 +6,6 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Controlador.GestionCatalogos;
-    using Entidades;
     using Entidades.ControlUsuario;
     using Newtonsoft.Json;
 
@@ -92,6 +91,12 @@
             {
                 case "AUL_CAT_TIPO_AULA":
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditarAUL_CAT_TIPO_AULA", "Catalogos"));
+                case "HOR_CAT_TURNO":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoHorCatTurno", "Catalogos"));
+                case "HOR_CAT_DIAS_SEMANA":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoHorCatDiasSemana", "Catalogos"));
+                case "CAR_CAT_ESPECIALIDAD":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoCarCatEspecialidad","Catalogos"));
             }
             return null;
         }
@@ -164,6 +169,228 @@
             var nuevo = await servicio.EliminaResgistroAUL_CAT_TIPO_AULA(idTipoAula);
 
             return nuevo;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EditaCatalogoHorCatTurno()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicios = new SvcGestionCatalogos(sesion);
+
+            var lista = await servicios.ObtenListaHorCatTurno();
+
+            ViewBag.ListaCatalogo = lista;
+
+            return View("Tablas/HorCatTurno");
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaHorCatTurno(string idTurno, string nombreTurno)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_TURNO
+            {
+                IDTURNO = Convert.ToInt16(idTurno),
+                NOMBRETURNO = nombreTurno
+            };
+
+            var actualizado = await servicio.ActualizaHorCatTurno(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroHorCatTurno(string idTurno, string nombreTurno)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_TURNO
+            {
+                IDTURNO = Convert.ToInt16(idTurno),
+                NOMBRETURNO = nombreTurno
+            };
+
+            var nuevo = await servicio.InsertaHorCatTurno(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaRegistroHorCatTurno(string idTurno, string nombreTurno)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var obj = new HOR_CAT_TURNO
+            {
+                IDTURNO = Convert.ToInt16(idTurno),
+                NOMBRETURNO = nombreTurno
+            };
+
+            await servicio.EliminaHorCatTurno(obj);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoHorCatTurno", "Catalogos"));
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EditaCatalogoHorCatDiasSemana()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicios = new SvcGestionCatalogos(sesion);
+
+            var lista = await servicios.ObtenListaHorCatDiasSemana();
+
+            ViewBag.ListaCatalogo = lista;
+
+            return View("Tablas/HorCatDiasSemana");
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaHorCatDiasSemana(string idDia, string diaSemana)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_DIAS_SEMANA
+            {
+                IDDIA = Convert.ToInt16(idDia),
+                DIASEMANA = diaSemana
+            };
+
+            var actualizado = await servicio.ActualizaHorCatDiasSemana(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroHorCatDiasSemana(string idDia, string diaSemana)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_DIAS_SEMANA
+            {
+                IDDIA = Convert.ToInt16(idDia),
+                DIASEMANA = diaSemana
+            };
+
+            var nuevo = await servicio.InsertaHorCatDiasSemana(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaHorCatDiasSemana(string idDia, string diaSemana)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var obj = new HOR_CAT_DIAS_SEMANA
+            {
+                IDDIA = Convert.ToInt16(idDia),
+                DIASEMANA = diaSemana
+            };
+
+            await servicio.EliminaHorCatDiasSemana(obj);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoHorCatDiasSemana", "Catalogos"));
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EditaCatalogoCarCatEspecialidad()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicios = new SvcGestionCatalogos(sesion);
+
+            var lista = await servicios.ObtenListaCarCatEspecialidad();
+
+            ViewBag.ListaCatalogo = lista;
+
+            return View("Tablas/CarCatEspecialidad");
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaCarCatEspecialidad(string idEspecialidad, string especialidad)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new CAR_CAT_ESPECIALIDAD
+            {
+                IDESPECIALIDAD = Convert.ToInt16(idEspecialidad),
+                ESPECIALIDAD = especialidad
+            };
+
+            var actualizado = await servicio.ActualizaCarCatEspecialidad(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroCarCatEspecialidad(string idEspecialidad, string especialidad)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new CAR_CAT_ESPECIALIDAD
+            {
+                IDESPECIALIDAD = Convert.ToInt16(idEspecialidad),
+                ESPECIALIDAD = especialidad
+            };
+
+            var nuevo = await servicio.InsertaCarCatEspecialidad(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaCarCatEspecialidad(string idEspecialidad, string especialidad)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var obj = new CAR_CAT_ESPECIALIDAD
+            {
+                IDESPECIALIDAD = Convert.ToInt16(idEspecialidad),
+                ESPECIALIDAD = especialidad
+            };
+
+            await servicio.EliminaCarCatEspecialidad(obj);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoCarCatEspecialidad", "Catalogos"));
         }
     }
 }

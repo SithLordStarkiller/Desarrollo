@@ -1,13 +1,11 @@
-﻿using System;
-
-namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
+﻿namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
 {
+    using System;
     using System.Data.SqlClient;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using Entidades.Catalogos;
-    using Entidades;
 
     public class Catalogos
     {
@@ -107,7 +105,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
                     new SqlParameter("@Descripcion", registro.DESCRIPCION)
                 };
 
-                var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
+                ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
                     "Usp_InsertaAUL_CAT_TIPO_AULA", para);
 
                 return registro;
@@ -135,7 +133,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
                     new SqlParameter("@IdTipoAula", idTipoAula)
                 };
 
-                var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
+                ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
                     "Usp_EliminaRegistroAUL_CAT_TIPO_AULA", para);
 
                 return true;
@@ -161,5 +159,307 @@ namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
                 return false;
             }
         }
+
+        #region HOR_CAT_TURNO
+
+        public List<HOR_CAT_TURNO> ObtenListaHorCatTurnoLinq()
+        {
+            using (var r = new Repositorio<HOR_CAT_TURNO>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public HOR_CAT_TURNO InsertaHorCatTurnoLinq(HOR_CAT_TURNO registro)
+        {
+            using (var r = new Repositorio<HOR_CAT_TURNO>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaHorCatTurnoLinq(HOR_CAT_TURNO registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_CAT_TURNO>())
+                {
+                    r.Actualizar(registro);
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaHorCatTurnoLinq(HOR_CAT_TURNO registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_CAT_TURNO>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public HOR_CAT_TURNO ExtraeHorCatTurnoLinq(int idTurno)
+        {
+            using (var r = new Repositorio<HOR_CAT_TURNO>())
+            {
+                return r.Extraer(a => a.IDTURNO == idTurno);
+            }
+        }
+
+        #endregion
+
+        #region HOR_CAT_DIAS_SEMANA
+
+        public List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemanaLinq()
+        {
+            using (var r = new Repositorio<HOR_CAT_DIAS_SEMANA>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemanaLinq(HOR_CAT_DIAS_SEMANA registro)
+        {
+            using (var r = new Repositorio<HOR_CAT_DIAS_SEMANA>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaHorCatDiasSemanaLinq(HOR_CAT_DIAS_SEMANA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_CAT_DIAS_SEMANA>())
+                {
+                    r.Actualizar(registro);
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaHorCatDiasSemanaLinq(HOR_CAT_DIAS_SEMANA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_CAT_DIAS_SEMANA>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public HOR_CAT_DIAS_SEMANA ExtraeHorCatDiasSemanaLinq(int idDia)
+        {
+            using (var r = new Repositorio<HOR_CAT_DIAS_SEMANA>())
+            {
+                return r.Extraer(a => a.IDDIA == idDia);
+            }
+        }
+
+        #endregion
+
+        #region AUL_CAT_TIPO_AULA
+
+        public List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAulaLinq()
+        {
+            using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public AUL_CAT_TIPO_AULA InsertaAulCatTipoAulaLinq(AUL_CAT_TIPO_AULA registro)
+        {
+            using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaAulCatTipoAulaLinq(AUL_CAT_TIPO_AULA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+                {
+                    r.Actualizar(registro);
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaAulCatTipoAulaLinq(AUL_CAT_TIPO_AULA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public AUL_CAT_TIPO_AULA ExtraeAulCatTipoAulaLinq(int idTipoAula)
+        {
+            using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
+            {
+                return r.Extraer(a => a.IDTIPOAULA == idTipoAula);
+            }
+        }
+
+        #endregion
+
+        #region CAR_CAT_ESPECIALIDAD
+
+        public List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidadLinq()
+        {
+            using (var r = new Repositorio<CAR_CAT_ESPECIALIDAD>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidadLinq(CAR_CAT_ESPECIALIDAD registro)
+        {
+            using (var r = new Repositorio<CAR_CAT_ESPECIALIDAD>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaCarCatEspecialidadLinq(CAR_CAT_ESPECIALIDAD registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<CAR_CAT_ESPECIALIDAD>())
+                {
+                    r.Actualizar(registro);
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaCarCatEspecialidadLinq(CAR_CAT_ESPECIALIDAD registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<CAR_CAT_ESPECIALIDAD>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public CAR_CAT_ESPECIALIDAD ExtraeCarCatEspecialidadLinq(int idEspecialidad)
+        {
+            using (var r = new Repositorio<CAR_CAT_ESPECIALIDAD>())
+            {
+                return r.Extraer(a => a.IDESPECIALIDAD == idEspecialidad);
+            }
+        }
+
+        #endregion
+
+        #region CAL_CAT_TIPO_EVALUACION
+
+        public List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacionLinq()
+        {
+            using (var r = new Repositorio<CAL_CAT_TIPO_EVALUACION>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacionLinq(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            using (var r = new Repositorio<CAL_CAT_TIPO_EVALUACION>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaCalCatTipoEvaluacionLinq(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<CAL_CAT_TIPO_EVALUACION>())
+                {
+                    r.Actualizar(registro);
+                    return true;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaCalCatTipoEvaluacionLinq(CAL_CAT_TIPO_EVALUACION registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<CAL_CAT_TIPO_EVALUACION>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacionLinq(int idEspecialidad)
+        {
+            using (var r = new Repositorio<CAL_CAT_TIPO_EVALUACION>())
+            {
+                return r.Extraer(a => a.IDTIPOEVALUACION == idEspecialidad);
+            }
+        }
+
+        #endregion
+
+
     }
 }
