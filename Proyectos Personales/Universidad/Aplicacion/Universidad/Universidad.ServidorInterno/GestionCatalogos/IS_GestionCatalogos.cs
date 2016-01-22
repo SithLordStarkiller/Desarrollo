@@ -159,5 +159,43 @@
         CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad);
 
         #endregion
+
+        #region HOR_CAT_HORAS
+
+        [OperationContract]
+        List<HOR_CAT_HORAS> ObtenListaHorCatHoras();
+
+        [OperationContract]
+        HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro);
+
+        [OperationContract]
+        bool ActualizaHorCatHoras(HOR_CAT_HORAS registro);
+
+        [OperationContract]
+        bool EliminaHorCatHoras(HOR_CAT_HORAS registro);
+
+        [OperationContract]
+        HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras);
+
+        #endregion
+
+        #region CAL_CAT_HORAS
+
+        [OperationContract]
+        List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras();
+
+        [OperationContract]
+        CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro);
+
+        [OperationContract]
+        bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro);
+
+        [OperationContract]
+        bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro);
+
+        [OperationContract]
+        CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras);
+
+        #endregion
     }
 }

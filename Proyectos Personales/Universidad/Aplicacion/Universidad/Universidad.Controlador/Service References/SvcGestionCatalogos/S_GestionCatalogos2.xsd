@@ -184,4 +184,35 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CAL_CAT_TIPO_EVALUACION" nillable="true" type="tns:CAL_CAT_TIPO_EVALUACION" />
+  <xs:complexType name="ArrayOfHOR_CAT_HORAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HOR_CAT_HORAS" nillable="true" type="tns:HOR_CAT_HORAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHOR_CAT_HORAS" nillable="true" type="tns:ArrayOfHOR_CAT_HORAS" />
+  <xs:complexType name="HOR_CAT_HORAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DESCRIPCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HORAINICIO" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HORATERMINO" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IDHORA" type="xs:short" />
+      <xs:element minOccurs="0" name="IDTURNO" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NOMBREHORA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HOR_CAT_HORAS" nillable="true" type="tns:HOR_CAT_HORAS" />
+  <xs:complexType name="ArrayOfCAR_CAT_CARRERAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAR_CAT_CARRERAS" nillable="true" type="tns:CAR_CAT_CARRERAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAR_CAT_CARRERAS" nillable="true" type="tns:ArrayOfCAR_CAT_CARRERAS" />
+  <xs:complexType name="CAR_CAT_CARRERAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDCARRERA" type="xs:short" />
+      <xs:element minOccurs="0" name="IDESPECIALIDAD" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="NOMBRECARRERA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAR_CAT_CARRERAS" nillable="true" type="tns:CAR_CAT_CARRERAS" />
 </xs:schema>

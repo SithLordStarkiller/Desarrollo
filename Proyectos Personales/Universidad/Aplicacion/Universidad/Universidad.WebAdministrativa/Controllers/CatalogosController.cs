@@ -8,6 +8,7 @@
     using Controlador.GestionCatalogos;
     using Entidades.ControlUsuario;
     using Newtonsoft.Json;
+    using System.Collections.Generic;
 
     public class CatalogosController : AsyncController
     {
@@ -96,7 +97,11 @@
                 case "HOR_CAT_DIAS_SEMANA":
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoHorCatDiasSemana", "Catalogos"));
                 case "CAR_CAT_ESPECIALIDAD":
-                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoCarCatEspecialidad","Catalogos"));
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoCarCatEspecialidad", "Catalogos"));
+                case "HOR_CAT_HORAS":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoHorCatHoras", "Catalogos"));
+                case "CAR_CAT_CARRERAS":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoCarCatCarreras", "Catalogos"));
             }
             return null;
         }
@@ -392,5 +397,206 @@
 
             return new RedirectToReturnUrlResult(() => RedirectToAction("EditaCatalogoCarCatEspecialidad", "Catalogos"));
         }
+
+        #region Operaciones Catalogo HOR_CAT_HORAS
+
+        [SessionExpireFilter]
+        public ActionResult EditarCatalogoHorCatHoras()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var listaTurnos = servicio.ObtenListaHorCatTurno();
+            var listaHoras = servicio.ObtenListaHorCatHoras();
+
+            var listTask = new List<Task>
+            {
+                listaTurnos,
+                listaHoras
+            };
+
+            Task.WaitAll(listTask.ToArray());
+
+            ViewBag.listaHoras = listaHoras.Result;
+
+            ViewBag.listaTurnos = listaTurnos.Result.Select(c => new SelectListItem
+            {
+                Value = c.IDTURNO.ToString(CultureInfo.InvariantCulture),
+                Text = c.NOMBRETURNO
+            }).ToArray();
+
+            return View("Tablas/HorCatHoras");
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroHorCatHoras(string idHora, string nombreHora, string horaInicio, string horaFinaliza, string idTurno, string descripcion)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_HORAS
+            {
+                IDHORA = Convert.ToInt16(idHora),
+                NOMBREHORA = nombreHora,
+                HORAINICIO = Convert.ToDateTime(horaInicio),
+                HORATERMINO = Convert.ToDateTime(horaFinaliza),
+                DESCRIPCION = descripcion,
+                IDTURNO = Convert.ToInt16(idTurno)
+            };
+
+            var nuevo = await servicio.InsertaCarCatHoras(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaHorCatHoras(string idHora, string nombreHora, string horaInicio, string horaFinaliza, string idTurno, string descripcion)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_HORAS
+            {
+                IDHORA = Convert.ToInt16(idHora),
+                NOMBREHORA = nombreHora,
+                HORAINICIO = Convert.ToDateTime(horaInicio),
+                HORATERMINO = Convert.ToDateTime(horaFinaliza),
+                DESCRIPCION = descripcion,
+                IDTURNO = Convert.ToInt16(idTurno)
+            };
+
+            var actualizado = await servicio.ActualizaHorCatHoras(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaCarCatHoras(string idHora, string nombreHora, string horaInicio, string horaFinaliza, string idTurno, string descripcion)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new HOR_CAT_HORAS
+            {
+                IDHORA = Convert.ToInt16(idHora),
+                NOMBREHORA = nombreHora,
+                HORAINICIO = Convert.ToDateTime(horaInicio),
+                HORATERMINO = Convert.ToDateTime(horaFinaliza),
+                DESCRIPCION = descripcion,
+                IDTURNO = Convert.ToInt16(idTurno)
+            };
+
+            await servicio.EliminaHorCatHoras(objeto);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoHorCatHoras", "Catalogos"));
+        }
+
+        #endregion
+
+        #region Operaciones Catalogo CAR_CAT_CARRERAS
+
+        [SessionExpireFilter]
+        public ActionResult EditarCatalogoCarCatCarreras()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var listaEspecialidad = servicio.ObtenListaCarCatEspecialidad();
+            var listaCarreras = servicio.ObtenListaCarCatCarreras();
+
+            var listTask = new List<Task>
+            {
+                listaEspecialidad,
+                listaCarreras
+            };
+
+            Task.WaitAll(listTask.ToArray());
+
+            ViewBag.listaCarreras = listaCarreras.Result;
+
+            ViewBag.listaEspecialidad = listaEspecialidad.Result.Select(c => new SelectListItem
+            {
+                Value = c.IDESPECIALIDAD.ToString(CultureInfo.InvariantCulture),
+                Text = c.ESPECIALIDAD
+            }).ToArray();
+
+            return View("Tablas/CarCatCarreras");
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroCarCatCarreras(string idCarrera, string nombreCarrera, string idEspecialidad)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new CAR_CAT_CARRERAS
+            {
+                IDCARRERA = Convert.ToInt16(idCarrera),
+                IDESPECIALIDAD = Convert.ToInt16(idEspecialidad),
+                NOMBRECARRERA = nombreCarrera
+            };
+
+            var nuevo = await servicio.InsertaCarCatCarreras(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaCalCatCarreras(string idCarrera, string nombreCarrera, string idEspecialidad)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new CAR_CAT_CARRERAS
+            {
+                IDCARRERA = Convert.ToInt16(idCarrera),
+                IDESPECIALIDAD = Convert.ToInt16(idEspecialidad),
+                NOMBRECARRERA = nombreCarrera
+            };
+
+            var actualizado = await servicio.ActualizaCarCatCarreras(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaCarCatCarreras(string idCarrera, string nombreCarrera, string idEspecialidad)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new CAR_CAT_CARRERAS
+            {
+                IDCARRERA = Convert.ToInt16(idCarrera),
+                IDESPECIALIDAD = Convert.ToInt16(idEspecialidad),
+                NOMBRECARRERA = nombreCarrera
+            };
+
+            await servicio.EliminaCarCatCarreras(objeto);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoCarCatCarreras", "Catalogos"));
+        }
+
+        #endregion
     }
 }

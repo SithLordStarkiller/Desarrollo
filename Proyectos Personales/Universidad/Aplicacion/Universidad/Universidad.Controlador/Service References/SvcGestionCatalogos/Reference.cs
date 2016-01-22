@@ -280,6 +280,66 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacionResponse")]
         System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHorasResponse")]
+        System.Collections.Generic.List<HOR_CAT_HORAS> ObtenListaHorCatHoras();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHorasResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_HORAS>> ObtenListaHorCatHorasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHorasResponse")]
+        HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHorasResponse")]
+        System.Threading.Tasks.Task<HOR_CAT_HORAS> InsertaHorCatHorasAsync(HOR_CAT_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHorasResponse")]
+        bool ActualizaHorCatHoras(HOR_CAT_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHorasResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaHorCatHorasAsync(HOR_CAT_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHorasResponse")]
+        bool EliminaHorCatHoras(HOR_CAT_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHorasResponse")]
+        System.Threading.Tasks.Task<bool> EliminaHorCatHorasAsync(HOR_CAT_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHorasResponse")]
+        HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHorasResponse")]
+        System.Threading.Tasks.Task<HOR_CAT_HORAS> ExtraerHorCatHorasAsync(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarrerasResponse")]
+        System.Collections.Generic.List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarrerasResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_CARRERAS>> ObtenListaCarCatCarrerasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarrerasResponse")]
+        CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarrerasResponse")]
+        System.Threading.Tasks.Task<CAR_CAT_CARRERAS> InsertaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarrerasResponse")]
+        bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarrerasResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarrerasResponse")]
+        bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarrerasResponse")]
+        System.Threading.Tasks.Task<bool> EliminaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarrerasResponse")]
+        CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarrerasResponse")]
+        System.Threading.Tasks.Task<CAR_CAT_CARRERAS> ExtraerCarCatCarrerasAsync(int idHoras);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -659,6 +719,86 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         public System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad) {
             return base.Channel.ExtraerCalCatTipoEvaluacionAsync(idEspecialidad);
+        }
+        
+        public System.Collections.Generic.List<HOR_CAT_HORAS> ObtenListaHorCatHoras() {
+            return base.Channel.ObtenListaHorCatHoras();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_HORAS>> ObtenListaHorCatHorasAsync() {
+            return base.Channel.ObtenListaHorCatHorasAsync();
+        }
+        
+        public HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro) {
+            return base.Channel.InsertaHorCatHoras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<HOR_CAT_HORAS> InsertaHorCatHorasAsync(HOR_CAT_HORAS registro) {
+            return base.Channel.InsertaHorCatHorasAsync(registro);
+        }
+        
+        public bool ActualizaHorCatHoras(HOR_CAT_HORAS registro) {
+            return base.Channel.ActualizaHorCatHoras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaHorCatHorasAsync(HOR_CAT_HORAS registro) {
+            return base.Channel.ActualizaHorCatHorasAsync(registro);
+        }
+        
+        public bool EliminaHorCatHoras(HOR_CAT_HORAS registro) {
+            return base.Channel.EliminaHorCatHoras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaHorCatHorasAsync(HOR_CAT_HORAS registro) {
+            return base.Channel.EliminaHorCatHorasAsync(registro);
+        }
+        
+        public HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras) {
+            return base.Channel.ExtraerHorCatHoras(idHoras);
+        }
+        
+        public System.Threading.Tasks.Task<HOR_CAT_HORAS> ExtraerHorCatHorasAsync(int idHoras) {
+            return base.Channel.ExtraerHorCatHorasAsync(idHoras);
+        }
+        
+        public System.Collections.Generic.List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras() {
+            return base.Channel.ObtenListaCarCatCarreras();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_CARRERAS>> ObtenListaCarCatCarrerasAsync() {
+            return base.Channel.ObtenListaCarCatCarrerasAsync();
+        }
+        
+        public CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro) {
+            return base.Channel.InsertaCarCatCarreras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<CAR_CAT_CARRERAS> InsertaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro) {
+            return base.Channel.InsertaCarCatCarrerasAsync(registro);
+        }
+        
+        public bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro) {
+            return base.Channel.ActualizaCarCatCarreras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro) {
+            return base.Channel.ActualizaCarCatCarrerasAsync(registro);
+        }
+        
+        public bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro) {
+            return base.Channel.EliminaCarCatCarreras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro) {
+            return base.Channel.EliminaCarCatCarrerasAsync(registro);
+        }
+        
+        public CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras) {
+            return base.Channel.ExtraerCarCatCarreras(idHoras);
+        }
+        
+        public System.Threading.Tasks.Task<CAR_CAT_CARRERAS> ExtraerCarCatCarrerasAsync(int idHoras) {
+            return base.Channel.ExtraerCarCatCarrerasAsync(idHoras);
         }
     }
 }

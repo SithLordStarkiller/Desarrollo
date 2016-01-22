@@ -255,5 +255,62 @@
 
         #endregion
 
+        #region HOR_CAT_HORAS
+
+        public Task<List<HOR_CAT_HORAS>> ObtenListaHorCatHoras()
+        {
+            return Task.Run(() => _servicio.ObtenListaHorCatHorasAsync());
+        }
+
+        public Task<HOR_CAT_HORAS> InsertaCarCatHoras(HOR_CAT_HORAS registro)
+        {
+            return Task.Run(() => _servicio.InsertaHorCatHorasAsync(registro));
+        }
+
+        public Task<bool> ActualizaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return Task.Run(() => _servicio.ActualizaHorCatHorasAsync(registro));
+        }
+
+        public Task<bool> EliminaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return Task.Run(() => _servicio.EliminaHorCatHorasAsync(registro));
+        }
+
+        public Task<HOR_CAT_HORAS> ExtraerHorCatHoras(int idHoras)
+        {
+            return Task.Run(() => _servicio.ExtraerHorCatHorasAsync(idHoras));
+        }
+
+        #endregion
+
+        #region CAR_CAT_CARRERAS
+
+        public Task<List<CAR_CAT_CARRERAS>> ObtenListaCarCatCarreras()
+        {
+            return Task.Run(() => _servicio.ObtenListaCarCatCarrerasAsync());
+        }
+
+        public Task<CAR_CAT_CARRERAS> InsertaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return Task.Run(() => _servicio.InsertaCarCatCarrerasAsync(registro));
+        }
+
+        public Task<bool> ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return Task.Run(() => _servicio.ActualizaCarCatCarrerasAsync(registro));
+        }
+
+        public Task<bool> EliminaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return Task.Run(() => _servicio.EliminaCarCatCarrerasAsync(registro));
+        }
+
+        public Task<CAR_CAT_CARRERAS> ExtraerCarCatCarreras(int idHoras)
+        {
+            return Task.Run(() => _servicio.ExtraerCarCatCarrerasAsync(idHoras));
+        }
+
+        #endregion
     }
 }

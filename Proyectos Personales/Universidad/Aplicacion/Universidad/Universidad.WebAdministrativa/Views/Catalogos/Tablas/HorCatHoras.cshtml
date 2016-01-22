@@ -1,0 +1,351 @@
+﻿@{
+    ViewBag.Title = "HOR_CAT_HORAS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listaHoras = ViewBag.listaHoras;
+    var listaTurnos = (IEnumerable<SelectListItem>)ViewBag.listaTurnos;
+}
+@section Head
+{
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-datepicker.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-datepicker.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-multiselect.css" type="text/css" rel="stylesheet" />
+
+    <script src="~/Scripts/bootstrap-clockpicker.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-clockpicker.js" type="text/javascript"></script>
+    <script src="~/Scripts/clockpicker.js" type="text/javascript"></script>
+
+    <link href="~/Content/bootstrap-clockpicker.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/jquery-clockpicker.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/clockpicker.css" type="text/css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.clockpicker').clockpicker({
+                placement: 'bottom',
+                align: 'right'
+            });
+        });
+
+        function show_modal(modalName, idHora, nombreHora, horaInicio, horaFinal, idTurno, descripcion) {
+
+            $("#txtIdHoraActualiza").val(idHora);
+            $("#txtNombreHoraActualiza").val(nombreHora);
+            $("#txtHoraInicioActualiza").val(horaInicio);
+            $("#txtHoraFinalizacionActualiza").val(horaFinal);
+            $("#ddlTurnoActualiza").val(idTurno);
+            $("#txtDescripcionActualiza").val(descripcion);
+
+            $('.selectpicker').selectpicker('refresh');
+            $('#' + modalName + '').modal('show');
+        }
+
+        function Nuevo() {
+            $("#txtIdHoraNuevo").val('');
+            $("#txtNombreHoraNuevo").val('');
+            $("#txtHoraInicioNuevo").val('');
+            $("#txtHoraFinalizacionNuevo").val('');
+            $("#ddlTurnoNuevo").val('');
+            $("#txtDescripcionNuevo").val('');
+            $('.selectpicker').selectpicker('refresh');
+            $('#modalNuevoRegistro').modal('show');
+        }
+
+        function NuevoRegistro() {
+
+            var idHora = $("#txtIdHoraNuevo").val();
+            var nombreHora = $("#txtNombreHoraNuevo").val();
+            var horaInicio = $("#txtHoraInicioNuevo").val();
+            var horaFinaliza = $("#txtHoraFinalizacionNuevo").val();
+            var idTurno = $("#ddlTurnoNuevo").val();
+            var descripcion = $("#txtDescripcionNuevo").val();
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'idHora': idHora,
+                    'nombreHora': nombreHora,
+                    'horaInicio': horaInicio,
+                    'horaFinaliza': horaFinaliza,
+                    'idTurno': idTurno,
+                    'descripcion': descripcion
+                },
+                url: '@Url.Action("NuevoRegistroHorCatHoras", "Catalogos")',
+                success: function (response) {
+
+                    $('#modalNuevoRegistro').modal('hide');
+
+                    if (response) {
+                        if (response == true)
+                            alert("true");
+                        location.reload();
+                    } else {
+                        alert("No se guardo el registro");
+                    }
+                },
+                error:
+                    function () {
+                        alert("Error en el envio de la informacion");
+                    }
+            });
+        }
+
+        function Actualiza() {
+            var idHora = $("#txtIdHoraActualiza").val();
+            var nombreHora = $("#txtNombreHoraActualiza").val();
+            var horaInicio = $("#txtHoraInicioActualiza").val();
+            var horaFinaliza = $("#txtHoraFinalizacionActualiza").val();
+            var idTurno = $("#ddlTurnoActualiza").val();
+            var descripcion = $("#txtDescripcionActualiza").val();
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'idHora': idHora,
+                    'nombreHora': nombreHora,
+                    'horaInicio': horaInicio,
+                    'horaFinaliza': horaFinaliza,
+                    'idTurno': idTurno,
+                    'descripcion': descripcion
+                },
+                url: '@Url.Action("ActualizaHorCatHoras", "Catalogos")',
+                success: function (response) {
+
+                    $('#modalActualizaRegistro').modal('hide');
+
+                    if (response) {
+                        if (response == true)
+                            alert("true");
+                        location.reload();
+                    } else {
+                        alert("false");
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+            });
+        }
+
+        function Ver(modal, idTurno, nombreTurno) {
+            $("#txtIdTurnoVer").val(idTurno);
+            $("#txtNombreTurnoVer").val(nombreTurno);
+            $('#modalVerRegistro').modal('show');
+        }
+    </script>
+}
+
+<br />
+
+<h4>Catalogo @ViewBag.Title</h4>
+
+<h5>En este catalogo se describen los distintos tipos de horarios con los cuales se cuenta</h5>
+
+<br />
+
+<div class="col-md-12">
+    <table class="table">
+        <tr>
+            <th>
+                IdHora
+            </th>
+            <th>
+                Nombre de la Hora
+            </th>
+            <th>
+                Hora de Inicio
+            </th>
+            <th>
+                Hora de Termino
+            </th>
+            <th>
+                Turno asignado
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Operaciones
+            </th>
+        </tr>
+
+        @foreach (var item in listaHoras)
+        {
+            <tr>
+                <td>
+                    @item.IDHORA
+                </td>
+                <td>
+                    @item.NOMBREHORA
+                </td>
+                <td>
+                    @item.HORAINICIO.ToShortTimeString()
+                </td>
+                <td>
+                    @item.HORATERMINO.ToShortTimeString()
+                </td>
+                <td>
+                    @listaTurnos.FirstOrDefault(r => r.Value == item.IDTURNO.ToString()).Text
+                </td>
+                <td>
+                    @item.DESCRIPCION
+                </td>
+                <td style="align-content: center;">
+                    <a id="btnEliminar" href="@Url.Action("EliminaCarCatHoras", "Catalogos", new { idHora = item.IDHORA, nombreHora = item.NOMBREHORA, horaInicio = item.HORAINICIO.ToShortTimeString(), horaFinaliza = item.HORATERMINO.ToShortTimeString(), idTurno = item.IDTURNO, descripcion = item.DESCRIPCION })" class="btn btn-default btn-sm">Elimina</a>
+                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro','@item.IDHORA', '@item.NOMBREHORA', '@item.HORAINICIO.ToShortTimeString()', '@item.HORATERMINO.ToShortTimeString()', '@item.IDTURNO', '@item.DESCRIPCION')">Editar</button>
+                    <button name="btnVer" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDHORA','@item.NOMBREHORA')">ver</button>
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+
+    <div style="margin-top: 10px; float: right;" class="form-group">
+        <button type="button" class="btn btn-default" onclick="Nuevo();">Nuevo</button>
+    </div>
+</div>
+
+<div class="modal fade" id="modalActualizaRegistro" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label">Actualizar registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdHora", null, new { @class = "" })
+                            @Html.TextBox("txtIdHoraActualiza", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("Nombre de Hora", null, new { @class = "" })
+                            @Html.TextBox("txtNombreHoraActualiza", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.Label("Hora de Inicia", null, new { @class = "" })
+                            <br />
+                            <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                <input type="text" class="form-control" id="txtHoraInicioActualiza">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                            @Html.Label("Hora de Finalizacion", null, new { @class = "" })
+                            <br />
+                            <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                <input type="text" class="form-control" id="txtHoraFinalizacionActualiza">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                            @Html.Label("Turno", null, new { @class = "" })
+                            <br />
+                            @Html.DropDownList("ddlTurnoActualiza", listaTurnos, new { data_live_search = true, @class = "selectpicker col-md-12" })
+                            <br />
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionActualiza", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="Actualiza();">Actualizar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalNuevoRegistro" tabindex="-1" role="dialog" aria-labelledby="modalNuevoRegistro" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label">Nuevo registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdHora", null, new { @class = "" })
+                            @Html.TextBox("txtIdHoraNuevo", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("Nombre de Hora", null, new { @class = "" })
+                            @Html.TextBox("txtNombreHoraNuevo", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.Label("Hora de Inicia", null, new { @class = "" })
+                            <br />
+                            <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                <input type="text" class="form-control" id="txtHoraInicioNuevo">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                            @Html.Label("Hora de Finalizacion", null, new { @class = "" })
+                            <br />
+                            <div class="input-group clockpicker" data-placement="left" data-align="top" data-autoclose="true">
+                                <input type="text" class="form-control" id="txtHoraFinalizacionNuevo">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-time"></span>
+                                </span>
+                            </div>
+                            @Html.Label("Turno", null, new { @class = "" })
+                            <br />
+                            @Html.DropDownList("ddlTurnoNuevo", listaTurnos, new { data_live_search = true, @class = "selectpicker col-md-12" })
+                            <br />
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionNuevo", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="NuevoRegistro();">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVerRegistro" tabindex="-1" role="dialog" aria-labelledby="modalNuevoRegistro" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label">Registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdTurno", null, new { @class = "" })
+                            @Html.TextBox("txtIdTurnoVer", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("Nombre Turno", null, new { @class = "" })
+                            @Html.TextBox("txtNombreTurnoVer", "", new { @class = "form-control", placeholder = "Nombre Turno", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

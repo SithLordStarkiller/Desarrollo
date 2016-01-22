@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Newtonsoft.Json;
-using Universidad.Controlador.GestionCatalogos;
-using Universidad.Controlador.Personas;
-using Universidad.Controlador.Usuarios;
-using Universidad.Entidades.ControlUsuario;
-
-namespace Universidad.WebAdministrativa.Controllers
+﻿namespace Universidad.WebAdministrativa.Controllers
 {
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using Newtonsoft.Json;
+    using Controlador.GestionCatalogos;
+    using Controlador.Personas;
+    using Controlador.Usuarios;
+    using Entidades.ControlUsuario;
+
     public class UsuariosController : AsyncController
     {
         [SessionExpireFilter]

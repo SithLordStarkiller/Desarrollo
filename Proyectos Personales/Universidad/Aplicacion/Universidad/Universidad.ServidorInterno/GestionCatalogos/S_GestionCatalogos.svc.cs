@@ -161,7 +161,6 @@
 
         #endregion
 
-
         #region AUL_CAT_TIPO_AULA
 
         public List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula()
@@ -245,6 +244,64 @@
         public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad)
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerCalCatTipoEvaluacion(idEspecialidad);
+        }
+
+        #endregion
+
+        #region CAL_CAT_HORAS
+
+        public List<HOR_CAT_HORAS> ObtenListaHorCatHoras()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaHorCatHora();
+        }
+
+        public HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaHorCatHoras(registro);
+        }
+
+        public bool ActualizaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaHorCatHoras(registro);
+        }
+
+        public bool EliminaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaHorCatHoras(registro);
+        }
+
+        public HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerHorCatHoras(idHoras);
+        }
+
+        #endregion
+
+        #region CAL_CAT_HORAS
+
+        public List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaCarCatCarreras();
+        }
+
+        public CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaCarCatCarreras(registro);
+        }
+
+        public bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaCarCatCarreras(registro);
+        }
+
+        public bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaCarCatCarreras(registro);
+        }
+
+        public CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerCarCatCarreras(idHoras);
         }
 
         #endregion

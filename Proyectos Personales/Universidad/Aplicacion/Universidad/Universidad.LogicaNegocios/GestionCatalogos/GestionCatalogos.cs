@@ -266,7 +266,7 @@
 
         public bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro)
         {
-            return new Catalogos().ActualizaCalCatTipoEvaluacionLinq(registro);
+            return new Catalogos().EliminaCalCatTipoEvaluacionLinq(registro);
         }
 
         public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idTipoEvaluacion)
@@ -275,5 +275,64 @@
         }
 
         #endregion
+
+        #region HOR_CAT_HORA
+
+        public List<HOR_CAT_HORAS> ObtenListaHorCatHora()
+        {
+            return new Catalogos().ObtenListaHorCatHorasLinq();
+        }
+
+        public HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return new Catalogos().InsertaHorCatHorasLinq(registro);
+        }
+
+        public bool ActualizaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return new Catalogos().ActualizaHorCatHorasLinq(registro);
+        }
+
+        public bool EliminaHorCatHoras(HOR_CAT_HORAS registro)
+        {
+            return new Catalogos().EliminaHorCatHorasLinq(registro);
+        }
+
+        public HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras)
+        {
+            return new Catalogos().ExtraerHorCatHorasLinq(idHoras);
+        }
+
+        #endregion
+
+        #region CAR_CAT_CARRERAS
+
+        public List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras()
+        {
+            return new Catalogos().ObtenListaCarCatCarrerasLinq();
+        }
+
+        public CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return new Catalogos().InsertaCarCatCarrerasLinq(registro);
+        }
+
+        public bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return new Catalogos().ActualizaCarCatCarrerasLinq(registro);
+        }
+
+        public bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro)
+        {
+            return new Catalogos().EliminaCarCatCarrerasLinq(registro);
+        }
+
+        public CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras)
+        {
+            return new Catalogos().ExtraerCarCatCarrerasLinq(idHoras);
+        }
+
+        #endregion
+        
     }
 }

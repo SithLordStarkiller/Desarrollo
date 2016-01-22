@@ -150,7 +150,7 @@
             {
                 using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
                 {
-                    r.Eliminar(new AUL_CAT_TIPO_AULA {IDTIPOAULA = (short) idTipoAula});
+                    r.Eliminar(new AUL_CAT_TIPO_AULA { IDTIPOAULA = (short)idTipoAula });
                     return true;
                 }
             }
@@ -460,6 +460,122 @@
 
         #endregion
 
+        #region HOR_CAT_HORAS
 
+        public List<HOR_CAT_HORAS> ObtenListaHorCatHorasLinq()
+        {
+            using (var r = new Repositorio<HOR_CAT_HORAS>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public HOR_CAT_HORAS InsertaHorCatHorasLinq(HOR_CAT_HORAS registro)
+        {
+            using (var r = new Repositorio<HOR_CAT_HORAS>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaHorCatHorasLinq(HOR_CAT_HORAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_CAT_HORAS>())
+                {
+                    return r.Actualizar(registro) != null;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaHorCatHorasLinq(HOR_CAT_HORAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_CAT_HORAS>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public HOR_CAT_HORAS ExtraerHorCatHorasLinq(int idHora)
+        {
+            using (var r = new Repositorio<HOR_CAT_HORAS>())
+            {
+                return r.Extraer(a => a.IDHORA == idHora);
+            }
+        }
+
+        #endregion
+
+        #region CAR_CAT_CARRERAS
+
+        public List<CAR_CAT_CARRERAS> ObtenListaCarCatCarrerasLinq()
+        {
+            using (var r = new Repositorio<CAR_CAT_CARRERAS>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public CAR_CAT_CARRERAS InsertaCarCatCarrerasLinq(CAR_CAT_CARRERAS registro)
+        {
+            using (var r = new Repositorio<CAR_CAT_CARRERAS>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaCarCatCarrerasLinq(CAR_CAT_CARRERAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<CAR_CAT_CARRERAS>())
+                {
+                    return r.Actualizar(registro) != null;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaCarCatCarrerasLinq(CAR_CAT_CARRERAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<CAR_CAT_CARRERAS>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public CAR_CAT_CARRERAS ExtraerCarCatCarrerasLinq(int idCarrera)
+        {
+            using (var r = new Repositorio<CAR_CAT_CARRERAS>())
+            {
+                return r.Extraer(a => a.IDCARRERA == idCarrera);
+            }
+        }
+
+        #endregion
     }
 }
