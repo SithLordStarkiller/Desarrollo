@@ -9,6 +9,7 @@
     using Entidades.ControlUsuario;
     using Newtonsoft.Json;
     using System.Collections.Generic;
+    using Entidades;
 
     public class CatalogosController : AsyncController
     {
@@ -597,6 +598,62 @@
             return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoCarCatCarreras", "Catalogos"));
         }
 
+        #endregion
+
+        #region Operaciones Catalogo MAT_CAT_MATERIAS
+
+        [SessionExpireFilter]
+        public ActionResult EditarCatalogoMatCatMaterias()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var listaCarreras = servicio.ObtenListaCarCatCarreras();
+            var listaMaterias = servicio.ObtenListaMatCatMaterias();
+
+            var listTask = new List<Task>
+            {
+                listaMaterias,
+                listaCarreras
+            };
+
+            Task.WaitAll(listTask.ToArray());
+
+            ViewBag.listaCarreras = listaCarreras.Result;
+
+            ViewBag.listaCarreras = listaCarreras.Result.Select(c => new SelectListItem
+            {
+                Value = c.IDCARRERA.ToString(CultureInfo.InvariantCulture),
+                Text = c.NOMBRECARRERA
+            }).ToArray();
+
+            return View("Tablas/MatCatMaterias");
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroMatCatMaterias(string idMateria, string nombreMateria, string creditos, string optativa)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new MAT_CAT_MATERIAS
+            {
+                IDMATERIA = Convert.ToInt16(idMateria),
+                NOMBREMATERIA = nombreMateria,
+                CREDITOS = Convert.ToDecimal(creditos),
+                OPTATIVA = Convert.ToBoolean(optativa)
+            };
+
+            var nuevo = await servicio.InsertaMatCatMaterias(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
         #endregion
     }
 }

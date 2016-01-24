@@ -5,6 +5,7 @@
     using Universidad.Controlador.SvcGestionCatalogos;
     using Entidades.Catalogos;
     using Entidades.ControlUsuario;
+    using Entidades;
 
     public class SvcGestionCatalogos
     {
@@ -309,6 +310,35 @@
         public Task<CAR_CAT_CARRERAS> ExtraerCarCatCarreras(int idHoras)
         {
             return Task.Run(() => _servicio.ExtraerCarCatCarrerasAsync(idHoras));
+        }
+
+        #endregion
+
+        #region MAT_CAT_CARRERAS
+
+        public Task<List<MAT_CAT_MATERIAS>> ObtenListaMatCatMaterias()
+        {
+            return Task.Run(() => _servicio.ObtenListaMatCatMateriasAsync());
+        }
+
+        public Task<MAT_CAT_MATERIAS> InsertaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return Task.Run(() => _servicio.InsertaMatCatMateriasAsync(registro));
+        }
+
+        public Task<bool> ActualizaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return Task.Run(() => _servicio.ActualizaMatCatMateriasAsync(registro));
+        }
+
+        public Task<bool> EliminaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return Task.Run(() => _servicio.EliminaMatCatMateriasAsync(registro));
+        }
+
+        public Task<MAT_CAT_MATERIAS> ExtraerMatCatMaterias(int idHoras)
+        {
+            return Task.Run(() => _servicio.ExtraerMatCatMateriasAsync(idHoras));
         }
 
         #endregion

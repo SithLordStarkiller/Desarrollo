@@ -16,28 +16,28 @@ namespace Universidad.Controlador.SvcMenuSistema {
     public interface IMenusSistemaS {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbol", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolResponse")]
-        SIS_AADM_ARBOLMENUS[] TraeArbol();
+        Universidad.Entidades.SIS_AADM_ARBOLMENUS[] TraeArbol();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbol", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolResponse")]
-        System.Threading.Tasks.Task<SIS_AADM_ARBOLMENUS[]> TraeArbolAsync();
+        System.Threading.Tasks.Task<Universidad.Entidades.SIS_AADM_ARBOLMENUS[]> TraeArbolAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraerMenus", ReplyAction="http://tempuri.org/IMenusSistemaS/TraerMenusResponse")]
-        Universidad.Entidades.ControlUsuario.MenuSistemaE[] TraerMenus(US_USUARIOS usuario);
+        Universidad.Entidades.ControlUsuario.MenuSistemaE[] TraerMenus(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraerMenus", ReplyAction="http://tempuri.org/IMenusSistemaS/TraerMenusResponse")]
-        System.Threading.Tasks.Task<Universidad.Entidades.ControlUsuario.MenuSistemaE[]> TraerMenusAsync(US_USUARIOS usuario);
+        System.Threading.Tasks.Task<Universidad.Entidades.ControlUsuario.MenuSistemaE[]> TraerMenusAsync(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadm", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadmResponse")]
-        SIS_WADM_ARBOLMENU[] TraeArbolMenuWadm(US_USUARIOS usuario);
+        Universidad.Entidades.SIS_WADM_ARBOLMENU[] TraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadm", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuWadmResponse")]
-        System.Threading.Tasks.Task<SIS_WADM_ARBOLMENU[]> TraeArbolMenuWadmAsync(US_USUARIOS usuario);
+        System.Threading.Tasks.Task<Universidad.Entidades.SIS_WADM_ARBOLMENU[]> TraeArbolMenuWadmAsync(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvc", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvcResponse")]
-        SIS_WADM_ARBOLMENU_MVC[] TraeArbolMenuMvc(US_USUARIOS usuario);
+        Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC[] TraeArbolMenuMvc(Universidad.Entidades.US_USUARIOS usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvc", ReplyAction="http://tempuri.org/IMenusSistemaS/TraeArbolMenuMvcResponse")]
-        System.Threading.Tasks.Task<SIS_WADM_ARBOLMENU_MVC[]> TraeArbolMenuMvcAsync(US_USUARIOS usuario);
+        System.Threading.Tasks.Task<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC[]> TraeArbolMenuMvcAsync(Universidad.Entidades.US_USUARIOS usuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -67,35 +67,35 @@ namespace Universidad.Controlador.SvcMenuSistema {
                 base(binding, remoteAddress) {
         }
         
-        public SIS_AADM_ARBOLMENUS[] TraeArbol() {
+        public Universidad.Entidades.SIS_AADM_ARBOLMENUS[] TraeArbol() {
             return base.Channel.TraeArbol();
         }
         
-        public System.Threading.Tasks.Task<SIS_AADM_ARBOLMENUS[]> TraeArbolAsync() {
+        public System.Threading.Tasks.Task<Universidad.Entidades.SIS_AADM_ARBOLMENUS[]> TraeArbolAsync() {
             return base.Channel.TraeArbolAsync();
         }
         
-        public Universidad.Entidades.ControlUsuario.MenuSistemaE[] TraerMenus(US_USUARIOS usuario) {
+        public Universidad.Entidades.ControlUsuario.MenuSistemaE[] TraerMenus(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraerMenus(usuario);
         }
         
-        public System.Threading.Tasks.Task<Universidad.Entidades.ControlUsuario.MenuSistemaE[]> TraerMenusAsync(US_USUARIOS usuario) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.ControlUsuario.MenuSistemaE[]> TraerMenusAsync(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraerMenusAsync(usuario);
         }
         
-        public SIS_WADM_ARBOLMENU[] TraeArbolMenuWadm(US_USUARIOS usuario) {
+        public Universidad.Entidades.SIS_WADM_ARBOLMENU[] TraeArbolMenuWadm(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraeArbolMenuWadm(usuario);
         }
         
-        public System.Threading.Tasks.Task<SIS_WADM_ARBOLMENU[]> TraeArbolMenuWadmAsync(US_USUARIOS usuario) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.SIS_WADM_ARBOLMENU[]> TraeArbolMenuWadmAsync(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraeArbolMenuWadmAsync(usuario);
         }
         
-        public SIS_WADM_ARBOLMENU_MVC[] TraeArbolMenuMvc(US_USUARIOS usuario) {
+        public Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC[] TraeArbolMenuMvc(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraeArbolMenuMvc(usuario);
         }
         
-        public System.Threading.Tasks.Task<SIS_WADM_ARBOLMENU_MVC[]> TraeArbolMenuMvcAsync(US_USUARIOS usuario) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.SIS_WADM_ARBOLMENU_MVC[]> TraeArbolMenuMvcAsync(Universidad.Entidades.US_USUARIOS usuario) {
             return base.Channel.TraeArbolMenuMvcAsync(usuario);
         }
     }

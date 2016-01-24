@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ServiceModel;
     using Entidades.Catalogos;
+    using Entidades;
 
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de interfaz "IS_GestionCatalogos" en el código y en el archivo de configuración a la vez.
     [ServiceContract]
@@ -195,6 +196,25 @@
 
         [OperationContract]
         CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras);
+
+        #endregion
+
+        #region MAT_CAT_MATERIAS
+
+        [OperationContract]
+        List<MAT_CAT_MATERIAS> ObtenListaMatCatMaterias();
+
+        [OperationContract]
+        MAT_CAT_MATERIAS InsertaMatCatMaterias(MAT_CAT_MATERIAS registro);
+
+        [OperationContract]
+        bool ActualizaMatCatMaterias(MAT_CAT_MATERIAS registro);
+
+        [OperationContract]
+        bool EliminaMatCatMaterias(MAT_CAT_MATERIAS registro);
+
+        [OperationContract]
+        MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras);
 
         #endregion
     }

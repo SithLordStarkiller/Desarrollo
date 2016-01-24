@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using AccesoDatos.AdministracionSistema.GestionCatalogos;
     using Entidades.Catalogos;
-    
+    using Entidades;
 
     public class GestionCatalogos
     {
@@ -330,6 +330,35 @@
         public CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras)
         {
             return new Catalogos().ExtraerCarCatCarrerasLinq(idHoras);
+        }
+
+        #endregion
+
+        #region MAT_CAT_MATERIAS
+
+        public List<MAT_CAT_MATERIAS> ObtenListaMatCatMaterias()
+        {
+            return new Catalogos().ObtenListaMatCatMateriasLinq();
+        }
+
+        public MAT_CAT_MATERIAS InsertaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return new Catalogos().InsertaMatCatMateriasLinq(registro);
+        }
+
+        public bool ActualizaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return new Catalogos().ActualizaMatCatMateriasLinq(registro);
+        }
+
+        public bool EliminaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return new Catalogos().EliminaMatCatMateriasLinq(registro);
+        }
+
+        public MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras)
+        {
+            return new Catalogos().ExtraerMatCatMateriasLinq(idHoras);
         }
 
         #endregion

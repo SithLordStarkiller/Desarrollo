@@ -10,6 +10,7 @@
     using Controlador.Personas;
     using Controlador.Usuarios;
     using Entidades.ControlUsuario;
+    using Entidades;
 
     public class UsuariosController : AsyncController
     {

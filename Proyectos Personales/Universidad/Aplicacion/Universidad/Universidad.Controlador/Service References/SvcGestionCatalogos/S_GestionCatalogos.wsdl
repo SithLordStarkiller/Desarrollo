@@ -4,7 +4,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/" />
+      <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades" />
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades.Catalogos" />
     </xsd:schema>
   </wsdl:types>
@@ -332,6 +332,36 @@
   <wsdl:message name="IS_GestionCatalogos_ExtraerCarCatCarreras_OutputMessage">
     <wsdl:part name="parameters" element="tns:ExtraerCarCatCarrerasResponse" />
   </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenListaMatCatMaterias_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaMatCatMaterias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenListaMatCatMaterias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaMatCatMateriasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_InsertaMatCatMaterias_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertaMatCatMaterias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_InsertaMatCatMaterias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertaMatCatMateriasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ActualizaMatCatMaterias_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizaMatCatMaterias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ActualizaMatCatMaterias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizaMatCatMateriasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_EliminaMatCatMaterias_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminaMatCatMaterias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_EliminaMatCatMaterias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminaMatCatMateriasResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ExtraerMatCatMaterias_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExtraerMatCatMaterias" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ExtraerMatCatMaterias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExtraerMatCatMateriasResponse" />
+  </wsdl:message>
   <wsdl:portType name="IS_GestionCatalogos">
     <wsdl:operation name="ObtenListaAUL_CAT_TIPO_AULA">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA" message="tns:IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_InputMessage" />
@@ -548,6 +578,26 @@
     <wsdl:operation name="ExtraerCarCatCarreras">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarreras" message="tns:IS_GestionCatalogos_ExtraerCarCatCarreras_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarrerasResponse" message="tns:IS_GestionCatalogos_ExtraerCarCatCarreras_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenListaMatCatMaterias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMaterias" message="tns:IS_GestionCatalogos_ObtenListaMatCatMaterias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMateriasResponse" message="tns:IS_GestionCatalogos_ObtenListaMatCatMaterias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertaMatCatMaterias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMaterias" message="tns:IS_GestionCatalogos_InsertaMatCatMaterias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMateriasResponse" message="tns:IS_GestionCatalogos_InsertaMatCatMaterias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizaMatCatMaterias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMaterias" message="tns:IS_GestionCatalogos_ActualizaMatCatMaterias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMateriasResponse" message="tns:IS_GestionCatalogos_ActualizaMatCatMaterias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaMatCatMaterias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMaterias" message="tns:IS_GestionCatalogos_EliminaMatCatMaterias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMateriasResponse" message="tns:IS_GestionCatalogos_EliminaMatCatMaterias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExtraerMatCatMaterias">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMaterias" message="tns:IS_GestionCatalogos_ExtraerMatCatMaterias_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMateriasResponse" message="tns:IS_GestionCatalogos_ExtraerMatCatMaterias_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_GestionCatalogos" type="tns:IS_GestionCatalogos">
@@ -1031,6 +1081,51 @@
     </wsdl:operation>
     <wsdl:operation name="ExtraerCarCatCarreras">
       <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarreras" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenListaMatCatMaterias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMaterias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertaMatCatMaterias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMaterias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizaMatCatMaterias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMaterias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaMatCatMaterias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMaterias" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExtraerMatCatMaterias">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMaterias" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -16,16 +16,16 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
     public interface IS_GestionCatalogos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse")]
-        System.Collections.Generic.List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA();
+        System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULAResponse")]
-        AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro);
+        Universidad.Entidades.AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaRegistroAUL_CAT_TIPO_AULAResponse")]
-        System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULAAsync(AUL_CAT_TIPO_AULA registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaRegistroAUL_CAT_TIPO_AULAResponse")]
         bool EliminaRegistroAUL_CAT_TIPO_AULA(int idTipoAula);
@@ -41,77 +41,77 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULAResponse" +
             "")]
-        bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro);
+        bool ActualizaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULA", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaRegistroAUL_CAT_TIPO_AULAResponse" +
             "")]
-        System.Threading.Tasks.Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULAAsync(AUL_CAT_TIPO_AULA registro);
+        System.Threading.Tasks.Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuariosResponse")]
-        System.Collections.Generic.List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios();
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuarios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatTipoUsuariosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<US_CAT_TIPO_USUARIO>> ObtenTablaUsCatTipoUsuariosAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO>> ObtenTablaUsCatTipoUsuariosAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuarioResponse")]
-        System.Collections.Generic.List<US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario();
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatNivelUsuarioResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<US_CAT_NIVEL_USUARIO>> ObtenTablaUsCatNivelUsuarioAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO>> ObtenTablaUsCatNivelUsuarioAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuarioResponse")]
-        System.Collections.Generic.List<US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario();
+        System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablaUsCatEstatusUsuarioResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<US_CAT_ESTATUS_USUARIO>> ObtenTablaUsCatEstatusUsuarioAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO>> ObtenTablaUsCatEstatusUsuarioAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoUsuarioResponse")]
-        US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario);
+        Universidad.Entidades.US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoUsuario", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoUsuarioResponse")]
-        System.Threading.Tasks.Task<US_CAT_TIPO_USUARIO> ObtenCatTipoUsuarioAsync(int idTipoUsuario);
+        System.Threading.Tasks.Task<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenCatTipoUsuarioAsync(int idTipoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogoNacionalidades", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogoNacionalidadesResponse")]
-        System.Collections.Generic.List<PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades();
+        System.Collections.Generic.List<Universidad.Entidades.PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogoNacionalidades", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogoNacionalidadesResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<PER_CAT_NACIONALIDAD>> ObtenCatalogoNacionalidadesAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_NACIONALIDAD>> ObtenCatalogoNacionalidadesAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersonaResponse")]
-        System.Collections.Generic.List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
+        System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersona", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatTipoPersonaResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCp", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCpResponse")]
-        System.Collections.Generic.List<DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal);
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCp", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasPorCpResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_COLONIAS>> ObtenColoniasPorCpAsync(int codigoPostal);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>> ObtenColoniasPorCpAsync(int codigoPostal);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstados", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstadosResponse")]
-        System.Collections.Generic.List<DIR_CAT_ESTADO> ObtenCatEstados();
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_ESTADO> ObtenCatEstados();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstados", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatEstadosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_ESTADO>> ObtenCatEstadosAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_ESTADO>> ObtenCatEstadosAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipiosResponse")]
-        System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO> ObtenMunicipios(int estado);
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> ObtenMunicipios(int estado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenMunicipiosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO>> ObtenMunicipiosAsync(int estado);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO>> ObtenMunicipiosAsync(int estado);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenColonias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasResponse")]
-        System.Collections.Generic.List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio);
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenColonias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenColoniasResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_COLONIAS>> ObtenColoniasAsync(int estado, int municipio);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>> ObtenColoniasAsync(int estado, int municipio);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostalResponse")]
-        DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia);
+        Universidad.Entidades.DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostal", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCodigoPostalResponse")]
-        System.Threading.Tasks.Task<DIR_CAT_COLONIAS> ObtenCodigoPostalAsync(int estado, int municipio, int colonia);
+        System.Threading.Tasks.Task<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenCodigoPostalAsync(int estado, int municipio, int colonia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogos", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenTablasCatalogosResponse")]
         System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica> ObtenTablasCatalogos();
@@ -120,226 +120,256 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.Catalogos.ListasGenerica>> ObtenTablasCatalogosAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColonias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColoniasResponse")]
-        System.Collections.Generic.List<DIR_CAT_COLONIAS> ObtenCatalogosColonias();
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenCatalogosColonias();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColonias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosColoniasResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_COLONIAS>> ObtenCatalogosColoniasAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>> ObtenCatalogosColoniasAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipiosResponse")]
-        System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios();
+        System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipios", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenCatalogosMunicipiosResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO>> ObtenCatalogosMunicipiosAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO>> ObtenCatalogosMunicipiosAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurnoResponse")]
-        System.Collections.Generic.List<HOR_CAT_TURNO> ObtenListaHorCatTurno();
+        System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_TURNO> ObtenListaHorCatTurno();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatTurnoResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_TURNO>> ObtenListaHorCatTurnoAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_TURNO>> ObtenListaHorCatTurnoAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurnoResponse")]
-        HOR_CAT_TURNO InsertaHorCatTurno(HOR_CAT_TURNO registro);
+        Universidad.Entidades.HOR_CAT_TURNO InsertaHorCatTurno(Universidad.Entidades.HOR_CAT_TURNO registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatTurnoResponse")]
-        System.Threading.Tasks.Task<HOR_CAT_TURNO> InsertaHorCatTurnoAsync(HOR_CAT_TURNO registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_TURNO> InsertaHorCatTurnoAsync(Universidad.Entidades.HOR_CAT_TURNO registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurnoResponse")]
-        bool ActualizaHorCatTurno(HOR_CAT_TURNO registro);
+        bool ActualizaHorCatTurno(Universidad.Entidades.HOR_CAT_TURNO registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatTurnoResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaHorCatTurnoAsync(HOR_CAT_TURNO registro);
+        System.Threading.Tasks.Task<bool> ActualizaHorCatTurnoAsync(Universidad.Entidades.HOR_CAT_TURNO registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurnoResponse")]
-        bool EliminaHorCatTurno(HOR_CAT_TURNO registro);
+        bool EliminaHorCatTurno(Universidad.Entidades.HOR_CAT_TURNO registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatTurnoResponse")]
-        System.Threading.Tasks.Task<bool> EliminaHorCatTurnoAsync(HOR_CAT_TURNO registro);
+        System.Threading.Tasks.Task<bool> EliminaHorCatTurnoAsync(Universidad.Entidades.HOR_CAT_TURNO registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurnoResponse")]
-        HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno);
+        Universidad.Entidades.HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurno", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraeHorCatTurnoResponse")]
-        System.Threading.Tasks.Task<HOR_CAT_TURNO> ExtraeHorCatTurnoAsync(int idTurno);
+        System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_TURNO> ExtraeHorCatTurnoAsync(int idTurno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemanaResponse")]
-        System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana();
+        System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatDiasSemanaResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA>> ObtenListaHorCatDiasSemanaAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_DIAS_SEMANA>> ObtenListaHorCatDiasSemanaAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemanaResponse")]
-        HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro);
+        Universidad.Entidades.HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatDiasSemanaResponse")]
-        System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> InsertaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_DIAS_SEMANA> InsertaHorCatDiasSemanaAsync(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemanaResponse")]
-        bool ActualizaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro);
+        bool ActualizaHorCatDiasSemana(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatDiasSemanaResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro);
+        System.Threading.Tasks.Task<bool> ActualizaHorCatDiasSemanaAsync(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemanaResponse")]
-        bool EliminaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro);
+        bool EliminaHorCatDiasSemana(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatDiasSemanaResponse")]
-        System.Threading.Tasks.Task<bool> EliminaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro);
+        System.Threading.Tasks.Task<bool> EliminaHorCatDiasSemanaAsync(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemanaResponse")]
-        HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno);
+        Universidad.Entidades.HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemana", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatDiasSemanaResponse")]
-        System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> ExtraerHorCatDiasSemanaAsync(int idTurno);
+        System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_DIAS_SEMANA> ExtraerHorCatDiasSemanaAsync(int idTurno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAulaResponse")]
-        System.Collections.Generic.List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula();
+        System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAulCatTipoAulaResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<AUL_CAT_TIPO_AULA>> ObtenListaAulCatTipoAulaAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAulCatTipoAulaAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAulaResponse")]
-        AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(AUL_CAT_TIPO_AULA registro);
+        Universidad.Entidades.AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaAulCatTipoAulaResponse")]
-        System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> InsertaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> InsertaAulCatTipoAulaAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAulaResponse")]
-        bool ActualizaAulCatTipoAula(AUL_CAT_TIPO_AULA registro);
+        bool ActualizaAulCatTipoAula(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaAulCatTipoAulaResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro);
+        System.Threading.Tasks.Task<bool> ActualizaAulCatTipoAulaAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAulaResponse")]
-        bool EliminaAulCatTipoAula(AUL_CAT_TIPO_AULA registro);
+        bool EliminaAulCatTipoAula(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaAulCatTipoAulaResponse")]
-        System.Threading.Tasks.Task<bool> EliminaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro);
+        System.Threading.Tasks.Task<bool> EliminaAulCatTipoAulaAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAulaResponse")]
-        AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno);
+        Universidad.Entidades.AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAula", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerAulCatTipoAulaResponse")]
-        System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> ExtraerAulCatTipoAulaAsync(int idTurno);
+        System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> ExtraerAulCatTipoAulaAsync(int idTurno);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidadResponse")]
-        System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad();
+        System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatEspecialidadResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD>> ObtenListaCarCatEspecialidadAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_ESPECIALIDAD>> ObtenListaCarCatEspecialidadAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidadResponse")]
-        CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro);
+        Universidad.Entidades.CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatEspecialidadResponse")]
-        System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> InsertaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_ESPECIALIDAD> InsertaCarCatEspecialidadAsync(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidadResponse")]
-        bool ActualizaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro);
+        bool ActualizaCarCatEspecialidad(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatEspecialidadResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro);
+        System.Threading.Tasks.Task<bool> ActualizaCarCatEspecialidadAsync(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidadResponse")]
-        bool EliminaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro);
+        bool EliminaCarCatEspecialidad(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatEspecialidadResponse")]
-        System.Threading.Tasks.Task<bool> EliminaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro);
+        System.Threading.Tasks.Task<bool> EliminaCarCatEspecialidadAsync(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidadResponse")]
-        CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad);
+        Universidad.Entidades.CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidad", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatEspecialidadResponse")]
-        System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> ExtraerCarCatEspecialidadAsync(int idEspecialidad);
+        System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_ESPECIALIDAD> ExtraerCarCatEspecialidadAsync(int idEspecialidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacionResponse")]
-        System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion();
+        System.Collections.Generic.List<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCalCatTipoEvaluacionResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION>> ObtenListaCalCatTipoEvaluacionAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION>> ObtenListaCalCatTipoEvaluacionAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacionResponse")]
-        CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro);
+        Universidad.Entidades.CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCalCatTipoEvaluacionResponse")]
-        System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> InsertaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION> InsertaCalCatTipoEvaluacionAsync(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacionResponse")]
-        bool ActualizaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro);
+        bool ActualizaCalCatTipoEvaluacion(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCalCatTipoEvaluacionResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro);
+        System.Threading.Tasks.Task<bool> ActualizaCalCatTipoEvaluacionAsync(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacionResponse")]
-        bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro);
+        bool EliminaCalCatTipoEvaluacion(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCalCatTipoEvaluacionResponse")]
-        System.Threading.Tasks.Task<bool> EliminaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro);
+        System.Threading.Tasks.Task<bool> EliminaCalCatTipoEvaluacionAsync(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacionResponse")]
-        CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad);
+        Universidad.Entidades.CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacion", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCalCatTipoEvaluacionResponse")]
-        System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad);
+        System.Threading.Tasks.Task<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHorasResponse")]
-        System.Collections.Generic.List<HOR_CAT_HORAS> ObtenListaHorCatHoras();
+        System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_HORAS> ObtenListaHorCatHoras();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorCatHorasResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_HORAS>> ObtenListaHorCatHorasAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_HORAS>> ObtenListaHorCatHorasAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHorasResponse")]
-        HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro);
+        Universidad.Entidades.HOR_CAT_HORAS InsertaHorCatHoras(Universidad.Entidades.HOR_CAT_HORAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorCatHorasResponse")]
-        System.Threading.Tasks.Task<HOR_CAT_HORAS> InsertaHorCatHorasAsync(HOR_CAT_HORAS registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_HORAS> InsertaHorCatHorasAsync(Universidad.Entidades.HOR_CAT_HORAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHorasResponse")]
-        bool ActualizaHorCatHoras(HOR_CAT_HORAS registro);
+        bool ActualizaHorCatHoras(Universidad.Entidades.HOR_CAT_HORAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorCatHorasResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaHorCatHorasAsync(HOR_CAT_HORAS registro);
+        System.Threading.Tasks.Task<bool> ActualizaHorCatHorasAsync(Universidad.Entidades.HOR_CAT_HORAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHorasResponse")]
-        bool EliminaHorCatHoras(HOR_CAT_HORAS registro);
+        bool EliminaHorCatHoras(Universidad.Entidades.HOR_CAT_HORAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorCatHorasResponse")]
-        System.Threading.Tasks.Task<bool> EliminaHorCatHorasAsync(HOR_CAT_HORAS registro);
+        System.Threading.Tasks.Task<bool> EliminaHorCatHorasAsync(Universidad.Entidades.HOR_CAT_HORAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHorasResponse")]
-        HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras);
+        Universidad.Entidades.HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorCatHorasResponse")]
-        System.Threading.Tasks.Task<HOR_CAT_HORAS> ExtraerHorCatHorasAsync(int idHoras);
+        System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_HORAS> ExtraerHorCatHorasAsync(int idHoras);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarrerasResponse")]
-        System.Collections.Generic.List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras();
+        System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_CARRERAS> ObtenListaCarCatCarreras();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaCarCatCarrerasResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_CARRERAS>> ObtenListaCarCatCarrerasAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_CARRERAS>> ObtenListaCarCatCarrerasAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarrerasResponse")]
-        CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro);
+        Universidad.Entidades.CAR_CAT_CARRERAS InsertaCarCatCarreras(Universidad.Entidades.CAR_CAT_CARRERAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaCarCatCarrerasResponse")]
-        System.Threading.Tasks.Task<CAR_CAT_CARRERAS> InsertaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro);
+        System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_CARRERAS> InsertaCarCatCarrerasAsync(Universidad.Entidades.CAR_CAT_CARRERAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarrerasResponse")]
-        bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro);
+        bool ActualizaCarCatCarreras(Universidad.Entidades.CAR_CAT_CARRERAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaCarCatCarrerasResponse")]
-        System.Threading.Tasks.Task<bool> ActualizaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro);
+        System.Threading.Tasks.Task<bool> ActualizaCarCatCarrerasAsync(Universidad.Entidades.CAR_CAT_CARRERAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarrerasResponse")]
-        bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro);
+        bool EliminaCarCatCarreras(Universidad.Entidades.CAR_CAT_CARRERAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaCarCatCarrerasResponse")]
-        System.Threading.Tasks.Task<bool> EliminaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro);
+        System.Threading.Tasks.Task<bool> EliminaCarCatCarrerasAsync(Universidad.Entidades.CAR_CAT_CARRERAS registro);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarrerasResponse")]
-        CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras);
+        Universidad.Entidades.CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarreras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerCarCatCarrerasResponse")]
-        System.Threading.Tasks.Task<CAR_CAT_CARRERAS> ExtraerCarCatCarrerasAsync(int idHoras);
+        System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_CARRERAS> ExtraerCarCatCarrerasAsync(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMateriasResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_MATERIAS> ObtenListaMatCatMaterias();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatMateriasResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_MATERIAS>> ObtenListaMatCatMateriasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMateriasResponse")]
+        Universidad.Entidades.MAT_CAT_MATERIAS InsertaMatCatMaterias(Universidad.Entidades.MAT_CAT_MATERIAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatMateriasResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_MATERIAS> InsertaMatCatMateriasAsync(Universidad.Entidades.MAT_CAT_MATERIAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMateriasResponse")]
+        bool ActualizaMatCatMaterias(Universidad.Entidades.MAT_CAT_MATERIAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatMateriasResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaMatCatMateriasAsync(Universidad.Entidades.MAT_CAT_MATERIAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMateriasResponse")]
+        bool EliminaMatCatMaterias(Universidad.Entidades.MAT_CAT_MATERIAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatMateriasResponse")]
+        System.Threading.Tasks.Task<bool> EliminaMatCatMateriasAsync(Universidad.Entidades.MAT_CAT_MATERIAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMateriasResponse")]
+        Universidad.Entidades.MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMateriasResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_MATERIAS> ExtraerMatCatMateriasAsync(int idHoras);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -369,19 +399,19 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
                 base(binding, remoteAddress) {
         }
         
-        public System.Collections.Generic.List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA() {
+        public System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULA() {
             return base.Channel.ObtenListaAUL_CAT_TIPO_AULA();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAUL_CAT_TIPO_AULAAsync() {
             return base.Channel.ObtenListaAUL_CAT_TIPO_AULAAsync();
         }
         
-        public AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro) {
+        public Universidad.Entidades.AUL_CAT_TIPO_AULA InsertaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.InsertaRegistroAUL_CAT_TIPO_AULA(registro);
         }
         
-        public System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULAAsync(AUL_CAT_TIPO_AULA registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> InsertaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.InsertaRegistroAUL_CAT_TIPO_AULAAsync(registro);
         }
         
@@ -401,99 +431,99 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
             return base.Channel.ObtenCatalogosSistemasAsync();
         }
         
-        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro) {
+        public bool ActualizaRegistroAUL_CAT_TIPO_AULA(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.ActualizaRegistroAUL_CAT_TIPO_AULA(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULAAsync(AUL_CAT_TIPO_AULA registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaRegistroAUL_CAT_TIPO_AULAAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.ActualizaRegistroAUL_CAT_TIPO_AULAAsync(registro);
         }
         
-        public System.Collections.Generic.List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios() {
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios() {
             return base.Channel.ObtenTablaUsCatTipoUsuarios();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<US_CAT_TIPO_USUARIO>> ObtenTablaUsCatTipoUsuariosAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.US_CAT_TIPO_USUARIO>> ObtenTablaUsCatTipoUsuariosAsync() {
             return base.Channel.ObtenTablaUsCatTipoUsuariosAsync();
         }
         
-        public System.Collections.Generic.List<US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario() {
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario() {
             return base.Channel.ObtenTablaUsCatNivelUsuario();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<US_CAT_NIVEL_USUARIO>> ObtenTablaUsCatNivelUsuarioAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.US_CAT_NIVEL_USUARIO>> ObtenTablaUsCatNivelUsuarioAsync() {
             return base.Channel.ObtenTablaUsCatNivelUsuarioAsync();
         }
         
-        public System.Collections.Generic.List<US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario() {
+        public System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario() {
             return base.Channel.ObtenTablaUsCatEstatusUsuario();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<US_CAT_ESTATUS_USUARIO>> ObtenTablaUsCatEstatusUsuarioAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.US_CAT_ESTATUS_USUARIO>> ObtenTablaUsCatEstatusUsuarioAsync() {
             return base.Channel.ObtenTablaUsCatEstatusUsuarioAsync();
         }
         
-        public US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario) {
+        public Universidad.Entidades.US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario) {
             return base.Channel.ObtenCatTipoUsuario(idTipoUsuario);
         }
         
-        public System.Threading.Tasks.Task<US_CAT_TIPO_USUARIO> ObtenCatTipoUsuarioAsync(int idTipoUsuario) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.US_CAT_TIPO_USUARIO> ObtenCatTipoUsuarioAsync(int idTipoUsuario) {
             return base.Channel.ObtenCatTipoUsuarioAsync(idTipoUsuario);
         }
         
-        public System.Collections.Generic.List<PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades() {
+        public System.Collections.Generic.List<Universidad.Entidades.PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades() {
             return base.Channel.ObtenCatalogoNacionalidades();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<PER_CAT_NACIONALIDAD>> ObtenCatalogoNacionalidadesAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_NACIONALIDAD>> ObtenCatalogoNacionalidadesAsync() {
             return base.Channel.ObtenCatalogoNacionalidadesAsync();
         }
         
-        public System.Collections.Generic.List<PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona() {
+        public System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA> ObtenCatTipoPersona() {
             return base.Channel.ObtenCatTipoPersona();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.PER_CAT_TIPO_PERSONA>> ObtenCatTipoPersonaAsync() {
             return base.Channel.ObtenCatTipoPersonaAsync();
         }
         
-        public System.Collections.Generic.List<DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal) {
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenColoniasPorCp(int codigoPostal) {
             return base.Channel.ObtenColoniasPorCp(codigoPostal);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_COLONIAS>> ObtenColoniasPorCpAsync(int codigoPostal) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>> ObtenColoniasPorCpAsync(int codigoPostal) {
             return base.Channel.ObtenColoniasPorCpAsync(codigoPostal);
         }
         
-        public System.Collections.Generic.List<DIR_CAT_ESTADO> ObtenCatEstados() {
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_ESTADO> ObtenCatEstados() {
             return base.Channel.ObtenCatEstados();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_ESTADO>> ObtenCatEstadosAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_ESTADO>> ObtenCatEstadosAsync() {
             return base.Channel.ObtenCatEstadosAsync();
         }
         
-        public System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO> ObtenMunicipios(int estado) {
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> ObtenMunicipios(int estado) {
             return base.Channel.ObtenMunicipios(estado);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO>> ObtenMunicipiosAsync(int estado) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO>> ObtenMunicipiosAsync(int estado) {
             return base.Channel.ObtenMunicipiosAsync(estado);
         }
         
-        public System.Collections.Generic.List<DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio) {
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenColonias(int estado, int municipio) {
             return base.Channel.ObtenColonias(estado, municipio);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_COLONIAS>> ObtenColoniasAsync(int estado, int municipio) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>> ObtenColoniasAsync(int estado, int municipio) {
             return base.Channel.ObtenColoniasAsync(estado, municipio);
         }
         
-        public DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia) {
+        public Universidad.Entidades.DIR_CAT_COLONIAS ObtenCodigoPostal(int estado, int municipio, int colonia) {
             return base.Channel.ObtenCodigoPostal(estado, municipio, colonia);
         }
         
-        public System.Threading.Tasks.Task<DIR_CAT_COLONIAS> ObtenCodigoPostalAsync(int estado, int municipio, int colonia) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenCodigoPostalAsync(int estado, int municipio, int colonia) {
             return base.Channel.ObtenCodigoPostalAsync(estado, municipio, colonia);
         }
         
@@ -505,300 +535,340 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
             return base.Channel.ObtenTablasCatalogosAsync();
         }
         
-        public System.Collections.Generic.List<DIR_CAT_COLONIAS> ObtenCatalogosColonias() {
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS> ObtenCatalogosColonias() {
             return base.Channel.ObtenCatalogosColonias();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_COLONIAS>> ObtenCatalogosColoniasAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_COLONIAS>> ObtenCatalogosColoniasAsync() {
             return base.Channel.ObtenCatalogosColoniasAsync();
         }
         
-        public System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios() {
+        public System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO> ObtenCatalogosMunicipios() {
             return base.Channel.ObtenCatalogosMunicipios();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<DIR_CAT_DELG_MUNICIPIO>> ObtenCatalogosMunicipiosAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.DIR_CAT_DELG_MUNICIPIO>> ObtenCatalogosMunicipiosAsync() {
             return base.Channel.ObtenCatalogosMunicipiosAsync();
         }
         
-        public System.Collections.Generic.List<HOR_CAT_TURNO> ObtenListaHorCatTurno() {
+        public System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_TURNO> ObtenListaHorCatTurno() {
             return base.Channel.ObtenListaHorCatTurno();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_TURNO>> ObtenListaHorCatTurnoAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_TURNO>> ObtenListaHorCatTurnoAsync() {
             return base.Channel.ObtenListaHorCatTurnoAsync();
         }
         
-        public HOR_CAT_TURNO InsertaHorCatTurno(HOR_CAT_TURNO registro) {
+        public Universidad.Entidades.HOR_CAT_TURNO InsertaHorCatTurno(Universidad.Entidades.HOR_CAT_TURNO registro) {
             return base.Channel.InsertaHorCatTurno(registro);
         }
         
-        public System.Threading.Tasks.Task<HOR_CAT_TURNO> InsertaHorCatTurnoAsync(HOR_CAT_TURNO registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_TURNO> InsertaHorCatTurnoAsync(Universidad.Entidades.HOR_CAT_TURNO registro) {
             return base.Channel.InsertaHorCatTurnoAsync(registro);
         }
         
-        public bool ActualizaHorCatTurno(HOR_CAT_TURNO registro) {
+        public bool ActualizaHorCatTurno(Universidad.Entidades.HOR_CAT_TURNO registro) {
             return base.Channel.ActualizaHorCatTurno(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaHorCatTurnoAsync(HOR_CAT_TURNO registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaHorCatTurnoAsync(Universidad.Entidades.HOR_CAT_TURNO registro) {
             return base.Channel.ActualizaHorCatTurnoAsync(registro);
         }
         
-        public bool EliminaHorCatTurno(HOR_CAT_TURNO registro) {
+        public bool EliminaHorCatTurno(Universidad.Entidades.HOR_CAT_TURNO registro) {
             return base.Channel.EliminaHorCatTurno(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaHorCatTurnoAsync(HOR_CAT_TURNO registro) {
+        public System.Threading.Tasks.Task<bool> EliminaHorCatTurnoAsync(Universidad.Entidades.HOR_CAT_TURNO registro) {
             return base.Channel.EliminaHorCatTurnoAsync(registro);
         }
         
-        public HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno) {
+        public Universidad.Entidades.HOR_CAT_TURNO ExtraeHorCatTurno(int idTurno) {
             return base.Channel.ExtraeHorCatTurno(idTurno);
         }
         
-        public System.Threading.Tasks.Task<HOR_CAT_TURNO> ExtraeHorCatTurnoAsync(int idTurno) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_TURNO> ExtraeHorCatTurnoAsync(int idTurno) {
             return base.Channel.ExtraeHorCatTurnoAsync(idTurno);
         }
         
-        public System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana() {
+        public System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_DIAS_SEMANA> ObtenListaHorCatDiasSemana() {
             return base.Channel.ObtenListaHorCatDiasSemana();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_DIAS_SEMANA>> ObtenListaHorCatDiasSemanaAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_DIAS_SEMANA>> ObtenListaHorCatDiasSemanaAsync() {
             return base.Channel.ObtenListaHorCatDiasSemanaAsync();
         }
         
-        public HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro) {
+        public Universidad.Entidades.HOR_CAT_DIAS_SEMANA InsertaHorCatDiasSemana(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro) {
             return base.Channel.InsertaHorCatDiasSemana(registro);
         }
         
-        public System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> InsertaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_DIAS_SEMANA> InsertaHorCatDiasSemanaAsync(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro) {
             return base.Channel.InsertaHorCatDiasSemanaAsync(registro);
         }
         
-        public bool ActualizaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro) {
+        public bool ActualizaHorCatDiasSemana(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro) {
             return base.Channel.ActualizaHorCatDiasSemana(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaHorCatDiasSemanaAsync(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro) {
             return base.Channel.ActualizaHorCatDiasSemanaAsync(registro);
         }
         
-        public bool EliminaHorCatDiasSemana(HOR_CAT_DIAS_SEMANA registro) {
+        public bool EliminaHorCatDiasSemana(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro) {
             return base.Channel.EliminaHorCatDiasSemana(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaHorCatDiasSemanaAsync(HOR_CAT_DIAS_SEMANA registro) {
+        public System.Threading.Tasks.Task<bool> EliminaHorCatDiasSemanaAsync(Universidad.Entidades.HOR_CAT_DIAS_SEMANA registro) {
             return base.Channel.EliminaHorCatDiasSemanaAsync(registro);
         }
         
-        public HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno) {
+        public Universidad.Entidades.HOR_CAT_DIAS_SEMANA ExtraerHorCatDiasSemana(int idTurno) {
             return base.Channel.ExtraerHorCatDiasSemana(idTurno);
         }
         
-        public System.Threading.Tasks.Task<HOR_CAT_DIAS_SEMANA> ExtraerHorCatDiasSemanaAsync(int idTurno) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_DIAS_SEMANA> ExtraerHorCatDiasSemanaAsync(int idTurno) {
             return base.Channel.ExtraerHorCatDiasSemanaAsync(idTurno);
         }
         
-        public System.Collections.Generic.List<AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula() {
+        public System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA> ObtenListaAulCatTipoAula() {
             return base.Channel.ObtenListaAulCatTipoAula();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<AUL_CAT_TIPO_AULA>> ObtenListaAulCatTipoAulaAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.AUL_CAT_TIPO_AULA>> ObtenListaAulCatTipoAulaAsync() {
             return base.Channel.ObtenListaAulCatTipoAulaAsync();
         }
         
-        public AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(AUL_CAT_TIPO_AULA registro) {
+        public Universidad.Entidades.AUL_CAT_TIPO_AULA InsertaAulCatTipoAula(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.InsertaAulCatTipoAula(registro);
         }
         
-        public System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> InsertaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> InsertaAulCatTipoAulaAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.InsertaAulCatTipoAulaAsync(registro);
         }
         
-        public bool ActualizaAulCatTipoAula(AUL_CAT_TIPO_AULA registro) {
+        public bool ActualizaAulCatTipoAula(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.ActualizaAulCatTipoAula(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaAulCatTipoAulaAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.ActualizaAulCatTipoAulaAsync(registro);
         }
         
-        public bool EliminaAulCatTipoAula(AUL_CAT_TIPO_AULA registro) {
+        public bool EliminaAulCatTipoAula(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.EliminaAulCatTipoAula(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaAulCatTipoAulaAsync(AUL_CAT_TIPO_AULA registro) {
+        public System.Threading.Tasks.Task<bool> EliminaAulCatTipoAulaAsync(Universidad.Entidades.AUL_CAT_TIPO_AULA registro) {
             return base.Channel.EliminaAulCatTipoAulaAsync(registro);
         }
         
-        public AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno) {
+        public Universidad.Entidades.AUL_CAT_TIPO_AULA ExtraerAulCatTipoAula(int idTurno) {
             return base.Channel.ExtraerAulCatTipoAula(idTurno);
         }
         
-        public System.Threading.Tasks.Task<AUL_CAT_TIPO_AULA> ExtraerAulCatTipoAulaAsync(int idTurno) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.AUL_CAT_TIPO_AULA> ExtraerAulCatTipoAulaAsync(int idTurno) {
             return base.Channel.ExtraerAulCatTipoAulaAsync(idTurno);
         }
         
-        public System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad() {
+        public System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_ESPECIALIDAD> ObtenListaCarCatEspecialidad() {
             return base.Channel.ObtenListaCarCatEspecialidad();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_ESPECIALIDAD>> ObtenListaCarCatEspecialidadAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_ESPECIALIDAD>> ObtenListaCarCatEspecialidadAsync() {
             return base.Channel.ObtenListaCarCatEspecialidadAsync();
         }
         
-        public CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro) {
+        public Universidad.Entidades.CAR_CAT_ESPECIALIDAD InsertaCarCatEspecialidad(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro) {
             return base.Channel.InsertaCarCatEspecialidad(registro);
         }
         
-        public System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> InsertaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_ESPECIALIDAD> InsertaCarCatEspecialidadAsync(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro) {
             return base.Channel.InsertaCarCatEspecialidadAsync(registro);
         }
         
-        public bool ActualizaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro) {
+        public bool ActualizaCarCatEspecialidad(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro) {
             return base.Channel.ActualizaCarCatEspecialidad(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaCarCatEspecialidadAsync(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro) {
             return base.Channel.ActualizaCarCatEspecialidadAsync(registro);
         }
         
-        public bool EliminaCarCatEspecialidad(CAR_CAT_ESPECIALIDAD registro) {
+        public bool EliminaCarCatEspecialidad(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro) {
             return base.Channel.EliminaCarCatEspecialidad(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaCarCatEspecialidadAsync(CAR_CAT_ESPECIALIDAD registro) {
+        public System.Threading.Tasks.Task<bool> EliminaCarCatEspecialidadAsync(Universidad.Entidades.CAR_CAT_ESPECIALIDAD registro) {
             return base.Channel.EliminaCarCatEspecialidadAsync(registro);
         }
         
-        public CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad) {
+        public Universidad.Entidades.CAR_CAT_ESPECIALIDAD ExtraerCarCatEspecialidad(int idEspecialidad) {
             return base.Channel.ExtraerCarCatEspecialidad(idEspecialidad);
         }
         
-        public System.Threading.Tasks.Task<CAR_CAT_ESPECIALIDAD> ExtraerCarCatEspecialidadAsync(int idEspecialidad) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_ESPECIALIDAD> ExtraerCarCatEspecialidadAsync(int idEspecialidad) {
             return base.Channel.ExtraerCarCatEspecialidadAsync(idEspecialidad);
         }
         
-        public System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion() {
+        public System.Collections.Generic.List<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION> ObtenListaCalCatTipoEvaluacion() {
             return base.Channel.ObtenListaCalCatTipoEvaluacion();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<CAL_CAT_TIPO_EVALUACION>> ObtenListaCalCatTipoEvaluacionAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION>> ObtenListaCalCatTipoEvaluacionAsync() {
             return base.Channel.ObtenListaCalCatTipoEvaluacionAsync();
         }
         
-        public CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro) {
+        public Universidad.Entidades.CAL_CAT_TIPO_EVALUACION InsertaCalCatTipoEvaluacion(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro) {
             return base.Channel.InsertaCalCatTipoEvaluacion(registro);
         }
         
-        public System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> InsertaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION> InsertaCalCatTipoEvaluacionAsync(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro) {
             return base.Channel.InsertaCalCatTipoEvaluacionAsync(registro);
         }
         
-        public bool ActualizaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro) {
+        public bool ActualizaCalCatTipoEvaluacion(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro) {
             return base.Channel.ActualizaCalCatTipoEvaluacion(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaCalCatTipoEvaluacionAsync(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro) {
             return base.Channel.ActualizaCalCatTipoEvaluacionAsync(registro);
         }
         
-        public bool EliminaCalCatTipoEvaluacion(CAL_CAT_TIPO_EVALUACION registro) {
+        public bool EliminaCalCatTipoEvaluacion(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro) {
             return base.Channel.EliminaCalCatTipoEvaluacion(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaCalCatTipoEvaluacionAsync(CAL_CAT_TIPO_EVALUACION registro) {
+        public System.Threading.Tasks.Task<bool> EliminaCalCatTipoEvaluacionAsync(Universidad.Entidades.CAL_CAT_TIPO_EVALUACION registro) {
             return base.Channel.EliminaCalCatTipoEvaluacionAsync(registro);
         }
         
-        public CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad) {
+        public Universidad.Entidades.CAL_CAT_TIPO_EVALUACION ExtraerCalCatTipoEvaluacion(int idEspecialidad) {
             return base.Channel.ExtraerCalCatTipoEvaluacion(idEspecialidad);
         }
         
-        public System.Threading.Tasks.Task<CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.CAL_CAT_TIPO_EVALUACION> ExtraerCalCatTipoEvaluacionAsync(int idEspecialidad) {
             return base.Channel.ExtraerCalCatTipoEvaluacionAsync(idEspecialidad);
         }
         
-        public System.Collections.Generic.List<HOR_CAT_HORAS> ObtenListaHorCatHoras() {
+        public System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_HORAS> ObtenListaHorCatHoras() {
             return base.Channel.ObtenListaHorCatHoras();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<HOR_CAT_HORAS>> ObtenListaHorCatHorasAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.HOR_CAT_HORAS>> ObtenListaHorCatHorasAsync() {
             return base.Channel.ObtenListaHorCatHorasAsync();
         }
         
-        public HOR_CAT_HORAS InsertaHorCatHoras(HOR_CAT_HORAS registro) {
+        public Universidad.Entidades.HOR_CAT_HORAS InsertaHorCatHoras(Universidad.Entidades.HOR_CAT_HORAS registro) {
             return base.Channel.InsertaHorCatHoras(registro);
         }
         
-        public System.Threading.Tasks.Task<HOR_CAT_HORAS> InsertaHorCatHorasAsync(HOR_CAT_HORAS registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_HORAS> InsertaHorCatHorasAsync(Universidad.Entidades.HOR_CAT_HORAS registro) {
             return base.Channel.InsertaHorCatHorasAsync(registro);
         }
         
-        public bool ActualizaHorCatHoras(HOR_CAT_HORAS registro) {
+        public bool ActualizaHorCatHoras(Universidad.Entidades.HOR_CAT_HORAS registro) {
             return base.Channel.ActualizaHorCatHoras(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaHorCatHorasAsync(HOR_CAT_HORAS registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaHorCatHorasAsync(Universidad.Entidades.HOR_CAT_HORAS registro) {
             return base.Channel.ActualizaHorCatHorasAsync(registro);
         }
         
-        public bool EliminaHorCatHoras(HOR_CAT_HORAS registro) {
+        public bool EliminaHorCatHoras(Universidad.Entidades.HOR_CAT_HORAS registro) {
             return base.Channel.EliminaHorCatHoras(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaHorCatHorasAsync(HOR_CAT_HORAS registro) {
+        public System.Threading.Tasks.Task<bool> EliminaHorCatHorasAsync(Universidad.Entidades.HOR_CAT_HORAS registro) {
             return base.Channel.EliminaHorCatHorasAsync(registro);
         }
         
-        public HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras) {
+        public Universidad.Entidades.HOR_CAT_HORAS ExtraerHorCatHoras(int idHoras) {
             return base.Channel.ExtraerHorCatHoras(idHoras);
         }
         
-        public System.Threading.Tasks.Task<HOR_CAT_HORAS> ExtraerHorCatHorasAsync(int idHoras) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.HOR_CAT_HORAS> ExtraerHorCatHorasAsync(int idHoras) {
             return base.Channel.ExtraerHorCatHorasAsync(idHoras);
         }
         
-        public System.Collections.Generic.List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras() {
+        public System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_CARRERAS> ObtenListaCarCatCarreras() {
             return base.Channel.ObtenListaCarCatCarreras();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<CAR_CAT_CARRERAS>> ObtenListaCarCatCarrerasAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.CAR_CAT_CARRERAS>> ObtenListaCarCatCarrerasAsync() {
             return base.Channel.ObtenListaCarCatCarrerasAsync();
         }
         
-        public CAR_CAT_CARRERAS InsertaCarCatCarreras(CAR_CAT_CARRERAS registro) {
+        public Universidad.Entidades.CAR_CAT_CARRERAS InsertaCarCatCarreras(Universidad.Entidades.CAR_CAT_CARRERAS registro) {
             return base.Channel.InsertaCarCatCarreras(registro);
         }
         
-        public System.Threading.Tasks.Task<CAR_CAT_CARRERAS> InsertaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_CARRERAS> InsertaCarCatCarrerasAsync(Universidad.Entidades.CAR_CAT_CARRERAS registro) {
             return base.Channel.InsertaCarCatCarrerasAsync(registro);
         }
         
-        public bool ActualizaCarCatCarreras(CAR_CAT_CARRERAS registro) {
+        public bool ActualizaCarCatCarreras(Universidad.Entidades.CAR_CAT_CARRERAS registro) {
             return base.Channel.ActualizaCarCatCarreras(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro) {
+        public System.Threading.Tasks.Task<bool> ActualizaCarCatCarrerasAsync(Universidad.Entidades.CAR_CAT_CARRERAS registro) {
             return base.Channel.ActualizaCarCatCarrerasAsync(registro);
         }
         
-        public bool EliminaCarCatCarreras(CAR_CAT_CARRERAS registro) {
+        public bool EliminaCarCatCarreras(Universidad.Entidades.CAR_CAT_CARRERAS registro) {
             return base.Channel.EliminaCarCatCarreras(registro);
         }
         
-        public System.Threading.Tasks.Task<bool> EliminaCarCatCarrerasAsync(CAR_CAT_CARRERAS registro) {
+        public System.Threading.Tasks.Task<bool> EliminaCarCatCarrerasAsync(Universidad.Entidades.CAR_CAT_CARRERAS registro) {
             return base.Channel.EliminaCarCatCarrerasAsync(registro);
         }
         
-        public CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras) {
+        public Universidad.Entidades.CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras) {
             return base.Channel.ExtraerCarCatCarreras(idHoras);
         }
         
-        public System.Threading.Tasks.Task<CAR_CAT_CARRERAS> ExtraerCarCatCarrerasAsync(int idHoras) {
+        public System.Threading.Tasks.Task<Universidad.Entidades.CAR_CAT_CARRERAS> ExtraerCarCatCarrerasAsync(int idHoras) {
             return base.Channel.ExtraerCarCatCarrerasAsync(idHoras);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_MATERIAS> ObtenListaMatCatMaterias() {
+            return base.Channel.ObtenListaMatCatMaterias();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_MATERIAS>> ObtenListaMatCatMateriasAsync() {
+            return base.Channel.ObtenListaMatCatMateriasAsync();
+        }
+        
+        public Universidad.Entidades.MAT_CAT_MATERIAS InsertaMatCatMaterias(Universidad.Entidades.MAT_CAT_MATERIAS registro) {
+            return base.Channel.InsertaMatCatMaterias(registro);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_MATERIAS> InsertaMatCatMateriasAsync(Universidad.Entidades.MAT_CAT_MATERIAS registro) {
+            return base.Channel.InsertaMatCatMateriasAsync(registro);
+        }
+        
+        public bool ActualizaMatCatMaterias(Universidad.Entidades.MAT_CAT_MATERIAS registro) {
+            return base.Channel.ActualizaMatCatMaterias(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaMatCatMateriasAsync(Universidad.Entidades.MAT_CAT_MATERIAS registro) {
+            return base.Channel.ActualizaMatCatMateriasAsync(registro);
+        }
+        
+        public bool EliminaMatCatMaterias(Universidad.Entidades.MAT_CAT_MATERIAS registro) {
+            return base.Channel.EliminaMatCatMaterias(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaMatCatMateriasAsync(Universidad.Entidades.MAT_CAT_MATERIAS registro) {
+            return base.Channel.EliminaMatCatMateriasAsync(registro);
+        }
+        
+        public Universidad.Entidades.MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras) {
+            return base.Channel.ExtraerMatCatMaterias(idHoras);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_MATERIAS> ExtraerMatCatMateriasAsync(int idHoras) {
+            return base.Channel.ExtraerMatCatMateriasAsync(idHoras);
         }
     }
 }

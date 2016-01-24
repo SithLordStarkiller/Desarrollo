@@ -6,6 +6,7 @@
     using System.Data;
     using System.Linq;
     using Entidades.Catalogos;
+    using Entidades;
 
     public class Catalogos
     {
@@ -573,6 +574,65 @@
             using (var r = new Repositorio<CAR_CAT_CARRERAS>())
             {
                 return r.Extraer(a => a.IDCARRERA == idCarrera);
+            }
+        }
+
+        #endregion
+
+        #region MAT_CAT_MATERIAS
+
+        public List<MAT_CAT_MATERIAS> ObtenListaMatCatMateriasLinq()
+        {
+            using (var r = new Repositorio<MAT_CAT_MATERIAS>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public MAT_CAT_MATERIAS InsertaMatCatMateriasLinq(MAT_CAT_MATERIAS registro)
+        {
+            using (var r = new Repositorio<MAT_CAT_MATERIAS>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaMatCatMateriasLinq(MAT_CAT_MATERIAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<MAT_CAT_MATERIAS>())
+                {
+                    return r.Actualizar(registro) != null;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaMatCatMateriasLinq(MAT_CAT_MATERIAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<MAT_CAT_MATERIAS>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public MAT_CAT_MATERIAS ExtraerMatCatMateriasLinq(int idMateria)
+        {
+            using (var r = new Repositorio<MAT_CAT_MATERIAS>())
+            {
+                return r.Extraer(a => a.IDMATERIA == idMateria);
             }
         }
 

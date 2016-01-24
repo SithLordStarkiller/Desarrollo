@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using Entidades.Catalogos;
+    using Entidades;
 
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "S_GestionCatalogos" en el código, en svc y en el archivo de configuración a la vez.
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione S_GestionCatalogos.svc o S_GestionCatalogos.svc.cs en el Explorador de soluciones e inicie la depuración.
@@ -277,7 +278,7 @@
 
         #endregion
 
-        #region CAL_CAT_HORAS
+        #region CAR_CAT_CARRERAS
 
         public List<CAR_CAT_CARRERAS> ObtenListaCarCatCarreras()
         {
@@ -302,6 +303,35 @@
         public CAR_CAT_CARRERAS ExtraerCarCatCarreras(int idHoras)
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerCarCatCarreras(idHoras);
+        }
+
+        #endregion
+
+        #region MAT_CAT_MATERIAS
+
+        public List<MAT_CAT_MATERIAS> ObtenListaMatCatMaterias()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaMatCatMaterias();
+        }
+
+        public MAT_CAT_MATERIAS InsertaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaMatCatMaterias(registro);
+        }
+
+        public bool ActualizaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaMatCatMaterias(registro);
+        }
+
+        public bool EliminaMatCatMaterias(MAT_CAT_MATERIAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaMatCatMaterias(registro);
+        }
+
+        public MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerMatCatMaterias(idHoras);
         }
 
         #endregion

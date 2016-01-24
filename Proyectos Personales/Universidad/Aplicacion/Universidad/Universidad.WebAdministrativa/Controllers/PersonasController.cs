@@ -13,6 +13,7 @@
     using Controlador.GestionCatalogos;
     using Controlador.Personas;
     using Entidades.ControlUsuario;
+    using Entidades;
     using Models;
     using PagedList;
 

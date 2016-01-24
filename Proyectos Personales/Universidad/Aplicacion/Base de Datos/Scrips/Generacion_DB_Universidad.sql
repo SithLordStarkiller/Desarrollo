@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     14/01/2016 01:17:10 p. m.                    */
+/* Created on:     22/01/2016 06:08:57 p. m.                    */
 /*==============================================================*/
 
 
@@ -230,13 +230,6 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('MAT_CAT_MATERIAS') and o.name = 'FK_MAT_CAT__REFERENCE_CAR_CAT_')
-alter table MAT_CAT_MATERIAS
-   drop constraint FK_MAT_CAT__REFERENCE_CAR_CAT_
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('MAT_HORARIO_POR_MATERIA') and o.name = 'FK_MAT_HORA_REFERENCE_HOR_HORA')
 alter table MAT_HORARIO_POR_MATERIA
    drop constraint FK_MAT_HORA_REFERENCE_HOR_HORA
@@ -247,6 +240,20 @@ if exists (select 1
    where r.fkeyid = object_id('MAT_HORARIO_POR_MATERIA') and o.name = 'FK_MAT_HORA_REFERENCE_AUL_AULA')
 alter table MAT_HORARIO_POR_MATERIA
    drop constraint FK_MAT_HORA_REFERENCE_AUL_AULA
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('MAT_MATERIAS_POR_CARRERA') and o.name = 'FK_MAT_MATE_REFERENCE_MAT_CAT_')
+alter table MAT_MATERIAS_POR_CARRERA
+   drop constraint FK_MAT_MATE_REFERENCE_MAT_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('MAT_MATERIAS_POR_CARRERA') and o.name = 'FK_MAT_MATE_REFERENCE_CAR_CAT_')
+alter table MAT_MATERIAS_POR_CARRERA
+   drop constraint FK_MAT_MATE_REFERENCE_CAR_CAT_
 go
 
 if exists (select 1
@@ -587,6 +594,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('MAT_MATERIAS_POR_CARRERA')
+            and   type = 'U')
+   drop table MAT_MATERIAS_POR_CARRERA
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('PER_CAT_NACIONALIDAD')
             and   type = 'U')
    drop table PER_CAT_NACIONALIDAD
@@ -817,7 +831,7 @@ go
 /* Table: CAL_CAT_TIPO_EVALUACION                               */
 /*==============================================================*/
 create table CAL_CAT_TIPO_EVALUACION (
-   IDTIPOEVALUACION     smallint             identity,
+   IDTIPOEVALUACION     smallint             not null,
    TIPOEVALUACION       varchar(100)         not null,
    DESCRIPCION          varchar(300)         null,
    constraint PK_CAL_CAT_TIPO_EVALUACION primary key (IDTIPOEVALUACION)
@@ -1015,9 +1029,9 @@ go
 /*==============================================================*/
 create table MAT_CAT_MATERIAS (
    IDMATERIA            smallint             not null,
-   IDCARRERA            smallint             null,
    NOMBREMATERIA        varchar(100)         not null,
-   CREDITOS             decimal(3,2)         null,
+   CREDITOS             numeric(5,2)         null,
+   OPTATIVA             bit                  null,
    constraint PK_MAT_CAT_MATERIAS primary key (IDMATERIA)
 )
 go
@@ -1030,6 +1044,17 @@ create table MAT_HORARIO_POR_MATERIA (
    IDHORASPORDIA        smallint             null,
    IDAULACLASES         smallint             null,
    constraint PK_MAT_HORARIO_POR_MATERIA primary key (IDHORARIOMATERIA)
+)
+go
+
+/*==============================================================*/
+/* Table: MAT_MATERIAS_POR_CARRERA                              */
+/*==============================================================*/
+create table MAT_MATERIAS_POR_CARRERA (
+   IDMATERIACARRERA     int                  not null,
+   IDMATERIA            smallint             null,
+   IDCARRERA            smallint             null,
+   constraint PK_MAT_MATERIAS_POR_CARRERA primary key (IDMATERIACARRERA)
 )
 go
 
@@ -1405,11 +1430,6 @@ alter table MAT_ARBOL_MATERIA
       references MAT_CAT_MATERIAS (IDMATERIA)
 go
 
-alter table MAT_CAT_MATERIAS
-   add constraint FK_MAT_CAT__REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
-      references CAR_CAT_CARRERAS (IDCARRERA)
-go
-
 alter table MAT_HORARIO_POR_MATERIA
    add constraint FK_MAT_HORA_REFERENCE_HOR_HORA foreign key (IDHORASPORDIA)
       references HOR_HORAS_POR_DIA (IDHORASPORDIA)
@@ -1418,6 +1438,16 @@ go
 alter table MAT_HORARIO_POR_MATERIA
    add constraint FK_MAT_HORA_REFERENCE_AUL_AULA foreign key (IDAULACLASES)
       references AUL_AULA_CLASES (IDAULACLASES)
+go
+
+alter table MAT_MATERIAS_POR_CARRERA
+   add constraint FK_MAT_MATE_REFERENCE_MAT_CAT_ foreign key (IDMATERIA)
+      references MAT_CAT_MATERIAS (IDMATERIA)
+go
+
+alter table MAT_MATERIAS_POR_CARRERA
+   add constraint FK_MAT_MATE_REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
+      references CAR_CAT_CARRERAS (IDCARRERA)
 go
 
 alter table PER_PERSONAS
