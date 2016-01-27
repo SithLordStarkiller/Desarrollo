@@ -2,7 +2,13 @@
 @{
     ViewBag.Title = "MAT_CAT_MATERIAS";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var listaCarreras = (List<MAT_CAT_MATERIAS>)ViewBag.listaCarreras;
+
+    var listaMaterias = new List<MAT_CAT_MATERIAS>();
+
+    if (ViewBag.listaMaterias != null)
+    {
+        listaMaterias = ViewBag.listaMaterias;
+    }
 }
 @section Head
 {
@@ -19,38 +25,54 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function show_modal(modalName, idCarrera, nombreCarrera, idEspecialidad) {
+        function show_modal(modalName, idMateria, nombreMateria, creditos,optativa) {
 
-            $("#txtIdCarreraActualiza").val(idCarrera);
-            $("#txtNombreCarreraActualiza").val(nombreCarrera);
-            $("#ddlEspecialidadActualiza").val(idEspecialidad);
+            $("#txtIdMateriaVer").val(idMateria);
+            $("#txtNombreMateriaVer").val(nombreMateria);
+            $("#txtCreditosVer").val(creditos);
+            $("#cbxOptativaVer").val(optativa);
+
+            $("#txtIdMateriaActualizar").val(idMateria);
+            $("#txtNombreMateriaActualizar").val(nombreMateria);
+            $("#txtCreditosActualizar").val(creditos);
+            $("#cbxOptativaActualizar").val(optativa);
+            debugger;
+            document.getElementById("cbxOptativaNuevo").checked = optativa;
 
             $('.selectpicker').selectpicker('refresh');
             $('#' + modalName + '').modal('show');
         }
 
         function Nuevo() {
-            $("#txtIdCarreraNuevo").val('');
-            $("#txtNombreCarreraNuevo").val('');
-            $("#ddlEspecialidadNuevo").val('');
+            $("#txtIdMateriaNuevo").val('');
+            $("#txtNombreMateriaNuevo").val('');
+            $("#txtCreditosNuevo").val('');
+            $("#cbxOptativaNuevo").val('');
             $('.selectpicker').selectpicker('refresh');
             $('#modalNuevoRegistro').modal('show');
         }
 
         function NuevoRegistro() {
+            var idMateria = $("#txtIdMateriaNuevo").val();
+            var nombreMateria = $("#txtNombreMateriaNuevo").val();
+            var creditos = $("#txtCreditosNuevo").val();
+            var optativa = false;
 
-            var idCarrera = $("#txtIdCarreraNuevo").val();
-            var nombreCarrera = $("#txtNombreCarreraNuevo").val();
-            var idEspecialidad = $("#ddlEspecialidadNuevo").val();
+            var ckb = document.getElementById("cbxOptativaNuevo").checked;
+
+            if (ckb == true) {
+                optativa = true;
+            }
 
             $.ajax({
                 type: "POST",
                 data: {
-                    'idCarrera': idCarrera,
-                    'nombreCarrera': nombreCarrera,
-                    'idEspecialidad': idEspecialidad
+                    'idMateria': idMateria,
+                    'nombreMateria': nombreMateria,
+                    'creditos': creditos,
+                    'optativa': optativa
                 },
-                url: '@Url.Action("NuevoRegistroCarCatCarreras", "Catalogos")',
+                url: '@Url.Action("NuevoRegistroMatCatMaterias", "Catalogos")',
                 success: function (response) {
 
                     $('#modalNuevoRegistro').modal('hide');
@@ -72,18 +94,26 @@
 
         function Actualiza() {
 
-            var idCarrera = $("#txtIdCarreraActualiza").val();
-            var nombreCarrera = $("#txtNombreCarreraActualiza").val();
-            var idEspecialidad = $("#ddlEspecialidadActualiza").val();
+            var idMateria = $("#txtIdMateriaActualizar").val();
+            var nombreMateria = $("#txtNombreMateriaActualizar").val();
+            var creditos = $("#txtCreditosActualizar").val();
+            var optativa = false;
+
+            var ckb = document.getElementById("cbxOptativaActualizar").checked;
+
+            if (ckb == true) {
+                optativa = true;
+            }
 
             $.ajax({
                 type: "POST",
                 data: {
-                    'idCarrera': idCarrera,
-                    'nombreCarrera': nombreCarrera,
-                    'idEspecialidad': idEspecialidad
+                    'idMateria': idMateria,
+                    'nombreMateria': nombreMateria,
+                    'creditos': creditos,
+                    'optativa': optativa
                 },
-                url: '@Url.Action("ActualizaCalCatCarreras", "Catalogos")',
+                url: '@Url.Action("ActualizaMatCatMaterias", "Catalogos")',
                 success: function (response) {
 
                     $('#modalActualizaRegistro').modal('hide');
@@ -103,11 +133,12 @@
             });
         }
 
-        function Ver(modalName, idCarrera, nombreCarrera, idEspecialidad) {
+        function Ver(modalName, idMateria, nombreMateria, creditos,optativa) {
 
-            $("#txtIdCarreraVer").val(idCarrera);
-            $("#txtNombreCarreraVer").val(nombreCarrera);
-            $("#ddlEspecialidadVer").val(idEspecialidad);
+            $("#txtIdMateriaVer").val(idMateria);
+            $("#txtNombreMateriaVer").val(nombreMateria);
+            $("#txtCreditosVer").val(creditos);
+            $("#cbxOptativaVer").val(optativa);
             $('#modalVerRegistro').modal('show');
         }
     </script>
@@ -134,14 +165,14 @@
                 Creditos
             </th>
             <th>
-                
+                Optativa
             </th>
             <th>
                 Operaciones
             </th>
         </tr>
 
-        @foreach (var item in listaCarreras)
+        @foreach (var item in listaMaterias)
         {
             <tr>
                 <td>
@@ -154,12 +185,12 @@
                     @item.CREDITOS
                 </td>
                 <td>
-                    @Html.CheckBox("cbxOptativa",@item.OPTATIVA)
+                    @Html.CheckBox("cbxOptativa", Convert.ToBoolean(item.OPTATIVA), new { @class = "checkbox", disabled = "disabled" })
                 </td>
                 <td style="align-content: center;">
-                    <a id="btnEliminar" href="@Url.Action("EliminaCarCatCarreras", "Catalogos", new { idCarrera = item.IDMATERIA, nombreCarrera = item.NOMBREMATERIA, idEspecialidad = item.CREDITOS})" class="btn btn-default btn-sm">Elimina</a>
-                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro','@item.IDMATERIA', '@item.NOMBREMATERIA', '@item.CREDITOS')">Editar</button>
-                    <button name="btnVer" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDMATERIA', '@item.NOMBREMATERIA', '@item.CREDITOS')">ver</button>
+                    <a id="btnEliminar" href="@Url.Action("EliminaMatCatMaterias", "Catalogos", new { idMateria = item.IDMATERIA, nombreMateria = item.NOMBREMATERIA, creditos = item.CREDITOS, optativa = item.OPTATIVA})" class="btn btn-default btn-sm">Elimina</a>
+                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro','@item.IDMATERIA', '@item.NOMBREMATERIA', '@item.CREDITOS', '@item.OPTATIVA.ToString()')">Editar</button>
+                    <button name="btnVer" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDMATERIA', '@item.NOMBREMATERIA', '@item.CREDITOS','@item.OPTATIVA.ToString()')">ver</button>
                 </td>
             </tr>
         }
@@ -186,12 +217,23 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdCarrera", null, new { @class = "" })
-                            @Html.TextBox("txtIdCarreraActualiza", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
-                            @Html.Label("Nombre Carrera", null, new { @class = "" })
-                            @Html.TextBox("txtNombreCarreraActualiza", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
-                            @Html.Label("Especialidad", null, new { @class = "" })
-                            
+                            <div class="form-group col-md-12">
+                                @Html.Label("IdMateria", null, new { @class = "" })
+                                @Html.TextBox("txtIdMateriaActualizar", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                                @Html.Label("Nombre Materia", null, new { @class = "" })
+                                @Html.TextBox("txtNombreMateriaActualizar", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                                @Html.Label("Creditos", null, new { @class = "" })
+                                @Html.TextBox("txtCreditosActualizar", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                                <br />
+                                <div class="row input-group form-group" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                                    <p>
+                                        @Html.Label("Optativa", null, new { @class = "input-group-addon" })
+                                        <span class="input-group-addon">
+                                            @Html.CheckBox("cbxOptativaActualizar", false, new { @class = "checkbox" })
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -220,12 +262,21 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdCarrera", null, new { @class = "" })
-                            @Html.TextBox("txtIdCarreraNuevo", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
-                            @Html.Label("Nombre Carrera", null, new { @class = "" })
-                            @Html.TextBox("txtNombreCarreraNuevo", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
-                            @Html.Label("Especialidad", null, new { @class = "" })
-                           
+                            @Html.Label("IdMateria", null, new { @class = "" })
+                            @Html.TextBox("txtIdMateriaNuevo", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("Nombre Materia", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMateriaNuevo", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.Label("Creditos", null, new { @class = "" })
+                            @Html.TextBox("txtCreditosNuevo", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            <br />
+                            <div class="row input-group form-group" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                                <p>
+                                    @Html.Label("Optativa", null, new { @class = "input-group-addon" })
+                                    <span class="input-group-addon">
+                                        @Html.CheckBox("cbxOptativaNuevo", false, new { @class = "checkbox" })
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -253,17 +304,26 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdCarrera", null, new { @class = "" })
-                            @Html.TextBox("txtIdCarreraVar", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
-                            @Html.Label("Nombre Carrera", null, new { @class = "" })
-                            @Html.TextBox("txtNombreCarreraVar", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
-                            @Html.Label("Especialidad", null, new { @class = "" })
-                           
+                            @Html.Label("IdMateria", null, new { @class = "" })
+                            @Html.TextBox("txtIdMateriaVer", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
+                            @Html.Label("Nombre Materia", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMateriaVer", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.Label("Creditos", null, new { @class = "" })
+                            @Html.TextBox("txtCreditosVer", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            <br />
+                            <div class="row input-group form-group" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                                <p>
+                                    @Html.Label("Optativa", null, new { @class = "input-group-addon" })
+                                    <span class="input-group-addon">
+                                        @Html.CheckBox("cbxOptativaVer", false, new { @class = "checkbox" })
+                                    </span>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
                 </div>
             </div>
         </div>

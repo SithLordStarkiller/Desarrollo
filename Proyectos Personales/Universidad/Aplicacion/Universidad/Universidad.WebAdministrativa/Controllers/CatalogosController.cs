@@ -103,6 +103,8 @@
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoHorCatHoras", "Catalogos"));
                 case "CAR_CAT_CARRERAS":
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoCarCatCarreras", "Catalogos"));
+                case"MAT_CAT_MATERIAS":
+                    return new RedirectToReturnUrlResult( ()=> RedirectToAction("EditarCatalogoMatCatMaterias","Catalogos"));
             }
             return null;
         }
@@ -603,31 +605,16 @@
         #region Operaciones Catalogo MAT_CAT_MATERIAS
 
         [SessionExpireFilter]
-        public ActionResult EditarCatalogoMatCatMaterias()
+        public async Task<ActionResult> EditarCatalogoMatCatMaterias()
         {
             Sesion();
 
             var sesion = (Sesion)Session["Sesion"];
             var servicio = new SvcGestionCatalogos(sesion);
 
-            var listaCarreras = servicio.ObtenListaCarCatCarreras();
-            var listaMaterias = servicio.ObtenListaMatCatMaterias();
+           var listaMaterias = await servicio.ObtenListaMatCatMaterias();
 
-            var listTask = new List<Task>
-            {
-                listaMaterias,
-                listaCarreras
-            };
-
-            Task.WaitAll(listTask.ToArray());
-
-            ViewBag.listaCarreras = listaCarreras.Result;
-
-            ViewBag.listaCarreras = listaCarreras.Result.Select(c => new SelectListItem
-            {
-                Value = c.IDCARRERA.ToString(CultureInfo.InvariantCulture),
-                Text = c.NOMBRECARRERA
-            }).ToArray();
+           ViewBag.listaMaterias = listaMaterias;
 
             return View("Tablas/MatCatMaterias");
         }
@@ -653,6 +640,48 @@
             var resultado = JsonConvert.SerializeObject(nuevo);
 
             return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaMatCatMaterias(string idMateria, string nombreMateria, string creditos, string optativa)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new MAT_CAT_MATERIAS
+            {
+                IDMATERIA = Convert.ToInt16(idMateria),
+                NOMBREMATERIA = nombreMateria,
+                CREDITOS = Convert.ToDecimal(creditos),
+                OPTATIVA = Convert.ToBoolean(optativa)
+            };
+
+            var actualizado = await servicio.ActualizaMatCatMaterias(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaMatCatMaterias(string idMateria, string nombreMateria, string creditos, string optativa)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new MAT_CAT_MATERIAS
+            {
+                IDMATERIA = Convert.ToInt16(idMateria),
+                NOMBREMATERIA = nombreMateria,
+                CREDITOS = Convert.ToDecimal(creditos),
+                OPTATIVA = Convert.ToBoolean(optativa)
+            };
+
+            await servicio.EliminaMatCatMaterias(objeto);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoMatCatMaterias", "Catalogos"));
         }
         #endregion
     }
