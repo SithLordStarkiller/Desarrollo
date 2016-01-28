@@ -217,5 +217,24 @@
         MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras);
 
         #endregion
+
+        #region MAT_CAT_CREDITOS_POR_HORAS
+
+        [OperationContract]
+        List<MAT_CAT_CREDITOS_POR_HORAS> ObtenListaMatCatCreditosPorHoras();
+
+        [OperationContract]
+        MAT_CAT_CREDITOS_POR_HORAS InsertaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro);
+
+        [OperationContract]
+        bool ActualizaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro);
+
+        [OperationContract]
+        bool EliminaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro);
+
+        [OperationContract]
+        MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHoras(int idHoras);
+
+        #endregion
     }
 }

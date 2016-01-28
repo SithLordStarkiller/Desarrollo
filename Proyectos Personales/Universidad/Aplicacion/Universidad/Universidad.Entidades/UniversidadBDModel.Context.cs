@@ -50,6 +50,7 @@ namespace Universidad.Entidades
         public DbSet<HOR_CAT_TURNO> HOR_CAT_TURNO { get; set; }
         public DbSet<HOR_HORAS_POR_DIA> HOR_HORAS_POR_DIA { get; set; }
         public DbSet<MAT_ARBOL_MATERIA> MAT_ARBOL_MATERIA { get; set; }
+        public DbSet<MAT_CAT_CREDITOS_POR_HORAS> MAT_CAT_CREDITOS_POR_HORAS { get; set; }
         public DbSet<MAT_CAT_MATERIAS> MAT_CAT_MATERIAS { get; set; }
         public DbSet<MAT_HORARIO_POR_MATERIA> MAT_HORARIO_POR_MATERIA { get; set; }
         public DbSet<MAT_MATERIAS_POR_CARRERA> MAT_MATERIAS_POR_CARRERA { get; set; }

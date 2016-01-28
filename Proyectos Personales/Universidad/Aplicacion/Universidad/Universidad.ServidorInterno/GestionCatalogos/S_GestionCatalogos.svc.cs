@@ -16,17 +16,17 @@
 
         public List<US_CAT_TIPO_USUARIO> ObtenTablaUsCatTipoUsuarios()
         {
-            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatTiposUsuario();
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaCatTiposUsuario();
         }
 
         public List<US_CAT_NIVEL_USUARIO> ObtenTablaUsCatNivelUsuario()
         {
-            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatNivelUsuario();
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaCatNivelUsuario();
         }
 
         public List<US_CAT_ESTATUS_USUARIO> ObtenTablaUsCatEstatusUsuario()
         {
-            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenListaCatEstatusUsuario();
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaCatEstatusUsuario();
         }
 
         public List<PER_CAT_NACIONALIDAD> ObtenCatalogoNacionalidades()
@@ -36,7 +36,7 @@
 
         public US_CAT_TIPO_USUARIO ObtenCatTipoUsuario(int idTipoUsuario)
         {
-            return LogicaNegocios.GestionCatalogos.GestionCatalogos.ClassInstance.ObtenTipoUsuario(idTipoUsuario);
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenTipoUsuario(idTipoUsuario);
 
         }
 
@@ -90,6 +90,8 @@
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaAUL_CAT_TIPO_AULA();
         }
 
+        #region AUL_CAT_TIPO_AULA
+
         public bool ActualizaRegistroAUL_CAT_TIPO_AULA(AUL_CAT_TIPO_AULA registro)
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaRegistroAUL_CAT_TIPO_AULA(registro);
@@ -103,6 +105,8 @@
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaRegistroAUL_CAT_TIPO_AULA(idTipoAula);
         }
+
+        #endregion
 
         #region HOR_CAT_TURNO
 
@@ -332,6 +336,35 @@
         public MAT_CAT_MATERIAS ExtraerMatCatMaterias(int idHoras)
         {
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerMatCatMaterias(idHoras);
+        }
+
+        #endregion
+
+        #region MAT_CAT_CREDITOS_POR_HORAS
+
+        public List<MAT_CAT_CREDITOS_POR_HORAS> ObtenListaMatCatCreditosPorHoras()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaMatCatCreditosPorHoras();
+        }
+
+        public MAT_CAT_CREDITOS_POR_HORAS InsertaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaMatCatCreditosPorHoras(registro);
+        }
+
+        public bool ActualizaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaMatCatCreditosPorHoras(registro);
+        }
+
+        public bool EliminaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaMatCatCreditosPorHoras(registro);
+        }
+
+        public MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHoras(int idHoras)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerMatCatCreditosPorHoras(idHoras);
         }
 
         #endregion

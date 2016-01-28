@@ -25,7 +25,37 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function show_modal(modalName, idMateria, nombreMateria, creditos,optativa) {
+        function ValidaCreditos(texto) {
+            var regexExp = /[0-9]{1,3}\.[0-9]{1,2}/;
+            var valido = regexExp.test(texto);
+            return valido;
+        }
+
+        $(document).ready(function() {
+            $("#txtCreditosActualizar").focusout(function () {
+
+                var texto = $("#txtCreditosActualizar").val();
+                var valido = ValidaCreditos(texto);
+
+                if (valido == false) {
+                    alert('El valor es incorrecto, debe seguir un formato 000.00');
+                    $("#txtCreditosActualizar").val('000.00');
+                }
+            });
+
+            $("#txtCreditosNuevo").focusout(function () {
+
+                var texto = $("#txtCreditosNuevo").val();
+                var valido = ValidaCreditos(texto);
+
+                if (valido == false) {
+                    alert('El valor es incorrecto, debe seguir un formato 000.00');
+                    $("#txtCreditosNuevo").val('000.00');
+                }
+            });
+        });
+
+        function show_modal(modalName, idMateria, nombreMateria, creditos, optativa) {
 
             $("#txtIdMateriaVer").val(idMateria);
             $("#txtNombreMateriaVer").val(nombreMateria);
@@ -35,9 +65,11 @@
             $("#txtIdMateriaActualizar").val(idMateria);
             $("#txtNombreMateriaActualizar").val(nombreMateria);
             $("#txtCreditosActualizar").val(creditos);
-            $("#cbxOptativaActualizar").val(optativa);
-            debugger;
-            document.getElementById("cbxOptativaNuevo").checked = optativa;
+
+            if (optativa == "True") {
+                $("#cbxOptativaVer").prop("checked", optativa);
+                $("#cbxOptativaActualizar").prop("checked", optativa);
+            }
 
             $('.selectpicker').selectpicker('refresh');
             $('#' + modalName + '').modal('show');
@@ -73,7 +105,7 @@
                     'optativa': optativa
                 },
                 url: '@Url.Action("NuevoRegistroMatCatMaterias", "Catalogos")',
-                success: function (response) {
+                success: function(response) {
 
                     $('#modalNuevoRegistro').modal('hide');
 
@@ -86,7 +118,7 @@
                     }
                 },
                 error:
-                    function () {
+                    function() {
                         alert("Error en el envio de la informacion");
                     }
             });
@@ -114,7 +146,7 @@
                     'optativa': optativa
                 },
                 url: '@Url.Action("ActualizaMatCatMaterias", "Catalogos")',
-                success: function (response) {
+                success: function(response) {
 
                     $('#modalActualizaRegistro').modal('hide');
 
@@ -127,13 +159,13 @@
                     }
                 },
                 error:
-                    function (xhr, status, error) {
+                    function(xhr, status, error) {
                         alert(status + " : " + error);
                     }
             });
         }
 
-        function Ver(modalName, idMateria, nombreMateria, creditos,optativa) {
+        function Ver(modalName, idMateria, nombreMateria, creditos, optativa) {
 
             $("#txtIdMateriaVer").val(idMateria);
             $("#txtNombreMateriaVer").val(nombreMateria);

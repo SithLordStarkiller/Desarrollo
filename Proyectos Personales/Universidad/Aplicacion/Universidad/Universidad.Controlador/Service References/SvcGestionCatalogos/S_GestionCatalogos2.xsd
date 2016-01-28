@@ -230,4 +230,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="MAT_CAT_MATERIAS" nillable="true" type="tns:MAT_CAT_MATERIAS" />
+  <xs:complexType name="ArrayOfMAT_CAT_CREDITOS_POR_HORAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MAT_CAT_CREDITOS_POR_HORAS" nillable="true" type="tns:MAT_CAT_CREDITOS_POR_HORAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMAT_CAT_CREDITOS_POR_HORAS" nillable="true" type="tns:ArrayOfMAT_CAT_CREDITOS_POR_HORAS" />
+  <xs:complexType name="MAT_CAT_CREDITOS_POR_HORAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CREDITOSMAXIMOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CREDITOSMINIMOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="HORASMAXIMASSEMANA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HORASMINIMASSEMANA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="HORASTOTALESPORSEMESTRE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IDCREDITOS" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MAT_CAT_CREDITOS_POR_HORAS" nillable="true" type="tns:MAT_CAT_CREDITOS_POR_HORAS" />
 </xs:schema>

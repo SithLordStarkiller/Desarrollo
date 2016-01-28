@@ -370,6 +370,36 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMaterias", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatMateriasResponse")]
         System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_MATERIAS> ExtraerMatCatMateriasAsync(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatCreditosPorHorasResponse")]
+        System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS> ObtenListaMatCatCreditosPorHoras();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaMatCatCreditosPorHorasResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS>> ObtenListaMatCatCreditosPorHorasAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatCreditosPorHorasResponse")]
+        Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS InsertaMatCatCreditosPorHoras(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/InsertaMatCatCreditosPorHorasResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS> InsertaMatCatCreditosPorHorasAsync(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatCreditosPorHorasResponse")]
+        bool ActualizaMatCatCreditosPorHoras(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ActualizaMatCatCreditosPorHorasResponse")]
+        System.Threading.Tasks.Task<bool> ActualizaMatCatCreditosPorHorasAsync(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatCreditosPorHorasResponse")]
+        bool EliminaMatCatCreditosPorHoras(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/EliminaMatCatCreditosPorHorasResponse")]
+        System.Threading.Tasks.Task<bool> EliminaMatCatCreditosPorHorasAsync(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatCreditosPorHorasResponse")]
+        Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHoras(int idHoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatCreditosPorHoras", ReplyAction="http://tempuri.org/IS_GestionCatalogos/ExtraerMatCatCreditosPorHorasResponse")]
+        System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS> ExtraerMatCatCreditosPorHorasAsync(int idHoras);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -869,6 +899,46 @@ namespace Universidad.Controlador.SvcGestionCatalogos {
         
         public System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_MATERIAS> ExtraerMatCatMateriasAsync(int idHoras) {
             return base.Channel.ExtraerMatCatMateriasAsync(idHoras);
+        }
+        
+        public System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS> ObtenListaMatCatCreditosPorHoras() {
+            return base.Channel.ObtenListaMatCatCreditosPorHoras();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS>> ObtenListaMatCatCreditosPorHorasAsync() {
+            return base.Channel.ObtenListaMatCatCreditosPorHorasAsync();
+        }
+        
+        public Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS InsertaMatCatCreditosPorHoras(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro) {
+            return base.Channel.InsertaMatCatCreditosPorHoras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS> InsertaMatCatCreditosPorHorasAsync(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro) {
+            return base.Channel.InsertaMatCatCreditosPorHorasAsync(registro);
+        }
+        
+        public bool ActualizaMatCatCreditosPorHoras(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro) {
+            return base.Channel.ActualizaMatCatCreditosPorHoras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizaMatCatCreditosPorHorasAsync(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro) {
+            return base.Channel.ActualizaMatCatCreditosPorHorasAsync(registro);
+        }
+        
+        public bool EliminaMatCatCreditosPorHoras(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro) {
+            return base.Channel.EliminaMatCatCreditosPorHoras(registro);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaMatCatCreditosPorHorasAsync(Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS registro) {
+            return base.Channel.EliminaMatCatCreditosPorHorasAsync(registro);
+        }
+        
+        public Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHoras(int idHoras) {
+            return base.Channel.ExtraerMatCatCreditosPorHoras(idHoras);
+        }
+        
+        public System.Threading.Tasks.Task<Universidad.Entidades.MAT_CAT_CREDITOS_POR_HORAS> ExtraerMatCatCreditosPorHorasAsync(int idHoras) {
+            return base.Channel.ExtraerMatCatCreditosPorHorasAsync(idHoras);
         }
     }
 }

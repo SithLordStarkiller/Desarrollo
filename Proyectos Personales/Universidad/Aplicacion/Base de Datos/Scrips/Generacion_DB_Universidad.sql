@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     23/01/2016 10:54:23 p. m.                    */
+/* Created on:     27/01/2016 06:59:56 p. m.                    */
 /*==============================================================*/
 
 
@@ -580,6 +580,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('MAT_CAT_CREDITOS_POR_HORAS')
+            and   type = 'U')
+   drop table MAT_CAT_CREDITOS_POR_HORAS
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('MAT_CAT_MATERIAS')
             and   type = 'U')
    drop table MAT_CAT_MATERIAS
@@ -963,7 +970,10 @@ go
 /*==============================================================*/
 create table GEN_CAT_SEMESTRE_PERIODOS (
    IDSEMESTRE           int                  not null,
-   PERIODOSEMESTRE      varchar(100)         null,
+   NOMBRESEMESTRE       varchar(100)         null,
+   ABREVIATURA          varchar(50)          null,
+   FECHAINICIO          datetime             not null,
+   FECHAFIN             datetime             not null,
    constraint PK_GEN_CAT_SEMESTRE_PERIODOS primary key nonclustered (IDSEMESTRE)
 )
 go
@@ -1021,6 +1031,20 @@ create table MAT_ARBOL_MATERIA (
    IDMATERIADEPENDENCIAHIJO int                  null,
    IDMATERIA            smallint             null,
    constraint PK_MAT_ARBOL_MATERIA primary key (IDMATERIADEPENDENCIA)
+)
+go
+
+/*==============================================================*/
+/* Table: MAT_CAT_CREDITOS_POR_HORAS                            */
+/*==============================================================*/
+create table MAT_CAT_CREDITOS_POR_HORAS (
+   IDCREDITOS           int                  not null,
+   CREDITOSMINIMOS      decimal(5,2)         null,
+   CREDITOSMAXIMOS      decimal(5,2)         null,
+   HORASMINIMASSEMANA   datetime             null,
+   HORASMAXIMASSEMANA   datetime             null,
+   HORASTOTALESPORSEMESTRE datetime             null,
+   constraint PK_MAT_CAT_CREDITOS_POR_HORAS primary key (IDCREDITOS)
 )
 go
 

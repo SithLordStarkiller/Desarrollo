@@ -342,5 +342,34 @@
         }
 
         #endregion
+
+        #region MAT_CAT_CREDITOS_POR_HORAS
+
+        public Task<List<MAT_CAT_CREDITOS_POR_HORAS>> ObtenListaMatCatCreditosPorHoras()
+        {
+            return Task.Run(() => _servicio.ObtenListaMatCatCreditosPorHorasAsync());
+        }
+
+        public Task<MAT_CAT_CREDITOS_POR_HORAS> InsertaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return Task.Run(() => _servicio.InsertaMatCatCreditosPorHorasAsync(registro));
+        }
+
+        public Task<bool> ActualizaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return Task.Run(() => _servicio.ActualizaMatCatCreditosPorHorasAsync(registro));
+        }
+
+        public Task<bool> EliminaMatCatMaterias(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return Task.Run(() => _servicio.EliminaMatCatCreditosPorHorasAsync(registro));
+        }
+
+        public Task<MAT_CAT_CREDITOS_POR_HORAS> ExtraerMatCatCreditosPorHoras(int idHoras)
+        {
+            return Task.Run(() => _servicio.ExtraerMatCatCreditosPorHorasAsync(idHoras));
+        }
+
+        #endregion
     }
 }

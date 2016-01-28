@@ -7,15 +7,6 @@
 
     public class GestionCatalogos
     {
-        #region Propiedades de la clase
-        private static readonly GestionCatalogos _ClassInstance = new GestionCatalogos();
-
-        public static GestionCatalogos ClassInstance
-        {
-            get { return _ClassInstance; }
-        }
-        #endregion
-
         #region Metodos de Insercion
         public US_CAT_TIPO_USUARIO InsertaRegistroCatTipoUsuario(US_CAT_TIPO_USUARIO registro)
         {
@@ -362,6 +353,34 @@
         }
 
         #endregion
-        
+
+        #region MAT_CAT_CREDITOS_POR_HORAS
+
+        public List<MAT_CAT_CREDITOS_POR_HORAS> ObtenListaMatCatCreditosPorHoras()
+        {
+            return new Catalogos().ObtenListaMatCatCreditosPorHorasLinq();
+        }
+
+        public MAT_CAT_CREDITOS_POR_HORAS InsertaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return new Catalogos().InsertaMatCatCreditosPorHorasLinq(registro);
+        }
+
+        public bool ActualizaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return new Catalogos().ActualizaMatCatCreditosPorHorasLinq(registro);
+        }
+
+        public bool EliminaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            return new Catalogos().EliminaMatCatCreditosPorHorasLinq(registro);
+        }
+
+        public MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHoras(int idHoras)
+        {
+            return new Catalogos().ExtraerMatCatCreditosPorHorasLinq(idHoras);
+        }
+
+        #endregion
     }
 }

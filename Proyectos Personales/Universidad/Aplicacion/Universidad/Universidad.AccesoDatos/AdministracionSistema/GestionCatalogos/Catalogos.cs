@@ -29,6 +29,8 @@
             return resultado;
         }
 
+        #region AUL_CAT_TIPO_AULA
+
         public List<AUL_CAT_TIPO_AULA> ObtenListaAUL_CAT_TIPO_AULALinq()
         {
             using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
@@ -160,6 +162,8 @@
                 return false;
             }
         }
+
+        #endregion
 
         #region HOR_CAT_TURNO
 
@@ -633,6 +637,65 @@
             using (var r = new Repositorio<MAT_CAT_MATERIAS>())
             {
                 return r.Extraer(a => a.IDMATERIA == idMateria);
+            }
+        }
+
+        #endregion
+
+        #region MAT_CAT_CREDITOS_POR_HORAS
+
+        public List<MAT_CAT_CREDITOS_POR_HORAS> ObtenListaMatCatCreditosPorHorasLinq()
+        {
+            using (var r = new Repositorio<MAT_CAT_CREDITOS_POR_HORAS>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public MAT_CAT_CREDITOS_POR_HORAS InsertaMatCatCreditosPorHorasLinq(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            using (var r = new Repositorio<MAT_CAT_CREDITOS_POR_HORAS>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaMatCatCreditosPorHorasLinq(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<MAT_CAT_CREDITOS_POR_HORAS>())
+                {
+                    return r.Actualizar(registro) != null;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaMatCatCreditosPorHorasLinq(MAT_CAT_CREDITOS_POR_HORAS registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<MAT_CAT_CREDITOS_POR_HORAS>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHorasLinq(int idCreditos)
+        {
+            using (var r = new Repositorio<MAT_CAT_CREDITOS_POR_HORAS>())
+            {
+                return r.Extraer(a => a.IDCREDITOS == idCreditos);
             }
         }
 

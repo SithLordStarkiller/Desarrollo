@@ -262,6 +262,17 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="IDMATERIADEPENDENCIAHIJO" Type="int" />
           <Property Name="IDMATERIA" Type="smallint" />
         </EntityType>
+        <EntityType Name="MAT_CAT_CREDITOS_POR_HORAS">
+          <Key>
+            <PropertyRef Name="IDCREDITOS" />
+          </Key>
+          <Property Name="IDCREDITOS" Type="int" Nullable="false" />
+          <Property Name="CREDITOSMINIMOS" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CREDITOSMAXIMOS" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="HORASMINIMASSEMANA" Type="datetime" />
+          <Property Name="HORASMAXIMASSEMANA" Type="datetime" />
+          <Property Name="HORASTOTALESPORSEMESTRE" Type="datetime" />
+        </EntityType>
         <EntityType Name="MAT_CAT_MATERIAS">
           <Key>
             <PropertyRef Name="IDMATERIA" />
@@ -1166,6 +1177,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="HOR_CAT_TURNO" EntityType="Self.HOR_CAT_TURNO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HOR_HORAS_POR_DIA" EntityType="Self.HOR_HORAS_POR_DIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAT_ARBOL_MATERIA" EntityType="Self.MAT_ARBOL_MATERIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAT_CAT_CREDITOS_POR_HORAS" EntityType="Self.MAT_CAT_CREDITOS_POR_HORAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAT_CAT_MATERIAS" EntityType="Self.MAT_CAT_MATERIAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAT_HORARIO_POR_MATERIA" EntityType="Self.MAT_HORARIO_POR_MATERIA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAT_MATERIAS_POR_CARRERA" EntityType="Self.MAT_MATERIAS_POR_CARRERA" Schema="dbo" store:Type="Tables" />
@@ -1444,6 +1456,7 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <EntitySet Name="HOR_CAT_TURNO" EntityType="UniversidadDBModel.HOR_CAT_TURNO" />
           <EntitySet Name="HOR_HORAS_POR_DIA" EntityType="UniversidadDBModel.HOR_HORAS_POR_DIA" />
           <EntitySet Name="MAT_ARBOL_MATERIA" EntityType="UniversidadDBModel.MAT_ARBOL_MATERIA" />
+          <EntitySet Name="MAT_CAT_CREDITOS_POR_HORAS" EntityType="UniversidadDBModel.MAT_CAT_CREDITOS_POR_HORAS" />
           <EntitySet Name="MAT_CAT_MATERIAS" EntityType="UniversidadDBModel.MAT_CAT_MATERIAS" />
           <EntitySet Name="MAT_HORARIO_POR_MATERIA" EntityType="UniversidadDBModel.MAT_HORARIO_POR_MATERIA" />
           <EntitySet Name="MAT_MATERIAS_POR_CARRERA" EntityType="UniversidadDBModel.MAT_MATERIAS_POR_CARRERA" />
@@ -1991,6 +2004,17 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <NavigationProperty Name="MAT_ARBOL_MATERIA1" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_ARBO" FromRole="MAT_ARBOL_MATERIA" ToRole="MAT_ARBOL_MATERIA1" />
           <NavigationProperty Name="MAT_ARBOL_MATERIA2" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_ARBO" FromRole="MAT_ARBOL_MATERIA1" ToRole="MAT_ARBOL_MATERIA" />
           <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_CAT_" FromRole="MAT_ARBOL_MATERIA" ToRole="MAT_CAT_MATERIAS" />
+        </EntityType>
+        <EntityType Name="MAT_CAT_CREDITOS_POR_HORAS">
+          <Key>
+            <PropertyRef Name="IDCREDITOS" />
+          </Key>
+          <Property Name="IDCREDITOS" Type="Int32" Nullable="false" />
+          <Property Name="CREDITOSMINIMOS" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="CREDITOSMAXIMOS" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="HORASMINIMASSEMANA" Type="DateTime" Precision="3" />
+          <Property Name="HORASMAXIMASSEMANA" Type="DateTime" Precision="3" />
+          <Property Name="HORASTOTALESPORSEMESTRE" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="MAT_CAT_MATERIAS">
           <Key>
@@ -3188,6 +3212,18 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
                 <ScalarProperty Name="IDMATERIA" ColumnName="IDMATERIA" />
                 <ScalarProperty Name="IDMATERIADEPENDENCIAHIJO" ColumnName="IDMATERIADEPENDENCIAHIJO" />
                 <ScalarProperty Name="IDMATERIADEPENDENCIA" ColumnName="IDMATERIADEPENDENCIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAT_CAT_CREDITOS_POR_HORAS">
+            <EntityTypeMapping TypeName="UniversidadDBModel.MAT_CAT_CREDITOS_POR_HORAS">
+              <MappingFragment StoreEntitySet="MAT_CAT_CREDITOS_POR_HORAS">
+                <ScalarProperty Name="HORASTOTALESPORSEMESTRE" ColumnName="HORASTOTALESPORSEMESTRE" />
+                <ScalarProperty Name="HORASMAXIMASSEMANA" ColumnName="HORASMAXIMASSEMANA" />
+                <ScalarProperty Name="HORASMINIMASSEMANA" ColumnName="HORASMINIMASSEMANA" />
+                <ScalarProperty Name="CREDITOSMAXIMOS" ColumnName="CREDITOSMAXIMOS" />
+                <ScalarProperty Name="CREDITOSMINIMOS" ColumnName="CREDITOSMINIMOS" />
+                <ScalarProperty Name="IDCREDITOS" ColumnName="IDCREDITOS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
