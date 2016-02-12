@@ -19,11 +19,6 @@ namespace Universidad.ServidorInterno.MenuSistema
             return new MenuSistemaAdministrativoL().TraeMenus(usuario);
         }
 
-        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
-        {
-            return new MenuSistemaAdministrativoL().TraeArbolMenuWadm(usuario);
-        }
-
         public List<SIS_WADM_ARBOLMENU_MVC> TraeArbolMenuMvc(US_USUARIOS usuario)
         {
             return new MenuSistemaAdministrativoL().TraeArbolMenuArbolMvc(usuario);

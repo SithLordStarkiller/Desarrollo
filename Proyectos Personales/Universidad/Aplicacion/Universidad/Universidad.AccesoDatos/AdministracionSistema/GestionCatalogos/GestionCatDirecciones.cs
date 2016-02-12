@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Universidad.Entidades;
-
-namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
+﻿namespace Universidad.AccesoDatos.AdministracionSistema.GestionCatalogos
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Entidades;
+
     public class GestionCatDirecciones
     {
         //private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();

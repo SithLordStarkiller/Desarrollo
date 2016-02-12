@@ -23,7 +23,6 @@ namespace Universidad.Entidades
             this.CAL_CALIFICACIONES = new HashSet<CAL_CALIFICACIONES>();
             this.CLA_CLASE = new HashSet<CLA_CLASE>();
             this.MAT_ARBOL_MATERIA = new HashSet<MAT_ARBOL_MATERIA>();
-            this.MAT_MATERIAS_POR_CARRERA = new HashSet<MAT_MATERIAS_POR_CARRERA>();
         }
     
     
@@ -32,11 +31,15 @@ namespace Universidad.Entidades
     
     
     	[DataMember]
+        public Nullable<short> IDCARRERA { get; set; }
+    
+    
+    	[DataMember]
         public string NOMBREMATERIA { get; set; }
     
     
     	[DataMember]
-        public Nullable<decimal> CREDITOS { get; set; }
+        public decimal CREDITOS { get; set; }
     
     
     	[DataMember]
@@ -44,8 +47,8 @@ namespace Universidad.Entidades
     
     
         public virtual ICollection<CAL_CALIFICACIONES> CAL_CALIFICACIONES { get; set; }
+        public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
         public virtual ICollection<CLA_CLASE> CLA_CLASE { get; set; }
         public virtual ICollection<MAT_ARBOL_MATERIA> MAT_ARBOL_MATERIA { get; set; }
-        public virtual ICollection<MAT_MATERIAS_POR_CARRERA> MAT_MATERIAS_POR_CARRERA { get; set; }
     }
 }

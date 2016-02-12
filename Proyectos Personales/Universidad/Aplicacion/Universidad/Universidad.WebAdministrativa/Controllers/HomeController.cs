@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using Universidad.Controlador.GestionCatalogos;
-using Universidad.Controlador.Login;
-using Universidad.Controlador.MenuSistema;
-using Universidad.Entidades;
-using Universidad.Entidades.ControlUsuario;
-
-namespace Universidad.WebAdministrativa.Controllers
+﻿namespace Universidad.WebAdministrativa.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web.Mvc;
+    using Controlador.GestionCatalogos;
+    using Controlador.Login;
+    using Controlador.MenuSistema;
+    using Entidades;
+    using Entidades.ControlUsuario;
     public class HomeController : AsyncController
     {
 
@@ -55,8 +54,8 @@ namespace Universidad.WebAdministrativa.Controllers
                     {
                         IdMenuHijo = men.IDMENU,
                         IdMenuPadre = men.IDMENUPADRE,
-                        IdTipoUsurio = men.ID_TIPO_USUARIO,
-                        IdNivelUsuario = men.ID_NIVEL_USUARIO,
+                        //IdTipoUsurio = men.ID_TIPO_USUARIO,
+                        //IdNivelUsuario = men.ID_NIVEL_USUARIO,
                         Nombre = men.NOMBRE,
                         Controller = men.CONTROLLER,
                         Method = men.ACTION,

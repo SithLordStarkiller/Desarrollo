@@ -32,10 +32,6 @@ namespace Universidad.Entidades
         public Nullable<int> ID_PERSONA { get; set; }
     
     
-    	[DataMember]
-        public string ID_PER_LINKID { get; set; }
-    
-    
         public virtual ICollection<CLA_CLASE> CLA_CLASE { get; set; }
         public virtual PER_PERSONAS PER_PERSONAS { get; set; }
     }

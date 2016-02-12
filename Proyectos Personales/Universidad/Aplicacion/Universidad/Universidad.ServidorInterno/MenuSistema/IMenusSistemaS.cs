@@ -16,9 +16,6 @@ namespace Universidad.ServidorInterno.MenuSistema
         List<MenuSistemaE> TraerMenus(US_USUARIOS usuario);
 
         [OperationContract]
-        List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario);
-
-        [OperationContract]
         List<SIS_WADM_ARBOLMENU_MVC> TraeArbolMenuMvc(US_USUARIOS usuario);
     }
 }

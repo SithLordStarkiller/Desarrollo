@@ -46,15 +46,16 @@ namespace Universidad.AccesoDatos
         public DbSet<DIR_CAT_TIPO_ZONA> DIR_CAT_TIPO_ZONA { get; set; }
         public DbSet<DIR_DIRECCIONES> DIR_DIRECCIONES { get; set; }
         public DbSet<GEN_CAT_SEMESTRE_PERIODOS> GEN_CAT_SEMESTRE_PERIODOS { get; set; }
+        public DbSet<HOR_CAT_DIAS_FESTIVOS> HOR_CAT_DIAS_FESTIVOS { get; set; }
         public DbSet<HOR_CAT_DIAS_SEMANA> HOR_CAT_DIAS_SEMANA { get; set; }
         public DbSet<HOR_CAT_HORAS> HOR_CAT_HORAS { get; set; }
+        public DbSet<HOR_CAT_TIPO_DIA_FERIADO> HOR_CAT_TIPO_DIA_FERIADO { get; set; }
         public DbSet<HOR_CAT_TURNO> HOR_CAT_TURNO { get; set; }
         public DbSet<HOR_HORAS_POR_DIA> HOR_HORAS_POR_DIA { get; set; }
         public DbSet<MAT_ARBOL_MATERIA> MAT_ARBOL_MATERIA { get; set; }
         public DbSet<MAT_CAT_CREDITOS_POR_HORAS> MAT_CAT_CREDITOS_POR_HORAS { get; set; }
         public DbSet<MAT_CAT_MATERIAS> MAT_CAT_MATERIAS { get; set; }
         public DbSet<MAT_HORARIO_POR_MATERIA> MAT_HORARIO_POR_MATERIA { get; set; }
-        public DbSet<MAT_MATERIAS_POR_CARRERA> MAT_MATERIAS_POR_CARRERA { get; set; }
         public DbSet<PER_CAT_NACIONALIDAD> PER_CAT_NACIONALIDAD { get; set; }
         public DbSet<PER_CAT_TELEFONOS> PER_CAT_TELEFONOS { get; set; }
         public DbSet<PER_CAT_TIPO_PERSONA> PER_CAT_TIPO_PERSONA { get; set; }
@@ -65,8 +66,8 @@ namespace Universidad.AccesoDatos
         public DbSet<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
         public DbSet<SIS_AADM_ARBOLMENUS> SIS_AADM_ARBOLMENUS { get; set; }
         public DbSet<SIS_CAT_TABPAGES> SIS_CAT_TABPAGES { get; set; }
-        public DbSet<SIS_WADM_ARBOLMENU> SIS_WADM_ARBOLMENU { get; set; }
         public DbSet<SIS_WADM_ARBOLMENU_MVC> SIS_WADM_ARBOLMENU_MVC { get; set; }
+        public DbSet<SIS_WADM_PERMISOS_ARBOLMENU_MVC> SIS_WADM_PERMISOS_ARBOLMENU_MVC { get; set; }
         public DbSet<US_CAT_ESTATUS_USUARIO> US_CAT_ESTATUS_USUARIO { get; set; }
         public DbSet<US_CAT_NIVEL_USUARIO> US_CAT_NIVEL_USUARIO { get; set; }
         public DbSet<US_CAT_TIPO_USUARIO> US_CAT_TIPO_USUARIO { get; set; }

@@ -32,15 +32,15 @@ namespace Universidad.Entidades
     
     
     	[DataMember]
-        public Nullable<System.DateTime> HORASMINIMASSEMANA { get; set; }
+        public Nullable<decimal> HORASMINIMASPORSEMANA { get; set; }
     
     
     	[DataMember]
-        public Nullable<System.DateTime> HORASMAXIMASSEMANA { get; set; }
+        public Nullable<decimal> HORASMAXIMASPORSEMANA { get; set; }
     
     
     	[DataMember]
-        public Nullable<System.DateTime> HORASTOTALESPORSEMESTRE { get; set; }
+        public Nullable<decimal> HORASTOTALESPORSEMESTRE { get; set; }
     
     }
 }

@@ -11,8 +11,8 @@
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLRespaldoCatalogos"
   DTS:PackageType="5"
-  DTS:VersionBuild="221"
-  DTS:VersionGUID="{99F3C151-833E-4D03-B235-246364DAC2EC}">
+  DTS:VersionBuild="223"
+  DTS:VersionGUID="{A6A0EE45-1E57-4F82-9B59-2C2AF30E2B30}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -39,7 +39,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiO0zafrhNEeZegCW15ZW7wAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAABzuPh2PGE+OqnJcsp84NFsIRddaWFzhU7hcBP75jXyhgAAAAAOgAAAAAIAACAAAAB8iwdftY2n3elMCsKYooBDiTaxS5LPSqkrukq1T2LfUCAAAAB97Z+7jxBI3JAWp/mmm6u6J1NG6FYDptJ5EAleKZo+m0AAAAC9ubW4deoFAHoTXWT6udKPjvJBHFhkfj198McIDt8Oyfy0WNyTrGXjnln9AciR/G5GMh/UgrBNFbdPasJlfASI</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiO0zafrhNEeZegCW15ZW7wAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADJ5LnVEvFQCollYFxVwM10XsQDGFoS+d7M767hL4mn4AAAAAAOgAAAAAIAACAAAAC2DVsvGxAGdnKgWzRNptuu6BgZEFpPgdlTRCHwh7JK0SAAAADHP5tVeim9J5wGPr8YUHSrhxEzaAH6TlZMZjRG3Eam3EAAAAAuQsuLE/od7zH2/rcz0aaD8uTsPyyufPiQO+K+bptbDMmKwTzGdWR9q0INPnZTonvGQeeQNOM1FNMPALWY2XrB</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -159,7 +159,7 @@ EXEC sp_serveroption  @Server,'DATA ACCESS','TRUE'
 
 SELECT [TableName] = so.name 
                 FROM sysobjects so, sysindexes si 
-                WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.name) AND so.name in( 'US_USUARIOS', 'US_HISTORIAL', 'US_CAT_TIPO_USUARIO', 'US_CAT_NIVEL_USUARIO', 'US_CAT_ESTATUS_USUARIO', 'SIS_WADM_ARBOLMENU_MVC', 'SIS_WADM_ARBOLMENU', 'SIS_CAT_TABPAGES', 'SIS_AADM_ARBOLMENUS', 'SIS_AADM_APLICACIONES', 'PER_PERSONAS', 'PER_MEDIOS_ELECTRONICOS', 'PER_CAT_TIPO_PERSONA', 'PER_CAT_TELEFONOS', 'PER_CAT_NACIONALIDAD', 'DIR_DIRECCIONES' , 'AUL_AULA_CLASES', 'AUL_CAT_TIPO_AULA', 'CAL_CAT_TIPO_EVALUACION', 'CAR_CAT_CARRERAS', 'CAR_CAT_ESPECIALIDAD', 'CLA_CLASE', 'CLA_HORARIO', 'HOR_CAT_DIAS_SEMANA', 'HOR_CAT_HORAS', 'HOR_CAT_TURNO', 'HOR_HORAS_POR_DIA', 'MAT_ARBOL_MATERIA','MAT_HORARIO_POR_MATERIA' )
+                WHERE so.xtype = 'U' AND si.id = OBJECT_ID(so.name) AND so.name in( 'US_USUARIOS', 'US_HISTORIAL', 'US_CAT_TIPO_USUARIO', 'US_CAT_NIVEL_USUARIO', 'US_CAT_ESTATUS_USUARIO', 'SIS_WADM_ARBOLMENU_MVC', 'SIS_WADM_PERMISOS_ARBOLMENU_MVC', 'SIS_CAT_TABPAGES', 'SIS_AADM_ARBOLMENUS', 'SIS_AADM_APLICACIONES', 'PER_PERSONAS', 'PER_MEDIOS_ELECTRONICOS', 'PER_CAT_TIPO_PERSONA', 'PER_CAT_TELEFONOS', 'PER_CAT_NACIONALIDAD', 'DIR_DIRECCIONES' , 'AUL_AULA_CLASES', 'AUL_CAT_TIPO_AULA', 'CAL_CAT_TIPO_EVALUACION', 'CAR_CAT_CARRERAS', 'CAR_CAT_ESPECIALIDAD', 'CLA_CLASE', 'CLA_HORARIO', 'HOR_CAT_DIAS_SEMANA', 'HOR_CAT_HORAS', 'HOR_CAT_TURNO', 'HOR_HORAS_POR_DIA', 'MAT_ARBOL_MATERIA','MAT_HORARIO_POR_MATERIA','HOR_CAT_TIPO_DIA_FERIADO','HOR_CAT_DIAS_FESTIVOS','HOR_CALENDAIO_ESCOLAR' )
                 GROUP BY so.name 
                 ORDER BY 1 DESC</DTS:VariableValue>
     </DTS:Variable>
@@ -281,7 +281,7 @@ BEGIN
       DTS:Namespace="User"
       DTS:ObjectName="TablasRequeridas">
       <DTS:VariableValue
-        DTS:DataType="8">'US_USUARIOS', 'US_HISTORIAL', 'US_CAT_TIPO_USUARIO', 'US_CAT_NIVEL_USUARIO', 'US_CAT_ESTATUS_USUARIO', 'SIS_WADM_ARBOLMENU_MVC', 'SIS_WADM_ARBOLMENU', 'SIS_CAT_TABPAGES', 'SIS_AADM_ARBOLMENUS', 'SIS_AADM_APLICACIONES', 'PER_PERSONAS', 'PER_MEDIOS_ELECTRONICOS', 'PER_CAT_TIPO_PERSONA', 'PER_CAT_TELEFONOS', 'PER_CAT_NACIONALIDAD', 'DIR_DIRECCIONES' , 'AUL_AULA_CLASES', 'AUL_CAT_TIPO_AULA', 'CAL_CAT_TIPO_EVALUACION', 'CAR_CAT_CARRERAS', 'CAR_CAT_ESPECIALIDAD', 'CLA_CLASE', 'CLA_HORARIO', 'HOR_CAT_DIAS_SEMANA', 'HOR_CAT_HORAS', 'HOR_CAT_TURNO', 'HOR_HORAS_POR_DIA', 'MAT_ARBOL_MATERIA','MAT_HORARIO_POR_MATERIA'</DTS:VariableValue>
+        DTS:DataType="8">'US_USUARIOS', 'US_HISTORIAL', 'US_CAT_TIPO_USUARIO', 'US_CAT_NIVEL_USUARIO', 'US_CAT_ESTATUS_USUARIO', 'SIS_WADM_ARBOLMENU_MVC', 'SIS_WADM_PERMISOS_ARBOLMENU_MVC', 'SIS_CAT_TABPAGES', 'SIS_AADM_ARBOLMENUS', 'SIS_AADM_APLICACIONES', 'PER_PERSONAS', 'PER_MEDIOS_ELECTRONICOS', 'PER_CAT_TIPO_PERSONA', 'PER_CAT_TELEFONOS', 'PER_CAT_NACIONALIDAD', 'DIR_DIRECCIONES' , 'AUL_AULA_CLASES', 'AUL_CAT_TIPO_AULA', 'CAL_CAT_TIPO_EVALUACION', 'CAR_CAT_CARRERAS', 'CAR_CAT_ESPECIALIDAD', 'CLA_CLASE', 'CLA_HORARIO', 'HOR_CAT_DIAS_SEMANA', 'HOR_CAT_HORAS', 'HOR_CAT_TURNO', 'HOR_HORAS_POR_DIA', 'MAT_ARBOL_MATERIA','MAT_HORARIO_POR_MATERIA','HOR_CAT_TIPO_DIA_FERIADO','HOR_CAT_DIAS_FESTIVOS','HOR_CALENDAIO_ESCOLAR'</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
@@ -392,15 +392,6 @@ BEGIN
               VSTAMinorVersion="0"
               Language="CSharp"
               ReadWriteVariables="User::ColumnasCompleta,User::ConsultaColumnasNULL,User::NombreTablas,User::Path">
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -520,6 +511,35 @@ BEGIN
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_aea8663372a84374a153d5c50ccddc24.Properties.Settings.get_Default():ST_aea8663372a84374a153d5c50ccddc24.Properties.Sett" +
+    "ings")]
+
+namespace ST_aea8663372a84374a153d5c50ccddc24.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
               <ProjectItem
                 Name="ScriptMain.cs"
                 Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
@@ -809,35 +829,6 @@ namespace ST_aea8663372a84374a153d5c50ccddc24
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_aea8663372a84374a153d5c50ccddc24.Properties.Settings.get_Default():ST_aea8663372a84374a153d5c50ccddc24.Properties.Sett" +
-    "ings")]
-
-namespace ST_aea8663372a84374a153d5c50ccddc24.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\AssemblyInfo.cs"
                 Encoding="UTF8"><![CDATA[using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -867,6 +858,15 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -1174,15 +1174,6 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
               ReadOnlyVariables="User::NombreArchivo"
               ReadWriteVariables="User::Aux,User::ColumnasCompleta,User::ConsultaColumnasNULL,User::ConsultaSQLCreaColumansExcel,User::NombreTablas,User::Path">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -1301,6 +1292,35 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Settings.get_Default():ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Sett" +
+    "ings")]
+
+namespace ST_2f21a5f0046548bfb7ae69478efdf4df.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
               <ProjectItem
                 Name="ST_2f21a5f0046548bfb7ae69478efdf4df.csproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -1570,35 +1590,6 @@ namespace ST_2f21a5f0046548bfb7ae69478efdf4df
 	</msb:ItemGroup>
 </c:Project>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Settings.get_Default():ST_2f21a5f0046548bfb7ae69478efdf4df.Properties.Sett" +
-    "ings")]
-
-namespace ST_2f21a5f0046548bfb7ae69478efdf4df.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
-              <ProjectItem
                 Name="Properties\AssemblyInfo.cs"
                 Encoding="UTF8"><![CDATA[using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -1628,6 +1619,15 @@ using System.Runtime.CompilerServices;
 // by using the '*' as shown below:
 
 [assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------

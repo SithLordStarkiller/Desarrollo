@@ -360,7 +360,7 @@
             return Task.Run(() => _servicio.ActualizaMatCatCreditosPorHorasAsync(registro));
         }
 
-        public Task<bool> EliminaMatCatMaterias(MAT_CAT_CREDITOS_POR_HORAS registro)
+        public Task<bool> EliminaMatCatCreditosPorHoras(MAT_CAT_CREDITOS_POR_HORAS registro)
         {
             return Task.Run(() => _servicio.EliminaMatCatCreditosPorHorasAsync(registro));
         }

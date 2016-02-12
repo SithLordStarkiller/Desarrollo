@@ -20,6 +20,7 @@ namespace Universidad.Entidades
     {
         public HOR_CAT_DIAS_SEMANA()
         {
+            this.HOR_CAT_DIAS_FESTIVOS = new HashSet<HOR_CAT_DIAS_FESTIVOS>();
             this.HOR_HORAS_POR_DIA = new HashSet<HOR_HORAS_POR_DIA>();
         }
     
@@ -32,6 +33,7 @@ namespace Universidad.Entidades
         public string DIASEMANA { get; set; }
     
     
+        public virtual ICollection<HOR_CAT_DIAS_FESTIVOS> HOR_CAT_DIAS_FESTIVOS { get; set; }
         public virtual ICollection<HOR_HORAS_POR_DIA> HOR_HORAS_POR_DIA { get; set; }
     }
 }

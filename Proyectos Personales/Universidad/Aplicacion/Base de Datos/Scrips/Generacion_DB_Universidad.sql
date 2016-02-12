@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     27/01/2016 06:59:56 p. m.                    */
+/* Created on:     12/02/2016 12:09:02 p. m.                    */
 /*==============================================================*/
 
 
@@ -195,9 +195,23 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('HOR_CAT_HORAS') and o.name = 'FK_HOR_CAT__REFERENCE_HOR_CAT_')
-alter table HOR_CAT_HORAS
+   where r.fkeyid = object_id('HOR_CAT_DIAS_FESTIVOS') and o.name = 'FK_HOR_CAT__RE12234_HOR_CAT_')
+alter table HOR_CAT_DIAS_FESTIVOS
+   drop constraint FK_HOR_CAT__RE12234_HOR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('HOR_CAT_DIAS_FESTIVOS') and o.name = 'FK_HOR_CAT__REFERENCE_HOR_CAT_')
+alter table HOR_CAT_DIAS_FESTIVOS
    drop constraint FK_HOR_CAT__REFERENCE_HOR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('HOR_CAT_HORAS') and o.name = 'FK_HOR_CAT__REF_HOR_C_HOR_CAT_')
+alter table HOR_CAT_HORAS
+   drop constraint FK_HOR_CAT__REF_HOR_C_HOR_CAT_
 go
 
 if exists (select 1
@@ -230,6 +244,13 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('MAT_CAT_MATERIAS') and o.name = 'FK_MAT_CAT__REFERENCE_CAR_CAT_')
+alter table MAT_CAT_MATERIAS
+   drop constraint FK_MAT_CAT__REFERENCE_CAR_CAT_
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('MAT_HORARIO_POR_MATERIA') and o.name = 'FK_MAT_HORA_REFERENCE_HOR_HORA')
 alter table MAT_HORARIO_POR_MATERIA
    drop constraint FK_MAT_HORA_REFERENCE_HOR_HORA
@@ -240,20 +261,6 @@ if exists (select 1
    where r.fkeyid = object_id('MAT_HORARIO_POR_MATERIA') and o.name = 'FK_MAT_HORA_REFERENCE_AUL_AULA')
 alter table MAT_HORARIO_POR_MATERIA
    drop constraint FK_MAT_HORA_REFERENCE_AUL_AULA
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('MAT_MATERIAS_POR_CARRERA') and o.name = 'FK_MAT_MATE_REFERENCE_MAT_CAT_')
-alter table MAT_MATERIAS_POR_CARRERA
-   drop constraint FK_MAT_MATE_REFERENCE_MAT_CAT_
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('MAT_MATERIAS_POR_CARRERA') and o.name = 'FK_MAT_MATE_REFERENCE_CAR_CAT_')
-alter table MAT_MATERIAS_POR_CARRERA
-   drop constraint FK_MAT_MATE_REFERENCE_CAR_CAT_
 go
 
 if exists (select 1
@@ -342,44 +349,30 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU') and o.name = 'FK_SIS_WADM_REFERENCE_US_CAT_T')
-alter table SIS_WADM_ARBOLMENU
-   drop constraint FK_SIS_WADM_REFERENCE_US_CAT_T
+   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU_MVC') and o.name = 'FK_SIS_WADM_MVC_REC')
+alter table SIS_WADM_ARBOLMENU_MVC
+   drop constraint FK_SIS_WADM_MVC_REC
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU') and o.name = 'FK_SIS_WADM_REFERENCE_US_CAT_N')
-alter table SIS_WADM_ARBOLMENU
-   drop constraint FK_SIS_WADM_REFERENCE_US_CAT_N
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU') and o.name = 'FK_SIS_WADM_REFERENCE_SIS_WADM')
-alter table SIS_WADM_ARBOLMENU
+   where r.fkeyid = object_id('SIS_WADM_PERMISOS_ARBOLMENU_MVC') and o.name = 'FK_SIS_WADM_REFERENCE_SIS_WADM')
+alter table SIS_WADM_PERMISOS_ARBOLMENU_MVC
    drop constraint FK_SIS_WADM_REFERENCE_SIS_WADM
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU_MVC') and o.name = 'FK_MENU_US_TIPO_USUARIO')
-alter table SIS_WADM_ARBOLMENU_MVC
-   drop constraint FK_MENU_US_TIPO_USUARIO
+   where r.fkeyid = object_id('SIS_WADM_PERMISOS_ARBOLMENU_MVC') and o.name = 'FK_SIS_WADM_REFERENCE_US_CAT_T')
+alter table SIS_WADM_PERMISOS_ARBOLMENU_MVC
+   drop constraint FK_SIS_WADM_REFERENCE_US_CAT_T
 go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU_MVC') and o.name = 'FK_WADM_NIVEL_USUARIO')
-alter table SIS_WADM_ARBOLMENU_MVC
-   drop constraint FK_WADM_NIVEL_USUARIO
-go
-
-if exists (select 1
-   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('SIS_WADM_ARBOLMENU_MVC') and o.name = 'FK_SIS_WADM_MVC_REC')
-alter table SIS_WADM_ARBOLMENU_MVC
-   drop constraint FK_SIS_WADM_MVC_REC
+   where r.fkeyid = object_id('SIS_WADM_PERMISOS_ARBOLMENU_MVC') and o.name = 'FK_SIS_WADM_REFERENCE_US_CAT_N')
+alter table SIS_WADM_PERMISOS_ARBOLMENU_MVC
+   drop constraint FK_SIS_WADM_REFERENCE_US_CAT_N
 go
 
 if exists (select 1
@@ -545,6 +538,13 @@ go
 
 if exists (select 1
             from  sysobjects
+           where  id = object_id('HOR_CAT_DIAS_FESTIVOS')
+            and   type = 'U')
+   drop table HOR_CAT_DIAS_FESTIVOS
+go
+
+if exists (select 1
+            from  sysobjects
            where  id = object_id('HOR_CAT_DIAS_SEMANA')
             and   type = 'U')
    drop table HOR_CAT_DIAS_SEMANA
@@ -555,6 +555,13 @@ if exists (select 1
            where  id = object_id('HOR_CAT_HORAS')
             and   type = 'U')
    drop table HOR_CAT_HORAS
+go
+
+if exists (select 1
+            from  sysobjects
+           where  id = object_id('HOR_CAT_TIPO_DIA_FERIADO')
+            and   type = 'U')
+   drop table HOR_CAT_TIPO_DIA_FERIADO
 go
 
 if exists (select 1
@@ -597,13 +604,6 @@ if exists (select 1
            where  id = object_id('MAT_HORARIO_POR_MATERIA')
             and   type = 'U')
    drop table MAT_HORARIO_POR_MATERIA
-go
-
-if exists (select 1
-            from  sysobjects
-           where  id = object_id('MAT_MATERIAS_POR_CARRERA')
-            and   type = 'U')
-   drop table MAT_MATERIAS_POR_CARRERA
 go
 
 if exists (select 1
@@ -678,16 +678,16 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SIS_WADM_ARBOLMENU')
+           where  id = object_id('SIS_WADM_ARBOLMENU_MVC')
             and   type = 'U')
-   drop table SIS_WADM_ARBOLMENU
+   drop table SIS_WADM_ARBOLMENU_MVC
 go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('SIS_WADM_ARBOLMENU_MVC')
+           where  id = object_id('SIS_WADM_PERMISOS_ARBOLMENU_MVC')
             and   type = 'U')
-   drop table SIS_WADM_ARBOLMENU_MVC
+   drop table SIS_WADM_PERMISOS_ARBOLMENU_MVC
 go
 
 if exists (select 1
@@ -724,7 +724,6 @@ go
 create table ALU_ALUMNOS (
    IDALUMNOS            int                  not null,
    ID_PERSONA           int                  null,
-   ID_PER_LINKID        varchar(50)          null,
    constraint PK_ALU_ALUMNOS primary key (IDALUMNOS)
 )
 go
@@ -970,11 +969,21 @@ go
 /*==============================================================*/
 create table GEN_CAT_SEMESTRE_PERIODOS (
    IDSEMESTRE           int                  not null,
-   NOMBRESEMESTRE       varchar(100)         null,
-   ABREVIATURA          varchar(50)          null,
-   FECHAINICIO          datetime             not null,
-   FECHAFIN             datetime             not null,
+   PERIODOSEMESTRE      varchar(100)         null,
    constraint PK_GEN_CAT_SEMESTRE_PERIODOS primary key nonclustered (IDSEMESTRE)
+)
+go
+
+/*==============================================================*/
+/* Table: HOR_CAT_DIAS_FESTIVOS                                 */
+/*==============================================================*/
+create table HOR_CAT_DIAS_FESTIVOS (
+   IDDIASFESTIVOS       int                  not null,
+   IDTIPOFERIADO        int                  null,
+   IDDIA                smallint             null,
+   NOMBREDIAFESTIVO     varchar(Max)         null,
+   FECHADIAFESTIVO      datetime             null,
+   constraint PK_HOR_CAT_DIAS_FESTIVOS primary key (IDDIASFESTIVOS)
 )
 go
 
@@ -999,6 +1008,17 @@ create table HOR_CAT_HORAS (
    HORATERMINO          datetime             not null,
    DESCRIPCION          varchar(100)         null,
    constraint PK_HOR_CAT_HORAS primary key (IDHORA)
+)
+go
+
+/*==============================================================*/
+/* Table: HOR_CAT_TIPO_DIA_FERIADO                              */
+/*==============================================================*/
+create table HOR_CAT_TIPO_DIA_FERIADO (
+   IDTIPOFERIADO        int                  not null,
+   NOMBRETIPOFERIADO    varchar(Max)         not null,
+   DESCRIPCION          varchar(Max)         not null,
+   constraint PK_HOR_CAT_TIPO_DIA_FERIADO primary key (IDTIPOFERIADO)
 )
 go
 
@@ -1041,9 +1061,9 @@ create table MAT_CAT_CREDITOS_POR_HORAS (
    IDCREDITOS           int                  not null,
    CREDITOSMINIMOS      decimal(5,2)         null,
    CREDITOSMAXIMOS      decimal(5,2)         null,
-   HORASMINIMASSEMANA   datetime             null,
-   HORASMAXIMASSEMANA   datetime             null,
-   HORASTOTALESPORSEMESTRE datetime             null,
+   HORASMINIMASPORSEMANA decimal(5,2)         null,
+   HORASMAXIMASPORSEMANA decimal(5,2)         null,
+   HORASTOTALESPORSEMESTRE decimal(5,2)         null,
    constraint PK_MAT_CAT_CREDITOS_POR_HORAS primary key (IDCREDITOS)
 )
 go
@@ -1053,8 +1073,9 @@ go
 /*==============================================================*/
 create table MAT_CAT_MATERIAS (
    IDMATERIA            smallint             not null,
+   IDCARRERA            smallint             null,
    NOMBREMATERIA        varchar(100)         not null,
-   CREDITOS             numeric(5,2)         null,
+   CREDITOS             decimal(3,2)         not null,
    OPTATIVA             bit                  null,
    constraint PK_MAT_CAT_MATERIAS primary key (IDMATERIA)
 )
@@ -1068,17 +1089,6 @@ create table MAT_HORARIO_POR_MATERIA (
    IDHORASPORDIA        smallint             null,
    IDAULACLASES         smallint             null,
    constraint PK_MAT_HORARIO_POR_MATERIA primary key (IDHORARIOMATERIA)
-)
-go
-
-/*==============================================================*/
-/* Table: MAT_MATERIAS_POR_CARRERA                              */
-/*==============================================================*/
-create table MAT_MATERIAS_POR_CARRERA (
-   IDMATERIACARRERA     int                  not null,
-   IDMATERIA            smallint             null,
-   IDCARRERA            smallint             null,
-   constraint PK_MAT_MATERIAS_POR_CARRERA primary key (IDMATERIACARRERA)
 )
 go
 
@@ -1166,7 +1176,8 @@ create table PER_PERSONAS (
    CURP                 varchar(30)          null,
    RFC                  varchar(30)          null,
    IMSS                 varchar(20)          null,
-   constraint PK_PER_PERSONAS primary key (ID_PERSONA, ID_PER_LINKID)
+   constraint PK_PER_PERSONAS primary key (ID_PERSONA),
+   constraint AK_UQ_PERSONALINKID_PER_PERS unique (ID_PER_LINKID)
 )
 go
 
@@ -1176,7 +1187,6 @@ go
 create table PRO_PROFESOR (
    IDPROFESOR           int                  identity,
    ID_PERSONA           int                  null,
-   ID_PER_LINKID        varchar(50)          null,
    constraint PK_PRO_PROFESOR primary key (IDPROFESOR)
 )
 go
@@ -1218,32 +1228,28 @@ create table SIS_CAT_TABPAGES (
 go
 
 /*==============================================================*/
-/* Table: SIS_WADM_ARBOLMENU                                    */
-/*==============================================================*/
-create table SIS_WADM_ARBOLMENU (
-   IDMENU               int                  not null,
-   ID_TIPO_USUARIO      int                  null,
-   ID_NIVEL_USUARIO     int                  null,
-   IDMENUPADRE          int                  null,
-   NOMBRE               varchar(100)         null,
-   LINK                 varchar(100)         null,
-   constraint PK_SIS_WADM_ARBOLMENU primary key (IDMENU)
-)
-go
-
-/*==============================================================*/
 /* Table: SIS_WADM_ARBOLMENU_MVC                                */
 /*==============================================================*/
 create table SIS_WADM_ARBOLMENU_MVC (
    IDMENU               int                  not null,
    IDMENUPADRE          int                  null,
-   ID_NIVEL_USUARIO     int                  null,
-   ID_TIPO_USUARIO      int                  null,
    NOMBRE               varchar(100)         null,
    CONTROLLER           varchar(100)         null,
    ACTION               varchar(100)         null,
    URL                  varchar(100)         null,
    constraint PK_SIS_WADM_ARBOLMENU_MVC primary key (IDMENU)
+)
+go
+
+/*==============================================================*/
+/* Table: SIS_WADM_PERMISOS_ARBOLMENU_MVC                       */
+/*==============================================================*/
+create table SIS_WADM_PERMISOS_ARBOLMENU_MVC (
+   IDPERMISOSMENU       int                  not null,
+   IDMENU               int                  null,
+   ID_TIPO_USUARIO      int                  null,
+   ID_NIVEL_USUARIO     int                  null,
+   constraint PK_SIS_WADM_PERMISOS_ARBOLMENU primary key (IDPERMISOSMENU)
 )
 go
 
@@ -1295,8 +1301,8 @@ create table US_USUARIOS (
 go
 
 alter table ALU_ALUMNOS
-   add constraint FK_ALU_ALUM_REFERENCE_PER_PERS foreign key (ID_PERSONA, ID_PER_LINKID)
-      references PER_PERSONAS (ID_PERSONA, ID_PER_LINKID)
+   add constraint FK_ALU_ALUM_REFERENCE_PER_PERS foreign key (ID_PERSONA)
+      references PER_PERSONAS (ID_PERSONA)
 go
 
 alter table ALU_HORARIO
@@ -1429,8 +1435,18 @@ alter table DIR_DIRECCIONES
       references DIR_CAT_COLONIAS (IDCOLONIA)
 go
 
+alter table HOR_CAT_DIAS_FESTIVOS
+   add constraint FK_HOR_CAT__RE12234_HOR_CAT_ foreign key (IDDIA)
+      references HOR_CAT_DIAS_SEMANA (IDDIA)
+go
+
+alter table HOR_CAT_DIAS_FESTIVOS
+   add constraint FK_HOR_CAT__REFERENCE_HOR_CAT_ foreign key (IDTIPOFERIADO)
+      references HOR_CAT_TIPO_DIA_FERIADO (IDTIPOFERIADO)
+go
+
 alter table HOR_CAT_HORAS
-   add constraint FK_HOR_CAT__REFERENCE_HOR_CAT_ foreign key (IDTURNO)
+   add constraint FK_HOR_CAT__REF_HOR_C_HOR_CAT_ foreign key (IDTURNO)
       references HOR_CAT_TURNO (IDTURNO)
 go
 
@@ -1454,6 +1470,11 @@ alter table MAT_ARBOL_MATERIA
       references MAT_CAT_MATERIAS (IDMATERIA)
 go
 
+alter table MAT_CAT_MATERIAS
+   add constraint FK_MAT_CAT__REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
+      references CAR_CAT_CARRERAS (IDCARRERA)
+go
+
 alter table MAT_HORARIO_POR_MATERIA
    add constraint FK_MAT_HORA_REFERENCE_HOR_HORA foreign key (IDHORASPORDIA)
       references HOR_HORAS_POR_DIA (IDHORASPORDIA)
@@ -1462,16 +1483,6 @@ go
 alter table MAT_HORARIO_POR_MATERIA
    add constraint FK_MAT_HORA_REFERENCE_AUL_AULA foreign key (IDAULACLASES)
       references AUL_AULA_CLASES (IDAULACLASES)
-go
-
-alter table MAT_MATERIAS_POR_CARRERA
-   add constraint FK_MAT_MATE_REFERENCE_MAT_CAT_ foreign key (IDMATERIA)
-      references MAT_CAT_MATERIAS (IDMATERIA)
-go
-
-alter table MAT_MATERIAS_POR_CARRERA
-   add constraint FK_MAT_MATE_REFERENCE_CAR_CAT_ foreign key (IDCARRERA)
-      references CAR_CAT_CARRERAS (IDCARRERA)
 go
 
 alter table PER_PERSONAS
@@ -1510,8 +1521,8 @@ alter table PER_PERSONAS
 go
 
 alter table PRO_PROFESOR
-   add constraint FK_PRO_PROF_REFERENCE_PER_PERS foreign key (ID_PERSONA, ID_PER_LINKID)
-      references PER_PERSONAS (ID_PERSONA, ID_PER_LINKID)
+   add constraint FK_PRO_PROF_REFERENCE_PER_PERS foreign key (ID_PERSONA)
+      references PER_PERSONAS (ID_PERSONA)
 go
 
 alter table SIS_AADM_APLICACIONES
@@ -1534,34 +1545,24 @@ alter table SIS_AADM_APLICACIONES
       references US_CAT_TIPO_USUARIO (ID_TIPO_USUARIO)
 go
 
-alter table SIS_WADM_ARBOLMENU
+alter table SIS_WADM_ARBOLMENU_MVC
+   add constraint FK_SIS_WADM_MVC_REC foreign key (IDMENUPADRE)
+      references SIS_WADM_ARBOLMENU_MVC (IDMENU)
+go
+
+alter table SIS_WADM_PERMISOS_ARBOLMENU_MVC
+   add constraint FK_SIS_WADM_REFERENCE_SIS_WADM foreign key (IDMENU)
+      references SIS_WADM_ARBOLMENU_MVC (IDMENU)
+go
+
+alter table SIS_WADM_PERMISOS_ARBOLMENU_MVC
    add constraint FK_SIS_WADM_REFERENCE_US_CAT_T foreign key (ID_TIPO_USUARIO)
       references US_CAT_TIPO_USUARIO (ID_TIPO_USUARIO)
 go
 
-alter table SIS_WADM_ARBOLMENU
+alter table SIS_WADM_PERMISOS_ARBOLMENU_MVC
    add constraint FK_SIS_WADM_REFERENCE_US_CAT_N foreign key (ID_NIVEL_USUARIO)
       references US_CAT_NIVEL_USUARIO (ID_NIVEL_USUARIO)
-go
-
-alter table SIS_WADM_ARBOLMENU
-   add constraint FK_SIS_WADM_REFERENCE_SIS_WADM foreign key (IDMENUPADRE)
-      references SIS_WADM_ARBOLMENU (IDMENU)
-go
-
-alter table SIS_WADM_ARBOLMENU_MVC
-   add constraint FK_MENU_US_TIPO_USUARIO foreign key (ID_TIPO_USUARIO)
-      references US_CAT_TIPO_USUARIO (ID_TIPO_USUARIO)
-go
-
-alter table SIS_WADM_ARBOLMENU_MVC
-   add constraint FK_WADM_NIVEL_USUARIO foreign key (ID_NIVEL_USUARIO)
-      references US_CAT_NIVEL_USUARIO (ID_NIVEL_USUARIO)
-go
-
-alter table SIS_WADM_ARBOLMENU_MVC
-   add constraint FK_SIS_WADM_MVC_REC foreign key (IDMENUPADRE)
-      references SIS_WADM_ARBOLMENU_MVC (IDMENU)
 go
 
 alter table US_USUARIOS

@@ -103,8 +103,10 @@
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoHorCatHoras", "Catalogos"));
                 case "CAR_CAT_CARRERAS":
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoCarCatCarreras", "Catalogos"));
-                case"MAT_CAT_MATERIAS":
-                    return new RedirectToReturnUrlResult( ()=> RedirectToAction("EditarCatalogoMatCatMaterias","Catalogos"));
+                case "MAT_CAT_MATERIAS":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoMatCatMaterias","Catalogos"));
+                case "MAT_CAT_CREDITOS_POR_HORAS":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditaMatCatCreditosPorHoras","Catalogos"));
             }
             return null;
         }
@@ -683,6 +685,96 @@
 
             return new RedirectToReturnUrlResult(() => RedirectToAction("EditarCatalogoMatCatMaterias", "Catalogos"));
         }
+        #endregion
+
+        #region Operaciones Catalogo MAT_CAT_CREDITOS_POR_HORAS
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EditaMatCatCreditosPorHoras()
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicios = new SvcGestionCatalogos(sesion);
+
+            var lista = await servicios.ObtenListaMatCatCreditosPorHoras();
+
+            ViewBag.ListaCatalogo = lista;
+
+            return View("Tablas/MatCatCreditosPorHoras");
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroMatCatCreditosPorHoras(string idCreditos, string creditosMinimos, string creditosMaximos, string horasMinimasSemana, string horasMaximasSemana, string horasTotalesporSemestre)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new MAT_CAT_CREDITOS_POR_HORAS
+            {
+                IDCREDITOS = Convert.ToInt32(idCreditos),
+                CREDITOSMINIMOS = Convert.ToDecimal(creditosMinimos),
+                CREDITOSMAXIMOS = Convert.ToDecimal(creditosMaximos),
+                HORASMINIMASPORSEMANA = Convert.ToDecimal(horasMinimasSemana),
+                HORASMAXIMASPORSEMANA = Convert.ToDecimal(horasMaximasSemana),
+                HORASTOTALESPORSEMESTRE = Convert.ToDecimal(horasTotalesporSemestre)
+            };
+
+            var nuevo = await servicio.InsertaMatCatCreditosPorHoras(objeto);
+
+            var resultado = JsonConvert.SerializeObject(nuevo);
+
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> ActualizaMatCatCreditosPorHoras(string idCreditos, string creditosMinimos, string creditosMaximos, string horasMinimasSemana, string horasMaximasSemana, string horasTotalesporSemestre)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new MAT_CAT_CREDITOS_POR_HORAS
+            {
+                IDCREDITOS = Convert.ToInt32(idCreditos),
+                CREDITOSMINIMOS = Convert.ToDecimal(creditosMinimos),
+                CREDITOSMAXIMOS = Convert.ToDecimal(creditosMaximos),
+                HORASMINIMASPORSEMANA = Convert.ToDecimal(horasMinimasSemana),
+                HORASMAXIMASPORSEMANA = Convert.ToDecimal(horasMaximasSemana),
+                HORASTOTALESPORSEMESTRE = Convert.ToDecimal(horasTotalesporSemestre)
+            };
+
+            var actualizado = await servicio.ActualizaMatCatCreditosPorHoras(objeto);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaMatCatCreditosPorHoras(string idCreditos, string creditosMinimos, string creditosMaximos, string horasMinimasSemana, string horasMaximasSemana, string horasTotalesporSemestre)
+        {
+            Sesion();
+
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
+
+            var objeto = new MAT_CAT_CREDITOS_POR_HORAS
+            {
+                IDCREDITOS = Convert.ToInt32(idCreditos),
+                CREDITOSMINIMOS = Convert.ToDecimal(creditosMinimos),
+                CREDITOSMAXIMOS = Convert.ToDecimal(creditosMaximos),
+                HORASMINIMASPORSEMANA = Convert.ToDecimal(horasMinimasSemana),
+                HORASMAXIMASPORSEMANA = Convert.ToDecimal(horasMaximasSemana),
+                HORASTOTALESPORSEMESTRE = Convert.ToDecimal(horasTotalesporSemestre)
+            };
+
+            await servicio.EliminaMatCatCreditosPorHoras(objeto);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditaMatCatCreditosPorHoras", "Catalogos"));
+        }
+
         #endregion
     }
 }

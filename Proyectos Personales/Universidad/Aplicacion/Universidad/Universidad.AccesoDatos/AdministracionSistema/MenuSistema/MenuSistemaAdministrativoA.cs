@@ -34,9 +34,9 @@ namespace Universidad.AccesoDatos.AdministracionSistema.MenuSistema
                 join sctp in _contexto.SIS_CAT_TABPAGES on saa.IDTABPAGES equals sctp.IDTABPAGES
                 join ucnu in _contexto.US_CAT_NIVEL_USUARIO on saa.ID_NIVEL_USUARIO equals ucnu.ID_NIVEL_USUARIO
                 join uctu in _contexto.US_CAT_TIPO_USUARIO on saa.ID_TIPO_USUARIO equals uctu.ID_TIPO_USUARIO
-                
+
                 where saa.ID_NIVEL_USUARIO == usuario.ID_NIVEL_USUARIO && saa.ID_TIPO_USUARIO == usuario.ID_TIPO_USUARIO
-                
+
                 select new MenuSistemaE
                 {
                     IdMenuHijo = saam.IDMENU,
@@ -55,11 +55,11 @@ namespace Universidad.AccesoDatos.AdministracionSistema.MenuSistema
             return lista;
         }
 
-        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadmLinq(US_USUARIOS usuario)
+        public List<SIS_WADM_PERMISOS_ARBOLMENU_MVC> TraeListaMenuPermisosMvcLinq(US_USUARIOS usuario)
         {
-            using (var aux = new Repositorio<SIS_WADM_ARBOLMENU>())
+            using (var aux = new Repositorio<SIS_WADM_PERMISOS_ARBOLMENU_MVC>())
             {
-                return aux.Filtro(r => r.ID_NIVEL_USUARIO == usuario.ID_NIVEL_USUARIO && r.ID_TIPO_USUARIO == usuario.ID_TIPO_USUARIO);
+                return aux.Filtro(x => x.ID_NIVEL_USUARIO == usuario.ID_NIVEL_USUARIO && x.ID_TIPO_USUARIO == usuario.ID_TIPO_USUARIO);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Universidad.AccesoDatos.AdministracionSistema.MenuSistema
         {
             using (var aux = new Repositorio<SIS_WADM_ARBOLMENU_MVC>())
             {
-                return aux.Filtro(r => r.ID_NIVEL_USUARIO == usuario.ID_NIVEL_USUARIO && r.ID_TIPO_USUARIO == usuario.ID_TIPO_USUARIO);
+                return aux.TablaCompleta();
             }
         }
         #endregion

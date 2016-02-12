@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Universidad.Entidades;
-using Universidad.Entidades.Personas;
-
-namespace Universidad.AccesoDatos.Personas
+﻿namespace Universidad.AccesoDatos.Personas
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Entidades;
+    using Entidades.Personas;
     public class Personas
     {
         private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();

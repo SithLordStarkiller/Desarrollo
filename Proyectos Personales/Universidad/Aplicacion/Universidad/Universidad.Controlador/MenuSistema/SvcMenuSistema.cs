@@ -28,11 +28,6 @@
             return Task.Run(() => _servicio.TraeArbolAsync());
         }
 
-        public Task<List<SIS_WADM_ARBOLMENU>> TraeMenuArbolWadm(US_USUARIOS usuario)
-        {
-            return Task.Run(() => _servicio.TraeArbolMenuWadmAsync(usuario).Result.ToList());
-        }
-
         public Task<List<SIS_WADM_ARBOLMENU_MVC>> TraeArbolMenuMvc(US_USUARIOS usuario)
         {
             return Task.Run(() => _servicio.TraeArbolMenuMvcAsync(usuario).Result.ToList());

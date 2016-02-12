@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Universidad.AccesoDatos.AdministracionSistema.MenuSistema;
 using Universidad.Entidades;
 using Universidad.Entidades.ControlUsuario;
@@ -22,14 +19,15 @@ namespace Universidad.LogicaNegocios.MenuSistema
             return new MenuSistemaAdministrativoA().TrerMenusLinq(usuario);
         }
 
-        public List<SIS_WADM_ARBOLMENU> TraeArbolMenuWadm(US_USUARIOS usuario)
-        {
-            return new MenuSistemaAdministrativoA().TraeArbolMenuWadmLinq(usuario);
-        }
-
         public List<SIS_WADM_ARBOLMENU_MVC> TraeArbolMenuArbolMvc(US_USUARIOS usuario)
         {
-            return new MenuSistemaAdministrativoA().TraeArbolMenuArbolMvcLinq(usuario);
+            var listaPermisos = new MenuSistemaAdministrativoA().TraeListaMenuPermisosMvcLinq(usuario);
+
+            var listaMenuArbol = new MenuSistemaAdministrativoA().TraeArbolMenuArbolMvcLinq(usuario);
+
+            listaMenuArbol = listaMenuArbol.Where(r => listaPermisos.Any(x => x.IDMENU == r.IDMENU)).ToList();
+
+            return listaMenuArbol;
         }
     }
 }

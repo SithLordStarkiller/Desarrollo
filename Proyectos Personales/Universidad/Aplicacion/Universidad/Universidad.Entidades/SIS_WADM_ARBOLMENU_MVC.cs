@@ -21,6 +21,7 @@ namespace Universidad.Entidades
         public SIS_WADM_ARBOLMENU_MVC()
         {
             this.SIS_WADM_ARBOLMENU_MVC1 = new HashSet<SIS_WADM_ARBOLMENU_MVC>();
+            this.SIS_WADM_PERMISOS_ARBOLMENU_MVC = new HashSet<SIS_WADM_PERMISOS_ARBOLMENU_MVC>();
         }
     
     
@@ -30,14 +31,6 @@ namespace Universidad.Entidades
     
     	[DataMember]
         public Nullable<int> IDMENUPADRE { get; set; }
-    
-    
-    	[DataMember]
-        public Nullable<int> ID_NIVEL_USUARIO { get; set; }
-    
-    
-    	[DataMember]
-        public Nullable<int> ID_TIPO_USUARIO { get; set; }
     
     
     	[DataMember]
@@ -56,9 +49,8 @@ namespace Universidad.Entidades
         public string URL { get; set; }
     
     
-        public virtual US_CAT_TIPO_USUARIO US_CAT_TIPO_USUARIO { get; set; }
         public virtual ICollection<SIS_WADM_ARBOLMENU_MVC> SIS_WADM_ARBOLMENU_MVC1 { get; set; }
         public virtual SIS_WADM_ARBOLMENU_MVC SIS_WADM_ARBOLMENU_MVC2 { get; set; }
-        public virtual US_CAT_NIVEL_USUARIO US_CAT_NIVEL_USUARIO { get; set; }
+        public virtual ICollection<SIS_WADM_PERMISOS_ARBOLMENU_MVC> SIS_WADM_PERMISOS_ARBOLMENU_MVC { get; set; }
     }
 }
