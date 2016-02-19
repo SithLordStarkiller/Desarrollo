@@ -106,6 +106,5 @@ namespace Universidad.Entidades
         public virtual ICollection<CAL_CALIFICACION_CLASE> CAL_CALIFICACION_CLASE { get; set; }
         public virtual CAL_CALIFICACIONES_FECHAS CAL_CALIFICACIONES_FECHAS { get; set; }
         public virtual CAL_CAT_TIPO_EVALUACION CAL_CAT_TIPO_EVALUACION { get; set; }
-        public virtual MAT_CAT_MATERIAS MAT_CAT_MATERIAS { get; set; }
     }
 }

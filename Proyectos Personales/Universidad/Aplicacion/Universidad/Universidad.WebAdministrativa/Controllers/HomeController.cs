@@ -54,8 +54,6 @@
                     {
                         IdMenuHijo = men.IDMENU,
                         IdMenuPadre = men.IDMENUPADRE,
-                        //IdTipoUsurio = men.ID_TIPO_USUARIO,
-                        //IdNivelUsuario = men.ID_NIVEL_USUARIO,
                         Nombre = men.NOMBRE,
                         Controller = men.CONTROLLER,
                         Method = men.ACTION,

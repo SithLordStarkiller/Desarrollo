@@ -56,6 +56,7 @@ namespace Universidad.AccesoDatos
         public DbSet<MAT_CAT_CREDITOS_POR_HORAS> MAT_CAT_CREDITOS_POR_HORAS { get; set; }
         public DbSet<MAT_CAT_MATERIAS> MAT_CAT_MATERIAS { get; set; }
         public DbSet<MAT_HORARIO_POR_MATERIA> MAT_HORARIO_POR_MATERIA { get; set; }
+        public DbSet<MAT_MATERIAS_POR_CARRERA> MAT_MATERIAS_POR_CARRERA { get; set; }
         public DbSet<PER_CAT_NACIONALIDAD> PER_CAT_NACIONALIDAD { get; set; }
         public DbSet<PER_CAT_TELEFONOS> PER_CAT_TELEFONOS { get; set; }
         public DbSet<PER_CAT_TIPO_PERSONA> PER_CAT_TIPO_PERSONA { get; set; }

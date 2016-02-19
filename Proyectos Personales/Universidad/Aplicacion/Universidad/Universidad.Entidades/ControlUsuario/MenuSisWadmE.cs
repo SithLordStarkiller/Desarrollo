@@ -12,12 +12,6 @@ namespace Universidad.Entidades.ControlUsuario
         public int? IdMenuPadre { get; set; }
 
         [DataMember]
-        public int? IdTipoUsurio { get; set; }
-
-        [DataMember]
-        public int? IdNivelUsuario { get; set; }
-
-        [DataMember]
         public string Nombre { get; set; }
 
         [DataMember]

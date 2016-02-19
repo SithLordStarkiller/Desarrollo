@@ -119,6 +119,25 @@
           <Property Name="IDESPECIALIDAD" Type="smallint" Nullable="false" />
           <Property Name="ESPECIALIDAD" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="CEPOMEX">
+          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_asenta" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_tipo_asenta" Type="nvarchar" MaxLength="255" />
+          <Property Name="D_mnpio" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_estado" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_ciudad" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_CP" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_estado" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_oficina" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_CP" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_tipo_asenta" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_mnpio" Type="nvarchar" MaxLength="255" />
+          <Property Name="id_asenta_cpcons" Type="nvarchar" MaxLength="255" />
+          <Property Name="d_zona" Type="nvarchar" MaxLength="255" />
+          <Property Name="c_cve_ciudad" Type="nvarchar" MaxLength="255" />
+        </EntityType>-->
         <EntityType Name="CLA_CLASE">
           <Key>
             <PropertyRef Name="IDCLASE" />
@@ -276,9 +295,8 @@
             <PropertyRef Name="IDMATERIA" />
           </Key>
           <Property Name="IDMATERIA" Type="smallint" Nullable="false" />
-          <Property Name="IDCARRERA" Type="smallint" />
           <Property Name="NOMBREMATERIA" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="CREDITOS" Type="decimal" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="CREDITOS" Type="decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="OPTATIVA" Type="bit" />
         </EntityType>
         <EntityType Name="MAT_HORARIO_POR_MATERIA">
@@ -288,6 +306,14 @@
           <Property Name="IDHORARIOMATERIA" Type="smallint" Nullable="false" />
           <Property Name="IDHORASPORDIA" Type="smallint" />
           <Property Name="IDAULACLASES" Type="smallint" />
+        </EntityType>
+        <EntityType Name="MAT_MATERIAS_POR_CARRERA">
+          <Key>
+            <PropertyRef Name="IDMATERIACARRERA" />
+          </Key>
+          <Property Name="IDMATERIACARRERA" Type="int" Nullable="false" />
+          <Property Name="IDMATERIA" Type="smallint" />
+          <Property Name="IDCARRERA" Type="smallint" />
         </EntityType>
         <EntityType Name="PER_CAT_NACIONALIDAD">
           <Key>
@@ -592,18 +618,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CAL_CALI_REFERENCE_MAT_CAT_">
-          <End Role="MAT_CAT_MATERIAS" Type="Self.MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Role="CAL_CALIFICACIONES" Type="Self.CAL_CALIFICACIONES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDMATERIA" />
-            </Principal>
-            <Dependent Role="CAL_CALIFICACIONES">
-              <PropertyRef Name="IDMATERIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CAR_CAT__REFERENCE_CAR_CAT_">
           <End Role="CAR_CAT_ESPECIALIDAD" Type="Self.CAR_CAT_ESPECIALIDAD" Multiplicity="0..1" />
           <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="*" />
@@ -637,18 +651,6 @@
             </Principal>
             <Dependent Role="CLA_CLASE">
               <PropertyRef Name="IDSEMESTRE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-          <End Role="MAT_CAT_MATERIAS" Type="Self.MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Role="CLA_CLASE" Type="Self.CLA_CLASE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDMATERIA" />
-            </Principal>
-            <Dependent Role="CLA_CLASE">
-              <PropertyRef Name="IDMATERIA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -784,30 +786,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MAT_ARBO_REFERENCE_MAT_CAT_">
-          <End Role="MAT_CAT_MATERIAS" Type="Self.MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Role="MAT_ARBOL_MATERIA" Type="Self.MAT_ARBOL_MATERIA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDMATERIA" />
-            </Principal>
-            <Dependent Role="MAT_ARBOL_MATERIA">
-              <PropertyRef Name="IDMATERIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MAT_CAT__REFERENCE_CAR_CAT_">
-          <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="0..1" />
-          <End Role="MAT_CAT_MATERIAS" Type="Self.MAT_CAT_MATERIAS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CAR_CAT_CARRERAS">
-              <PropertyRef Name="IDCARRERA" />
-            </Principal>
-            <Dependent Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDCARRERA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MAT_HORA_REFERENCE_AUL_AULA">
           <End Role="AUL_AULA_CLASES" Type="Self.AUL_AULA_CLASES" Multiplicity="0..1" />
           <End Role="MAT_HORARIO_POR_MATERIA" Type="Self.MAT_HORARIO_POR_MATERIA" Multiplicity="*" />
@@ -829,6 +807,18 @@
             </Principal>
             <Dependent Role="MAT_HORARIO_POR_MATERIA">
               <PropertyRef Name="IDHORASPORDIA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MAT_MATE_REFERENCE_CAR_CAT_">
+          <End Role="CAR_CAT_CARRERAS" Type="Self.CAR_CAT_CARRERAS" Multiplicity="0..1" />
+          <End Role="MAT_MATERIAS_POR_CARRERA" Type="Self.MAT_MATERIAS_POR_CARRERA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CAR_CAT_CARRERAS">
+              <PropertyRef Name="IDCARRERA" />
+            </Principal>
+            <Dependent Role="MAT_MATERIAS_POR_CARRERA">
+              <PropertyRef Name="IDCARRERA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1151,6 +1141,7 @@
           <EntitySet Name="MAT_CAT_CREDITOS_POR_HORAS" EntityType="Self.MAT_CAT_CREDITOS_POR_HORAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAT_CAT_MATERIAS" EntityType="Self.MAT_CAT_MATERIAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MAT_HORARIO_POR_MATERIA" EntityType="Self.MAT_HORARIO_POR_MATERIA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MAT_MATERIAS_POR_CARRERA" EntityType="Self.MAT_MATERIAS_POR_CARRERA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_CAT_NACIONALIDAD" EntityType="Self.PER_CAT_NACIONALIDAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_CAT_TELEFONOS" EntityType="Self.PER_CAT_TELEFONOS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PER_CAT_TIPO_PERSONA" EntityType="Self.PER_CAT_TIPO_PERSONA" Schema="dbo" store:Type="Tables" />
@@ -1215,10 +1206,6 @@
             <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
             <End Role="CAL_CALIFICACION_CLASE" EntitySet="CAL_CALIFICACION_CLASE" />
           </AssociationSet>
-          <AssociationSet Name="FK_CAL_CALI_REFERENCE_MAT_CAT_" Association="Self.FK_CAL_CALI_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
-          </AssociationSet>
           <AssociationSet Name="FK_CAR_CAT__REFERENCE_CAR_CAT_" Association="Self.FK_CAR_CAT__REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_ESPECIALIDAD" EntitySet="CAR_CAT_ESPECIALIDAD" />
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
@@ -1229,10 +1216,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_GEN_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_GEN_CAT_">
             <End Role="GEN_CAT_SEMESTRE_PERIODOS" EntitySet="GEN_CAT_SEMESTRE_PERIODOS" />
-            <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_" Association="Self.FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
             <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_PRO_PROF" Association="Self.FK_CLA_CLAS_REFERENCE_PRO_PROF">
@@ -1279,14 +1262,6 @@
             <End Role="MAT_ARBOL_MATERIA" EntitySet="MAT_ARBOL_MATERIA" />
             <End Role="MAT_ARBOL_MATERIA1" EntitySet="MAT_ARBOL_MATERIA" />
           </AssociationSet>
-          <AssociationSet Name="FK_MAT_ARBO_REFERENCE_MAT_CAT_" Association="Self.FK_MAT_ARBO_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-            <End Role="MAT_ARBOL_MATERIA" EntitySet="MAT_ARBOL_MATERIA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MAT_CAT__REFERENCE_CAR_CAT_" Association="Self.FK_MAT_CAT__REFERENCE_CAR_CAT_">
-            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-          </AssociationSet>
           <AssociationSet Name="FK_MAT_HORA_REFERENCE_AUL_AULA" Association="Self.FK_MAT_HORA_REFERENCE_AUL_AULA">
             <End Role="AUL_AULA_CLASES" EntitySet="AUL_AULA_CLASES" />
             <End Role="MAT_HORARIO_POR_MATERIA" EntitySet="MAT_HORARIO_POR_MATERIA" />
@@ -1294,6 +1269,10 @@
           <AssociationSet Name="FK_MAT_HORA_REFERENCE_HOR_HORA" Association="Self.FK_MAT_HORA_REFERENCE_HOR_HORA">
             <End Role="HOR_HORAS_POR_DIA" EntitySet="HOR_HORAS_POR_DIA" />
             <End Role="MAT_HORARIO_POR_MATERIA" EntitySet="MAT_HORARIO_POR_MATERIA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MAT_MATE_REFERENCE_CAR_CAT_" Association="Self.FK_MAT_MATE_REFERENCE_CAR_CAT_">
+            <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
+            <End Role="MAT_MATERIAS_POR_CARRERA" EntitySet="MAT_MATERIAS_POR_CARRERA" />
           </AssociationSet>
           <AssociationSet Name="FK_PER_PERS_REFERENCE_PER_FOTO" Association="Self.FK_PER_PERS_REFERENCE_PER_FOTO">
             <End Role="PER_FOTOGRAFIA" EntitySet="PER_FOTOGRAFIA" />
@@ -1427,6 +1406,7 @@
           <EntitySet Name="MAT_CAT_CREDITOS_POR_HORAS" EntityType="UniversidadDBModel.MAT_CAT_CREDITOS_POR_HORAS" />
           <EntitySet Name="MAT_CAT_MATERIAS" EntityType="UniversidadDBModel.MAT_CAT_MATERIAS" />
           <EntitySet Name="MAT_HORARIO_POR_MATERIA" EntityType="UniversidadDBModel.MAT_HORARIO_POR_MATERIA" />
+          <EntitySet Name="MAT_MATERIAS_POR_CARRERA" EntityType="UniversidadDBModel.MAT_MATERIAS_POR_CARRERA" />
           <EntitySet Name="PER_CAT_NACIONALIDAD" EntityType="UniversidadDBModel.PER_CAT_NACIONALIDAD" />
           <EntitySet Name="PER_CAT_TELEFONOS" EntityType="UniversidadDBModel.PER_CAT_TELEFONOS" />
           <EntitySet Name="PER_CAT_TIPO_PERSONA" EntityType="UniversidadDBModel.PER_CAT_TIPO_PERSONA" />
@@ -1495,10 +1475,6 @@
             <End Role="CAL_CAT_TIPO_EVALUACION" EntitySet="CAL_CAT_TIPO_EVALUACION" />
             <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
           </AssociationSet>
-          <AssociationSet Name="FK_CAL_CALI_REFERENCE_MAT_CAT_" Association="UniversidadDBModel.FK_CAL_CALI_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-            <End Role="CAL_CALIFICACIONES" EntitySet="CAL_CALIFICACIONES" />
-          </AssociationSet>
           <AssociationSet Name="FK_CAR_CAT__REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_CAR_CAT__REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_ESPECIALIDAD" EntitySet="CAR_CAT_ESPECIALIDAD" />
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
@@ -1507,16 +1483,12 @@
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
             <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
           </AssociationSet>
-          <AssociationSet Name="FK_MAT_CAT__REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_">
+          <AssociationSet Name="FK_MAT_MATE_REFERENCE_CAR_CAT_" Association="UniversidadDBModel.FK_MAT_MATE_REFERENCE_CAR_CAT_">
             <End Role="CAR_CAT_CARRERAS" EntitySet="CAR_CAT_CARRERAS" />
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
+            <End Role="MAT_MATERIAS_POR_CARRERA" EntitySet="MAT_MATERIAS_POR_CARRERA" />
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_GEN_CAT_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_GEN_CAT_">
             <End Role="GEN_CAT_SEMESTRE_PERIODOS" EntitySet="GEN_CAT_SEMESTRE_PERIODOS" />
-            <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
             <End Role="CLA_CLASE" EntitySet="CLA_CLASE" />
           </AssociationSet>
           <AssociationSet Name="FK_CLA_CLAS_REFERENCE_PRO_PROF" Association="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF">
@@ -1590,10 +1562,6 @@
           <AssociationSet Name="FK_MAT_ARBO_REFERENCE_MAT_ARBO" Association="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_ARBO">
             <End Role="MAT_ARBOL_MATERIA" EntitySet="MAT_ARBOL_MATERIA" />
             <End Role="MAT_ARBOL_MATERIA1" EntitySet="MAT_ARBOL_MATERIA" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MAT_ARBO_REFERENCE_MAT_CAT_" Association="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_CAT_">
-            <End Role="MAT_CAT_MATERIAS" EntitySet="MAT_CAT_MATERIAS" />
-            <End Role="MAT_ARBOL_MATERIA" EntitySet="MAT_ARBOL_MATERIA" />
           </AssociationSet>
           <AssociationSet Name="Reference_8" Association="UniversidadDBModel.Reference_8">
             <End Role="PER_CAT_NACIONALIDAD" EntitySet="PER_CAT_NACIONALIDAD" />
@@ -1759,7 +1727,6 @@
           <NavigationProperty Name="CAL_CALIFICACION_CLASE" Relationship="UniversidadDBModel.FK_CAL_CALI_CAL_CLA_C_CAL_CALI" FromRole="CAL_CALIFICACIONES" ToRole="CAL_CALIFICACION_CLASE" />
           <NavigationProperty Name="CAL_CALIFICACIONES_FECHAS" Relationship="UniversidadDBModel.FK_CAL_CALI_REF_CAL_C_CAL_CALI" FromRole="CAL_CALIFICACIONES" ToRole="CAL_CALIFICACIONES_FECHAS" />
           <NavigationProperty Name="CAL_CAT_TIPO_EVALUACION" Relationship="UniversidadDBModel.FK_CAL_CALI_REF_CAL_C_CAL_CAT_" FromRole="CAL_CALIFICACIONES" ToRole="CAL_CAT_TIPO_EVALUACION" />
-          <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_MAT_CAT_" FromRole="CAL_CALIFICACIONES" ToRole="MAT_CAT_MATERIAS" />
         </EntityType>
         <EntityType Name="CAL_CALIFICACIONES_FECHAS">
           <Key>
@@ -1799,7 +1766,7 @@
           <Property Name="NOMBRECARRERA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CAR_CAT_ESPECIALIDAD" Relationship="UniversidadDBModel.FK_CAR_CAT__REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="CAR_CAT_ESPECIALIDAD" />
           <NavigationProperty Name="CLA_CLASE" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="CLA_CLASE" />
-          <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="MAT_CAT_MATERIAS" />
+          <NavigationProperty Name="MAT_MATERIAS_POR_CARRERA" Relationship="UniversidadDBModel.FK_MAT_MATE_REFERENCE_CAR_CAT_" FromRole="CAR_CAT_CARRERAS" ToRole="MAT_MATERIAS_POR_CARRERA" />
         </EntityType>
         <EntityType Name="CAR_CAT_ESPECIALIDAD">
           <Key>
@@ -1822,7 +1789,6 @@
           <NavigationProperty Name="CAL_CALIFICACION_CLASE" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_CLA_CLAS" FromRole="CLA_CLASE" ToRole="CAL_CALIFICACION_CLASE" />
           <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_CAR_CAT_" FromRole="CLA_CLASE" ToRole="CAR_CAT_CARRERAS" />
           <NavigationProperty Name="GEN_CAT_SEMESTRE_PERIODOS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_GEN_CAT_" FromRole="CLA_CLASE" ToRole="GEN_CAT_SEMESTRE_PERIODOS" />
-          <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_" FromRole="CLA_CLASE" ToRole="MAT_CAT_MATERIAS" />
           <NavigationProperty Name="PRO_PROFESOR" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_PRO_PROF" FromRole="CLA_CLASE" ToRole="PRO_PROFESOR" />
           <NavigationProperty Name="CLA_HORARIO" Relationship="UniversidadDBModel.FK_CLA_HORA_REFERENCE_CLA_CLAS" FromRole="CLA_CLASE" ToRole="CLA_HORARIO" />
         </EntityType>
@@ -1987,7 +1953,6 @@
           <Property Name="IDMATERIA" Type="Int16" />
           <NavigationProperty Name="MAT_ARBOL_MATERIA1" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_ARBO" FromRole="MAT_ARBOL_MATERIA" ToRole="MAT_ARBOL_MATERIA1" />
           <NavigationProperty Name="MAT_ARBOL_MATERIA2" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_ARBO" FromRole="MAT_ARBOL_MATERIA1" ToRole="MAT_ARBOL_MATERIA" />
-          <NavigationProperty Name="MAT_CAT_MATERIAS" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_CAT_" FromRole="MAT_ARBOL_MATERIA" ToRole="MAT_CAT_MATERIAS" />
         </EntityType>
         <EntityType Name="MAT_CAT_CREDITOS_POR_HORAS">
           <Key>
@@ -2005,14 +1970,9 @@
             <PropertyRef Name="IDMATERIA" />
           </Key>
           <Property Name="IDMATERIA" Type="Int16" Nullable="false" />
-          <Property Name="IDCARRERA" Type="Int16" />
           <Property Name="NOMBREMATERIA" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CREDITOS" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="CREDITOS" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <Property Name="OPTATIVA" Type="Boolean" />
-          <NavigationProperty Name="CAL_CALIFICACIONES" Relationship="UniversidadDBModel.FK_CAL_CALI_REFERENCE_MAT_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CAL_CALIFICACIONES" />
-          <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_MAT_CAT__REFERENCE_CAR_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CAR_CAT_CARRERAS" />
-          <NavigationProperty Name="CLA_CLASE" Relationship="UniversidadDBModel.FK_CLA_CLAS_REFERENCE_MAT_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="CLA_CLASE" />
-          <NavigationProperty Name="MAT_ARBOL_MATERIA" Relationship="UniversidadDBModel.FK_MAT_ARBO_REFERENCE_MAT_CAT_" FromRole="MAT_CAT_MATERIAS" ToRole="MAT_ARBOL_MATERIA" />
         </EntityType>
         <EntityType Name="MAT_HORARIO_POR_MATERIA">
           <Key>
@@ -2024,6 +1984,15 @@
           <NavigationProperty Name="AUL_AULA_CLASES" Relationship="UniversidadDBModel.FK_MAT_HORA_REFERENCE_AUL_AULA" FromRole="MAT_HORARIO_POR_MATERIA" ToRole="AUL_AULA_CLASES" />
           <NavigationProperty Name="CLA_HORARIO" Relationship="UniversidadDBModel.FK_CLA_HORA_REFERENCE_MAT_HORA" FromRole="MAT_HORARIO_POR_MATERIA" ToRole="CLA_HORARIO" />
           <NavigationProperty Name="HOR_HORAS_POR_DIA" Relationship="UniversidadDBModel.FK_MAT_HORA_REFERENCE_HOR_HORA" FromRole="MAT_HORARIO_POR_MATERIA" ToRole="HOR_HORAS_POR_DIA" />
+        </EntityType>
+        <EntityType Name="MAT_MATERIAS_POR_CARRERA">
+          <Key>
+            <PropertyRef Name="IDMATERIACARRERA" />
+          </Key>
+          <Property Name="IDMATERIACARRERA" Type="Int32" Nullable="false" />
+          <Property Name="IDMATERIA" Type="Int16" />
+          <Property Name="IDCARRERA" Type="Int16" />
+          <NavigationProperty Name="CAR_CAT_CARRERAS" Relationship="UniversidadDBModel.FK_MAT_MATE_REFERENCE_CAR_CAT_" FromRole="MAT_MATERIAS_POR_CARRERA" ToRole="CAR_CAT_CARRERAS" />
         </EntityType>
         <EntityType Name="PER_CAT_NACIONALIDAD">
           <Key>
@@ -2379,18 +2348,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CAL_CALI_REFERENCE_MAT_CAT_">
-          <End Type="UniversidadDBModel.MAT_CAT_MATERIAS" Role="MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.CAL_CALIFICACIONES" Role="CAL_CALIFICACIONES" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDMATERIA" />
-            </Principal>
-            <Dependent Role="CAL_CALIFICACIONES">
-              <PropertyRef Name="IDMATERIA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_CAR_CAT__REFERENCE_CAR_CAT_">
           <End Type="UniversidadDBModel.CAR_CAT_ESPECIALIDAD" Role="CAR_CAT_ESPECIALIDAD" Multiplicity="0..1" />
           <End Type="UniversidadDBModel.CAR_CAT_CARRERAS" Role="CAR_CAT_CARRERAS" Multiplicity="*" />
@@ -2415,14 +2372,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MAT_CAT__REFERENCE_CAR_CAT_">
+        <Association Name="FK_MAT_MATE_REFERENCE_CAR_CAT_">
           <End Type="UniversidadDBModel.CAR_CAT_CARRERAS" Role="CAR_CAT_CARRERAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.MAT_CAT_MATERIAS" Role="MAT_CAT_MATERIAS" Multiplicity="*" />
+          <End Type="UniversidadDBModel.MAT_MATERIAS_POR_CARRERA" Role="MAT_MATERIAS_POR_CARRERA" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CAR_CAT_CARRERAS">
               <PropertyRef Name="IDCARRERA" />
             </Principal>
-            <Dependent Role="MAT_CAT_MATERIAS">
+            <Dependent Role="MAT_MATERIAS_POR_CARRERA">
               <PropertyRef Name="IDCARRERA" />
             </Dependent>
           </ReferentialConstraint>
@@ -2436,18 +2393,6 @@
             </Principal>
             <Dependent Role="CLA_CLASE">
               <PropertyRef Name="IDSEMESTRE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CLA_CLAS_REFERENCE_MAT_CAT_">
-          <End Type="UniversidadDBModel.MAT_CAT_MATERIAS" Role="MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.CLA_CLASE" Role="CLA_CLASE" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDMATERIA" />
-            </Principal>
-            <Dependent Role="CLA_CLASE">
-              <PropertyRef Name="IDMATERIA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2664,18 +2609,6 @@
             </Principal>
             <Dependent Role="MAT_ARBOL_MATERIA1">
               <PropertyRef Name="IDMATERIADEPENDENCIAHIJO" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MAT_ARBO_REFERENCE_MAT_CAT_">
-          <End Type="UniversidadDBModel.MAT_CAT_MATERIAS" Role="MAT_CAT_MATERIAS" Multiplicity="0..1" />
-          <End Type="UniversidadDBModel.MAT_ARBOL_MATERIA" Role="MAT_ARBOL_MATERIA" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MAT_CAT_MATERIAS">
-              <PropertyRef Name="IDMATERIA" />
-            </Principal>
-            <Dependent Role="MAT_ARBOL_MATERIA">
-              <PropertyRef Name="IDMATERIA" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3201,7 +3134,6 @@
                 <ScalarProperty Name="OPTATIVA" ColumnName="OPTATIVA" />
                 <ScalarProperty Name="CREDITOS" ColumnName="CREDITOS" />
                 <ScalarProperty Name="NOMBREMATERIA" ColumnName="NOMBREMATERIA" />
-                <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
                 <ScalarProperty Name="IDMATERIA" ColumnName="IDMATERIA" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3212,6 +3144,15 @@
                 <ScalarProperty Name="IDAULACLASES" ColumnName="IDAULACLASES" />
                 <ScalarProperty Name="IDHORASPORDIA" ColumnName="IDHORASPORDIA" />
                 <ScalarProperty Name="IDHORARIOMATERIA" ColumnName="IDHORARIOMATERIA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MAT_MATERIAS_POR_CARRERA">
+            <EntityTypeMapping TypeName="UniversidadDBModel.MAT_MATERIAS_POR_CARRERA">
+              <MappingFragment StoreEntitySet="MAT_MATERIAS_POR_CARRERA">
+                <ScalarProperty Name="IDCARRERA" ColumnName="IDCARRERA" />
+                <ScalarProperty Name="IDMATERIA" ColumnName="IDMATERIA" />
+                <ScalarProperty Name="IDMATERIACARRERA" ColumnName="IDMATERIACARRERA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -38,6 +38,5 @@ namespace Universidad.Entidades
     
         public virtual ICollection<MAT_ARBOL_MATERIA> MAT_ARBOL_MATERIA1 { get; set; }
         public virtual MAT_ARBOL_MATERIA MAT_ARBOL_MATERIA2 { get; set; }
-        public virtual MAT_CAT_MATERIAS MAT_CAT_MATERIAS { get; set; }
     }
 }

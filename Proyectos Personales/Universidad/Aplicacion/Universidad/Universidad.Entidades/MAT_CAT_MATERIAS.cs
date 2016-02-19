@@ -18,20 +18,9 @@ namespace Universidad.Entidades
     public partial class MAT_CAT_MATERIAS
     
     {
-        public MAT_CAT_MATERIAS()
-        {
-            this.CAL_CALIFICACIONES = new HashSet<CAL_CALIFICACIONES>();
-            this.CLA_CLASE = new HashSet<CLA_CLASE>();
-            this.MAT_ARBOL_MATERIA = new HashSet<MAT_ARBOL_MATERIA>();
-        }
-    
     
     	[DataMember]
         public short IDMATERIA { get; set; }
-    
-    
-    	[DataMember]
-        public Nullable<short> IDCARRERA { get; set; }
     
     
     	[DataMember]
@@ -45,10 +34,5 @@ namespace Universidad.Entidades
     	[DataMember]
         public Nullable<bool> OPTATIVA { get; set; }
     
-    
-        public virtual ICollection<CAL_CALIFICACIONES> CAL_CALIFICACIONES { get; set; }
-        public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
-        public virtual ICollection<CLA_CLASE> CLA_CLASE { get; set; }
-        public virtual ICollection<MAT_ARBOL_MATERIA> MAT_ARBOL_MATERIA { get; set; }
     }
 }

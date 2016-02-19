@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Universidad.AccesoDatos.AdministracionSistema.MenuSistema;
-using Universidad.Entidades;
-using Universidad.Entidades.ControlUsuario;
-
-
-namespace Universidad.LogicaNegocios.MenuSistema
+﻿namespace Universidad.LogicaNegocios.MenuSistema
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AccesoDatos.AdministracionSistema.MenuSistema;
+    using Entidades;
+    using Entidades.ControlUsuario;
+
     public class MenuSistemaAdministrativoL
     {
         public List<SIS_AADM_ARBOLMENUS> TraeArbol()

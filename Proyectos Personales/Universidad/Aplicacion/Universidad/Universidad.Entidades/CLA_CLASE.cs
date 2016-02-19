@@ -50,7 +50,6 @@ namespace Universidad.Entidades
         public virtual ICollection<CAL_CALIFICACION_CLASE> CAL_CALIFICACION_CLASE { get; set; }
         public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
         public virtual GEN_CAT_SEMESTRE_PERIODOS GEN_CAT_SEMESTRE_PERIODOS { get; set; }
-        public virtual MAT_CAT_MATERIAS MAT_CAT_MATERIAS { get; set; }
         public virtual PRO_PROFESOR PRO_PROFESOR { get; set; }
         public virtual ICollection<CLA_HORARIO> CLA_HORARIO { get; set; }
     }

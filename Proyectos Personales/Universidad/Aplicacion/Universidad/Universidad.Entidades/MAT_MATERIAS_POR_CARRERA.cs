@@ -15,30 +15,22 @@ namespace Universidad.Entidades
     
     
     [DataContract]
-    public partial class CAR_CAT_CARRERAS
+    public partial class MAT_MATERIAS_POR_CARRERA
     
     {
-        public CAR_CAT_CARRERAS()
-        {
-            this.CLA_CLASE = new HashSet<CLA_CLASE>();
-            this.MAT_MATERIAS_POR_CARRERA = new HashSet<MAT_MATERIAS_POR_CARRERA>();
-        }
+    
+    	[DataMember]
+        public int IDMATERIACARRERA { get; set; }
     
     
     	[DataMember]
-        public short IDCARRERA { get; set; }
+        public Nullable<short> IDMATERIA { get; set; }
     
     
     	[DataMember]
-        public Nullable<short> IDESPECIALIDAD { get; set; }
+        public Nullable<short> IDCARRERA { get; set; }
     
     
-    	[DataMember]
-        public string NOMBRECARRERA { get; set; }
-    
-    
-        public virtual CAR_CAT_ESPECIALIDAD CAR_CAT_ESPECIALIDAD { get; set; }
-        public virtual ICollection<CLA_CLASE> CLA_CLASE { get; set; }
-        public virtual ICollection<MAT_MATERIAS_POR_CARRERA> MAT_MATERIAS_POR_CARRERA { get; set; }
+        public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
     }
 }
