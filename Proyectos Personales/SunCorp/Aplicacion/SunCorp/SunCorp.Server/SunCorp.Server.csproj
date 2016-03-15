@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -76,6 +77,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -94,6 +97,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -108,15 +112,20 @@
   <ItemGroup>
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="Services\EntitiesServer.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EntitiesServer.svc.cs">
+      <DependentUpon>EntitiesServer.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Services\IEntitiesServer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SunCorp.BusinessLayer\SunCorp.BusinessLayer.csproj">
-      <Project>{30297b28-eaac-4abf-b11d-79116e0a61bf}</Project>
-      <Name>SunCorp.BusinessLayer</Name>
+    <ProjectReference Include="..\SunCorp.BusinessLogic\SunCorp.BusinessLogic.csproj">
+      <Project>{19496a35-beb3-4578-9d8e-9ac7f8d55f0a}</Project>
+      <Name>SunCorp.BusinessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\SunCorp.Entities\SunCorp.Entities.csproj">
       <Project>{2725797e-25ab-40ab-affe-d55f7ed84426}</Project>
