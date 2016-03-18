@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,14 +42,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Controller\ClientController.cs" />
+    <Compile Include="Entities\EntitiesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\SvcServicesEntities\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SunCorp.Entities\SunCorp.Entities.csproj">
       <Project>{2725797e-25ab-40ab-affe-d55f7ed84426}</Project>
       <Name>SunCorp.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\SunCorp.Entities.Entities.UsUsuarios.datasource" />
+    <None Include="Service References\SvcServicesEntities\EntitiesServer.wsdl" />
+    <None Include="Service References\SvcServicesEntities\EntitiesServer.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcServicesEntities\EntitiesServer1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SvcServicesEntities\EntitiesServer2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SvcServicesEntities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcServicesEntities\EntitiesServer.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcServicesEntities\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcServicesEntities\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SvcServicesEntities\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
