@@ -3,6 +3,7 @@
     using Controller;
     using System.Threading.Tasks;
     using SunCorp.Entities.Generic;
+    using SunCorp.Entities.Entities;
 
     public class EntitiesController
     {
@@ -12,12 +13,12 @@
         public EntitiesController(UserSession sesion)
         {
             var configServicios = new ClientController();
-            _servicio = new SvcServicesEntities.EntitiesServerClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"Login_S/", "S_Login.svc"));
+            _servicio = new SvcServicesEntities.EntitiesServerClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"Services/", "EntitiesServer.svc"));
         }
 
-        public Task GetUsUsuario(string user)
+        public Task<UsUsuarios> GetUsUsuario(string user, string password)
         {
-            return Task.Run(() => _servicio.GetUsUsuariosAsync(user));
+            return Task.Run(() => _servicio.GetUsUsuariosAsync(user,password));
         }
     }
 }

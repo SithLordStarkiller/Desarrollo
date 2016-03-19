@@ -7,6 +7,6 @@
     public interface IEntitiesServer
     {
         [OperationContract]
-        UsUsuarios GetUsUsuarios(string user);
+        UsUsuarios GetUsUsuarios(string user, string password);
     }
 }

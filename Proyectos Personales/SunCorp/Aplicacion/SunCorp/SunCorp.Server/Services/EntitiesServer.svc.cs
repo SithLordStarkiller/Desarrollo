@@ -6,9 +6,9 @@
     // NOTE: In order to launch WCF Test Client for testing this service, please select EntitiesServer.svc or EntitiesServer.svc.cs at the Solution Explorer and start debugging.
     public class EntitiesServer : IEntitiesServer
     {
-        public UsUsuarios GetUsUsuarios(string user)
+        public UsUsuarios GetUsUsuarios(string user, string password)
         {
-            return new UsUsuarioBussiness().GetUsUsuarios(user);
+            return new UsUsuarioBussiness().GetUsUsuarios(user, password);
         }
     }
 }

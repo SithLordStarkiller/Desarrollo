@@ -16,12 +16,10 @@ namespace SunCorp.Controller.SvcServicesEntities {
     public interface IEntitiesServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
-        SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(string user);
+        SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(string user, string password);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
-        System.IAsyncResult BeginGetUsUsuarios(string user, System.AsyncCallback callback, object asyncState);
-        
-        SunCorp.Entities.Entities.UsUsuarios EndGetUsUsuarios(System.IAsyncResult result);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
+        System.Threading.Tasks.Task<SunCorp.Entities.Entities.UsUsuarios> GetUsUsuariosAsync(string user, string password);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -30,32 +28,7 @@ namespace SunCorp.Controller.SvcServicesEntities {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetUsUsuariosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public GetUsUsuariosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public SunCorp.Entities.Entities.UsUsuarios Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((SunCorp.Entities.Entities.UsUsuarios)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class EntitiesServerClient : System.ServiceModel.ClientBase<SunCorp.Controller.SvcServicesEntities.IEntitiesServer>, SunCorp.Controller.SvcServicesEntities.IEntitiesServer {
-        
-        private BeginOperationDelegate onBeginGetUsUsuariosDelegate;
-        
-        private EndOperationDelegate onEndGetUsUsuariosDelegate;
-        
-        private System.Threading.SendOrPostCallback onGetUsUsuariosCompletedDelegate;
         
         public EntitiesServerClient() {
         }
@@ -76,56 +49,12 @@ namespace SunCorp.Controller.SvcServicesEntities {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<GetUsUsuariosCompletedEventArgs> GetUsUsuariosCompleted;
-        
-        public SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(string user) {
-            return base.Channel.GetUsUsuarios(user);
+        public SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(string user, string password) {
+            return base.Channel.GetUsUsuarios(user, password);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginGetUsUsuarios(string user, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetUsUsuarios(user, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public SunCorp.Entities.Entities.UsUsuarios EndGetUsUsuarios(System.IAsyncResult result) {
-            return base.Channel.EndGetUsUsuarios(result);
-        }
-        
-        private System.IAsyncResult OnBeginGetUsUsuarios(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string user = ((string)(inValues[0]));
-            return this.BeginGetUsUsuarios(user, callback, asyncState);
-        }
-        
-        private object[] OnEndGetUsUsuarios(System.IAsyncResult result) {
-            SunCorp.Entities.Entities.UsUsuarios retVal = this.EndGetUsUsuarios(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnGetUsUsuariosCompleted(object state) {
-            if ((this.GetUsUsuariosCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetUsUsuariosCompleted(this, new GetUsUsuariosCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void GetUsUsuariosAsync(string user) {
-            this.GetUsUsuariosAsync(user, null);
-        }
-        
-        public void GetUsUsuariosAsync(string user, object userState) {
-            if ((this.onBeginGetUsUsuariosDelegate == null)) {
-                this.onBeginGetUsUsuariosDelegate = new BeginOperationDelegate(this.OnBeginGetUsUsuarios);
-            }
-            if ((this.onEndGetUsUsuariosDelegate == null)) {
-                this.onEndGetUsUsuariosDelegate = new EndOperationDelegate(this.OnEndGetUsUsuarios);
-            }
-            if ((this.onGetUsUsuariosCompletedDelegate == null)) {
-                this.onGetUsUsuariosCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUsUsuariosCompleted);
-            }
-            base.InvokeAsync(this.onBeginGetUsUsuariosDelegate, new object[] {
-                        user}, this.onEndGetUsUsuariosDelegate, this.onGetUsUsuariosCompletedDelegate, userState);
+        public System.Threading.Tasks.Task<SunCorp.Entities.Entities.UsUsuarios> GetUsUsuariosAsync(string user, string password) {
+            return base.Channel.GetUsUsuariosAsync(user, password);
         }
     }
 }

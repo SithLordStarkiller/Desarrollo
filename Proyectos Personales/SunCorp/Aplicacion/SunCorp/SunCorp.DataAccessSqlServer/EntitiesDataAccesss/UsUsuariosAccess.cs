@@ -7,17 +7,17 @@
 
     public class UsUsuariosAccess
     {
-        public UsUsuarios GetUsUsuario(string user)
+        public UsUsuarios GetUsUsuario(string user, string password)
         {
-            const string executesqlstr = "SELECT * FROM USUSUARIOS WHERE Usuario = @Usuario";
-
+            const string executesqlstr = "SELECT * FROM UsUsuarios";
+            // WHERE usuario = '@user' AND contrasena = '@password'
             var para = new[]
             {
-                new SqlParameter("@Usuario", user)
+                new SqlParameter("@user", user),
+                new SqlParameter("@password", password)
             };
 
-            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.Text,
-                executesqlstr, para);
+            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.Text, executesqlstr, para);
 
             var resultado = new UsUsuarios();
 
@@ -26,7 +26,7 @@
                 resultado = (from DataRow row in obj.Rows
                              select new UsUsuarios
                              {
-                                 Contrasena = (string)row["CONTRASENA"],
+                                 Contrasena = (string)row["Contrasena"],
                                  Usuario = (string)row["Usuario"],
                                  IdUsuario = (int)row["IdUsuario"],
                              }).ToList().FirstOrDefault();

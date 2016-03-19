@@ -5,9 +5,9 @@
 
     public class UsUsuarioBussiness
     {
-        public UsUsuarios GetUsUsuarios(string user)
+        public UsUsuarios GetUsUsuarios(string user, string password)
         {
-            return new UsUsuariosAccess().GetUsUsuario(user);
+            return new UsUsuariosAccess().GetUsUsuario(user, password);
         }
     }
 }
