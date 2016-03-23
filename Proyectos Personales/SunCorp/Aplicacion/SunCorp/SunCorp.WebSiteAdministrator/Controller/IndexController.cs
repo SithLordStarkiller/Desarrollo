@@ -4,11 +4,17 @@
     using System.Threading.Tasks;
     using Entities.Generic;
     using SunCorp.Controller.Entities;
+    using Entities.Entities;
 
     public class IndexController : AsyncController
     {
         // GET: Index
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public async Task<UsUsuarios> GetUsUsuario(string loginUser, string password)
         {
             var session = new UserSession()
             {
@@ -17,11 +23,9 @@
 
             var servicio = new EntitiesController(session);
 
-            var user = await servicio.GetUsUsuario("usuario", "1234");
+            var user = await servicio.GetUsUsuario(loginUser , password);
 
-            //ViewBag.Titulo = user.Usuario;
-
-            return View();
+            return user;
         }
     }
 }

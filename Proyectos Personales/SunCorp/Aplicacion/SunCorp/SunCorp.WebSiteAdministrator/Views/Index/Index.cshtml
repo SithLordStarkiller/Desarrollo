@@ -2,20 +2,34 @@
     var titulo = ViewBag.Titulo;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <div class="container col-lg-offset-4 col-md-4">
+@section Scripts
+{
+    <script type="text/javascript" language="javascript">
+        function Login() {
+            var user = $('#txtUser').val();
+            var password = $('#txtPassword').val();
+            var rememberPassword = $('#txtRememberPassword').selected;
+            debugger;
+        }
+    </script>
+}
+<Br />
+<Br />
+<Br />
 
-        <form class="form-signin">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
-        @titulo
-    </div>
+<div class="container col-lg-offset-4 col-md-4">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <br />
+        <label for="txtUser" class="sr-only">Usuario</label>
+        @Html.TextBox("txtUser", null, new { @class = "form-control", @placeholder = "Usuario" })
+        <label for="txtPassword" class="sr-only">Contraseña</label>
+        @Html.Password("txtPassword", null, new { @class = "form-control", @placeholder = "Contraseña" })
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me" id="txtRememberPassword"> Remember me
+            </label>
+        </div>
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" onclick="Login();">Sign in</button>
+    @titulo
+</div>
