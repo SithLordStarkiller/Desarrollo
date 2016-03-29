@@ -9,8 +9,8 @@
     {
         public UsUsuarios GetUsUsuario(string user, string password)
         {
-            const string executesqlstr = "SELECT * FROM UsUsuarios";
-            // WHERE usuario = '@user' AND contrasena = '@password'
+            const string executesqlstr = "SELECT * FROM UsUsuarios WHERE usuario = '@user' AND contrasena = '@password'";
+            // 
             var para = new[]
             {
                 new SqlParameter("@user", user),

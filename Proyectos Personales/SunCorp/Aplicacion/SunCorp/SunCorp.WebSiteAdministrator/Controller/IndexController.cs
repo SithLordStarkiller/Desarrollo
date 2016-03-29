@@ -14,7 +14,7 @@
             return View();
         }
 
-        public async Task<UsUsuarios> GetUsUsuario(string loginUser, string password)
+        public async Task<string> GetUsUsuario(UserSession sesion)
         {
             var session = new UserSession()
             {
@@ -23,9 +23,32 @@
 
             var servicio = new EntitiesController(session);
 
-            var user = await servicio.GetUsUsuario(loginUser , password);
+            var user = await servicio.GetUsUsuario(sesion.User , sesion.Password);
 
-            return user;
+            //switch (usuario.ID_ESTATUS_USUARIOS)
+            //{
+            //    case 1:
+                    System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
+                    System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
+                    System.Web.HttpContext.Current.Session["Persona"] = "Persona";
+                    Session["Sesion"] = sesion;
+                    Session["Usuario"] = user;
+
+                    
+                //    break;
+                //case 2:
+
+                //    resultado = "La cuenta se encuentra suspendida";
+
+                //    break;
+                //case 3:
+
+                //    resultado = "La cuenta se encuentra cancelada";
+
+                //    break;
+            //}
+
+            return "Correcto";
         }
     }
 }

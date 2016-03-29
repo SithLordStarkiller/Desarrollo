@@ -1,16 +1,30 @@
-﻿@{
-    var titulo = ViewBag.Titulo;
+﻿@model SunCorp.Entities.Generic.UserSession
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Scripts
 {
     <script type="text/javascript" language="javascript">
-        function Login() {
-            var user = $('#txtUser').val();
-            var password = $('#txtPassword').val();
-            var rememberPassword = $('#txtRememberPassword').selected;
-            debugger;
-        }
+         $(document).ready(function () {
+            $('form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        var res = (result);
+
+                        if (res === 'Correcto') {
+                            var url = '@Url.Action("Site","Home")';
+                            window.location.href = url;
+                        } else {
+                            alert(res);
+                        }
+                    }
+                });
+            });
+        });
     </script>
 }
 <Br />
@@ -18,18 +32,24 @@
 <Br />
 
 <div class="container col-lg-offset-4 col-md-4">
+    @using (Html.BeginForm("GetUsUsuario", "Index", FormMethod.Post))
+    {
         <h2 class="form-signin-heading">Please sign in</h2>
-        <br />
-        <label for="txtUser" class="sr-only">Usuario</label>
-        @Html.TextBox("txtUser", null, new { @class = "form-control", @placeholder = "Usuario" })
-        <label for="txtPassword" class="sr-only">Contraseña</label>
-        @Html.Password("txtPassword", null, new { @class = "form-control", @placeholder = "Contraseña" })
+        <br/>
+        <label class="sr-only">Usuario</label>
+        @Html.TextBoxFor(m => m.User, new {@class = "form-control", @placeholder = "Usuario"})
+        <label class="sr-only">Contraseña</label>
+        @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Contraseña"})
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me" id="txtRememberPassword"> Remember me
+                @Html.CheckBoxFor(m => m.RememberPassword,new {@value = "recodar contraseña"})
+                @*<input type="checkbox" value="remember-me" id="txtRememberPassword"> Remember me*@
             </label>
         </div>
-        <br />
-        <button class="btn btn-lg btn-primary btn-block" onclick="Login();">Sign in</button>
-    @titulo
+        <br/>
+        <button class="btn btn-lg btn-primary btn-block" onclick="submit">Sign in</button>
+    }
+    @{
+        Html.EndForm();
+    }
 </div>
