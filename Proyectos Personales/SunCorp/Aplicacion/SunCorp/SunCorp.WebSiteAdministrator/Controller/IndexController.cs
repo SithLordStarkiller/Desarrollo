@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Entities.Generic;
     using SunCorp.Controller.Entities;
-    using Entities.Entities;
+    //using Entities.Entities;
 
     public class IndexController : AsyncController
     {
@@ -14,41 +14,41 @@
             return View();
         }
 
-        public async Task<string> GetUsUsuario(UserSession sesion)
+        [HttpPost]
+        public async Task<string> GetUsUsuario(string user, string password)
         {
-            var session = new UserSession()
+            var userSession = new UserSession
             {
+                User = user,
+                Password = password,
                 UrlServer = Properties.Settings.Default.UrlServer
             };
 
-            var servicio = new EntitiesController(session);
+            var servicio = new EntitiesEndpointController(userSession);
 
-            var user = await servicio.GetUsUsuario(sesion.User , sesion.Password);
+            var usUsuario = await servicio.GetUsUsuario(userSession);
 
-            //switch (usuario.ID_ESTATUS_USUARIOS)
-            //{
-            //    case 1:
+            switch (usUsuario.IdTipoUsuario)
+            {
+               case 1:
                     System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
                     System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
                     System.Web.HttpContext.Current.Session["Persona"] = "Persona";
-                    Session["Sesion"] = sesion;
-                    Session["Usuario"] = user;
+                    Session["Sesion"] = userSession;
+                    Session["Usuario"] = usUsuario;
 
-                    
-                //    break;
-                //case 2:
+                    return "Correcto";
+                case 2:
 
-                //    resultado = "La cuenta se encuentra suspendida";
+                    return "La cuenta se encuentra suspendida";
+                    //case 3:
 
-                //    break;
-                //case 3:
+                    //    resultado = "La cuenta se encuentra cancelada";
 
-                //    resultado = "La cuenta se encuentra cancelada";
-
-                //    break;
-            //}
-
-            return "Correcto";
+                    //    break;
+                
+            }
+            return null;
         }
     }
 }

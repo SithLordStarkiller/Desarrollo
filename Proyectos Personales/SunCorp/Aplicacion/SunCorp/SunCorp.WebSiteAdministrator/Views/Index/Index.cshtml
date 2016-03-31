@@ -2,10 +2,11 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @section Scripts
 {
     <script type="text/javascript" language="javascript">
-         $(document).ready(function () {
+        $(document).ready(function () {
             $('form').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
@@ -16,6 +17,7 @@
                         var res = (result);
 
                         if (res === 'Correcto') {
+                            debugger;
                             var url = '@Url.Action("Site","Home")';
                             window.location.href = url;
                         } else {
@@ -41,11 +43,13 @@
         <label class="sr-only">Contraseña</label>
         @Html.PasswordFor(m => m.Password, new {@class = "form-control", @placeholder = "Contraseña"})
         <div class="checkbox">
-            <label>
-                @Html.CheckBoxFor(m => m.RememberPassword,new {@value = "recodar contraseña"})
-                @*<input type="checkbox" value="remember-me" id="txtRememberPassword"> Remember me*@
+            <label>Recordar contraseña
+                @Html.CheckBoxFor(m => m.RememberPassword, new {@value = "recodar contraseña"})
             </label>
         </div>
+        <label class="sr-only">Server</label>
+        //@Html.TextBoxFor(m => m.UrlServer, new { @class = "form-control", @placeholder = "server" })
+        
         <br/>
         <button class="btn btn-lg btn-primary btn-block" onclick="submit">Sign in</button>
     }

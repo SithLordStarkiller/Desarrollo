@@ -13,5 +13,8 @@
 
         [DataMember]
         public string Contrasena { get; set; }
+
+        [DataMember]
+        public int IdTipoUsuario { get; set; }
     }
 }

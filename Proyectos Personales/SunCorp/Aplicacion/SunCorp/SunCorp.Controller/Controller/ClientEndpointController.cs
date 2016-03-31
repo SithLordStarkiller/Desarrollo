@@ -4,7 +4,7 @@
     using System.Xml;
     using SunCorp.Entities.Generic;
 
-    public class ClientController
+    public class ClientEndpointController
     {
         public System.ServiceModel.BasicHttpBinding ObtenBasicHttpBinding()
         {

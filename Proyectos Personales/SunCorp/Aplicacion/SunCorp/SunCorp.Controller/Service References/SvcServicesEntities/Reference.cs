@@ -16,10 +16,11 @@ namespace SunCorp.Controller.SvcServicesEntities {
     public interface IEntitiesServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
-        SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(string user, string password);
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.Entities.UsUsuarios))]
+        SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(SunCorp.Entities.Generic.UserSession session);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
-        System.Threading.Tasks.Task<SunCorp.Entities.Entities.UsUsuarios> GetUsUsuariosAsync(string user, string password);
+        System.Threading.Tasks.Task<SunCorp.Entities.Entities.UsUsuarios> GetUsUsuariosAsync(SunCorp.Entities.Generic.UserSession session);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -49,12 +50,12 @@ namespace SunCorp.Controller.SvcServicesEntities {
                 base(binding, remoteAddress) {
         }
         
-        public SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(string user, string password) {
-            return base.Channel.GetUsUsuarios(user, password);
+        public SunCorp.Entities.Entities.UsUsuarios GetUsUsuarios(SunCorp.Entities.Generic.UserSession session) {
+            return base.Channel.GetUsUsuarios(session);
         }
         
-        public System.Threading.Tasks.Task<SunCorp.Entities.Entities.UsUsuarios> GetUsUsuariosAsync(string user, string password) {
-            return base.Channel.GetUsUsuariosAsync(user, password);
+        public System.Threading.Tasks.Task<SunCorp.Entities.Entities.UsUsuarios> GetUsUsuariosAsync(SunCorp.Entities.Generic.UserSession session) {
+            return base.Channel.GetUsUsuariosAsync(session);
         }
     }
 }

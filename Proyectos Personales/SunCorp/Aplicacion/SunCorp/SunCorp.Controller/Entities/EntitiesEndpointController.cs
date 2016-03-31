@@ -5,21 +5,22 @@
     using SunCorp.Entities.Generic;
     using SunCorp.Entities.Entities;
     using System.Web.Mvc;
-    public class EntitiesController
+
+    public class EntitiesEndpointController
     {
 
         private readonly SvcServicesEntities.EntitiesServerClient _servicio;
 
-        public EntitiesController(UserSession sesion)
+        public EntitiesEndpointController(UserSession sesion)
         {
-            var configServicios = new ClientController();
+            var configServicios = new ClientEndpointController();
             _servicio = new SvcServicesEntities.EntitiesServerClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"Services/", "EntitiesServer.svc"));
         }
 
         [HttpPost]
-        public Task<UsUsuarios> GetUsUsuario(string user, string password)
+        public Task<UsUsuarios> GetUsUsuario(UserSession user)
         {
-            return Task.Run(() => _servicio.GetUsUsuariosAsync(user,password));
+            return Task.Run(() => _servicio.GetUsUsuariosAsync(user));
         }
     }
 }

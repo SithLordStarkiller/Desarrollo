@@ -4,17 +4,18 @@
     using System.Data.SqlClient;
     using System.Linq;
     using Entities.Entities;
+    using Entities.Generic;
 
     public class UsUsuariosAccess
     {
-        public UsUsuarios GetUsUsuario(string user, string password)
+        public UsUsuarios GetUsUsuario(UserSession session)
         {
-            const string executesqlstr = "SELECT * FROM UsUsuarios WHERE usuario = '@user' AND contrasena = '@password'";
+            var executesqlstr = "SELECT * FROM UsUsuarios WHERE Usuario = '"+ session.User + "' AND Contrasena = '"+ session.Password + "'";
             // 
             var para = new[]
             {
-                new SqlParameter("@user", user),
-                new SqlParameter("@password", password)
+                new SqlParameter("@user", session.User),
+                new SqlParameter("@password", session.Password)
             };
 
             var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.Text, executesqlstr, para);
@@ -26,6 +27,7 @@
                 resultado = (from DataRow row in obj.Rows
                              select new UsUsuarios
                              {
+                                 IdTipoUsuario = (int)row["IdTipoUsuario"],
                                  Contrasena = (string)row["Contrasena"],
                                  Usuario = (string)row["Usuario"],
                                  IdUsuario = (int)row["IdUsuario"],

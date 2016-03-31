@@ -13,10 +13,10 @@
     @RenderSection("Head", required: false)
     @RenderSection("Scripts", required: false)
 
-    @{
+    @*@{
         string tipoUsuario = ViewBag.TipoUsuario.ToString();
         string nombre = ViewBag.Nombre.ToString();
-    }
+    }*@
 
     <style>
         .navbar {
@@ -42,13 +42,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.Label("Bienvenido " + nombre, new { @class = "navbar-right navbar-text text-center text-info" })
+                Bienvenido Nombre
+               @* @Html.Label("Bienvenido " + nombre, new { @class = "navbar-right navbar-text text-center text-info" })*@
             </div>
             <div class="navbar" id="navBar">
                 <lu class="nav navbar-nav navbar-right">
                     <li>
-
-                        @Html.Label(tipoUsuario, new { @class = "navbar-text navbar-header" })
+                        Tipo de usuarios
+                        @*@Html.Label(tipoUsuario, new { @class = "navbar-text navbar-header" })*@
                     </li>
                     <li></li>
                     <li>
