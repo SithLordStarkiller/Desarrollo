@@ -3,6 +3,7 @@
     using System.Web.Mvc;
     using System.Threading.Tasks;
     using Entities.Generic;
+    using Entities;
     using SunCorp.Controller.Entities;
     //using Entities.Entities;
 

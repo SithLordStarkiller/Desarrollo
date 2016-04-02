@@ -3,12 +3,13 @@
     using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
-    using Entities.Entities;
+    using Entities;
     using Entities.Generic;
+    using System.Collections.Generic;
 
     public class UsUsuariosAccess
     {
-        public UsUsuarios GetUsUsuario(UserSession session)
+        public UsUsuarios GetUsUsuarioTSql(UserSession session)
         {
             var executesqlstr = "SELECT * FROM UsUsuarios WHERE Usuario = '"+ session.User + "' AND Contrasena = '"+ session.Password + "'";
             // 
@@ -35,6 +36,30 @@
             }
 
             return resultado;
+        }
+
+        public UsUsuarios GetUsUsuarioLinQ(UserSession user)
+        {
+            using (var aux = new Repositorio<UsUsuarios>())
+            {
+                return aux.Extraer(r => r.Usuario == user.User && r.Contrasena == user.Password);
+            }
+        }
+
+        public List<UsUsuarioPorZona> GetUsUsuarioPorZona(UsUsuarios usUsuario)
+        {
+            using (var aux = new Repositorio<UsUsuarioPorZona>())
+            {
+                return aux.Filtro(r => r.IdUsuarios == usUsuario.IdUsuario);
+            }
+        }
+
+        public List<UsZona> GetListUsZonaLinQ(List<int> listUserZona)
+        {
+            using (var aux = new Repositorio<UsZona>())
+            {
+                return null; //aux.Filtro(r => r.IdZona == listUserZona.ForEach());
+            }
         }
     }
 }

@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SunCorpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="UsEstatusUsuario">
+          <Key>
+            <PropertyRef Name="IdEstatusUsuario" />
+          </Key>
+          <Property Name="IdEstatusUsuario" Type="int" Nullable="false" />
+          <Property Name="EstatusUsuario" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsPermisos">
+          <Key>
+            <PropertyRef Name="IdPermisos" />
+          </Key>
+          <Property Name="IdPermisos" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varbinary(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="UsTipoUsuario">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="int" Nullable="false" />
+          <Property Name="TipoUsuario" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsUsuarioPorZona">
+          <Key>
+            <PropertyRef Name="IdUsuarioZona" />
+          </Key>
+          <Property Name="IdUsuarioZona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdZona" Type="int" />
+          <Property Name="IdUsuarios" Type="int" />
+        </EntityType>
+        <EntityType Name="UsUsuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdTipoUsuario" Type="int" />
+          <Property Name="IdEstatusUsuario" Type="int" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsZona">
+          <Key>
+            <PropertyRef Name="IdZona" />
+          </Key>
+          <Property Name="IdZona" Type="int" Nullable="false" />
+          <Property Name="NombreZona" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_UsUsuarioPorZona_UsUsuarios">
+          <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="0..1" />
+          <End Role="UsUsuarioPorZona" Type="Self.UsUsuarioPorZona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsUsuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarioPorZona">
+              <PropertyRef Name="IdUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsUsuarioPorZona_UsZona">
+          <End Role="UsZona" Type="Self.UsZona" Multiplicity="0..1" />
+          <End Role="UsUsuarioPorZona" Type="Self.UsUsuarioPorZona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsZona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="UsUsuarioPorZona">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsUsuarios_UsTipoUsuario">
+          <End Role="UsTipoUsuario" Type="Self.UsTipoUsuario" Multiplicity="0..1" />
+          <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarios">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SunCorpModelStoreContainer">
+          <EntitySet Name="UsEstatusUsuario" EntityType="Self.UsEstatusUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsPermisos" EntityType="Self.UsPermisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsTipoUsuario" EntityType="Self.UsTipoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsUsuarioPorZona" EntityType="Self.UsUsuarioPorZona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsUsuarios" EntityType="Self.UsUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsZona" EntityType="Self.UsZona" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UsUsuarioPorZona_UsUsuarios" Association="Self.FK_UsUsuarioPorZona_UsUsuarios">
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+            <End Role="UsUsuarioPorZona" EntitySet="UsUsuarioPorZona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarioPorZona_UsZona" Association="Self.FK_UsUsuarioPorZona_UsZona">
+            <End Role="UsZona" EntitySet="UsZona" />
+            <End Role="UsUsuarioPorZona" EntitySet="UsUsuarioPorZona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarios_UsTipoUsuario" Association="Self.FK_UsUsuarios_UsTipoUsuario">
+            <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SunCorpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UsEstatusUsuario">
+          <Key>
+            <PropertyRef Name="IdEstatusUsuario" />
+          </Key>
+          <Property Name="IdEstatusUsuario" Type="Int32" Nullable="false" />
+          <Property Name="EstatusUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsPermisos">
+          <Key>
+            <PropertyRef Name="IdPermisos" />
+          </Key>
+          <Property Name="IdPermisos" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Borrado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UsTipoUsuario">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="TipoUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UsUsuarios" Relationship="Self.FK_UsUsuarios_UsTipoUsuario" FromRole="UsTipoUsuario" ToRole="UsUsuarios" />
+        </EntityType>
+        <EntityType Name="UsUsuarioPorZona">
+          <Key>
+            <PropertyRef Name="IdUsuarioZona" />
+          </Key>
+          <Property Name="IdUsuarioZona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdZona" Type="Int32" />
+          <Property Name="IdUsuarios" Type="Int32" />
+          <NavigationProperty Name="UsUsuarios" Relationship="Self.FK_UsUsuarioPorZona_UsUsuarios" FromRole="UsUsuarioPorZona" ToRole="UsUsuarios" />
+          <NavigationProperty Name="UsZona" Relationship="Self.FK_UsUsuarioPorZona_UsZona" FromRole="UsUsuarioPorZona" ToRole="UsZona" />
+        </EntityType>
+        <EntityType Name="UsUsuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdTipoUsuario" Type="Int32" />
+          <Property Name="IdEstatusUsuario" Type="Int32" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UsTipoUsuario" Relationship="Self.FK_UsUsuarios_UsTipoUsuario" FromRole="UsUsuarios" ToRole="UsTipoUsuario" />
+          <NavigationProperty Name="UsUsuarioPorZona" Relationship="Self.FK_UsUsuarioPorZona_UsUsuarios" FromRole="UsUsuarios" ToRole="UsUsuarioPorZona" />
+        </EntityType>
+        <EntityType Name="UsZona">
+          <Key>
+            <PropertyRef Name="IdZona" />
+          </Key>
+          <Property Name="IdZona" Type="Int32" Nullable="false" />
+          <Property Name="NombreZona" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="UsUsuarioPorZona" Relationship="Self.FK_UsUsuarioPorZona_UsZona" FromRole="UsZona" ToRole="UsUsuarioPorZona" />
+        </EntityType>
+        <Association Name="FK_UsUsuarios_UsTipoUsuario">
+          <End Role="UsTipoUsuario" Type="Self.UsTipoUsuario" Multiplicity="0..1" />
+          <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarios">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsUsuarioPorZona_UsUsuarios">
+          <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="0..1" />
+          <End Role="UsUsuarioPorZona" Type="Self.UsUsuarioPorZona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsUsuarios">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarioPorZona">
+              <PropertyRef Name="IdUsuarios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsUsuarioPorZona_UsZona">
+          <End Role="UsZona" Type="Self.UsZona" Multiplicity="0..1" />
+          <End Role="UsUsuarioPorZona" Type="Self.UsUsuarioPorZona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsZona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="UsUsuarioPorZona">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SunCorpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsEstatusUsuario" EntityType="Self.UsEstatusUsuario" />
+          <EntitySet Name="UsPermisos" EntityType="Self.UsPermisos" />
+          <EntitySet Name="UsTipoUsuario" EntityType="Self.UsTipoUsuario" />
+          <EntitySet Name="UsUsuarioPorZona" EntityType="Self.UsUsuarioPorZona" />
+          <EntitySet Name="UsUsuarios" EntityType="Self.UsUsuarios" />
+          <EntitySet Name="UsZona" EntityType="Self.UsZona" />
+          <AssociationSet Name="FK_UsUsuarios_UsTipoUsuario" Association="Self.FK_UsUsuarios_UsTipoUsuario">
+            <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarioPorZona_UsUsuarios" Association="Self.FK_UsUsuarioPorZona_UsUsuarios">
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+            <End Role="UsUsuarioPorZona" EntitySet="UsUsuarioPorZona" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarioPorZona_UsZona" Association="Self.FK_UsUsuarioPorZona_UsZona">
+            <End Role="UsZona" EntitySet="UsZona" />
+            <End Role="UsUsuarioPorZona" EntitySet="UsUsuarioPorZona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SunCorpModelStoreContainer" CdmEntityContainer="SunCorpEntities">
+          <EntitySetMapping Name="UsEstatusUsuario">
+            <EntityTypeMapping TypeName="SunCorpModel.UsEstatusUsuario">
+              <MappingFragment StoreEntitySet="UsEstatusUsuario">
+                <ScalarProperty Name="IdEstatusUsuario" ColumnName="IdEstatusUsuario" />
+                <ScalarProperty Name="EstatusUsuario" ColumnName="EstatusUsuario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsPermisos">
+            <EntityTypeMapping TypeName="SunCorpModel.UsPermisos">
+              <MappingFragment StoreEntitySet="UsPermisos">
+                <ScalarProperty Name="IdPermisos" ColumnName="IdPermisos" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsTipoUsuario">
+            <EntityTypeMapping TypeName="SunCorpModel.UsTipoUsuario">
+              <MappingFragment StoreEntitySet="UsTipoUsuario">
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsUsuarioPorZona">
+            <EntityTypeMapping TypeName="SunCorpModel.UsUsuarioPorZona">
+              <MappingFragment StoreEntitySet="UsUsuarioPorZona">
+                <ScalarProperty Name="IdUsuarioZona" ColumnName="IdUsuarioZona" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="IdUsuarios" ColumnName="IdUsuarios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsUsuarios">
+            <EntityTypeMapping TypeName="SunCorpModel.UsUsuarios">
+              <MappingFragment StoreEntitySet="UsUsuarios">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="IdEstatusUsuario" ColumnName="IdEstatusUsuario" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsZona">
+            <EntityTypeMapping TypeName="SunCorpModel.UsZona">
+              <MappingFragment StoreEntitySet="UsZona">
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="NombreZona" ColumnName="NombreZona" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -3,7 +3,7 @@
     using Controller;
     using System.Threading.Tasks;
     using SunCorp.Entities.Generic;
-    using SunCorp.Entities.Entities;
+    using SunCorp.Entities;
     using System.Web.Mvc;
 
     public class EntitiesEndpointController

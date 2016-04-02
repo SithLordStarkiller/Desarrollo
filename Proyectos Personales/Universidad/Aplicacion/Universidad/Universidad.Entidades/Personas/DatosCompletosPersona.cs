@@ -1,8 +1,8 @@
-﻿using System;
-using System.Runtime.Serialization;
-
-namespace Universidad.Entidades.Personas
+﻿namespace Universidad.Entidades.Personas
 {
+    using System;
+    using System.Runtime.Serialization;
+
     [DataContract]
     public class DatosCompletosPersona
     {
