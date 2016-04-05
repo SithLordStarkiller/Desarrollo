@@ -58,7 +58,9 @@
         {
             using (var aux = new Repositorio<UsZona>())
             {
-                return null; //aux.Filtro(r => r.IdZona == listUserZona.ForEach());
+                var listZonas = aux.TablaCompleta();
+
+                return listZonas.Where(r => listUserZona.Any(x => x == r.IdZona)).ToList();
             }
         }
     }
