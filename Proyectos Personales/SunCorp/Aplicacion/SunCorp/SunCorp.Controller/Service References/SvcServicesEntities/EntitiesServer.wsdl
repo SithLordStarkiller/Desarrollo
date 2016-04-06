@@ -14,16 +14,35 @@
   <wsdl:message name="IEntitiesServer_GetUsUsuarios_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsUsuariosResponse" />
   </wsdl:message>
+  <wsdl:message name="IEntitiesServer_GetListUsZonasUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsZonasUser" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_GetListUsZonasUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsZonasUserResponse" />
+  </wsdl:message>
   <wsdl:portType name="IEntitiesServer">
     <wsdl:operation name="GetUsUsuarios">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios" message="tns:IEntitiesServer_GetUsUsuarios_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse" message="tns:IEntitiesServer_GetUsUsuarios_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListUsZonasUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser" message="tns:IEntitiesServer_GetListUsZonasUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse" message="tns:IEntitiesServer_GetListUsZonasUser_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEntitiesServer" type="tns:IEntitiesServer">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="GetUsUsuarios">
       <soap:operation soapAction="http://tempuri.org/IEntitiesServer/GetUsUsuarios" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListUsZonasUser">
+      <soap:operation soapAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

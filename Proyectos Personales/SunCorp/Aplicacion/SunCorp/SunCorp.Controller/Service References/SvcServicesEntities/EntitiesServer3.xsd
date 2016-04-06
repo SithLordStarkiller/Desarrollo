@@ -11,4 +11,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UsUsuarios" nillable="true" type="tns:UsUsuarios" />
+  <xs:complexType name="ArrayOfUsZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UsZona" nillable="true" type="tns:UsZona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsZona" nillable="true" type="tns:ArrayOfUsZona" />
+  <xs:complexType name="UsZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdZona" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreZona" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsZona" nillable="true" type="tns:UsZona" />
 </xs:schema>

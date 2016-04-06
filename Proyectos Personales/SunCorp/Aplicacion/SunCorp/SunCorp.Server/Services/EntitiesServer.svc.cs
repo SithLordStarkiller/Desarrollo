@@ -2,6 +2,7 @@
 {
     using Entities.Generic;
     using Entities;
+    using System.Collections.Generic;
     using BusinessLogic.EntitiesBussinessLogic;
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "EntitiesServer" in code, svc and config file together.
     // NOTE: In order to launch WCF Test Client for testing this service, please select EntitiesServer.svc or EntitiesServer.svc.cs at the Solution Explorer and start debugging.
@@ -10,6 +11,11 @@
         public UsUsuarios GetUsUsuarios(UserSession session)
         {
             return new UsUsuarioBussiness().GetUsUsuarios(session);
+        }
+
+        public List<UsZona> GetListUsZonasUser(UsUsuarios user)
+        {
+            return new UsUsuarioBussiness().GetListUsZonasUser(user);
         }
     }
 }

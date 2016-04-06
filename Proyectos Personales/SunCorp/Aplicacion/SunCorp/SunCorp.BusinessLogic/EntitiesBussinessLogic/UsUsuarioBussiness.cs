@@ -14,13 +14,12 @@ namespace SunCorp.BusinessLogic.EntitiesBussinessLogic
             return new UsUsuariosAccess().GetUsUsuarioLinQ(session);
         }
 
-        public List<UsZona> GetListUsZonas(UsUsuarios user)
+        public List<UsZona> GetListUsZonasUser(UsUsuarios user)
         {
             var listUsUsuariosPorzona = new UsUsuariosAccess().GetUsUsuarioPorZona(user);
             var listZonas = listUsUsuariosPorzona.Select(item => (int) item.IdZona).ToList();
 
-            var listUsZona = new UsUsuariosAccess().GetListUsZonaLinQ(listZonas);
-            return null;
+            return new UsUsuariosAccess().GetListUsZonaUserLinq(listZonas);
         }
     }
 }

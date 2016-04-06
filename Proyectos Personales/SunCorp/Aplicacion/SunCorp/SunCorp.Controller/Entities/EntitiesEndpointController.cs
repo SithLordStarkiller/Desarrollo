@@ -2,6 +2,7 @@
 {
     using Controller;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
     using SunCorp.Entities.Generic;
     using SunCorp.Entities;
     using System.Web.Mvc;
@@ -21,6 +22,11 @@
         public Task<UsUsuarios> GetUsUsuario(UserSession user)
         {
             return Task.Run(() => _servicio.GetUsUsuariosAsync(user));
+        }
+
+        public Task<List<UsZona>> GetListUsZonasUser(UsUsuarios user)
+        {
+            return Task.Run(() => _servicio.GetListUsZonasUserAsync(user));
         }
     }
 }

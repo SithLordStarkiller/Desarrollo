@@ -54,7 +54,7 @@
             }
         }
 
-        public List<UsZona> GetListUsZonaLinQ(List<int> listUserZona)
+        public List<UsZona> GetListUsZonaUserLinq(List<int> listUserZona)
         {
             using (var aux = new Repositorio<UsZona>())
             {
