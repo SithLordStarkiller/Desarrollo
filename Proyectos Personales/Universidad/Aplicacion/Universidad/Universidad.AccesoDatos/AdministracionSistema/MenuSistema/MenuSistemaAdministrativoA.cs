@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Universidad.Entidades;
-using Universidad.Entidades.ControlUsuario;
-
-namespace Universidad.AccesoDatos.AdministracionSistema.MenuSistema
+﻿namespace Universidad.AccesoDatos.AdministracionSistema.MenuSistema
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using Entidades;
+    using Entidades.ControlUsuario;
+
     public class MenuSistemaAdministrativoA
     {
         #region Propiedades de la clase

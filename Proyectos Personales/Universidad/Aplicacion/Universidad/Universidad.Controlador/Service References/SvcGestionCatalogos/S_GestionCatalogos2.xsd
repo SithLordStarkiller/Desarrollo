@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Universidad.Entidades" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfHOR_HORAS_POR_DIA">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HOR_HORAS_POR_DIA" nillable="true" type="tns:HOR_HORAS_POR_DIA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHOR_HORAS_POR_DIA" nillable="true" type="tns:ArrayOfHOR_HORAS_POR_DIA" />
+  <xs:complexType name="HOR_HORAS_POR_DIA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IDDIA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="IDHORA" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="IDHORASPORDIA" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HOR_HORAS_POR_DIA" nillable="true" type="tns:HOR_HORAS_POR_DIA" />
   <xs:complexType name="ArrayOfAUL_CAT_TIPO_AULA">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="AUL_CAT_TIPO_AULA" nillable="true" type="tns:AUL_CAT_TIPO_AULA" />
@@ -224,7 +238,6 @@
   <xs:complexType name="MAT_CAT_MATERIAS">
     <xs:sequence>
       <xs:element minOccurs="0" name="CREDITOS" type="xs:decimal" />
-      <xs:element minOccurs="0" name="IDCARRERA" nillable="true" type="xs:short" />
       <xs:element minOccurs="0" name="IDMATERIA" type="xs:short" />
       <xs:element minOccurs="0" name="NOMBREMATERIA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OPTATIVA" nillable="true" type="xs:boolean" />

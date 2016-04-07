@@ -382,5 +382,34 @@
         }
 
         #endregion
+
+        #region HOR_HORAS_POR_DIA
+
+        public List<HOR_HORAS_POR_DIA> ObtenListaHorHorasPorDia()
+        {
+            return new Catalogos().ObtenListaHorHorasPorDiaLinq();
+        }
+
+        public HOR_HORAS_POR_DIA InsertaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return new Catalogos().InsertaHorHorasPorDiaLinq(registro);
+        }
+
+        public bool ActualizaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return new Catalogos().ActualizaHorHorasPorDiaLinq(registro);
+        }
+
+        public bool EliminaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return new Catalogos().EliminaHorHorasPorDiaLinq(registro);
+        }
+
+        public HOR_HORAS_POR_DIA ExtraerHorHorasPorDia(int idHorasPorDia)
+        {
+            return new Catalogos().ExtraerHorHorasPorDiaLinq(idHorasPorDia);
+        }
+
+        #endregion
     }
 }

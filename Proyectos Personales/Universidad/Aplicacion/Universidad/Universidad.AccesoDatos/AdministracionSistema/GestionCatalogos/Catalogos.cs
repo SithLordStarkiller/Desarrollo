@@ -700,5 +700,64 @@
         }
 
         #endregion
+
+        #region HOR_HORAS_POR_DIA
+
+        public List<HOR_HORAS_POR_DIA> ObtenListaHorHorasPorDiaLinq()
+        {
+            using (var r = new Repositorio<HOR_HORAS_POR_DIA>())
+            {
+                return r.TablaCompleta();
+            }
+        }
+
+        public HOR_HORAS_POR_DIA InsertaHorHorasPorDiaLinq(HOR_HORAS_POR_DIA registro)
+        {
+            using (var r = new Repositorio<HOR_HORAS_POR_DIA>())
+            {
+                return r.Agregar(registro);
+            }
+        }
+
+        public bool ActualizaHorHorasPorDiaLinq(HOR_HORAS_POR_DIA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_HORAS_POR_DIA>())
+                {
+                    return r.Actualizar(registro) != null;
+                }
+
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool EliminaHorHorasPorDiaLinq(HOR_HORAS_POR_DIA registro)
+        {
+            try
+            {
+                using (var r = new Repositorio<HOR_HORAS_POR_DIA>())
+                {
+                    return r.Eliminar(registro);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public HOR_HORAS_POR_DIA ExtraerHorHorasPorDiaLinq(int idHorasporDia)
+        {
+            using (var r = new Repositorio<HOR_HORAS_POR_DIA>())
+            {
+                return r.Extraer(a => a.IDHORASPORDIA == idHorasporDia);
+            }
+        }
+
+        #endregion
     }
 }

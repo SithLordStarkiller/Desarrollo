@@ -236,5 +236,24 @@
         MAT_CAT_CREDITOS_POR_HORAS ExtraerMatCatCreditosPorHoras(int idHoras);
 
         #endregion
+
+        #region HOR_HORAS_POR_DIA
+
+        [OperationContract]
+        List<HOR_HORAS_POR_DIA> ObtenListaHorHorasPorDia();
+
+        [OperationContract]
+        HOR_HORAS_POR_DIA InsertaHorHorasPorDia(HOR_HORAS_POR_DIA registro);
+
+        [OperationContract]
+        bool ActualizaHorHorasPorDia(HOR_HORAS_POR_DIA registro);
+
+        [OperationContract]
+        bool EliminaHorHorasPorDia(HOR_HORAS_POR_DIA registro);
+
+        [OperationContract]
+        HOR_HORAS_POR_DIA ExtraerHorHorasPorDia(int idHoras);
+
+        #endregion
     }
 }

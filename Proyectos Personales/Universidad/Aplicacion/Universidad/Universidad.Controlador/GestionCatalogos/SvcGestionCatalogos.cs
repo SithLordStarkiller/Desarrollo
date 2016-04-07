@@ -371,5 +371,34 @@
         }
 
         #endregion
+
+        #region HOR_HORAS_POR_DIA
+
+        public Task<List<HOR_HORAS_POR_DIA>> ObtenListaHorHorasPorDia()
+        {
+            return Task.Run(() => _servicio.ObtenListaHorHorasPorDiaAsync());
+        }
+
+        public Task<HOR_HORAS_POR_DIA> InsertaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return Task.Run(() => _servicio.InsertaHorHorasPorDiaAsync(registro));
+        }
+
+        public Task<bool> ActualizaListaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return Task.Run(() => _servicio.ActualizaHorHorasPorDiaAsync(registro));
+        }
+
+        public Task<bool> EliminaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return Task.Run(() => _servicio.EliminaHorHorasPorDiaAsync(registro));
+        }
+
+        public Task<HOR_HORAS_POR_DIA> ExtraerHorHorasPorDia(int idHoras)
+        {
+            return Task.Run(() => _servicio.ExtraerHorHorasPorDiaAsync(idHoras));
+        }
+
+        #endregion
     }
 }

@@ -367,6 +367,35 @@
             return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerMatCatCreditosPorHoras(idHoras);
         }
 
+        #endregion#region MAT_CAT_CREDITOS_POR_HORAS
+
+        #region HOR_HORAS_POR_DIA
+
+        public List<HOR_HORAS_POR_DIA> ObtenListaHorHorasPorDia()
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ObtenListaHorHorasPorDia();
+        }
+
+        public HOR_HORAS_POR_DIA InsertaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().InsertaHorHorasPorDia(registro);
+        }
+
+        public bool ActualizaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ActualizaHorHorasPorDia(registro);
+        }
+
+        public bool EliminaHorHorasPorDia(HOR_HORAS_POR_DIA registro)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().EliminaHorHorasPorDia(registro);
+        }
+
+        public HOR_HORAS_POR_DIA ExtraerHorHorasPorDia(int idHoras)
+        {
+            return new LogicaNegocios.GestionCatalogos.GestionCatalogos().ExtraerHorHorasPorDia(idHoras);
+        }
+
         #endregion
     }
 }

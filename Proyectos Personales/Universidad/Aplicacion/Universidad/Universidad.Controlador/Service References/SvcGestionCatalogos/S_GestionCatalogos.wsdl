@@ -8,6 +8,36 @@
       <xsd:import schemaLocation="http://localhost:5099/GestionCatalogos/S_GestionCatalogos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Universidad.Entidades.Catalogos" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IS_GestionCatalogos_ObtenListaHorHorasPorDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaHorHorasPorDia" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ObtenListaHorHorasPorDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenListaHorHorasPorDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_InsertaHorHorasPorDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertaHorHorasPorDia" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_InsertaHorHorasPorDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertaHorHorasPorDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ActualizaHorHorasPorDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizaHorHorasPorDia" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ActualizaHorHorasPorDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizaHorHorasPorDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_EliminaHorHorasPorDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminaHorHorasPorDia" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_EliminaHorHorasPorDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminaHorHorasPorDiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ExtraerHorHorasPorDia_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExtraerHorHorasPorDia" />
+  </wsdl:message>
+  <wsdl:message name="IS_GestionCatalogos_ExtraerHorHorasPorDia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExtraerHorHorasPorDiaResponse" />
+  </wsdl:message>
   <wsdl:message name="IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenListaAUL_CAT_TIPO_AULA" />
   </wsdl:message>
@@ -393,6 +423,26 @@
     <wsdl:part name="parameters" element="tns:ExtraerMatCatCreditosPorHorasResponse" />
   </wsdl:message>
   <wsdl:portType name="IS_GestionCatalogos">
+    <wsdl:operation name="ObtenListaHorHorasPorDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorHorasPorDia" message="tns:IS_GestionCatalogos_ObtenListaHorHorasPorDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorHorasPorDiaResponse" message="tns:IS_GestionCatalogos_ObtenListaHorHorasPorDia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertaHorHorasPorDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorHorasPorDia" message="tns:IS_GestionCatalogos_InsertaHorHorasPorDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/InsertaHorHorasPorDiaResponse" message="tns:IS_GestionCatalogos_InsertaHorHorasPorDia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizaHorHorasPorDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorHorasPorDia" message="tns:IS_GestionCatalogos_ActualizaHorHorasPorDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ActualizaHorHorasPorDiaResponse" message="tns:IS_GestionCatalogos_ActualizaHorHorasPorDia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminaHorHorasPorDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorHorasPorDia" message="tns:IS_GestionCatalogos_EliminaHorHorasPorDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/EliminaHorHorasPorDiaResponse" message="tns:IS_GestionCatalogos_EliminaHorHorasPorDia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExtraerHorHorasPorDia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorHorasPorDia" message="tns:IS_GestionCatalogos_ExtraerHorHorasPorDia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ExtraerHorHorasPorDiaResponse" message="tns:IS_GestionCatalogos_ExtraerHorHorasPorDia_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenListaAUL_CAT_TIPO_AULA">
       <wsdl:input wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA" message="tns:IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULAResponse" message="tns:IS_GestionCatalogos_ObtenListaAUL_CAT_TIPO_AULA_OutputMessage" />
@@ -652,6 +702,51 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IS_GestionCatalogos" type="tns:IS_GestionCatalogos">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtenListaHorHorasPorDia">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaHorHorasPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertaHorHorasPorDia">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/InsertaHorHorasPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizaHorHorasPorDia">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ActualizaHorHorasPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminaHorHorasPorDia">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/EliminaHorHorasPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExtraerHorHorasPorDia">
+      <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ExtraerHorHorasPorDia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenListaAUL_CAT_TIPO_AULA">
       <soap:operation soapAction="http://tempuri.org/IS_GestionCatalogos/ObtenListaAUL_CAT_TIPO_AULA" style="document" />
       <wsdl:input>
