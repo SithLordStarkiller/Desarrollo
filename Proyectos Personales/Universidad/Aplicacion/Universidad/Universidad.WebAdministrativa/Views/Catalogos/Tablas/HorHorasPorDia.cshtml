@@ -23,7 +23,11 @@
 @section Scripts
 {
     <script type="text/javascript">
-
+        $(document).ready(function () {
+            
+            $('.multiselect').multiselect();
+            
+        });
 
         function ValidaCreditos(nombreTextbox) {
 
@@ -235,7 +239,7 @@
                     @item.DIASEMANA
                 </td>
                 <td>
-                    @Html.DropDownList("ddlEspecialidadActualiza", listaHoras, new { data_live_search = true, @class = "selectpicker col-md-12" })
+                    @Html.DropDownList("ddlHorasPorDia"+@item.IDDIA, listaHoras, new { data_live_search = true, @class = "mu col-md-12 multiselect", multiple = "multiple" })
                     @*@listaHorasPorDia.FirstOrDefault(r => r.Value == item.IDDIA).Text*@
                 </td>
                 <td style="align-content: center;">
