@@ -15,29 +15,34 @@ namespace Universidad.Entidades
     
     
     [DataContract]
-    public partial class MAT_ARBOL_MATERIA
+    public partial class SIS_LOG_DB
     
     {
-        public MAT_ARBOL_MATERIA()
-        {
-            this.MAT_ARBOL_MATERIA1 = new HashSet<MAT_ARBOL_MATERIA>();
-        }
+    
+    	[DataMember]
+        public int IDLOGDB { get; set; }
     
     
     	[DataMember]
-        public int IDMATERIADEPENDENCIA { get; set; }
+        public Nullable<int> ID_USUARIO { get; set; }
     
     
     	[DataMember]
-        public Nullable<int> IDMATERIADEPENDENCIAHIJO { get; set; }
+        public Nullable<int> IDREGISTROMODIFICADO { get; set; }
     
     
     	[DataMember]
-        public Nullable<short> IDMATERIA { get; set; }
+        public string NOMBRETABLA { get; set; }
     
     
-        public virtual ICollection<MAT_ARBOL_MATERIA> MAT_ARBOL_MATERIA1 { get; set; }
-        public virtual MAT_ARBOL_MATERIA MAT_ARBOL_MATERIA2 { get; set; }
-        public virtual MAT_CAT_MATERIAS MAT_CAT_MATERIAS { get; set; }
+    	[DataMember]
+        public string REGISTROXML { get; set; }
+    
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FECHAMODIFICACION { get; set; }
+    
+    
+        public virtual US_USUARIOS US_USUARIOS { get; set; }
     }
 }

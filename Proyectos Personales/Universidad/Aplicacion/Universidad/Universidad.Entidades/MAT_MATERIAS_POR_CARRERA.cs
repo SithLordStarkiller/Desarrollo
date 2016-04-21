@@ -32,5 +32,6 @@ namespace Universidad.Entidades
     
     
         public virtual CAR_CAT_CARRERAS CAR_CAT_CARRERAS { get; set; }
+        public virtual MAT_CAT_MATERIAS MAT_CAT_MATERIAS { get; set; }
     }
 }

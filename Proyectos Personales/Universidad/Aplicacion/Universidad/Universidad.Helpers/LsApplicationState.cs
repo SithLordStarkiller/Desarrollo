@@ -29,7 +29,6 @@ namespace Universidad.Helpers
         // RSA 2012-12-19 Debug flag to control access to production resources such as web services
         private const string _debugmode = "debugmode";
 
-
         private HttpApplicationState _applicationState;
 
         public HttpApplicationState ApplicationState

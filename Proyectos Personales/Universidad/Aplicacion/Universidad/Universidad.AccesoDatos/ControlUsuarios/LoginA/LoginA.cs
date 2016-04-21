@@ -1,12 +1,14 @@
-﻿using System;
-using System.Data;
-using System.Linq;
-using System.Data.SqlClient;
-using Universidad.Entidades;
-using Universidad.Helpers;
-
-namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
+﻿namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 {
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Data.SqlClient;
+    using System.Reflection;
+    using Entidades;
+    using Helpers;
+
+
     public class LoginA
     {
         #region Metodos de Insercion
@@ -17,16 +19,29 @@ namespace Universidad.AccesoDatos.ControlUsuarios.LoginA
 
         public US_USUARIOS LoginAdministradorLinq(string nombre, string contrasena)
         {
-            US_USUARIOS usuario;
+            var Log = new LogManager();
 
-            var textoEncriptado = new Encriptacion().EncriptarTexto(contrasena);
-
-            using (var aux = new Repositorio<US_USUARIOS>())
+            try
             {
-                usuario = aux.Extraer(r => r.USUARIO == nombre && r.CONTRASENA == textoEncriptado);
-            }
+                US_USUARIOS usuario;
 
-            return usuario;
+                var textoEncriptado = new Encriptacion().EncriptarTexto(contrasena);
+
+                using (var aux = new Repositorio<US_USUARIOS>())
+                {
+                    usuario = aux.Extraer(r => r.USUARIO == nombre && r.CONTRASENA == textoEncriptado);
+                }
+                var log = "Login de " + usuario.ID_USUARIO + " ";
+
+                Log.RegistraInformacion(GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno", log);
+
+                return usuario;
+            }
+            catch (Exception e)
+            {
+                Log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
+                return null;
+            }
         }
 
         public US_USUARIOS LoginAdministradoresTSql(string nombre, string contrasena)

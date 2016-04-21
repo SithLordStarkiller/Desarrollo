@@ -3,17 +3,34 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Helpers;
     using Entidades;
     using Entidades.Personas;
+    using System.Reflection;
+
     public class Personas
     {
         private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
 
         public PER_PERSONAS InsertaPersonaLinq(PER_PERSONAS persona)
         {
-            using (var r = new Repositorio<PER_PERSONAS>())
+            var log = new LogManager();
+
+            try
             {
-                return r.Agregar(persona);
+                using (var r = new Repositorio<PER_PERSONAS>())
+                {                   
+                    var registro = r.Agregar(persona);
+
+                    log.RegistraInformacion(GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno", "Se inserto nueva persona id =" + registro.ID_PERSONA);
+
+                    return registro;
+                }
+            }
+            catch (Exception e)
+            {
+                log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
+                return null;
             }
         }
 

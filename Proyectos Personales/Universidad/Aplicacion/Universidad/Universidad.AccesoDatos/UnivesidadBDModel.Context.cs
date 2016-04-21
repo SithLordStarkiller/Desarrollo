@@ -67,6 +67,7 @@ namespace Universidad.AccesoDatos
         public DbSet<SIS_AADM_APLICACIONES> SIS_AADM_APLICACIONES { get; set; }
         public DbSet<SIS_AADM_ARBOLMENUS> SIS_AADM_ARBOLMENUS { get; set; }
         public DbSet<SIS_CAT_TABPAGES> SIS_CAT_TABPAGES { get; set; }
+        public DbSet<SIS_LOG_DB> SIS_LOG_DB { get; set; }
         public DbSet<SIS_WADM_ARBOLMENU_MVC> SIS_WADM_ARBOLMENU_MVC { get; set; }
         public DbSet<SIS_WADM_PERMISOS_ARBOLMENU_MVC> SIS_WADM_PERMISOS_ARBOLMENU_MVC { get; set; }
         public DbSet<US_CAT_ESTATUS_USUARIO> US_CAT_ESTATUS_USUARIO { get; set; }

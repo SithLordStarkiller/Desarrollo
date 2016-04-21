@@ -21,6 +21,7 @@ namespace Universidad.Entidades
         public US_USUARIOS()
         {
             this.PER_PERSONAS = new HashSet<PER_PERSONAS>();
+            this.SIS_LOG_DB = new HashSet<SIS_LOG_DB>();
         }
     
     
@@ -49,6 +50,7 @@ namespace Universidad.Entidades
     
     
         public virtual ICollection<PER_PERSONAS> PER_PERSONAS { get; set; }
+        public virtual ICollection<SIS_LOG_DB> SIS_LOG_DB { get; set; }
         public virtual US_CAT_ESTATUS_USUARIO US_CAT_ESTATUS_USUARIO { get; set; }
         public virtual US_CAT_NIVEL_USUARIO US_CAT_NIVEL_USUARIO { get; set; }
         public virtual US_CAT_TIPO_USUARIO US_CAT_TIPO_USUARIO { get; set; }
