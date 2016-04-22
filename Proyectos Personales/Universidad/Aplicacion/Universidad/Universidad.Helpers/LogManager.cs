@@ -146,10 +146,10 @@
 
             texto += "Excepcion --> Clase: " + clase + " Metodo: " + metodo + " Hora: " + DateTime.Now + Environment.NewLine + "Nombre de Aplicacion: " + aplicacion + Environment.NewLine;
             texto += "Error: " + e.Message + Environment.NewLine;
-            texto += "Descripcion" + e.InnerException + Environment.NewLine;
-            texto += "StackTrace" + e.StackTrace + Environment.NewLine;
-            texto += "Source" + e.StackTrace + Environment.NewLine;
-            texto += "NoException" + e.HResult + Environment.NewLine;
+            texto += "Descripcion: " + e.InnerException + Environment.NewLine;
+            texto += "StackTrace: " + e.StackTrace + Environment.NewLine;
+            texto += "Source: " + e.StackTrace + Environment.NewLine;
+            texto += "NoException: " + e.HResult + Environment.NewLine;
             texto += "Help: " + e.HelpLink + Environment.NewLine;
 
             texto += Environment.NewLine + "--------------------------------------------------------------------------------------------------------------------------------------------------------------------" + Environment.NewLine;
