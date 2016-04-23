@@ -7,9 +7,15 @@
     using System.Linq;
     using Entidades.Catalogos;
     using Entidades;
+    using AccesoDatos.AdministracionSistema.Logs;
+    using Helpers;
+    using System.Reflection;
 
     public class Catalogos
     {
+        LogManager Log = new LogManager();
+        SerializacionXml Serializador = new SerializacionXml();
+
         public List<CatalogosSistema> ObtenCatalogosTSql()
         {
             var obj = ControladorSQL.ExecuteDataTable(ParametrosSQL.strCon_DBLsWebApp, CommandType.StoredProcedure,
@@ -88,7 +94,7 @@
             {
                 using (var r = new Repositorio<AUL_CAT_TIPO_AULA>())
                 {
-                    return r.Actualizar(registro) != null;
+                    return r.Actualizar(registro);
                 }
             }
             catch (Exception)
@@ -666,12 +672,12 @@
             {
                 using (var r = new Repositorio<MAT_CAT_CREDITOS_POR_HORAS>())
                 {
-                    return r.Actualizar(registro) != null;
+                    return r.Actualizar(registro);
                 }
-
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
                 return false;
             }
         }
@@ -723,14 +729,31 @@
         {
             try
             {
+
+                var antReg = ExtraerHorHorasPorDiaLinq(registro.IDHORASPORDIA);
+
+                var xmlReg = SerializacionXml.SerializeToXml(antReg);
+                var xmlRegNuevo = SerializacionXml.SerializeToXml(registro);
+
                 using (var r = new Repositorio<HOR_HORAS_POR_DIA>())
                 {
-                    return r.Actualizar(registro) != null;
+                    return r.Actualizar(registro);
                 }
 
+                var regLog = new SIS_LOG_DB
+                {
+                    IDREGISTROMODIFICADO = registro.IDHORASPORDIA,
+                    NOMBRETABLA = registro.GetType().Name,
+                    REGISTROXMLANTERIO = xmlReg,
+                    REGISTROXMLACTUAL = xmlRegNuevo,
+                    FECHAMODIFICACION = DateTime.Now
+                };
+
+                new Logs().InsertaModificacion(regLog);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
                 return false;
             }
         }

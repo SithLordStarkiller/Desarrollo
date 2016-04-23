@@ -8,7 +8,6 @@
     using Entidades;
     using Helpers;
 
-
     public class LoginA
     {
         #region Metodos de Insercion

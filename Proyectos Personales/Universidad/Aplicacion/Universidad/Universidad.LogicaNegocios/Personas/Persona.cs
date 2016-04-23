@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Universidad.AccesoDatos.Personas;
-using Universidad.Entidades;
-using Universidad.Entidades.Personas;
-
-namespace Universidad.LogicaNegocios.Personas
+﻿namespace Universidad.LogicaNegocios.Personas
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using System.Reflection;
+    using Universidad.AccesoDatos.Personas;
+    using Universidad.Entidades;
+    using Universidad.Entidades.Personas;
+    using Universidad.Helpers;
+
     public class Persona
     {
         public PER_PERSONAS InsertarPersona(PER_CAT_TELEFONOS personaTelefonos,
             PER_MEDIOS_ELECTRONICOS personaMediosElectronicos, PER_FOTOGRAFIA personaFotografia, PER_PERSONAS persona,
             DIR_DIRECCIONES personaDirecciones)
         {
+            var log = new LogManager();
+
             try
             {
                 var telefonos = personaTelefonos;
@@ -60,62 +64,63 @@ namespace Universidad.LogicaNegocios.Personas
 
                 return persona;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
                 return null;
             }
         }
 
         public PER_PERSONAS BuscarPersona(string idPersonaLink)
         {
-            return new AccesoDatos.Personas.Personas().BuscarPersonaLinq(idPersonaLink);
+            return new Personas().BuscarPersonaLinq(idPersonaLink);
         }
 
         public DatosCompletosPersona BuscarPersonaCompleta(string idPersonaLink)
         {
-            return new AccesoDatos.Personas.Personas().BuscaPersonaCompletaLinq(idPersonaLink);
+            return new Personas().BuscaPersonaCompletaLinq(idPersonaLink);
         }
 
         public List<PER_PERSONAS> ObtenListaPersonas()
         {
-            return new AccesoDatos.Personas.Personas().ObtenListaPersonasLinq();
+            return new Personas().ObtenListaPersonasLinq();
         }
 
         public List<PER_PERSONAS> ObtenListaPersonasFiltro(string idPersona, DateTime? fechaInicio, DateTime? fechaFinal,
             int? idTipoPersona)
         {
-            return new AccesoDatos.Personas.Personas().ObtenPersonasFiltroLinq(idPersona, fechaInicio, fechaFinal,
+            return new Personas().ObtenPersonasFiltroLinq(idPersona, fechaInicio, fechaFinal,
                 idTipoPersona);
         }
 
         public DIR_DIRECCIONES ObtenDirecciones(PER_PERSONAS persona)
         {
-            return new AccesoDatos.Personas.Personas().ObtenDireccionLinq(persona);
+            return new Personas().ObtenDireccionLinq(persona);
         }
 
         public PER_CAT_TELEFONOS ObtenTelefonos(PER_PERSONAS persona)
         {
-            return new AccesoDatos.Personas.Personas().ObtenTelefonosLinq(persona);
+            return new Personas().ObtenTelefonosLinq(persona);
         }
 
         public PER_MEDIOS_ELECTRONICOS ObtenMediosElectronicos(PER_PERSONAS personas)
         {
-            return new AccesoDatos.Personas.Personas().ObtenMediosElectronicosLinq(personas);
+            return new Personas().ObtenMediosElectronicosLinq(personas);
         }
 
         public PER_FOTOGRAFIA ObtenFotografia(PER_PERSONAS personas)
         {
-            return new AccesoDatos.Personas.Personas().ObtenFotografiaLinq(personas);
+            return new Personas().ObtenFotografiaLinq(personas);
         }
 
         public PER_CAT_TIPO_PERSONA ObtenTipoPersona(int idTipoPersona)
         {
-            return new AccesoDatos.Personas.Personas().ObtentipoPersonaLinq(idTipoPersona);
+            return new Personas().ObtentipoPersonaLinq(idTipoPersona);
         }
 
         public PER_CAT_NACIONALIDAD ObtenPersonaPais(int idPersonaNacionalidad)
         {
-            return new AccesoDatos.Personas.Personas().ObtenPersonaPais(idPersonaNacionalidad);
+            return new Personas().ObtenPersonaPais(idPersonaNacionalidad);
         }
     }
 }

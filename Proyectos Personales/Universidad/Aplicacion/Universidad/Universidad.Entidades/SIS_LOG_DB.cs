@@ -36,7 +36,11 @@ namespace Universidad.Entidades
     
     
     	[DataMember]
-        public string REGISTROXML { get; set; }
+        public string REGISTROXMLANTERIO { get; set; }
+    
+    
+    	[DataMember]
+        public string REGISTROXMLACTUAL { get; set; }
     
     
     	[DataMember]

@@ -427,7 +427,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="ID_USUARIO" Type="int" />
           <Property Name="IDREGISTROMODIFICADO" Type="int" />
           <Property Name="NOMBRETABLA" Type="varchar" MaxLength="30" />
-          <Property Name="REGISTROXML" Type="varchar(max)" />
+          <Property Name="REGISTROXMLANTERIO" Type="xml" />
+          <Property Name="REGISTROXMLACTUAL" Type="xml" />
           <Property Name="FECHAMODIFICACION" Type="datetime" />
         </EntityType>
         <EntityType Name="SIS_WADM_ARBOLMENU_MVC">
@@ -2249,7 +2250,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
           <Property Name="ID_USUARIO" Type="Int32" />
           <Property Name="IDREGISTROMODIFICADO" Type="Int32" />
           <Property Name="NOMBRETABLA" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="REGISTROXML" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="REGISTROXMLANTERIO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="REGISTROXMLACTUAL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FECHAMODIFICACION" Type="DateTime" Precision="3" />
           <NavigationProperty Name="US_USUARIOS" Relationship="UniversidadDBModel.FK_SIS_LOG__REFERENCE_US_USUAR" FromRole="SIS_LOG_DB" ToRole="US_USUARIOS" />
         </EntityType>
@@ -3468,7 +3470,8 @@ warning 6013: The table/view 'Universidad.dbo.CEPOMEX' does not have a primary k
             <EntityTypeMapping TypeName="UniversidadDBModel.SIS_LOG_DB">
               <MappingFragment StoreEntitySet="SIS_LOG_DB">
                 <ScalarProperty Name="FECHAMODIFICACION" ColumnName="FECHAMODIFICACION" />
-                <ScalarProperty Name="REGISTROXML" ColumnName="REGISTROXML" />
+                <ScalarProperty Name="REGISTROXMLACTUAL" ColumnName="REGISTROXMLACTUAL" />
+                <ScalarProperty Name="REGISTROXMLANTERIO" ColumnName="REGISTROXMLANTERIO" />
                 <ScalarProperty Name="NOMBRETABLA" ColumnName="NOMBRETABLA" />
                 <ScalarProperty Name="IDREGISTROMODIFICADO" ColumnName="IDREGISTROMODIFICADO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />

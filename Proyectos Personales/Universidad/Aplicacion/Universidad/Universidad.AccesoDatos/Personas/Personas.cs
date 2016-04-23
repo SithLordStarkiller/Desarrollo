@@ -11,35 +11,52 @@
     public class Personas
     {
         private readonly UniversidadBDEntities _contexto = new UniversidadBDEntities();
+        LogManager Log = new LogManager();
+        SerializacionXml Serializador =  new SerializacionXml();
 
         public PER_PERSONAS InsertaPersonaLinq(PER_PERSONAS persona)
         {
-            var log = new LogManager();
-
             try
             {
                 using (var r = new Repositorio<PER_PERSONAS>())
                 {                   
                     var registro = r.Agregar(persona);
 
-                    log.RegistraInformacion(GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno", "Se inserto nueva persona id =" + registro.ID_PERSONA);
+                    Log.RegistraInformacion(GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno", "Se inserto nueva persona id =" + registro.ID_PERSONA);
 
                     return registro;
                 }
             }
             catch (Exception e)
             {
-                log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
+                Log.RegistraExcepcion(e, GetType().Name, MethodBase.GetCurrentMethod().Name, "Servidor Interno");
                 return null;
             }
         }
 
         public bool ActualizaPersonaLinq(PER_PERSONAS persona)
         {
+            var antReg = BuscarPersonaLinq(persona.ID_PERSONA.ToString());
+
+            var xmlReg = SerializacionXml.SerializeToXml(antReg);
+            var xmlRegNuevo = SerializacionXml.SerializeToXml(persona);
+
+            bool regPersona = false;
+
             using (var r = new Repositorio<PER_PERSONAS>())
             {
-                return r.Actualizar(persona);
+                regPersona = r.Actualizar(persona);
             }
+
+            var regLog = new SIS_LOG_DB {
+                IDREGISTROMODIFICADO = persona.ID_PERSONA,
+                NOMBRETABLA = persona.GetType().Name,
+                REGISTROXMLANTERIO = xmlReg,
+                REGISTROXMLACTUAL= xmlRegNuevo,
+                FECHAMODIFICACION = DateTime.Now
+            };
+
+            return regPersona;
         }
 
         public PER_PERSONAS BuscarPersonaLinq(string idPersonaLink)

@@ -20,8 +20,8 @@
         private string FechaArchivo;
         private string Extencion;
         private string Archivo;
-        //private readonly string _ruta = @"C:\inetpub\Publicaciones\Universidad\ServidorInterno\Logs\";
         private readonly string _ruta = @"C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Aplicacion\Universidad\Universidad.ServidorInterno\Logs\";
+        //@"C:\inetpub\Publicaciones\Universidad\ServidorInterno\Logs\";
 
         public LogManager()
         {
