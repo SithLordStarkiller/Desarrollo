@@ -29,6 +29,17 @@
             
         });
 
+        function GetSelectedValues(nombreDdl) {
+            debugger;
+            var selected = $('#'+nombreDdl+' option:selected');
+            var listSelected = [];
+            for(var i = 0 ; i <= selected.length - 1; i++)
+            {
+                listSelected.push(selected[i].value);
+            }
+            debugger;
+        }
+
         function ValidaCreditos(nombreTextbox) {
 
             var control = $("#"+nombreTextbox+"");
@@ -239,13 +250,14 @@
                     @item.DIASEMANA
                 </td>
                 <td>
-                    @Html.DropDownList("ddlHorasPorDia"+@item.IDDIA, listaHoras, new { data_live_search = true, @class = "mu col-md-12 multiselect", multiple = "multiple" })
+                    @Html.DropDownList("ddlHorasPorDia"+@item.IDDIA, listaHoras, new { data_live_search = true, @class = "mu col-md-2 multiselect", multiple = "multiple" })
                     @*@listaHorasPorDia.FirstOrDefault(r => r.Value == item.IDDIA).Text*@
                 </td>
                 <td style="align-content: center;">
                     @*<a id="btnEliminar" href="@Url.Action("EliminaMatCatCreditosPorHoras", "Catalogos", new { idCreditos = item.IDCREDITOS, creditosMinimos = item.CREDITOSMINIMOS, creditosMaximos = item.CREDITOSMAXIMOS, horasMinimasSemana = item.HORASMINIMASPORSEMANA, horasMaximasSemana =  item.HORASMAXIMASPORSEMANA, horasTotalesporSemestre=item.HORASTOTALESPORSEMESTRE})" class="btn btn-default btn-sm">Elimina</a>
                     <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro','@item.IDCREDITOS','@item.CREDITOSMINIMOS', '@item.CREDITOSMAXIMOS', '@item.HORASMINIMASPORSEMANA', '@item.HORASMAXIMASPORSEMANA', '@item.HORASTOTALESPORSEMESTRE')">Editar</button>
                     <button name="btnVer" class="btn btn-default btn-sm" onclick="show_modal('modalVerRegistro','@item.IDCREDITOS','@item.CREDITOSMINIMOS', '@item.CREDITOSMAXIMOS', '@item.HORASMINIMASPORSEMANA', '@item.HORASMAXIMASPORSEMANA', '@item.HORASTOTALESPORSEMESTRE')">ver</button>*@
+                    <button name="btnLista" class="btn btn-default btn-sm" onclick="GetSelectedValues('ddlHorasPorDia'+@item.IDDIA);">Guardar</button>
                 </td>
             </tr>
         }
