@@ -15,8 +15,22 @@ public class AplicacionJava8 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("aplicacion");
+        String originalString = "This is the original String";
+        
+        System.out.println(originalString.substring(0, originalString.length()));
+        System.out.println(originalString.substring(5, 20));
+        System.out.println(originalString.substring(12));
+        
+        String myString = " This is a String that contains whitespace.            ";
+        System.out.println(myString);
+        System.out.println(myString.trim());
+        
+        String str = "Break down into chars";
+        System.out.println(str);
+        
+        for (char chr:str.toCharArray()){
+            System.out.println(chr);
+        }
     }
     
 }
