@@ -1,10 +1,12 @@
-﻿namespace SunCorp.WebSiteAdministrator
+﻿
+namespace SunCorp.WebSiteAdministrator
 {
+    using System.Web;
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
     using System;
-    public class Global : System.Web.HttpApplication
+    public class Global : HttpApplication
     {
 
         protected void Application_Start(object sender, EventArgs e)

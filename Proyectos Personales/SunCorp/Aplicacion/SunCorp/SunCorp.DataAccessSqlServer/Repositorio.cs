@@ -9,7 +9,10 @@
     {
         private readonly SunCorpEntities _contexto;
 
-        private DbSet<TEntity> EntitySet => _contexto.Set<TEntity>();
+        private DbSet<TEntity> EntitySet
+        {
+            get { return _contexto.Set<TEntity>(); }
+        }
 
         public Repositorio()
         {
@@ -131,7 +134,7 @@
 
         public void Dispose()
         {
-            _contexto?.Dispose();
+            _contexto.Dispose();
         }
     }
 }
