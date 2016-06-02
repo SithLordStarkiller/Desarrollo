@@ -19,6 +19,7 @@ namespace SunCorp.Controller.SvcServicesEntities {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.UsUsuarios))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<SunCorp.Entities.UsZona>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.UsZona))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.UsTipoUsuario))]
         SunCorp.Entities.UsUsuarios GetUsUsuarios(SunCorp.Entities.Generic.UserSession session);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
@@ -29,6 +30,12 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonasUserAsync(SunCorp.Entities.UsUsuarios user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetTypeUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetTypeUserResponse")]
+        SunCorp.Entities.UsTipoUsuario GetTypeUser(SunCorp.Entities.UsUsuarios user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetTypeUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetTypeUserResponse")]
+        System.Threading.Tasks.Task<SunCorp.Entities.UsTipoUsuario> GetTypeUserAsync(SunCorp.Entities.UsUsuarios user);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -72,6 +79,14 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonasUserAsync(SunCorp.Entities.UsUsuarios user) {
             return base.Channel.GetListUsZonasUserAsync(user);
+        }
+        
+        public SunCorp.Entities.UsTipoUsuario GetTypeUser(SunCorp.Entities.UsUsuarios user) {
+            return base.Channel.GetTypeUser(user);
+        }
+        
+        public System.Threading.Tasks.Task<SunCorp.Entities.UsTipoUsuario> GetTypeUserAsync(SunCorp.Entities.UsUsuarios user) {
+            return base.Channel.GetTypeUserAsync(user);
         }
     }
 }

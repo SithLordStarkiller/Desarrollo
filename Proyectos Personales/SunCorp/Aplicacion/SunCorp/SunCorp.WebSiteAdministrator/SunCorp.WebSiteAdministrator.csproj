@@ -135,6 +135,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="scripts\jquery-2.2.3.min.map" />
+    <Content Include="Views\catalogs\ListCatalogs.cshtml" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -151,8 +152,10 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controller\CatalogsController.cs" />
     <Compile Include="Controller\HomeController.cs" />
     <Compile Include="Controller\IndexController.cs" />
+    <Compile Include="Controller\OperationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +166,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="SessionExpireFilterAttribute.cs" />
+    <Compile Include="SessionUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SunCorp.Controller\SunCorp.Controller.csproj">
@@ -297,6 +301,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Operation\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

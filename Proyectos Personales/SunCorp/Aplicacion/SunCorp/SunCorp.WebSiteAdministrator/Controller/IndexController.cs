@@ -1,4 +1,6 @@
-﻿namespace SunCorp.WebSiteAdministrator.Controller
+﻿using System;
+
+namespace SunCorp.WebSiteAdministrator.Controller
 {
     using System.Web.Mvc;
     using System.Threading.Tasks;
@@ -22,30 +24,38 @@
                 Password = password,
                 UrlServer = Properties.Settings.Default.UrlServer
             };
-
-            var servicio = new EntitiesEndpointController(userSession);
-
-            var usUsuario = await servicio.GetUsUsuario(userSession);
-
-            switch (usUsuario.IdEstatusUsuario)
+            
+            try
             {
-               case 1:
-                    System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
-                    System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
+                var servicio = new EntitiesEndpointController(userSession);
 
-                    Session["Sesion"] = userSession;
-                    Session["Usuario"] = usUsuario;
+                var usUsuario = await servicio.GetUsUsuario(userSession);
 
-                    return "Correcto";
-                case 2:
 
-                    return "La cuenta se encuentra suspendida";
-                case 3:
+                if (usUsuario == null)
+                    return "usuario o contraseña invalidos";
 
-                    return "La cuenta se encuentra cancelada";
+                switch (usUsuario.IdEstatusUsuario)
+                {
+                    case 1:
+                        System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
+                        System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
 
+                        Session["Sesion"] = userSession;
+                        Session["Usuario"] = usUsuario;
+
+                        return "Correcto";
+                    case 2:
+                        return "La cuenta se encuentra suspendida";
+                    case 3:
+                        return "La cuenta se encuentra cancelada";
+                }
             }
-            return null;
+            catch (Exception)
+            {
+                return "Error en el servidor";
+            }
+            return "Error en el servidor";
         }
     }
 }

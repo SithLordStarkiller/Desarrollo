@@ -16,18 +16,24 @@ namespace SunCorp.Entities
     using System.Runtime.Serialization;
     
     [DataContract]
-    public partial class UsPermisos
+    public partial class ProArchivos
     
     {
     
     	[DataMember]
-        public int IdPermisos { get; set; }
+        public int IdArchivo { get; set; }
     
     	[DataMember]
-        public byte[] Descripcion { get; set; }
+        public string NombreArchivo { get; set; }
     
     	[DataMember]
-        public Nullable<bool> Borrado { get; set; }
+        public string Extencion { get; set; }
+    
+    	[DataMember]
+        public byte[] Archivo { get; set; }
+    
+    	[DataMember]
+        public Nullable<int> Tamaño { get; set; }
     
     }
 }

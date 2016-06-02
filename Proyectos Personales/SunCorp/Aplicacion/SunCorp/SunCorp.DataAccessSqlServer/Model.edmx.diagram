@@ -5,15 +5,64 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3c70dc832c9d4636a20442c4003eaa0b" Name="Diagram1">
-        <EntityTypeShape EntityType="SunCorpModel.UsEstatusUsuario" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="SunCorpModel.UsPermisos" Width="1.5" PointX="7.75" PointY="0.75" />
-        <EntityTypeShape EntityType="SunCorpModel.UsTipoUsuario" Width="1.5" PointX="0.75" PointY="1.25" />
-        <EntityTypeShape EntityType="SunCorpModel.UsUsuarioPorZona" Width="1.5" PointX="5.25" PointY="1.25" />
-        <EntityTypeShape EntityType="SunCorpModel.UsUsuarios" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="SunCorpModel.UsZona" Width="1.5" PointX="3" PointY="5.25" />
+        <EntityTypeShape EntityType="SunCorpModel.ConContacto" Width="1.5" PointX="3" PointY="29.875" />
+        <EntityTypeShape EntityType="SunCorpModel.DirCatColonia" Width="1.5" PointX="0.75" PointY="16.125" />
+        <EntityTypeShape EntityType="SunCorpModel.DirCatEstado" Width="1.5" PointX="1.5" PointY="26.75" />
+        <EntityTypeShape EntityType="SunCorpModel.DirCatMunicipio" Width="1.5" PointX="1.5" PointY="21.25" />
+        <EntityTypeShape EntityType="SunCorpModel.DirCatTipoAsentamiento" Width="1.5" PointX="1.5" PointY="12.75" />
+        <EntityTypeShape EntityType="SunCorpModel.DirCatTipoZona" Width="1.5" PointX="1.5" PointY="24.25" />
+        <EntityTypeShape EntityType="SunCorpModel.DirDirecciones" Width="1.5" PointX="3" PointY="16.125" />
+        <EntityTypeShape EntityType="SunCorpModel.OpCatEstadosNas" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SunCorpModel.OpCatTipoEstadoNas" Width="1.5" PointX="11.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SunCorpModel.OpEstadosPorUsuarios" Width="1.5" PointX="10" PointY="13.875" />
+        <EntityTypeShape EntityType="SunCorpModel.ProArchivos" Width="1.5" PointX="12.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SunCorpModel.ProArchivosPorProductos" Width="1.5" PointX="3.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SunCorpModel.ProCatMarca" Width="1.5" PointX="0.75" PointY="2.25" />
+        <EntityTypeShape EntityType="SunCorpModel.ProCatModelo" Width="1.5" PointX="3" PointY="2.25" />
+        <EntityTypeShape EntityType="SunCorpModel.ProDiviciones" Width="1.5" PointX="3" PointY="9.75" />
+        <EntityTypeShape EntityType="SunCorpModel.ProFamililia" Width="1.5" PointX="3" PointY="5.875" />
+        <EntityTypeShape EntityType="SunCorpModel.ProProducto" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="SunCorpModel.ProVendedor" Width="1.5" PointX="5.25" PointY="7" />
+        <EntityTypeShape EntityType="SunCorpModel.ProVendedorTienda" Width="1.5" PointX="7.5" PointY="2.125" />
+        <EntityTypeShape EntityType="SunCorpModel.SisArbolMenu" Width="1.5" PointX="10.75" PointY="3.875" />
+        <EntityTypeShape EntityType="SunCorpModel.SisTipoUsuarioPorMenu" Width="1.5" PointX="13" PointY="9.125" />
+        <EntityTypeShape EntityType="SunCorpModel.TieSucursal" Width="1.5" PointX="7.5" PointY="22.75" />
+        <EntityTypeShape EntityType="SunCorpModel.TieTienda" Width="1.5" PointX="5.25" PointY="18.25" />
+        <EntityTypeShape EntityType="SunCorpModel.UsEstatusUsuario" Width="1.5" PointX="5.75" PointY="12.75" />
+        <EntityTypeShape EntityType="SunCorpModel.UsTipoUsuario" Width="1.5" PointX="7.75" PointY="9" />
+        <EntityTypeShape EntityType="SunCorpModel.UsUsuarioPorZona" Width="1.5" PointX="12.25" PointY="15.75" />
+        <EntityTypeShape EntityType="SunCorpModel.UsUsuarios" Width="1.5" PointX="10" PointY="7.625" />
+        <EntityTypeShape EntityType="SunCorpModel.UsZona" Width="1.5" PointX="5.25" PointY="23.5" />
+        <EntityTypeShape EntityType="SunCorpModel.UsZonaPorEstado" Width="1.5" PointX="3.75" PointY="26.875" />
+        <AssociationConnector Association="SunCorpModel.FK_TieSucursal_ConContacto" />
+        <AssociationConnector Association="SunCorpModel.FK_TieTienda_ConContacto" />
+        <AssociationConnector Association="SunCorpModel.FK_DirCatColonia_DirCatEstado" />
+        <AssociationConnector Association="SunCorpModel.FK_DirCatColonia_DirCatMunicipio" />
+        <AssociationConnector Association="SunCorpModel.FK_DirCatColonia_DirCatTipoAsentamiento" />
+        <AssociationConnector Association="SunCorpModel.FK_DirCatColonia_DirCatTipoZona" />
+        <AssociationConnector Association="SunCorpModel.FK_DirDirecciones_DirCatColonia" />
+        <AssociationConnector Association="SunCorpModel.FK_DirDirecciones_DirCatEstado" />
+        <AssociationConnector Association="SunCorpModel.FK_UsZonaPorEstado_DirCatEstado" />
+        <AssociationConnector Association="SunCorpModel.FK_TieSucursal_DirDirecciones" />
+        <AssociationConnector Association="SunCorpModel.FK_TieTienda_DirDirecciones" />
+        <AssociationConnector Association="SunCorpModel.FK_OpEstadosPorUsuarios_UsTipoUsuario" />
+        <AssociationConnector Association="SunCorpModel.FK_ProCatModelo_ProCatMarca" />
+        <AssociationConnector Association="SunCorpModel.FK_ProProducto_ProCatMarca" />
+        <AssociationConnector Association="SunCorpModel.FK_ProProducto_ProCatModelo" />
+        <AssociationConnector Association="SunCorpModel.FK_ProProducto_ProDiviciones" />
+        <AssociationConnector Association="SunCorpModel.FK_ProProducto_ProFamililia" />
+        <AssociationConnector Association="SunCorpModel.FK_ProVendedorTienda_ProVendedor" />
+        <AssociationConnector Association="SunCorpModel.FK_ProVendedorTienda_TieTienda" />
+        <AssociationConnector Association="SunCorpModel.FK_SisArrbolMenu_SisArrbolMenu" />
+        <AssociationConnector Association="SunCorpModel.FK_SisTipoUsuarioPorMenu_SisArbolMenu" />
+        <AssociationConnector Association="SunCorpModel.FK_SisTipoUsuarioPorMenu_UsTipoUsuario" />
+        <AssociationConnector Association="SunCorpModel.FK_TieSucursal_TieTienda" />
+        <AssociationConnector Association="SunCorpModel.FK_TieSucursal_UsZona" />
         <AssociationConnector Association="SunCorpModel.FK_UsUsuarios_UsTipoUsuario" />
         <AssociationConnector Association="SunCorpModel.FK_UsUsuarioPorZona_UsUsuarios" />
         <AssociationConnector Association="SunCorpModel.FK_UsUsuarioPorZona_UsZona" />
+        <AssociationConnector Association="SunCorpModel.FK_UsZonaPorEstado_UsZona" />
+        <AssociationConnector Association="SunCorpModel.ProVenTieProducto" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

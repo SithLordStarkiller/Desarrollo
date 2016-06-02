@@ -2,10 +2,10 @@
 <wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="EntitiesServer" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:4702/Services/EntitiesServer.svc?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:4702/Services/EntitiesServer.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:4702/Services/EntitiesServer.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SunCorp.Entities.Generic" />
-      <xsd:import schemaLocation="http://localhost:4702/Services/EntitiesServer.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SunCorp.Entities" />
+      <xsd:import schemaLocation="http://localhost:2266/Services/EntitiesServer.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:2266/Services/EntitiesServer.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:2266/Services/EntitiesServer.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SunCorp.Entities.Generic" />
+      <xsd:import schemaLocation="http://localhost:2266/Services/EntitiesServer.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/SunCorp.Entities" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEntitiesServer_GetUsUsuarios_InputMessage">
@@ -20,6 +20,12 @@
   <wsdl:message name="IEntitiesServer_GetListUsZonasUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListUsZonasUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IEntitiesServer_GetTypeUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTypeUser" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_GetTypeUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTypeUserResponse" />
+  </wsdl:message>
   <wsdl:portType name="IEntitiesServer">
     <wsdl:operation name="GetUsUsuarios">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios" message="tns:IEntitiesServer_GetUsUsuarios_InputMessage" />
@@ -28,6 +34,10 @@
     <wsdl:operation name="GetListUsZonasUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser" message="tns:IEntitiesServer_GetListUsZonasUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse" message="tns:IEntitiesServer_GetListUsZonasUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTypeUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetTypeUser" message="tns:IEntitiesServer_GetTypeUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetTypeUserResponse" message="tns:IEntitiesServer_GetTypeUser_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEntitiesServer" type="tns:IEntitiesServer">
@@ -50,10 +60,19 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTypeUser">
+      <soap:operation soapAction="http://tempuri.org/IEntitiesServer/GetTypeUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="EntitiesServer">
     <wsdl:port name="BasicHttpBinding_IEntitiesServer" binding="tns:BasicHttpBinding_IEntitiesServer">
-      <soap:address location="http://localhost:4702/Services/EntitiesServer.svc" />
+      <soap:address location="http://localhost:2266/Services/EntitiesServer.svc" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

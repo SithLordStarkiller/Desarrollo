@@ -10,12 +10,16 @@
     {
         public UsUsuarios GetUsUsuarios(UserSession session)
         {
-            return new UsUsuarioBussiness().GetUsUsuarios(session);
+            return new EntitiesBussiness().GetUsUsuarios(session);
+        }
+        public UsTipoUsuario GetTypeUser(UsUsuarios user)
+        {
+            return new EntitiesBussiness().GetTypeUser(user);
         }
 
         public List<UsZona> GetListUsZonasUser(UsUsuarios user)
         {
-            return new UsUsuarioBussiness().GetListUsZonasUser(user);
+            return new EntitiesBussiness().GetListUsZonasUser(user);
         }
     }
 }

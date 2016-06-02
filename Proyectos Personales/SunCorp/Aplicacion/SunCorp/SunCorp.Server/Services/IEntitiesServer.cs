@@ -15,5 +15,8 @@
 
         [OperationContract]
         List<UsZona> GetListUsZonasUser(UsUsuarios user);
+
+        [OperationContract]
+        UsTipoUsuario GetTypeUser(UsUsuarios user);
     }
 }

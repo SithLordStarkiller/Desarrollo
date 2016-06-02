@@ -804,7 +804,7 @@
             {
                 Value = c.IDHORA.ToString(CultureInfo.InvariantCulture),
                 Text = c.NOMBREHORA
-            }).ToArray(); ;
+            }).ToArray();
 
             return View("Tablas/HorHorasPorDia");
         }

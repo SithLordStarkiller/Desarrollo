@@ -23,7 +23,9 @@ namespace SunCorp.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UsZona()
         {
+            this.TieSucursal = new HashSet<TieSucursal>();
             this.UsUsuarioPorZona = new HashSet<UsUsuarioPorZona>();
+            this.UsZonaPorEstado = new HashSet<UsZonaPorEstado>();
         }
     
     	[DataMember]
@@ -40,6 +42,10 @@ namespace SunCorp.Entities
     
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TieSucursal> TieSucursal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsUsuarioPorZona> UsUsuarioPorZona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UsZonaPorEstado> UsZonaPorEstado { get; set; }
     }
 }

@@ -5,16 +5,255 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SunCorpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="TargetTableName">
-          <Property Name="IdUsuario" Type="nvarchar" MaxLength="255" />
-          <Property Name="Usuario" Type="nvarchar" MaxLength="255" />
-          <Property Name="Contrasena" Type="nvarchar" MaxLength="255" />
-          <Property Name="IdTipoUsuario" Type="nvarchar" MaxLength="255" />
-          <Property Name="IdEstatusUsuario" Type="nvarchar" MaxLength="255" />
-          <Property Name="Borrado" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
+        <EntityType Name="ConContacto">
+          <Key>
+            <PropertyRef Name="IdContacto" />
+          </Key>
+          <Property Name="IdContacto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TelefonoFijoPrincipal" Type="varchar(max)" />
+          <Property Name="TelefonoFijoSacundario" Type="varchar(max)" />
+          <Property Name="TelefonoMovilPrimario" Type="varchar(max)" />
+          <Property Name="TelefonoMovilSecundario" Type="varchar(max)" />
+          <Property Name="CorreoElectronico" Type="varchar(max)" />
+          <Property Name="SitioWeb" Type="varchar(max)" />
+          <Property Name="RedSocialPrimaria" Type="varchar(max)" />
+          <Property Name="RedSocialSecundaria" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="DirCatColonia">
+          <Key>
+            <PropertyRef Name="IdColonia" />
+          </Key>
+          <Property Name="IdColonia" Type="int" Nullable="false" />
+          <Property Name="IdMunicipios" Type="int" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="IdTipoAsentamiento" Type="int" />
+          <Property Name="IdTipoZona" Type="int" />
+          <Property Name="NombreColonia" Type="varchar(max)" />
+          <Property Name="CodigoPostal" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="DirCatEstado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="NombreEstado" Type="varchar(max)" />
+          <Property Name="NombreOficial" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="DirCatMunicipio">
+          <Key>
+            <PropertyRef Name="IdMunicipios" />
+          </Key>
+          <Property Name="IdMunicipios" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="IdMunicipio" Type="int" />
+          <Property Name="NombreMunicipio" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="DirCatTipoAsentamiento">
+          <Key>
+            <PropertyRef Name="IdTipoAsentmiento" />
+          </Key>
+          <Property Name="IdTipoAsentmiento" Type="int" Nullable="false" />
+          <Property Name="TipoAsentamiento" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="DirCatTipoZona">
+          <Key>
+            <PropertyRef Name="IdTipoZona" />
+          </Key>
+          <Property Name="IdTipoZona" Type="int" Nullable="false" />
+          <Property Name="TipoZona" Type="varbinary(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="DirDirecciones">
+          <Key>
+            <PropertyRef Name="IdDirecciones" />
+          </Key>
+          <Property Name="IdDirecciones" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="IdMunicipio" Type="int" />
+          <Property Name="IdColonia" Type="int" />
+          <Property Name="Calle" Type="varchar(max)" />
+          <Property Name="NoExt" Type="varchar(max)" />
+          <Property Name="NoInt" Type="varchar(max)" />
+          <Property Name="Referencias" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="OpCatEstadosNas">
+          <Key>
+            <PropertyRef Name="IdEstadoNas" />
+          </Key>
+          <Property Name="IdEstadoNas" Type="int" Nullable="false" />
+          <Property Name="NombreEstadoNas" Type="varchar(max)" />
+          <Property Name="IdTipoEstado" Type="int" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="OpCatTipoEstadoNas">
+          <Key>
+            <PropertyRef Name="IdTipoEstado" />
+          </Key>
+          <Property Name="IdTipoEstado" Type="int" Nullable="false" />
+          <Property Name="NombreTipoEstado" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="OpEstadosPorUsuarios">
+          <Key>
+            <PropertyRef Name="IdEstadosUsuarios" />
+          </Key>
+          <Property Name="IdEstadosUsuarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstadoNas" Type="int" />
+          <Property Name="IdTipoUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="ProArchivos">
+          <Key>
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreArchivo" Type="varchar(max)" />
+          <Property Name="Extencion" Type="varchar(max)" />
+          <Property Name="Archivo" Type="varbinary(max)" />
+          <Property Name="Tamaño" Type="int" />
+        </EntityType>
+        <EntityType Name="ProArchivosPorProductos">
+          <Key>
+            <PropertyRef Name="IdAchProd" />
+          </Key>
+          <Property Name="IdAchProd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProducto" Type="int" />
+          <Property Name="IdArchivo" Type="int" />
+        </EntityType>
+        <EntityType Name="ProCatMarca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" Nullable="false" />
+          <Property Name="Marca" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProCatModelo">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="int" Nullable="false" />
+          <Property Name="NombreModelo" Type="varchar" MaxLength="200" />
+          <Property Name="IdMarca" Type="int" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProDiviciones">
+          <Key>
+            <PropertyRef Name="IdDivicion" />
+          </Key>
+          <Property Name="IdDivicion" Type="int" Nullable="false" />
+          <Property Name="NombreDivicion" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProFamililia">
+          <Key>
+            <PropertyRef Name="IdFamilia" />
+          </Key>
+          <Property Name="IdFamilia" Type="int" Nullable="false" />
+          <Property Name="NombreFamilia" Type="varchar(max)" />
+          <Property Name="Titulo" Type="varchar(max)" />
+          <Property Name="TituloDetalle" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProProducto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdModelo" Type="int" />
+          <Property Name="IdMarca" Type="int" />
+          <Property Name="IdFamilia" Type="int" />
+          <Property Name="IdDivicion" Type="int" />
+          <Property Name="NombreProducto" Type="varchar(max)" />
+          <Property Name="Titulo" Type="varchar(max)" />
+          <Property Name="TituloDetalle" Type="varchar(max)" />
+          <Property Name="NumeroDeSerie" Type="varchar(max)" />
+          <Property Name="Detalles" Type="varchar(max)" />
+          <Property Name="EsReparable" Type="bit" />
+          <Property Name="HaySeries" Type="bit" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ProVendedor">
+          <Key>
+            <PropertyRef Name="IdVendedor" />
+          </Key>
+          <Property Name="IdVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreVendedor" Type="varchar(max)" />
+          <Property Name="ClaveVendedor" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="IdDirecciones" Type="int" />
+        </EntityType>
+        <EntityType Name="ProVendedorTienda">
+          <Key>
+            <PropertyRef Name="IdTendaVendedor" />
+          </Key>
+          <Property Name="IdTendaVendedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVendedor" Type="int" />
+          <Property Name="IdTienda" Type="int" />
+          <Property Name="NombreRelacion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="ProVenTieProducto">
+          <Key>
+            <PropertyRef Name="IdTiendaVendedor" />
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdTiendaVendedor" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SisArbolMenu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMenuPadre" Type="int" />
+          <Property Name="NombreMenu" Type="varchar(max)" Nullable="false" />
+          <Property Name="Controller" Type="varchar(max)" />
+          <Property Name="Method" Type="varchar" MaxLength="50" />
+          <Property Name="Url" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="SisTipoUsuarioPorMenu">
+          <Key>
+            <PropertyRef Name="IdPermisos" />
+          </Key>
+          <Property Name="IdPermisos" Type="int" Nullable="false" />
+          <Property Name="IdTipoUsuario" Type="int" />
+          <Property Name="IdMenu" Type="int" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="TieSucursal">
+          <Key>
+            <PropertyRef Name="IdSucursal" />
+          </Key>
+          <Property Name="IdSucursal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdZona" Type="int" />
+          <Property Name="IdContacto" Type="int" />
+          <Property Name="IdDirecciones" Type="int" />
+          <Property Name="IdTienda" Type="int" />
+          <Property Name="NombreTienda" Type="varchar(max)" />
+          <Property Name="NombreGerente" Type="varchar(max)" />
+          <Property Name="Comentarios" Type="varchar(max)" />
+          <Property Name="Borrado" Type="bit" />
+          <Property Name="Activo" Type="int" />
+          <Property Name="NoSucursal" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="TieTienda">
+          <Key>
+            <PropertyRef Name="IdTienda" />
+          </Key>
+          <Property Name="IdTienda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDireccion" Type="int" />
+          <Property Name="IdContacto" Type="int" />
+          <Property Name="NombreTienda" Type="varchar" MaxLength="100" />
+          <Property Name="NombreResponsable" Type="varchar(max)" />
+          <Property Name="FechaAlta" Type="datetime" />
+          <Property Name="Activo" Type="bit" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
         <EntityType Name="UsEstatusUsuario">
           <Key>
             <PropertyRef Name="IdEstatusUsuario" />
@@ -23,14 +262,6 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
           <Property Name="EstatusUsuario" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" Nullable="false" />
           <Property Name="Borrado" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UsPermisos">
-          <Key>
-            <PropertyRef Name="IdPermisos" />
-          </Key>
-          <Property Name="IdPermisos" Type="int" Nullable="false" />
-          <Property Name="Descripcion" Type="varbinary(max)" />
-          <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="UsTipoUsuario">
           <Key>
@@ -69,6 +300,315 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
           <Property Name="Descripcion" Type="varchar(max)" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
+        <EntityType Name="UsZonaPorEstado">
+          <Key>
+            <PropertyRef Name="IdZonaEstado" />
+          </Key>
+          <Property Name="IdZonaEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdZona" Type="int" />
+          <Property Name="IdEstado" Type="int" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <Association Name="FK_DirCatColonia_DirCatEstado">
+          <End Role="DirCatEstado" Type="Self.DirCatEstado" Multiplicity="0..1" />
+          <End Role="DirCatColonia" Type="Self.DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatMunicipio">
+          <End Role="DirCatMunicipio" Type="Self.DirCatMunicipio" Multiplicity="0..1" />
+          <End Role="DirCatColonia" Type="Self.DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatMunicipio">
+              <PropertyRef Name="IdMunicipios" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdMunicipios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatTipoAsentamiento">
+          <End Role="DirCatTipoAsentamiento" Type="Self.DirCatTipoAsentamiento" Multiplicity="0..1" />
+          <End Role="DirCatColonia" Type="Self.DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatTipoAsentamiento">
+              <PropertyRef Name="IdTipoAsentmiento" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdTipoAsentamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatTipoZona">
+          <End Role="DirCatTipoZona" Type="Self.DirCatTipoZona" Multiplicity="0..1" />
+          <End Role="DirCatColonia" Type="Self.DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatTipoZona">
+              <PropertyRef Name="IdTipoZona" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdTipoZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatColonia">
+          <End Role="DirCatColonia" Type="Self.DirCatColonia" Multiplicity="0..1" />
+          <End Role="DirDirecciones" Type="Self.DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatColonia">
+              <PropertyRef Name="IdColonia" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdColonia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatEstado">
+          <End Role="DirCatEstado" Type="Self.DirCatEstado" Multiplicity="0..1" />
+          <End Role="DirDirecciones" Type="Self.DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpEstadosPorUsuarios_UsTipoUsuario">
+          <End Role="UsTipoUsuario" Type="Self.UsTipoUsuario" Multiplicity="0..1" />
+          <End Role="OpEstadosPorUsuarios" Type="Self.OpEstadosPorUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="OpEstadosPorUsuarios">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProCatModelo_ProCatMarca">
+          <End Role="ProCatMarca" Type="Self.ProCatMarca" Multiplicity="0..1" />
+          <End Role="ProCatModelo" Type="Self.ProCatModelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProCatMarca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="ProCatModelo">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProCatMarca">
+          <End Role="ProCatMarca" Type="Self.ProCatMarca" Multiplicity="0..1" />
+          <End Role="ProProducto" Type="Self.ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProCatMarca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProCatModelo">
+          <End Role="ProCatModelo" Type="Self.ProCatModelo" Multiplicity="0..1" />
+          <End Role="ProProducto" Type="Self.ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProCatModelo">
+              <PropertyRef Name="IdModelo" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProDiviciones">
+          <End Role="ProDiviciones" Type="Self.ProDiviciones" Multiplicity="0..1" />
+          <End Role="ProProducto" Type="Self.ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProDiviciones">
+              <PropertyRef Name="IdDivicion" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdDivicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProFamililia">
+          <End Role="ProFamililia" Type="Self.ProFamililia" Multiplicity="0..1" />
+          <End Role="ProProducto" Type="Self.ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProFamililia">
+              <PropertyRef Name="IdFamilia" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdFamilia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProVendedorTienda_ProVendedor">
+          <End Role="ProVendedor" Type="Self.ProVendedor" Multiplicity="0..1" />
+          <End Role="ProVendedorTienda" Type="Self.ProVendedorTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProVendedor">
+              <PropertyRef Name="IdVendedor" />
+            </Principal>
+            <Dependent Role="ProVendedorTienda">
+              <PropertyRef Name="IdVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProVendedorTienda_TieTienda">
+          <End Role="TieTienda" Type="Self.TieTienda" Multiplicity="0..1" />
+          <End Role="ProVendedorTienda" Type="Self.ProVendedorTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TieTienda">
+              <PropertyRef Name="IdTienda" />
+            </Principal>
+            <Dependent Role="ProVendedorTienda">
+              <PropertyRef Name="IdTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProVenTieProducto_ProProducto">
+          <End Role="ProProducto" Type="Self.ProProducto" Multiplicity="1" />
+          <End Role="ProVenTieProducto" Type="Self.ProVenTieProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProProducto">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="ProVenTieProducto">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProVenTieProducto_ProVendedorTienda">
+          <End Role="ProVendedorTienda" Type="Self.ProVendedorTienda" Multiplicity="1" />
+          <End Role="ProVenTieProducto" Type="Self.ProVenTieProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProVendedorTienda">
+              <PropertyRef Name="IdTendaVendedor" />
+            </Principal>
+            <Dependent Role="ProVenTieProducto">
+              <PropertyRef Name="IdTiendaVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SisArrbolMenu_SisArrbolMenu">
+          <End Role="SisArbolMenu" Type="Self.SisArbolMenu" Multiplicity="0..1" />
+          <End Role="SisArbolMenu1" Type="Self.SisArbolMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SisArbolMenu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SisArbolMenu1">
+              <PropertyRef Name="IdMenuPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SisTipoUsuarioPorMenu_SisArbolMenu">
+          <End Role="SisArbolMenu" Type="Self.SisArbolMenu" Multiplicity="0..1" />
+          <End Role="SisTipoUsuarioPorMenu" Type="Self.SisTipoUsuarioPorMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SisArbolMenu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SisTipoUsuarioPorMenu">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SisTipoUsuarioPorMenu_UsTipoUsuario">
+          <End Role="UsTipoUsuario" Type="Self.UsTipoUsuario" Multiplicity="0..1" />
+          <End Role="SisTipoUsuarioPorMenu" Type="Self.SisTipoUsuarioPorMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="SisTipoUsuarioPorMenu">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_ConContacto">
+          <End Role="ConContacto" Type="Self.ConContacto" Multiplicity="0..1" />
+          <End Role="TieSucursal" Type="Self.TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConContacto">
+              <PropertyRef Name="IdContacto" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_DirDirecciones">
+          <End Role="DirDirecciones" Type="Self.DirDirecciones" Multiplicity="0..1" />
+          <End Role="TieSucursal" Type="Self.TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirDirecciones">
+              <PropertyRef Name="IdDirecciones" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdDirecciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_TieTienda">
+          <End Role="TieTienda" Type="Self.TieTienda" Multiplicity="0..1" />
+          <End Role="TieSucursal" Type="Self.TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TieTienda">
+              <PropertyRef Name="IdTienda" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_UsZona">
+          <End Role="UsZona" Type="Self.UsZona" Multiplicity="0..1" />
+          <End Role="TieSucursal" Type="Self.TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsZona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieTienda_ConContacto">
+          <End Role="ConContacto" Type="Self.ConContacto" Multiplicity="0..1" />
+          <End Role="TieTienda" Type="Self.TieTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConContacto">
+              <PropertyRef Name="IdContacto" />
+            </Principal>
+            <Dependent Role="TieTienda">
+              <PropertyRef Name="IdContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieTienda_DirDirecciones">
+          <End Role="DirDirecciones" Type="Self.DirDirecciones" Multiplicity="0..1" />
+          <End Role="TieTienda" Type="Self.TieTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirDirecciones">
+              <PropertyRef Name="IdDirecciones" />
+            </Principal>
+            <Dependent Role="TieTienda">
+              <PropertyRef Name="IdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsUsuarioPorZona_UsUsuarios">
           <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="0..1" />
           <End Role="UsUsuarioPorZona" Type="Self.UsUsuarioPorZona" Multiplicity="*" />
@@ -105,13 +645,161 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UsZonaPorEstado_DirCatEstado">
+          <End Role="DirCatEstado" Type="Self.DirCatEstado" Multiplicity="0..1" />
+          <End Role="UsZonaPorEstado" Type="Self.UsZonaPorEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="UsZonaPorEstado">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsZonaPorEstado_UsZona">
+          <End Role="UsZona" Type="Self.UsZona" Multiplicity="0..1" />
+          <End Role="UsZonaPorEstado" Type="Self.UsZonaPorEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsZona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="UsZonaPorEstado">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SunCorpModelStoreContainer">
+          <EntitySet Name="ConContacto" EntityType="Self.ConContacto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatColonia" EntityType="Self.DirCatColonia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatEstado" EntityType="Self.DirCatEstado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatMunicipio" EntityType="Self.DirCatMunicipio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatTipoAsentamiento" EntityType="Self.DirCatTipoAsentamiento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatTipoZona" EntityType="Self.DirCatTipoZona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirDirecciones" EntityType="Self.DirDirecciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpCatEstadosNas" EntityType="Self.OpCatEstadosNas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpCatTipoEstadoNas" EntityType="Self.OpCatTipoEstadoNas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpEstadosPorUsuarios" EntityType="Self.OpEstadosPorUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProArchivos" EntityType="Self.ProArchivos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProArchivosPorProductos" EntityType="Self.ProArchivosPorProductos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProCatMarca" EntityType="Self.ProCatMarca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProCatModelo" EntityType="Self.ProCatModelo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProDiviciones" EntityType="Self.ProDiviciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProFamililia" EntityType="Self.ProFamililia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProProducto" EntityType="Self.ProProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProVendedor" EntityType="Self.ProVendedor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProVendedorTienda" EntityType="Self.ProVendedorTienda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProVenTieProducto" EntityType="Self.ProVenTieProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SisArbolMenu" EntityType="Self.SisArbolMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SisTipoUsuarioPorMenu" EntityType="Self.SisTipoUsuarioPorMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TieSucursal" EntityType="Self.TieSucursal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TieTienda" EntityType="Self.TieTienda" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsEstatusUsuario" EntityType="Self.UsEstatusUsuario" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UsPermisos" EntityType="Self.UsPermisos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsTipoUsuario" EntityType="Self.UsTipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsUsuarioPorZona" EntityType="Self.UsUsuarioPorZona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsUsuarios" EntityType="Self.UsUsuarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsZona" EntityType="Self.UsZona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsZonaPorEstado" EntityType="Self.UsZonaPorEstado" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DirCatColonia_DirCatEstado" Association="Self.FK_DirCatColonia_DirCatEstado">
+            <End Role="DirCatEstado" EntitySet="DirCatEstado" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatMunicipio" Association="Self.FK_DirCatColonia_DirCatMunicipio">
+            <End Role="DirCatMunicipio" EntitySet="DirCatMunicipio" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatTipoAsentamiento" Association="Self.FK_DirCatColonia_DirCatTipoAsentamiento">
+            <End Role="DirCatTipoAsentamiento" EntitySet="DirCatTipoAsentamiento" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatTipoZona" Association="Self.FK_DirCatColonia_DirCatTipoZona">
+            <End Role="DirCatTipoZona" EntitySet="DirCatTipoZona" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatColonia" Association="Self.FK_DirDirecciones_DirCatColonia">
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatEstado" Association="Self.FK_DirDirecciones_DirCatEstado">
+            <End Role="DirCatEstado" EntitySet="DirCatEstado" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpEstadosPorUsuarios_UsTipoUsuario" Association="Self.FK_OpEstadosPorUsuarios_UsTipoUsuario">
+            <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
+            <End Role="OpEstadosPorUsuarios" EntitySet="OpEstadosPorUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProCatModelo_ProCatMarca" Association="Self.FK_ProCatModelo_ProCatMarca">
+            <End Role="ProCatMarca" EntitySet="ProCatMarca" />
+            <End Role="ProCatModelo" EntitySet="ProCatModelo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProCatMarca" Association="Self.FK_ProProducto_ProCatMarca">
+            <End Role="ProCatMarca" EntitySet="ProCatMarca" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProCatModelo" Association="Self.FK_ProProducto_ProCatModelo">
+            <End Role="ProCatModelo" EntitySet="ProCatModelo" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProDiviciones" Association="Self.FK_ProProducto_ProDiviciones">
+            <End Role="ProDiviciones" EntitySet="ProDiviciones" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProFamililia" Association="Self.FK_ProProducto_ProFamililia">
+            <End Role="ProFamililia" EntitySet="ProFamililia" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProVendedorTienda_ProVendedor" Association="Self.FK_ProVendedorTienda_ProVendedor">
+            <End Role="ProVendedor" EntitySet="ProVendedor" />
+            <End Role="ProVendedorTienda" EntitySet="ProVendedorTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProVendedorTienda_TieTienda" Association="Self.FK_ProVendedorTienda_TieTienda">
+            <End Role="TieTienda" EntitySet="TieTienda" />
+            <End Role="ProVendedorTienda" EntitySet="ProVendedorTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProVenTieProducto_ProProducto" Association="Self.FK_ProVenTieProducto_ProProducto">
+            <End Role="ProProducto" EntitySet="ProProducto" />
+            <End Role="ProVenTieProducto" EntitySet="ProVenTieProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProVenTieProducto_ProVendedorTienda" Association="Self.FK_ProVenTieProducto_ProVendedorTienda">
+            <End Role="ProVendedorTienda" EntitySet="ProVendedorTienda" />
+            <End Role="ProVenTieProducto" EntitySet="ProVenTieProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SisArrbolMenu_SisArrbolMenu" Association="Self.FK_SisArrbolMenu_SisArrbolMenu">
+            <End Role="SisArbolMenu" EntitySet="SisArbolMenu" />
+            <End Role="SisArbolMenu1" EntitySet="SisArbolMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SisTipoUsuarioPorMenu_SisArbolMenu" Association="Self.FK_SisTipoUsuarioPorMenu_SisArbolMenu">
+            <End Role="SisArbolMenu" EntitySet="SisArbolMenu" />
+            <End Role="SisTipoUsuarioPorMenu" EntitySet="SisTipoUsuarioPorMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SisTipoUsuarioPorMenu_UsTipoUsuario" Association="Self.FK_SisTipoUsuarioPorMenu_UsTipoUsuario">
+            <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
+            <End Role="SisTipoUsuarioPorMenu" EntitySet="SisTipoUsuarioPorMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_ConContacto" Association="Self.FK_TieSucursal_ConContacto">
+            <End Role="ConContacto" EntitySet="ConContacto" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_DirDirecciones" Association="Self.FK_TieSucursal_DirDirecciones">
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_TieTienda" Association="Self.FK_TieSucursal_TieTienda">
+            <End Role="TieTienda" EntitySet="TieTienda" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_UsZona" Association="Self.FK_TieSucursal_UsZona">
+            <End Role="UsZona" EntitySet="UsZona" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieTienda_ConContacto" Association="Self.FK_TieTienda_ConContacto">
+            <End Role="ConContacto" EntitySet="ConContacto" />
+            <End Role="TieTienda" EntitySet="TieTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieTienda_DirDirecciones" Association="Self.FK_TieTienda_DirDirecciones">
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+            <End Role="TieTienda" EntitySet="TieTienda" />
+          </AssociationSet>
           <AssociationSet Name="FK_UsUsuarioPorZona_UsUsuarios" Association="Self.FK_UsUsuarioPorZona_UsUsuarios">
             <End Role="UsUsuarios" EntitySet="UsUsuarios" />
             <End Role="UsUsuarioPorZona" EntitySet="UsUsuarioPorZona" />
@@ -124,18 +812,145 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
             <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
             <End Role="UsUsuarios" EntitySet="UsUsuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_UsZonaPorEstado_DirCatEstado" Association="Self.FK_UsZonaPorEstado_DirCatEstado">
+            <End Role="DirCatEstado" EntitySet="DirCatEstado" />
+            <End Role="UsZonaPorEstado" EntitySet="UsZonaPorEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsZonaPorEstado_UsZona" Association="Self.FK_UsZonaPorEstado_UsZona">
+            <End Role="UsZona" EntitySet="UsZona" />
+            <End Role="UsZonaPorEstado" EntitySet="UsZonaPorEstado" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SunCorpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="SunCorpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ConContacto" EntityType="SunCorpModel.ConContacto" />
+          <EntitySet Name="DirCatColonia" EntityType="SunCorpModel.DirCatColonia" />
+          <EntitySet Name="DirCatEstado" EntityType="SunCorpModel.DirCatEstado" />
+          <EntitySet Name="DirCatMunicipio" EntityType="SunCorpModel.DirCatMunicipio" />
+          <EntitySet Name="DirCatTipoAsentamiento" EntityType="SunCorpModel.DirCatTipoAsentamiento" />
+          <EntitySet Name="DirCatTipoZona" EntityType="SunCorpModel.DirCatTipoZona" />
+          <EntitySet Name="DirDirecciones" EntityType="SunCorpModel.DirDirecciones" />
+          <EntitySet Name="OpCatEstadosNas" EntityType="SunCorpModel.OpCatEstadosNas" />
+          <EntitySet Name="OpCatTipoEstadoNas" EntityType="SunCorpModel.OpCatTipoEstadoNas" />
+          <EntitySet Name="OpEstadosPorUsuarios" EntityType="SunCorpModel.OpEstadosPorUsuarios" />
+          <EntitySet Name="ProArchivos" EntityType="SunCorpModel.ProArchivos" />
+          <EntitySet Name="ProArchivosPorProductos" EntityType="SunCorpModel.ProArchivosPorProductos" />
+          <EntitySet Name="ProCatMarca" EntityType="SunCorpModel.ProCatMarca" />
+          <EntitySet Name="ProCatModelo" EntityType="SunCorpModel.ProCatModelo" />
+          <EntitySet Name="ProDiviciones" EntityType="SunCorpModel.ProDiviciones" />
+          <EntitySet Name="ProFamililia" EntityType="SunCorpModel.ProFamililia" />
+          <EntitySet Name="ProProducto" EntityType="SunCorpModel.ProProducto" />
+          <EntitySet Name="ProVendedor" EntityType="SunCorpModel.ProVendedor" />
+          <EntitySet Name="ProVendedorTienda" EntityType="SunCorpModel.ProVendedorTienda" />
+          <EntitySet Name="SisArbolMenu" EntityType="SunCorpModel.SisArbolMenu" />
+          <EntitySet Name="SisTipoUsuarioPorMenu" EntityType="SunCorpModel.SisTipoUsuarioPorMenu" />
+          <EntitySet Name="TieSucursal" EntityType="SunCorpModel.TieSucursal" />
+          <EntitySet Name="TieTienda" EntityType="SunCorpModel.TieTienda" />
           <EntitySet Name="UsEstatusUsuario" EntityType="SunCorpModel.UsEstatusUsuario" />
-          <EntitySet Name="UsPermisos" EntityType="SunCorpModel.UsPermisos" />
           <EntitySet Name="UsTipoUsuario" EntityType="SunCorpModel.UsTipoUsuario" />
           <EntitySet Name="UsUsuarioPorZona" EntityType="SunCorpModel.UsUsuarioPorZona" />
           <EntitySet Name="UsUsuarios" EntityType="SunCorpModel.UsUsuarios" />
           <EntitySet Name="UsZona" EntityType="SunCorpModel.UsZona" />
+          <EntitySet Name="UsZonaPorEstado" EntityType="SunCorpModel.UsZonaPorEstado" />
+          <AssociationSet Name="FK_TieSucursal_ConContacto" Association="SunCorpModel.FK_TieSucursal_ConContacto">
+            <End Role="ConContacto" EntitySet="ConContacto" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieTienda_ConContacto" Association="SunCorpModel.FK_TieTienda_ConContacto">
+            <End Role="ConContacto" EntitySet="ConContacto" />
+            <End Role="TieTienda" EntitySet="TieTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatEstado" Association="SunCorpModel.FK_DirCatColonia_DirCatEstado">
+            <End Role="DirCatEstado" EntitySet="DirCatEstado" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatMunicipio" Association="SunCorpModel.FK_DirCatColonia_DirCatMunicipio">
+            <End Role="DirCatMunicipio" EntitySet="DirCatMunicipio" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatTipoAsentamiento" Association="SunCorpModel.FK_DirCatColonia_DirCatTipoAsentamiento">
+            <End Role="DirCatTipoAsentamiento" EntitySet="DirCatTipoAsentamiento" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonia_DirCatTipoZona" Association="SunCorpModel.FK_DirCatColonia_DirCatTipoZona">
+            <End Role="DirCatTipoZona" EntitySet="DirCatTipoZona" />
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatColonia" Association="SunCorpModel.FK_DirDirecciones_DirCatColonia">
+            <End Role="DirCatColonia" EntitySet="DirCatColonia" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatEstado" Association="SunCorpModel.FK_DirDirecciones_DirCatEstado">
+            <End Role="DirCatEstado" EntitySet="DirCatEstado" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsZonaPorEstado_DirCatEstado" Association="SunCorpModel.FK_UsZonaPorEstado_DirCatEstado">
+            <End Role="DirCatEstado" EntitySet="DirCatEstado" />
+            <End Role="UsZonaPorEstado" EntitySet="UsZonaPorEstado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_DirDirecciones" Association="SunCorpModel.FK_TieSucursal_DirDirecciones">
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieTienda_DirDirecciones" Association="SunCorpModel.FK_TieTienda_DirDirecciones">
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+            <End Role="TieTienda" EntitySet="TieTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpEstadosPorUsuarios_UsTipoUsuario" Association="SunCorpModel.FK_OpEstadosPorUsuarios_UsTipoUsuario">
+            <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
+            <End Role="OpEstadosPorUsuarios" EntitySet="OpEstadosPorUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProCatModelo_ProCatMarca" Association="SunCorpModel.FK_ProCatModelo_ProCatMarca">
+            <End Role="ProCatMarca" EntitySet="ProCatMarca" />
+            <End Role="ProCatModelo" EntitySet="ProCatModelo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProCatMarca" Association="SunCorpModel.FK_ProProducto_ProCatMarca">
+            <End Role="ProCatMarca" EntitySet="ProCatMarca" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProCatModelo" Association="SunCorpModel.FK_ProProducto_ProCatModelo">
+            <End Role="ProCatModelo" EntitySet="ProCatModelo" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProDiviciones" Association="SunCorpModel.FK_ProProducto_ProDiviciones">
+            <End Role="ProDiviciones" EntitySet="ProDiviciones" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProProducto_ProFamililia" Association="SunCorpModel.FK_ProProducto_ProFamililia">
+            <End Role="ProFamililia" EntitySet="ProFamililia" />
+            <End Role="ProProducto" EntitySet="ProProducto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProVendedorTienda_ProVendedor" Association="SunCorpModel.FK_ProVendedorTienda_ProVendedor">
+            <End Role="ProVendedor" EntitySet="ProVendedor" />
+            <End Role="ProVendedorTienda" EntitySet="ProVendedorTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProVendedorTienda_TieTienda" Association="SunCorpModel.FK_ProVendedorTienda_TieTienda">
+            <End Role="TieTienda" EntitySet="TieTienda" />
+            <End Role="ProVendedorTienda" EntitySet="ProVendedorTienda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SisArrbolMenu_SisArrbolMenu" Association="SunCorpModel.FK_SisArrbolMenu_SisArrbolMenu">
+            <End Role="SisArbolMenu" EntitySet="SisArbolMenu" />
+            <End Role="SisArbolMenu1" EntitySet="SisArbolMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SisTipoUsuarioPorMenu_SisArbolMenu" Association="SunCorpModel.FK_SisTipoUsuarioPorMenu_SisArbolMenu">
+            <End Role="SisArbolMenu" EntitySet="SisArbolMenu" />
+            <End Role="SisTipoUsuarioPorMenu" EntitySet="SisTipoUsuarioPorMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SisTipoUsuarioPorMenu_UsTipoUsuario" Association="SunCorpModel.FK_SisTipoUsuarioPorMenu_UsTipoUsuario">
+            <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
+            <End Role="SisTipoUsuarioPorMenu" EntitySet="SisTipoUsuarioPorMenu" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_TieTienda" Association="SunCorpModel.FK_TieSucursal_TieTienda">
+            <End Role="TieTienda" EntitySet="TieTienda" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TieSucursal_UsZona" Association="SunCorpModel.FK_TieSucursal_UsZona">
+            <End Role="UsZona" EntitySet="UsZona" />
+            <End Role="TieSucursal" EntitySet="TieSucursal" />
+          </AssociationSet>
           <AssociationSet Name="FK_UsUsuarios_UsTipoUsuario" Association="SunCorpModel.FK_UsUsuarios_UsTipoUsuario">
             <End Role="UsTipoUsuario" EntitySet="UsTipoUsuario" />
             <End Role="UsUsuarios" EntitySet="UsUsuarios" />
@@ -148,7 +963,302 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
             <End Role="UsZona" EntitySet="UsZona" />
             <End Role="UsUsuarioPorZona" EntitySet="UsUsuarioPorZona" />
           </AssociationSet>
+          <AssociationSet Name="FK_UsZonaPorEstado_UsZona" Association="SunCorpModel.FK_UsZonaPorEstado_UsZona">
+            <End Role="UsZona" EntitySet="UsZona" />
+            <End Role="UsZonaPorEstado" EntitySet="UsZonaPorEstado" />
+          </AssociationSet>
+          <AssociationSet Name="ProVenTieProducto" Association="SunCorpModel.ProVenTieProducto">
+            <End Role="ProProducto" EntitySet="ProProducto" />
+            <End Role="ProVendedorTienda" EntitySet="ProVendedorTienda" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ConContacto">
+          <Key>
+            <PropertyRef Name="IdContacto" />
+          </Key>
+          <Property Name="IdContacto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TelefonoFijoPrincipal" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoFijoSacundario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoMovilPrimario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoMovilSecundario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SitioWeb" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RedSocialPrimaria" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RedSocialSecundaria" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="TieSucursal" Relationship="SunCorpModel.FK_TieSucursal_ConContacto" FromRole="ConContacto" ToRole="TieSucursal" />
+          <NavigationProperty Name="TieTienda" Relationship="SunCorpModel.FK_TieTienda_ConContacto" FromRole="ConContacto" ToRole="TieTienda" />
+        </EntityType>
+        <EntityType Name="DirCatColonia">
+          <Key>
+            <PropertyRef Name="IdColonia" />
+          </Key>
+          <Property Name="IdColonia" Type="Int32" Nullable="false" />
+          <Property Name="IdMunicipios" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="IdTipoAsentamiento" Type="Int32" />
+          <Property Name="IdTipoZona" Type="Int32" />
+          <Property Name="NombreColonia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatEstado" Relationship="SunCorpModel.FK_DirCatColonia_DirCatEstado" FromRole="DirCatColonia" ToRole="DirCatEstado" />
+          <NavigationProperty Name="DirCatMunicipio" Relationship="SunCorpModel.FK_DirCatColonia_DirCatMunicipio" FromRole="DirCatColonia" ToRole="DirCatMunicipio" />
+          <NavigationProperty Name="DirCatTipoAsentamiento" Relationship="SunCorpModel.FK_DirCatColonia_DirCatTipoAsentamiento" FromRole="DirCatColonia" ToRole="DirCatTipoAsentamiento" />
+          <NavigationProperty Name="DirCatTipoZona" Relationship="SunCorpModel.FK_DirCatColonia_DirCatTipoZona" FromRole="DirCatColonia" ToRole="DirCatTipoZona" />
+          <NavigationProperty Name="DirDirecciones" Relationship="SunCorpModel.FK_DirDirecciones_DirCatColonia" FromRole="DirCatColonia" ToRole="DirDirecciones" />
+        </EntityType>
+        <EntityType Name="DirCatEstado">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="NombreEstado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NombreOficial" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirCatColonia_DirCatEstado" FromRole="DirCatEstado" ToRole="DirCatColonia" />
+          <NavigationProperty Name="DirDirecciones" Relationship="SunCorpModel.FK_DirDirecciones_DirCatEstado" FromRole="DirCatEstado" ToRole="DirDirecciones" />
+          <NavigationProperty Name="UsZonaPorEstado" Relationship="SunCorpModel.FK_UsZonaPorEstado_DirCatEstado" FromRole="DirCatEstado" ToRole="UsZonaPorEstado" />
+        </EntityType>
+        <EntityType Name="DirCatMunicipio">
+          <Key>
+            <PropertyRef Name="IdMunicipios" />
+          </Key>
+          <Property Name="IdMunicipios" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="IdMunicipio" Type="Int32" />
+          <Property Name="NombreMunicipio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirCatColonia_DirCatMunicipio" FromRole="DirCatMunicipio" ToRole="DirCatColonia" />
+        </EntityType>
+        <EntityType Name="DirCatTipoAsentamiento">
+          <Key>
+            <PropertyRef Name="IdTipoAsentmiento" />
+          </Key>
+          <Property Name="IdTipoAsentmiento" Type="Int32" Nullable="false" />
+          <Property Name="TipoAsentamiento" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirCatColonia_DirCatTipoAsentamiento" FromRole="DirCatTipoAsentamiento" ToRole="DirCatColonia" />
+        </EntityType>
+        <EntityType Name="DirCatTipoZona">
+          <Key>
+            <PropertyRef Name="IdTipoZona" />
+          </Key>
+          <Property Name="IdTipoZona" Type="Int32" Nullable="false" />
+          <Property Name="TipoZona" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirCatColonia_DirCatTipoZona" FromRole="DirCatTipoZona" ToRole="DirCatColonia" />
+        </EntityType>
+        <EntityType Name="DirDirecciones">
+          <Key>
+            <PropertyRef Name="IdDirecciones" />
+          </Key>
+          <Property Name="IdDirecciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="IdMunicipio" Type="Int32" />
+          <Property Name="IdColonia" Type="Int32" />
+          <Property Name="Calle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NoExt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NoInt" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Referencias" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirDirecciones_DirCatColonia" FromRole="DirDirecciones" ToRole="DirCatColonia" />
+          <NavigationProperty Name="DirCatEstado" Relationship="SunCorpModel.FK_DirDirecciones_DirCatEstado" FromRole="DirDirecciones" ToRole="DirCatEstado" />
+          <NavigationProperty Name="TieSucursal" Relationship="SunCorpModel.FK_TieSucursal_DirDirecciones" FromRole="DirDirecciones" ToRole="TieSucursal" />
+          <NavigationProperty Name="TieTienda" Relationship="SunCorpModel.FK_TieTienda_DirDirecciones" FromRole="DirDirecciones" ToRole="TieTienda" />
+        </EntityType>
+        <EntityType Name="OpCatEstadosNas">
+          <Key>
+            <PropertyRef Name="IdEstadoNas" />
+          </Key>
+          <Property Name="IdEstadoNas" Type="Int32" Nullable="false" />
+          <Property Name="NombreEstadoNas" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoEstado" Type="Int32" />
+          <Property Name="Borrado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="OpCatTipoEstadoNas">
+          <Key>
+            <PropertyRef Name="IdTipoEstado" />
+          </Key>
+          <Property Name="IdTipoEstado" Type="Int32" Nullable="false" />
+          <Property Name="NombreTipoEstado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="OpEstadosPorUsuarios">
+          <Key>
+            <PropertyRef Name="IdEstadosUsuarios" />
+          </Key>
+          <Property Name="IdEstadosUsuarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstadoNas" Type="Int32" />
+          <Property Name="IdTipoUsuario" Type="Int32" />
+          <NavigationProperty Name="UsTipoUsuario" Relationship="SunCorpModel.FK_OpEstadosPorUsuarios_UsTipoUsuario" FromRole="OpEstadosPorUsuarios" ToRole="UsTipoUsuario" />
+        </EntityType>
+        <EntityType Name="ProArchivos">
+          <Key>
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreArchivo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Extencion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Archivo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Tamaño" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProArchivosPorProductos">
+          <Key>
+            <PropertyRef Name="IdAchProd" />
+          </Key>
+          <Property Name="IdAchProd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProducto" Type="Int32" />
+          <Property Name="IdArchivo" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ProCatMarca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" />
+          <Property Name="Marca" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="ProCatModelo" Relationship="SunCorpModel.FK_ProCatModelo_ProCatMarca" FromRole="ProCatMarca" ToRole="ProCatModelo" />
+          <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProCatMarca" FromRole="ProCatMarca" ToRole="ProProducto" />
+        </EntityType>
+        <EntityType Name="ProCatModelo">
+          <Key>
+            <PropertyRef Name="IdModelo" />
+          </Key>
+          <Property Name="IdModelo" Type="Int32" Nullable="false" />
+          <Property Name="NombreModelo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="ProCatMarca" Relationship="SunCorpModel.FK_ProCatModelo_ProCatMarca" FromRole="ProCatModelo" ToRole="ProCatMarca" />
+          <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProCatModelo" FromRole="ProCatModelo" ToRole="ProProducto" />
+        </EntityType>
+        <EntityType Name="ProDiviciones">
+          <Key>
+            <PropertyRef Name="IdDivicion" />
+          </Key>
+          <Property Name="IdDivicion" Type="Int32" Nullable="false" />
+          <Property Name="NombreDivicion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProDiviciones" FromRole="ProDiviciones" ToRole="ProProducto" />
+        </EntityType>
+        <EntityType Name="ProFamililia">
+          <Key>
+            <PropertyRef Name="IdFamilia" />
+          </Key>
+          <Property Name="IdFamilia" Type="Int32" Nullable="false" />
+          <Property Name="NombreFamilia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TituloDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProFamililia" FromRole="ProFamililia" ToRole="ProProducto" />
+        </EntityType>
+        <EntityType Name="ProProducto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdModelo" Type="Int32" />
+          <Property Name="IdMarca" Type="Int32" />
+          <Property Name="IdFamilia" Type="Int32" />
+          <Property Name="IdDivicion" Type="Int32" />
+          <Property Name="NombreProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TituloDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDeSerie" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Detalles" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EsReparable" Type="Boolean" />
+          <Property Name="HaySeries" Type="Boolean" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="ProCatMarca" Relationship="SunCorpModel.FK_ProProducto_ProCatMarca" FromRole="ProProducto" ToRole="ProCatMarca" />
+          <NavigationProperty Name="ProCatModelo" Relationship="SunCorpModel.FK_ProProducto_ProCatModelo" FromRole="ProProducto" ToRole="ProCatModelo" />
+          <NavigationProperty Name="ProDiviciones" Relationship="SunCorpModel.FK_ProProducto_ProDiviciones" FromRole="ProProducto" ToRole="ProDiviciones" />
+          <NavigationProperty Name="ProFamililia" Relationship="SunCorpModel.FK_ProProducto_ProFamililia" FromRole="ProProducto" ToRole="ProFamililia" />
+          <NavigationProperty Name="ProVendedorTienda" Relationship="SunCorpModel.ProVenTieProducto" FromRole="ProProducto" ToRole="ProVendedorTienda" />
+        </EntityType>
+        <EntityType Name="ProVendedor">
+          <Key>
+            <PropertyRef Name="IdVendedor" />
+          </Key>
+          <Property Name="IdVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreVendedor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ClaveVendedor" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IdDirecciones" Type="Int32" />
+          <NavigationProperty Name="ProVendedorTienda" Relationship="SunCorpModel.FK_ProVendedorTienda_ProVendedor" FromRole="ProVendedor" ToRole="ProVendedorTienda" />
+        </EntityType>
+        <EntityType Name="ProVendedorTienda">
+          <Key>
+            <PropertyRef Name="IdTendaVendedor" />
+          </Key>
+          <Property Name="IdTendaVendedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVendedor" Type="Int32" />
+          <Property Name="IdTienda" Type="Int32" />
+          <Property Name="NombreRelacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ProVendedor" Relationship="SunCorpModel.FK_ProVendedorTienda_ProVendedor" FromRole="ProVendedorTienda" ToRole="ProVendedor" />
+          <NavigationProperty Name="TieTienda" Relationship="SunCorpModel.FK_ProVendedorTienda_TieTienda" FromRole="ProVendedorTienda" ToRole="TieTienda" />
+          <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.ProVenTieProducto" FromRole="ProVendedorTienda" ToRole="ProProducto" />
+        </EntityType>
+        <EntityType Name="SisArbolMenu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMenuPadre" Type="Int32" />
+          <Property Name="NombreMenu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Controller" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SisArbolMenu1" Relationship="SunCorpModel.FK_SisArrbolMenu_SisArrbolMenu" FromRole="SisArbolMenu" ToRole="SisArbolMenu1" />
+          <NavigationProperty Name="SisArbolMenu2" Relationship="SunCorpModel.FK_SisArrbolMenu_SisArrbolMenu" FromRole="SisArbolMenu1" ToRole="SisArbolMenu" />
+          <NavigationProperty Name="SisTipoUsuarioPorMenu" Relationship="SunCorpModel.FK_SisTipoUsuarioPorMenu_SisArbolMenu" FromRole="SisArbolMenu" ToRole="SisTipoUsuarioPorMenu" />
+        </EntityType>
+        <EntityType Name="SisTipoUsuarioPorMenu">
+          <Key>
+            <PropertyRef Name="IdPermisos" />
+          </Key>
+          <Property Name="IdPermisos" Type="Int32" Nullable="false" />
+          <Property Name="IdTipoUsuario" Type="Int32" />
+          <Property Name="IdMenu" Type="Int32" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="SisArbolMenu" Relationship="SunCorpModel.FK_SisTipoUsuarioPorMenu_SisArbolMenu" FromRole="SisTipoUsuarioPorMenu" ToRole="SisArbolMenu" />
+          <NavigationProperty Name="UsTipoUsuario" Relationship="SunCorpModel.FK_SisTipoUsuarioPorMenu_UsTipoUsuario" FromRole="SisTipoUsuarioPorMenu" ToRole="UsTipoUsuario" />
+        </EntityType>
+        <EntityType Name="TieSucursal">
+          <Key>
+            <PropertyRef Name="IdSucursal" />
+          </Key>
+          <Property Name="IdSucursal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdZona" Type="Int32" />
+          <Property Name="IdContacto" Type="Int32" />
+          <Property Name="IdDirecciones" Type="Int32" />
+          <Property Name="IdTienda" Type="Int32" />
+          <Property Name="NombreTienda" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NombreGerente" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Comentarios" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <Property Name="Activo" Type="Int32" />
+          <Property Name="NoSucursal" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ConContacto" Relationship="SunCorpModel.FK_TieSucursal_ConContacto" FromRole="TieSucursal" ToRole="ConContacto" />
+          <NavigationProperty Name="DirDirecciones" Relationship="SunCorpModel.FK_TieSucursal_DirDirecciones" FromRole="TieSucursal" ToRole="DirDirecciones" />
+          <NavigationProperty Name="TieTienda" Relationship="SunCorpModel.FK_TieSucursal_TieTienda" FromRole="TieSucursal" ToRole="TieTienda" />
+          <NavigationProperty Name="UsZona" Relationship="SunCorpModel.FK_TieSucursal_UsZona" FromRole="TieSucursal" ToRole="UsZona" />
+        </EntityType>
+        <EntityType Name="TieTienda">
+          <Key>
+            <PropertyRef Name="IdTienda" />
+          </Key>
+          <Property Name="IdTienda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDireccion" Type="Int32" />
+          <Property Name="IdContacto" Type="Int32" />
+          <Property Name="NombreTienda" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NombreResponsable" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaAlta" Type="DateTime" Precision="3" />
+          <Property Name="Activo" Type="Boolean" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="ConContacto" Relationship="SunCorpModel.FK_TieTienda_ConContacto" FromRole="TieTienda" ToRole="ConContacto" />
+          <NavigationProperty Name="DirDirecciones" Relationship="SunCorpModel.FK_TieTienda_DirDirecciones" FromRole="TieTienda" ToRole="DirDirecciones" />
+          <NavigationProperty Name="ProVendedorTienda" Relationship="SunCorpModel.FK_ProVendedorTienda_TieTienda" FromRole="TieTienda" ToRole="ProVendedorTienda" />
+          <NavigationProperty Name="TieSucursal" Relationship="SunCorpModel.FK_TieSucursal_TieTienda" FromRole="TieTienda" ToRole="TieSucursal" />
+        </EntityType>
         <EntityType Name="UsEstatusUsuario">
           <Key>
             <PropertyRef Name="IdEstatusUsuario" />
@@ -158,14 +1268,6 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
           <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Borrado" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="UsPermisos">
-          <Key>
-            <PropertyRef Name="IdPermisos" />
-          </Key>
-          <Property Name="IdPermisos" Type="Int32" Nullable="false" />
-          <Property Name="Descripcion" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Borrado" Type="Boolean" />
-        </EntityType>
         <EntityType Name="UsTipoUsuario">
           <Key>
             <PropertyRef Name="IdTipoUsuario" />
@@ -174,6 +1276,8 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
           <Property Name="TipoUsuario" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="OpEstadosPorUsuarios" Relationship="SunCorpModel.FK_OpEstadosPorUsuarios_UsTipoUsuario" FromRole="UsTipoUsuario" ToRole="OpEstadosPorUsuarios" />
+          <NavigationProperty Name="SisTipoUsuarioPorMenu" Relationship="SunCorpModel.FK_SisTipoUsuarioPorMenu_UsTipoUsuario" FromRole="UsTipoUsuario" ToRole="SisTipoUsuarioPorMenu" />
           <NavigationProperty Name="UsUsuarios" Relationship="SunCorpModel.FK_UsUsuarios_UsTipoUsuario" FromRole="UsTipoUsuario" ToRole="UsUsuarios" />
         </EntityType>
         <EntityType Name="UsUsuarioPorZona">
@@ -207,8 +1311,309 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
           <Property Name="NombreZona" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="TieSucursal" Relationship="SunCorpModel.FK_TieSucursal_UsZona" FromRole="UsZona" ToRole="TieSucursal" />
           <NavigationProperty Name="UsUsuarioPorZona" Relationship="SunCorpModel.FK_UsUsuarioPorZona_UsZona" FromRole="UsZona" ToRole="UsUsuarioPorZona" />
+          <NavigationProperty Name="UsZonaPorEstado" Relationship="SunCorpModel.FK_UsZonaPorEstado_UsZona" FromRole="UsZona" ToRole="UsZonaPorEstado" />
         </EntityType>
+        <EntityType Name="UsZonaPorEstado">
+          <Key>
+            <PropertyRef Name="IdZonaEstado" />
+          </Key>
+          <Property Name="IdZonaEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdZona" Type="Int32" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatEstado" Relationship="SunCorpModel.FK_UsZonaPorEstado_DirCatEstado" FromRole="UsZonaPorEstado" ToRole="DirCatEstado" />
+          <NavigationProperty Name="UsZona" Relationship="SunCorpModel.FK_UsZonaPorEstado_UsZona" FromRole="UsZonaPorEstado" ToRole="UsZona" />
+        </EntityType>
+        <Association Name="FK_TieSucursal_ConContacto">
+          <End Type="SunCorpModel.ConContacto" Role="ConContacto" Multiplicity="0..1" />
+          <End Type="SunCorpModel.TieSucursal" Role="TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConContacto">
+              <PropertyRef Name="IdContacto" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieTienda_ConContacto">
+          <End Type="SunCorpModel.ConContacto" Role="ConContacto" Multiplicity="0..1" />
+          <End Type="SunCorpModel.TieTienda" Role="TieTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ConContacto">
+              <PropertyRef Name="IdContacto" />
+            </Principal>
+            <Dependent Role="TieTienda">
+              <PropertyRef Name="IdContacto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatEstado">
+          <End Type="SunCorpModel.DirCatEstado" Role="DirCatEstado" Multiplicity="0..1" />
+          <End Type="SunCorpModel.DirCatColonia" Role="DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatMunicipio">
+          <End Type="SunCorpModel.DirCatMunicipio" Role="DirCatMunicipio" Multiplicity="0..1" />
+          <End Type="SunCorpModel.DirCatColonia" Role="DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatMunicipio">
+              <PropertyRef Name="IdMunicipios" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdMunicipios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatTipoAsentamiento">
+          <End Type="SunCorpModel.DirCatTipoAsentamiento" Role="DirCatTipoAsentamiento" Multiplicity="0..1" />
+          <End Type="SunCorpModel.DirCatColonia" Role="DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatTipoAsentamiento">
+              <PropertyRef Name="IdTipoAsentmiento" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdTipoAsentamiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonia_DirCatTipoZona">
+          <End Type="SunCorpModel.DirCatTipoZona" Role="DirCatTipoZona" Multiplicity="0..1" />
+          <End Type="SunCorpModel.DirCatColonia" Role="DirCatColonia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatTipoZona">
+              <PropertyRef Name="IdTipoZona" />
+            </Principal>
+            <Dependent Role="DirCatColonia">
+              <PropertyRef Name="IdTipoZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatColonia">
+          <End Type="SunCorpModel.DirCatColonia" Role="DirCatColonia" Multiplicity="0..1" />
+          <End Type="SunCorpModel.DirDirecciones" Role="DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatColonia">
+              <PropertyRef Name="IdColonia" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdColonia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatEstado">
+          <End Type="SunCorpModel.DirCatEstado" Role="DirCatEstado" Multiplicity="0..1" />
+          <End Type="SunCorpModel.DirDirecciones" Role="DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsZonaPorEstado_DirCatEstado">
+          <End Type="SunCorpModel.DirCatEstado" Role="DirCatEstado" Multiplicity="0..1" />
+          <End Type="SunCorpModel.UsZonaPorEstado" Role="UsZonaPorEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="UsZonaPorEstado">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_DirDirecciones">
+          <End Type="SunCorpModel.DirDirecciones" Role="DirDirecciones" Multiplicity="0..1" />
+          <End Type="SunCorpModel.TieSucursal" Role="TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirDirecciones">
+              <PropertyRef Name="IdDirecciones" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdDirecciones" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieTienda_DirDirecciones">
+          <End Type="SunCorpModel.DirDirecciones" Role="DirDirecciones" Multiplicity="0..1" />
+          <End Type="SunCorpModel.TieTienda" Role="TieTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirDirecciones">
+              <PropertyRef Name="IdDirecciones" />
+            </Principal>
+            <Dependent Role="TieTienda">
+              <PropertyRef Name="IdDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpEstadosPorUsuarios_UsTipoUsuario">
+          <End Type="SunCorpModel.UsTipoUsuario" Role="UsTipoUsuario" Multiplicity="0..1" />
+          <End Type="SunCorpModel.OpEstadosPorUsuarios" Role="OpEstadosPorUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="OpEstadosPorUsuarios">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProCatModelo_ProCatMarca">
+          <End Type="SunCorpModel.ProCatMarca" Role="ProCatMarca" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProCatModelo" Role="ProCatModelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProCatMarca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="ProCatModelo">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProCatMarca">
+          <End Type="SunCorpModel.ProCatMarca" Role="ProCatMarca" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProProducto" Role="ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProCatMarca">
+              <PropertyRef Name="IdMarca" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProCatModelo">
+          <End Type="SunCorpModel.ProCatModelo" Role="ProCatModelo" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProProducto" Role="ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProCatModelo">
+              <PropertyRef Name="IdModelo" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdModelo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProDiviciones">
+          <End Type="SunCorpModel.ProDiviciones" Role="ProDiviciones" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProProducto" Role="ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProDiviciones">
+              <PropertyRef Name="IdDivicion" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdDivicion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProProducto_ProFamililia">
+          <End Type="SunCorpModel.ProFamililia" Role="ProFamililia" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProProducto" Role="ProProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProFamililia">
+              <PropertyRef Name="IdFamilia" />
+            </Principal>
+            <Dependent Role="ProProducto">
+              <PropertyRef Name="IdFamilia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProVendedorTienda_ProVendedor">
+          <End Type="SunCorpModel.ProVendedor" Role="ProVendedor" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProVendedorTienda" Role="ProVendedorTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProVendedor">
+              <PropertyRef Name="IdVendedor" />
+            </Principal>
+            <Dependent Role="ProVendedorTienda">
+              <PropertyRef Name="IdVendedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProVendedorTienda_TieTienda">
+          <End Type="SunCorpModel.TieTienda" Role="TieTienda" Multiplicity="0..1" />
+          <End Type="SunCorpModel.ProVendedorTienda" Role="ProVendedorTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TieTienda">
+              <PropertyRef Name="IdTienda" />
+            </Principal>
+            <Dependent Role="ProVendedorTienda">
+              <PropertyRef Name="IdTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SisArrbolMenu_SisArrbolMenu">
+          <End Type="SunCorpModel.SisArbolMenu" Role="SisArbolMenu" Multiplicity="0..1" />
+          <End Type="SunCorpModel.SisArbolMenu" Role="SisArbolMenu1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SisArbolMenu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SisArbolMenu1">
+              <PropertyRef Name="IdMenuPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SisTipoUsuarioPorMenu_SisArbolMenu">
+          <End Type="SunCorpModel.SisArbolMenu" Role="SisArbolMenu" Multiplicity="0..1" />
+          <End Type="SunCorpModel.SisTipoUsuarioPorMenu" Role="SisTipoUsuarioPorMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SisArbolMenu">
+              <PropertyRef Name="IdMenu" />
+            </Principal>
+            <Dependent Role="SisTipoUsuarioPorMenu">
+              <PropertyRef Name="IdMenu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SisTipoUsuarioPorMenu_UsTipoUsuario">
+          <End Type="SunCorpModel.UsTipoUsuario" Role="UsTipoUsuario" Multiplicity="0..1" />
+          <End Type="SunCorpModel.SisTipoUsuarioPorMenu" Role="SisTipoUsuarioPorMenu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="SisTipoUsuarioPorMenu">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_TieTienda">
+          <End Type="SunCorpModel.TieTienda" Role="TieTienda" Multiplicity="0..1" />
+          <End Type="SunCorpModel.TieSucursal" Role="TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TieTienda">
+              <PropertyRef Name="IdTienda" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TieSucursal_UsZona">
+          <End Type="SunCorpModel.UsZona" Role="UsZona" Multiplicity="0..1" />
+          <End Type="SunCorpModel.TieSucursal" Role="TieSucursal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsZona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="TieSucursal">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsUsuarios_UsTipoUsuario">
           <End Type="SunCorpModel.UsTipoUsuario" Role="UsTipoUsuario" Multiplicity="0..1" />
           <End Type="SunCorpModel.UsUsuarios" Role="UsUsuarios" Multiplicity="*" />
@@ -245,12 +1650,292 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_UsZonaPorEstado_UsZona">
+          <End Type="SunCorpModel.UsZona" Role="UsZona" Multiplicity="0..1" />
+          <End Type="SunCorpModel.UsZonaPorEstado" Role="UsZonaPorEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsZona">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="UsZonaPorEstado">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProVenTieProducto">
+          <End Type="SunCorpModel.ProProducto" Role="ProProducto" Multiplicity="*" />
+          <End Type="SunCorpModel.ProVendedorTienda" Role="ProVendedorTienda" Multiplicity="*" />
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SunCorpModelStoreContainer" CdmEntityContainer="SunCorpEntities">
+          <EntitySetMapping Name="ConContacto">
+            <EntityTypeMapping TypeName="SunCorpModel.ConContacto">
+              <MappingFragment StoreEntitySet="ConContacto">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="RedSocialSecundaria" ColumnName="RedSocialSecundaria" />
+                <ScalarProperty Name="RedSocialPrimaria" ColumnName="RedSocialPrimaria" />
+                <ScalarProperty Name="SitioWeb" ColumnName="SitioWeb" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="TelefonoMovilSecundario" ColumnName="TelefonoMovilSecundario" />
+                <ScalarProperty Name="TelefonoMovilPrimario" ColumnName="TelefonoMovilPrimario" />
+                <ScalarProperty Name="TelefonoFijoSacundario" ColumnName="TelefonoFijoSacundario" />
+                <ScalarProperty Name="TelefonoFijoPrincipal" ColumnName="TelefonoFijoPrincipal" />
+                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatColonia">
+            <EntityTypeMapping TypeName="SunCorpModel.DirCatColonia">
+              <MappingFragment StoreEntitySet="DirCatColonia">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="NombreColonia" ColumnName="NombreColonia" />
+                <ScalarProperty Name="IdTipoZona" ColumnName="IdTipoZona" />
+                <ScalarProperty Name="IdTipoAsentamiento" ColumnName="IdTipoAsentamiento" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdMunicipios" ColumnName="IdMunicipios" />
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatEstado">
+            <EntityTypeMapping TypeName="SunCorpModel.DirCatEstado">
+              <MappingFragment StoreEntitySet="DirCatEstado">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="NombreOficial" ColumnName="NombreOficial" />
+                <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatMunicipio">
+            <EntityTypeMapping TypeName="SunCorpModel.DirCatMunicipio">
+              <MappingFragment StoreEntitySet="DirCatMunicipio">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="NombreMunicipio" ColumnName="NombreMunicipio" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdMunicipios" ColumnName="IdMunicipios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatTipoAsentamiento">
+            <EntityTypeMapping TypeName="SunCorpModel.DirCatTipoAsentamiento">
+              <MappingFragment StoreEntitySet="DirCatTipoAsentamiento">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="TipoAsentamiento" ColumnName="TipoAsentamiento" />
+                <ScalarProperty Name="IdTipoAsentmiento" ColumnName="IdTipoAsentmiento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatTipoZona">
+            <EntityTypeMapping TypeName="SunCorpModel.DirCatTipoZona">
+              <MappingFragment StoreEntitySet="DirCatTipoZona">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="TipoZona" ColumnName="TipoZona" />
+                <ScalarProperty Name="IdTipoZona" ColumnName="IdTipoZona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirDirecciones">
+            <EntityTypeMapping TypeName="SunCorpModel.DirDirecciones">
+              <MappingFragment StoreEntitySet="DirDirecciones">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Referencias" ColumnName="Referencias" />
+                <ScalarProperty Name="NoInt" ColumnName="NoInt" />
+                <ScalarProperty Name="NoExt" ColumnName="NoExt" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdDirecciones" ColumnName="IdDirecciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpCatEstadosNas">
+            <EntityTypeMapping TypeName="SunCorpModel.OpCatEstadosNas">
+              <MappingFragment StoreEntitySet="OpCatEstadosNas">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="IdTipoEstado" ColumnName="IdTipoEstado" />
+                <ScalarProperty Name="NombreEstadoNas" ColumnName="NombreEstadoNas" />
+                <ScalarProperty Name="IdEstadoNas" ColumnName="IdEstadoNas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpCatTipoEstadoNas">
+            <EntityTypeMapping TypeName="SunCorpModel.OpCatTipoEstadoNas">
+              <MappingFragment StoreEntitySet="OpCatTipoEstadoNas">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="NombreTipoEstado" ColumnName="NombreTipoEstado" />
+                <ScalarProperty Name="IdTipoEstado" ColumnName="IdTipoEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpEstadosPorUsuarios">
+            <EntityTypeMapping TypeName="SunCorpModel.OpEstadosPorUsuarios">
+              <MappingFragment StoreEntitySet="OpEstadosPorUsuarios">
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="IdEstadoNas" ColumnName="IdEstadoNas" />
+                <ScalarProperty Name="IdEstadosUsuarios" ColumnName="IdEstadosUsuarios" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProArchivos">
+            <EntityTypeMapping TypeName="SunCorpModel.ProArchivos">
+              <MappingFragment StoreEntitySet="ProArchivos">
+                <ScalarProperty Name="Tamaño" ColumnName="Tamaño" />
+                <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+                <ScalarProperty Name="Extencion" ColumnName="Extencion" />
+                <ScalarProperty Name="NombreArchivo" ColumnName="NombreArchivo" />
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProArchivosPorProductos">
+            <EntityTypeMapping TypeName="SunCorpModel.ProArchivosPorProductos">
+              <MappingFragment StoreEntitySet="ProArchivosPorProductos">
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="IdAchProd" ColumnName="IdAchProd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProCatMarca">
+            <EntityTypeMapping TypeName="SunCorpModel.ProCatMarca">
+              <MappingFragment StoreEntitySet="ProCatMarca">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProCatModelo">
+            <EntityTypeMapping TypeName="SunCorpModel.ProCatModelo">
+              <MappingFragment StoreEntitySet="ProCatModelo">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="NombreModelo" ColumnName="NombreModelo" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProDiviciones">
+            <EntityTypeMapping TypeName="SunCorpModel.ProDiviciones">
+              <MappingFragment StoreEntitySet="ProDiviciones">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NombreDivicion" ColumnName="NombreDivicion" />
+                <ScalarProperty Name="IdDivicion" ColumnName="IdDivicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProFamililia">
+            <EntityTypeMapping TypeName="SunCorpModel.ProFamililia">
+              <MappingFragment StoreEntitySet="ProFamililia">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="TituloDetalle" ColumnName="TituloDetalle" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="NombreFamilia" ColumnName="NombreFamilia" />
+                <ScalarProperty Name="IdFamilia" ColumnName="IdFamilia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProProducto">
+            <EntityTypeMapping TypeName="SunCorpModel.ProProducto">
+              <MappingFragment StoreEntitySet="ProProducto">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="HaySeries" ColumnName="HaySeries" />
+                <ScalarProperty Name="EsReparable" ColumnName="EsReparable" />
+                <ScalarProperty Name="Detalles" ColumnName="Detalles" />
+                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
+                <ScalarProperty Name="TituloDetalle" ColumnName="TituloDetalle" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+                <ScalarProperty Name="IdDivicion" ColumnName="IdDivicion" />
+                <ScalarProperty Name="IdFamilia" ColumnName="IdFamilia" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProVendedor">
+            <EntityTypeMapping TypeName="SunCorpModel.ProVendedor">
+              <MappingFragment StoreEntitySet="ProVendedor">
+                <ScalarProperty Name="IdDirecciones" ColumnName="IdDirecciones" />
+                <ScalarProperty Name="ClaveVendedor" ColumnName="ClaveVendedor" />
+                <ScalarProperty Name="NombreVendedor" ColumnName="NombreVendedor" />
+                <ScalarProperty Name="IdVendedor" ColumnName="IdVendedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProVendedorTienda">
+            <EntityTypeMapping TypeName="SunCorpModel.ProVendedorTienda">
+              <MappingFragment StoreEntitySet="ProVendedorTienda">
+                <ScalarProperty Name="NombreRelacion" ColumnName="NombreRelacion" />
+                <ScalarProperty Name="IdTienda" ColumnName="IdTienda" />
+                <ScalarProperty Name="IdVendedor" ColumnName="IdVendedor" />
+                <ScalarProperty Name="IdTendaVendedor" ColumnName="IdTendaVendedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SisArbolMenu">
+            <EntityTypeMapping TypeName="SunCorpModel.SisArbolMenu">
+              <MappingFragment StoreEntitySet="SisArbolMenu">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Method" ColumnName="Method" />
+                <ScalarProperty Name="Controller" ColumnName="Controller" />
+                <ScalarProperty Name="NombreMenu" ColumnName="NombreMenu" />
+                <ScalarProperty Name="IdMenuPadre" ColumnName="IdMenuPadre" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SisTipoUsuarioPorMenu">
+            <EntityTypeMapping TypeName="SunCorpModel.SisTipoUsuarioPorMenu">
+              <MappingFragment StoreEntitySet="SisTipoUsuarioPorMenu">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="IdPermisos" ColumnName="IdPermisos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TieSucursal">
+            <EntityTypeMapping TypeName="SunCorpModel.TieSucursal">
+              <MappingFragment StoreEntitySet="TieSucursal">
+                <ScalarProperty Name="NoSucursal" ColumnName="NoSucursal" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Comentarios" ColumnName="Comentarios" />
+                <ScalarProperty Name="NombreGerente" ColumnName="NombreGerente" />
+                <ScalarProperty Name="NombreTienda" ColumnName="NombreTienda" />
+                <ScalarProperty Name="IdTienda" ColumnName="IdTienda" />
+                <ScalarProperty Name="IdDirecciones" ColumnName="IdDirecciones" />
+                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TieTienda">
+            <EntityTypeMapping TypeName="SunCorpModel.TieTienda">
+              <MappingFragment StoreEntitySet="TieTienda">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="NombreResponsable" ColumnName="NombreResponsable" />
+                <ScalarProperty Name="NombreTienda" ColumnName="NombreTienda" />
+                <ScalarProperty Name="IdContacto" ColumnName="IdContacto" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="IdTienda" ColumnName="IdTienda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UsEstatusUsuario">
             <EntityTypeMapping TypeName="SunCorpModel.UsEstatusUsuario">
               <MappingFragment StoreEntitySet="UsEstatusUsuario">
@@ -258,15 +1943,6 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="EstatusUsuario" ColumnName="EstatusUsuario" />
                 <ScalarProperty Name="IdEstatusUsuario" ColumnName="IdEstatusUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UsPermisos">
-            <EntityTypeMapping TypeName="SunCorpModel.UsPermisos">
-              <MappingFragment StoreEntitySet="UsPermisos">
-                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="IdPermisos" ColumnName="IdPermisos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -311,6 +1987,24 @@ warning 6013: The table/view 'Suncorp.dbo.TargetTableName' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UsZonaPorEstado">
+            <EntityTypeMapping TypeName="SunCorpModel.UsZonaPorEstado">
+              <MappingFragment StoreEntitySet="UsZonaPorEstado">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="IdZonaEstado" ColumnName="IdZonaEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ProVenTieProducto" TypeName="SunCorpModel.ProVenTieProducto" StoreEntitySet="ProVenTieProducto">
+            <EndProperty Name="ProVendedorTienda">
+              <ScalarProperty Name="IdTendaVendedor" ColumnName="IdTiendaVendedor" />
+            </EndProperty>
+            <EndProperty Name="ProProducto">
+              <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

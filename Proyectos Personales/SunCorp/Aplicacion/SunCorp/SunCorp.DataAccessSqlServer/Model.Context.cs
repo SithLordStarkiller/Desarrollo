@@ -26,11 +26,34 @@ namespace SunCorp.DataAccessSqlServer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ConContacto> ConContacto { get; set; }
+        public virtual DbSet<DirCatColonia> DirCatColonia { get; set; }
+        public virtual DbSet<DirCatEstado> DirCatEstado { get; set; }
+        public virtual DbSet<DirCatMunicipio> DirCatMunicipio { get; set; }
+        public virtual DbSet<DirCatTipoAsentamiento> DirCatTipoAsentamiento { get; set; }
+        public virtual DbSet<DirCatTipoZona> DirCatTipoZona { get; set; }
+        public virtual DbSet<DirDirecciones> DirDirecciones { get; set; }
+        public virtual DbSet<OpCatEstadosNas> OpCatEstadosNas { get; set; }
+        public virtual DbSet<OpCatTipoEstadoNas> OpCatTipoEstadoNas { get; set; }
+        public virtual DbSet<OpEstadosPorUsuarios> OpEstadosPorUsuarios { get; set; }
+        public virtual DbSet<ProArchivos> ProArchivos { get; set; }
+        public virtual DbSet<ProArchivosPorProductos> ProArchivosPorProductos { get; set; }
+        public virtual DbSet<ProCatMarca> ProCatMarca { get; set; }
+        public virtual DbSet<ProCatModelo> ProCatModelo { get; set; }
+        public virtual DbSet<ProDiviciones> ProDiviciones { get; set; }
+        public virtual DbSet<ProFamililia> ProFamililia { get; set; }
+        public virtual DbSet<ProProducto> ProProducto { get; set; }
+        public virtual DbSet<ProVendedor> ProVendedor { get; set; }
+        public virtual DbSet<ProVendedorTienda> ProVendedorTienda { get; set; }
+        public virtual DbSet<SisArbolMenu> SisArbolMenu { get; set; }
+        public virtual DbSet<SisTipoUsuarioPorMenu> SisTipoUsuarioPorMenu { get; set; }
+        public virtual DbSet<TieSucursal> TieSucursal { get; set; }
+        public virtual DbSet<TieTienda> TieTienda { get; set; }
         public virtual DbSet<UsEstatusUsuario> UsEstatusUsuario { get; set; }
-        public virtual DbSet<UsPermisos> UsPermisos { get; set; }
         public virtual DbSet<UsTipoUsuario> UsTipoUsuario { get; set; }
         public virtual DbSet<UsUsuarioPorZona> UsUsuarioPorZona { get; set; }
         public virtual DbSet<UsUsuarios> UsUsuarios { get; set; }
         public virtual DbSet<UsZona> UsZona { get; set; }
+        public virtual DbSet<UsZonaPorEstado> UsZonaPorEstado { get; set; }
     }
 }

@@ -7,8 +7,9 @@
     using Entities.Generic;
     using System.Collections.Generic;
 
-    public class UsUsuariosAccess
+    public class EntitiesAccess
     {
+        #region UsUsuarios
         public UsUsuarios GetUsUsuarioTSql(UserSession session)
         {
             var executesqlstr = "SELECT * FROM UsUsuarios WHERE Usuario = '"+ session.User + "' AND Contrasena = '"+ session.Password + "'";
@@ -38,13 +39,31 @@
             return resultado;
         }
 
-        public UsUsuarios GetUsUsuarioLinQ(UserSession user)
+        public UsUsuarios GetUsUsuario(UserSession user)
         {
             using (var aux = new Repositorio<UsUsuarios>())
             {
                 return aux.Extraer(r => r.Usuario == user.User && r.Contrasena == user.Password);
             }
         }
+
+        #endregion
+
+        #region UsTipoUsuario
+        
+        public UsTipoUsuario GetTypeUser(UsUsuarios user)
+        {
+            using (var aux = new Repositorio<UsTipoUsuario>())
+            {
+                return aux.Extraer(r => r.IdTipoUsuario == user.IdTipoUsuario);
+            }
+        }
+
+        #endregion
+
+        #region UsUsuarioPorZona
+
+      
 
         public List<UsUsuarioPorZona> GetUsUsuarioPorZona(UsUsuarios usUsuario)
         {
@@ -63,5 +82,7 @@
                 return listZonas.Where(r => listUserZona.Any(x => x == r.IdZona)).ToList();
             }
         }
+
+        #endregion
     }
 }

@@ -28,5 +28,10 @@
         {
             return Task.Run(() => _servicio.GetListUsZonasUserAsync(user));
         }
+
+        public Task<UsTipoUsuario> GetTypeUser(UsUsuarios user)
+        {
+            return Task.Run(() => _servicio.GetTypeUserAsync(user));
+        }
     }
 }

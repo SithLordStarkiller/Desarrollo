@@ -23,6 +23,8 @@ namespace SunCorp.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UsTipoUsuario()
         {
+            this.OpEstadosPorUsuarios = new HashSet<OpEstadosPorUsuarios>();
+            this.SisTipoUsuarioPorMenu = new HashSet<SisTipoUsuarioPorMenu>();
             this.UsUsuarios = new HashSet<UsUsuarios>();
         }
     
@@ -39,6 +41,10 @@ namespace SunCorp.Entities
         public bool Borrado { get; set; }
     
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OpEstadosPorUsuarios> OpEstadosPorUsuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SisTipoUsuarioPorMenu> SisTipoUsuarioPorMenu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UsUsuarios> UsUsuarios { get; set; }
     }

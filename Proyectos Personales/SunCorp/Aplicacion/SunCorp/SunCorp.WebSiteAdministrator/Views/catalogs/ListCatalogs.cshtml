@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "ListCatalogs";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+@{
+    var listCatalogSystem = (List<SunCorp.Entities.Generic.GenericTable>)ViewBag.ListCatalogSystem;
+}
+
+
+<h2>ListCatalogs</h2>
+
+@foreach (var item in listCatalogSystem)
+{
+    <label class="container">@item.TableName</label>
+}
+
