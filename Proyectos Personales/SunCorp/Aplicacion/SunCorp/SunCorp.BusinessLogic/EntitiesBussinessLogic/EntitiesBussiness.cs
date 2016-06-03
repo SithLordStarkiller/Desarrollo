@@ -26,7 +26,22 @@
 
         #endregion
 
-        #region UsZonas
+        #region UsZona
+
+        public List<UsZona> GetListUsZona()
+        {
+            return new EntitiesAccess().GetListUsZona();
+        }
+
+        public UsZona NewRegUsZona(UsZona zona)
+        {
+            return new EntitiesAccess().NewRegUsZona(zona);
+        }
+
+        public bool UpdateRegUsZona(UsZona zona)
+        {
+            return new EntitiesAccess().UpdateRegUsZona(zona);
+        }
 
         public List<UsZona> GetListUsZonasUser(UsUsuarios user)
         {

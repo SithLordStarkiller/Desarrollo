@@ -61,9 +61,34 @@
 
         #endregion
 
-        #region UsUsuarioPorZona
+        #region UsZona
 
-      
+        public List<UsZona> GetListUsZona()
+        {
+            using (var aux = new Repositorio<UsZona>())
+            {
+                return aux.TablaCompleta();
+            }
+        }
+
+        public UsZona NewRegUsZona(UsZona zona)
+        {
+            using (var aux = new Repositorio<UsZona>())
+            {
+                return aux.Agregar(zona);
+            }
+        }
+
+        public bool UpdateRegUsZona(UsZona zona)
+        {
+            using (var aux = new Repositorio<UsZona>())
+            {
+                return aux.Actualizar(zona);
+            }
+        }
+        #endregion
+
+        #region UsUsuarioPorZona
 
         public List<UsUsuarioPorZona> GetUsUsuarioPorZona(UsUsuarios usUsuario)
         {
@@ -80,6 +105,18 @@
                 var listZonas = aux.TablaCompleta();
 
                 return listZonas.Where(r => listUserZona.Any(x => x == r.IdZona)).ToList();
+            }
+        }
+
+        #endregion
+
+        #region SisTipoUsuarioPorMenu
+
+        public List<SisTipoUsuarioPorMenu> GetListMenusForTypeUser(UsUsuarios user)
+        {
+            using (var aux = new Repositorio<SisTipoUsuarioPorMenu>())
+            {
+                return aux.Filtro(r => r.IdTipoUsuario == user.IdTipoUsuario);
             }
         }
 

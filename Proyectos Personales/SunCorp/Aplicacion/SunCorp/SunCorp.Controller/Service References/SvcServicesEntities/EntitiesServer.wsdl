@@ -14,11 +14,29 @@
   <wsdl:message name="IEntitiesServer_GetUsUsuarios_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsUsuariosResponse" />
   </wsdl:message>
+  <wsdl:message name="IEntitiesServer_GetListUsZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsZona" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_GetListUsZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsZonaResponse" />
+  </wsdl:message>
   <wsdl:message name="IEntitiesServer_GetListUsZonasUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListUsZonasUser" />
   </wsdl:message>
   <wsdl:message name="IEntitiesServer_GetListUsZonasUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListUsZonasUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_NewRegUsZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:NewRegUsZona" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_NewRegUsZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:NewRegUsZonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_UpdateRegUsZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRegUsZona" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_UpdateRegUsZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateRegUsZonaResponse" />
   </wsdl:message>
   <wsdl:message name="IEntitiesServer_GetTypeUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTypeUser" />
@@ -31,9 +49,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios" message="tns:IEntitiesServer_GetUsUsuarios_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse" message="tns:IEntitiesServer_GetUsUsuarios_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetListUsZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZona" message="tns:IEntitiesServer_GetListUsZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonaResponse" message="tns:IEntitiesServer_GetListUsZona_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetListUsZonasUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser" message="tns:IEntitiesServer_GetListUsZonasUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse" message="tns:IEntitiesServer_GetListUsZonasUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NewRegUsZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/NewRegUsZona" message="tns:IEntitiesServer_NewRegUsZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/NewRegUsZonaResponse" message="tns:IEntitiesServer_NewRegUsZona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRegUsZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZona" message="tns:IEntitiesServer_UpdateRegUsZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZonaResponse" message="tns:IEntitiesServer_UpdateRegUsZona_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTypeUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetTypeUser" message="tns:IEntitiesServer_GetTypeUser_InputMessage" />
@@ -51,8 +81,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetListUsZona">
+      <soap:operation soapAction="http://tempuri.org/IEntitiesServer/GetListUsZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetListUsZonasUser">
       <soap:operation soapAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewRegUsZona">
+      <soap:operation soapAction="http://tempuri.org/IEntitiesServer/NewRegUsZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRegUsZona">
+      <soap:operation soapAction="http://tempuri.org/IEntitiesServer/UpdateRegUsZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

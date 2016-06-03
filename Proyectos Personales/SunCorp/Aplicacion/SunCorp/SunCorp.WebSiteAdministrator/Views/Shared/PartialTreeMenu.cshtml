@@ -1,0 +1,24 @@
+﻿@model List<SunCorp.Entities.Generic.TreeMenuMvc>
+
+@if (Model != null)
+{
+    foreach (var menuitem in Model)
+    {
+        <ul>
+            <li>
+                @if (!string.IsNullOrEmpty(menuitem.Controller) || !string.IsNullOrEmpty(menuitem.Method))
+                {
+                    @Html.ActionLink(@menuitem.Name, menuitem.Method, menuitem.Controller)
+                }
+                else
+                {
+                    <a href="#">@menuitem.Name</a>
+                }
+
+                @{
+        Html.RenderPartial("PartialTreeMenu", menuitem.ListChilds);
+                }
+            </li>
+        </ul>
+    }
+}

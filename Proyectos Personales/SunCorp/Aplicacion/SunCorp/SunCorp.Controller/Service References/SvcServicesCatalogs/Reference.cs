@@ -20,6 +20,12 @@ namespace SunCorp.Controller.SvcServicesCatalogs {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatalogsServer/GetListCatalogsSystem", ReplyAction="http://tempuri.org/ICatalogsServer/GetListCatalogsSystemResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.Generic.GenericTable>> GetListCatalogsSystemAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatalogsServer/GetListMenuForUserType", ReplyAction="http://tempuri.org/ICatalogsServer/GetListMenuForUserTypeResponse")]
+        System.Collections.Generic.List<SunCorp.Entities.SisArbolMenu> GetListMenuForUserType(SunCorp.Entities.UsUsuarios user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICatalogsServer/GetListMenuForUserType", ReplyAction="http://tempuri.org/ICatalogsServer/GetListMenuForUserTypeResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.SisArbolMenu>> GetListMenuForUserTypeAsync(SunCorp.Entities.UsUsuarios user);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace SunCorp.Controller.SvcServicesCatalogs {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.Generic.GenericTable>> GetListCatalogsSystemAsync() {
             return base.Channel.GetListCatalogsSystemAsync();
+        }
+        
+        public System.Collections.Generic.List<SunCorp.Entities.SisArbolMenu> GetListMenuForUserType(SunCorp.Entities.UsUsuarios user) {
+            return base.Channel.GetListMenuForUserType(user);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.SisArbolMenu>> GetListMenuForUserTypeAsync(SunCorp.Entities.UsUsuarios user) {
+            return base.Channel.GetListMenuForUserTypeAsync(user);
         }
     }
 }

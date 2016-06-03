@@ -24,6 +24,21 @@
             return Task.Run(() => _servicio.GetUsUsuariosAsync(user));
         }
 
+        public Task<List<UsZona>> GetListZonas()
+        {
+            return Task.Run(() => _servicio.GetListUsZonaAsync());
+        }
+
+        public Task<UsZona> NewRegUsZona(UsZona zona)
+        {
+            return Task.Run(() => _servicio.NewRegUsZonaAsync(zona));
+        }
+
+        public Task<bool> UpdateRegUsZona(UsZona zona)
+        {
+            return Task.Run(() => _servicio.UpdateRegUsZonaAsync(zona));
+        }
+
         public Task<List<UsZona>> GetListUsZonasUser(UsUsuarios user)
         {
             return Task.Run(() => _servicio.GetListUsZonasUserAsync(user));

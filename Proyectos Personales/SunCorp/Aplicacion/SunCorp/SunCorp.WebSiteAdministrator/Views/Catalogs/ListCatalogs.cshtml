@@ -1,9 +1,8 @@
-﻿@using Universidad.Entidades.Catalogos
-
+﻿@using SunCorp.Entities.Generic
 @{
     ViewBag.Title = "EditarCatalogos";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    var lista = (List<CatalogosSistema>)ViewBag.ListaCatalogos;
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    var lista = (List<GenericTable>)ViewBag.ListCatalogSystem;
     var contador = 1;
 }
 
@@ -16,10 +15,13 @@
         }
     </script>
 }
-<h2>Catalogos del sistema</h2>
+<br/>
+<br/>
+<div class="col-md-8 col-lg-offset-2">
 
-<br />
-<div class="col-md-6 col-lg-offset-3">
+    <h4>Catalogos del sistema</h4>
+
+    <br />
     <table class="table">
         <tr>
             <th>
@@ -40,13 +42,13 @@
                     @contador
                 </td>
                 <td>
-                    @item.NombreTabla
+                    @item.TableName
                 </td>
                 <td style="align-content: center;">
-                    <a id="btnEditar" href="@Url.Action("EditaCatalogo", "Catalogos", new { nombreTabla = item.NombreTabla })" class="btn btn-default btn-sm">Editar</a>
-                   
-                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.NombreTabla')">Listado</button>
-                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.NombreTabla')">Reporte</button>
+                    <a id="btnEditar" href="@Url.Action("EditCatalog", "Catalogs", new { nombreTabla = item.TableName })" class="btn btn-default btn-sm">Editar</a>
+
+                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.TableName')">Listado</button>
+                    <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.TableName')">Reporte</button>
                 </td>
             </tr>
             contador++;

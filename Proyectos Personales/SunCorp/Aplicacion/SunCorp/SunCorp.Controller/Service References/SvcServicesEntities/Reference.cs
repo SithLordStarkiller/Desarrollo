@@ -25,11 +25,29 @@ namespace SunCorp.Controller.SvcServicesEntities {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
         System.Threading.Tasks.Task<SunCorp.Entities.UsUsuarios> GetUsUsuariosAsync(SunCorp.Entities.Generic.UserSession session);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaResponse")]
+        System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZona();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse")]
         System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonasUser(SunCorp.Entities.UsUsuarios user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonasUserAsync(SunCorp.Entities.UsUsuarios user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegUsZonaResponse")]
+        SunCorp.Entities.UsZona NewRegUsZona(SunCorp.Entities.UsZona zona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegUsZonaResponse")]
+        System.Threading.Tasks.Task<SunCorp.Entities.UsZona> NewRegUsZonaAsync(SunCorp.Entities.UsZona zona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegUsZonaResponse")]
+        bool UpdateRegUsZona(SunCorp.Entities.UsZona zona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegUsZonaResponse")]
+        System.Threading.Tasks.Task<bool> UpdateRegUsZonaAsync(SunCorp.Entities.UsZona zona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetTypeUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetTypeUserResponse")]
         SunCorp.Entities.UsTipoUsuario GetTypeUser(SunCorp.Entities.UsUsuarios user);
@@ -73,12 +91,36 @@ namespace SunCorp.Controller.SvcServicesEntities {
             return base.Channel.GetUsUsuariosAsync(session);
         }
         
+        public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZona() {
+            return base.Channel.GetListUsZona();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaAsync() {
+            return base.Channel.GetListUsZonaAsync();
+        }
+        
         public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonasUser(SunCorp.Entities.UsUsuarios user) {
             return base.Channel.GetListUsZonasUser(user);
         }
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonasUserAsync(SunCorp.Entities.UsUsuarios user) {
             return base.Channel.GetListUsZonasUserAsync(user);
+        }
+        
+        public SunCorp.Entities.UsZona NewRegUsZona(SunCorp.Entities.UsZona zona) {
+            return base.Channel.NewRegUsZona(zona);
+        }
+        
+        public System.Threading.Tasks.Task<SunCorp.Entities.UsZona> NewRegUsZonaAsync(SunCorp.Entities.UsZona zona) {
+            return base.Channel.NewRegUsZonaAsync(zona);
+        }
+        
+        public bool UpdateRegUsZona(SunCorp.Entities.UsZona zona) {
+            return base.Channel.UpdateRegUsZona(zona);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateRegUsZonaAsync(SunCorp.Entities.UsZona zona) {
+            return base.Channel.UpdateRegUsZonaAsync(zona);
         }
         
         public SunCorp.Entities.UsTipoUsuario GetTypeUser(SunCorp.Entities.UsUsuarios user) {

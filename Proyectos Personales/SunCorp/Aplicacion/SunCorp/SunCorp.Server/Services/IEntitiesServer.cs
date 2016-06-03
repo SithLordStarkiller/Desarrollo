@@ -14,7 +14,16 @@
         UsUsuarios GetUsUsuarios(UserSession session);
 
         [OperationContract]
+        List<UsZona> GetListUsZona();
+
+        [OperationContract]
         List<UsZona> GetListUsZonasUser(UsUsuarios user);
+
+        [OperationContract]
+        UsZona NewRegUsZona(UsZona zona);
+
+        [OperationContract]
+        bool UpdateRegUsZona(UsZona zona);
 
         [OperationContract]
         UsTipoUsuario GetTypeUser(UsUsuarios user);

@@ -17,6 +17,21 @@
             return new EntitiesBussiness().GetTypeUser(user);
         }
 
+        public List<UsZona> GetListUsZona()
+        {
+            return new EntitiesBussiness().GetListUsZona();
+        }
+
+        public UsZona NewRegUsZona(UsZona zona)
+        {
+            return new EntitiesBussiness().NewRegUsZona(zona);
+        }
+
+        public bool UpdateRegUsZona(UsZona zona)
+        {
+            return new EntitiesBussiness().UpdateRegUsZona(zona);
+        }
+
         public List<UsZona> GetListUsZonasUser(UsUsuarios user)
         {
             return new EntitiesBussiness().GetListUsZonasUser(user);

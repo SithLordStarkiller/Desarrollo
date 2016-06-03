@@ -1,0 +1,11 @@
+﻿@using SunCorp.Entities.Generic
+@if (ViewBag.listaArbol != null)
+{
+    var menuList = ViewBag.listaArbol as List<TreeMenuMvc>;
+
+    Html.RenderPartial("PartialTreeMenu", menuList);
+}
+else
+{
+    <h1>no carga</h1>
+}

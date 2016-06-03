@@ -4,8 +4,7 @@
     using System.Collections.Generic;
     using SunCorp.Entities.Generic;
     using Controller;
-
-    using System.Web.Mvc;
+    using SunCorp.Entities;
 
     public class CatalogsEndPointController
     {
@@ -18,10 +17,14 @@
             _servicio = new SvcServicesCatalogs.CatalogsServerClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"Services/", "CatalogsServer.svc"));
         }
 
-        [HttpPost]
         public Task<List<GenericTable>> GetListCatalogsSystem()
         {
             return Task.Run(() => _servicio.GetListCatalogsSystemAsync());
+        }
+
+        public Task<List<SisArbolMenu>> GetListMenuForUserType(UsUsuarios user)
+        {
+            return Task.Run(() => _servicio.GetListMenuForUserTypeAsync(user));
         }
     }
 }

@@ -421,7 +421,7 @@ CREATE TABLE ProVenTieProducto (
 ;
 
 CREATE TABLE SisArbolMenu ( 
-	IdMenu int identity(1,1)  NOT NULL,
+	IdMenu int NOT NULL,
 	IdMenuPadre int,
 	NombreMenu varchar(max) NOT NULL,
 	Controller varchar(max),

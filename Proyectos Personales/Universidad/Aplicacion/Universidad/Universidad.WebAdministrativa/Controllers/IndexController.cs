@@ -35,9 +35,11 @@ namespace Universidad.WebAdministrativa.Controllers
                 switch (usuario.ID_ESTATUS_USUARIOS)
                 {
                     case 1:
+
                         System.Web.HttpContext.Current.Session["Usuario"] = "Usuario";
                         System.Web.HttpContext.Current.Session["Sesion"] = "Sesion";
                         System.Web.HttpContext.Current.Session["Persona"] = "Persona";
+                        
                         Session["Sesion"] = sesion;
                         Session["Usuario"] = usuario;
 
@@ -70,6 +72,7 @@ namespace Universidad.WebAdministrativa.Controllers
             Session["Usuario"] = null;
             Session["Persona"] = null;
             Session["TipoPersona"] = null;
+            
             return View("Index");
         }
     }
