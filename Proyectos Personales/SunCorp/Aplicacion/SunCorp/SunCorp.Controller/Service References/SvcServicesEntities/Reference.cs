@@ -49,6 +49,12 @@ namespace SunCorp.Controller.SvcServicesEntities {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegUsZonaResponse")]
         System.Threading.Tasks.Task<bool> UpdateRegUsZonaAsync(SunCorp.Entities.UsZona zona);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegUsZonaResponse")]
+        bool DeleteRegUsZona(SunCorp.Entities.UsZona zona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegUsZonaResponse")]
+        System.Threading.Tasks.Task<bool> DeleteRegUsZonaAsync(SunCorp.Entities.UsZona zona);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetTypeUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetTypeUserResponse")]
         SunCorp.Entities.UsTipoUsuario GetTypeUser(SunCorp.Entities.UsUsuarios user);
         
@@ -121,6 +127,14 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         public System.Threading.Tasks.Task<bool> UpdateRegUsZonaAsync(SunCorp.Entities.UsZona zona) {
             return base.Channel.UpdateRegUsZonaAsync(zona);
+        }
+        
+        public bool DeleteRegUsZona(SunCorp.Entities.UsZona zona) {
+            return base.Channel.DeleteRegUsZona(zona);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteRegUsZonaAsync(SunCorp.Entities.UsZona zona) {
+            return base.Channel.DeleteRegUsZonaAsync(zona);
         }
         
         public SunCorp.Entities.UsTipoUsuario GetTypeUser(SunCorp.Entities.UsUsuarios user) {

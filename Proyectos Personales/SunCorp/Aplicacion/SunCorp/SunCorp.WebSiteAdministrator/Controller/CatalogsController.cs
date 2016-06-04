@@ -27,16 +27,8 @@
             ViewBag.ListZonas = listZonas;
         }
 
-        [SessionExpireFilter]
-        public ActionResult CloseSession()
-        {
-            Session["Sesion"] = null;
-            Session["Usuario"] = null;
+        #region Controller Catalog
 
-            return View("../Index/index");
-        }
-
-        // GET: catalogs
         [SessionExpireFilter]
         public async Task<ActionResult> ListCatalogs()
         {
@@ -59,6 +51,8 @@
             }
             return null;
         }
+
+        #endregion
 
         #region UsZona
 
@@ -119,6 +113,27 @@
             var actualizado = await servicio.UpdateRegUsZona(objeto);
 
             return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> EliminaCarCatCarreras(string idZona, string nombreZona, string descripcion)
+        {
+            UpdateBar();
+
+            var sesion = (UserSession)Session["Sesion"];
+            var servicio = new EntitiesEndpointController(sesion);
+
+            var objeto =  new UsZona
+            {
+                IdZona = Convert.ToInt32(idZona),
+                NombreZona = nombreZona,
+                Descripcion = descripcion,
+                Borrado = true
+            };
+
+            await servicio.UpdateRegUsZona(objeto);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditCatalogUsZona", "Catalogs"));
         }
 
         #endregion

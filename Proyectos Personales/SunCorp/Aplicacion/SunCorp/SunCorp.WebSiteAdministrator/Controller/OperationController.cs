@@ -35,6 +35,14 @@
         [SessionExpireFilter]
         public ActionResult ListServiceTickets()
         {
+            UpdateBar();
+            return View();
+        }
+
+        [SessionExpireFilter]
+        public ActionResult CreateServiceTicket()
+        {
+            UpdateBar();
             return View();
         }
     }

@@ -38,6 +38,12 @@
   <wsdl:message name="IEntitiesServer_UpdateRegUsZona_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateRegUsZonaResponse" />
   </wsdl:message>
+  <wsdl:message name="IEntitiesServer_DeleteRegUsZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRegUsZona" />
+  </wsdl:message>
+  <wsdl:message name="IEntitiesServer_DeleteRegUsZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteRegUsZonaResponse" />
+  </wsdl:message>
   <wsdl:message name="IEntitiesServer_GetTypeUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTypeUser" />
   </wsdl:message>
@@ -64,6 +70,10 @@
     <wsdl:operation name="UpdateRegUsZona">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZona" message="tns:IEntitiesServer_UpdateRegUsZona_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/UpdateRegUsZonaResponse" message="tns:IEntitiesServer_UpdateRegUsZona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRegUsZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/DeleteRegUsZona" message="tns:IEntitiesServer_DeleteRegUsZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEntitiesServer/DeleteRegUsZonaResponse" message="tns:IEntitiesServer_DeleteRegUsZona_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTypeUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IEntitiesServer/GetTypeUser" message="tns:IEntitiesServer_GetTypeUser_InputMessage" />
@@ -110,6 +120,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateRegUsZona">
       <soap:operation soapAction="http://tempuri.org/IEntitiesServer/UpdateRegUsZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteRegUsZona">
+      <soap:operation soapAction="http://tempuri.org/IEntitiesServer/DeleteRegUsZona" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

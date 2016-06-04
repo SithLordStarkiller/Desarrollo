@@ -17,7 +17,7 @@
         #endregion
 
         #region Metodos de Extraccion
-
+ 
         public List<SIS_AADM_ARBOLMENUS> TraeArbolLinq()
         {
             using (var r = new Repositorio<SIS_AADM_ARBOLMENUS>())

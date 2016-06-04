@@ -26,6 +26,9 @@
         bool UpdateRegUsZona(UsZona zona);
 
         [OperationContract]
+        bool DeleteRegUsZona(UsZona zona);
+
+        [OperationContract]
         UsTipoUsuario GetTypeUser(UsUsuarios user);
     }
 }

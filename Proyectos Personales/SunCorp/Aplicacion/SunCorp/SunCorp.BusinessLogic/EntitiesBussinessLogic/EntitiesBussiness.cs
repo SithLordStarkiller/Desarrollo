@@ -43,6 +43,11 @@
             return new EntitiesAccess().UpdateRegUsZona(zona);
         }
 
+        public bool DeleteRegUsZona(UsZona zona)
+        {
+            return new EntitiesAccess().DeleteRegUsZona(zona);
+        }
+
         public List<UsZona> GetListUsZonasUser(UsUsuarios user)
         {
             var listUsUsuariosPorzona = new EntitiesAccess().GetUsUsuarioPorZona(user);

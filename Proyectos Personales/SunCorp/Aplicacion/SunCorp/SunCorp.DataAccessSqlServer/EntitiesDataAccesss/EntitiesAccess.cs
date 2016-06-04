@@ -86,6 +86,14 @@
                 return aux.Actualizar(zona);
             }
         }
+
+        public bool DeleteRegUsZona(UsZona zona)
+        {
+            using (var aux = new Repositorio<UsZona>())
+            {
+                return aux.Eliminar(zona);
+            }
+        }
         #endregion
 
         #region UsUsuarioPorZona

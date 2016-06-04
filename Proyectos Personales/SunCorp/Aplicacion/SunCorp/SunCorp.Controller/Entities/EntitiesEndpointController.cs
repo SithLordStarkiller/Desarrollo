@@ -5,7 +5,6 @@
     using System.Collections.Generic;
     using SunCorp.Entities.Generic;
     using SunCorp.Entities;
-    using System.Web.Mvc;
 
     public class EntitiesEndpointController
     {
@@ -18,11 +17,16 @@
             _servicio = new SvcServicesEntities.EntitiesServerClient(configServicios.ObtenBasicHttpBinding(), configServicios.ObtenEndpointAddress(sesion, @"Services/", "EntitiesServer.svc"));
         }
 
-        [HttpPost]
+        #region UsUsuario
+
         public Task<UsUsuarios> GetUsUsuario(UserSession user)
         {
             return Task.Run(() => _servicio.GetUsUsuariosAsync(user));
         }
+
+        #endregion
+
+        #region UsZona
 
         public Task<List<UsZona>> GetListZonas()
         {
@@ -39,14 +43,25 @@
             return Task.Run(() => _servicio.UpdateRegUsZonaAsync(zona));
         }
 
+        public Task<bool> DeleteRegUsZona(UsZona zona)
+        {
+            return Task.Run(() => _servicio.DeleteRegUsZonaAsync(zona));
+        }
+
         public Task<List<UsZona>> GetListUsZonasUser(UsUsuarios user)
         {
             return Task.Run(() => _servicio.GetListUsZonasUserAsync(user));
         }
 
+        #endregion
+
+        #region UsTipoUsuario
+
         public Task<UsTipoUsuario> GetTypeUser(UsUsuarios user)
         {
             return Task.Run(() => _servicio.GetTypeUserAsync(user));
         }
+
+        #endregion
     }
 }

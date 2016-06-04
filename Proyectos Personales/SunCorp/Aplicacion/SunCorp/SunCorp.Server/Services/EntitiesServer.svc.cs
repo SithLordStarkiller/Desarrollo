@@ -32,6 +32,11 @@
             return new EntitiesBussiness().UpdateRegUsZona(zona);
         }
 
+        public bool DeleteRegUsZona(UsZona zona)
+        {
+            return new EntitiesBussiness().DeleteRegUsZona(zona);
+        }
+
         public List<UsZona> GetListUsZonasUser(UsUsuarios user)
         {
             return new EntitiesBussiness().GetListUsZonasUser(user);
