@@ -351,15 +351,25 @@ CREATE TABLE ProArchivosPorProductos (
 
 CREATE TABLE ProCatMarca ( 
 	IdMarca int NOT NULL,
-	Marca varchar(max),
+	NombreMarca varchar(max),
+	Descripcion varchar(150),
+	Creador varchar(100),
+	FechaCreacion datetime,
+	Modificado varchar(100),
+	FechaModificacion datetime,
 	Borrado bit
 )
 ;
 
 CREATE TABLE ProCatModelo ( 
 	IdModelo int NOT NULL,
-	NombreModelo varchar(200),
 	IdMarca int,
+	NombreModelo varchar(200),
+	Descripcion varchar(200),
+	Creador varchar(100),
+	FechaCreacion datetime,
+	ModificadoPor varchar(100),
+	FechaModificacion datetime,
 	Borrado bit
 )
 ;
@@ -368,6 +378,10 @@ CREATE TABLE ProDiviciones (
 	IdDivicion int NOT NULL,
 	NombreDivicion varchar(max),
 	Descripcion varchar(max),
+	Creador varchar(100),
+	FechaCreacion datetime,
+	ModificadoPor varchar(100),
+	FechaModificacion datetime,
 	Borrado bit
 )
 ;
@@ -375,8 +389,11 @@ CREATE TABLE ProDiviciones (
 CREATE TABLE ProFamililia ( 
 	IdFamilia int NOT NULL,
 	NombreFamilia varchar(max),
-	Titulo varchar(max),
-	TituloDetalle varchar(max),
+	Descripcion varchar(max),
+	Creador varchar(100),
+	FechaCreacion datetime,
+	ModificadoPor datetime,
+	FechaModificacion datetime,
 	Borrado bit
 )
 ;
@@ -388,8 +405,7 @@ CREATE TABLE ProProducto (
 	IdFamilia int,
 	IdDivicion int,
 	NombreProducto varchar(max),
-	Titulo varchar(max),
-	TituloDetalle varchar(max),
+	Descripcion varchar(max),
 	NumeroDeSerie varchar(max),
 	Detalles varchar(max),
 	EsReparable bit,
