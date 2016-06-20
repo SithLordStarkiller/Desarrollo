@@ -30,7 +30,7 @@ public class AplicacionJava8 {
         
         for (char chr:str.toCharArray()){
             System.out.println(chr);
-        }
+        } 
     }
     
 }
