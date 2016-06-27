@@ -1,7 +1,6 @@
 ﻿namespace SunCorp.Server.Services
 {
     using Entities.Generic;
-    using System.ServiceModel;
     using System.Collections.Generic;
     using Entities;
 

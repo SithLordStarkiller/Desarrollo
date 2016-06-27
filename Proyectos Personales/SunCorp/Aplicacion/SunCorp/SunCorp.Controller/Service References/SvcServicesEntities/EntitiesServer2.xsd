@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SunCorp.Entities.Generic" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SunCorp.Entities.Generic" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="UserSession">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SunCorp.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SunCorp.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="UsUsuarios">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RememberPassword" type="xs:boolean" />
-      <xs:element minOccurs="0" name="RemmemberSession" type="xs:boolean" />
-      <xs:element minOccurs="0" name="SessionSecurity" nillable="true" type="xs:anyType" />
-      <xs:element minOccurs="0" name="UrlServer" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="User" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Borrado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Contrasena" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEstatusUsuario" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoUsuario" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IdUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="UserSession" nillable="true" type="tns:UserSession" />
+  <xs:element name="UsUsuarios" nillable="true" type="tns:UsUsuarios" />
+  <xs:complexType name="ArrayOfUsZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UsZona" nillable="true" type="tns:UsZona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsZona" nillable="true" type="tns:ArrayOfUsZona" />
+  <xs:complexType name="UsZona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdZona" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreZona" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsZona" nillable="true" type="tns:UsZona" />
+  <xs:complexType name="UsTipoUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdTipoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoUsuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsTipoUsuario" nillable="true" type="tns:UsTipoUsuario" />
 </xs:schema>
