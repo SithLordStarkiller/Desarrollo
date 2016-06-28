@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
   DTS:CreationDate="1/15/2016 12:22:01 PM"
@@ -7,12 +7,12 @@
   DTS:CreatorName="DR5Q402\Admin"
   DTS:DTSID="{3B0C62A5-E196-4810-AC06-DD71EBF7B9FB}"
   DTS:ExecutableType="Microsoft.Package"
-  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LastModifiedProductVersion="13.0.1601.5"
   DTS:LocaleID="2058"
   DTS:ObjectName="ETLCargaFuncionesDb"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{924083BB-79C4-4510-A3F1-737CC938CE13}">
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{CE18FF79-3B57-4098-B0F3-ADEF149F0610}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -23,11 +23,11 @@
       DTS:ObjectName="DR5Q402\MSSQLSERVER2014.Universidad.sa">
       <DTS:ObjectData>
         <DTS:ConnectionManager
-          DTS:ConnectionString="Data Source=DR5Q402\MSSQLSERVER2014;User ID=sa;Initial Catalog=Universidad;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          DTS:ConnectionString="Data Source=DESKTOP-J4812OS\MSSQLSERVER2014;User ID=sa;Initial Catalog=Suncorp;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAiO0zafrhNEeZegCW15ZW7wAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAACOBVRMQsJK0DlBjpDg9/0e/pc+ayrA/LZmiscofLLZuAAAAAAOgAAAAAIAACAAAABkRvArpI5BVmdoe/vAq4bnysrQtMjiuXhQynrEIYRJXiAAAABmsxKl4uPezDA7c7jEoHus/Eg6A1MW3wVaqMbdsRBAuEAAAADcLPH0kRcKzVD0v6qcEozOkW+4HmxooqWunWYMaEwt1C8NRDHdfhzLrOw7K3yqqecOTF9An2yHl2vZcf2M8LzM</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGcgQr6DfqUmrusJO+w0eyQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADM+Tc3yjTByHyahuzMusY2lYvLvbrDmR1L+isH5v1TtwAAAAAOgAAAAAIAACAAAABMwsiWF0YVSVxnM1ANHOaQGKq0VTMG8Y4Ub0OOnwxpQiAAAAC2HoT64zavNMTB0ysjlCmYx0gdGOzMorkr5OxSCMg180AAAACam628VEXu8hkTh1WjNk6DucOU2i8Pl44xzVV1Aaq5GkORwbAmMWz/1mCXantlipKtn/qmgdCZ4EsZJqAJrnt4</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -79,7 +79,7 @@
         <DTS:ObjectData>
           <ForEachFileEnumeratorProperties>
             <FEFEProperty
-              Folder="C:\Desarrollo\Proyectos\Proyectos Personales\Universidad\Aplicacion\Base de Datos\StoreProcedures" />
+              Folder="C:\Desarrollo\Proyectos\Proyectos Personales\SunCorp\Aplicacion\DataBase\Scripts Sistema" />
             <FEFEProperty
               FileSpec="*.sql" />
             <FEFEProperty
@@ -127,14 +127,35 @@
               Language="CSharp"
               ReadWriteVariables="User::NombreArchivo,User::RutaStoredProcedures,User::StoredProcedureText">
               <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_64c29789810c4fb18bfe7abfaee64ede")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_64c29789810c4fb18bfe7abfaee64ede")]
+[assembly: AssemblyCopyright("Copyright @  2016")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -467,15 +488,7 @@ namespace ST_64c29789810c4fb18bfe7abfaee64ede
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
-        <ProjectProperties HostName="ScriptTask"
-                           HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}"
-                           ApplicationType="usd"
-                           Language="cs"
-                           TemplatesPath=""
-                           DebugInfoExeName="#HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\VisualStudio\10.0\InstallDir#\devenv.exe"
-                           DebugInfoCommandLine=""
-                           DebugInfoWorkingDir=""
-                           IconImageList=""/>
+        <ProjectProperties HostName="ScriptTask" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" />
         <Host Name="ScriptTask" GeneratedNamespace="$safeprojectname" IconIndex="">
         </Host>
         <ProjectClient>
@@ -535,35 +548,14 @@ namespace ST_64c29789810c4fb18bfe7abfaee64ede.Properties {
     }
 }]]></ProjectItem>
               <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_64c29789810c4fb18bfe7abfaee64ede")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_64c29789810c4fb18bfe7abfaee64ede")]
-[assembly: AssemblyCopyright("Copyright @  2016")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -767,8 +759,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       <DTS:ForEachVariableMappings>
         <DTS:ForEachVariableMapping
           DTS:CreationName=""
-          DTS:DTSID="{E2F76198-E7A1-4584-B527-302B29321D14}"
-          DTS:ObjectName="{E2F76198-E7A1-4584-B527-302B29321D14}"
+          DTS:DTSID="{EB1DD477-3F96-4A82-BAD9-A1628B512A75}"
+          DTS:ObjectName="{EB1DD477-3F96-4A82-BAD9-A1628B512A75}"
           DTS:ValueIndex="0"
           DTS:VariableName="User::NombreArchivo" />
       </DTS:ForEachVariableMappings>
@@ -787,13 +779,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="137,42"
-          Id="Package\Obten StoredProcedures\Leer Archivo"
-          TopLeft="42,24" />
-        <NodeLayout
           Size="144,42"
           Id="Package\Obten StoredProcedures\Ejecuta Script"
           TopLeft="42,105" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Obten StoredProcedures\Leer Archivo"
+          TopLeft="42,24" />
         <EdgeLayout
           Id="Package\Obten StoredProcedures.PrecedenceConstraints[Constraint]"
           TopLeft="112.25,66">

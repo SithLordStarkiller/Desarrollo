@@ -1,7 +1,6 @@
-﻿using System.Linq;
-
-namespace SunCorp.BusinessLogic.CatalogsBussinessLogic
+﻿namespace SunCorp.BusinessLogic.CatalogsBussinessLogic
 {
+    using System.Linq;
     using DataAccessSqlServer.CatalogsDataAccess;
     using DataAccessSqlServer.EntitiesDataAccesss;
     using Entities;
