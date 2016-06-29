@@ -22,6 +22,11 @@
             return new EntitiesBussiness().GetListUsZona();
         }
 
+        public List<UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        {
+            return new EntitiesBussiness().GetListUsZonaPageList(page, numRows, includeDelete);
+        }
+
         public UsZona NewRegUsZona(UsZona zona)
         {
             return new EntitiesBussiness().NewRegUsZona(zona);

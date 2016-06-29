@@ -33,6 +33,11 @@
             return Task.Run(() => _servicio.GetListUsZonaAsync());
         }
 
+        public Task<List<UsZona>> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        {
+            return Task.Run(() => _servicio.GetListUsZonaPageListAsync(page, numRows, includeDelete));
+        }
+
         public Task<UsZona> NewRegUsZona(UsZona zona)
         {
             return Task.Run(() => _servicio.NewRegUsZonaAsync(zona));

@@ -33,6 +33,11 @@
             return new EntitiesAccess().GetListUsZona();
         }
 
+        public List<UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        {
+            return new EntitiesAccess().GetListUsZonaPageList(page,numRows, includeDelete);
+        }
+
         public UsZona NewRegUsZona(UsZona zona)
         {
             return new EntitiesAccess().NewRegUsZona(zona);

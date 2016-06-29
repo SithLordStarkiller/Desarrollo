@@ -1,5 +1,6 @@
 ﻿namespace SunCorp.DataAccessSqlServer.EntitiesDataAccesss
 {
+    using System;
     using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
@@ -69,6 +70,33 @@
             {
                 return aux.TablaCompleta();
             }
+        }
+
+        public List<UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        {
+            var parameters = new[]
+            {
+                new SqlParameter("@i_Page_Index", page),
+                new SqlParameter("@i_Page_Count", numRows),
+                new SqlParameter("@o_total_rows",10), 
+                new SqlParameter("@includeDelete", includeDelete)
+            };
+
+            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
+                "Usp_GetListUsZonaPageList", parameters);
+
+            var resultado = new List<UsZona>();
+
+            if (obj != null)
+            {
+                resultado = (from DataRow row in obj.Rows
+                             select new UsZona
+                             {
+                                 IdZona = (int)row["IdZona"]
+                             }).ToList();
+            }
+
+            return resultado;
         }
 
         public UsZona NewRegUsZona(UsZona zona)

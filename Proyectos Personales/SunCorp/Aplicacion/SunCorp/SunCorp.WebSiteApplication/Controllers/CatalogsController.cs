@@ -66,6 +66,8 @@
 
             var listZonas = servicio.GetListZonas().Result.Where(r => r.Borrado == false).ToList();
 
+            var list = servicio.GetListUsZonaPageList(0, 2, false).Result;
+
             ViewBag.ListCatalogsZonas = listZonas;
 
             return View("Tables/UsZona");

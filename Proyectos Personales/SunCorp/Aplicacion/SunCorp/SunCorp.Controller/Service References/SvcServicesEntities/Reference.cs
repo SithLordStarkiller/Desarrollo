@@ -31,6 +31,12 @@ namespace SunCorp.Controller.SvcServicesEntities {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZona", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonaPageList", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaPageListResponse")]
+        System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonaPageList", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaPageListResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaPageListAsync(int page, int numRows, bool includeDelete);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse")]
         System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonasUser(SunCorp.Entities.UsUsuarios user);
         
@@ -103,6 +109,14 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaAsync() {
             return base.Channel.GetListUsZonaAsync();
+        }
+        
+        public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete) {
+            return base.Channel.GetListUsZonaPageList(page, numRows, includeDelete);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaPageListAsync(int page, int numRows, bool includeDelete) {
+            return base.Channel.GetListUsZonaPageListAsync(page, numRows, includeDelete);
         }
         
         public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonasUser(SunCorp.Entities.UsUsuarios user) {
