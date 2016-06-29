@@ -18,28 +18,35 @@ GO
 -- Create date: <Create Date,,>
 -- Description:	<Description,,>
 -- =============================================
-CREATE PROCEDURE Usp_GetListUsZona
-	@i_Page_Index int = 0,
-	@i_Page_Count int = 10,
+ALTER PROCEDURE Usp_GetListUsZonaPageList
+	@i_Page_Index int ,
+	@i_Page_Count int ,
+	@includeDelete bit,
 	@o_total_rows int output
 AS
 BEGIN
 	
-SELECT TOP (@i_Page_Count) a.* FROM
-(
+--SELECT TOP (@i_Page_Count) a.* FROM
+--(
+--	SELECT p.*,ROW_NUMBER() OVER (ORDER BY p.IdZona) AS num FROM dbo.UsZona p 
+--) AS a WHERE num > @i_Page_Index * @i_Page_Count AND Borrado LIKE
+--  CASE WHEN @includeDelete = 1 THEN 
+--    @includeDelete
+--  ELSE
+--    '%'
+--  END;
 
-SELECT p.*,ROW_NUMBER() OVER (ORDER BY p.IdZona) AS num
+---- Get Total Rows
 
-FROM dbo.UsZona p
+--SET @o_total_rows =  (SELECT  COUNT(1) FROM UsZona);
+SELECT (
+CASE @includeDelete 
 
-) AS a
+WHEN  0 THEN (select 'no')
+	
+WHEN  1 THEN (select 'si')
 
-WHERE num > @i_Page_Index * @i_Page_Count;
-
--- Get Total Rows
-
-SET @o_total_rows =  (SELECT  COUNT(1)   
-
-FROM UsZona);
+END
+)
 END
 GO
