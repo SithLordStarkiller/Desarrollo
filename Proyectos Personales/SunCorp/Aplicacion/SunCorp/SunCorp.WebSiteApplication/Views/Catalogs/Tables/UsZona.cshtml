@@ -1,8 +1,10 @@
-﻿@using SunCorp.Entities
+﻿@model PagedList.IPagedList<UsZona>
+@using PagedList.Mvc
+@using SunCorp.Entities
 @{
     ViewBag.Title = "UsZona";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
-    var listZonas = (List<UsZona>)ViewBag.ListCatalogsZonas;
+    //var listZonas = (List<UsZona>)ViewBag.ListCatalogsZonas;
 }
 @section Head
 {
@@ -125,7 +127,7 @@
             </th>
         </tr>
 
-        @foreach (var item in listZonas)
+        @foreach (var item in Model)
         {
             <tr>
                 <td>
@@ -146,6 +148,10 @@
         }
     </table>
     <br/>
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("EditCatalogUsZona", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
 
     <div style="margin-top: 10px; float: right;" class="form-group">
         <button type="button" class="btn btn-default" onclick="Nuevo();">Nuevo</button>

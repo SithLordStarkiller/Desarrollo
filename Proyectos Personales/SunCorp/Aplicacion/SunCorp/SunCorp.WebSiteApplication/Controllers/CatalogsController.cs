@@ -1,4 +1,6 @@
-﻿namespace SunCorp.WebSiteApplication.Controllers
+﻿using PagedList;
+
+namespace SunCorp.WebSiteApplication.Controllers
 {
     using System;
     using Newtonsoft.Json;
@@ -57,7 +59,7 @@
         #region UsZona
 
         [SessionExpireFilter]
-        public ActionResult EditCatalogUsZona()
+        public ActionResult EditCatalogUsZona(int? page)
         {
             UpdateBar();
 
@@ -65,12 +67,36 @@
             var servicio = new EntitiesEndpointController(sesion);
 
             var listZonas = servicio.GetListZonas().Result.Where(r => r.Borrado == false).ToList();
+            var totalRows = 0;
+            var list = servicio.GetListUsZonaPageList(0, 2, ref totalRows, false).Result;
 
-            var list = servicio.GetListUsZonaPageList(0, 2, false).Result;
+            const int pageSize = 2;
+            var pageNumber = (page ?? 1);
+            var listaAux = listZonas.ToPagedList(pageNumber, pageSize);
 
             ViewBag.ListCatalogsZonas = listZonas;
 
-            return View("Tables/UsZona");
+            return View("Tables/UsZona",listaAux);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult EditCatalogUsZonaPageList(int? page)
+        {
+            UpdateBar();
+
+            var sesion = (UserSession)Session["Sesion"];
+            var servicio = new EntitiesEndpointController(sesion);
+            var totalRows = 10;
+
+            var list = servicio.GetListUsZonaPageList(0, 2, ref totalRows, false).Result;
+
+            ViewBag.ListCatalogsZonas = list;
+
+            const int pageSize = 2;
+            var pageNumber = (page ?? 1);
+            var listaAux = list.ToPagedList(pageNumber, pageSize);
+
+            return View("Tables/UsZonaPagedList",listaAux);
         }
 
         [SessionExpireFilter]

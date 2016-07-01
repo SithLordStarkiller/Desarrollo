@@ -17,7 +17,7 @@
         List<UsZona> GetListUsZona();
 
         [OperationContract]
-        List<UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete);
+        List<UsZona> GetListUsZonaPageList(int page, int numRows, ref int totalRows, bool includeDelete);
 
         [OperationContract]
         List<UsZona> GetListUsZonasUser(UsUsuarios user);

@@ -13,7 +13,7 @@
         #region UsUsuarios
         public UsUsuarios GetUsUsuarioTSql(UserSession session)
         {
-            var executesqlstr = "SELECT * FROM UsUsuarios WHERE Usuario = '"+ session.User + "' AND Contrasena = '"+ session.Password + "'";
+            var executesqlstr = "SELECT * FROM UsUsuarios WHERE Usuario = '" + session.User + "' AND Contrasena = '" + session.Password + "'";
             // 
             var para = new[]
             {
@@ -51,7 +51,7 @@
         #endregion
 
         #region UsTipoUsuario
-        
+
         public UsTipoUsuario GetTypeUser(UsUsuarios user)
         {
             using (var aux = new Repositorio<UsTipoUsuario>())
@@ -72,18 +72,45 @@
             }
         }
 
-        public List<UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        public List<UsZona> GetListUsZonaPageList(int page, int numRows,ref int totalRows, bool includeDelete)
         {
             var parameters = new[]
             {
                 new SqlParameter("@i_Page_Index", page),
                 new SqlParameter("@i_Page_Count", numRows),
-                new SqlParameter("@o_total_rows",10), 
+                new SqlParameter("@o_total_rows", totalRows) {Direction = ParameterDirection.Output},
                 new SqlParameter("@includeDelete", includeDelete)
             };
+            var obj = new DataTable();
 
-            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
-                "Usp_GetListUsZonaPageList", parameters);
+            using (var con = new SqlConnection(ParametersSql.StrConDbLsWebApp))
+            {
+                using (var cmd = new SqlCommand("Usp_GetListUsZonaPageList", con))
+                {
+                    foreach (var p in parameters)
+                    {
+                        if (p != null)
+                        {
+                            cmd.Parameters.Add(p);
+                        }
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+
+                    using (var da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(obj);
+                        totalRows = Convert.ToInt32(cmd.Parameters["@o_total_rows"].Value);
+                    }
+                }
+            }
+
+
+            //ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
+            //"Usp_GetListUsZonaPageList", parameters);
 
             var resultado = new List<UsZona>();
 

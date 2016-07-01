@@ -22,9 +22,9 @@
             return new EntitiesBussiness().GetListUsZona();
         }
 
-        public List<UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        public List<UsZona> GetListUsZonaPageList(int page, int numRows, ref int totalRows, bool includeDelete)
         {
-            return new EntitiesBussiness().GetListUsZonaPageList(page, numRows, includeDelete);
+            return new EntitiesBussiness().GetListUsZonaPageList(page, numRows, ref totalRows, includeDelete);
         }
 
         public UsZona NewRegUsZona(UsZona zona)

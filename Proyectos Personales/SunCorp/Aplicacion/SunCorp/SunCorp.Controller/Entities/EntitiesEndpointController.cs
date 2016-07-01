@@ -33,9 +33,12 @@
             return Task.Run(() => _servicio.GetListUsZonaAsync());
         }
 
-        public Task<List<UsZona>> GetListUsZonaPageList(int page, int numRows, bool includeDelete)
+        public Task<List<UsZona>> GetListUsZonaPageList(int page, int numRows, ref int totalRows, bool includeDelete)
         {
-            return Task.Run(() => _servicio.GetListUsZonaPageListAsync(page, numRows, includeDelete));
+            var aux = totalRows;
+            var obj = Task.Run(() => _servicio.GetListUsZonaPageList(page, numRows, ref aux, includeDelete));
+            totalRows = aux;
+            return obj;
         }
 
         public Task<UsZona> NewRegUsZona(UsZona zona)

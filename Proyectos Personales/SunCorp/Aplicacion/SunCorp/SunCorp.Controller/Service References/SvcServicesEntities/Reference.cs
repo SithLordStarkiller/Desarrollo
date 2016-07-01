@@ -32,10 +32,11 @@ namespace SunCorp.Controller.SvcServicesEntities {
         System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonaPageList", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaPageListResponse")]
-        System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete);
+        SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListResponse GetListUsZonaPageList(SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListRequest request);
         
+        // CODEGEN: Generating message contract since the operation has multiple return values.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonaPageList", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonaPageListResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaPageListAsync(int page, int numRows, bool includeDelete);
+        System.Threading.Tasks.Task<SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListResponse> GetListUsZonaPageListAsync(SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListUsZonasUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetListUsZonasUserResponse")]
         System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonasUser(SunCorp.Entities.UsUsuarios user);
@@ -66,6 +67,54 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetTypeUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetTypeUserResponse")]
         System.Threading.Tasks.Task<SunCorp.Entities.UsTipoUsuario> GetTypeUserAsync(SunCorp.Entities.UsUsuarios user);
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetListUsZonaPageList", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetListUsZonaPageListRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public int page;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public int numRows;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=2)]
+        public int totalRows;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=3)]
+        public bool includeDelete;
+        
+        public GetListUsZonaPageListRequest() {
+        }
+        
+        public GetListUsZonaPageListRequest(int page, int numRows, int totalRows, bool includeDelete) {
+            this.page = page;
+            this.numRows = numRows;
+            this.totalRows = totalRows;
+            this.includeDelete = includeDelete;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="GetListUsZonaPageListResponse", WrapperNamespace="http://tempuri.org/", IsWrapped=true)]
+    public partial class GetListUsZonaPageListResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=0)]
+        public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageListResult;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://tempuri.org/", Order=1)]
+        public int totalRows;
+        
+        public GetListUsZonaPageListResponse() {
+        }
+        
+        public GetListUsZonaPageListResponse(System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageListResult, int totalRows) {
+            this.GetListUsZonaPageListResult = GetListUsZonaPageListResult;
+            this.totalRows = totalRows;
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -111,12 +160,24 @@ namespace SunCorp.Controller.SvcServicesEntities {
             return base.Channel.GetListUsZonaAsync();
         }
         
-        public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageList(int page, int numRows, bool includeDelete) {
-            return base.Channel.GetListUsZonaPageList(page, numRows, includeDelete);
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListResponse SunCorp.Controller.SvcServicesEntities.IEntitiesServer.GetListUsZonaPageList(SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListRequest request) {
+            return base.Channel.GetListUsZonaPageList(request);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.UsZona>> GetListUsZonaPageListAsync(int page, int numRows, bool includeDelete) {
-            return base.Channel.GetListUsZonaPageListAsync(page, numRows, includeDelete);
+        public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonaPageList(int page, int numRows, ref int totalRows, bool includeDelete) {
+            SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListRequest inValue = new SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListRequest();
+            inValue.page = page;
+            inValue.numRows = numRows;
+            inValue.totalRows = totalRows;
+            inValue.includeDelete = includeDelete;
+            SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListResponse retVal = ((SunCorp.Controller.SvcServicesEntities.IEntitiesServer)(this)).GetListUsZonaPageList(inValue);
+            totalRows = retVal.totalRows;
+            return retVal.GetListUsZonaPageListResult;
+        }
+        
+        public System.Threading.Tasks.Task<SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListResponse> GetListUsZonaPageListAsync(SunCorp.Controller.SvcServicesEntities.GetListUsZonaPageListRequest request) {
+            return base.Channel.GetListUsZonaPageListAsync(request);
         }
         
         public System.Collections.Generic.List<SunCorp.Entities.UsZona> GetListUsZonasUser(SunCorp.Entities.UsUsuarios user) {
