@@ -66,17 +66,15 @@ namespace SunCorp.WebSiteApplication.Controllers
             var sesion = (UserSession)Session["Sesion"];
             var servicio = new EntitiesEndpointController(sesion);
 
-            var listZonas = servicio.GetListZonas().Result.Where(r => r.Borrado == false).ToList();
-            var totalRows = 0;
-            var list = servicio.GetListUsZonaPageList(0, 2, ref totalRows, false).Result;
-
             const int pageSize = 2;
             var pageNumber = (page ?? 1);
-            var listaAux = listZonas.ToPagedList(pageNumber, pageSize);
+
+            var list = servicio.GetListZonas().Result.Where(r => r.Borrado == false).ToList();
+            var listZonas = list.ToPagedList(pageNumber, pageSize);
 
             ViewBag.ListCatalogsZonas = listZonas;
 
-            return View("Tables/UsZona",listaAux);
+            return View("Tables/UsZona", listZonas);
         }
 
         [SessionExpireFilter]
@@ -96,7 +94,7 @@ namespace SunCorp.WebSiteApplication.Controllers
             var pageNumber = (page ?? 1);
             var listaAux = list.ToPagedList(pageNumber, pageSize);
 
-            return View("Tables/UsZonaPagedList",listaAux);
+            return View("Tables/UsZonaPagedList", listaAux);
         }
 
         [SessionExpireFilter]
@@ -151,7 +149,7 @@ namespace SunCorp.WebSiteApplication.Controllers
             var sesion = (UserSession)Session["Sesion"];
             var servicio = new EntitiesEndpointController(sesion);
 
-            var objeto =  new UsZona
+            var objeto = new UsZona
             {
                 IdZona = Convert.ToInt32(idZona),
                 NombreZona = nombreZona,

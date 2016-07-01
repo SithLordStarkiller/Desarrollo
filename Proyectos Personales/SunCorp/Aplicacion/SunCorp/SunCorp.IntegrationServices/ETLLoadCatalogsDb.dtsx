@@ -11,8 +11,8 @@
   DTS:LocaleID="3082"
   DTS:ObjectName="ETLLoadCatalogsDb"
   DTS:PackageType="5"
-  DTS:VersionBuild="78"
-  DTS:VersionGUID="{15BB10E8-08AB-44E2-BC1E-875C173DA453}">
+  DTS:VersionBuild="81"
+  DTS:VersionGUID="{7B4E5DE1-B98F-4A7E-8D78-DB711B5A5799}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -27,7 +27,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGcgQr6DfqUmrusJO+w0eyQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAADqfAp+GI/FgRg8NqxQxPh+RPrPyuZE6XEYAG3OolrGkAAAAAAOgAAAAAIAACAAAACFdhS5PnWs4MZgvQDqHNGppXlYKWl7Zzj7YJqXJHNPGyAAAABc29h+F/ds7BAFbex8YxWLnEUuUKySQsRajO1Y1KUzBUAAAADkCxOVhRpHew9iqHJH95Y6iBrLZOYgO4QF1NbwUeWY7eLrf1nwVzSmtTYsI8g2EwfdXPNEAWXMX9sZHtbp+LBS</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGcgQr6DfqUmrusJO+w0eyQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAuBGGjDCdXgg2Dw46ZgGd2Or/qb4eDg4dnEdfypJ4j3QAAAAAOgAAAAAIAACAAAAAHzB965e9Dmw6Zp7rzldYi1bLauhWaUYH5QFCoTRkPByAAAADzEkruCT7JSA72NRwl9OjdYCs57h2PuPWechwbbt19UEAAAAAnUK7FMPt+E2rdtQmLcfFc/rQ+pN/h9D0jZUlhbqjT1bLTJfD7XJ2/0SODsD4aL4AKbt3lRTTDiUs5QKEEXunS</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -42,7 +42,7 @@
           <DTS:Password
             DTS:Name="Password"
             Sensitive="1"
-            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGcgQr6DfqUmrusJO+w0eyQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAAGUG/SnLf7FLy5KpLHsP24bByWHyuu60reLirodb+S6wAAAAAOgAAAAAIAACAAAAAQ0RINHeaoqXla7pdXzqBV4ly0xqu/Fj2GnQDj8zzHpyAAAADLrJioxDQL+iqqZTaLgj0Ph34dsWTNvAEpbs8PA3SJGkAAAAAu6hy5YfzQJFeIl+LzUcZMbvokdS4ghffvCjlHsnFCGRD7RNI5i2uFwh+x9Hr3DVoaLvMyT9zUb4zimjYdu+IX</DTS:Password>
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGcgQr6DfqUmrusJO+w0eyQAAAAAIAAAARABUAFMAAAAQZgAAAAEAACAAAAC+gYmDqX4sitT9Tn7ip9I3weVCM5MIAVTnkifwT7mR0wAAAAAOgAAAAAIAACAAAADTuy4Fy8FS1aIMbfUiXIVJWJGxje+BDPLcaT9pDUi48yAAAABmhwCeYveS3qpmIZYjhpVclnTxdtSzLINnG377JwV6lEAAAAAyVXvp+p5W0UDh9TiAEHXeRnVGz8Xe/ITf3X/r0d4juGCBxLh5ow0O8pz7LE/Y+rYHJ8glPy4kIGYB6i8H2JyN</DTS:Password>
         </DTS:ConnectionManager>
       </DTS:ObjectData>
     </DTS:ConnectionManager>
@@ -460,7 +460,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
-          SQLTask:SqlStatementSource="&#xA;/****** Object:  StoredProcedure [dbo].[InsertaCatalogosFam]    Script Date: 07/06/2016 18:09:39 ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;CREATE PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#x9;@ID_FAMILIAS int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@FA_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;INSERT INTO SSISTABLEFAMILIAS (ID_FAMILIAS, TITULO, CREADOR, FECHA_CREACION, FA_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_FAMILIAS, @TITULO, @CREADOR, @FECHA_CREACION, @FA_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;Create PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#x9;@ID_MARCAS int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@MA_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;&#xA;INSERT INTO SSISTABLEMARCAS (ID_MARCAS, TITULO, CREADOR, FECHA_CREACION, MA_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_MARCAS, @TITULO, @CREADOR, @FECHA_CREACION, @MA_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;Create PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#x9;@ID_DIVICIONES int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@DIV_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;&#xA;INSERT INTO SSISTABLEDIVICIONES (ID_DIVICIONES, TITULO, CREADOR, FECHA_CREACION, DIV_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_DIVICIONES, @TITULO, @CREADOR, @FECHA_CREACION, @DIV_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;CREATE PROCEDURE [dbo].[ETLInsertCatalogsProductos]&#xA;&#x9;@ID_PRODUCTOS INT,&#xA;&#x9;@TITULO VARCHAR(MAX),&#xA;&#x9;@CREADOR VARCHAR(MAX),&#xA;&#x9;@FECHA_CREACION VARCHAR(MAX),&#xA;&#x9;@PR_CODBAR VARCHAR(MAX),&#xA;&#x9;@PR_NOMBRE VARCHAR(MAX),&#xA;&#x9;@PR_MODELO VARCHAR(MAX),&#xA;&#x9;@PR_OBSERVACIONES VARCHAR(MAX),&#xA;&#x9;@PR_HAYSERIES VARCHAR(MAX),&#xA;&#x9;@PR_REPARABLE VARCHAR(MAX),&#xA;&#x9;@ID_MARCAS INT,&#xA;&#x9;@ID_DIVISIONES INT,&#xA;&#x9;@ID_FAMILIAS INT,&#xA;&#x9;@TITULODETALLE VARCHAR(MAX),&#xA;&#x9;@PR_VALSERIE VARCHAR (MAX),&#xA;&#x9;@PR_FECVENTA VARCHAR(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;INSERT INTO SSISTABLEPRODUCTOS (ID_PRODUCTOS, TITULO, CREADOR,FECHA_CREACION, PR_CODBAR, PR_NOMBRE, PR_MODELO, PR_OBSERVACIONES, PR_HAYSERIES, PR_REPARABLE, ID_MARCAS, ID_DIVISIONES, ID_FAMILIAS, TITULODETALLE, PR_VALSERIE, PR_FECVENTA)&#xA;VALUES (@ID_PRODUCTOS, @TITULO,&#x9;@CREADOR, @FECHA_CREACION, @PR_CODBAR, @PR_NOMBRE, @PR_MODELO, @PR_OBSERVACIONES, @PR_HAYSERIES, @PR_REPARABLE, @ID_MARCAS, @ID_DIVISIONES,&#x9;@ID_FAMILIAS, @TITULODETALLE, @PR_VALSERIE,&#x9;@PR_FECVENTA)&#xA;&#xA;END&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="&#xA;/****** Object:  StoredProcedure [dbo].[InsertaCatalogosFam]    Script Date: 07/06/2016 18:09:39 ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;CREATE PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#x9;@ID_FAMILIAS int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@FA_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;INSERT INTO SSISTABLEFAMILIAS (ID_FAMILIAS, TITULO, CREADOR, FECHA_CREACION, FA_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_FAMILIAS, @TITULO, @CREADOR, @FECHA_CREACION, @FA_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;Create PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#x9;@ID_MARCAS int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@MA_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;&#xA;INSERT INTO SSISTABLEMARCAS (ID_MARCAS, TITULO, CREADOR, FECHA_CREACION, MA_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_MARCAS, @TITULO, @CREADOR, @FECHA_CREACION, @MA_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;Create PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#x9;@ID_DIVICIONES int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@DIV_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;&#xA;INSERT INTO SSISTABLEDIVICIONES (ID_DIVICIONES, TITULO, CREADOR, FECHA_CREACION, DIV_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_DIVICIONES, @TITULO, @CREADOR, @FECHA_CREACION, @DIV_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;CREATE PROCEDURE [dbo].[ETLInsertCatalogsProductos]&#xA;&#x9;@ID_PRODUCTOS INT,&#xA;&#x9;@TITULO VARCHAR(MAX),&#xA;&#x9;@CREADOR VARCHAR(MAX),&#xA;&#x9;@FECHA_CREACION VARCHAR(MAX),&#xA;&#x9;@PR_CODBAR VARCHAR(MAX),&#xA;&#x9;@PR_NOMBRE VARCHAR(MAX),&#xA;&#x9;@PR_MODELO VARCHAR(MAX),&#xA;&#x9;@PR_OBSERVACIONES VARCHAR(MAX),&#xA;&#x9;@PR_HAYSERIES VARCHAR(MAX),&#xA;&#x9;@PR_REPARABLE VARCHAR(MAX),&#xA;&#x9;@ID_MARCAS INT,&#xA;&#x9;@ID_DIVISIONES INT,&#xA;&#x9;@ID_FAMILIAS INT,&#xA;&#x9;@TITULODETALLE VARCHAR(MAX),&#xA;&#x9;@PR_VALSERIE VARCHAR (MAX),&#xA;&#x9;@PR_FECVENTA VARCHAR(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;INSERT INTO SSISTABLEPRODUCTOS (ID_PRODUCTOS, TITULO, CREADOR,FECHA_CREACION, PR_CODBAR, PR_NOMBRE, PR_MODELO, PR_OBSERVACIONES, PR_HAYSERIES, PR_REPARABLE, ID_MARCAS, ID_DIVISIONES, ID_FAMILIAS, TITULODETALLE, PR_VALSERIE, PR_FECVENTA)&#xA;VALUES (@ID_PRODUCTOS, @TITULO,&#x9;@CREADOR, @FECHA_CREACION, @PR_CODBAR, @PR_NOMBRE, @PR_MODELO, @PR_OBSERVACIONES, @PR_HAYSERIES, @PR_REPARABLE, @ID_MARCAS, @ID_DIVISIONES,&#x9;@ID_FAMILIAS, @TITULODETALLE, @PR_VALSERIE,&#x9;@PR_FECVENTA)&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;CREATE PROCEDURE Usp_ETLLoadTableCatalogsProduct &#xA;AS&#xA;BEGIN&#xA;---------------------------------------------Inserta Registros ProFamilias-------------------------------------------------------------------&#xA;&#xA;&#x9;INSERT INTO ProFamilias (IdFamilia, NombreFamilia, Descripcion, Creador,FechaCreacion,Borrado) &#xA;&#x9;SELECT  &#xA;&#x9;ROW_NUMBER() OVER(order by o.FA_NOMBRE) AS IdTable,&#xA;&#x9;FA_NOMBRE,&#xA;&#x9;TITULO,&#xA;&#x9;'ETL',&#xA;&#x9;GETDATE(),&#xA;&#x9;0&#xA;&#x9;FROM SSISTABLEFAMILIAS AS o&#xA;&#x9;GROUP BY&#xA;&#x9;FA_NOMBRE,TITULO&#xA;&#xA;------------------------------------------------Inserta Registros MARCAS --------------------------------------------------------------------&#xA;&#x9;&#xA;&#x9;INSERT INTO ProCatMarca (IdMarca, NombreMarca, Descripcion, Creador, FechaCreacion,Borrado) &#xA;&#x9;SELECT&#xA;&#x9;ROW_NUMBER() OVER(order by o.MA_NOMBRE) AS IdTable&#xA;&#x9;, MA_NOMBRE&#xA;&#x9;, TITULO&#xA;&#x9;, 'ETL'&#xA;&#x9;, GETDATE()&#xA;&#x9;, 0&#xA;&#x9;FROM SSISTABLEMARCAS AS o&#xA;&#x9;Group By &#xA;&#x9;MA_NOMBRE,TITULO&#xA;&#xA;-------------------------------------------------Inserta Registros Modelos -------------------------------------------------------------------&#xA;&#xA;&#x9;INSERT INTO ProCatModelo (IdModelo, IdMarca, NombreModelo, Descripcion, Creador, FechaCreacion, Borrado)&#xA;&#x9;SELECT&#xA;&#x9;ROW_NUMBER() OVER(order by O.PR_MODELO) AS IdTable&#xA;&#x9;, (SELECT IdMarca FROM ProCatMarca WHERE NombreMarca = M.MA_NOMBRE) AS IdModel&#xA;&#x9;, O.PR_MODELO&#xA;&#x9;, O.TITULO&#xA;&#x9;, 'ETL'&#xA;&#x9;, GETDATE()&#xA;&#x9;, 0&#xA;&#x9;FROM SSISTABLEPRODUCTOS AS O&#xA;    INNER JOIN SSISTABLEMARCAS AS M ON O.ID_MARCAS = M.ID_MARCAS&#xA;&#x9;GROUP BY O.PR_MODELO,M.MA_NOMBRE, O.PR_NOMBRE, O.TITULO&#xA;&#xA;-------------------------------------------------Inserta Registros Diviciones -------------------------------------------------------------------&#xA;&#xA;&#x9;INSERT INTO ProDiviciones(IdDivicion, NombreDivicion, Descripcion, Creador, FechaCreacion, Borrado)&#xA;&#x9;SELECT&#xA;&#x9;ROW_NUMBER() OVER(order by O.DIV_NOMBRE) AS IdTable&#xA;&#x9;, DIV_NOMBRE&#xA;&#x9;, TITULO&#xA;&#x9;, 'ETL'&#xA;&#x9;, GETDATE()&#xA;&#x9;, 0&#xA;&#x9;FROM SSISTABLEDIVICIONES AS O&#xA;&#x9;GROUP BY O.DIV_NOMBRE, O.TITULO&#xA;&#xA;------------------------------------------------Inserta Registro de Productos ---------------------------------------------------------------&#xA;&#x9;&#xA;&#x9;SET IDENTITY_INSERT ProProducto ON&#xA;&#xA;&#x9;INSERT INTO ProProducto (IdProducto, IdModelo, IdMarca, IdFamilia, IdDivicion, NombreProducto, Descripcion&#xA;&#x9;, CodigoBarras, Detalles, EsReparable, HaySeries, Borrado, Creador, FechaCreacion)&#xA;&#x9;SELECT &#xA;&#x9;ROW_NUMBER() OVER (ORDER BY SP.PR_NOMBRE)&#xA;&#x9;,(SELECT MO.IdModelo FROM ProCatModelo AS MO INNER JOIN ProCatMarca MA ON MO.IdMarca = MA.IdMarca WHERE MO.NombreModelo = SP.PR_MODELO GROUP BY MO.IdModelo)&#xA;&#x9;,(SELECT MA.IdMarca FROM ProCatMarca AS MA WHERE MA.NombreMarca = SM.MA_NOMBRE)&#xA;&#x9;,(SELECT PF.IdFamilia FROM ProFamilias AS PF  WHERE pf.NombreFamilia = SF.FA_NOMBRE)&#xA;&#x9;,(SELECT PD.IdDivicion FROM ProDiviciones AS PD WHERE PD.NombreDivicion = SD.DIV_NOMBRE)&#xA;&#x9;,SP.PR_NOMBRE&#xA;&#x9;,SP.TITULO&#xA;&#x9;,SP.PR_CODBAR&#xA;&#x9;,SP.PR_OBSERVACIONES&#xA;&#x9;,SP.PR_REPARABLE&#xA;&#x9;,SP.PR_HAYSERIES&#xA;&#x9;,0&#xA;&#x9;,'ETL'&#xA;&#x9;,GETDATE()&#xA;&#x9;FROM SSISTABLEPRODUCTOS SP&#xA;&#x9;INNER JOIN SSISTABLEMARCAS SM ON SP.ID_MARCAS = SM.ID_MARCAS&#xA;&#x9;INNER JOIN SSISTABLEDIVICIONES SD ON SP.ID_DIVISIONES = SD.ID_DIVICIONES&#xA;&#x9;INNER JOIN SSISTABLEFAMILIAS SF ON SP.ID_FAMILIAS = SF.ID_FAMILIAS&#xA;&#x9;GROUP BY SP.PR_NOMBRE,SP.PR_MODELO,sm.MA_NOMBRE, SD.DIV_NOMBRE, SP.TITULO, FA_NOMBRE,SP.PR_CODBAR, SP.PR_OBSERVACIONES, SP.PR_REPARABLE, SP.PR_HAYSERIES&#xA;&#xA;&#x9;SET IDENTITY_INSERT ProProducto OFF&#xA;&#xA;END&#xA;GO&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -489,30 +489,12 @@
       DTS:LocaleID="-1"
       DTS:ObjectName="Delete Temporal Tables"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <SQLTask:SqlTaskData
-          SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
-          SQLTask:SqlStatementSource="&#xA;DROP TABLE SSISTABLEFAMILIAS&#xA;DROP TABLE SSISTABLEMARCAS&#xA;DROP TABLE SSISTABLEDIVICIONES&#xA;DROP TABLE SSISTABLEPRODUCTOS&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsProductos]"
-          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
-      DTS:refId="Package\Execute SQL Task"
-      DTS:CreationName="Microsoft.ExecuteSQLTask"
-      DTS:Description="Execute SQL Task"
-      DTS:DTSID="{EBC3B710-F0FF-451A-B32B-52402CB1B1BF}"
-      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="Execute SQL Task"
-      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
       DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
-          SQLTask:SqlStatementSource="&#xA;--DROP TABLE SSISTABLEFAMILIAS&#xA;--DROP TABLE SSISTABLEMARCAS&#xA;--DROP TABLE SSISTABLEDIVICIONES&#xA;--DROP TABLE SSISTABLEPRODUCTOS&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsProductos]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="&#xA;DROP TABLE SSISTABLEFAMILIAS&#xA;DROP TABLE SSISTABLEMARCAS&#xA;DROP TABLE SSISTABLEDIVICIONES&#xA;DROP TABLE SSISTABLEPRODUCTOS&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsProductos]&#xA;&#xA;DROP PROCEDURE [dbo].[Usp_ETLLoadTableCatalogsProduct]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -1092,6 +1074,23 @@
       </DTS:ForEachVariableMappings>
     </DTS:Executable>
     <DTS:Executable
+      DTS:refId="Package\Load and Sort Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EBC3B710-F0FF-451A-B32B-52402CB1B1BF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load and Sort Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+          SQLTask:SqlStatementSource="EXEC Usp_ETLLoadTableCatalogsProduct" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Obtain Table Diviciones"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
@@ -1204,7 +1203,7 @@
       DTS:From="Package\Insert Temporal Table Productos"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 10"
-      DTS:To="Package\Execute SQL Task" />
+      DTS:To="Package\Load and Sort Tables" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -1264,12 +1263,11 @@
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
       DTS:CreationName=""
-      DTS:DTSID="{8D2CBF6E-51A9-49AB-A4DE-39C6BFADB8BA}"
-      DTS:From="Package\Insert Temporal Table Productos"
+      DTS:DTSID="{7CC205B1-6AC0-4D13-94B0-458743F620A8}"
+      DTS:From="Package\Load and Sort Tables"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 9"
-      DTS:To="Package\Delete Temporal Tables"
-      DTS:Value="1" />
+      DTS:To="Package\Delete Temporal Tables" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1282,7 +1280,7 @@
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="199,42"
           Id="Package\Create Stored Procedures"
@@ -1294,11 +1292,11 @@
         <NodeLayout
           Size="191,42"
           Id="Package\Delete Temporal Tables"
-          TopLeft="1013,247" />
+          TopLeft="975,283" />
         <NodeLayout
-          Size="163,42"
-          Id="Package\Execute SQL Task"
-          TopLeft="1021,91" />
+          Size="179,42"
+          Id="Package\Load and Sort Tables"
+          TopLeft="985,94" />
         <NodeLayout
           Size="205,42"
           Id="Package\Insert Temporal Table Diviciones\Insert Row data Diviciones"
@@ -1342,7 +1340,7 @@
           PanelSize="262,99"
           Size="262,142"
           Id="Package\Insert Temporal Table Productos"
-          TopLeft="524,40" />
+          TopLeft="524,44" />
         <NodeLayout
           Size="189,42"
           Id="Package\Obtain Table Diviciones"
@@ -1405,18 +1403,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 10]"
-          TopLeft="786,111.5">
+          TopLeft="786,115">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="235,0"
+              EndConnector="199,0"
               Start="0,0"
-              End="227.5,0">
+              End="191.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="227.5,0" />
+                    End="191.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1537,30 +1535,18 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
-          TopLeft="658.5,255">
+          TopLeft="656.75,255">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-45.8333333333334,-73"
+              EndConnector="0,-69"
               Start="0,0"
-              End="-45.8333333333334,-65.5">
+              End="0,-61.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,-39.5341426403642" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,-39.5341426403642"
-                    Point2="0,-43.5341426403642"
-                    Point3="-4,-43.5341426403642" />
-                  <mssgle:LineSegment
-                    End="-41.8333333333334,-43.5341426403642" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-41.8333333333334,-43.5341426403642"
-                    Point2="-45.8333333333334,-43.5341426403642"
-                    Point3="-45.8333333333334,-47.5341426403642" />
-                  <mssgle:LineSegment
-                    End="-45.8333333333334,-65.5" />
+                    End="0,-61.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1593,38 +1579,24 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 9]"
-          TopLeft="697.333333333333,182">
+          TopLeft="1072.5,136">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="411.166666666667,65"
+              EndConnector="0,147"
               Start="0,0"
-              End="411.166666666667,57.5">
+              End="0,139.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,22.2367223065251" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,22.2367223065251"
-                    Point2="0,26.2367223065251"
-                    Point3="4,26.2367223065251" />
-                  <mssgle:LineSegment
-                    End="407.166666666667,26.2367223065251" />
-                  <mssgle:CubicBezierSegment
-                    Point1="407.166666666667,26.2367223065251"
-                    Point2="411.166666666667,26.2367223065251"
-                    Point3="411.166666666667,30.2367223065251" />
-                  <mssgle:LineSegment
-                    End="411.166666666667,57.5" />
+                    End="0,139.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="194.341985677083,38.5022761760243,30.4826953125,9.7490234375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

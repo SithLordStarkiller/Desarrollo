@@ -1,21 +1,5 @@
-
-DROP TABLE SSISTABLEFAMILIAS
-DROP TABLE SSISTABLEMARCAS
-DROP TABLE SSISTABLEDIVICIONES
-DROP TABLE SSISTABLEPRODUCTOS
-
-DROP PROCEDURE [dbo].[ETLInsertaCatalogosFam]
-
-
-DROP PROCEDURE [dbo].[ETLInsertCatalogsMarcas]
-
-
-DROP PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]
-
-DROP PROCEDURE [dbo].[ETLInsertCatalogsProductos]
-
-SELECT * FROM ProFamilias
-DELETE  ProFamilias
-
-SELECT * FROM ProCatMarca
-DELETE ProCatMarca
+SELECT 
+	PP.NombreProducto 
+	,PCMA.NombreMarca
+FROM ProProducto AS PP
+INNER JOIN ProCatMarca AS PCMA ON PP.IdMarca = PCMA.IdMarca
