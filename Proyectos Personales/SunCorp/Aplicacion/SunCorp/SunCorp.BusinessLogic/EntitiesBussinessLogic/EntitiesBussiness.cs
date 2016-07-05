@@ -62,5 +62,53 @@
         }
 
         #endregion
+
+        #region ProCatMarca
+
+        public List<ProCatMarca> GetListProCatMarca()
+        {
+            return new EntitiesAccess().GetListProCatMarca();
+        }
+
+        public ProCatMarca NewRegProCatMarca(ProCatMarca reg)
+        {
+            return new EntitiesAccess().NewRegProCatMarca(reg);
+        }
+
+        public bool UpdateRegProCatMarca(ProCatMarca reg)
+        {
+            return new EntitiesAccess().UpdateRegProCatMarca(reg);
+        }
+
+        public bool DeleteRegProCatMarca(ProCatMarca reg)
+        {
+            return new EntitiesAccess().DeleteRegProCatMarca(reg);
+        }
+
+        #endregion
+
+        #region ProCatModelo
+
+        public List<ProCatModelo> GetListProCatModelo()
+        {
+            return new EntitiesAccess().GetListProCatModelo();
+        }
+
+        public ProCatModelo NewRegProCatModelo(ProCatModelo reg)
+        {
+            return new EntitiesAccess().NewRegProCatModelo(reg);
+        }
+
+        public bool UpdateRegProCatModelo(ProCatModelo reg)
+        {
+            return new EntitiesAccess().UpdateRegProCatModelo(reg);
+        }
+
+        public bool DeleteRegProCatModelo(ProCatModelo reg)
+        {
+            return new EntitiesAccess().DeleteRegProCatModelo(reg);
+        }
+
+        #endregion
     }
 }

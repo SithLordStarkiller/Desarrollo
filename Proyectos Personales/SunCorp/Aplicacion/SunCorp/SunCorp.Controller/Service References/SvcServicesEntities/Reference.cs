@@ -20,6 +20,10 @@ namespace SunCorp.Controller.SvcServicesEntities {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<SunCorp.Entities.UsZona>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.UsZona))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.UsTipoUsuario))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<SunCorp.Entities.ProCatMarca>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.ProCatMarca))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<SunCorp.Entities.ProCatModelo>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.ProCatModelo))]
         SunCorp.Entities.UsUsuarios GetUsUsuarios(SunCorp.Entities.Generic.UserSession session);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
@@ -67,6 +71,54 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetTypeUser", ReplyAction="http://tempuri.org/IEntitiesServer/GetTypeUserResponse")]
         System.Threading.Tasks.Task<SunCorp.Entities.UsTipoUsuario> GetTypeUserAsync(SunCorp.Entities.UsUsuarios user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/GetListProCatMarcaResponse")]
+        System.Collections.Generic.List<SunCorp.Entities.ProCatMarca> GetListProCatMarca();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/GetListProCatMarcaResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.ProCatMarca>> GetListProCatMarcaAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegProCatMarcaResponse")]
+        SunCorp.Entities.ProCatMarca NewRegProCatMarca(SunCorp.Entities.ProCatMarca reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegProCatMarcaResponse")]
+        System.Threading.Tasks.Task<SunCorp.Entities.ProCatMarca> NewRegProCatMarcaAsync(SunCorp.Entities.ProCatMarca reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegProCatMarcaResponse")]
+        bool UpdateRegProCatMarca(SunCorp.Entities.ProCatMarca reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegProCatMarcaResponse")]
+        System.Threading.Tasks.Task<bool> UpdateRegProCatMarcaAsync(SunCorp.Entities.ProCatMarca reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProCatMarcaResponse")]
+        bool DeleteRegProCatMarca(SunCorp.Entities.ProCatMarca reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProCatMarca", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProCatMarcaResponse")]
+        System.Threading.Tasks.Task<bool> DeleteRegProCatMarcaAsync(SunCorp.Entities.ProCatMarca reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/GetListProCatModeloResponse")]
+        System.Collections.Generic.List<SunCorp.Entities.ProCatModelo> GetListProCatModelo();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/GetListProCatModeloResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.ProCatModelo>> GetListProCatModeloAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegProCatModeloResponse")]
+        SunCorp.Entities.ProCatModelo NewRegProCatModelo(SunCorp.Entities.ProCatModelo reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegProCatModeloResponse")]
+        System.Threading.Tasks.Task<SunCorp.Entities.ProCatModelo> NewRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegProCatModeloResponse")]
+        bool UpdateRegProCatModelo(SunCorp.Entities.ProCatModelo reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegProCatModeloResponse")]
+        System.Threading.Tasks.Task<bool> UpdateRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProCatModeloResponse")]
+        bool DeleteRegProCatModelo(SunCorp.Entities.ProCatModelo reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProCatModeloResponse")]
+        System.Threading.Tasks.Task<bool> DeleteRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -218,6 +270,70 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         public System.Threading.Tasks.Task<SunCorp.Entities.UsTipoUsuario> GetTypeUserAsync(SunCorp.Entities.UsUsuarios user) {
             return base.Channel.GetTypeUserAsync(user);
+        }
+        
+        public System.Collections.Generic.List<SunCorp.Entities.ProCatMarca> GetListProCatMarca() {
+            return base.Channel.GetListProCatMarca();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.ProCatMarca>> GetListProCatMarcaAsync() {
+            return base.Channel.GetListProCatMarcaAsync();
+        }
+        
+        public SunCorp.Entities.ProCatMarca NewRegProCatMarca(SunCorp.Entities.ProCatMarca reg) {
+            return base.Channel.NewRegProCatMarca(reg);
+        }
+        
+        public System.Threading.Tasks.Task<SunCorp.Entities.ProCatMarca> NewRegProCatMarcaAsync(SunCorp.Entities.ProCatMarca reg) {
+            return base.Channel.NewRegProCatMarcaAsync(reg);
+        }
+        
+        public bool UpdateRegProCatMarca(SunCorp.Entities.ProCatMarca reg) {
+            return base.Channel.UpdateRegProCatMarca(reg);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateRegProCatMarcaAsync(SunCorp.Entities.ProCatMarca reg) {
+            return base.Channel.UpdateRegProCatMarcaAsync(reg);
+        }
+        
+        public bool DeleteRegProCatMarca(SunCorp.Entities.ProCatMarca reg) {
+            return base.Channel.DeleteRegProCatMarca(reg);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteRegProCatMarcaAsync(SunCorp.Entities.ProCatMarca reg) {
+            return base.Channel.DeleteRegProCatMarcaAsync(reg);
+        }
+        
+        public System.Collections.Generic.List<SunCorp.Entities.ProCatModelo> GetListProCatModelo() {
+            return base.Channel.GetListProCatModelo();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.ProCatModelo>> GetListProCatModeloAsync() {
+            return base.Channel.GetListProCatModeloAsync();
+        }
+        
+        public SunCorp.Entities.ProCatModelo NewRegProCatModelo(SunCorp.Entities.ProCatModelo reg) {
+            return base.Channel.NewRegProCatModelo(reg);
+        }
+        
+        public System.Threading.Tasks.Task<SunCorp.Entities.ProCatModelo> NewRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg) {
+            return base.Channel.NewRegProCatModeloAsync(reg);
+        }
+        
+        public bool UpdateRegProCatModelo(SunCorp.Entities.ProCatModelo reg) {
+            return base.Channel.UpdateRegProCatModelo(reg);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg) {
+            return base.Channel.UpdateRegProCatModeloAsync(reg);
+        }
+        
+        public bool DeleteRegProCatModelo(SunCorp.Entities.ProCatModelo reg) {
+            return base.Channel.DeleteRegProCatModelo(reg);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg) {
+            return base.Channel.DeleteRegProCatModeloAsync(reg);
         }
     }
 }

@@ -37,6 +37,33 @@
 
         #endregion
 
+        #region ListCatalogProducts
+
+        public List<GenericTable> GetListCatalogsProducts()
+        {
+            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
+                "Usp_GetListCatalogsProducts", null);
+
+            var resultado = new List<GenericTable>();
+
+            if (obj != null)
+            {
+                resultado = (from DataRow row in obj.Rows
+                             select new GenericTable
+                             {
+                                 IdTable = Convert.ToInt32(row["IdTable"]),
+                                 TableName = (string)row["TableName"],
+                                 TableDescription = (string)row["Descriptions"],
+                                 Deleted = false
+                             }).ToList();
+            }
+
+            return resultado;
+        }
+
+        #endregion
+
+
         #region TreeMenu
 
         public List<SisArbolMenu> GetListMenu()

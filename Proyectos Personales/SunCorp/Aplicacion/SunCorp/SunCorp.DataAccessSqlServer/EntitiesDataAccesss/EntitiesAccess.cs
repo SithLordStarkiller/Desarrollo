@@ -68,7 +68,7 @@
         {
             using (var aux = new Repositorio<UsZona>())
             {
-                return aux.TablaCompleta();
+                return aux.TablaCompleta().Where(r => r.Borrado == false).ToList();
             }
         }
 
@@ -87,12 +87,18 @@
             {
                 using (var cmd = new SqlCommand("Usp_GetListUsZonaPageList", con))
                 {
-                    foreach (var p in parameters)
+
+                    //foreach (var p in parameters)
+                    //{
+                    //    if (p != null)
+                    //    {
+                    //        cmd.Parameters.Add(p);
+                    //    }
+                    //}
+
+                    foreach (var p in parameters.Where(p => p != null))
                     {
-                        if (p != null)
-                        {
-                            cmd.Parameters.Add(p);
-                        }
+                        cmd.Parameters.Add(p);
                     }
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -112,16 +118,11 @@
             //ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
             //"Usp_GetListUsZonaPageList", parameters);
 
-            var resultado = new List<UsZona>();
-
-            if (obj != null)
-            {
-                resultado = (from DataRow row in obj.Rows
-                             select new UsZona
-                             {
-                                 IdZona = (int)row["IdZona"]
-                             }).ToList();
-            }
+            var resultado = (from DataRow row in obj.Rows
+                select new UsZona
+                {
+                    IdZona = (int)row["IdZona"]
+                }).ToList();
 
             return resultado;
         }
@@ -180,6 +181,78 @@
             using (var aux = new Repositorio<SisTipoUsuarioPorMenu>())
             {
                 return aux.Filtro(r => r.IdTipoUsuario == user.IdTipoUsuario);
+            }
+        }
+
+        #endregion
+
+        #region ProCatMarca
+
+        public List<ProCatMarca> GetListProCatMarca()
+        {
+            using (var aux = new Repositorio<ProCatMarca>())
+            {
+                return aux.TablaCompleta().Where(r=> r.Borrado == false).ToList();
+            }
+        }
+
+        public ProCatMarca NewRegProCatMarca(ProCatMarca reg)
+        {
+            using (var aux = new Repositorio<ProCatMarca>())
+            {
+                return aux.Agregar(reg);
+            }
+        }
+
+        public bool UpdateRegProCatMarca(ProCatMarca reg)
+        {
+            using (var aux = new Repositorio<ProCatMarca>())
+            {
+                return aux.Actualizar(reg);
+            }
+        }
+
+        public bool DeleteRegProCatMarca(ProCatMarca reg)
+        {
+            using (var aux = new Repositorio<ProCatMarca>())
+            {
+                return aux.Eliminar(reg);
+            }
+        }
+
+        #endregion
+
+        #region ProCatModelo
+
+        public List<ProCatModelo> GetListProCatModelo()
+        {
+            using (var aux = new Repositorio<ProCatModelo>())
+            {
+                return aux.TablaCompleta().Where(r => r.Borrado == false).ToList();
+            }
+        }
+
+        public ProCatModelo NewRegProCatModelo(ProCatModelo reg)
+        {
+            using (var aux = new Repositorio<ProCatModelo>())
+            {
+                return aux.Agregar(reg);
+            }
+        }
+
+        public bool UpdateRegProCatModelo(ProCatModelo reg)
+        {
+            using (var aux = new Repositorio<ProCatModelo>())
+            {
+                return aux.Actualizar(reg);
+            }
+        }
+
+        public bool DeleteRegProCatModelo(ProCatModelo reg)
+        {
+            using (var aux = new Repositorio<ProCatModelo>())
+            {
+                return aux.Eliminar(reg);
             }
         }
 

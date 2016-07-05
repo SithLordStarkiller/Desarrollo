@@ -1,10 +1,11 @@
-﻿@model PagedList.IPagedList<UsZona>
+﻿@model PagedList.IPagedList<ProCatModelo>
 @using PagedList.Mvc
 @using SunCorp.Entities
 @{
-    ViewBag.Title = "UsZona";
+    ViewBag.Title = "ProCatMarca";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
-    //var listZonas = (List<UsZona>)ViewBag.ListCatalogsZonas;
+
+    var listMarca = ViewBag.ListMarcas;
 }
 @section Head
 {
@@ -15,34 +16,38 @@
 @section Scripts
 {
     <script type="text/javascript">
-        function show_modal(modalName, idZona, nombreZona, descripcion) {
-            $("#txtIdZonaActualiza").val(idZona);
-            $("#txtNombreZonaActualiza").val(nombreZona);
+        function show_modal(modalName, idMarca, nombreMarca, descripcion, creador, fechaCreacion, borrado) {
+            debugger;
+            $("#txtIdMarcaActualiza").val(idMarca);
+            $("#txtNombreMarcaActualiza").val(nombreMarca);
             $("#txtDescripcionActualiza").val(descripcion);
+            $("#txtCreadorActualiza").val(creador);
+            $("#txtFechaCreacionActualiza").val(fechaCreacion);
+            $("#txtBorradoActualiza").val(borrado);
             $('#' + modalName + '').modal('show');
         }
 
         function Nuevo() {
-            $("#txtIdZonaNuevo").val('');
-            $("#txtNombreZonaNuevo").val('');
+            $("#txtIdMarcaNuevo").val('');
+            $("#txtNombreMarcaNuevo").val('');
             $("#txtDescripcionNuevo").val('');
             $('#modalNuevoRegistro').modal('show');
         }
 
         function NuevoRegistro() {
 
-            var idZona = $("#txtIdZonaNuevo").val();
-            var nombreZona = $("#txtNombreZonaNuevo").val();
+            var idMarca = $("#txtIdMarcaNuevo").val();
+            var nombreMarca = $("#txtNombreMarcaNuevo").val();
             var descripcion = $("#txtDescripcionNuevo").val();
 
             $.ajax({
                 type: "POST",
                 data: {
-                    'idZona': idZona,
-                    'nombreZona': nombreZona,
+                    'idMarca': idMarca,
+                    'nombreMarca': nombreMarca,
                     'descripcion': descripcion
                 },
-                url: '@Url.Action("NewRegUsZona", "Catalogs")',
+                url: '@Url.Action("NewRegProCatMarca", "Catalogs")',
                 success: function(response) {
                     $('#modalNuevoRegistro').modal('hide');
 
@@ -62,18 +67,26 @@
 
         function Actualiza() {
 
-            var idZona = $("#txtIdZonaActualiza").val();
-            var nombreZona = $("#txtNombreZonaActualiza").val();
+            var idMarca = $("#txtIdMarcaActualiza").val();
+            var nombrMarca = $("#txtNombreMarcaActualiza").val();
             var descripcion = $("#txtDescripcionActualiza").val();
+            var creador = $("#txtCreadorActualiza").val();
+            var fechaCreacion = $("#txtFechaCreacionActualiza").val();
+            var borrado = $("#txtBorradoActualiza").val();
+
+            debugger;
 
             $.ajax({
                 type: "POST",
                 data: {
-                    'idZona': idZona,
-                    'nombreZona': nombreZona,
-                    'descripcion': descripcion
+                    'idMarca': idMarca,
+                    'nombreMarca' : nombrMarca,
+                    'descripcion': descripcion,
+                    'creador': creador,
+                    'fechaCreacion' : fechaCreacion,
+                    'borrado' : borrado
                 },
-                url: '@Url.Action("UpdateRegUsZonas", "Catalogs")',
+                url: '@Url.Action("UpdateRegProCatMarca", "Catalogs")',
                 success: function(response) {
 
                     $('#modalActualizaRegistro').modal('hide');
@@ -92,16 +105,16 @@
             });
         }
 
-        function Ver(modalName, idZona, nombreZona, descripcion) {
-            $("#txtIdZonaVer").val(idZona);
-            $("#txtNombreZonaVer").val(nombreZona);
+        function Ver(modalName, idMarca, nombreMarca, descripcion) {
+            $("#txtIdZonaVer").val(idMarca);
+            $("#txtNombreZonaVer").val(nombreMarca);
             $("#txtDescripcionVer").val(descripcion);
             $('#modalVerRegistro').modal('show');
         }
     </script>
 }
 
-<div class="col-md-12">
+<div class="col-md-10 col-lg-offset-1">
     <br />
     <br />
 
@@ -109,15 +122,15 @@
 
     <h5>En este catalogo se muestran las zonas que se tiene en la republica</h5>
 
-    <br/>
+    <br />
 
     <table class="table">
         <tr>
             <th>
-                IdZona
+                IdMarca
             </th>
             <th>
-                Nombre de la Zona
+                Nombre de la Marca
             </th>
             <th>
                 Descripcion
@@ -131,26 +144,26 @@
         {
             <tr>
                 <td>
-                    @item.IdZona
+                    @item.IdMarca
                 </td>
                 <td>
-                    @item.NombreZona
+                    @item.NombreModelo
                 </td>
                 <td>
                     @item.Descripcion
                 </td>
                 <td style="align-content: center;">
-                    <a id="btnEliminar" href="@Url.Action("EliminaCarCatCarreras", "Catalogs", new {idZona = item.IdZona, nombreZona = item.NombreZona, descripcion = item.Descripcion})" class="btn btn-default btn-sm">Elimina</a>
-                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro', '@item.IdZona', '@item.NombreZona', '@item.Descripcion')">Editar</button>
-                    <button name="btnVer" class="btn btn-default btn-sm" onclick="Ver('modalVerRegistro', '@item.IdZona', '@item.NombreZona', '@item.Descripcion')">ver</button>
+                    @*<a id="btnEliminar" href="@Url.Action("DeleteProCatMarca", "Catalogs", new {idMarca = item.IdMarca,nombreMarca = item.NombreMarca, descripcion = item.Descripcion,creador = item.Creador,fechaCreacion = item.FechaCreacion, borrado = item.Borrado})" class="btn btn-default btn-sm">Elimina</a>
+                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro', '@item.IdMarca', '@item.NombreMarca', '@item.Descripcion','@item.Creador','@item.FechaCreacion','@item.Borrado.ToString()')">Editar</button>
+                    <button name="btnVer" class="btn btn-default btn-sm" onclick="Ver('modalVerRegistro', '@item.IdMarca', '@item.NombreMarca', '@item.Descripcion')">ver</button>*@
                 </td>
             </tr>
         }
     </table>
-    <br/>
+    <br />
     Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("EditCatalogUsZona", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model, page => Url.Action("EditCatalogProCatMarca", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 
     <div style="margin-top: 10px; float: right;" class="form-group">
@@ -173,12 +186,19 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdZona", null, new { @class = "" })
-                            @Html.TextBox("txtIdZonaActualiza", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
-                            @Html.Label("Nombre Zona", null, new { @class = "" })
-                            @Html.TextBox("txtNombreZonaActualiza", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.Label("IdMarca", null, new { @class = "" })
+                            @Html.TextBox("txtIdMarcaActualiza", "", new { @class = "form-control", placeholder = "IdMarca", autocomplete = "off" })
+                            @Html.Label("Nombre Marca", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMarcaActualiza", "", new { @class = "form-control", placeholder = "Nombre de la Marca", autocomplete = "off" })
                             @Html.Label("Descripcion", null, new { @class = "" })
-                            @Html.TextBox("txtDescripcionActualiza", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.TextBox("txtDescripcionActualiza", "", new { @class = "form-control", placeholder = "Descripcion", autocomplete = "off" })
+                        </div>
+                        <div>
+                            @Html.TextBox("txtCreadorActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtFechaCreacionActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtModificadoPorActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtFechaModificacionActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtBorradoActualiza", null, new { @class = "" })
                         </div>
                     </div>
                 </div>
@@ -207,10 +227,10 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdZona", null, new { @class = "" })
-                            @Html.TextBox("txtIdZonaNuevo", "", new { @class = "form-control", placeholder = "IdZona", autocomplete = "off" })
-                            @Html.Label("Nombre Zona", null, new { @class = "" })
-                            @Html.TextBox("txtNombreZonaNuevo", "", new { @class = "form-control", placeholder = "Nombre de Zona", autocomplete = "off" })
+                            @Html.Label("IdMarca", null, new { @class = "" })
+                            @Html.TextBox("txtIdMarcaNuevo", "", new { @class = "form-control", placeholder = "IdMarca", autocomplete = "off" })
+                            @Html.Label("Nombre Marca", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMarcaNuevo", "", new { @class = "form-control", placeholder = "Nombre de la Marca", autocomplete = "off" })
                             @Html.Label("Descripcion", null, new { @class = "" })
                             @Html.TextBox("txtDescripcionNuevo", "", new { @class = "form-control", placeholder = "Descripcion", autocomplete = "off" })
                         </div>
@@ -240,12 +260,12 @@
                 <div class="row">
                     <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
                         <div class="form-group col-md-12">
-                            @Html.Label("IdZona", null, new { @class = "" })
-                            @Html.TextBox("txtIdZonaVer", "", new { @class = "form-control", placeholder = "IdTurno", autocomplete = "off" })
-                            @Html.Label("Nombre Zona", null, new { @class = "" })
-                            @Html.TextBox("txtNombreZonaVer", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.Label("IdMarca", null, new { @class = "" })
+                            @Html.TextBox("txtIdMarcaVer", "", new { @class = "form-control", placeholder = "IdMarca", autocomplete = "off" })
+                            @Html.Label("Nombre de la Marca", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMarcaVer", "", new { @class = "form-control", placeholder = "Nombre de la marca", autocomplete = "off" })
                             @Html.Label("Descripcion", null, new { @class = "" })
-                            @Html.TextBox("txtDescripcionVer", "", new { @class = "form-control", placeholder = "Nombre de turno", autocomplete = "off" })
+                            @Html.TextBox("txtDescripcionVer", "", new { @class = "form-control", placeholder = "descripcion", autocomplete = "off" })
                         </div>
                     </div>
                 </div>

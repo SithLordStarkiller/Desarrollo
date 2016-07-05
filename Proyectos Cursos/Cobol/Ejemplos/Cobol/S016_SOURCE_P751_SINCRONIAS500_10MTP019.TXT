@@ -1,0 +1,1775 @@
+000100$SET LIST FREE STACK XREF MAP WARNSUP                                   
+000200$SET TARGET=LEVEL2 LINEINFO FEDLEVEL=5 ERRORLIMIT = 5                   
+000300*$SET TADS
+000400 IDENTIFICATION DIVISION.                                               
+000500  PROGRAM-ID.    P751.
+000600  AUTHOR.        FELIPE SANDOVAL S.                                     
+000700* MANTENIMIENTO: GRUPO DE CLIENTES.                                     
+000800* FUENTE:        S016/SOURCE/P751/SICRONIAS084/10MTP010
+000900* OBJETO:        S016/OBJECT/P751/SICRONIAS084/10MTP010
+001000* PERIODICIDAD:  ESPECIAL.                                              
+001100* TIPO-PROGRAMA: BATCH.                                                 
+001200* ZUMA-TI - Proy: Sincronia Captacion  (Oct-2011).
+001300* ZUMA-TI - ZTID-Borra linea ZTI-A-Nueva linea ZTIM-Modif.linea.
+001400  DATE-WRITTEN.  OCTUBRE 2007.                                          
+001500  DATE-COMPILED.                                                        
+001600*                                                                       
+001700* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       
+001800*                                                               *       
+001900*  OBJETIVO:                                                    *       
+002000*                                                               *       
+002100* SINCRONIA ESPECIAL ENTRE EL S016 Y LOS OPERATIVOS DE CAPTACION*       
+002200* PRODUCTO = 84                                                 *       
+002300* ACTIVA, CANCELA , BLOQUEA                                     *       
+002400* BORRA RELACION B07                                            *       
+002500* ACTUALIZA ESTATUS DE CTAS,                                    *       
+002600* OPCION = 1 CORRIDA EN FALSO                                   *       
+002700*          2 ACTUALIZA LA BASE         Y ENVIO IBM              *       
+002800*                                                               *       
+002900* ORDEN DE EJECUCION 1.PLAZO EN MTY                             *       
+003000*                    2.INTEGRA EN VDM                           *       
+003100*                    3.CHEQUES Y MAESTRA VDM Y MTY              *       
+003200* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *       
+003300*                                                                       
+003400/                                                                       
+003500 ENVIRONMENT DIVISION.                                                  
+003600 CONFIGURATION SECTION.                                                 
+003700     SOURCE-COMPUTER. A17.                                              
+003800     OBJECT-COMPUTER. A17.                                              
+003900*                                                                       
+004000 INPUT-OUTPUT SECTION.                                                  
+004100  FILE-CONTROL.                                                         
+004200*          Archivo para Reinicios proceso Falso:
+004300     SELECT       REINICIO        ASSIGN  TO  DISK.                     
+004400*          Archivo para Reinicios proceso Firme:
+004500     SELECT       REINICIO-FI     ASSIGN  TO  DISK.
+004600*         Archivo de Modificaciones:                                    
+004700     SELECT       IBMSALIDA       ASSIGN  TO  DISK.                     
+004800*         Archivo de Bajas:                                             
+004900     SELECT       SALIDA7         ASSIGN  TO  DISK.                     
+005000*         Archivo del Sistema S084:                                     
+005100     SELECT       ENTRADA         ASSIGN  TO  DISK.                     
+005200*         Reporte para el Usuario:                                      
+005300     SELECT       REPORTE         ASSIGN  TO  PRINTER.                  
+005400*                                                                       
+005500     SELECT       ARCH-M          ASSIGN  TO DISK.                      
+005600 DATA DIVISION.                                                         
+005700 FILE SECTION.                                                          
+005800****************************************************                    
+005900*         ARCHIVO REINICIO                                              
+006000***************************************************                     
+006100 FD  REINICIO                                                           
+006200     VALUE  OF DEPENDENTSPECS IS TRUE                                   
+006300     VALUE OF PROTECTION IS PROTECTED                                   
+006400     VALUE  OF TITLE IS TIT-REINICIO.                                   
+006500*                                                                       
+006600 01  REI-REGISTRO.                                                      
+006700     02 REI-CTR-NUMCSI            PIC 99.                               
+006800     02 REI-CTA-NUMPROD           PIC 9(04).                            
+006900     02 REI-CTA-CVEINST           PIC 99.                               
+007000     02 REI-CTA-NUM               PIC 9(12).                            
+007100     02 REI-TOT-LEIDOS            PIC 9(08).                            
+007200     02 REI-TOT-TRATADOS          PIC 9(08).                            
+007300     02 REI-TOT-PRODUCTO          PIC 9(08).                            
+007400     02 REI-TOT-MODIFICADOS       PIC 9(08).                            
+007500     02 REI-TOT-MODIF-1           PIC 9(08).                            
+007600     02 REI-TOT-MODIF-2           PIC 9(08).                            
+007700     02 REI-TOT-MODIF-3           PIC 9(08).                            
+007800*ZTI-A Oct-11
+007900     02 REI-TOT-MODIF-4           PIC 9(08).
+008000     02 REI-TOT-MODIF-5           PIC 9(08).
+008100*ZTI-A Oct-11
+008200     02 REI-TOT-SIN-B01           PIC 9(08).                            
+008300     02 REI-TOT-SIN-B04           PIC 9(08).                            
+008400     02 REI-TOT-B96               PIC 9(08).                            
+008500     02 REI-TOT-STA-ERROR         PIC 9(08).                            
+008600     02 REI-TOT-RESTO             PIC 9(08).                            
+008700     02 REI-TOT-ERRORES           PIC 9(08).                            
+008800     02 REI-TOT-GRABADOS7         PIC 9(08).                            
+008900     02 REI-CTO-S084              PIC 9(12).                            
+009000     02 REI-TOT-B04-MEN           PIC 9(08).                            
+009100     02 REI-TOT-B04-MAY           PIC 9(08).                            
+009200     02 REI-TOT-IGUALES           PIC 9(08).                            
+009300     02 REI-TOT-LEIDOS-S084       PIC 9(08).                            
+009400     02 REI-TOT-DIF-STA           PIC 9(08).                            
+009500     02 REI-TOT-B04-STADIF11      PIC 9(08).                            
+009600     02 REI-TOT-B04-PRD-MT        PIC 9(08).                            
+009700     02 REI-TOT-DIF-SIN           PIC 9(08).                            
+009800     02 REI-TOT-SIN-ACC           PIC 9(08).                            
+009900****************************************************
+010000*         ARCHIVO REINICIO
+010100***************************************************
+010200 FD  REINICIO-FI
+010300     VALUE  OF DEPENDENTSPECS IS TRUE
+010400     VALUE OF PROTECTION IS PROTECTED
+010500     VALUE  OF TITLE IS TIT-REINICIO-FI.
+010600*
+010700 01  REIFI-REGISTRO.
+010800     02 REIFI-CTR-NUMCSI            PIC 99.
+010900     02 REIFI-CTA-NUMPROD           PIC 9(04).
+011000     02 REIFI-CTA-CVEINST           PIC 99.
+011100     02 REIFI-CTA-NUM               PIC 9(12).
+011200     02 REIFI-TOT-LEIDOS            PIC 9(08).
+011300     02 REIFI-TOT-TRATADOS          PIC 9(08).
+011400     02 REIFI-TOT-PRODUCTO          PIC 9(08).
+011500     02 REIFI-TOT-MODIFICADOS       PIC 9(08).
+011600     02 REIFI-TOT-MODIF-1           PIC 9(08).
+011700     02 REIFI-TOT-MODIF-2           PIC 9(08).
+011800     02 REIFI-TOT-MODIF-3           PIC 9(08).
+011900     02 REIFI-TOT-MODIF-4           PIC 9(08).
+012000     02 REIFI-TOT-MODIF-5           PIC 9(08).
+012100     02 REIFI-TOT-SIN-B01           PIC 9(08).
+012200     02 REIFI-TOT-SIN-B04           PIC 9(08).
+012300     02 REIFI-TOT-B96               PIC 9(08).
+012400     02 REIFI-TOT-STA-ERROR         PIC 9(08).
+012500     02 REIFI-TOT-RESTO             PIC 9(08).
+012600     02 REIFI-TOT-ERRORES           PIC 9(08).
+012700     02 REIFI-TOT-GRABADOS7         PIC 9(08).
+012800     02 REIFI-CTO-S084              PIC 9(12).
+012900     02 REIFI-TOT-B04-MEN           PIC 9(08).
+013000     02 REIFI-TOT-B04-MAY           PIC 9(08).
+013100     02 REIFI-TOT-IGUALES           PIC 9(08).
+013200     02 REIFI-TOT-LEIDOS-S084       PIC 9(08).
+013300     02 REIFI-TOT-DIF-STA           PIC 9(08).
+013400     02 REIFI-TOT-B04-STADIF11      PIC 9(08).
+013500     02 REIFI-TOT-B04-PRD-MT        PIC 9(08).
+013600     02 REIFI-TOT-DIF-SIN           PIC 9(08).
+013700     02 REIFI-TOT-SIN-ACC           PIC 9(08).
+013800*
+013900****************************************************                    
+014000*         ARCHIVO SALIDA B07 BAJAS                                      
+014100***************************************************                     
+014200 FD  SALIDA7                                                            
+014300     VALUE  OF DEPENDENTSPECS IS TRUE                                   
+014400     VALUE OF PROTECTION IS PROTECTED                                   
+014500     VALUE  OF TITLE IS TIT-SALIDA7.                                    
+014600*                                                                       
+014700 01  SA7-REGISTRO.                                                      
+014800     02 SA7-CTR-NUMCSI            PIC 99.                               
+014900     02 SA7-CTE-NUM               PIC 9(12).                            
+015000     02 SA7-CTA-NUMPROREL         PIC 9(04).                            
+015100     02 SA7-CTA-CVEINSREL         PIC 9(02).                            
+015200     02 SA7-CTA-NUMPREREL         PIC 9(04).                            
+015300     02 SA7-CTA-NUMREL            PIC 9(12).                            
+015400     02 SA7-CTA-NUMPROD           PIC 9(04).                            
+015500     02 SA7-CTA-CVEINST           PIC 9(02).                            
+015600     02 SA7-CTA-NUMPREF           PIC 9(04).                            
+015700     02 SA7-CTA-NUM               PIC 9(12).                            
+015800     02 SA7-CTA-CVESTATUS         PIC 99.                               
+015900     02 SA7-CTR-CVERELCTA         PIC 9(02).                            
+016000******************************************************************      
+016100*     ARCHIVO DE MODIFICACIONES                                         
+016200******************************************************************      
+016300*                                                                       
+016400 FD  IBMSALIDA                                                          
+016500     VALUE  OF DEPENDENTSPECS IS TRUE                                   
+016600     VALUE OF PROTECTION IS PROTECTED                                   
+016700     VALUE  OF TITLE IS TIT-IBMSALIDA.                                  
+016800*                                                                       
+016900 01  IBM-REGISTRO.                                                      
+017000     02 IBM-CLAVE                 PIC 99.                               
+017100     02 IBM-CTR-NUMCSI            PIC 99.                               
+017200     02 IBM-CTE-NUM               PIC 9(12).                            
+017300     02 IBM-CTA-NUMPROD           PIC 9(04).                            
+017400     02 IBM-CTA-CVEINST           PIC 9(02).                            
+017500     02 IBM-CTA-NUMPREF           PIC 9(04).                            
+017600     02 IBM-CTA-NUM               PIC 9(12).                            
+017700     02 IBM-CTA-CVESTATUS-ANT     PIC 99.                               
+017800     02 IBM-CTA-CVESTATUS-ACT     PIC 99.                               
+017900     02 IBM-ERROR                 PIC 99.                               
+018000 FD  ARCH-M                                                             
+018100     VALUE  OF DEPENDENTSPECS IS TRUE                                   
+018200     VALUE OF PROTECTION IS PROTECTED                                   
+018300     VALUE  OF TITLE IS TIT-ARCH-M.                                     
+018400*                                                                       
+018500 01  ARCH-M-REGISTRO.
+018600     03 ARCH-MT-CTO               PIC 9(12).
+018700     03 ARCH-B4-CTO               PIC 9(12).
+018800****************************************************
+018900*         ARCHIVO REPORTE
+019000***************************************************
+019100 FD  REPORTE
+019200     VALUE  OF USERBACKUPNAME IS TRUE
+019300     VALUE OF SECURITYTYPE   IS 1.
+019400*
+019500 01  SAL-REPORTE                  PIC X(132).
+019600****************************************************
+019700*         ARCHIVO ENTRADA
+019800***************************************************
+019900 FD  ENTRADA.
+020000*    VALUE  OF DEPENDENTSPECS IS TRUE
+020100*    VALUE OF PROTECTION IS PROTECTED
+020200*    VALUE OF TITLE    IS WS-TIT-ENT.
+020300                                                                        
+020400 01  REG-ENTRADA                  PIC X(60).                            
+020500******************************************************************      
+020600*                 BASE DE SERVICIO                                      
+020700******************************************************************      
+020800 DATA-BASE  SECTION.                                                    
+020900 DB  S016BD01SERVICIO.                                                  
+021000 01  S016B01CLIENTES.                                                   
+021100 01  S016B04CUENTAS.                                                    
+021200 01  S016B07CTACTA.                                                     
+021300 01  S016B08MEDIOS.                                                     
+021400 01  S016B12PRODUCTOS.                                                  
+021500 01  S016B90CTRLOGS.                                                    
+021600 01  S016B91REINICIO.                                                   
+021700 01  S016B96CTRLCAMBIO.                                                 
+021800 01  B04CUENTAS = S016B04CUENTAS.                                       
+021900                                                                        
+022000 WORKING-STORAGE  SECTION.                                              
+022100/                                                                       
+022200******************************************************************      
+022300*                 CAMPOS DE TRABAJO Y DE CONTROL                 *      
+022400******************************************************************      
+022500*                                                                       
+022600*INICIO  COPY PARA CPBAS                                                
+022700                                                                        
+022800* COPY "S016/PARAMETROS/L010/LIBLOG".                                   
+022900************************************************************            
+023000***   PARAMETROS PARA LA LIBRERIA S016L010       LIBLOG  ***            
+023100************************************************************            
+023200 77  D010-ID-S016L010              PIC X(12) VALUE "S016L010".          
+023300*      SISTEMA DE VERSIONES.                                            
+023400 77  D010-TITULO                   PIC X(72).                           
+023500                                                                        
+023600*SALIDA                                                                 
+023700 77  S010-ESTATUS                  PIC S9(11) BINARY.                   
+023800                                                                        
+023900*ENTRADA                                                                
+024000 01  E010-PARAMETRO.                                                    
+024100*PARAMETRO DE LA L010 LIBLOG:                                           
+024200     02 E010-OPCION                PIC 9(01).                           
+024300*(1 = Movimiento a aplicar ;          2 = Fin de la Transacción         
+024400* 3 = UNDO/No grabar lote de transacciones a procesar,                  
+024500*     "desaplicar" unos.)                                               
+024600     02 E010-NUM-SIST              PIC 9(03).                           
+024700*(Numero del Sistema que origina la transacción ej 016)                 
+024800     02 E010-NUM-PASO              PIC 9(03).                           
+024900*(Numero del programa ej 036, 110, etc..)                               
+025000     02 E010-TIPO-MOV              PIC 9(01).                           
+025100*(1=Alta ;       2= Cambio;        3=Baja)                              
+025200     02 E010-NUM-ESTRUC            PIC 9(02).                           
+025300*(Numero del dataset a Actualizar de la Base S016BD01SERVICIO)          
+025400*(ej: 01 para el B01, 02 para el B02, etc....................)          
+025500     02 E010-CVE-TRN               PIC X(08).                           
+025600*(Clave de la Transacción en el sistema)                                
+025700*(Ej. "L428-02" para el entry point 02 de la libreria L428 )            
+025800     02 E010-NUM-SUC               PIC 9(04).                           
+025900*(Numero de Sucursal que origina la transacción)                        
+026000     02 E010-NUM-CAJA              PIC 9(02).                           
+026100*(Caja que origina la transacción)                                      
+026200     02 E010-TAM-ESTRUC            PIC 9(04).                           
+026300*(Tamaño en caracteres de la estructura  o dataset)                     
+026400*nota: SE PENSO ELIMINAR, AHORA NO SE USA, ES COMO FILLER.              
+026500*      Por el momento ponerle ceros.......                              
+026600     02 E010-NOMINA                PIC 9(10).                           
+026700*(Número de nómina del ejecutivo)                                       
+026800     02 E010-CVE-OPE               PIC 9(06).                           
+026900*(Número de operador de la sucursal)                                    
+027000     02 E010-BUFFER                PIC X(366).                          
+027100*(Registro que contiene el movimiento a actualizar)                     
+027200     02 FILLER                     PIC X(38).                           
+027300*SIZE-REGISTRO 438 CARACTERES, =73*6                                    
+027400************FIN PARAMETROS L010/LIBLOG                                  
+027500*TERMINA COPY PARA CPBAS                                                
+027600                                                                        
+027700*INICIO  COPY PARA CPBAS                                                
+027800                                                                        
+027900* COPY "(S000)S000/UTILITY/DESPLIEGA/FTE/CCW ON PACK.".                 
+028000**** PARAMETROS PARA LA BIBLIOTECA DE MENSAJES A OPERADOR LJ            
+028100  77 CONTADOR-LJ       PIC 9(11) BINARY VALUE 0.                        
+028200  01 MENSAJE-LJ.                                                        
+028300     02 SISTEMA-LJ     PIC X(04).                                       
+028400     02 FILLER         PIC X VALUE "/".                                 
+028500     02 PASO-LJ        PIC X(04).                                       
+028600     02 FILLER         PIC X VALUE "/".                                 
+028700     02 MTP-LJ         PIC 9(03).                                       
+028800     02 FILLER         PIC X VALUE ":".                                 
+028900     02 TIPO-LJ        PIC X.                                           
+029000     02 FILLER         PIC X VALUE ">".                                 
+029100     02 CODIGO-LJ      PIC 9(06).                                       
+029200     02 FILLER         PIC X VALUE "<".                                 
+029300     02 TEXTO-LJ       PIC X(250).                                      
+029400*TERMINA COPY PARA CPBAS                                                
+029500                                                                        
+029600 01  REG-HEADER.                                                        
+029700     03  HT-TIPO-DE-REGISTRO      PIC 9(01) VALUE IS 1.                 
+029800* Depende del sistema S087, S084 o S500                                 
+029900     03  HT-SISTEMA-ORIGEN        PIC X(04).                            
+030000* Fecha contable de ejecución.                                          
+030100     03  HT-FECHA-DE-PROCESO      PIC 9(08).                            
+030200     03  FILLER                   PIC X(47).                            
+030300                                                                        
+030400 01  REG-DETALLE.                                                       
+030500     03  MT-TIPO-DE-REGISTRO      PIC 9(01) VALUE IS 2.                 
+030600     03  MT-NUMERO-DE-PRODUCTO    PIC 9(04).
+030700     03  MT-NUMERO-DE-INSTRUMENTO PIC 9(02).                            
+030800     03  MT-MONEDA                PIC 9(01).                            
+030900     03  MT-SUCURSAL-PROMOTORA    PIC 9(04).                            
+031000     03  MT-NUMERO-DE-CONTRATO    PIC 9(12).                            
+031100     03  MT-IMPORTE               PIC 9(16)V99.
+031200     03  MT-FECHA-ULT-MOVTO       PIC 9(08).                            
+031300     03  FILLER                   PIC X(10).
+031400                                                                        
+031500 01  REG-TRAILER.                                                       
+031600     03  TT-TIPO-DE-REGISTRO      PIC 9(01) VALUE IS 9.                 
+031700* Numero de registros.                                                  
+031800     03  TT-TOTAL-DE-REGISTROS    PIC 9(10).                            
+031900     03  FILLER                   PIC X(49).                            
+032000 01 WKS-LIB                        PIC  X(12) VALUE SPACES.             
+032100 01 WKS-TITULO                     PIC  X(72).                          
+032200 01 WKS-STATUS                     PIC  S9(11) BINARY.                  
+032300 01  PROG-NAME                    PIC X(17)  WITH LOWER-BOUNDS.         
+032400 77  WKS-RSLT                     PIC S9(11) BINARY.                    
+032500 01  WKS-HOSTNAME             PIC  X(017).                              
+032600 01  WKS-HOSTNAME-R           REDEFINES  WKS-HOSTNAME.                  
+032700     02 WKS-CSI-NAME          PIC  X(003).                              
+032800     02 FILLER                PIC  X(014).                              
+032900  01 NOMBRE                       PIC X(80).                            
+033000  01 LIBRERIA                     PIC X(12) VALUE SPACES.               
+033100  01 RESULTADO                    PIC S9(11) BINARY.                    
+033200  01 W-FECHA-B96                  PIC 9(06) VALUE ZEROS.                
+033300  01 W-FECHA-E   TYPE NUMERIC-DATE PIC 99/99/9999.                      
+033400  01 W-FECHA-ER REDEFINES W-FECHA-E.                                    
+033500     02 W-MM-E                    PIC 99.                               
+033600     02 FILLER                    PIC X.                                
+033700     02 W-DD-E                    PIC 99.                               
+033800     02 FILLER                    PIC X.                                
+033900     02 W-AAAA-E                  PIC 9999.                             
+034000  01 W-FECHA                      PIC 9(06) VALUE ZEROS.                
+034100  01 W-FECHA-R REDEFINES W-FECHA.                                       
+034200     02 W-AAAA-S                  PIC 9(02).                            
+034300     02 W-MM-S                    PIC 99.                               
+034400     02 W-DD-S                    PIC 99.                               
+034500  01 W-FECHA-2K                   PIC 9(08) VALUE ZEROS.                
+034600  01 W-FECHA-2K-R REDEFINES W-FECHA-2K.                                 
+034700     02 W-AAAA-2KS          PIC 9999.                                   
+034800     02 W-MM-2KS            PIC 99.                                     
+034900     02 W-DD-2KS            PIC 99.                                     
+035000  01 W-FECHA-APE            PIC 9(08) VALUE ZEROS.                      
+035100  01 W-FECHA-APE-R REDEFINES W-FECHA-APE.                               
+035200     02 W-AAAA-APE          PIC 9999.                                   
+035300     02 W-MM-APE            PIC 99.                                     
+035400     02 W-DD-APE            PIC 99.                                     
+035500  01 W-FECHA-CAN            PIC 9(08) VALUE ZEROS.                      
+035600  01 W-FECHA-CAN-R REDEFINES W-FECHA-CAN.                               
+035700     02 W-AAAA-CAN          PIC 9999.                                   
+035800     02 W-MM-CAN            PIC 99.                                     
+035900     02 W-DD-CAN            PIC 99.                                     
+036000  01 W-FECHA-DEP            PIC 9(08) VALUE ZEROS.                      
+036100  01 W-FECHA-DEP-R REDEFINES W-FECHA-DEP.                               
+036200     02 W-AAAA-DEP          PIC 9999.                                   
+036300     02 W-MM-DEP            PIC 99.                                     
+036400     02 W-DD-DEP            PIC 99.                                     
+036500 01  WKP-PARAMETRO                PIC  9(10) VALUE ZEROS.               
+036600 01  WKP-PARAMETRO-R REDEFINES WKP-PARAMETRO.                           
+036700      02 WKP-FECHA                PIC  9(08).                           
+036800      02 RWKP-FECHA REDEFINES WKP-FECHA.                                
+036900         03 WKP-AKO               PIC  9(04).                           
+037000         03 WKP-MES               PIC  9(02).                           
+037100         03 WKP-DIA               PIC  9(02).                           
+037200      02 WKP-CSI                  PIC  99.                              
+037300 01  WKP-OPCION                   PIC  9(3) VALUE ZEROS.                
+037400 01  WKP-OPCION-R REDEFINES WKP-OPCION.                                 
+037500      02 WKP-OPC                  PIC  9(01).                           
+037600      02 WKP-PROD                 PIC  99.                              
+037700 77  PARAM-OPCION                 PIC 9(11) BINARY .                    
+037800 77  PARAM-FECHA                  PIC 9(11) BINARY .                    
+037900 77  PARAM-CSI                    PIC 9(11) BINARY .                    
+038000                                                                        
+038100 01  WKS-MEDIO                    PIC  9(16).                           
+038200 01  WKS-MEDIO-R REDEFINES WKS-MEDIO.                                   
+038300     02 WKS-MDA-NUMPREF           PIC 9(04).                            
+038400     02 WKS-MDA-NUM               PIC 9(12).                            
+038500 01  W-ESTRUCTURA                 PIC  99    VALUE ZEROS.               
+038600 01  WKS-CSI                      PIC  99    VALUE ZEROS.               
+038700 01  W-CTR-NUMCSI                 PIC  99    VALUE ZEROS.               
+038800 01  W-CTA-CVESTATUS              PIC  99    VALUE ZEROS.               
+038900 01  W-MDA-CVESTATUS              PIC  99    VALUE ZEROS.               
+039000 01  W-STATUS10                   PIC  99    VALUE ZEROS.               
+039100 01  W-STATUS                     PIC  99    VALUE ZEROS.               
+039200 01  W-MODIF                      PIC  99    VALUE ZEROS.               
+039300 01  W-CTA-NUMPROD                PIC  9(04) VALUE ZEROS.               
+039400 01  W-CTA-CVEINST                PIC  99    VALUE ZEROS.               
+039500 01  W-PRD-NUMCTAS                PIC  9(06) VALUE ZEROS.               
+039600 01  W-B08-MDA-PTRNOM             PIC  9(04) VALUE ZEROS.               
+039700 01  W-CTA-NUM                    PIC  9(12) VALUE ZEROS.               
+039800 01  W-CTA-NUMPREF                PIC  9(04) VALUE ZEROS.               
+039900 01  W-CTE-NUM                    PIC  9(12) VALUE ZEROS.               
+040000 01  W-CTO-NUM-ANT                PIC  9(12) VALUE ZEROS.               
+040100 01  W-B04-CTR-NUMCSI             PIC  99    VALUE ZEROS.               
+040200 01  W-B04-CTA-NUMPREF            PIC  9(04) VALUE ZEROS.               
+040300 01  W-B04-CTA-NUM                PIC  9(12) VALUE ZEROS.               
+040400 01  W-B04-CTE-NUM                PIC  9(12) VALUE ZEROS.               
+040500 01  W-B04-CTA-NUMPROD            PIC  9(04) VALUE ZEROS.               
+040600 01  W-B04-CTA-CVEINST            PIC  9(02) VALUE ZEROS.               
+040700 01  W-B04-CTA-CVESTATUS          PIC  99    VALUE ZEROS.               
+040800 01  W-B08-MDA-CVESTATUS          PIC  99    VALUE ZEROS.               
+040900 01  W-B04-CTA-FECANC-2K          PIC  9(08) VALUE ZEROS.               
+041000 01  W-B04-CTA-CVEMONEDA          PIC 99 VALUE ZEROS.                   
+041100 01  W-B04-CTA-NUMSUC             PIC 9(04) VALUE ZEROS.                
+041200 01  W-B04-CTA-CVEUSO             PIC 99 VALUE ZEROS.                   
+041300 01  W-B07-CTA-NUMREL             PIC 9(12) VALUE ZEROS.                
+041400 01  WKS-NUMERO-DE-CONTRATO       PIC 9(12) VALUE ZEROS.                
+041500 01  WT-NUMERO-DE-CONTRATO        PIC 9(12) VALUE ZEROS.                
+041600 01  WB04-NUMERO-DE-CONTRATO      PIC 9(12) VALUE ZEROS.                
+041700 01  W-B08-MDA-CVETIPO            PIC 99 VALUE ZEROS.                   
+041800 01  W-B08-MDA-NUMPREF            PIC 9(04) VALUE ZEROS.                
+041900 01  W-B08-MDA-NUM                PIC 9(12) VALUE ZEROS.                
+042000 01  W93-CTR-DATOANT              PIC X(15).                            
+042100 01  W93-CTR-DATOANT-RED          REDEFINES W93-CTR-DATOANT.            
+042200     03 W93-CTA-NUMREL            PIC 9(15).                            
+042300 01  W88-PRODUCTOS                PIC  9(04).                           
+042400     88 INTEGRA   VALUE 10,11,12,13,14,16,18,60,61,62,63.               
+042500     88 PZOFIJO   VALUE 10,11,12,13,14,15,16,31,60,61,62,63.            
+042600     88 CHEQUES   VALUE 10,11,12,13,14,15,16,60,61,62,63.               
+042700     88 MAESTRA   VALUE 10,11,12,13,14,15,16,60,61,62,63.               
+042800 77 WKS-CONT-PAGES                PIC  9(10).                           
+042900 77 WKS-CONT-LINES                PIC  9(04).                           
+043000 77  W77-TOT-CREADO-B96           PIC  9(08) VALUE ZEROS.               
+043100 77  W-CONTADOR                   PIC  9(08) VALUE ZEROS.               
+043200 77  W-FIN-B01                    PIC  9(01) VALUE ZEROS.               
+043300 77  W-FIN-B04                    PIC  9(01) VALUE ZEROS.               
+043400 77  W-FIN-B04-2                  PIC  9(01) VALUE ZEROS.               
+043500 77  W-FIN-B12                    PIC  9(01) VALUE ZEROS.               
+043600 77  W-FIN-B03                    PIC  9(01) VALUE ZEROS.               
+043700 77  W-FIN-B06                    PIC  9(01) VALUE ZEROS.               
+043800 77  W-FIN-B07                    PIC  9(01) VALUE ZEROS.               
+043900 77  W-FIN-B08                    PIC  9(01) VALUE ZEROS.               
+044000 77  W-FIN-B09                    PIC  9(01) VALUE ZEROS.               
+044100 77  W-FIN-B90                    PIC  9(01) VALUE ZEROS.               
+044200 77  W-FIN-REI                    PIC  9(01) VALUE ZEROS.               
+044300 77  W-FIN-REI-FI                 PIC  9(01) VALUE ZEROS.
+044400 77  W90-CTR-NUMCSI               PIC  9(04) VALUE ZEROS.               
+044500 77  W-REINICIO                   PIC  9(01) VALUE ZEROS.               
+044600 77  W-REINICIO-FI                PIC  9(01) VALUE ZEROS.
+044700 77  W-ACTIVA                     PIC  9(01)  VALUE ZEROS.              
+044800 77  W-PAQUETE                    PIC  9(01)  VALUE ZEROS.              
+044900 77  W-MDA-CVETIPO                PIC  9      VALUE ZEROS.              
+045000 77  W-CASO                       PIC  99 VALUE ZEROS.                  
+045100 77  W-RESULT                     PIC  999999 VALUE ZEROS.              
+045200 77  W-ERROR                      PIC  999   VALUE ZEROS.               
+045300 77  W-OK                         PIC  9(02) VALUE ZEROS.               
+045400 77  W-REGISTROS                  PIC  9(04) VALUE ZEROS.               
+045500 77  W-CUENTAS                    PIC  9(08) VALUE ZEROS.               
+045600 77  W-CLIENTE                    PIC  9(12) VALUE ZEROS.               
+045700 77  W-TAR-DIFERENTE              PIC  9(02) VALUE ZEROS.               
+045800 77  W-TAR-IGUALES                PIC  9(02) VALUE ZEROS.               
+045900 77  W-TOT-LEIDOS-UNI             PIC  9(08) VALUE ZEROS.               
+046000 77  W-TOT-NOLEIDOS-UNI           PIC  9(08) VALUE ZEROS.
+046100 77  W-TOT-ARCS084                PIC  9(08) VALUE ZEROS.
+046200 77  W-TOT-TRATADOS               PIC  9(08) VALUE ZEROS.               
+046300 77  W-TOT-IGUALES                PIC  9(08) VALUE ZEROS.               
+046400 77  W-TOT-LEIDOS-S084            PIC  9(08) VALUE ZEROS.               
+046500 77  W-TOT-SIN-B01                PIC  9(08) VALUE ZEROS.               
+046600 77  W-TOT-SIN-B04                PIC  9(08) VALUE ZEROS.               
+046700 77  W-TOT-POSIB-NOEXIS           PIC  9(08) VALUE ZEROS.               
+046800 77  W-TOT-B04-STADIF11           PIC  9(08) VALUE ZEROS.               
+046900 77  W-TOT-B04-PRD-MT             PIC  9(08) VALUE ZEROS.               
+047000 77  W-TOT-SIN-B07                PIC  9(08) VALUE ZEROS.               
+047100 77  W-TOT-SIN-B04CTECTA          PIC  9(08) VALUE ZEROS.               
+047200 77  W-TOT-SIN-TAR                PIC  9(08) VALUE ZEROS.               
+047300 77  W-TOT-DIF-STA                PIC  9(08) VALUE ZEROS.               
+047400 77  W-TOT-TARJETAS               PIC  9(08) VALUE ZEROS.               
+047500 77  W-TOT-B96                    PIC  9(08) VALUE ZEROS.               
+047600 77  W-TOT-SIN-SDO                PIC  9(08) VALUE ZEROS.               
+047700 77  W-TOT-EJE-ACT                PIC  9(08) VALUE ZEROS.               
+047800 77  W-TOT-STA-ERROR              PIC  9(08) VALUE ZEROS.               
+047900 77  W-TOT-CLASIF3                PIC  9(08) VALUE ZEROS.               
+048000 77  W-TOT-CALL-LIB               PIC  9(08) VALUE ZEROS.               
+048100 77  W-TOT-GRABADOS               PIC  9(08) VALUE ZEROS.               
+048200 77  W-TOT-GRABADOS7              PIC  9(08) VALUE ZEROS.               
+048300 77  W-TOT-PZO31                  PIC  9(08) VALUE ZEROS.               
+048400 77  W-TOT-MODIFICADOS            PIC  9(08) VALUE ZEROS.               
+048500 77  W-TOT-CASO1                  PIC  9(08) VALUE ZEROS.               
+048600 77  W-TOT-CASO2                  PIC  9(08) VALUE ZEROS.               
+048700 77  W-TOT-CASO3                  PIC  9(08) VALUE ZEROS.               
+048800*ZTI-A Se agregan totales casos 4 y 5, Variables para
+048900*      fecha siguiente sabado en b96.
+049000 77  W-TOT-CASO4                  PIC  9(08) VALUE ZEROS.
+049100 77  W-TOT-CASO5                  PIC  9(08) VALUE ZEROS.
+049200 77 FORMATO                       PIC S9(11) BINARY.
+049300 77 FUNCION                       PIC S9(11) BINARY.
+049400*ZTI-A
+049500 77  W-TOT-BLOQUEO                PIC  9(08) VALUE ZEROS.               
+049600 77  W-TOT-BLOQUEO-DIF            PIC  9(08) VALUE ZEROS.               
+049700 77  W-TOT-RESTO                  PIC  9(08) VALUE ZEROS.               
+049800 77  W-TOT-B04-MEN                PIC  9(08) VALUE ZEROS.               
+049900 77  W-TOT-B04-MAY                PIC  9(08) VALUE ZEROS.               
+050000 77  W-TOT-DIF-SIN                PIC  9(08) VALUE ZEROS.               
+050100 77  W-TOT-SIN-ACC                PIC  9(08) VALUE ZEROS.               
+050200 77  W-TOT-OK                     PIC  9(08) VALUE ZEROS.               
+050300 77  W-TOT-PRODUCTO               PIC  9(08) VALUE ZEROS.               
+050400 77  W-TOT-CHEQUES                PIC  9(08) VALUE ZEROS.               
+050500 77  W-TOT-MAESTRA                PIC  9(08) VALUE ZEROS.               
+050600 77  W-TOT-INTEGRA                PIC  9(08) VALUE ZEROS.               
+050700 77  W-TOT-PLAZOFI                PIC  9(08) VALUE ZEROS.               
+050800 77  W-TOT-ERRORES                PIC 9(08) VALUE ZEROS.                
+050900 77  W-TOT-ERROR-B08              PIC 9(08) VALUE ZEROS.                
+051000 77  W-TOT-ERROR10                PIC 9(08) VALUE ZEROS.                
+051100 77  W-TOT-DIF-STATUS             PIC 9(08) VALUE ZEROS.                
+051200 77  IND                          PIC 9(05) VALUE ZEROS.                
+051300 77  WS-POSIB-NOEXIS              PIC 9(01) VALUE ZEROS.                
+051400 77  W-S016B07CTACTA              PIC X(100).                           
+051500                                                                        
+051600 01  T-TABLA-SUC.                                                       
+051700     02 T-ELE-SUC         OCCURS 9999 TIMES.                            
+051800        04 T-CTA-NUMSUC           PIC 9(04).                            
+051900        04 T-CTR-NUMCSI           PIC 99.                               
+052000 01  W-S84-CTR-NUMCSI             PIC  99    VALUE ZEROS.               
+052100 01  W-S84-CTA-NUMPREF            PIC  9(04) VALUE ZEROS.               
+052200 01  W-S84-CTA-NUM                PIC  9(12) VALUE ZEROS.               
+052300 01  W-S84-CTE-NUM                PIC  9(12) VALUE ZEROS.               
+052400 01  W-S84-CTA-NUMPROD            PIC  9(04) VALUE ZEROS.               
+052500 01  W-S84-CTA-CVEINST            PIC  9(02) VALUE ZEROS.               
+052600 01  W-S84-CTA-CVESTATUS          PIC  99    VALUE ZEROS.               
+052700 01  W-FIN-S084                   PIC  99    VALUE ZEROS.               
+052800***************************************************************         
+052900* TITULOS DE ARCHIVOS                                                   
+053000**************************************************************          
+053100 01  TIT-REINICIO.                                                      
+053200     02 FILLER                            PIC X(10) VALUE               
+053300     "S016/FILE/".                                                      
+053400     02 WKS-PRODUCTO-REI                  PIC X(07).                    
+053500     02 FILLER                            PIC X(01) VALUE "/".          
+053600     02 WKS-CSI-REI                       PIC 99.                       
+053700     02 FILLER                            PIC X VALUE "/".              
+053800     02 WKS-FECHA-REI                     PIC 9(6).                     
+053900     02 FILLER                            PIC X(03) VALUE "/Y.".
+054000 01  TIT-REINICIO-FI.
+054100     02 FILLER                            PIC X(10) VALUE
+054200     "S016/FILE/".
+054300     02 WKS-PRODUCTO-REI-FI               PIC X(07).
+054400     02 FILLER                            PIC X(01) VALUE "/".
+054500     02 WKS-CSI-REI-FI                    PIC 99.
+054600     02 FILLER                            PIC X VALUE "/".
+054700     02 WKS-FECHA-REI-FI                  PIC 9(6).
+054800     02 FILLER                            PIC X(03) VALUE "/Z.".
+054900 01  TIT-SALIDA7.
+055000     02 FILLER                            PIC X(19) VALUE
+055100     "S016/FILE/I01/S500/".
+055200     02 WKS-CSI-SA7                       PIC 99.
+055300     02 FILLER                   PIC X(07) VALUE "/BAJAS/".
+055400     02 WKS-FECHA-SA7                     PIC 9(6).
+055500     02 FILLER                            PIC X(01) VALUE ".".
+055600 01  TIT-IBMSALIDA.                                                     
+055700     02 FILLER                            PIC X(10) VALUE               
+055800     "S016/FILE/".                                                      
+055900     02 WKS-PRODUCTO-IBM                  PIC X(07).                    
+056000     02 FILLER                            PIC X(01) VALUE "/".          
+056100     02 WKS-CSI-IBM                       PIC 99.                       
+056200     02 FILLER                            PIC X VALUE "/".              
+056300     02 WKS-FECHA-IBM                     PIC 9(6).                     
+056400     02 FILLER                            PIC X(03) VALUE "/X.".
+056500 01 WS-TIT-ENT.                                                         
+056600    02 FILLER                             PIC X(09) VALUE               
+056700       "S016/FILE".                                                     
+056800    02 FILLER                             PIC X(01) VALUE "/".          
+056900    02 WKS-SISTEMA-ENT                    PIC X(07) VALUE SPACES.       
+057000    02 FILLER                             PIC X(01) VALUE "/".          
+057100    02 AX-FECHA-ENT                       PIC 9(06).                    
+057200    02 FILLER                             PIC X(01) VALUE ".".          
+057300*   02 FILLER                             PIC 9(04) COMP VALUE          
+057400 01  TIT-REPORTE-R01CIFRAS.                                             
+057500     02  FILLER                 PIC  X(15) VALUE                        
+057600       "S016/LIST/P751/".                                               
+057700   02  V15-NODO-NUM             PIC  9(02) VALUE 10.                    
+057800   02  FILLER                   PIC  X(08) VALUE "00/R000/".            
+057900   02  V15-FEC-PROC             PIC  9(06) VALUE 071121.                
+058000   02  FILLER                   PIC  X(01) VALUE "/".                   
+058100   02  V15-NUM-MIX              PIC  9(07).                             
+058200   02  FILLER                   PIC  X(12) VALUE                        
+058300       "/001INTEGRA.".                                                  
+058400 01 TIT-ARCH-M.                                                         
+058500    02 FILLER                             PIC X(09) VALUE               
+058600       "S016/FILE".                                                     
+058700    02 FILLER                             PIC X(01) VALUE "/".          
+058800    02 FILLER                             PIC X(14) VALUE               
+058900       "MATCH/S084-B04".                                                
+059000    02 FILLER                             PIC X(01) VALUE "/".          
+059100    02 AX-FECHA-MATCH                     PIC 9(06).                    
+059200    02 FILLER                             PIC X(01) VALUE ".".          
+059300******************************************************************      
+059400* REPORTE DE TRANSACCIONES                                       *      
+059500******************************************************************      
+059600  01  ENC-1.
+059700     03  FILLER                   PIC X(51) VALUE SPACES.
+059800     03  FILLER                   PIC X(40) VALUE
+059900      "BANCO NACIONAL DE MEXICO, S.A.".
+060000*
+060100  01  ENC-2.
+060200     03  FILLER                   PIC X(47) VALUE SPACES.
+060300     03  FILLER                   PIC X(40) VALUE
+060400      "S I S T E M A   D E   C L I E N T E S".
+060500*
+060600  01  ENC-3.
+060700     03 FILLER                    PIC X(05) VALUE "CSI: ".
+060800     03 WS-HOST                   PIC X(15).
+060900     03 FILLER                    PIC X(24) VALUE SPACES.
+061000     03 FILLER                    PIC X(45) VALUE
+061100         "CONTRATOS CON SALDO EN OPERATIVO Y NO EN S016".
+061200*
+061300   01 ENC-4.
+061400     03 FILLER                    PIC X(20) VALUE
+061500                     "FECHA DE PROCESO: ".
+061600     03 ENC-1-AKO                 PIC 9999.
+061700     03 FILLER                    PIC X(01) VALUE  "/".
+061800     03 ENC-1-MES                 PIC 99.
+061900     03 FILLER                    PIC X(01) VALUE  "/".
+062000     03 ENC-1-DIA                 PIC 99.
+062100     03 FILLER                    PIC X(79) VALUE SPACES.
+062200     03 FILLER                    PIC X(08) VALUE "PAGINA: ".
+062300     03 ENC-2-PAGINA              PIC Z(07).
+062400*
+062500  01 ENC-5.
+062600     03 FILLER                    PIC X(107) VALUE SPACES.
+062700     03 FILLER                    PIC X(08)  VALUE "EQUIPO: ".
+062800     03 WKS-EQUIPO                PIC X(17).
+062900                                                                        
+063000*
+063100  01 ENC-6.
+063200      03  FILLER                   PIC X(05) VALUE "PROD ".
+063300      03 FILLER                    PIC X(05) VALUE "INS ".
+063400      03 FILLER                    PIC X(04) VALUE "MON ".
+063500      03 FILLER                    PIC X(07) VALUE "CLIENTE".
+063600      03 FILLER                    PIC X(06) VALUE SPACES.
+063700      03 FILLER                    PIC X(05) VALUE "SUC  ".
+063800      03 FILLER                    PIC X(08) VALUE "CONTRATO".
+063900      03 FILLER                    PIC X(05) VALUE SPACES.
+064000      03 FILLER                    PIC X(03) VALUE "ST ".
+064100      03 FILLER                    PIC X(10) VALUE "FECHA CANC".
+064200      03 FILLER                    PIC X(08) VALUE " LEYENDA".
+064300*
+064400  01  ENC-7.
+064500      03  FILLER                   PIC X(132) VALUE "=".
+064600*
+064700                                                                        
+064800 01  DET-1.
+064900     03  DET-1-PRODUCTO           PIC 9(04).
+065000     03  FILLER                   PIC X(02) VALUE SPACES.
+065100     03  DET-1-INSTRUMENTO        PIC 9(02).
+065200     03  FILLER                   PIC X(02) VALUE SPACES.
+065300     03  DET-1-MONEDA             PIC 9(02)B.
+065400     03  DET-1-CLIENTE            PIC Z(12).
+065500     03  FILLER                   PIC X(01) VALUE SPACES.
+065600     03  DET-1-SUCURSAL           PIC Z(04)BB.
+065700     03  DET-1-CONTRATO           PIC Z(12)B.
+065800     03  DET-1-ESTATUS            PIC 9(02)B.
+065900     03  DET-1-FCANC2K            PIC 9(04).
+066000     03  FILLER                   PIC X(01) VALUE "/".
+066100     03  DET-1-FCANCMM            PIC 9(02).
+066200     03  FILLER                   PIC X(01) VALUE "/".
+066300     03  DET-1-FCANCDD            PIC 9(02)B.
+066400     03  DET-1-LEYENDA            PIC X(20).
+066500*
+066600 01  TOT-REGISTRO.                                                      
+066700     03  TOT-LEYENDA              PIC X(30).                            
+066800     03  TOT-REGISTROS            PIC ZZZZZZZZZZ99.                     
+066900     03  FILLER                   PIC X(80) VALUE SPACES.               
+067000 01 TOT-ENC-01.                                                         
+067100     03  FILLER                   PIC X(50) VALUE                       
+067200        " TOTALES PRO/INSTO            CLIENTES     MONTO ".            
+067300     03  FILLER                   PIC X(82) VALUE SPACES.               
+067400 01 TOT-ENC-02.                                                         
+067500     03 FILLER                    PIC X(50) VALUE                       
+067600        " PRODUCTO        INSTRUMENTO".                                 
+067700     03 FILLER                    PIC X(82) VALUE SPACES.               
+067800 01 TOT-DET-01.                                                         
+067900     03 TOT-01-PROD               PIC 9(03).                            
+068000     03 FILLER                    PIC X(12) VALUE SPACES.               
+068100     03 TOT-01-INSTR              PIC 9(02).                            
+068200     03 FILLER                    PIC X(10) VALUE SPACES.               
+068300     03 TOT-01-CTES               PIC ZZZZ,ZZZ,ZZZ.                     
+068400     03 FILLER                    PIC X(02) VALUE SPACES.               
+068500     03 TOT-01-MONTO              PIC ZZZ,ZZZ,ZZZ,ZZZ,ZZ9.99.           
+068600     03 FILLER                    PIC X(70) VALUE SPACES.               
+068700 01  FECHA-AAMMDD-1               PIC 9(06) VALUE ZEROS.                
+068800 01  FECHA-AAMMDD-2               PIC 9(06) VALUE ZEROS.                
+068900 01  FECHA-ALTAS                  PIC 9(06) VALUE ZEROS.                
+069000 77  NUMDIAS                      PIC S9(011)  BINARY.                  
+069100 77  CVEFEST                      PIC S9(011)  BINARY.                  
+069200 77  CVESEM                       PIC S9(011)  BINARY.                  
+069300 01  W77-HORA-PROC                        PIC  9(08).                   
+069400 01  W77-HORA-PROCRED  REDEFINES          W77-HORA-PROC.                
+069500     02  W77-HP-HHMM                      PIC  9(04).                   
+069600     02  FILLER                           PIC  9(04).                   
+069700*ZTI-A Se agregan variables para CALL a calendario y obtener
+069800*      fecha de sabado inmediato para grabar en B96
+069900 01 WKS-FECHA-HOY       PIC 9(06).
+070000 01 WKS-FECHA-FIN       PIC 9(06).
+070100
+070200 01 FECHA1                      PIC X(06).
+070300 01 FECHA2                      PIC 9(06).
+070400 01 WKS-DIA-SEM                 PIC 9(01) VA 0.
+070500 01 WKS-FECPROY                 PIC 9(01).
+070600*ZTI-A
+070700                                                                        
+070800                                                                        
+070900*****************************************************************       
+071000*         PROCEDURE DIVISION                                            
+071100*****************************************************************       
+071200 PROCEDURE DIVISION USING PARAM-OPCION, PARAM-FECHA, PARAM-CSI.         
+071300 000-MAIN  SECTION.                                                     
+071400*------------------                                                     
+071500  000-0000-CONTROLA.                                                    
+071900     PERFORM              010-INICIA.                                   
+072200        PERFORM           020-PROCESA UNTIL W-FIN-S084 > 0.
+072900     PERFORM              030-TERMINA.                                  
+073000     STOP RUN.                                                          
+073100*                                                                       
+073200 010-INICIA.                                                            
+073300*                                                                       
+073400     CHANGE ATTRIBUTE LIBACCESS    OF "CTLVERSLIB" TO BYFUNCTION.       
+073500     CHANGE ATTRIBUTE FUNCTIONNAME OF "CTLVERSLIB" TO                   
+073600                                      "CTLVERS.".                       
+073800*                                                                       
+073900     MOVE "S084LIBCONS"           TO   LIBRERIA.                        
+074000     CALL "DAME_TIT OF CTLVERSLIB"                                      
+074100     USING LIBRERIA                                                     
+074200           NOMBRE                                                       
+074300     GIVING RESULTADO.                                                  
+074500     IF RESULTADO  = 0                                                  
+074600        CHANGE ATTRIBUTE TITLE OF "CONS084" TO NOMBRE                   
+074700     ELSE                                                               
+074800        DISPLAY "ERROR AL LLAMAR LIBRARY CTLVERSLIB S084".              
+074900*                                                                       
+075000     MOVE   "S016L010"            TO LIBRERIA                           
+075100     CALL "DAME_TIT OF CTLVERSLIB"                                      
+075200     USING LIBRERIA                                                     
+075300           NOMBRE                                                       
+075400     GIVING RESULTADO.                                                  
+075500     IF RESULTADO = 0                                                   
+075600        CHANGE ATTRIBUTE TITLE OF "S016L010" TO NOMBRE                  
+075700     ELSE                                                               
+075800        DISPLAY "ERROR AL LLAMAR LIBRARY CTLVERSLIB S016L010".          
+075900*                                                                       
+076000     MOVE "S000LIBFEC"            TO LIBRERIA                           
+076100     CALL "DAME_TIT OF CTLVERSLIB"                                      
+076200     USING LIBRERIA                                                     
+076300           NOMBRE                                                       
+076400     GIVING RESULTADO.                                                  
+076500     IF RESULTADO = 0                                                   
+076600        CHANGE ATTRIBUTE TITLE OF "FECHAS" TO NOMBRE                    
+076700     ELSE                                                               
+076800        DISPLAY "ERROR AL LLAMAR LIBRARY CTLVERSLIB FECHAS".            
+076900                                                                        
+077000     ACCEPT W77-HORA-PROC         FROM TIME.                            
+077200                                                                        
+077300     ACCEPT FECHA-AAMMDD-1        FROM DATE.                            
+077400     MOVE 1                       TO NUMDIAS.                           
+077500     MOVE 65                      TO CVESEM.                            
+077600     MOVE 1                       TO CVEFEST.                           
+077700     CALL "DAME_SIGHAB IN FECHAS" USING                                 
+077800          FECHA-AAMMDD-1,                                               
+077900          FECHA-AAMMDD-2,                                               
+078000          CVESEM,                                                       
+078100          CVEFEST.                                                      
+078200*ZTIDMOVE FECHA-AAMMDD-1          TO W-FECHA-B96.
+078300*ZTI-A Llama a rutina para obtener fecha de B96
+078400     PERFORM 998-OBTIENE-FECB96.
+078500     MOVE    WKS-FECHA-FIN TO W-FECHA-B96.
+078600*ZTI-A
+078700     MOVE ATTRIBUTE HOSTNAME OF MYSELF TO WKS-HOSTNAME                  
+078800     MOVE WKS-HOSTNAME   TO  WKS-EQUIPO
+078900     IF WKS-CSI-NAME         =  "MON"                                   
+079000        MOVE "MONTERREY"  TO WS-HOST
+079100        MOVE  04          TO WKP-CSI                                    
+079200     ELSE                                                               
+079300        MOVE "VALLE DE MEXICO"  TO WS-HOST
+079400        MOVE  10          TO WKP-CSI.                                   
+079500     MOVE PARAM-OPCION    TO  WKP-OPCION.                               
+079600     MOVE PARAM-FECHA     TO  WKP-FECHA.                                
+080500     MOVE WKP-FECHA               TO WKS-FECHA-SA7                      
+080600                                     WKS-FECHA-IBM                      
+080700                                     WKS-FECHA-REI                      
+080800                                      AX-FECHA-ENT                      
+080900                                      AX-FECHA-MATCH                    
+081000                                      WKS-FECHA-REI-FI
+081100     MOVE WKP-CSI                 TO WKS-CSI-SA7                        
+081200                                     WKS-CSI-IBM                        
+081300                                     WKS-CSI-REI                        
+081400                                     WKS-CSI-REI-FI
+081500
+081600     MOVE "INTEGRA"               TO WKS-PRODUCTO-IBM
+081700                                     WKS-PRODUCTO-REI                   
+081800                                     WKS-PRODUCTO-REI-FI
+081900     MOVE "S084ENT"               TO WKS-SISTEMA-ENT.
+082000     OPEN INPUT ENTRADA                                                 
+082200   IF WKP-OPC = 1
+082300     CHANGE ATTRIBUTE TITLE OF REINICIO   TO TIT-REINICIO               
+082500     IF ATTRIBUTE RESIDENT OF REINICIO = VALUE TRUE                     
+082600        MOVE 1                            TO W-REINICIO                 
+082700        OPEN I-O     REINICIO                                           
+082800      ELSE
+082900        OPEN OUTPUT  REINICIO.
+083000   IF WKP-OPC = 2
+083100     CHANGE ATTRIBUTE TITLE OF REINICIO-FI TO TIT-REINICIO-FI
+083200     IF ATTRIBUTE RESIDENT OF REINICIO-FI = VALUE TRUE
+083300        MOVE 1                            TO W-REINICIO-FI
+083400        OPEN I-O     REINICIO-FI
+083500      ELSE
+083600        OPEN OUTPUT  REINICIO-FI.
+083700     CHANGE ATTRIBUTE TITLE OF SALIDA7    TO TIT-SALIDA7                
+083800     CHANGE ATTRIBUTE TITLE OF IBMSALIDA  TO TIT-IBMSALIDA.             
+083900     CHANGE ATTRIBUTE TITLE OF ARCH-M     TO TIT-ARCH-M.                
+084100     ACCEPT W-FECHA-E                     FROM TODAYS-DATE.             
+084200     MOVE W-AAAA-E                        TO W-AAAA-2KS                 
+084300                                             W-AAAA-S                   
+084400                                             ENC-1-AKO                  
+084500     MOVE W-MM-E                          TO W-MM-2KS                   
+084600                                             W-MM-S                     
+084700                                             ENC-1-MES                  
+084800     MOVE W-DD-E                          TO W-DD-2KS                   
+084900                                             W-DD-S                     
+085000                                             ENC-1-DIA                  
+085100     PERFORM 040-CALCULA-FECHA.                                         
+085200     IF WKP-OPC < 2
+085400         OPEN INQUIRY                     S016BD01SERVICIO              
+085500      ELSE                                                              
+085600         OPEN UPDATE                      S016BD01SERVICIO.             
+085700     IF W-REINICIO    = 0 OR
+085800        W-REINICIO-FI = 0
+085900        OPEN OUTPUT                       IBMSALIDA                     
+086000                                          SALIDA7                       
+086100      ELSE
+086200        OPEN EXTEND                       IBMSALIDA                     
+086300                                          SALIDA7.                      
+086400     MOVE FECHA-AAMMDD-1                 TO V15-FEC-PROC                
+086500     MOVE ATTRIBUTE MIXNUMBER OF MYSELF  TO V15-NUM-MIX.                
+086600     CHANGE ATTRIBUTE TITLE  OF REPORTE                                 
+086700                             TO TIT-REPORTE-R01CIFRAS.                  
+086800     OPEN OUTPUT                         REPORTE.                       
+086900                                                                        
+087000     PERFORM 980-ENCABEZADOS-S084.                                      
+087100                                                                        
+087200      SET  B04SXCTAPRD OF S016B04CUENTAS TO BEGINNING                   
+087300      SET  B04SXCTECTA OF B04CUENTAS     TO BEGINNING.
+087400     IF W-REINICIO = 1
+087600        PERFORM 060-REINICIO-ENFALSO
+087700      ELSE
+087800       IF W-REINICIO-FI  = 1
+088000          PERFORM 050-REINICIO-ENFIRME
+088100        ELSE
+088300         MOVE 04                   TO WKS-CSI
+088400         MOVE 84                   TO W-B04-CTA-NUMPROD
+088500         PERFORM 904-LEE-S084
+088600         PERFORM 902-LEE-125900-B04.
+088800*                                                                       
+088900******************************************************************      
+089000*                PROCESA                                                
+089100******************************************************************      
+089200*                                                                       
+089300 020-PROCESA.                                                           
+089800     MOVE 0                       TO W-ERROR.                           
+089900     MOVE 0                       TO W-STATUS                           
+090000     MOVE 0                       TO W-MODIF                            
+090100     MOVE 0                       TO W-CTA-CVESTATUS                    
+090200     MOVE 0                       TO W-MDA-CVESTATUS                    
+090300     MOVE 0                       TO W-B08-MDA-CVESTATUS                
+090400     MOVE 0                       TO W-CASO                             
+090500     MOVE 0                       TO W-OK                               
+090600     MOVE 0                       TO W-RESULT.                          
+090700     IF W-FIN-B04 = 0
+090800      PERFORM 600-MUEVE-B04
+090900      PERFORM 900-LEE-NEXT-B01
+091000      PERFORM 120-PROCESA-INTEGRA
+091100     ELSE
+091200      PERFORM 150-REP-NO-B04.
+091300     PERFORM 904-LEE-S084
+091400     IF W-FIN-S084 = ZERO
+091500        PERFORM 902-LEE-125900-B04.
+091800*ZTIM - Se pregunta por caso > 5 antes caso > 3
+091900     IF W-CASO > 5
+092000*ZTIM
+092100        PERFORM 690-SUMA-TOTALES.
+092300                                                                        
+092400     IF W-ERROR > 0                                                     
+092500        PERFORM 620-GRABA-ERROR.                                        
+092600                                                                        
+093400     IF  ATTRIBUTE TASKVALUE OF MYSELF    =   1                         
+093500          DISPLAY "020801 02 S016 P751 10MTP011" "ATIENDO HI "
+093600         "INTEGRA"                                                      
+093700         " LEIDOS     " W-TOT-LEIDOS-UNI
+093800*        " LEIDOS 84A " W-TOT-ARCS084
+093900         "OK          " W-TOT-PRODUCTO                                  
+094000         "MODIFICADOS " W-TOT-MODIFICADOS.                              
+094100     IF  ATTRIBUTE TASKVALUE OF MYSELF    =   1   OR  4                 
+094200         IF  ATTRIBUTE TASKVALUE OF MYSELF  =   4                       
+094300             SET   MYSELF(TASKVALUE)      TO  ZEROS                     
+094400              MOVE  2                     TO  W-FIN-B04                 
+094500                                              W-FIN-S084                
+094600         ELSE                                                           
+094700             SET   MYSELF(TASKVALUE)      TO  ZEROS.                    
+094800*                                                                       
+094900 030-TERMINA.                                                           
+095000
+095100     MOVE "LEIDOS ENTRADA ARCHIVO S084"           TO TOT-LEYENDA.
+095200     MOVE W-TOT-LEIDOS-S084       TO TOT-REGISTROS.
+095300     WRITE SAL-REPORTE FROM TOT-REGISTRO.
+095400
+095500     MOVE "CTAS-CONTRATOS ENCONTRADOS B04" TO TOT-LEYENDA.
+095600     MOVE W-TOT-LEIDOS-UNI        TO TOT-REGISTROS.                     
+095700     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+095800
+095900     MOVE "CTAS-CONTRATOS NO ENCONTRADOS B04" TO TOT-LEYENDA.
+096000     MOVE W-TOT-NOLEIDOS-UNI        TO TOT-REGISTROS.
+096100     WRITE SAL-REPORTE FROM TOT-REGISTRO.
+096200
+097600     MOVE "B04-S084 = "           TO TOT-LEYENDA.                       
+097700     MOVE W-TOT-IGUALES           TO TOT-REGISTROS.                     
+097800     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+097900                                                                        
+098000     MOVE "TRATADOS:  "           TO TOT-LEYENDA.                       
+098100     MOVE W-TOT-TRATADOS          TO TOT-REGISTROS.                     
+098200     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+098300                                                                        
+099700     MOVE "ACTUALIZADOS CON ST-12  " TO TOT-LEYENDA
+099800     MOVE W-TOT-CASO2             TO TOT-REGISTROS.                     
+099900     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+100000                                                                        
+101900*ZTI-A Oct-2011
+102000                                                                        
+106600     MOVE "RELACIONES BORRADAS"   TO TOT-LEYENDA                        
+106700     MOVE W-TOT-GRABADOS7         TO TOT-REGISTROS.                     
+106800     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+106900                                                                        
+107000     MOVE "ERROR      "           TO TOT-LEYENDA                        
+107100     MOVE W-TOT-ERRORES           TO TOT-REGISTROS.                     
+107200     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+107300                                                                        
+107400     MOVE "PARA IBM   "           TO TOT-LEYENDA                        
+107500     MOVE W-TOT-B96               TO TOT-REGISTROS.                     
+107600     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+107700                                                                        
+107800     MOVE "ULTIMA CTA B04"        TO TOT-LEYENDA                        
+107900     MOVE W-B04-CTA-NUM           TO TOT-REGISTROS                      
+108000     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+108100                                                                        
+108200     MOVE "ULTIMA CTA S084"       TO TOT-LEYENDA                        
+108300     MOVE WKS-NUMERO-DE-CONTRATO  TO TOT-REGISTROS                      
+108400     WRITE SAL-REPORTE FROM TOT-REGISTRO.                               
+108500                                                                        
+108600     IF W-FIN-B04  = 2 AND                                              
+108700        W-FIN-S084 = 2 AND
+108800        WKP-OPC    < 2
+108900        PERFORM 630-GRABA-REINICIO.                                     
+109000     IF W-FIN-B04  = 2 AND
+109100        W-FIN-S084 = 2 AND
+109200        WKP-OPC    = 2
+109300        PERFORM 630-GRABA-REINICIO-FI.
+109400     CLOSE ENTRADA                                                      
+109500     CLOSE S016BD01SERVICIO                                             
+109600     CLOSE REPORTE     WITH SAVE.                                       
+109800     CLOSE SALIDA7     WITH SAVE.                                       
+110400        IF W-FIN-S084 = 1 AND
+110500           W-FIN-REI  = 0 AND
+110600           WKP-OPC    = 1
+110700           CLOSE REINICIO WITH PURGE.                                   
+110800        IF W-FIN-S084   = 1 AND
+110900           W-FIN-REI-FI = 0 AND
+111000           WKP-OPC      = 2
+111100           CLOSE REINICIO-FI WITH PURGE.
+111200     CLOSE IBMSALIDA   WITH SAVE.                                       
+111600 040-CALCULA-FECHA.                                                     
+111700*                                                                       
+113200        COMPUTE W-AAAA-APE = W-AAAA-E  - 1                              
+113500     MOVE W-DD-E               TO W-DD-APE.
+113600*ZTI-A
+113700     MOVE W-MM-E               TO W-MM-APE.
+113800*ZTI-A
+114100 050-REINICIO-ENFIRME.
+114200*---------------------
+114400   PERFORM 970-LEE-REINICIO-FI
+114500   IF W-FIN-REI-FI = 0
+114600      MOVE REIFI-CTR-NUMCSI       TO WKS-CSI
+114700      MOVE REIFI-CTR-NUMCSI       TO W-B04-CTR-NUMCSI
+114800      MOVE REIFI-CTA-NUM          TO W-B04-CTA-NUM
+114900      MOVE REIFI-CTA-NUMPROD      TO W-B04-CTA-NUMPROD
+115000      MOVE REIFI-CTA-CVEINST      TO W-B04-CTA-CVEINST
+115100      MOVE REIFI-TOT-LEIDOS       TO W-TOT-LEIDOS-UNI
+115200      MOVE REIFI-TOT-TRATADOS     TO W-TOT-TRATADOS
+115300      MOVE REIFI-TOT-PRODUCTO     TO W-TOT-PRODUCTO
+115400      MOVE REIFI-TOT-MODIFICADOS  TO W-TOT-MODIFICADOS
+115500      MOVE REIFI-TOT-MODIF-1      TO W-TOT-CASO1
+115600      MOVE REIFI-TOT-MODIF-2      TO W-TOT-CASO2
+115700      MOVE REIFI-TOT-MODIF-3      TO W-TOT-CASO3
+115800      MOVE REIFI-TOT-MODIF-4      TO W-TOT-CASO4
+115900      MOVE REIFI-TOT-MODIF-5      TO W-TOT-CASO5
+116000      MOVE REIFI-TOT-SIN-B01      TO W-TOT-SIN-B01
+116100      MOVE REIFI-TOT-B04-MEN      TO W-TOT-B04-MEN
+116200      MOVE REIFI-TOT-B04-MAY      TO W-TOT-B04-MAY
+116300      MOVE REIFI-TOT-IGUALES      TO W-TOT-IGUALES
+116400      MOVE REIFI-TOT-LEIDOS-S084  TO W-TOT-LEIDOS-S084
+116500      MOVE REIFI-TOT-DIF-STA      TO W-TOT-DIF-STA
+116600      MOVE REIFI-TOT-B04-STADIF11 TO W-TOT-B04-STADIF11
+116700      MOVE REIFI-TOT-B04-PRD-MT   TO W-TOT-B04-PRD-MT
+116800      MOVE REIFI-TOT-DIF-SIN      TO W-TOT-DIF-SIN
+116900      MOVE REIFI-TOT-SIN-ACC      TO W-TOT-SIN-ACC
+117000      MOVE REIFI-TOT-SIN-B04      TO W-TOT-SIN-B04
+117100      MOVE REIFI-TOT-B96          TO W-TOT-B96
+117200      MOVE REIFI-TOT-STA-ERROR    TO W-TOT-STA-ERROR
+117300      MOVE REIFI-TOT-RESTO        TO W-TOT-RESTO
+117400      MOVE REIFI-TOT-ERRORES      TO W-TOT-ERRORES
+117500      MOVE REIFI-TOT-GRABADOS7    TO W-TOT-GRABADOS7
+117600      PERFORM 903-LEE-FIRST-B04
+117700      PERFORM 904-LEE-S084    UNTIL
+117900              REIFI-CTO-S084  = MT-NUMERO-DE-CONTRATO OR
+118000              W-FIN-S084      > 0
+118100    ELSE
+118300      MOVE 3                    TO W-FIN-B04
+118400                                   W-FIN-S084.
+118500*
+118600 060-REINICIO-ENFALSO.
+118700*---------------------
+118900   PERFORM 970-LEE-REINICIO
+119000   IF W-FIN-REI = 0
+119100      MOVE REI-CTR-NUMCSI       TO WKS-CSI
+119200      MOVE REI-CTR-NUMCSI       TO W-B04-CTR-NUMCSI
+119300      MOVE REI-CTA-NUM          TO W-B04-CTA-NUM
+119400      MOVE REI-CTA-NUMPROD      TO W-B04-CTA-NUMPROD
+119500      MOVE REI-CTA-CVEINST      TO W-B04-CTA-CVEINST
+119600      MOVE REI-TOT-LEIDOS       TO W-TOT-LEIDOS-UNI
+119700      MOVE REI-TOT-TRATADOS     TO W-TOT-TRATADOS
+119800      MOVE REI-TOT-PRODUCTO     TO W-TOT-PRODUCTO
+119900      MOVE REI-TOT-MODIFICADOS  TO W-TOT-MODIFICADOS
+120000      MOVE REI-TOT-MODIF-1      TO W-TOT-CASO1
+120100      MOVE REI-TOT-MODIF-2      TO W-TOT-CASO2
+120200      MOVE REI-TOT-MODIF-3      TO W-TOT-CASO3
+120300      MOVE REI-TOT-MODIF-4      TO W-TOT-CASO4
+120400      MOVE REI-TOT-MODIF-5      TO W-TOT-CASO5
+120500      MOVE REI-TOT-SIN-B01      TO W-TOT-SIN-B01
+120600      MOVE REI-TOT-B04-MEN      TO W-TOT-B04-MEN
+120700      MOVE REI-TOT-B04-MAY      TO W-TOT-B04-MAY
+120800      MOVE REI-TOT-IGUALES      TO W-TOT-IGUALES
+120900      MOVE REI-TOT-LEIDOS-S084  TO W-TOT-LEIDOS-S084
+121000      MOVE REI-TOT-DIF-STA      TO W-TOT-DIF-STA
+121100      MOVE REI-TOT-B04-STADIF11 TO W-TOT-B04-STADIF11
+121200      MOVE REI-TOT-B04-PRD-MT   TO W-TOT-B04-PRD-MT
+121300      MOVE REI-TOT-DIF-SIN      TO W-TOT-DIF-SIN
+121400      MOVE REI-TOT-SIN-ACC      TO W-TOT-SIN-ACC
+121500      MOVE REI-TOT-SIN-B04      TO W-TOT-SIN-B04
+121600      MOVE REI-TOT-B96          TO W-TOT-B96
+121700      MOVE REI-TOT-STA-ERROR    TO W-TOT-STA-ERROR
+121800      MOVE REI-TOT-RESTO        TO W-TOT-RESTO
+121900      MOVE REI-TOT-ERRORES      TO W-TOT-ERRORES
+122000      MOVE REI-TOT-GRABADOS7    TO W-TOT-GRABADOS7
+122100      PERFORM 903-LEE-FIRST-B04
+122200      PERFORM 904-LEE-S084  UNTIL
+122400              REI-CTO-S084  = MT-NUMERO-DE-CONTRATO OR
+122500              W-FIN-S084    > 0
+122600   ELSE
+122800      MOVE 3                    TO W-FIN-B04
+122900                                   W-FIN-S084.
+123000*                                                                       
+123100 120-PROCESA-INTEGRA.                                                   
+123200*-------------------                                                    
+123600                                                                        
+123700     ADD 1 TO W-TOT-TRATADOS                                            
+125200*SE INVIERTE LECTURA
+125300     IF MT-NUMERO-DE-CONTRATO = B04-CTA-NUM OF S016B04CUENTAS
+125400         ADD 1 TO W-TOT-ARCS084
+125500         PERFORM 125-PROCESA-MATCH.
+125800*                                                                       
+125900 125-PROCESA-MATCH.                                                     
+126000*-----------------                                                      
+126100     MOVE 0 TO WS-POSIB-NOEXIS.                                         
+126200     ADD 1 TO W-TOT-IGUALES                                             
+126800*                                                                       
+127800     IF MT-NUMERO-DE-CONTRATO = B04-CTA-NUM OF S016B04CUENTAS
+128000        PERFORM 132-ACT-STATUS-1066
+128100        PERFORM 135-REP-STATUS-INV
+128200     ELSE
+128300        EXIT PERFORM.
+128400*                                                                       
+128500 132-ACT-STATUS-1066.                                                   
+128600*-------------------                                                    
+131400           MOVE 15               TO W-CTA-CVESTATUS
+131500           MOVE 02               TO W-CASO                              
+131600           ADD  01               TO W-TOT-CASO2                         
+131800           PERFORM 320-MODIFICA-INTEGRA                                 
+132010            PERFORM 922-LEE-B07SXCTARELCTE
+132200           PERFORM 490-VALIDA-CTA-REL.
+133400*                                                                       
+133500 135-REP-STATUS-INV.
+133600*-------------------
+133800     MOVE B04-CTA-NUMPROD OF S016B04CUENTAS TO DET-1-PRODUCTO
+133900     MOVE B04-CTA-CVEINST OF S016B04CUENTAS TO DET-1-INSTRUMENTO
+134000     MOVE B04-CTA-CVEMONEDA OF S016B04CUENTAS TO DET-1-MONEDA
+134100     MOVE B04-CTE-NUM OF S016B04CUENTAS       TO DET-1-CLIENTE
+134200     MOVE B04-CTA-NUMSUC OF S016B04CUENTAS    TO DET-1-SUCURSAL
+134300     MOVE B04-CTA-NUM    OF S016B04CUENTAS    TO DET-1-CONTRATO
+134500     MOVE B04-CTA-CVESTATUS OF S016B04CUENTAS TO DET-1-ESTATUS
+134700     MOVE W-AAAA-E                           TO  DET-1-FCANC2K
+134800     MOVE W-MM-E                             TO  DET-1-FCANCMM
+134900     MOVE W-DD-E                             TO  DET-1-FCANCDD
+135000     MOVE "PROCESADO"                        TO  DET-1-LEYENDA
+135100     PERFORM 990-DETALLE-S084.                                          
+135200     MOVE 83                                 TO  W-CASO.
+135300*                                                                       
+135400 140-CHECA-STATUS-11.                                                   
+135500*-------------------                                                    
+136100   IF MT-NUMERO-DE-CONTRATO > WB04-NUMERO-DE-CONTRATO                   
+136200      MOVE MT-NUMERO-DE-CONTRATO TO WB04-NUMERO-DE-CONTRATO             
+136300      MOVE ZEROES                TO W-CTA-NUMPREF                       
+136400      PERFORM 905-LEE-B04SXPRD-MT                                       
+136500      IF W-FIN-B04-2 = 1                                                
+136600         MOVE SPACES                    TO DET-1                        
+136700         MOVE MT-NUMERO-DE-PRODUCTO     TO DET-1-PRODUCTO               
+136800         MOVE MT-NUMERO-DE-INSTRUMENTO  TO DET-1-INSTRUMENTO            
+136900         MOVE MT-MONEDA                 TO DET-1-MONEDA                 
+137000         MOVE ZEROES                    TO DET-1-CLIENTE                
+137100         MOVE MT-SUCURSAL-PROMOTORA     TO DET-1-SUCURSAL               
+137200         MOVE MT-NUMERO-DE-CONTRATO     TO DET-1-CONTRATO               
+137400         MOVE ZEROES                    TO DET-1-ESTATUS                
+137600         MOVE "**SIN B04CUENTAS"        TO DET-1-LEYENDA                
+137700         PERFORM 990-DETALLE-S084                                       
+137800         MOVE 84                        TO W-CASO                       
+137900      ELSE                                                              
+138000         ADD 1                          TO W-TOT-B04-PRD-MT.            
+138100*                                                                       
+138200 145-CHECA-STATUS-11-66.                                                
+138300*                                                                       
+138700        IF B04-CTA-CVESTATUS OF S016B04CUENTAS = 11                     
+138800*ZTI-A
+138900        AND B04-CTA-FEAPER-2K OF S016B04CUENTAS < W-FECHA-APE
+139000*ZTI-A
+139100          MOVE 12               TO W-CTA-CVESTATUS                      
+139200          ADD  01               TO W-TOT-CASO3                          
+139300          MOVE 03               TO W-CASO                               
+139400          PERFORM 320-MODIFICA-INTEGRA                                  
+139600          MOVE 0 TO W-FIN-B07                                           
+139700          PERFORM 920-LEE-B07SXCTECTA                                   
+139800          PERFORM 490-VALIDA-CTA-REL                                    
+139900        ELSE                                                            
+140000          ADD 1 TO W-TOT-B04-STADIF11.                                  
+140100*ZTI-A
+140200*Requerimiento cambio a st- 10 considerando fecha de apertura
+140300        IF B04-CTA-CVESTATUS OF S016B04CUENTAS = 10
+140400        AND B04-CTA-FEAPER-2K OF S016B04CUENTAS < W-FECHA-APE
+140500
+140600          MOVE 12               TO W-CTA-CVESTATUS
+140700          ADD  01               TO W-TOT-CASO5
+140800          MOVE 05               TO W-CASO
+140900          PERFORM 320-MODIFICA-INTEGRA
+141100          MOVE 0 TO W-FIN-B07
+141200          PERFORM 920-LEE-B07SXCTECTA
+141300          PERFORM 490-VALIDA-CTA-REL
+141400        ELSE
+141500          ADD 1 TO W-TOT-B04-STADIF11.
+141600*ZTI-A
+142400*                                                                       
+142500 150-REP-NO-B04.                                                        
+142600*--------------                                                         
+143900          MOVE MT-NUMERO-DE-PRODUCTO     TO DET-1-PRODUCTO              
+144000          MOVE MT-NUMERO-DE-INSTRUMENTO  TO DET-1-INSTRUMENTO           
+144100          MOVE MT-MONEDA                 TO DET-1-MONEDA                
+144200          MOVE ZEROES                    TO DET-1-CLIENTE               
+144300          MOVE MT-SUCURSAL-PROMOTORA     TO DET-1-SUCURSAL              
+144400          MOVE MT-NUMERO-DE-CONTRATO     TO DET-1-CONTRATO              
+144600          MOVE ZEROES                    TO DET-1-ESTATUS               
+144800          MOVE ZEROES                    TO DET-1-FCANC2K
+144900                                            DET-1-FCANCMM
+145000                                            DET-1-FCANCDD
+145100          MOVE "**SIN B04CUENTAS"        TO DET-1-LEYENDA
+145200          PERFORM 990-DETALLE-S084                                      
+145300          MOVE 84                        TO W-CASO.                     
+145400*                                                                       
+145500       IF W-CASO NOT = 84                                               
+145600         PERFORM 145-CHECA-STATUS-11-66.                                
+145700*                                                                       
+145800 200-REPORTA-STATUS.                                                    
+145900*                                                                       
+146000     MOVE SPACES TO DET-1.                                              
+146100     MOVE B04-CTA-NUMPROD OF S016B04CUENTAS   TO DET-1-PRODUCTO         
+146200     MOVE B04-CTA-CVEINST OF S016B04CUENTAS   TO DET-1-INSTRUMENTO      
+146300     MOVE B04-CTA-CVEMONEDA OF S016B04CUENTAS TO DET-1-MONEDA           
+146400     MOVE B04-CTE-NUM OF S016B04CUENTAS       TO DET-1-CLIENTE          
+146500     MOVE B04-CTA-NUMSUC OF S016B04CUENTAS    TO DET-1-SUCURSAL         
+146600     MOVE B04-CTA-NUM    OF S016B04CUENTAS    TO DET-1-CONTRATO         
+146800     MOVE B04-CTA-CVESTATUS OF S016B04CUENTAS TO DET-1-ESTATUS          
+147000     MOVE "STATUS NO MODIFCADO"               TO DET-1-LEYENDA          
+147100     PERFORM 990-DETALLE-S084.                                          
+147200     MOVE 85                                  TO W-CASO.                
+147300*------------------                                                     
+147400 320-MODIFICA-INTEGRA.                                                  
+147500*--------------------                                                   
+147600     MOVE 1                       TO W-MODIF.                           
+147700     ADD 1                        TO W-TOT-MODIFICADOS                  
+147800     IF W-CTA-CVESTATUS = 11                                            
+147900      IF WKP-OPC < 2                                                    
+148000         NEXT SENTENCE                                                  
+148100      ELSE                                                              
+148200        PERFORM 500-STORE-B04                                           
+148300        PERFORM 470-MODIFICA-B12.                                       
+148400                                                                        
+148600     IF W-CTA-CVESTATUS = 15
+148700      IF WKP-OPC < 2                                                    
+148800         NEXT SENTENCE                                                  
+148900      ELSE                                                              
+149100        PERFORM 500-STORE-B04                                           
+149200        PERFORM 470-MODIFICA-B12
+149300        PERFORM 480-MODIFICA-B08
+149400        PERFORM 485-MODIFICA-SIG-B08 UNTIL W-FIN-B08 = 1.
+149500     PERFORM 615-GRABA-IBMSALIDA.                                       
+149600*                                                                       
+149700 470-MODIFICA-B12.                                                      
+149800     PERFORM 950-LEE-B12
+149900     IF W-FIN-B12 = 0
+150700              PERFORM 540-STORE-B12.
+150800*
+150900  480-MODIFICA-B08.
+151000     PERFORM 960-LEE-B08
+151100     IF W-FIN-B08 = 0
+151200        PERFORM 560-STORE-B08.
+151300*
+151400 485-MODIFICA-SIG-B08.
+151500     IF W-FIN-B08  = 0
+151600        PERFORM 970-LEE-NEXT-B08
+151700        IF W-FIN-B08 = 0
+151800           PERFORM 560-STORE-B08.
+151900*
+152000 490-VALIDA-CTA-REL.                                                    
+152100*                                                                       
+152200   IF W-FIN-B07 = 0                                                     
+152300     MOVE B07-CTE-NUM          TO W-CTE-NUM                             
+152400     MOVE B07-CTA-NUMPROD      TO W-CTA-NUMPROD                         
+152500     MOVE B07-CTA-CVEINST      TO W-CTA-CVEINST                         
+152600     MOVE B07-CTA-NUMPREF      TO W-CTA-NUMPREF                         
+152700     MOVE B07-CTA-NUM          TO W-CTA-NUM                             
+152800     PERFORM 904-LEE-B04SXCTECTA                                        
+152900     IF W-FIN-B04-2 = 0                                                 
+153000*       IF B04-CTA-NUMPROD  OF B04CUENTAS = 84                          
+153100           PERFORM 640-GRABA-SALIDAB07                                  
+153200           IF WKP-OPC > 1                                               
+153300              PERFORM 495-STORE-B96-B07                                 
+153400              IF B04-CTR-USOEJECTA OF B04CUENTAS > 0                    
+153500                 PERFORM 510-STORE-B04-USO.                             
+154200*                                                                       
+154300 495-STORE-B96-B07.                                                     
+154800     PERFORM 520-DELETE-B07.                                            
+155000*                                                                       
+155100 500-STORE-B04.                                                         
+155200     BEGIN-TRANSACTION NO-AUDIT  S016B91REINICIO                        
+155300     LOCK S016B04CUENTAS                                                
+155500     IF W-CTA-CVESTATUS  = 15
+155600        MOVE  W-FECHA-2K          TO B04-CTA-FECANC-2K                  
+155700                                     OF S016B04CUENTAS                  
+155800        MOVE  W-FECHA             TO B04-CTA-FECCANCEL                  
+155900                                     OF S016B04CUENTAS                  
+156000     ELSE                                                               
+156100        IF W-CTA-CVESTATUS  = 11                                        
+156200           MOVE  W-FECHA-2K       TO B04-CTA-FEULMO-2K                  
+156300                                     OF S016B04CUENTAS                  
+156400           MOVE  W-FECHA          TO B04-CTA-FECULTMOD                  
+156500                                     OF S016B04CUENTAS.                 
+156600     MOVE  W-CTA-CVESTATUS        TO B04-CTA-CVESTATUS                  
+156700                                     OF S016B04CUENTAS                  
+156800     MOVE 04                      TO W-ESTRUCTURA                       
+157000     STORE S016B04CUENTAS                                               
+157100           ON EXCEPTION                                                 
+157200               MOVE 90             TO W-ERROR.                          
+157300     PERFORM 590-REPLICA.                                               
+157400                                                                        
+157500 510-STORE-B04-USO.                                                     
+157600     BEGIN-TRANSACTION NO-AUDIT  S016B91REINICIO                        
+157700     LOCK B04CUENTAS                                                    
+157800     SUBTRACT 1                   FROM B04-CTR-USOEJECTA                
+157900                                       OF B04CUENTAS                    
+158000     MOVE 04                      TO W-ESTRUCTURA                       
+158200     STORE B04CUENTAS                                                   
+158300           ON EXCEPTION                                                 
+158400               MOVE 90             TO W-ERROR.                          
+158500     PERFORM 590-REPLICA.                                               
+158600                                                                        
+158700 520-DELETE-B07.                                                        
+158800     BEGIN-TRANSACTION NO-AUDIT  S016B91REINICIO                        
+158900      LOCK B07SXCTECTA                                                  
+159000     MOVE 07                      TO W-ESTRUCTURA                       
+159100     MOVE B07-CTA-NUMREL          TO W-B07-CTA-NUMREL                   
+159300     DELETE S016B07CTACTA                                               
+159400           ON EXCEPTION                                                 
+159500               MOVE 90             TO W-ERROR.                          
+159600     PERFORM 590-REPLICA.                                               
+159700                                                                        
+159800 540-STORE-B12.                                                         
+159900     BEGIN-TRANSACTION NO-AUDIT  S016B91REINICIO                        
+160000     LOCK S016B12PRODUCTOS                                              
+160500        COMPUTE W-PRD-NUMCTAS  =  B12-PRD-NUMCTAS - 1                   
+160600        MOVE    W-PRD-NUMCTAS  TO  B12-PRD-NUMCTAS
+160700     MOVE 12                      TO W-ESTRUCTURA                       
+160900     STORE S016B12PRODUCTOS                                             
+161000           ON EXCEPTION                                                 
+161100               MOVE 90             TO W-ERROR.                          
+161200     PERFORM 590-REPLICA.                                               
+161300*
+161400  560-STORE-B08.
+161500    BEGIN-TRANSACTION NO-AUDIT S016B91REINICIO
+161600    LOCK S016B08MEDIOS
+161800       MOVE W-FECHA-2K    TO B08-MDA-FECANC-2K
+161900                          OF S016B08MEDIOS
+162000       MOVE W-FECHA       TO B08-MDA-FECCANCEL
+162100                          OF S016B08MEDIOS
+162200       MOVE 25            TO B08-MDA-CVESTATUS
+162300                          OF S016B08MEDIOS
+162400       MOVE 08            TO W-ESTRUCTURA
+162500    STORE S016B08MEDIOS
+162600        ON EXCEPTION
+162700           MOVE 90         TO W-ERROR.
+162800    PERFORM 590-REPLICA.
+162900*
+163000 590-REPLICA.                                                           
+163100*------------                                                           
+163200     PERFORM 595-STORE-B96.                                             
+163300        END-TRANSACTION NO-AUDIT S016B91REINICIO.                       
+163400*                                                                       
+163500 595-STORE-B96.                                                         
+163600     CREATE S016B96CTRLCAMBIO                                           
+163700     IF W-ESTRUCTURA = 7                                                
+163800        MOVE W-ESTRUCTURA         TO B96-CTR-NUMDS                      
+163900        MOVE W-B04-CTR-NUMCSI     TO B96-CTR-NUMCSI                     
+164000        MOVE W-B04-CTE-NUM        TO B96-CTE-NUM                        
+164100        MOVE W-B04-CTA-NUMPROD    TO B96-CTA-NUMPROD                    
+164200        MOVE W-B04-CTA-CVEINST    TO B96-CTA-CVEINST                    
+164300        MOVE W-B04-CTA-NUMPREF    TO B96-CTA-NUMPREF                    
+164400        MOVE W-B04-CTA-NUM        TO B96-CTA-NUM                        
+164500        MOVE W-B04-CTA-NUMSUC     TO B96-CTR-NUMSUC                     
+164600        MOVE 99                   TO B96-CTR-NUMCAMPO                   
+164700        MOVE W-B07-CTA-NUMREL     TO W93-CTA-NUMREL                     
+164800        MOVE W93-CTR-DATOANT      TO B96-CTR-DATOANT                    
+164900        COMPUTE B96-CTR-NUMNOMI = B07-CTA-NUMPROREL * 1000000 +         
+165000                                  B07-CTA-CVEINSREL * 10000   +         
+165100                                  B07-CTR-CVERELCTA * 100               
+165200     ELSE                                                               
+165300     IF W-ESTRUCTURA = 4  OR 8                                          
+165400        MOVE 02                   TO B96-CTR-NUMCAMPO                   
+165500        MOVE W-B04-CTR-NUMCSI     TO B96-CTR-NUMCSI                     
+165600        MOVE W-B04-CTE-NUM        TO B96-CTE-NUM                        
+165700        MOVE W-B04-CTA-NUMPROD    TO B96-CTA-NUMPROD                    
+165800        MOVE W-B04-CTA-CVEINST    TO B96-CTA-CVEINST                    
+165900        MOVE W-B04-CTA-NUMPREF    TO B96-CTA-NUMPREF                    
+166000        MOVE W-B04-CTA-NUM        TO B96-CTA-NUM                        
+166100        MOVE W-ESTRUCTURA         TO B96-CTR-NUMDS.                     
+166200     ADD 1                        TO W77-TOT-CREADO-B96.                
+166500     MOVE W-FECHA-B96             TO B96-CTR-FECULTMOD.                 
+166700     STORE S016B96CTRLCAMBIO                                            
+166800           ON EXCEPTION                                                 
+166900              IF DMSTATUS (DUPLICATES)                                  
+167000                 SUBTRACT 1 FROM W77-TOT-CREADO-B96                     
+167100              ELSE                                                      
+167200                  MOVE 90          TO W-ERROR.                          
+167500                                                                        
+167600 600-MUEVE-B04.                                                         
+167700*-------------                                                          
+167800     MOVE B04-CTR-NUMCSI    OF S016B04CUENTAS TO W-B04-CTR-NUMCSI       
+167900     MOVE B04-CTE-NUM       OF S016B04CUENTAS TO W-B04-CTE-NUM          
+168000     MOVE B04-CTA-NUMPREF   OF S016B04CUENTAS TO W-B04-CTA-NUMPREF      
+168100     MOVE B04-CTA-NUM       OF S016B04CUENTAS TO W-B04-CTA-NUM          
+168200     MOVE B04-CTA-NUMPROD   OF S016B04CUENTAS TO W-B04-CTA-NUMPROD      
+168300     MOVE B04-CTA-CVEINST   OF S016B04CUENTAS TO W-B04-CTA-CVEINST      
+168400     MOVE B04-CTA-CVESTATUS OF S016B04CUENTAS TO                        
+168500                                              W-B04-CTA-CVESTATUS       
+168600     MOVE B04-CTA-FECANC-2K OF S016B04CUENTAS TO                        
+168700                                              W-B04-CTA-FECANC-2K.      
+168800     MOVE B04-CTA-NUMSUC    OF S016B04CUENTAS TO W-B04-CTA-NUMSUC       
+168900     MOVE B04-CTA-CVEMONEDA OF S016B04CUENTAS TO                        
+169000                                              W-B04-CTA-CVEMONEDA       
+169100     MOVE B04-CTA-CVEUSO    OF S016B04CUENTAS TO W-B04-CTA-CVEUSO.      
+169200*                                                                       
+169300 615-GRABA-IBMSALIDA.                                                   
+169400*----------------                                                       
+169500     MOVE SPACES                  TO IBM-REGISTRO.                      
+169600     IF W-CASO > 0                                                      
+169700        MOVE W-CASO               TO IBM-CLAVE.                         
+169800     IF W-CASO = 84                                                     
+169900        MOVE MT-NUMERO-DE-PRODUCTO    TO IBM-CTA-NUMPROD                
+170000        MOVE MT-NUMERO-DE-INSTRUMENTO TO IBM-CTA-CVEINST                
+170100        MOVE MT-NUMERO-DE-CONTRATO    TO IBM-CTA-NUM                    
+170200     ELSE                                                               
+170300       MOVE W-B04-CTR-NUMCSI        TO IBM-CTR-NUMCSI                   
+170400       MOVE W-B04-CTE-NUM           TO IBM-CTE-NUM                      
+170500       MOVE W-B04-CTA-NUMPREF       TO IBM-CTA-NUMPREF                  
+170600       MOVE W-B04-CTA-NUM           TO IBM-CTA-NUM                      
+170700       MOVE W-B04-CTA-NUMPROD       TO IBM-CTA-NUMPROD                  
+170800       MOVE W-B04-CTA-CVEINST       TO IBM-CTA-CVEINST                  
+170900       MOVE W-B04-CTA-CVESTATUS     TO IBM-CTA-CVESTATUS-ANT            
+171000       MOVE W-CTA-CVESTATUS         TO IBM-CTA-CVESTATUS-ACT.           
+171100     WRITE IBM-REGISTRO.                                                
+171200*ZTIM - Se consideran caso 4 y 5 para totalizar cambios en B96
+171300     IF W-CASO = 01 OR 02 OR 03 OR 04 OR 05 OR 86
+171400        ADD 1                        TO W-TOT-B96.                      
+171500*ZTIM - Oct 2011
+171600*                                                                       
+171700 620-GRABA-ERROR.                                                       
+171800*---------------                                                        
+171900     MOVE SPACES                  TO IBM-REGISTRO.                      
+172000     ADD 1                        TO W-TOT-ERRORES.                     
+172100     MOVE W-B04-CTE-NUM           TO IBM-CTE-NUM                        
+172200     MOVE W-B04-CTA-NUM           TO IBM-CTA-NUM                        
+172300     MOVE W-B04-CTA-NUMPROD       TO IBM-CTA-NUMPROD                    
+172400     MOVE W-B04-CTA-CVEINST       TO IBM-CTA-CVEINST                    
+172500     MOVE W-ERROR                 TO IBM-ERROR.                         
+172600     IF W-ERROR = 90                                                    
+172700        MOVE W-ESTRUCTURA         TO IBM-CLAVE                          
+172800     ELSE                                                               
+172900        IF W-ERROR = 99                                                 
+173000           MOVE W-RESULT          TO IBM-CLAVE.                         
+173100     WRITE IBM-REGISTRO.                                                
+173200*                                                                       
+173300 630-GRABA-REINICIO.                                                    
+173400*------------------                                                     
+173500     MOVE SPACES                  TO REI-REGISTRO.                      
+173600     MOVE W-B04-CTR-NUMCSI        TO REI-CTR-NUMCSI                     
+173700     MOVE W-B04-CTA-NUM           TO REI-CTA-NUM                        
+173800     MOVE W-B04-CTA-NUMPROD       TO REI-CTA-NUMPROD                    
+173900     MOVE W-B04-CTA-CVEINST       TO REI-CTA-CVEINST                    
+174000     MOVE W-TOT-LEIDOS-UNI        TO REI-TOT-LEIDOS                     
+174100     MOVE W-TOT-TRATADOS          TO REI-TOT-TRATADOS                   
+174200     MOVE W-TOT-PRODUCTO          TO REI-TOT-PRODUCTO                   
+174300     MOVE W-TOT-MODIFICADOS       TO REI-TOT-MODIFICADOS                
+174400     MOVE W-TOT-CASO1             TO REI-TOT-MODIF-1                    
+174500     MOVE W-TOT-CASO2             TO REI-TOT-MODIF-2                    
+174600     MOVE W-TOT-CASO3             TO REI-TOT-MODIF-3                    
+174700*ZTI-A Se consideran casos 4 y 5 para totales.
+174800     MOVE W-TOT-CASO4             TO REI-TOT-MODIF-4
+174900     MOVE W-TOT-CASO5             TO REI-TOT-MODIF-5
+175000*ZTI-A Oct-2011
+175100     MOVE W-TOT-SIN-B01           TO REI-TOT-SIN-B01                    
+175200     MOVE W-TOT-SIN-B04           TO REI-TOT-SIN-B04                    
+175300     MOVE W-TOT-B96               TO REI-TOT-B96                        
+175400     MOVE W-TOT-STA-ERROR         TO REI-TOT-STA-ERROR                  
+175500     MOVE W-TOT-RESTO             TO REI-TOT-RESTO                      
+175600     MOVE W-TOT-ERRORES           TO REI-TOT-ERRORES                    
+175700     MOVE W-TOT-GRABADOS7         TO REI-TOT-GRABADOS7                  
+175800     MOVE WKS-NUMERO-DE-CONTRATO  TO REI-CTO-S084                       
+175900     MOVE W-TOT-B04-MEN           TO REI-TOT-B04-MEN                    
+176000     MOVE W-TOT-B04-MAY           TO REI-TOT-B04-MAY                    
+176100     MOVE W-TOT-IGUALES           TO REI-TOT-IGUALES                    
+176200     MOVE W-TOT-LEIDOS-S084       TO REI-TOT-LEIDOS-S084                
+176300     MOVE W-TOT-DIF-STA           TO REI-TOT-DIF-STA                    
+176400     MOVE W-TOT-B04-STADIF11      TO REI-TOT-B04-STADIF11               
+176500     MOVE W-TOT-B04-PRD-MT        TO REI-TOT-B04-PRD-MT                 
+176600     MOVE W-TOT-DIF-SIN           TO REI-TOT-DIF-SIN                    
+176700     MOVE W-TOT-SIN-ACC           TO REI-TOT-SIN-ACC                    
+176800     WRITE REI-REGISTRO.                                                
+176900*                                                                       
+177000  630-GRABA-REINICIO-FI.
+177100*----------------------
+177200   MOVE SPACES                  TO REIFI-REGISTRO.
+177300   MOVE W-B04-CTR-NUMCSI        TO REIFI-CTR-NUMCSI
+177400   MOVE W-B04-CTA-NUM           TO REIFI-CTA-NUM
+177500   MOVE W-B04-CTA-NUMPROD       TO REIFI-CTA-NUMPROD
+177600   MOVE W-B04-CTA-CVEINST       TO REIFI-CTA-CVEINST
+177700   MOVE W-TOT-LEIDOS-UNI        TO REIFI-TOT-LEIDOS
+177800   MOVE W-TOT-TRATADOS          TO REIFI-TOT-TRATADOS
+177900   MOVE W-TOT-PRODUCTO          TO REIFI-TOT-PRODUCTO
+178000   MOVE W-TOT-MODIFICADOS       TO REIFI-TOT-MODIFICADOS
+178100   MOVE W-TOT-CASO1             TO REIFI-TOT-MODIF-1
+178200   MOVE W-TOT-CASO2             TO REIFI-TOT-MODIF-2
+178300   MOVE W-TOT-CASO3             TO REIFI-TOT-MODIF-3
+178400   MOVE W-TOT-CASO4             TO REIFI-TOT-MODIF-4
+178500   MOVE W-TOT-CASO5             TO REIFI-TOT-MODIF-5
+178600   MOVE W-TOT-SIN-B01           TO REIFI-TOT-SIN-B01
+178700   MOVE W-TOT-SIN-B04           TO REIFI-TOT-SIN-B04
+178800   MOVE W-TOT-B96               TO REIFI-TOT-B96
+178900   MOVE W-TOT-STA-ERROR         TO REIFI-TOT-STA-ERROR
+179000   MOVE W-TOT-RESTO             TO REIFI-TOT-RESTO
+179100   MOVE W-TOT-ERRORES           TO REIFI-TOT-ERRORES
+179200   MOVE W-TOT-GRABADOS7         TO REIFI-TOT-GRABADOS7
+179300   MOVE WKS-NUMERO-DE-CONTRATO  TO REIFI-CTO-S084
+179400   MOVE W-TOT-B04-MEN           TO REIFI-TOT-B04-MEN
+179500   MOVE W-TOT-B04-MAY           TO REIFI-TOT-B04-MAY
+179600   MOVE W-TOT-IGUALES           TO REIFI-TOT-IGUALES
+179700   MOVE W-TOT-LEIDOS-S084       TO REIFI-TOT-LEIDOS-S084
+179800   MOVE W-TOT-DIF-STA           TO REIFI-TOT-DIF-STA
+179900   MOVE W-TOT-B04-STADIF11      TO REIFI-TOT-B04-STADIF11
+180000   MOVE W-TOT-B04-PRD-MT        TO REIFI-TOT-B04-PRD-MT
+180100   MOVE W-TOT-DIF-SIN           TO REIFI-TOT-DIF-SIN
+180200   MOVE W-TOT-SIN-ACC           TO REIFI-TOT-SIN-ACC
+180300   WRITE REIFI-REGISTRO.
+180400*
+180500 640-GRABA-SALIDAB07.                                                   
+180600*-------------------                                                    
+180700     MOVE SPACES                  TO SA7-REGISTRO.                      
+180800     MOVE B07-CTR-NUMCSI          TO SA7-CTR-NUMCSI                     
+180900     MOVE B07-CTE-NUM             TO SA7-CTE-NUM                        
+181000     MOVE B07-CTA-NUMPREREL       TO SA7-CTA-NUMPREREL                  
+181100     MOVE B07-CTA-NUMREL          TO SA7-CTA-NUMREL                     
+181200     MOVE B07-CTA-NUMPROREL       TO SA7-CTA-NUMPROREL                  
+181300     MOVE B07-CTA-CVEINSREL       TO SA7-CTA-CVEINSREL                  
+181400     MOVE B07-CTA-NUMPREF         TO SA7-CTA-NUMPREF                    
+181500     MOVE B07-CTA-NUM             TO SA7-CTA-NUM                        
+181600     MOVE B07-CTA-NUMPROD         TO SA7-CTA-NUMPROD                    
+181700     MOVE B07-CTA-CVEINST         TO SA7-CTA-CVEINST                    
+181800     MOVE B04-CTA-CVESTATUS       OF S016B04CUENTAS                     
+181900                                  TO SA7-CTA-CVESTATUS                  
+182000     MOVE B07-CTR-CVERELCTA       TO SA7-CTR-CVERELCTA                  
+182100     ADD 1                        TO W-TOT-GRABADOS7.                   
+182200     WRITE SA7-REGISTRO.                                                
+182300*                                                                       
+182400 690-SUMA-TOTALES.                                                      
+182500*----------------                                                       
+182600     IF W-CASO = 81                                                     
+182700        ADD 1                     TO W-TOT-SIN-B01                      
+182800     ELSE                                                               
+182900     IF W-CASO = 82                                                     
+183000        ADD 1                     TO W-TOT-CLASIF3                      
+183100     ELSE                                                               
+183200     IF W-CASO = 83                                                     
+183300        ADD 1                     TO W-TOT-DIF-STA                      
+183400     ELSE                                                               
+183500     IF W-CASO = 84                                                     
+183600        ADD 1                     TO W-TOT-SIN-B04                      
+183700     ELSE                                                               
+183800     IF W-CASO = 85                                                     
+183900        ADD 1                     TO W-TOT-STA-ERROR                    
+184000     ELSE                                                               
+184100     IF W-CASO = 86                                                     
+184200        ADD 1                     TO W-TOT-PRODUCTO                     
+184300     ELSE                                                               
+184400     IF W-CASO = 87                                                     
+184500        ADD 1                     TO W-TOT-RESTO                        
+184600     ELSE                                                               
+184700     IF W-CASO = 88                                                     
+184800        ADD 1                     TO W-TOT-DIF-SIN                      
+184900     ELSE                                                               
+185000     IF W-CASO = 89                                                     
+185100        ADD 1                     TO W-TOT-SIN-ACC.                     
+185200*                                                                       
+185300 900-LEE-NEXT-B01.                                                      
+185400     MOVE 0                       TO W-FIN-B01                          
+185500     FIND FIRST B01SXCTE    AT                                          
+185600          B01-CTE-NUM       = B04-CTE-NUM OF S016B04CUENTAS             
+185700          ON EXCEPTION                                                  
+185800             MOVE 1               TO W-FIN-B01.                         
+185900     IF W-FIN-B01 = 1                                                   
+186000        MOVE "**CLIENTE SIN B01" TO B01-CTE-NOM.                        
+186100*                                                                       
+186200 902-LEE-125900-B04.                                                    
+186300     MOVE 0                       TO W-FIN-B04
+186400*MTB FIND NEXT B04SXCTAPRD OF S016B04CUENTAS AT
+186500    FIND      B04SXCTAPRD OF S016B04CUENTAS AT
+186600  B04-CTA-NUMPREF OF S016B04CUENTAS = ZEROS
+186700  AND B04-CTA-NUM     OF S016B04CUENTAS = MT-NUMERO-DE-CONTRATO
+186800  AND B04-CTA-NUMPROD OF S016B04CUENTAS = MT-NUMERO-DE-PRODUCTO
+186900  AND B04-CTA-CVEINST OF S016B04CUENTAS = MT-NUMERO-DE-INSTRUMENTO
+187000          ON EXCEPTION
+187200             MOVE 1               TO W-FIN-B04
+187300             ADD  1               TO W-TOT-NOLEIDOS-UNI.
+187400  IF W-FIN-B04 = 0
+187600     ADD 1                        TO W-TOT-LEIDOS-UNI.
+187700*
+187800 902-LEE-NEXT-B04.                                                      
+188100     FIND      B04SXCTAPRD OF S016B04CUENTAS AT
+188200          B04-CTA-NUMPREF OF S016B04CUENTAS = W-B04-CTA-NUMPREF         
+188300      AND B04-CTA-NUM     OF S016B04CUENTAS = W-B04-CTA-NUM
+188400      AND B04-CTA-NUMPROD OF S016B04CUENTAS = W-B04-CTA-NUMPROD         
+188600          ON EXCEPTION                                                  
+188700             MOVE ALL @99@  TO B04-CTA-NUM OF S016B04CUENTAS            
+188800             MOVE 1         TO W-FIN-B04.                               
+188900     IF W-FIN-B04 = 0                                                   
+189000        ADD 1                        TO W-TOT-LEIDOS-UNI.               
+189200 903-LEE-FIRST-B04.                                                     
+189400     FIND FIRST B04SXCTAPRD OF S016B04CUENTAS AT                        
+189500     B04-CTA-NUMPREF OF S016B04CUENTAS =  W-B04-CTA-NUMPREF AND         
+189600     B04-CTA-NUM     OF S016B04CUENTAS =  W-B04-CTA-NUM     AND         
+189700     B04-CTA-NUMPROD OF S016B04CUENTAS =  W-B04-CTA-NUMPROD AND         
+189800     B04-CTA-CVEINST OF S016B04CUENTAS =  W-B04-CTA-CVEINST             
+189900          ON EXCEPTION                                                  
+190000             MOVE 1               TO W-FIN-B04.                         
+190100     IF W-FIN-B04 = 0                                                   
+190200        PERFORM 902-LEE-NEXT-B04.                                       
+190300*                                                                       
+190400 904-LEE-S084.                                                          
+190500   IF W-FIN-S084 = 0                                                    
+190600     PERFORM 905-LEE-ENTRADA.                                           
+190700     IF W-FIN-S084 = 0                                                  
+190800        IF MT-TIPO-DE-REGISTRO = 1                                      
+190900           MOVE REG-DETALLE TO REG-HEADER                               
+191000           PERFORM 905-LEE-ENTRADA                                      
+191100        ELSE                                                            
+191200           IF MT-TIPO-DE-REGISTRO = 9                                   
+191300              MOVE REG-DETALLE TO REG-TRAILER                           
+191400              PERFORM 905-LEE-ENTRADA.                                  
+191500*                                                                       
+191600 905-LEE-ENTRADA.                                                       
+192100     READ ENTRADA                                                       
+192200          INTO REG-DETALLE AT END                                       
+192300          MOVE ALL @99@ TO REG-DETALLE                                  
+192500          MOVE 1 TO W-FIN-S084.                                         
+192700     IF W-FIN-S084 = 0 AND MT-TIPO-DE-REGISTRO = 2
+192800        ADD 1 TO W-TOT-LEIDOS-S084
+192900        MOVE MT-NUMERO-DE-PRODUCTO    TO W-B04-CTA-NUMPROD
+193000        MOVE MT-NUMERO-DE-INSTRUMENTO TO W-B04-CTA-CVEINST
+193100        MOVE MT-NUMERO-DE-CONTRATO    TO W-B04-CTA-NUM.
+193200     MOVE MT-NUMERO-DE-CONTRATO   TO WKS-NUMERO-DE-CONTRATO.            
+193300*                                                                       
+193400******    LEE EL B04 DE LA CTA RELACIONADA EN B07                       
+193500 904-LEE-B04SXCTECTA.                                                   
+193600     MOVE 0                       TO W-FIN-B04-2                        
+193700     FIND FIRST B04SXCTECTA OF B04CUENTAS                               
+193800      AT  B04-CTE-NUM     OF B04CUENTAS = W-CTE-NUM                     
+193900      AND B04-CTA-NUMPROD OF B04CUENTAS = W-CTA-NUMPROD                 
+194000      AND B04-CTA-CVEINST OF B04CUENTAS = W-CTA-CVEINST                 
+194100      AND B04-CTA-NUMPREF OF B04CUENTAS = W-CTA-NUMPREF                 
+194200      AND B04-CTA-NUM     OF B04CUENTAS = W-CTA-NUM                     
+194300          ON EXCEPTION                                                  
+194400             MOVE 1               TO W-FIN-B04-2.                       
+194500*                                                                       
+194600******    LEE EL B04 DE LA CTA DE ENTRADA                               
+194700 905-LEE-B04SXPRD-MT.                                                   
+194800     MOVE 0                       TO W-FIN-B04-2                        
+195000     FIND FIRST B04SXCTAPRD OF B04CUENTAS AT                            
+195100          B04-CTA-NUMPREF OF B04CUENTAS = W-CTA-NUMPREF                 
+195200      AND B04-CTA-NUM     OF B04CUENTAS = MT-NUMERO-DE-CONTRATO         
+195300      AND B04-CTA-NUMPROD OF B04CUENTAS = MT-NUMERO-DE-PRODUCTO         
+195400      AND B04-CTA-CVEINST OF B04CUENTAS = MT-NUMERO-DE-INSTRUMENTO      
+195500          ON EXCEPTION                                                  
+195600             MOVE 1               TO W-FIN-B04-2.                       
+195900*                                                                       
+196000 920-LEE-B07SXCTECTA.                                                   
+196100     MOVE 0                       TO W-FIN-B07                          
+196200     FIND FIRST B07SXCTECTA                                             
+196300          AT B07-CTR-NUMCSI     =  W-B04-CTR-NUMCSI                     
+196400          AND B07-CTE-NUM        = W-B04-CTE-NUM                        
+196500          AND B07-CTA-NUMPROD    = W-B04-CTA-NUMPROD                    
+196600          AND B07-CTA-CVEINST    = W-B04-CTA-CVEINST                    
+196700          AND B07-CTA-NUMPREF    = W-B04-CTA-NUMPREF                    
+196800          AND B07-CTA-NUM        = W-B04-CTA-NUM                        
+197000          ON EXCEPTION                                                  
+197100             MOVE 1               TO W-FIN-B07.                         
+197200*                                                                       
+197500 922-LEE-B07SXCTARELCTE.                                                
+197600     MOVE 0                       TO W-FIN-B07                          
+197700     FIND FIRST B07SXCTARELCTE
+197800          AT B07-CTR-NUMCSI      = W-B04-CTR-NUMCSI                     
+197900          AND B07-CTA-NUMPROREL  = W-B04-CTA-NUMPROD                    
+198000          AND B07-CTA-CVEINSREL  = W-B04-CTA-CVEINST                    
+198100          AND B07-CTA-NUMPREREL  = W-B04-CTA-NUMPREF                    
+198200          AND B07-CTA-NUMREL     = W-B04-CTA-NUM                        
+198210          AND B07-CTE-NUM        = W-B04-CTE-NUM
+198300          ON EXCEPTION                                                  
+198400             MOVE 1               TO W-FIN-B07.                         
+198500*                                                                       
+198600 950-LEE-B12.                                                           
+198700    MOVE  0                       TO W-FIN-B12.                         
+198800    FIND B12SXCTEPRODIN                                                 
+198900         AT  B12-CTR-NUMCSI     =   W-B04-CTR-NUMCSI                    
+199000         AND B12-CTE-NUM        =   W-B04-CTE-NUM                       
+199100         AND B12-PRD-NUM        =   W-B04-CTA-NUMPROD                   
+199200         AND B12-PRD-CVEINST    =   W-B04-CTA-CVEINST
+199300          ON EXCEPTION
+199400             MOVE 1               TO W-FIN-B12.
+199500*
+199600  960-LEE-B08.
+199800    SET B08SXCTECTARAN TO    BEGINNING
+199900    MOVE  0            TO    W-FIN-B08.
+200000    FIND FIRST B08SXCTECTATIT  AT
+200100     B08-CTR-NUMCSI   = W-B04-CTR-NUMCSI   AND
+200200     B08-CTE-NUM      = W-B04-CTE-NUM      AND
+200300     B08-CTA-NUMPROD  = W-B04-CTA-NUMPROD  AND
+200400     B08-CTA-CVEINST  = W-B04-CTA-CVEINST
+200700         ON EXCEPTION
+200800            IF DMSTATUS(NOTFOUND)
+200900             MOVE 1       TO   W-FIN-B08.
+201000*
+201100  970-LEE-NEXT-B08.
+201400     FIND NEXT B08SXCTECTATIT OF S016B08MEDIOS AT
+201500     B08-CTR-NUMCSI OF S016B08MEDIOS = W-B04-CTR-NUMCSI  AND
+201600     B08-CTE-NUM OF S016B08MEDIOS     = W-B04-CTE-NUM     AND
+201700     B08-CTA-NUMPROD OF S016B08MEDIOS = W-B04-CTA-NUMPROD AND
+201800     B08-CTA-CVEINST OF S016B08MEDIOS = W-B04-CTA-CVEINST AND
+201900     B08-CTA-NUMPREF OF S016B08MEDIOS = W-B04-CTA-NUMPREF AND
+202000     B08-CTA-NUM OF S016B08MEDIOS     = W-B04-CTA-NUM
+202100         ON EXCEPTION
+202200          IF DMSTATUS(NOTFOUND)
+202300             MOVE 1       TO W-FIN-B08.
+202400*
+202500 980-LEE-B90.                                                           
+202600     MOVE 0                       TO W-FIN-B90.                         
+202700     LOCK B90SXSNUMCSI AT                                               
+202800          B90-CTR-NUMCSI = W90-CTR-NUMCSI                               
+202900          ON EXCEPTION
+203000             MOVE 1               TO W-FIN-B90.
+203100*
+203200 970-LEE-REINICIO.
+203300      READ REINICIO AT END MOVE 1 TO W-FIN-REI.
+203400*
+203500 970-LEE-REINICIO-FI.
+203600*--------------------
+203700     READ REINICIO-FI AT END
+203800          MOVE 1 TO W-FIN-REI-FI.
+203900*
+204000 980-ENCABEZADOS-S084.
+204100*--------------------
+204200     MOVE SPACES         TO SAL-REPORTE.
+204300     ADD 1               TO WKS-CONT-PAGES
+204400     MOVE WKS-CONT-PAGES TO ENC-2-PAGINA
+204500     WRITE SAL-REPORTE   BEFORE CHANNEL 1.
+204600     WRITE SAL-REPORTE   FROM ENC-1.
+204700     WRITE SAL-REPORTE   FROM ENC-2.
+204800     WRITE SAL-REPORTE   FROM ENC-3.
+204900     WRITE SAL-REPORTE   FROM ENC-4.
+205000     WRITE SAL-REPORTE   FROM ENC-5.
+205100     WRITE SAL-REPORTE   FROM ENC-6 BEFORE 3.
+205200     MOVE  5             TO WKS-CONT-LINES.
+205300*                                                                       
+205400 990-DETALLE-S084.                                                      
+205500*----------------                                                       
+205600     ADD 1 TO WKS-CONT-LINES                                            
+205700     IF       WKS-CONT-LINES > 66                                       
+205800        PERFORM 980-ENCABEZADOS-S084.                                   
+205900     WRITE SAL-REPORTE FROM DET-1.                                      
+206000*ZTI-A Rutina para obtener fecha del sabado siguiente y grabar
+206100*      esta en B96
+206200*                                                                       
+206300 998-OBTIENE-FECB96.
+206400*----------------
+206500 ACCEPT WKS-FECHA-HOY FROM DATE.
+206600*--SE OBTIENE FECHA DEL FIN DE SEMANA PARA B96--*
+206700 MOVE 2             TO FORMATO.
+206800 MOVE 6             TO FUNCION.
+206900 MOVE WKS-FECHA-HOY TO FECHA1 FECHA2.
+207000 CHANGE ATTRIBUTE LIBACCESS    OF "LOCSUP" TO BYFUNCTION.
+207100 CHANGE ATTRIBUTE FUNCTIONNAME OF "LOCSUP" TO "LOCSUP".
+207200 CALL "THECALENDAR IN LOCSUP" USING FUNCION,FECHA1,FECHA2,
+207300                                    FORMATO.
+207400 MOVE FECHA1 TO WKS-DIA-SEM.
+207500  IF WKS-DIA-SEM = 1
+207600     MOVE 5 TO WKS-FECPROY
+207700  ELSE
+207800     IF WKS-DIA-SEM = 2
+207900        MOVE 4 TO WKS-FECPROY
+208000     ELSE
+208100        IF WKS-DIA-SEM = 3
+208200           MOVE 3 TO WKS-FECPROY
+208300        ELSE
+208400           IF WKS-DIA-SEM = 4
+208500              MOVE 2 TO WKS-FECPROY
+208600           ELSE
+208700                IF WKS-DIA-SEM = 5
+208800                   MOVE 1 TO WKS-FECPROY
+208900
+209000                ELSE
+209100                   IF WKS-DIA-SEM = 6
+209200                      MOVE 7 TO WKS-FECPROY.
+209300 IF WKS-DIA-SEM = 0
+209400    COMPUTE WKS-FECPROY = 6 - WKS-DIA-SEM
+209500    MOVE WKS-FECHA-HOY TO FECHA1
+209600    MOVE WKS-FECPROY   TO FECHA2
+209700    MOVE 8             TO FUNCION
+209800    MOVE 2             TO FORMATO
+209900    CALL "THECALENDAR IN LOCSUP" USING FUNCION FECHA1 FECHA2
+210000                                       FORMATO
+210100    MOVE FECHA1 TO WKS-FECHA-FIN
+210200 ELSE
+210300    MOVE WKS-FECHA-HOY TO FECHA1
+210400    MOVE WKS-FECPROY   TO FECHA2
+210500    MOVE 8             TO FUNCION
+210600    MOVE 2             TO FORMATO
+210700    CALL "THECALENDAR IN LOCSUP" USING FUNCION
+210800                                       FECHA1
+210900                                       FECHA2
+211000                                       FORMATO
+211100    MOVE FECHA1 TO WKS-FECHA-FIN.
+211300*

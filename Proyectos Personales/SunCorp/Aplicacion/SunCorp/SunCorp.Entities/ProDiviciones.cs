@@ -36,6 +36,18 @@ namespace SunCorp.Entities
         public string Descripcion { get; set; }
     
     	[DataMember]
+        public string Creador { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+    
+    	[DataMember]
+        public string ModificadoPor { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
+    
+    	[DataMember]
         public Nullable<bool> Borrado { get; set; }
     
     

@@ -45,13 +45,10 @@ namespace SunCorp.Entities
         public string NombreProducto { get; set; }
     
     	[DataMember]
-        public string Titulo { get; set; }
+        public string Descripcion { get; set; }
     
     	[DataMember]
-        public string TituloDetalle { get; set; }
-    
-    	[DataMember]
-        public string NumeroDeSerie { get; set; }
+        public string CodigoBarras { get; set; }
     
     	[DataMember]
         public string Detalles { get; set; }
@@ -65,11 +62,22 @@ namespace SunCorp.Entities
     	[DataMember]
         public Nullable<bool> Borrado { get; set; }
     
+    	[DataMember]
+        public string Creador { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+    
+    	[DataMember]
+        public string ModificadoPor { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
+    
     
         public virtual ProCatMarca ProCatMarca { get; set; }
         public virtual ProCatModelo ProCatModelo { get; set; }
         public virtual ProDiviciones ProDiviciones { get; set; }
-        public virtual ProFamililia ProFamililia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProVendedorTienda> ProVendedorTienda { get; set; }
     }

@@ -31,7 +31,22 @@ namespace SunCorp.Entities
         public int IdMarca { get; set; }
     
     	[DataMember]
-        public string Marca { get; set; }
+        public string NombreMarca { get; set; }
+    
+    	[DataMember]
+        public string Descripcion { get; set; }
+    
+    	[DataMember]
+        public string Creador { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+    
+    	[DataMember]
+        public string Modificado { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
     	[DataMember]
         public Nullable<bool> Borrado { get; set; }

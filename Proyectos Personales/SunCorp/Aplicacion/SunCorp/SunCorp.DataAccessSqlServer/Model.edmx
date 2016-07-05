@@ -40,6 +40,10 @@
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="NombreEstado" Type="varchar(max)" />
           <Property Name="NombreOficial" Type="varchar(max)" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ModificadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="DirCatMunicipio">
@@ -50,6 +54,10 @@
           <Property Name="IdEstado" Type="int" />
           <Property Name="IdMunicipio" Type="int" />
           <Property Name="NombreMunicipio" Type="varchar(max)" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ModificadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="DirCatTipoAsentamiento">
@@ -130,7 +138,12 @@
             <PropertyRef Name="IdMarca" />
           </Key>
           <Property Name="IdMarca" Type="int" Nullable="false" />
-          <Property Name="Marca" Type="varchar(max)" />
+          <Property Name="NombreMarca" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="Modificado" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="ProCatModelo">
@@ -138,8 +151,13 @@
             <PropertyRef Name="IdModelo" />
           </Key>
           <Property Name="IdModelo" Type="int" Nullable="false" />
-          <Property Name="NombreModelo" Type="varchar" MaxLength="200" />
           <Property Name="IdMarca" Type="int" />
+          <Property Name="NombreModelo" Type="varchar" MaxLength="200" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ModificadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="ProDiviciones">
@@ -149,16 +167,23 @@
           <Property Name="IdDivicion" Type="int" Nullable="false" />
           <Property Name="NombreDivicion" Type="varchar(max)" />
           <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ModificadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
-        <EntityType Name="ProFamililia">
+        <EntityType Name="ProFamilias">
           <Key>
             <PropertyRef Name="IdFamilia" />
           </Key>
           <Property Name="IdFamilia" Type="int" Nullable="false" />
           <Property Name="NombreFamilia" Type="varchar(max)" />
-          <Property Name="Titulo" Type="varchar(max)" />
-          <Property Name="TituloDetalle" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ModificadoPor" Type="datetime" />
+          <Property Name="FechaModificacion" Type="datetime" />
           <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="ProProducto">
@@ -171,13 +196,16 @@
           <Property Name="IdFamilia" Type="int" />
           <Property Name="IdDivicion" Type="int" />
           <Property Name="NombreProducto" Type="varchar(max)" />
-          <Property Name="Titulo" Type="varchar(max)" />
-          <Property Name="TituloDetalle" Type="varchar(max)" />
-          <Property Name="NumeroDeSerie" Type="varchar(max)" />
+          <Property Name="Descripcion" Type="varchar(max)" />
+          <Property Name="CodigoBarras" Type="varchar(max)" />
           <Property Name="Detalles" Type="varchar(max)" />
           <Property Name="EsReparable" Type="bit" />
           <Property Name="HaySeries" Type="bit" />
           <Property Name="Borrado" Type="bit" />
+          <Property Name="Creador" Type="varchar" MaxLength="100" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="ModificadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
         </EntityType>
         <EntityType Name="ProVendedor">
           <Key>
@@ -209,7 +237,7 @@
           <Key>
             <PropertyRef Name="IdMenu" />
           </Key>
-          <Property Name="IdMenu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMenu" Type="int" Nullable="false" />
           <Property Name="IdMenuPadre" Type="int" />
           <Property Name="NombreMenu" Type="varchar(max)" Nullable="false" />
           <Property Name="Controller" Type="varchar(max)" />
@@ -438,18 +466,6 @@
             </Principal>
             <Dependent Role="ProProducto">
               <PropertyRef Name="IdDivicion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProProducto_ProFamililia">
-          <End Role="ProFamililia" Type="Self.ProFamililia" Multiplicity="0..1" />
-          <End Role="ProProducto" Type="Self.ProProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProFamililia">
-              <PropertyRef Name="IdFamilia" />
-            </Principal>
-            <Dependent Role="ProProducto">
-              <PropertyRef Name="IdFamilia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -685,7 +701,7 @@
           <EntitySet Name="ProCatMarca" EntityType="Self.ProCatMarca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProCatModelo" EntityType="Self.ProCatModelo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProDiviciones" EntityType="Self.ProDiviciones" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProFamililia" EntityType="Self.ProFamililia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProFamilias" EntityType="Self.ProFamilias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProProducto" EntityType="Self.ProProducto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProVendedor" EntityType="Self.ProVendedor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProVendedorTienda" EntityType="Self.ProVendedorTienda" Schema="dbo" store:Type="Tables" />
@@ -742,10 +758,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ProProducto_ProDiviciones" Association="Self.FK_ProProducto_ProDiviciones">
             <End Role="ProDiviciones" EntitySet="ProDiviciones" />
-            <End Role="ProProducto" EntitySet="ProProducto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProProducto_ProFamililia" Association="Self.FK_ProProducto_ProFamililia">
-            <End Role="ProFamililia" EntitySet="ProFamililia" />
             <End Role="ProProducto" EntitySet="ProProducto" />
           </AssociationSet>
           <AssociationSet Name="FK_ProVendedorTienda_ProVendedor" Association="Self.FK_ProVendedorTienda_ProVendedor">
@@ -841,7 +853,7 @@
           <EntitySet Name="ProCatMarca" EntityType="SunCorpModel.ProCatMarca" />
           <EntitySet Name="ProCatModelo" EntityType="SunCorpModel.ProCatModelo" />
           <EntitySet Name="ProDiviciones" EntityType="SunCorpModel.ProDiviciones" />
-          <EntitySet Name="ProFamililia" EntityType="SunCorpModel.ProFamililia" />
+          <EntitySet Name="ProFamilias" EntityType="SunCorpModel.ProFamilias" />
           <EntitySet Name="ProProducto" EntityType="SunCorpModel.ProProducto" />
           <EntitySet Name="ProVendedor" EntityType="SunCorpModel.ProVendedor" />
           <EntitySet Name="ProVendedorTienda" EntityType="SunCorpModel.ProVendedorTienda" />
@@ -917,10 +929,6 @@
           </AssociationSet>
           <AssociationSet Name="FK_ProProducto_ProDiviciones" Association="SunCorpModel.FK_ProProducto_ProDiviciones">
             <End Role="ProDiviciones" EntitySet="ProDiviciones" />
-            <End Role="ProProducto" EntitySet="ProProducto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProProducto_ProFamililia" Association="SunCorpModel.FK_ProProducto_ProFamililia">
-            <End Role="ProFamililia" EntitySet="ProFamililia" />
             <End Role="ProProducto" EntitySet="ProProducto" />
           </AssociationSet>
           <AssociationSet Name="FK_ProVendedorTienda_ProVendedor" Association="SunCorpModel.FK_ProVendedorTienda_ProVendedor">
@@ -1014,6 +1022,10 @@
           <Property Name="IdEstado" Type="Int32" Nullable="false" />
           <Property Name="NombreEstado" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NombreOficial" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ModificadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Borrado" Type="Boolean" />
           <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirCatColonia_DirCatEstado" FromRole="DirCatEstado" ToRole="DirCatColonia" />
           <NavigationProperty Name="DirDirecciones" Relationship="SunCorpModel.FK_DirDirecciones_DirCatEstado" FromRole="DirCatEstado" ToRole="DirDirecciones" />
@@ -1027,6 +1039,10 @@
           <Property Name="IdEstado" Type="Int32" />
           <Property Name="IdMunicipio" Type="Int32" />
           <Property Name="NombreMunicipio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ModificadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Borrado" Type="Boolean" />
           <NavigationProperty Name="DirCatColonia" Relationship="SunCorpModel.FK_DirCatColonia_DirCatMunicipio" FromRole="DirCatMunicipio" ToRole="DirCatColonia" />
         </EntityType>
@@ -1115,7 +1131,12 @@
             <PropertyRef Name="IdMarca" />
           </Key>
           <Property Name="IdMarca" Type="Int32" Nullable="false" />
-          <Property Name="Marca" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NombreMarca" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="Modificado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Borrado" Type="Boolean" />
           <NavigationProperty Name="ProCatModelo" Relationship="SunCorpModel.FK_ProCatModelo_ProCatMarca" FromRole="ProCatMarca" ToRole="ProCatModelo" />
           <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProCatMarca" FromRole="ProCatMarca" ToRole="ProProducto" />
@@ -1125,8 +1146,13 @@
             <PropertyRef Name="IdModelo" />
           </Key>
           <Property Name="IdModelo" Type="Int32" Nullable="false" />
-          <Property Name="NombreModelo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="IdMarca" Type="Int32" />
+          <Property Name="NombreModelo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ModificadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Borrado" Type="Boolean" />
           <NavigationProperty Name="ProCatMarca" Relationship="SunCorpModel.FK_ProCatModelo_ProCatMarca" FromRole="ProCatModelo" ToRole="ProCatMarca" />
           <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProCatModelo" FromRole="ProCatModelo" ToRole="ProProducto" />
@@ -1138,19 +1164,25 @@
           <Property Name="IdDivicion" Type="Int32" Nullable="false" />
           <Property Name="NombreDivicion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ModificadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Borrado" Type="Boolean" />
           <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProDiviciones" FromRole="ProDiviciones" ToRole="ProProducto" />
         </EntityType>
-        <EntityType Name="ProFamililia">
+        <EntityType Name="ProFamilias">
           <Key>
             <PropertyRef Name="IdFamilia" />
           </Key>
           <Property Name="IdFamilia" Type="Int32" Nullable="false" />
           <Property Name="NombreFamilia" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TituloDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ModificadoPor" Type="DateTime" Precision="3" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <Property Name="Borrado" Type="Boolean" />
-          <NavigationProperty Name="ProProducto" Relationship="SunCorpModel.FK_ProProducto_ProFamililia" FromRole="ProFamililia" ToRole="ProProducto" />
         </EntityType>
         <EntityType Name="ProProducto">
           <Key>
@@ -1162,17 +1194,19 @@
           <Property Name="IdFamilia" Type="Int32" />
           <Property Name="IdDivicion" Type="Int32" />
           <Property Name="NombreProducto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Titulo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="TituloDetalle" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NumeroDeSerie" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoBarras" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Detalles" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="EsReparable" Type="Boolean" />
           <Property Name="HaySeries" Type="Boolean" />
           <Property Name="Borrado" Type="Boolean" />
+          <Property Name="Creador" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="ModificadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ProCatMarca" Relationship="SunCorpModel.FK_ProProducto_ProCatMarca" FromRole="ProProducto" ToRole="ProCatMarca" />
           <NavigationProperty Name="ProCatModelo" Relationship="SunCorpModel.FK_ProProducto_ProCatModelo" FromRole="ProProducto" ToRole="ProCatModelo" />
           <NavigationProperty Name="ProDiviciones" Relationship="SunCorpModel.FK_ProProducto_ProDiviciones" FromRole="ProProducto" ToRole="ProDiviciones" />
-          <NavigationProperty Name="ProFamililia" Relationship="SunCorpModel.FK_ProProducto_ProFamililia" FromRole="ProProducto" ToRole="ProFamililia" />
           <NavigationProperty Name="ProVendedorTienda" Relationship="SunCorpModel.ProVenTieProducto" FromRole="ProProducto" ToRole="ProVendedorTienda" />
         </EntityType>
         <EntityType Name="ProVendedor">
@@ -1201,7 +1235,7 @@
           <Key>
             <PropertyRef Name="IdMenu" />
           </Key>
-          <Property Name="IdMenu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMenu" Type="Int32" Nullable="false" />
           <Property Name="IdMenuPadre" Type="Int32" />
           <Property Name="NombreMenu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Controller" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -1518,18 +1552,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProProducto_ProFamililia">
-          <End Type="SunCorpModel.ProFamililia" Role="ProFamililia" Multiplicity="0..1" />
-          <End Type="SunCorpModel.ProProducto" Role="ProProducto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProFamililia">
-              <PropertyRef Name="IdFamilia" />
-            </Principal>
-            <Dependent Role="ProProducto">
-              <PropertyRef Name="IdFamilia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProVendedorTienda_ProVendedor">
           <End Type="SunCorpModel.ProVendedor" Role="ProVendedor" Multiplicity="0..1" />
           <End Type="SunCorpModel.ProVendedorTienda" Role="ProVendedorTienda" Multiplicity="*" />
@@ -1706,6 +1728,10 @@
             <EntityTypeMapping TypeName="SunCorpModel.DirCatEstado">
               <MappingFragment StoreEntitySet="DirCatEstado">
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
                 <ScalarProperty Name="NombreOficial" ColumnName="NombreOficial" />
                 <ScalarProperty Name="NombreEstado" ColumnName="NombreEstado" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
@@ -1716,6 +1742,10 @@
             <EntityTypeMapping TypeName="SunCorpModel.DirCatMunicipio">
               <MappingFragment StoreEntitySet="DirCatMunicipio">
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
                 <ScalarProperty Name="NombreMunicipio" ColumnName="NombreMunicipio" />
                 <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
                 <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
@@ -1808,7 +1838,12 @@
             <EntityTypeMapping TypeName="SunCorpModel.ProCatMarca">
               <MappingFragment StoreEntitySet="ProCatMarca">
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
-                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="Modificado" ColumnName="Modificado" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NombreMarca" ColumnName="NombreMarca" />
                 <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1817,8 +1852,13 @@
             <EntityTypeMapping TypeName="SunCorpModel.ProCatModelo">
               <MappingFragment StoreEntitySet="ProCatModelo">
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
-                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="NombreModelo" ColumnName="NombreModelo" />
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
                 <ScalarProperty Name="IdModelo" ColumnName="IdModelo" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1827,18 +1867,25 @@
             <EntityTypeMapping TypeName="SunCorpModel.ProDiviciones">
               <MappingFragment StoreEntitySet="ProDiviciones">
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
                 <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="NombreDivicion" ColumnName="NombreDivicion" />
                 <ScalarProperty Name="IdDivicion" ColumnName="IdDivicion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProFamililia">
-            <EntityTypeMapping TypeName="SunCorpModel.ProFamililia">
-              <MappingFragment StoreEntitySet="ProFamililia">
+          <EntitySetMapping Name="ProFamilias">
+            <EntityTypeMapping TypeName="SunCorpModel.ProFamilias">
+              <MappingFragment StoreEntitySet="ProFamilias">
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
-                <ScalarProperty Name="TituloDetalle" ColumnName="TituloDetalle" />
-                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="NombreFamilia" ColumnName="NombreFamilia" />
                 <ScalarProperty Name="IdFamilia" ColumnName="IdFamilia" />
               </MappingFragment>
@@ -1847,13 +1894,16 @@
           <EntitySetMapping Name="ProProducto">
             <EntityTypeMapping TypeName="SunCorpModel.ProProducto">
               <MappingFragment StoreEntitySet="ProProducto">
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="ModificadoPor" ColumnName="ModificadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Creador" ColumnName="Creador" />
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
                 <ScalarProperty Name="HaySeries" ColumnName="HaySeries" />
                 <ScalarProperty Name="EsReparable" ColumnName="EsReparable" />
                 <ScalarProperty Name="Detalles" ColumnName="Detalles" />
-                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
-                <ScalarProperty Name="TituloDetalle" ColumnName="TituloDetalle" />
-                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="CodigoBarras" ColumnName="CodigoBarras" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
                 <ScalarProperty Name="IdDivicion" ColumnName="IdDivicion" />
                 <ScalarProperty Name="IdFamilia" ColumnName="IdFamilia" />

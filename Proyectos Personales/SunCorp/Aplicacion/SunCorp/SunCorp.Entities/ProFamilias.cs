@@ -16,15 +16,9 @@ namespace SunCorp.Entities
     using System.Runtime.Serialization;
     
     [DataContract]
-    public partial class ProFamililia
+    public partial class ProFamilias
     
     {
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProFamililia()
-        {
-            this.ProProducto = new HashSet<ProProducto>();
-        }
     
     	[DataMember]
         public int IdFamilia { get; set; }
@@ -33,16 +27,22 @@ namespace SunCorp.Entities
         public string NombreFamilia { get; set; }
     
     	[DataMember]
-        public string Titulo { get; set; }
+        public string Descripcion { get; set; }
     
     	[DataMember]
-        public string TituloDetalle { get; set; }
+        public string Creador { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaCreacion { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> ModificadoPor { get; set; }
+    
+    	[DataMember]
+        public Nullable<System.DateTime> FechaModificacion { get; set; }
     
     	[DataMember]
         public Nullable<bool> Borrado { get; set; }
     
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProProducto> ProProducto { get; set; }
     }
 }

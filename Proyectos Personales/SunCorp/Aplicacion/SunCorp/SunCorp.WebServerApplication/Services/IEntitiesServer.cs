@@ -19,6 +19,8 @@
         [OperationContract]
         List<UsZona> GetListUsZonaPageList(int page, int numRows, ref int totalRows, bool includeDelete);
 
+        #region UsZona
+
         [OperationContract]
         List<UsZona> GetListUsZonasUser(UsUsuarios user);
 
@@ -33,5 +35,39 @@
 
         [OperationContract]
         UsTipoUsuario GetTypeUser(UsUsuarios user);
+
+        #endregion
+
+        #region ProCatMarca
+
+        [OperationContract]
+        List<ProCatMarca> GetListProCatMarca();
+
+        [OperationContract]
+        ProCatMarca NewRegProCatMarca(ProCatMarca reg);
+
+        [OperationContract]
+        bool UpdateRegProCatMarca(ProCatMarca reg);
+
+        [OperationContract]
+        bool DeleteRegProCatMarca(ProCatMarca reg);
+
+        #endregion
+
+        #region ProCatModelo
+
+        [OperationContract]
+        List<ProCatModelo> GetListProCatModelo();
+
+        [OperationContract]
+        ProCatModelo NewRegProCatModelo(ProCatModelo reg);
+
+        [OperationContract]
+        bool UpdateRegProCatModelo(ProCatModelo reg);
+
+        [OperationContract]
+        bool DeleteRegProCatModelo(ProCatModelo reg);
+
+        #endregion
     }
 }

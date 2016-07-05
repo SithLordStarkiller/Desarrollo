@@ -16,5 +16,14 @@
         {
             return new CatalogsBussinessLogic().GetListMenuForUserType(user);
         }
+
+        #region ListCatalogProducts
+
+        public List<GenericTable> GetListCatalogsProducts()
+        {
+            return new CatalogsBussinessLogic().GetListCatalogsProducts();
+        }
+
+        #endregion
     }
 }

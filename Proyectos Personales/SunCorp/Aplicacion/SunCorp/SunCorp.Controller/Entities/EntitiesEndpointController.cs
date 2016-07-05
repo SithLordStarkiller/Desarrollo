@@ -71,5 +71,53 @@
         }
 
         #endregion
+
+        #region ProCatMarca
+
+        public Task<List<ProCatMarca>> GetListProCatMarca()
+        {
+            return Task.Run(() => _servicio.GetListProCatMarcaAsync());
+        }
+
+        public Task<ProCatMarca> NewRegProCatMarca(ProCatMarca reg)
+        {
+            return Task.Run(() => _servicio.NewRegProCatMarcaAsync(reg));
+        }
+
+        public Task<bool> UpdateRegProCatMarca(ProCatMarca reg)
+        {
+            return Task.Run(() => _servicio.UpdateRegProCatMarcaAsync(reg));
+        }
+
+        public Task<bool> DeleteRegProCatMarca(ProCatMarca reg)
+        {
+            return Task.Run(()=>_servicio.DeleteRegProCatMarcaAsync(reg));
+        }
+
+        #endregion
+
+        #region ProCatModelo
+
+        public Task<List<ProCatModelo>> GetListProCatModelo()
+        {
+            return Task.Run(() => _servicio.GetListProCatModeloAsync());
+        }
+
+        public Task<ProCatModelo> NewRegProCatModelo(ProCatModelo reg)
+        {
+            return Task.Run(() => _servicio.NewRegProCatModeloAsync(reg));
+        }
+
+        public Task<bool> UpdateRegProCatModelo(ProCatModelo reg)
+        {
+            return Task.Run(() => _servicio.UpdateRegProCatModeloAsync(reg));
+        }
+
+        public Task<bool> DeleteRegProCatModelo(ProCatModelo reg)
+        {
+            return Task.Run(() => _servicio.DeleteRegProCatModeloAsync(reg));
+        }
+
+        #endregion
     }
 }

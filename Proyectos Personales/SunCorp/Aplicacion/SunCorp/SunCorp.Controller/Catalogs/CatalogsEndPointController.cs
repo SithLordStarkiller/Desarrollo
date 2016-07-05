@@ -26,5 +26,15 @@
         {
             return Task.Run(() => _servicio.GetListMenuForUserTypeAsync(user));
         }
+
+        #region ListCatalogProducts
+
+        public Task<List<GenericTable>> GetListCatalogsProducts()
+        {
+            return Task.Run(() => _servicio.GetListCatalogsProductsAsync());
+        }
+
+        #endregion
+
     }
 }

@@ -17,6 +17,8 @@
             return new EntitiesBussiness().GetTypeUser(user);
         }
 
+        #region UsZona
+
         public List<UsZona> GetListUsZona()
         {
             return new EntitiesBussiness().GetListUsZona();
@@ -46,5 +48,55 @@
         {
             return new EntitiesBussiness().GetListUsZonasUser(user);
         }
+
+        #endregion
+
+        #region ProCatMarca
+
+        public List<ProCatMarca> GetListProCatMarca()
+        {
+            return new EntitiesBussiness().GetListProCatMarca();
+        }
+
+        public ProCatMarca NewRegProCatMarca(ProCatMarca reg)
+        {
+            return new EntitiesBussiness().NewRegProCatMarca(reg);
+        }
+
+        public bool UpdateRegProCatMarca(ProCatMarca reg)
+        {
+            return new EntitiesBussiness().UpdateRegProCatMarca(reg);
+        }
+
+        public bool DeleteRegProCatMarca(ProCatMarca reg)
+        {
+            return new EntitiesBussiness().DeleteRegProCatMarca(reg);
+        }
+
+        #endregion
+
+        #region ProCatModelo
+
+        public List<ProCatModelo> GetListProCatModelo()
+        {
+            return new EntitiesBussiness().GetListProCatModelo();
+        }
+
+        public ProCatModelo NewRegProCatModelo(ProCatModelo reg)
+        {
+            return new EntitiesBussiness().NewRegProCatModelo(reg);
+        }
+
+        public bool UpdateRegProCatModelo(ProCatModelo reg)
+        {
+            return new EntitiesBussiness().UpdateRegProCatModelo(reg);
+        }
+
+        public bool DeleteRegProCatModelo(ProCatModelo reg)
+        {
+            return new EntitiesBussiness().DeleteRegProCatModelo(reg);
+        }
+
+        #endregion
     }
 }

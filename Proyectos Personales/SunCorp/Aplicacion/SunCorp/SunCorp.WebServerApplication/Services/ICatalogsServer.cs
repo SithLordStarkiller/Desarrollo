@@ -13,5 +13,12 @@
 
         [OperationContract]
         List<SisArbolMenu> GetListMenuForUserType(UsUsuarios user);
+
+        #region ListCatalogProducts
+
+        [OperationContract]
+        List<GenericTable> GetListCatalogsProducts();
+
+        #endregion
     }
 }

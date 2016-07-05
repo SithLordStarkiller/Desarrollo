@@ -18,6 +18,15 @@
 
         #endregion
 
+        #region ListCatalogProducts
+
+        public List<GenericTable> GetListCatalogsProducts()
+        {
+            return new CatalogsDataAccess().GetListCatalogsProducts();
+        }
+
+        #endregion
+
         #region TreeMenu
 
         public List<SisArbolMenu> GetListMenuForUserType(UsUsuarios user)

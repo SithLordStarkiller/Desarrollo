@@ -41,7 +41,7 @@ namespace SunCorp.DataAccessSqlServer
         public virtual DbSet<ProCatMarca> ProCatMarca { get; set; }
         public virtual DbSet<ProCatModelo> ProCatModelo { get; set; }
         public virtual DbSet<ProDiviciones> ProDiviciones { get; set; }
-        public virtual DbSet<ProFamililia> ProFamililia { get; set; }
+        public virtual DbSet<ProFamilias> ProFamilias { get; set; }
         public virtual DbSet<ProProducto> ProProducto { get; set; }
         public virtual DbSet<ProVendedor> ProVendedor { get; set; }
         public virtual DbSet<ProVendedorTienda> ProVendedorTienda { get; set; }
