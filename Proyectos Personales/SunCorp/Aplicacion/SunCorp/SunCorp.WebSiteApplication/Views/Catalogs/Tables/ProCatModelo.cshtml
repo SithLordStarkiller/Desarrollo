@@ -2,20 +2,33 @@
 @using PagedList.Mvc
 @using SunCorp.Entities
 @{
-    ViewBag.Title = "ProCatMarca";
+    ViewBag.Title = "ProCatModelo";
     Layout = "~/Views/Shared/_LayoutHome.cshtml";
 
-    var listMarca = ViewBag.ListMarcas;
-}
-@section Head
-{
-    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
-    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+    var listMarca = (IEnumerable<SelectListItem>)ViewBag.ListMarcas;
 }
 
+@section Head
+{
+
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+
+
+    <script src="~/Scripts/bootstrap-select.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap-select.css" type="text/css" rel="stylesheet" />
+
+}
 @section Scripts
 {
     <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('.selectpicker').selectpicker({
+                style: 'btn-default btn-sm'
+            });
+        });
+
         function show_modal(modalName, idMarca, nombreMarca, descripcion, creador, fechaCreacion, borrado) {
             debugger;
             $("#txtIdMarcaActualiza").val(idMarca);
@@ -52,8 +65,8 @@
                     $('#modalNuevoRegistro').modal('hide');
 
                     if (response !== "null") {
-                            alert("true");
-                            location.reload();
+                        alert("true");
+                        location.reload();
                     } else {
                         alert("No se guardo el registro es posible que ya exista un registro con el mismo id");
                     }
@@ -80,11 +93,11 @@
                 type: "POST",
                 data: {
                     'idMarca': idMarca,
-                    'nombreMarca' : nombrMarca,
+                    'nombreMarca': nombrMarca,
                     'descripcion': descripcion,
                     'creador': creador,
-                    'fechaCreacion' : fechaCreacion,
-                    'borrado' : borrado
+                    'fechaCreacion': fechaCreacion,
+                    'borrado': borrado
                 },
                 url: '@Url.Action("UpdateRegProCatMarca", "Catalogs")',
                 success: function(response) {
@@ -93,7 +106,7 @@
 
                     if (response) {
                         if (response === true)
-                        location.reload();
+                            location.reload();
                     } else {
                         alert("No fue posible actualizar el registro");
                     }
@@ -113,11 +126,48 @@
         }
     </script>
 }
+<br/>
+
+<div class="form-group row form-group input-group-sm" style="margin: 5px; padding: 10px;">
+    @*<div class="row">
+        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+            <div class="form-group col-lg-offset-3 col-md-6">
+                <div class="input-group input-group-sm">
+                    @Html.Label("Fecha Ingreso de", new { @class = "input-group-addon" })
+                    @Html.TextBox("txtFechaIngresoDe", null, new { @class = "form-control datepicker" })
+                    @Html.Label("Hasta", new { @class = "input-group-addon" })
+                    @Html.TextBox("txtFechaIngresoHasta", null, new { @class = "form-control datepicker" })
+                </div>
+            </div>
+        </div>
+    </div>*@
+    <div class="row">
+        <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+            <div class="form-group input-group-sm form-group-sm">
+                @*<div class="col-lg-offset-2 col-md-3">
+                    <div class="input-group">
+                        @Html.Label("No de Persona", new { @class = "input-group-addon" })
+                        @Html.TextBox("txtIdLinkPersona", null, new { @class = "form-control" })
+                    </div>
+                </div>*@
+                <div class="col-md-3 col-lg-offset-4">
+                    <div class="input-group">
+                        @Html.Label("Tipo de Persona", new { @class = "input-group-addon" })
+                        @Html.DropDownList("ddlTipoPersona", listMarca, new { @class = "selectpicker", data_live_search = true })
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="input-group">
+                        <button name="btnEnviar" class="btn btn-default btn-group-sm alert-info" onclick="FiltraPersonas();">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="col-md-10 col-lg-offset-1">
     <br />
-    <br />
-
     <h4>Catalogo @ViewBag.Title</h4>
 
     <h5>En este catalogo se muestran las zonas que se tiene en la republica</h5>
@@ -127,7 +177,10 @@
     <table class="table">
         <tr>
             <th>
-                IdMarca
+                IdModelo
+            </th>
+            <th>
+                Marca
             </th>
             <th>
                 Nombre de la Marca
@@ -144,18 +197,21 @@
         {
             <tr>
                 <td>
-                    @item.IdMarca
+                    @item.IdModelo
                 </td>
                 <td>
                     @item.NombreModelo
                 </td>
                 <td>
+                    @listMarca.FirstOrDefault(r => r.Value == item.IdMarca.ToString()).Text
+                </td>
+                <td>
                     @item.Descripcion
                 </td>
                 <td style="align-content: center;">
-                    @*<a id="btnEliminar" href="@Url.Action("DeleteProCatMarca", "Catalogs", new {idMarca = item.IdMarca,nombreMarca = item.NombreMarca, descripcion = item.Descripcion,creador = item.Creador,fechaCreacion = item.FechaCreacion, borrado = item.Borrado})" class="btn btn-default btn-sm">Elimina</a>
-                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro', '@item.IdMarca', '@item.NombreMarca', '@item.Descripcion','@item.Creador','@item.FechaCreacion','@item.Borrado.ToString()')">Editar</button>
-                    <button name="btnVer" class="btn btn-default btn-sm" onclick="Ver('modalVerRegistro', '@item.IdMarca', '@item.NombreMarca', '@item.Descripcion')">ver</button>*@
+                    <a id="btnEliminar" href="@Url.Action("DeleteProCatModelo", "Catalogs", new {idMarca = item.IdModelo,nombreMarca = item.IdModelo, descripcion = item.Descripcion,creador = item.Creador,fechaCreacion = item.FechaCreacion, borrado = item.Borrado})" class="btn btn-default btn-sm">Elimina</a>
+                        <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro', '@item.IdModelo', '@item.NombreModelo', '@item.Descripcion','@item.Creador','@item.FechaCreacion','@item.Borrado.ToString()')">Editar</button>
+                        <button name="btnVer" class="btn btn-default btn-sm" onclick="Ver('modalVerRegistro', '@item.IdModelo', '@item.NombreModelo', '@item.Descripcion')">ver</button>
                 </td>
             </tr>
         }
@@ -163,7 +219,7 @@
     <br />
     Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
 
-    @Html.PagedListPager(Model, page => Url.Action("EditCatalogProCatMarca", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    @Html.PagedListPager(Model, page => Url.Action("EditCatalogProCatModelo", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
 
     <div style="margin-top: 10px; float: right;" class="form-group">
