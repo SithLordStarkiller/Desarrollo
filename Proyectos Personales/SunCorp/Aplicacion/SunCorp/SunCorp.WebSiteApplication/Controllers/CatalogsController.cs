@@ -278,7 +278,7 @@
         #region ProCatModelo
 
         [SessionExpireFilter]
-        public ActionResult EditCatalogProCatModelo(int? page)
+        public ActionResult EditCatalogProCatModelo(int? page, int? marca)
         {
             UpdateBar();
 
@@ -288,18 +288,34 @@
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
 
-            var taskListMarca = servicio.GetListProCatMarca();
-            var taskListModelo = servicio.GetListProCatModelo();
+            var listModelo = (List<ProCatModelo>)Session["PrimaryList"];
+            var listMarca = (List<ProCatMarca>)Session["CatalogOne"];
 
-            var tasks = new Task[] { taskListMarca, taskListModelo };
+            if (listMarca == null && listModelo == null)
+            {
+                var taskListMarca = servicio.GetListProCatMarca();
+                var taskListModelo = servicio.GetListProCatModelo();
 
-            Task.WaitAll(tasks);
+                var tasks = new Task[] { taskListMarca, taskListModelo };
 
-            var listModelo = ((Task<List<ProCatModelo>>)tasks[1]).Result;
-            var listMarca = ((Task<List<ProCatMarca>>)tasks[0]).Result;
-            
+                Task.WaitAll(tasks);
 
-            var listCatModelo = listModelo.ToPagedList(pageNumber, pageSize);
+                listModelo = ((Task<List<ProCatModelo>>)tasks[1]).Result;
+                listMarca = ((Task<List<ProCatMarca>>)tasks[0]).Result;
+
+                listMarca.Add(new ProCatMarca {IdMarca = 0, NombreMarca = "Todos"});
+
+                Session["PrimaryList"] = listModelo;
+                Session["CatalogOne"] = listMarca;
+            }
+
+
+
+            if (marca != null)
+            {
+                if (marca != 0)
+                    listModelo.RemoveAll(r => r.IdMarca != marca);
+            }
 
             var listCatMarca = listMarca
                 .Select(c => new SelectListItem
@@ -309,6 +325,8 @@
                 }).ToArray();
 
             ViewBag.ListMarcas = listCatMarca;
+
+            var listCatModelo = listModelo.ToPagedList(pageNumber, pageSize);
 
             return View("Tables/ProCatModelo", listCatModelo);
         }

@@ -23,18 +23,28 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(document).ready(function () {
-            
-            $('.multiselect').multiselect();
-            
+        $(document).ready(function() {
+
+            $('.multiselect').multiselect({
+                buttonText: function (options) {
+                    var retStr = "";
+                    if (options.length === 0) {
+                        retStr = "Sin seleccion";
+                    } else if (options.length >= 0) {
+                        retStr = options.length + " seleccionados";
+                    }
+                    
+                    return retStr; //+ " <b class='caret'></b>";
+                }
+            });
+
         });
 
         function GetSelectedValues(nombreDdl) {
             debugger;
-            var selected = $('#'+nombreDdl+' option:selected');
+            var selected = $('#' + nombreDdl + ' option:selected');
             var listSelected = [];
-            for(var i = 0 ; i <= selected.length - 1; i++)
-            {
+            for (var i = 0; i <= selected.length - 1; i++) {
                 listSelected.push(selected[i].value);
             }
             debugger;
@@ -42,7 +52,7 @@
 
         function ValidaCreditos(nombreTextbox) {
 
-            var control = $("#"+nombreTextbox+"");
+            var control = $("#" + nombreTextbox + "");
             var texto = control.val();
             var regexExp = /[0-9]{1,3}\.[0-9]{1,2}/;
             var valido = regexExp.test(texto);
@@ -53,44 +63,44 @@
             }
         }
 
-        $(document).ready(function () {
-            $("#txtCreditosMinimosActualizar").focusout(function () {
+        $(document).ready(function() {
+            $("#txtCreditosMinimosActualizar").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtCreditosMinimosNuevo").focusout(function () {
+            $("#txtCreditosMinimosNuevo").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtCreditosMaximosActualizar").focusout(function () {
+            $("#txtCreditosMaximosActualizar").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtCreditosMaximosNuevo").focusout(function () {
+            $("#txtCreditosMaximosNuevo").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtHorasMinimasPorSemanaActualizar").focusout(function () {
+            $("#txtHorasMinimasPorSemanaActualizar").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtHorasMinimasPorSemanaNuevo").focusout(function () {
+            $("#txtHorasMinimasPorSemanaNuevo").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtHorasMaximasPorSemanaActualizar").focusout(function () {
+            $("#txtHorasMaximasPorSemanaActualizar").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtHorasMaximasPorSemanaNuevo").focusout(function () {
+            $("#txtHorasMaximasPorSemanaNuevo").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtHorasMaximasPorSemestreActualizar").focusout(function () {
+            $("#txtHorasMaximasPorSemestreActualizar").focusout(function() {
                 ValidaCreditos(this.name);
             });
 
-            $("#txtHorasMaximasPorSemestreNuevo").focusout(function () {
+            $("#txtHorasMaximasPorSemestreNuevo").focusout(function() {
                 ValidaCreditos(this.name);
             });
         });
@@ -145,7 +155,7 @@
                     'horasTotalesporSemestre': horasTotalesporSemestre,
                 },
                 url: '@Url.Action("NuevoRegistroMatCatCreditosPorHoras", "Catalogos")',
-                success: function (response) {
+                success: function(response) {
 
                     $('#modalNuevoRegistro').modal('hide');
 
@@ -158,7 +168,7 @@
                     }
                 },
                 error:
-                    function () {
+                    function() {
                         alert("Error en el envio de la informacion");
                     }
             });
@@ -184,7 +194,7 @@
                     'horasTotalesporSemestre': horasTotalesporSemestre,
                 },
                 url: '@Url.Action("ActualizaMatCatCreditosPorHoras", "Catalogos")',
-                success: function (response) {
+                success: function(response) {
 
                     $('#modalActualizaRegistro').modal('hide');
 
@@ -197,7 +207,7 @@
                     }
                 },
                 error:
-                    function (xhr, status, error) {
+                    function(xhr, status, error) {
                         alert(status + " : " + error);
                     }
             });
