@@ -314,7 +314,17 @@
             if (marca != null)
             {
                 if (marca != 0)
+                {
                     listModelo.RemoveAll(r => r.IdMarca != marca);
+                    Session["PrimaryList"] = listModelo;
+                    pageNumber = 1;
+                }
+                else if (marca == 0)
+                {
+                    listModelo = servicio.GetListProCatModelo().Result;
+                    Session["PrimaryList"] = listModelo;
+                    pageNumber = 1;
+                }
             }
 
             var listCatMarca = listMarca
