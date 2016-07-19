@@ -1,0 +1,66 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList <SunCorp.Entities.UsZona>
+@{
+    ViewBag.Title = "UsZonaPagedList";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<div class="col-md-8 col-lg-offset-2">
+    <br />
+    <br />
+
+    <h4>Catalogo @ViewBag.Title</h4>
+
+    <h5>En este catalogo se muestran las zonas que se tiene en la republica</h5>
+
+    <br />
+
+    <table class="table">
+        <tr>
+            <th>
+                IdZona
+            </th>
+            <th>
+                Nombre de la Zona
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Operaciones
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.IdZona
+                </td>
+                <td>
+                    @item.NombreZona
+                </td>
+                <td>
+                    @item.Descripcion
+                </td>
+                <td style="align-content: center;">
+                    <a id="btnEliminar" href="@Url.Action("EliminaCarCatCarreras", "Catalogs", new {idZona = item.IdZona, nombreZona = item.NombreZona, descripcion = item.Descripcion})" class="btn btn-default btn-sm">Elimina</a>
+                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro', '@item.IdZona', '@item.NombreZona', '@item.Descripcion')">Editar</button>
+                    <button name="btnVer" class="btn btn-default btn-sm" onclick="Ver('modalVerRegistro', '@item.IdZona', '@item.NombreZona', '@item.Descripcion')">ver</button>
+                </td>
+            </tr>
+        }
+    </table>
+    <br/>
+
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("EditCatalogUsZonaPageList", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+
+
+    <div style="margin-top: 10px; float: right;" class="form-group">
+        <button type="button" class="btn btn-default" onclick="Nuevo();">Nuevo</button>
+    </div>
+</div>

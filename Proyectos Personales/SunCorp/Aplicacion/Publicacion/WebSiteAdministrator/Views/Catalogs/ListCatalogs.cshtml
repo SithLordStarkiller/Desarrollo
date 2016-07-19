@@ -1,0 +1,114 @@
+﻿@using SunCorp.Entities.Generic
+
+@{
+    ViewBag.Title = "EditarCatalogos";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    var listaUser = (List<GenericTable>)ViewBag.ListCatalogsUser;
+    var listProducts = (List<GenericTable>)ViewBag.ListCatalogsProducts;
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function Editar(tabla) {
+            var tab = tabla.toString();
+            alert(tab);
+        }
+    </script>
+}
+<br />
+<br />
+<div class="col-md-12">
+
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#CatalogUsuarios">Catalogos para Usuarios</a></li>
+        <li><a data-toggle="tab" href="#CatalogsProducts">Catalogos de Productos</a></li>
+        @*    <li><a data-toggle="tab" href="#Telefonos">Telefonos</a></li>
+            <li><a data-toggle="tab" href="#MediosElectronicos">Medios electronicos</a></li>
+            <li><a data-toggle="tab" href="#Fotografia">Fotografia</a></li>*@
+    </ul>
+    <br />
+    <div class="tab-content col-md-12">
+        <div id="CatalogUsuarios" class="tab-pane fade in active">
+            <div class="panel panel-default form-margin">
+                <br />
+                <h4>Catalogos del sistema</h4>
+
+                <br />
+                <table class="table">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Nombre de la tabla
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+
+                    @foreach (var item in listaUser)
+                    {
+                        <tr>
+                            <td>
+                                @item.IdTable
+                            </td>
+                            <td>
+                                @item.TableName
+                            </td>
+                            <td style="align-content: center;">
+                                <a id="btnEditar" href="@Url.Action("EditCatalog", "Catalogs", new {nombreTabla = item.TableName})" class="btn btn-default btn-sm">Editar</a>
+
+                                <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.TableName')">Listado</button>
+                                <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.TableName')">Reporte</button>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+        <div id="CatalogsProducts" class="tab-pane">
+            <div class="panel panel-default form-margin">
+                <br />
+                <h4>Catalogos de Productos</h4>
+
+                <br />
+                <table class="table">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Nombre de la tabla
+                        </th>
+                        <th>
+                            Acciones
+                        </th>
+                    </tr>
+
+                    @foreach (var item in listProducts)
+                    {
+                        <tr>
+                            <td>
+                                @item.IdTable
+                            </td>
+                            <td>
+                                @item.TableName
+                            </td>
+                            <td style="align-content: center;">
+                                <a id="btnEditar" href="@Url.Action("EditCatalog", "Catalogs", new {nombreTabla = item.TableName})" class="btn btn-default btn-sm">Editar</a>
+
+                                <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.TableName')">Listado</button>
+                                <button name="btnEnviar" class="btn btn-default btn-sm" onclick="Editar('@item.TableName')">Reporte</button>
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

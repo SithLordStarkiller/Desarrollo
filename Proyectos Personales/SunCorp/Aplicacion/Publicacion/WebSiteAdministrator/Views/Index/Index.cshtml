@@ -1,0 +1,57 @@
+﻿@model SunCorp.Entities.Generic.UserSession
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts
+{
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: this.action,
+                    type: this.method,
+                    data: $(this).serialize(),
+                    success: function (result) {
+                        var res = (result);
+
+                        if (res === 'Correcto') {
+                            var url = '@Url.Action("Site","Home")';
+                            window.location.href = url;
+                        } else {
+                            alert(res);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
+<br />
+<br />
+<br />
+
+<div class="container col-lg-offset-2 col-md-8 form-group">
+    @using (Html.BeginForm("GetUsUsuario", "Index", FormMethod.Post))
+    {
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <br />
+        <label class="sr-only">Usuario</label>
+        @Html.TextBoxFor(m => m.User, new { @class = "form-control", @placeholder = "Usuario" })
+        <label class="sr-only">Contraseña</label>
+        <br />
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Contraseña" })
+        <div class="checkbox col-lg-offset-2">
+            @Html.CheckBoxFor(m => m.RememberPassword, new { @value = "Recordar contraseña ", @class = "form-group" })
+            <label class="">Recordar contraseña </label>
+        </div>
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" onclick="submit">Sign in</button>
+    }
+    @{
+        Html.EndForm();
+    }
+</div>
