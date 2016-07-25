@@ -1,7 +1,7 @@
 ﻿namespace SunCorp.WebSiteApplication.Controllers
 {
     using System.Web.Mvc;
-    using SunCorp.Controller.Entities;
+    using Controller.Entities;
     using Entities;
     using Entities.Generic;
 

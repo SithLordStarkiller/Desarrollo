@@ -809,30 +809,30 @@
             return View("Tablas/HorHorasPorDia");
         }
 
-        //[SessionExpireFilter]
-        //public async Task<ActionResult> NuevoRegistroMatCatCreditosPorHoras(string idCreditos, string creditosMinimos, string creditosMaximos, string horasMinimasSemana, string horasMaximasSemana, string horasTotalesporSemestre)
-        //{
-        //    Sesion();
+        [SessionExpireFilter]
+        public async Task<ActionResult> NuevoRegistroMatHorHorasPorDia(string idCreditos, string creditosMinimos, string creditosMaximos, string horasMinimasSemana, string horasMaximasSemana, string horasTotalesporSemestre)
+        {
+            Sesion();
 
-        //    var sesion = (Sesion)Session["Sesion"];
-        //    var servicio = new SvcGestionCatalogos(sesion);
+            var sesion = (Sesion)Session["Sesion"];
+            var servicio = new SvcGestionCatalogos(sesion);
 
-        //    var objeto = new MAT_CAT_CREDITOS_POR_HORAS
-        //    {
-        //        IDCREDITOS = Convert.ToInt32(idCreditos),
-        //        CREDITOSMINIMOS = Convert.ToDecimal(creditosMinimos),
-        //        CREDITOSMAXIMOS = Convert.ToDecimal(creditosMaximos),
-        //        HORASMINIMASPORSEMANA = Convert.ToDecimal(horasMinimasSemana),
-        //        HORASMAXIMASPORSEMANA = Convert.ToDecimal(horasMaximasSemana),
-        //        HORASTOTALESPORSEMESTRE = Convert.ToDecimal(horasTotalesporSemestre)
-        //    };
+            var objeto = new MAT_CAT_CREDITOS_POR_HORAS
+            {
+                IDCREDITOS = Convert.ToInt32(idCreditos),
+                CREDITOSMINIMOS = Convert.ToDecimal(creditosMinimos),
+                CREDITOSMAXIMOS = Convert.ToDecimal(creditosMaximos),
+                HORASMINIMASPORSEMANA = Convert.ToDecimal(horasMinimasSemana),
+                HORASMAXIMASPORSEMANA = Convert.ToDecimal(horasMaximasSemana),
+                HORASTOTALESPORSEMESTRE = Convert.ToDecimal(horasTotalesporSemestre)
+            };
 
-        //    var nuevo = await servicio.InsertaMatCatCreditosPorHoras(objeto);
+            var nuevo = await servicio.InsertaMatCatCreditosPorHoras(objeto);
 
-        //    var resultado = JsonConvert.SerializeObject(nuevo);
+            var resultado = JsonConvert.SerializeObject(nuevo);
 
-        //    return Json(resultado, JsonRequestBehavior.AllowGet);
-        //}
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
 
         //[SessionExpireFilter]
         //public async Task<bool> ActualizaMatCatCreditosPorHoras(string idCreditos, string creditosMinimos, string creditosMaximos, string horasMinimasSemana, string horasMaximasSemana, string horasTotalesporSemestre)
