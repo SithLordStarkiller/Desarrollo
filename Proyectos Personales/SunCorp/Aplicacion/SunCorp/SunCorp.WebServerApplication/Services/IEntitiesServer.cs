@@ -69,5 +69,21 @@
         bool DeleteRegProCatModelo(ProCatModelo reg);
 
         #endregion
+
+        #region ProDiviciones
+
+        [OperationContract]
+        List<ProDiviciones> GetListProCatDiviciones();
+
+        [OperationContract]
+        ProDiviciones NewRegProDiviciones(ProDiviciones reg);
+
+        [OperationContract]
+        bool UpdateRegProDiviciones(ProDiviciones reg);
+
+        [OperationContract]
+        bool DeleteRegProDiviciones(ProDiviciones reg);
+
+        #endregion
     }
 }

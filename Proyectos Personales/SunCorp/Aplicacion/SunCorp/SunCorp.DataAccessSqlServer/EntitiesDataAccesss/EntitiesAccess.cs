@@ -257,5 +257,41 @@
         }
 
         #endregion
+
+        #region ProDiviciones
+
+        public List<ProDiviciones> GetListProCatDiviciones()
+        {
+            using (var aux = new Repositorio<ProDiviciones>())
+            {
+                return aux.TablaCompleta().Where(r => r.Borrado == false).ToList();
+            }
+        }
+
+        public ProDiviciones NewRegProDiviciones(ProDiviciones reg)
+        {
+            using (var aux = new Repositorio<ProDiviciones>())
+            {
+                return aux.Agregar(reg);
+            }
+        }
+
+        public bool UpdateRegProDiviciones(ProDiviciones reg)
+        {
+            using (var aux = new Repositorio<ProDiviciones>())
+            {
+                return aux.Actualizar(reg);
+            }
+        }
+
+        public bool DeleteRegProDiviciones(ProDiviciones reg)
+        {
+            using (var aux = new Repositorio<ProDiviciones>())
+            {
+                return aux.Eliminar(reg);
+            }
+        }
+
+        #endregion
     }
 }

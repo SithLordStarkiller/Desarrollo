@@ -74,4 +74,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ProCatModelo" nillable="true" type="tns:ProCatModelo" />
+  <xs:complexType name="ArrayOfProDiviciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProDiviciones" nillable="true" type="tns:ProDiviciones" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProDiviciones" nillable="true" type="tns:ArrayOfProDiviciones" />
+  <xs:complexType name="ProDiviciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Creador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdDivicion" type="xs:int" />
+      <xs:element minOccurs="0" name="ModificadoPor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreDivicion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProDiviciones" nillable="true" type="tns:ProDiviciones" />
 </xs:schema>

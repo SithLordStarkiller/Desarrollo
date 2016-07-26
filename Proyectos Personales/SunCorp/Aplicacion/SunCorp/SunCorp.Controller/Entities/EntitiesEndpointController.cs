@@ -119,5 +119,29 @@
         }
 
         #endregion
+
+        #region ProDiviciones
+
+        public Task<List<ProDiviciones>> GetListProCatDiviciones()
+        {
+            return Task.Run(()=>_servicio.GetListProCatDivicionesAsync());
+        }
+
+        public Task<ProDiviciones> NewRegProDiviciones(ProDiviciones reg)
+        {
+            return Task.Run(()=>_servicio.NewRegProDivicionesAsync(reg));
+        }
+
+        public Task<bool> UpdateRegProDiviciones(ProDiviciones reg)
+        {
+            return Task.Run(()=>_servicio.UpdateRegProDivicionesAsync(reg));
+        }
+
+        public Task<bool> DeleteRegProDiviciones(ProDiviciones reg)
+        {
+            return Task.Run(()=>_servicio.DeleteRegProDivicionesAsync(reg));
+        }
+
+        #endregion
     }
 }

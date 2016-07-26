@@ -24,6 +24,8 @@ namespace SunCorp.Controller.SvcServicesEntities {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.ProCatMarca))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<SunCorp.Entities.ProCatModelo>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.ProCatModelo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<SunCorp.Entities.ProDiviciones>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(SunCorp.Entities.ProDiviciones))]
         SunCorp.Entities.UsUsuarios GetUsUsuarios(SunCorp.Entities.Generic.UserSession session);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetUsUsuarios", ReplyAction="http://tempuri.org/IEntitiesServer/GetUsUsuariosResponse")]
@@ -119,6 +121,30 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProCatModelo", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProCatModeloResponse")]
         System.Threading.Tasks.Task<bool> DeleteRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListProCatDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/GetListProCatDivicionesResponse")]
+        System.Collections.Generic.List<SunCorp.Entities.ProDiviciones> GetListProCatDiviciones();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/GetListProCatDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/GetListProCatDivicionesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.ProDiviciones>> GetListProCatDivicionesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegProDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegProDivicionesResponse")]
+        SunCorp.Entities.ProDiviciones NewRegProDiviciones(SunCorp.Entities.ProDiviciones reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/NewRegProDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/NewRegProDivicionesResponse")]
+        System.Threading.Tasks.Task<SunCorp.Entities.ProDiviciones> NewRegProDivicionesAsync(SunCorp.Entities.ProDiviciones reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegProDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegProDivicionesResponse")]
+        bool UpdateRegProDiviciones(SunCorp.Entities.ProDiviciones reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/UpdateRegProDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/UpdateRegProDivicionesResponse")]
+        System.Threading.Tasks.Task<bool> UpdateRegProDivicionesAsync(SunCorp.Entities.ProDiviciones reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProDivicionesResponse")]
+        bool DeleteRegProDiviciones(SunCorp.Entities.ProDiviciones reg);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEntitiesServer/DeleteRegProDiviciones", ReplyAction="http://tempuri.org/IEntitiesServer/DeleteRegProDivicionesResponse")]
+        System.Threading.Tasks.Task<bool> DeleteRegProDivicionesAsync(SunCorp.Entities.ProDiviciones reg);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -334,6 +360,38 @@ namespace SunCorp.Controller.SvcServicesEntities {
         
         public System.Threading.Tasks.Task<bool> DeleteRegProCatModeloAsync(SunCorp.Entities.ProCatModelo reg) {
             return base.Channel.DeleteRegProCatModeloAsync(reg);
+        }
+        
+        public System.Collections.Generic.List<SunCorp.Entities.ProDiviciones> GetListProCatDiviciones() {
+            return base.Channel.GetListProCatDiviciones();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<SunCorp.Entities.ProDiviciones>> GetListProCatDivicionesAsync() {
+            return base.Channel.GetListProCatDivicionesAsync();
+        }
+        
+        public SunCorp.Entities.ProDiviciones NewRegProDiviciones(SunCorp.Entities.ProDiviciones reg) {
+            return base.Channel.NewRegProDiviciones(reg);
+        }
+        
+        public System.Threading.Tasks.Task<SunCorp.Entities.ProDiviciones> NewRegProDivicionesAsync(SunCorp.Entities.ProDiviciones reg) {
+            return base.Channel.NewRegProDivicionesAsync(reg);
+        }
+        
+        public bool UpdateRegProDiviciones(SunCorp.Entities.ProDiviciones reg) {
+            return base.Channel.UpdateRegProDiviciones(reg);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateRegProDivicionesAsync(SunCorp.Entities.ProDiviciones reg) {
+            return base.Channel.UpdateRegProDivicionesAsync(reg);
+        }
+        
+        public bool DeleteRegProDiviciones(SunCorp.Entities.ProDiviciones reg) {
+            return base.Channel.DeleteRegProDiviciones(reg);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteRegProDivicionesAsync(SunCorp.Entities.ProDiviciones reg) {
+            return base.Channel.DeleteRegProDivicionesAsync(reg);
         }
     }
 }

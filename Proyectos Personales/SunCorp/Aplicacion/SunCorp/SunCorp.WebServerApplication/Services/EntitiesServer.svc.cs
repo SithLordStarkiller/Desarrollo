@@ -98,5 +98,29 @@
         }
 
         #endregion
+
+        #region ProDiviciones
+
+        public List<ProDiviciones> GetListProCatDiviciones()
+        {
+            return new EntitiesBussiness().GetListProCatDiviciones();
+        }
+
+        public ProDiviciones NewRegProDiviciones(ProDiviciones reg)
+        {
+            return new EntitiesBussiness().NewRegProDiviciones(reg);
+        }
+
+        public bool UpdateRegProDiviciones(ProDiviciones reg)
+        {
+            return new EntitiesBussiness().UpdateRegProDiviciones(reg);
+        }
+
+        public bool DeleteRegProDiviciones(ProDiviciones reg)
+        {
+            return new EntitiesBussiness().DeleteRegProDiviciones(reg);
+        }
+
+        #endregion
     }
 }
