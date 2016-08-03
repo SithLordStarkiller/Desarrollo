@@ -65,6 +65,9 @@
 
                 case "ProCatModelo":
                     return new RedirectToReturnUrlResult(() => RedirectToAction("EditCatalogProCatModelo", "Catalogs"));
+
+                case "ProDiviciones":
+                    return new RedirectToReturnUrlResult(() => RedirectToAction("EditCatalogProDiviciones", "Catalogs"));
             }
             return null;
         }
@@ -414,6 +417,102 @@
             await servicio.UpdateRegProCatMarca(obj);
 
             return new RedirectToReturnUrlResult(() => RedirectToAction("EditCatalogProCatMarca", "Catalogs"));
+        }
+
+        #endregion
+
+        #region ProCatMarca
+
+        [SessionExpireFilter]
+        public ActionResult EditCatalogProDiviciones(int? page)
+        {
+            UpdateBar();
+
+            var sesion = (UserSession)Session["Sesion"];
+            var servicio = new EntitiesEndpointController(sesion);
+
+            const int pageSize = 10;
+            var pageNumber = (page ?? 1);
+
+            var list = servicio.GetListProCatDiviciones().Result;
+            var listProDiviciones = list.ToPagedList(pageNumber, pageSize);
+
+            return View("Tables/ProDiviciones", listProDiviciones);
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> NewRegProDiviciones(string idMarca, string nombreMarca, string descripcion)
+        {
+            UpdateBar();
+
+            var session = (UserSession)Session["Sesion"];
+            var servicio = new EntitiesEndpointController(session);
+
+            var obj = new ProCatMarca
+            {
+                IdMarca = Convert.ToInt32(idMarca),
+                NombreMarca = nombreMarca,
+                Descripcion = descripcion,
+                Creador = session.User,
+                FechaCreacion = DateTime.Now,
+                Borrado = false
+            };
+
+            var newReg = await servicio.NewRegProCatMarca(obj);
+
+            var result = JsonConvert.SerializeObject(newReg);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [SessionExpireFilter]
+        public async Task<bool> UpdateRegProDiviciones(string idMarca, string nombreMarca, string descripcion, string creador, string fechaCreacion, bool borrado)
+        {
+            UpdateBar();
+
+            var session = (UserSession)Session["Sesion"];
+            var servicio = new EntitiesEndpointController(session);
+
+            var obj = new ProCatMarca
+            {
+                IdMarca = Convert.ToInt32(idMarca),
+                NombreMarca = nombreMarca,
+                Descripcion = descripcion,
+                Creador = creador,
+                FechaCreacion = Convert.ToDateTime(fechaCreacion),
+                Modificado = session.User,
+                FechaModificacion = DateTime.Now,
+                Borrado = Convert.ToBoolean(borrado)
+            };
+
+            var actualizado = await servicio.UpdateRegProCatMarca(obj);
+
+            return actualizado;
+        }
+
+        [SessionExpireFilter]
+        public async Task<ActionResult> DeleteProDiviciones(string idMarca, string nombreMarca, string descripcion, string creador, string fechaCreacion, bool borrado)
+        {
+            UpdateBar();
+
+            var session = (UserSession)Session["Sesion"];
+            var servicio = new EntitiesEndpointController(session);
+
+            var obj = new ProCatMarca
+            {
+                IdMarca = Convert.ToInt32(idMarca),
+                NombreMarca = nombreMarca,
+                Descripcion = descripcion,
+                Creador = creador,
+                FechaCreacion = Convert.ToDateTime(fechaCreacion),
+                Modificado = session.User,
+                FechaModificacion = DateTime.Now,
+                Borrado = true
+            };
+
+            await servicio.UpdateRegProCatMarca(obj);
+
+            return new RedirectToReturnUrlResult(() => RedirectToAction("EditCatalogProDiviciones", "Catalogs"));
         }
 
         #endregion

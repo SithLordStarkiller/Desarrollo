@@ -1,0 +1,286 @@
+﻿@model PagedList.IPagedList<ProDiviciones>
+@using PagedList.Mvc
+@using SunCorp.Entities
+@{
+    ViewBag.Title = "ProDiviciones";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+
+    var listDiviciones = (IEnumerable<SelectListItem>)ViewBag.ListMarcas;
+}
+
+@section Head
+{
+
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="~/Content/bootstrap.css" type="text/css" rel="stylesheet" />
+
+
+}
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function show_modal(modalName, idMarca, nombreMarca, descripcion, creador, fechaCreacion, borrado) {
+            $("#txtIdMarcaActualiza").val(idMarca);
+            $("#txtNombreMarcaActualiza").val(nombreMarca);
+            $("#txtDescripcionActualiza").val(descripcion);
+            $("#txtCreadorActualiza").val(creador);
+            $("#txtFechaCreacionActualiza").val(fechaCreacion);
+            $("#txtBorradoActualiza").val(borrado);
+            $('#' + modalName + '').modal('show');
+        }
+
+        function Nuevo() {
+            $("#txtIdMarcaNuevo").val('');
+            $("#txtNombreMarcaNuevo").val('');
+            $("#txtDescripcionNuevo").val('');
+            $('#modalNuevoRegistro').modal('show');
+        }
+
+        function NuevoRegistro() {
+
+            var idMarca = $("#txtIdMarcaNuevo").val();
+            var nombreMarca = $("#txtNombreMarcaNuevo").val();
+            var descripcion = $("#txtDescripcionNuevo").val();
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'idMarca': idMarca,
+                    'nombreMarca': nombreMarca,
+                    'descripcion': descripcion
+                },
+                url: '@Url.Action("NewRegProCatMarca", "Catalogs")',
+                success: function (response) {
+                    $('#modalNuevoRegistro').modal('hide');
+
+                    if (response !== "null") {
+                        alert("true");
+                        location.reload();
+                    } else {
+                        alert("No se guardo el registro es posible que ya exista un registro con el mismo id");
+                    }
+                },
+                error:
+                    function () {
+                        alert("Error en el envio de la informacion hacia el servidor");
+                    }
+            });
+        }
+
+        function Actualiza() {
+
+            var idMarca = $("#txtIdMarcaActualiza").val();
+            var nombrMarca = $("#txtNombreMarcaActualiza").val();
+            var descripcion = $("#txtDescripcionActualiza").val();
+            var creador = $("#txtCreadorActualiza").val();
+            var fechaCreacion = $("#txtFechaCreacionActualiza").val();
+            var borrado = $("#txtBorradoActualiza").val();
+
+            debugger;
+
+            $.ajax({
+                type: "POST",
+                data: {
+                    'idMarca': idMarca,
+                    'nombreMarca': nombrMarca,
+                    'descripcion': descripcion,
+                    'creador': creador,
+                    'fechaCreacion': fechaCreacion,
+                    'borrado': borrado
+                },
+                url: '@Url.Action("UpdateRegProCatMarca", "Catalogs")',
+                success: function (response) {
+
+                    $('#modalActualizaRegistro').modal('hide');
+
+                    if (response) {
+                        if (response === true)
+                            location.reload();
+                    } else {
+                        alert("No fue posible actualizar el registro");
+                    }
+                },
+                error:
+                    function (xhr, status, error) {
+                        alert(status + " : " + error);
+                    }
+            });
+        }
+
+        function Ver(modalName, idMarca, nombreMarca, descripcion) {
+            $("#txtIdZonaVer").val(idMarca);
+            $("#txtNombreZonaVer").val(nombreMarca);
+            $("#txtDescripcionVer").val(descripcion);
+            $('#modalVerRegistro').modal('show');
+        }
+    </script>
+}
+<br />
+
+<div class="col-md-10 col-lg-offset-1">
+    <br />
+    <h4>Catalogo @ViewBag.Title</h4>
+
+    <h5>En este catalogo se muestran las zonas que se tiene en la republica</h5>
+
+    <br />
+
+    <table class="table">
+        <tr>
+            <th>
+                IdModelo
+            </th>
+            <th>
+                Marca
+            </th>
+            <th>
+                Nombre de la Marca
+            </th>
+            <th>
+                Descripcion
+            </th>
+            <th>
+                Operaciones
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                    @item.IdModelo
+                </td>
+                <td>
+                    @item.NombreModelo
+                </td>
+                <td>
+                    @listMarca.FirstOrDefault(r => r.Value == item.IdMarca.ToString()).Text
+                </td>
+                <td>
+                    @item.Descripcion
+                </td>
+                <td style="align-content: center;">
+                    <a id="btnEliminar" href="@Url.Action("DeleteProCatModelo", "Catalogs", new {idMarca = item.IdModelo,nombreMarca = item.IdModelo, descripcion = item.Descripcion,creador = item.Creador,fechaCreacion = item.FechaCreacion, borrado = item.Borrado})" class="btn btn-default btn-sm">Elimina</a>
+                    <button name="btnEditar" class="btn btn-default btn-sm" onclick="show_modal('modalActualizaRegistro', '@item.IdModelo', '@item.NombreModelo', '@item.Descripcion','@item.Creador','@item.FechaCreacion','@item.Borrado.ToString()')">Editar</button>
+                    <button name="btnVer" class="btn btn-default btn-sm" onclick="Ver('modalVerRegistro', '@item.IdModelo', '@item.NombreModelo', '@item.Descripcion')">ver</button>
+                </td>*@
+            </tr>
+        }
+    </table>
+    <br />
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) De @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("EditCatalogProCatModelo", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+
+    <div style="margin-top: 10px; float: right;" class="form-group">
+        <button type="button" class="btn btn-default" onclick="Nuevo();">Nuevo</button>
+    </div>
+</div>
+
+<div class="modal fade" id="modalActualizaRegistro" tabindex="-1" role="dialog" aria-labelledby="modalLabelProducto" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProductoA">
+                    <label id="lblUsuarioA" text="label">Actualizar registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdMarca", null, new { @class = "" })
+                            @Html.TextBox("txtIdMarcaActualiza", "", new { @class = "form-control", placeholder = "IdMarca", autocomplete = "off" })
+                            @Html.Label("Nombre Marca", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMarcaActualiza", "", new { @class = "form-control", placeholder = "Nombre de la Marca", autocomplete = "off" })
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionActualiza", "", new { @class = "form-control", placeholder = "Descripcion", autocomplete = "off" })
+                        </div>
+                        <div>
+                            @Html.TextBox("txtCreadorActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtFechaCreacionActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtModificadoPorActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtFechaModificacionActualiza", null, new { @class = "" })
+                            @Html.TextBox("txtBorradoActualiza", null, new { @class = "" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="Actualiza();">Actualizar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalNuevoRegistro" tabindex="-1" role="dialog" aria-labelledby="modalNuevoRegistro" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProductoN">
+                    <label id="lblUsuarioN" text="label">Nuevo registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdMarca", null, new { @class = "" })
+                            @Html.TextBox("txtIdMarcaNuevo", "", new { @class = "form-control", placeholder = "IdMarca", autocomplete = "off" })
+                            @Html.Label("Nombre Marca", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMarcaNuevo", "", new { @class = "form-control", placeholder = "Nombre de la Marca", autocomplete = "off" })
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionNuevo", "", new { @class = "form-control", placeholder = "Descripcion", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" onclick="NuevoRegistro();">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalVerRegistro" tabindex="-1" role="dialog" aria-labelledby="modalNuevoRegistro" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="modalLabelProducto">
+                    <label id="lblUsuario" text="label">Registro</label>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="row" style="margin: 0 0 0 0; padding: 0 0 0 0;">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdMarca", null, new { @class = "" })
+                            @Html.TextBox("txtIdMarcaVer", "", new { @class = "form-control", placeholder = "IdMarca", autocomplete = "off" })
+                            @Html.Label("Nombre de la Marca", null, new { @class = "" })
+                            @Html.TextBox("txtNombreMarcaVer", "", new { @class = "form-control", placeholder = "Nombre de la marca", autocomplete = "off" })
+                            @Html.Label("Descripcion", null, new { @class = "" })
+                            @Html.TextBox("txtDescripcionVer", "", new { @class = "form-control", placeholder = "descripcion", autocomplete = "off" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
