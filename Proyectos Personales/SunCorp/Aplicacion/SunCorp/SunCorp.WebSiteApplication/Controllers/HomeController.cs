@@ -31,7 +31,7 @@
             Session["Sesion"] = null;
             Session["Usuario"] = null;
 
-            return View("../Index/index");
+            return View("../Index/Index");
         }
 
         [SessionExpireFilter]
