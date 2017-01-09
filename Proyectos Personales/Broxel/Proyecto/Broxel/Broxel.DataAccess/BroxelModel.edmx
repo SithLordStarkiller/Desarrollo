@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BroxelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="USESTATUS">
+          <Key>
+            <PropertyRef Name="IDESTATUS" />
+          </Key>
+          <Property Name="IDESTATUS" Type="int" Nullable="false" />
+          <Property Name="ESTATUS" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="USUSUARIOS">
+          <Key>
+            <PropertyRef Name="IDUSUARIO" />
+          </Key>
+          <Property Name="IDUSUARIO" Type="int" Nullable="false" />
+          <Property Name="IDESTATUS" Type="int" />
+          <Property Name="USUARIO" Type="varchar" MaxLength="50" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_USUSUARI_REFERENCE_USESTATU">
+          <End Role="USESTATUS" Type="Self.USESTATUS" Multiplicity="0..1" />
+          <End Role="USUSUARIOS" Type="Self.USUSUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USESTATUS">
+              <PropertyRef Name="IDESTATUS" />
+            </Principal>
+            <Dependent Role="USUSUARIOS">
+              <PropertyRef Name="IDESTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Usp_ObtenerUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="Usp_ObtenUsUsuarionPorLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="BroxelModelStoreContainer">
+          <EntitySet Name="USESTATUS" EntityType="Self.USESTATUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUSUARIOS" EntityType="Self.USUSUARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_USUSUARI_REFERENCE_USESTATU" Association="Self.FK_USUSUARI_REFERENCE_USESTATU">
+            <End Role="USESTATUS" EntitySet="USESTATUS" />
+            <End Role="USUSUARIOS" EntitySet="USUSUARIOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BroxelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="USESTATUS">
+          <Key>
+            <PropertyRef Name="IDESTATUS" />
+          </Key>
+          <Property Name="IDESTATUS" Type="Int32" Nullable="false" />
+          <Property Name="ESTATUS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USUSUARIOS" Relationship="Self.FK_USUSUARI_REFERENCE_USESTATU" FromRole="USESTATUS" ToRole="USUSUARIOS" />
+        </EntityType>
+        <EntityType Name="USUSUARIOS">
+          <Key>
+            <PropertyRef Name="IDUSUARIO" />
+          </Key>
+          <Property Name="IDUSUARIO" Type="Int32" Nullable="false" />
+          <Property Name="IDESTATUS" Type="Int32" />
+          <Property Name="USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USESTATUS" Relationship="Self.FK_USUSUARI_REFERENCE_USESTATU" FromRole="USUSUARIOS" ToRole="USESTATUS" />
+        </EntityType>
+        <Association Name="FK_USUSUARI_REFERENCE_USESTATU">
+          <End Role="USESTATUS" Type="Self.USESTATUS" Multiplicity="0..1" />
+          <End Role="USUSUARIOS" Type="Self.USUSUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USESTATUS">
+              <PropertyRef Name="IDESTATUS" />
+            </Principal>
+            <Dependent Role="USUSUARIOS">
+              <PropertyRef Name="IDESTATUS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BroxelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="USESTATUS" EntityType="Self.USESTATUS" />
+          <EntitySet Name="USUSUARIOS" EntityType="Self.USUSUARIOS" />
+          <AssociationSet Name="FK_USUSUARI_REFERENCE_USESTATU" Association="Self.FK_USUSUARI_REFERENCE_USESTATU">
+            <End Role="USESTATUS" EntitySet="USESTATUS" />
+            <End Role="USUSUARIOS" EntitySet="USUSUARIOS" />
+          </AssociationSet>
+          <FunctionImport Name="Usp_ObtenerUsuario" ReturnType="Collection(BroxelModel.Usp_ObtenerUsuario_Result)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="Usp_ObtenUsUsuarionPorLogin" ReturnType="Collection(BroxelModel.Usp_ObtenUsUsuarionPorLogin_Result)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Usp_ObtenerUsuario_Result">
+          <Property Type="Int32" Name="IDUSUARIO" Nullable="false" />
+          <Property Type="Int32" Name="IDESTATUS" Nullable="true" />
+          <Property Type="String" Name="USUARIO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CONTRASENA" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="Usp_ObtenUsUsuarionPorLogin_Result">
+          <Property Type="Int32" Name="IDUSUARIO" Nullable="false" />
+          <Property Type="Int32" Name="IDESTATUS" Nullable="true" />
+          <Property Type="String" Name="USUARIO" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CONTRASENA" Nullable="true" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BroxelModelStoreContainer" CdmEntityContainer="BroxelEntities">
+          <EntitySetMapping Name="USESTATUS">
+            <EntityTypeMapping TypeName="BroxelModel.USESTATUS">
+              <MappingFragment StoreEntitySet="USESTATUS">
+                <ScalarProperty Name="IDESTATUS" ColumnName="IDESTATUS" />
+                <ScalarProperty Name="ESTATUS" ColumnName="ESTATUS" />
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUSUARIOS">
+            <EntityTypeMapping TypeName="BroxelModel.USUSUARIOS">
+              <MappingFragment StoreEntitySet="USUSUARIOS">
+                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+                <ScalarProperty Name="IDESTATUS" ColumnName="IDESTATUS" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Usp_ObtenerUsuario" FunctionName="BroxelModel.Store.Usp_ObtenerUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BroxelModel.Usp_ObtenerUsuario_Result">
+                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+                <ScalarProperty Name="IDESTATUS" ColumnName="IDESTATUS" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Usp_ObtenUsUsuarionPorLogin" FunctionName="BroxelModel.Store.Usp_ObtenUsUsuarionPorLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BroxelModel.Usp_ObtenUsUsuarionPorLogin_Result">
+                <ScalarProperty Name="IDUSUARIO" ColumnName="IDUSUARIO" />
+                <ScalarProperty Name="IDESTATUS" ColumnName="IDESTATUS" />
+                <ScalarProperty Name="USUARIO" ColumnName="USUARIO" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

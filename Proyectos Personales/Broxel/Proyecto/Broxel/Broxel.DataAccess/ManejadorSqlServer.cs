@@ -16,13 +16,25 @@
             return conneccion;
         }
 
+        private static void CierraConexion(IDbConnection conn)
+        {
+            try
+            {
+                conn.Close();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public DataTable ExecuteDataTable(string dataBase, CommandType commandType, string commandText, params SqlParameter[] commandParameters)
         {
             try
             {
                 var conn = AbrirConexion();
 
-                var cmd = new SqlCommand { Connection = conn , CommandType = commandType, CommandText=commandText};
+                var cmd = new SqlCommand { Connection = conn, CommandType = commandType, CommandText = commandText };
 
                 foreach (var t in commandParameters)
                 {
@@ -35,11 +47,13 @@
 
                 dataAdapter.Fill(dataTable);
 
+                CierraConexion(conn);
+
                 return dataTable;
             }
             catch (Exception)
             {
-                
+
                 return null;
             }
         }

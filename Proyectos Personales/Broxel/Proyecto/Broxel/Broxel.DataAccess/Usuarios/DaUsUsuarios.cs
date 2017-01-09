@@ -4,6 +4,7 @@
     using System.Data;
     using System.Collections.Generic;
     using System.Data.SqlClient;
+    using System.Threading.Tasks;
     using Entities;
     using Entities.Entidades;
 
@@ -11,7 +12,7 @@
     {
         #region Metodos
 
-        public UsUsuarios ObtenUsUsuarionPorLogin(string usuario, string contrasena)
+        public UsUsuariosEntity ObtenUsUsuarionPorLogin(string usuario, string contrasena)
         {
             var parametros = new SqlParameter[2];
 
@@ -28,13 +29,42 @@
             return usuariResultado;
         }
 
+        public async Task<USUSUARIOS> InsertaUsuario(USUSUARIOS usuario)
+        {
+            using (var proceso = new Repositorio<USUSUARIOS>())
+            {
+                return await proceso.Insertar(usuario);
+            }
+        }
+
+        public List<USUSUARIOS> InsertaListaUsuarios(List<USUSUARIOS> listaUsuarios)
+        {
+            var resultado = new List<USUSUARIOS>();
+
+            using (var r = new Repositorio<USUSUARIOS>())
+            {
+                Parallel.ForEach(listaUsuarios, a =>
+                {
+                    var entity = new USUSUARIOS();
+
+                    lock (entity)
+                    {
+                        resultado.Add(r.Insertar(entity).Result);
+                    }
+                });
+               
+            }
+
+            return resultado;
+        }
+
         #endregion
 
         #region Convertidores
 
-        private UsUsuarios ConvertirUsUsuario(DataTable tabla)
+        private static UsUsuariosEntity ConvertirUsUsuario(DataTable tabla)
         {
-            var usuario = tabla.AsEnumerable().Select(row => new UsUsuarios
+            var usuario = tabla.AsEnumerable().Select(row => new UsUsuariosEntity
             {
                 IdUsuario = row.Field<int>("IdUsuario"),
                 IdEstatus = row.Field<int?>("IdEstatus"),
@@ -45,9 +75,9 @@
             return usuario;
         }
 
-        private List<UsUsuarios> ConvertirListaUsUsuario(DataTable tabla)
+        private static List<UsUsuariosEntity> ConvertirListaUsUsuario(DataTable tabla)
         {
-            var listaUsuario = tabla.AsEnumerable().Select(row => new UsUsuarios
+            var listaUsuario = tabla.AsEnumerable().Select(row => new UsUsuariosEntity
             {
                 IdUsuario = row.Field<int>("IdUsuario"),
                 IdEstatus = row.Field<int?>("IdEstatus"),

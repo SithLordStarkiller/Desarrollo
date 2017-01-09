@@ -1,16 +1,24 @@
 ﻿namespace Broxel.Entities.Entidades
 {
-    public class UsEstatus
+    using System.Runtime.Serialization;
+
+    [DataContract]
+    public class UsEstatusEntity
     {
+        [DataMember]
         public int IdEstatus { get; set; }
+
+        [DataMember]
         public string Estatus { get; set; }
+
+        [DataMember]
         public string Descripcion { get; set; }
 
-        public UsEstatus()
+        public UsEstatusEntity()
         {
         }
 
-        public UsEstatus(int idEstatus, string estatus, string descripcion)
+        public UsEstatusEntity(int idEstatus, string estatus, string descripcion)
         {
             IdEstatus = idEstatus;
             Estatus = estatus;

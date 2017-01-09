@@ -116,7 +116,8 @@
   <ItemGroup>
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
-    <Content Include="Usuarios\UsuariosServer.svc" />
+    <Content Include="Usuarios\UsuariosWcf.svc" />
+    <Content Include="Usuarios\UsuariosWs.asmx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +127,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Usuarios\IUsuariosServer.cs" />
-    <Compile Include="Usuarios\UsuariosServer.svc.cs">
-      <DependentUpon>UsuariosServer.svc</DependentUpon>
+    <Compile Include="Usuarios\IUsuariosWcf.cs" />
+    <Compile Include="Usuarios\UsuariosWcf.svc.cs">
+      <DependentUpon>UsuariosWcf.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Usuarios\UsuariosWs.asmx.cs">
+      <DependentUpon>UsuariosWs.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +145,9 @@
       <Project>{8b1dda42-3fe4-40de-90a0-a10b0343f58a}</Project>
       <Name>Broxel.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Code\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
