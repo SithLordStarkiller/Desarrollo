@@ -1,5 +1,6 @@
 ﻿using Universidad.Entidades;
 using Universidad.LogicaNegocios.LoginL;
+using Newtonsoft.Json;
 
 namespace Universidad.ServidorInterno.Login_S
 {
@@ -9,6 +10,7 @@ namespace Universidad.ServidorInterno.Login_S
     {
         public US_USUARIOS LoginAdministrador(string usuario, string contrasena)
         {
+            //var serialize = JsonConvert.SerializeObject(new LoginL().LoginAdminitradorUsuarios(usuario, contrasena));
             return new LoginL().LoginAdminitradorUsuarios(usuario, contrasena);
         }
 

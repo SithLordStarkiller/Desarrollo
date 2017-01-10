@@ -6,6 +6,7 @@ namespace Universidad.Helpers
 {
     public class Encriptacion
     {
+
         public string EncriptarTexto(string cadena)
         {
             try
