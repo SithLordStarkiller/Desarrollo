@@ -1,0 +1,507 @@
+﻿<link rel="stylesheet" href="~/Styles/jquery-ui.css">
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/restrictors.js?version=3.0"></script>
+<script src="~/Scripts/watermark.js" type="text/javascript"></script>
+<script>
+    var rolActual = "<%=RolActual%>";
+    /*-Inicio- Validadores y restricciones*/
+    function checkLength(o, n, min, max, container) {
+        if (o.val().length > max || o.val().length < min) {
+            updateTips(container, "La longitud de " + n + " debe estar entre " + min + " y " + max + ".");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function ValidateEmpty(toValidate, container) {
+        var valid = true;
+        $.each(toValidate, function (key, value) {
+            if ($.trim(value.val()) == "") {
+                valid = false;
+                updateTips(container, "Se tienen que llenar todos los campos.");
+            } else {
+                for (var i = 0; i < Watermarks.length; i++) {
+                    if ($.trim(value.val()) == Watermarks[i]) {
+                        valid = false;
+                        updateTips(container, "Se tienen que llenar todos los campos.");
+                        if (!valid)
+                            return valid;
+                    }
+                }
+            }
+            return valid;
+        });
+        return valid;
+    }
+
+    function ValidateEmail(val, container) {
+        var filter = /[\w-\.]{3,}@@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+        if (filter.test(val.val()))
+            return true;
+
+        else {
+            updateTips(container, "El email no tiene el formato correcto.");
+            return false;
+        }
+    }
+
+    function ValidateUserDomVal(val, nameField, container) {
+        var filter = /[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_?]/;
+        if (!filter.test(val.val()))
+            return true;
+
+        else {
+            updateTips(container, "Formato incorrecto en el campo " + nameField + " ");
+            return false;
+        }
+    }
+
+    function validatePass(evt) {
+        if (evt.charCode == 34 || evt.charCode == 39 || evt.charCode == 44 || evt.charCode == 47 || evt.charCode == 60 || evt.charCode == 62 || evt.charCode == 92) {
+            return false;
+        }
+        return true;
+    }
+
+    function validatePassU(campo, container) {
+        var regExPattern = /^(?=(.*\d){2})(?=.*[A-Z]{2})(?=.*[!!#$%&()*+-.¡@@[\]_?]{2})[0-9a-zA-Z!!#$%&()*+-.¡@@[\]_?]{10,}/;
+        if (regExPattern.test(campo.val())) {
+            return true;
+        } else {
+            updateTips(container, "Contraseña invalida");
+            return false;
+        }
+    }
+
+    //function noCopyKey(e) {
+    //    var forbiddenKeys = new Array('c', 'x', 'v');
+    //    var keyCode = (e.keyCode) ? e.keyCode : e.which;
+    //    var isCtrl;
+
+    //    if (window.event)
+    //        isCtrl = e.ctrlKey;
+    //    else
+    //        isCtrl = (window.Event) ? ((e.modifiers & Event.CTRL_MASK) == Event.CTRL_MASK) : false;
+
+
+    //    if (isCtrl) {
+    //        for (var i = 0; i < forbiddenKeys.length; i++) {
+    //            if (forbiddenKeys[i] == String.fromCharCode(keyCode).toLowerCase()) {
+    //                return false;
+    //            }
+    //        }
+    //    }
+    //    return true;
+    //}
+    /*-Fin- Validadores y restricciones*/
+
+    function updateTips(container, t) {
+        container.html(t);
+        container.show();
+        setTimeout(function () { container.hide(); }, 6000);
+    }
+
+    function ValidarPopUpCrear(boton) {
+        var bValid;
+        bValid = ValidateEmpty([$("#tbDespacho"), $("#tbNombreCorto"), $("#tbNombreUsuario"), $("#tbNombre"), $("#tbEmail")], $("#MensajeUsuario"));
+        bValid = bValid && checkLength($("#tbNombreUsuario"), "Usuario administrador", 3, 30, $("#MensajeUsuario"));
+        bValid = bValid && checkLength($("#tbNombre"), "Nombre", 1, 30, $("#MensajeUsuario"));
+        bValid = bValid && ValidateEmail($("#tbEmail"), $("#MensajeUsuario"));
+        bValid = bValid && ValidateUserDomVal($("#tbNombreUsuario"), "Usuario Administrador", $("#MensajeUsuario"));
+        bValid = bValid && ValidateUserDomVal($("#tbNombreCorto"), "Nombre Corto", $("#MensajeUsuario"));
+        bValid = bValid && validarNomCorto($("#tbNombreCorto"));
+        bValid = bValid && validarUsuario($("#tbNombreUsuario"));
+        bValid = bValid && validarCorreoExiste($("#tbEmail"), $("#tbNombreUsuario"));
+
+        if (bValid) {
+            if (BloquearMultiplesClicks(boton)) {
+                var modelo =
+                {
+                    tbDespacho: $("#tbDespacho").val(),
+                    tbNombreCorto: $("#tbNombreCorto").val(),
+                    tbNombreUsuario: $("#tbNombreUsuario").val(),
+                    tbNombre: $("#tbNombre").val(),
+                    tbEmail: $("#tbEmail").val()
+                }
+
+                $.ajax({
+                    url: '/AdminDespacho/btCrearDespacho',
+                    type: 'POST',
+                    data: JSON.stringify(modelo),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response == "1") {
+                            $("#MensajeUsuario").html("Despacho Creado Correctamente");
+                            $("#MensajeUsuario").show();
+
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+
+                        } else {
+
+                            $("#MensajeUsuario").html("Error al crear Despacho");
+                            $("#MensajeUsuario").show();
+                            LimpiarBloqueoMultiplesClicks($("#NuevoDButton"));
+                        }
+                    },
+                    error: function (msg, text, thrown) {
+                        alert("Error - " + msg + text + thrown);
+                    }
+                });
+
+                return true;
+            }
+        } else {
+            return false;
+        }
+        return false;
+    }
+
+    function validarCorreoExiste(email, usuario) {
+
+        $("#MensajeUsuario").text("");
+        var modelo =
+        {
+            correo: email.val(),
+            Usuario: usuario.val()
+        }
+        $.ajax({
+            url: 'AdminUsuarios/validarCorreo',
+            type: 'POST',
+            async: false,
+            cache: false,
+            data: JSON.stringify(modelo),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response != "OK") {
+                    updateTips($("#MensajeUsuario"),response);
+                }
+            },
+            error: function (msg, text, thrown) {
+                alert("error: " + thrown + msg + text);
+            }
+        });
+        if ($("#MensajeUsuario").text() != "") {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
+
+    function cargaPopUpCrear() {
+        limpiarText();
+
+        $.ajax({
+            url: '/AdminDespacho/popupNuevo',
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#popupNConteiner").html(response);
+                window.PopUPDespacho.Show();
+            },
+            error: function (msg, text, thrown) {
+                alert("Error - " + msg + text + thrown);
+            }
+        });
+    }
+
+    function validarNomCorto(nombreCorto,idDominio) {
+
+        $("#MensajeUsuario").text("");
+        var dominio;
+        if (idDominio === undefined || idDominio == null) {
+            dominio = "-1";
+        } else {
+            dominio = idDominio.val();
+        }
+        var modelo =
+        {
+            nomCorto: nombreCorto.val(),
+            idDominio: dominio
+        }
+        $.ajax({
+            url: 'AdminDespacho/ValidarNomCorto',
+            type: 'POST',
+            async: false,
+            cache: false,
+            data: JSON.stringify(modelo),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response != "OK") {
+                    updateTips($("#MensajeUsuario"),response);
+                }
+            },
+            error: function (msg, text, thrown) {
+                alert("error: " + thrown + msg + text);
+            }
+        });
+        if ($("#MensajeUsuario").text() != "") {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function validarUsuario(usuario) {
+
+        $("#MensajeUsuario").text("");
+        var modelo =
+        {
+            usuario: usuario.val()
+        }
+        $.ajax({
+            url: 'AdminDespacho/ValidaUsuario',
+            type: 'POST',
+            async: false,
+            cache: false,
+            data: JSON.stringify(modelo),
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response != "OK") {
+                    updateTips($("#MensajeUsuario"), response);
+                }
+            },
+            error: function (msg, text, thrown) {
+                alert("error: " + thrown + msg + text);
+            }
+        });
+        if ($("#MensajeUsuario").text() != "") {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function ValidarPopUpEdit(boton) {
+        var bValid;
+        bValid = ValidateEmpty([$("#ADNombre"), $("#ADNCorto")], $("#MensajeUsuario"));
+        bValid = bValid && checkLength($("#ADNombre"), "Nombre", 1, 30, $("#MensajeUsuario"));
+        bValid = bValid && validarNomCorto($("#ADNCorto"), $("#idDominio"));
+
+        if (bValid) {
+            $("#ADEstatusH").val($("input:radio[id=ADEstatus]:checked").val());
+            if (BloquearMultiplesClicks(boton)) {
+                var modelo =
+                {
+                    ADNombre: $("#ADNombre").val(),
+                    ADNCorto: $("#ADNCorto").val(),
+                    ADEstatus: $("#ADEstatus").val(),
+                    idDominio: $("#idDominio").val(),
+                    ADEstatusH: $("#ADEstatusH").val()
+                }
+
+                $.ajax({
+                    url: '/AdminDespacho/btEditDespacho',
+                    type: 'POST',
+                    data: JSON.stringify(modelo),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response == "1") {
+                            $("#MensajeUsuario").html("Despacho actualizado Correctamente");
+                            $("#MensajeUsuario").show();
+
+                            setTimeout(function () {
+                                location.reload();
+                            }, 3000);
+
+                        } else {
+                            $("#MensajeUsuario").html("Error al actualizar Despacho");
+                            $("#MensajeUsuario").show();
+                            LimpiarBloqueoMultiplesClicks($("#EditarDButton"));
+                        }
+                    },
+                    error: function (msg, text, thrown) {
+                        alert("Error - " + msg + text + thrown);
+                    }
+                });
+            }
+        }
+    }
+
+    function limpiarText() {
+        $('#tbDespacho').val("");
+        $('#tbNombreCorto').val("");
+        $('#tbNombreUsuario').val("");
+        $('#tbNombre').val("");
+        $('#tbEmail').val("");
+
+        $('#tbDespacho').Watermark(Watermarks[0]);
+        $('#tbNombreCorto').Watermark(Watermarks[1]);
+        $('#tbNombreUsuario').Watermark(Watermarks[2]);
+        $('#tbNombre').Watermark(Watermarks[3]);
+        $('#tbEmail').Watermark(Watermarks[4]);
+    }
+
+    function NoLinks() {
+        if (rolActual != "0") {
+            $("table a").css("color", "black").removeAttr("href").removeClass("dxeHyperlink");
+        }
+    }
+
+    function restablecer() {
+        window.location.href = window.location.href;
+    }
+
+    function editarDespacho(despacho) {
+        var modelo =
+        {
+            idDominio: despacho
+        }
+
+        $.ajax({
+            url: '/AdminDespacho/popupEditar',
+            type: 'POST',
+            data: JSON.stringify(modelo),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#popupEConteiner").html(response);
+                window.PopUPDespachoEdit.Show();
+            },
+            error: function (msg, text, thrown) {
+                alert("Error - " + msg + text + thrown);
+            }
+        });
+        return false;
+    }
+
+    var Watermarks = ["razón social", "nombre corto ", "usuario", "nombre", "email"];
+    $(document).ready(function () {
+     
+        limpiarText();
+
+        $(document).keypress(function (e) {
+            if (e.keyCode == 13) { return false; }
+            return true;
+        });
+        $("input:text,input:password").bind("contextmenu", function () {
+            return false;
+        });
+    });
+</script>
+<style type="text/css">
+    .BotonGris {
+        background: #666666;
+        border: 1px #666666;
+    }
+
+    #Mensaje {
+        display: none;
+        margin: 0 0 0 30px;
+        padding-top: 10px;
+        height: 30px;
+        width: 400px;
+    }
+
+    .TbidDominioHidden, .TbEstatusHidden {
+        display: none;
+    }
+
+    #MensajeUsuario, #MensajeUsuarioAc {
+        display: none;
+        height: 20px;
+    }
+
+    .buttonFooter {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .dxpc-headerContent {
+        font: 18px 'Open Sans', sans-serif;
+        text-align: left;
+    }
+
+    .dxgvHeader td {
+        font: 18px 'Open Sans', sans-serif;
+        text-align: left;
+    }
+
+    .dxgv {
+        font: 18px 'Open Sans', sans-serif;
+        text-align: left;
+    }
+
+    .PopUpContainer {
+        margin-left: 30px;
+        margin-right: 10px;
+    }
+
+    table a {
+        float: left;
+    }
+</style>
+
+<div style="margin-left: 30px; position: relative">
+
+    <div class="TituloSeleccion" style="min-height: 42px; display: inline-block; width: 100%; vertical-align: middle; margin-top: 15px;">
+        <div style="max-width: 600px;float:left;width: 340px">Administrador de Despachos</div>
+        <img id="imgSeparador1" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; float: left;" />
+        <div style="width: 20px; display: inline-block; margin-left: 35px">
+            <button id="btNuevoDespacho" style="width: 200px; height:25px;" class="Botones" onclick="cargaPopUpCrear()">Crear Despacho</button>
+            <div id="Restablecer" style="width: 200px; margin-top: 20px;">
+                <button class="Botones" id="btLimpiar" style="width: 100px; height: 30px;" onclick="restablecer()">Restablecer</button>
+            </div>
+        </div>
+    </div>
+    @*<div style="text-align: left;width: 100%;">
+        <label id="lblInformacion" class="MensajeAlerta ArribaMenos5"></label>
+    </div>*@
+
+    <div id="DivTabla" style="margin-top: 15px;">
+        @Html.Action("GVDespachos")
+    </div>
+
+    @Html.DevExpress().PopupControl(settings =>
+    {
+        settings.Name = "PopUPDespacho";
+        settings.PopupElementID = "PopUPDespacho";
+        settings.HeaderText = "Nuevo Despacho";
+        settings.ShowHeader = true;
+        settings.ShowFooter = true;
+        settings.ShowCloseButton = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.AllowDragging = true;
+        settings.AllowResize = false;
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div id='popupNConteiner'></div>");
+        });
+        settings.Styles.Footer.CssClass = "buttonFooter";
+        settings.SetFooterTemplateContent(
+            "<button id='NuevoDButton' style='width:200px; height:25px;' class='Botones' onClick='ValidarPopUpCrear(this) '>Crear</button>"
+        );
+    }).GetHtml()
+
+    @Html.DevExpress().PopupControl(settings =>
+    {
+        settings.Name = "PopUPDespachoEdit";
+        settings.HeaderText = "Actualizar Despacho";
+        settings.ShowHeader = true;
+        settings.ShowFooter = true;
+        settings.ShowCloseButton = true;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.AllowDragging = true;
+        settings.AllowResize = false;
+        settings.Modal = true;
+        settings.AutoUpdatePosition = true;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<div id='popupEConteiner'></div>");
+        });
+        settings.Styles.Footer.CssClass = "buttonFooter";
+        settings.SetFooterTemplateContent(
+            "<button id='EditarDButton' style='width:200px; height:25px;' class='Botones' onClick='ValidarPopUpEdit(this) '>Actualizar</button>"
+        );
+    }).GetHtml()
+
+</div>

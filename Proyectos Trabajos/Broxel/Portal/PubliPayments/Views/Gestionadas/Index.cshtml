@@ -1,0 +1,826 @@
+﻿@using System.Web.UI.WebControls
+@model PubliPayments.Entidades.GestionadasModel
+
+@{
+    if (ViewBag.Tipo == "AutorizarRechazar")
+    {
+        
+        ViewBag.Title = ViewBag.nombreAplicacion=="SIRA"?"Respuestas": "Originación";
+    }
+    else
+    {
+        ViewBag.Title = (ViewBag.nombreAplicacion=="SIRA"?"":"Originación - ") + ViewBag.Tipo;
+    }
+}
+<script src="~/Scripts/restrictors.js?version=3.0"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/OrdenesController.js?version=1.2"></script>
+<script src="~/Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="~/Styles/lightbox.css">
+<script src="~/Scripts/CapturaWeb.js?version=2.7"></script>
+<script src="~/Scripts/ScriptFormularioCSD.js?version=11.1"></script>
+<script src="~/Scripts/ScriptFormularioRDST.js?version=3.0"></script>
+<style>
+    .lb-outerContainer {
+        height: 85% !important;
+    }
+
+    .lightbox .lb-image {
+        height: 640px !important;
+        width: 480px !important;
+    }
+
+    #tablaRespuesta {
+        width: 820px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+        border-collapse: collapse !important;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+    tr.GridCelda > td:last-child {
+        max-width: 200px;
+    }
+
+    tr.GridCeldaAlt > td:last-child {
+        max-width: 200px;
+    }
+</style>
+
+<script>
+    function btDescargar_OnClick() {
+
+        window.open('/ArchivoRespuestas/Descargar?idUsuarioPadre=' + '@ViewBag.idUsuarioPadre' + "&&tipoFormulario=OriginaPP", "_self");
+    }
+
+    function btTotalIncremental_OnClick() {
+        window.open('ReporteDescarga/DescargaReporteResVisita?idUsuarioPadre=' + '@ViewBag.idUsuarioPadre' + "&&tipoFormulario=VPC", "_self");
+    }
+
+    function OnPageCheckedChanged(s) {
+        if (!$(s).prop('checked')) {
+            $('#SelectAllCheckbox').prop('checked', false);
+            window.GridGestionadas.UnselectAllRowsOnPage();
+        } else {
+            window.GridGestionadas.SelectAllRowsOnPage();
+        }
+        window.GridGestionadas.SelectAllRowsOnPage($(s).prop('checked'));
+    }
+
+    function OnAllCheckedChanged(s) {
+        if ($(s).prop('checked')) {
+            window.GridGestionadas.SelectRows();
+            $('#SelectPageCheckbox').prop('checked', true);
+        } else {
+            window.GridGestionadas.UnselectRows();
+            $('#SelectPageCheckbox').prop('checked', false);
+        }
+    }
+
+    function OnGridViewSelectionChanged() {
+        UpdateTitlePanel();
+    }
+
+    function OnGridViewEndCallback() {
+        UpdateTitlePanel();
+    }
+
+    function UpdateTitlePanel() {
+        $("#selCount").text(window.GridGestionadas.GetSelectedRowCount());
+    }
+
+    function OnGridSelectionChanged(s) {
+        s.GetSelectedFieldValues("Orden", GetSelectedFieldValueCallback);
+    }
+
+    function GetSelectedFieldValueCallback(values) {
+        var ordenesA = [];
+        for (var j = 0; j < values.length; j++) {
+            ordenesA.push([values[j], '3']);
+        }
+        window.ArrIdOrdenesA = ordenesA;
+
+        //OrdAsig = "0";
+
+        var ordenes = [];
+        for (var x = 0; x < values.length; x++) {
+            ordenes.push(values[x]);
+        }
+
+        window.ArrIdOrdenes = ordenes;
+        var node = document.getElementById("popupDiv");
+        if (node == null)
+            return;
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+        var limit = (values.length > 100) ? 101 : values.length;
+        for (var i = 0; i < limit; i++) {
+
+            var nodeP = document.createElement("P");
+            var textNode = document.createTextNode(values[i][0]);
+            nodeP.appendChild(textNode);
+            document.getElementById("popupDiv").appendChild(nodeP);
+            if (i >= 100) {
+                var messageNode = document.createElement("P");
+                var messageContent = document.createTextNode("...");
+                messageNode.appendChild(messageContent);
+                document.getElementById("popupDiv").appendChild(messageNode);
+            }
+        }
+    }
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function RefreshGridView() {
+        var tipo = getParameterByName('tipo');
+        $.ajax({
+            url: '/Gestionadas/SetRefresh',
+            type: 'GET',
+            cache: false,
+            data: {
+                valor: tipo
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+                window.GridGestionadas.Refresh();
+                setTimeout(RefreshGridView, 60000);
+            },
+            error: function (msg) {
+                location.reload();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        window.ContainerPage = ["Gestionadas", "3", "@ViewBag.Ruta"];
+        window.MaskAjax = '.MaskAjax';
+
+        @if (ViewBag.isOriginacion)
+        {
+            @:setTimeout(RefreshGridView, 60000);
+        }
+
+        $("#GridGestionadas").on("click", ".idOrden a", function (e) {
+            e.preventDefault();
+            $("#Mask").show();
+            var orden = ($(this).html());
+            $.ajax({
+                url: '/Respuesta/Ver',
+                type: 'GET',
+                cache: false,
+                data: {
+                    idOrden: orden,
+                    proceso: 1
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: ShowResponse,
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                    $("#Mask").hide();
+                }
+            });
+        });
+        $("#GridGestionadas").on("click", ".archivosBoton", function (e) {
+
+            e.preventDefault();
+            $("#Mask").show();
+            var orden = ($(this).attr("src"));
+            ordenActual = orden;
+            $.ajax({
+                url: '/Gestionadas/VerArchivos',
+                type: 'GET',
+                cache: false,
+                data: {
+                    idOrden: orden,
+                    proceso: 1
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: ShowResponse,
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                    $("#Mask").hide();
+                }
+            });
+        });
+    });
+
+    function ShowResponse(response) {
+        $("#tablaRespuesta").children().remove();
+        $("#tablaRespuestaHeader").html(response.usuario);
+        $("#Mask").hide();
+        if (response.HtmlResp!=undefined)
+            $("#tablaRespuesta").append(response.HtmlResp);
+        else {
+            $("#tablaRespuesta").append(response);
+        }
+        $(".CWDisabled").attr("disabled", "true");
+        $(".CWHidden").hide();
+
+        window.PopupOrdenInfo.Show();
+        if (response.HtmlResp == undefined) {
+            $(".dxpc-contentWrapper > [id^='PopupOrdenInfo']").parent().height(600);
+            mostrarReferenciasAnteriores(); mostrarReferencias();
+        } else {
+            $(".dxpc-contentWrapper > [id^='PopupOrdenInfo']").parent().height(800);
+        }
+        
+    }
+
+    function ActivaTab(numero) {
+        switch (numero) {
+            case 1:
+                window.pcArchivos.GetTabByName('PreAutorizacion').SetEnabled(false);
+                window.pcArchivos.GetTabByName('Formalizacion').SetEnabled(false);
+                break;
+            case 2:
+                window.pcArchivos.GetTabByName('Formalizacion').SetEnabled(false);
+                break;
+            case 3:
+                break;
+
+            default:
+                window.pcArchivos.GetTabByName('Originacion').SetVisible(false);
+                window.pcArchivos.GetTabByName('PreAutorizacion').SetVisible(false);
+                window.pcArchivos.GetTabByName('Formalizacion').SetVisible(false);
+                break;
+        }
+    }
+
+    function aceptaDocumentos(idOrden, visitaActual) {
+        var checks = $("input[type=checkbox]:checked");
+        var fotosABorrar = "";
+        var rutasABorrar = "";
+
+        for (var i = 0 ; i < checks.length; i++) {
+            fotosABorrar += "''" + checks[i].value + "'',";
+            rutasABorrar += $("#img1_" + checks[i].value).attr("src") + ",";
+        }
+
+        if (fotosABorrar.length > 0) {
+            $("#Mask").show();
+            fotosABorrar = fotosABorrar.substring(0, fotosABorrar.length - 1);
+            rutasABorrar = rutasABorrar.substring(0, rutasABorrar.length - 1);
+
+            $.ajax({
+                url: '/Gestionadas/BorrarImagen',
+                type: 'POST',
+                data: {
+                    idOrden: idOrden,
+                    fotosABorrar: fotosABorrar,
+                    rutasABorrar: rutasABorrar,
+                    visita: visitaActual
+                },
+                success: function (response) {
+
+                },
+                error: function (msg, text, thrown) {
+                    alert("error " + msg.responseText + " \n" + text + " \n" + thrown);
+                    $("#Mask").hide();
+                }
+            });
+        } else {
+            location.reload(true);
+        }
+    }
+
+    function SubirArchivo(fileInput, ordenActual, visitaActual) {
+        if (window.File && window.FileList && window.FileReader) {
+            var files = document.getElementById(fileInput);
+            if (files != null) {
+                if (!files.files.length) {
+                    alert("Seleccione un archivo y luego precione el botón Subir.");
+                    return false;
+                }
+
+                $('#' + files.id + 'Url').val("");
+                $('#' + files.id + 'OKImg').css("visibility", "hidden");
+
+                var file = files.files[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (f) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action(ViewBag.nombreAplicacion=="MYO"?"Upload":"UploadMYO", "Gestionadas")",
+                        data: {
+                            'orden': ordenActual,
+                            'campo': fileInput,
+                            'contenido': f.target.result,
+                            'visita': visitaActual
+                        },
+                        success: function (result) {
+                            if (result.substring(0, 2) == "OK") {
+                                $('#' + files.id + 'Url').val(result.substring(3));
+                                $('#' + files.id + 'OKImg').css("visibility", "visible");
+                            } else {
+                                alert(result);
+                            }
+                        },
+                        error: function (msg) {
+                            alert(msg.responseText);
+                        }
+                    });
+                }
+                fileReader.readAsDataURL(file);
+            } else {
+                alert('No se encontró el archivo. Intente recargar la página y/o borrar el cache de su navegador.');
+            }
+        } else {
+            alert('Su navegador no es compatible con la carga de archivos de HTML5, por favor actualícelo e intente nuevamente.');
+        }
+        return false;
+    }
+
+    function SubirArchivoMYO(fileInput, ordenActual, visitaActual) {
+        if (window.File && window.FileList && window.FileReader) {
+            var files = document.getElementById(fileInput);
+            if (files != null) {
+                if (!files.files.length) {
+                    alert("Seleccione un archivo y luego precione el botón Subir.");
+                    return false;
+                }
+
+
+                var ext = files.value.slice(-4).toLowerCase();
+
+                $('#' + files.id + 'Url').val("");
+                $('#' + files.id + 'okimg').css("visibility", "hidden");
+
+                var file = files.files[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function (f) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("UploadMYO", "Gestionadas")",
+                        data: {
+                            'orden': ordenActual,
+                            'campo': fileInput,
+                            'contenido': f.target.result,
+                            'visita': visitaActual,
+                            'ext': ext
+
+                        },
+                        success: function (result) {
+                            if (result.substring(0, 2) == "OK") {
+                                $('#' + files.id + 'Url').val(result.substring(3));
+                                $('#' + files.id + 'okimg').css("visibility", "visible");
+                            } else {
+                                alert(result);
+                            }
+                        },
+                        error: function (msg) {
+                            alert(msg.responseText);
+                        }
+                    });
+                }
+                fileReader.readAsDataURL(file);
+            } else {
+                alert('No se encontró el archivo. Intente recargar la página y/o borrar el cache de su navegador.');
+            }
+        } else {
+            alert('Su navegador no es compatible con la carga de archivos de HTML5, por favor actualícelo e intente nuevamente.');
+        }
+        return false;
+    }
+
+    function BorrarArchivo(fileInput, ordenActual, visitaActual) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("BorrarArchivo", "Gestionadas")",
+            data: {
+                'idOrden': ordenActual,
+                'campo': fileInput,
+                'visita': visitaActual
+            },
+            success: function (result) {
+                if (result.substring(0, 2) == "OK") {
+                    $('#' + fileInput + 'OKImg').css("visibility", "visible");
+                } else {
+                    alert(result);
+                }
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+    }
+
+    window.MaskAjax = '.MaskAjax';
+
+    function rechazarOrig(idOrdenSeleccionado, idVisita) {
+        aceptaDocumentos(idOrdenSeleccionado, idVisita);
+        var urlAjax = "/Ordenes/CancelarOrdenes";
+        var ordenesA = [];
+        ordenesA.push([idOrdenSeleccionado, '3']);
+
+        var ordenInfo = JSON.stringify({ "ordenesList": ordenesA, "paginaActual": ContainerPage });
+
+        $(MaskAjax).show();
+        var img = $(MaskAjax + " img");
+        if (img != null)
+            $(MaskAjax + " img").show();
+        $.ajax({
+            url: urlAjax,
+            type: 'POST',
+            data: ordenInfo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                $(BtRefreshTable).click();
+            },
+            error: function (msg, text, thrown) {
+                $(MaskAjax).hide();
+                alert("error " + thrown);
+            }
+        });
+    }
+
+    function reenviaIncompletos(idOrdenSeleccionado, idVisita) {
+        aceptaDocumentos(idOrdenSeleccionado, idVisita);
+        var urlAjax = "/Ordenes/ReasignarOrdenesIncompletas";
+        var ordenesA = [];
+        ordenesA.push([idOrdenSeleccionado, '3']);
+
+        var ordenInfo = JSON.stringify({ "ordenesList": ordenesA, "paginaActual": ContainerPage });
+
+        $(MaskAjax).show();
+        var img = $(MaskAjax + " img");
+        if (img != null)
+            $(MaskAjax + " img").show();
+        $.ajax({
+            url: urlAjax,
+            type: 'POST',
+            data: ordenInfo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                $(BtRefreshTable).click();
+            },
+            error: function (msg, text, thrown) {
+                $(MaskAjax).hide();
+                alert("error " + thrown);
+            }
+        });
+    }
+
+    function autorizaOrig(idOrdenSeleccionado, idVisita) {
+        aceptaDocumentos(idOrdenSeleccionado, idVisita);
+        var urlAjax = "/Ordenes/AutorizarOrdenes";
+        var ordenesA = [];
+        ordenesA.push([idOrdenSeleccionado, '3']);
+
+        var ordenInfo = JSON.stringify({ "ordenesList": ordenesA, "paginaActual": ContainerPage });
+
+        $(MaskAjax).show();
+        var img = $(MaskAjax + " img");
+        if (img != null)
+            $(MaskAjax + " img").show();
+        $.ajax({
+            url: urlAjax,
+            type: 'POST',
+            data: ordenInfo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                $(BtRefreshTable).click();
+            },
+            error: function (msg, text, thrown) {
+                $(MaskAjax).hide();
+                alert("error " + thrown);
+            }
+        });
+    }
+
+    function descargaDocumentos(idOrden) {
+
+        $.ajax({
+            url: @(ViewBag.nombreAplicacion.Contains("MYO")?"Gestionadas/DescargarDocumentos":"Gestionadas/DescargarDocumentosMyo") +"",
+            type: 'POST',
+            data: { "idOrden": idOrden },
+            dataType: "html",
+            success: function (response) {
+                alert(response);
+                window.open(response, "_blank", "toolbar=0,location=0,resizable=0,scrollbars=0,statusbar=0,menubar=0,left = 50,top = 50,height=50,width=200");
+            },
+            error: function (msg, text, thrown) {
+                $(MaskAjax).hide();
+                alert("error " + msg.responseText);
+            }
+        });
+    }
+
+    function encriptaTC(idOrden) {
+        $.ajax({
+            url: "Gestionadas/EncriptaTc",
+            type: 'POST',
+            data: { "idOrden": idOrden },
+            dataType: "html",
+            success: function (response) {
+                $("#CifradoTC").html(response);
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + msg.responseText);
+            }
+        });
+    }
+
+    function guardaMC1(idOrden, idVisita) {
+        var checks = $("input[type=radio]:not([disabled])");
+        var arrRef = [];
+
+        for (var i = 0; i < checks.length; i++) {
+            var valor = checks[i].value;
+            var guardar = true;
+
+            arrRef.forEach(function (objeto) {
+                var objAux = JSON.parse(objeto);
+
+                if (objAux.Nombre == valor.substring(1, valor.indexOf("Radio"))) {
+                    guardar = false;
+                }
+            });
+            if (guardar == true) {
+                var tipo = valor.substring(0, 1);
+                var nombre = valor.substring(1, valor.indexOf("Radio"));
+                var urlDoc = tipo == 2 ? $("#" + nombre + "Url").val() : "";
+                var checkSelec = $("input[name='" + nombre + "Radio']:checked:not([disabled])");
+                var valorSel = checkSelec[0] === undefined ? "No especificado" : checkSelec[0].value.substring(valor.indexOf("Radio") + 5, valor.indexOf("Radio") + 7);
+                var idSelec = valor.substring(valor.indexOf("Radio") + 7);
+                var comentario = $("#" + nombre + "Comentario").val().replace("\"", "").replace("'", "");
+                var ref = new DocumentoMyo(tipo, nombre, valorSel, comentario, urlDoc, idSelec);
+
+                if (!ref.verifica()) {
+                    return false;
+                }
+                arrRef.push(JSON.stringify(ref));
+            }
+        }
+
+        $.ajax({
+            url: "Gestionadas/ValidaMyo",
+            type: 'POST',
+            dataType: "html",
+            cache: false,
+            traditional: true,
+            data: {
+                "valores": arrRef,
+                "tipo": "Documentos",
+                "idOrden": idOrden
+            },
+            success: function (response) {
+                alert(response);
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + msg.responseText);
+                alert(text);
+                alert(thrown);
+            }
+        });
+
+        return true;
+    }
+
+    function guardaReferencias(idOrden, idVisita) {
+        var checks = $("input[type=radio]:checked:not([disabled])");
+        var numeroRef = $("input[type=radio]:not([disabled])").length / 2;
+        if (numeroRef != checks.length) { alert("Debe calificar todas las referencias."); return false; }
+
+        var arrRef = [];
+
+        for (var i = 0; i < checks.length; i++) {
+            var valor = checks[i].value;
+            var tipo = valor.substring(0, 1);
+            var nombre = valor.substring(1, valor.indexOf("Radio"));
+            var urlDoc = tipo == 2 ? $("#" + nombre + "Url").val() : "";
+            var valorSel = valor.substring(valor.indexOf("Radio") + 5, valor.indexOf("Radio") + 7);
+            var idSelec = valor.substring(valor.indexOf("Radio") + 7);
+            var comentario = $("#" + nombre + "Comentario").val().replace("\"", "").replace("'", "");
+            var ref = new ReferenciaMyo(tipo, nombre, valorSel, comentario, urlDoc, idSelec);
+
+            if (!ref.verifica()) { return false; }
+            arrRef.push(JSON.stringify(ref));
+        }
+
+        $.ajax({
+            url: "Gestionadas/ValidaMyo",
+            type: 'POST',
+            dataType: "html",
+            cache: false,
+            traditional: true,
+            data: {
+                "valores": arrRef,
+                "tipo": "Referencias",
+                "idOrden": idOrden
+            },
+            success: function (response) {
+                alert(response);
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + msg.responseText);
+                alert(text);
+                alert(thrown);
+            }
+        });
+
+        return true;
+    }
+
+    function guardaRevision(idOrden, idVisita) {
+        var checks = $("input[type=radio]:checked");
+        var numeroRef = $("input[type=radio]").length / 2;
+        if (numeroRef != checks.length) { alert("Debe responder la revision."); return false; }
+
+        var arrRef = [];
+
+        for (var i = 0; i < checks.length; i++) {
+            var valor = checks[i].value;
+            var tipo = valor.substring(0, 1);
+            var nombre = valor.substring(1, valor.indexOf("Radio"));
+            var urlDoc = tipo == 2 ? $("#" + nombre + "Url").val() : "";
+            var valorSel = valor.substring(valor.indexOf("Radio") + 5, valor.indexOf("Radio") + 7);
+            var idSelec = valor.substring(valor.indexOf("Radio") + 7);
+            var comentario = $("#" + nombre + "Comentario").val().replace("\"", "").replace("'", "");
+            var ref = new RevisionMyo(tipo, nombre, valorSel, comentario, urlDoc, idSelec);
+
+            if (!ref.verifica()) { return false; }
+            arrRef.push(JSON.stringify(ref));
+        }
+
+        if (idVisita == 5) {
+            arrRef = [];
+            arrRef.push(new RevisionMyo("", "VoBoOperaciones", "Si", "", ""));
+        }
+
+        $.ajax({
+            url: "Gestionadas/ValidaMyo",
+            type: 'POST',
+            dataType: "html",
+            cache: false,
+            traditional: true,
+            data: {
+                "valores": arrRef,
+                "tipo": "Revision",
+                "idOrden": idOrden
+            },
+            success: function (response) {
+                alert(response);
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + msg.responseText);
+                alert(text);
+                alert(thrown);
+            }
+        });
+
+        return true;
+    }
+
+    function funcionFinal() {
+        $("#tablaRespuesta").append("<div  class='MensajeAlerta' style='width:250px;height:15px;text-align:center;margin-left:310px'>Gestión guardada correctamente</div>");
+        ProcesarRespuestasMyo();
+    }
+
+    function ProcesarRespuestasMyo() {
+        var idusuario= "@ViewBag.idUsuarioPadre";
+        $.ajax({
+            url: "Gestionadas/ProcesarRespuestas",
+            type: 'POST',
+            dataType: "html",
+            cache: false,
+            traditional: true,
+            data: {
+                "idorden": ordenActual,
+                "idusuario": idusuario
+            },
+            success: function (response) {
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + msg.responseText);
+                alert(text);
+                alert(thrown);
+            }
+        });
+
+        return true;
+    }
+    
+</script>
+
+<div id="cabecero" style="margin-left: 30px; position: relative;text-align: left;">
+    <div id="tituloPagina" class="TituloSeleccion" style="display: inline-block;vertical-align: top;">
+        @ViewBag.Title<img id="Image1" alt="|" src="~/imagenes/separador.png" style="margin-left: 15px; margin-right: 15px; position: relative; top: 10px;" />
+    </div>
+    <div class="TituloSeleccion" style="height: 96px; display: inline-block; vertical-align: middle; width: auto;">
+        @if (!ViewBag.nombreAplicacion.Contains("ORIGINACIONMOVIL"))
+        {
+        <div style="margin-top: 10px; display: inline-block; text-align: left;">
+            <div class="Combos" style="height: 19px; width: 140px; display: inline-block; vertical-align: bottom">
+                <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">Seleccionar página</div>
+                <input type="checkbox" id="SelectPageCheckbox" onchange="OnPageCheckedChanged(this);" style="vertical-align: top; margin-top: 3px;" />
+                @*ToolTip="Selecciona todas las filas en la página"*@
+            </div>
+            <div class="Combos" style="height: 19px; width: 140px; display: inline-block; vertical-align: bottom">
+                <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">Seleccionar Todos</div>
+                <input type="checkbox" id="SelectAllCheckbox" onchange="OnAllCheckedChanged(this);" style="vertical-align: top; margin-top: 3px;" />
+                @*OnInit="checkAll_init" ToolTip="Selecciona todas las filas"*@
+            </div>
+            <div id="countDiv" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 10px; font-size: 12px; margin-right: 20px;">
+                Entradas seleccionadas: <span id="selCount" style="font-weight: bold">0</span>
+            </div>
+            @if (ViewBag.Tipo == "AutorizarRechazar")
+            {
+                if (ViewBag.nombreAplicacion == "SIRA")
+                {
+                    <button id="btCancelar" style="height: 30px; width: 172px" class="Botones Margin MovType12">Rechazar</button>
+                    <button id="btAutorizar" style="height: 30px; width: 172px" class="Botones Margin MovType4">Autorizar</button>
+                }
+            }
+        </div>
+        }
+        <br />
+        <div style="margin-top: 10px; display: inline-block; text-align: left;">
+            <button class="Botones btnLimpiar" id="btLimpiar" style="width: 150px;height: 30px" onclick="location.reload(); return BloquearMultiplesClicks(this);">Restablecer</button>
+            @if (ViewBag.Tipo == "AutorizarRechazar")
+            {
+                   if (ViewBag.nombreAplicacion == "SIRA")
+                {
+                        <button class="Botones Margin" id="btDescargar" style="width: 172px;height: 30px" onclick="btTotalIncremental_OnClick(); return false;">Rep Total Incremental</button>
+                }
+                   else
+                   {
+                    <!--<button class="Botones Margin" id="btDescargar" style="width: 150px; height: 30px" onclick=" btDescargar_OnClick(); return false; ">Descargar</button>-->
+                   }
+                
+            }
+         
+
+        </div>
+    </div>
+</div>
+<div id="grid" style="margin-left: 30px;margin-top: 10px;">
+    @Html.Action("GridGestionadasPartial")
+</div>
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "PopupOrdenInfo";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.AllowResize = false;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.Width = new Unit("890px");
+    settings.Height = new Unit("800px");
+    settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+    settings.PopupVerticalOffset = 50;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.HeaderText = "";
+    settings.ScrollBars = ScrollBars.Auto;
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div id='tablaRespuestaHeader'></div>");
+        ViewContext.Writer.Write("<div id='tablaRespuesta' style='width:850px;overflow-y:auto;'></div>");
+    });
+}).GetHtml()
+
+
+@if (ViewBag.MensajeResultado != null)
+{
+    Html.DevExpress().PopupControl(settings =>
+    {
+        settings.Name = "PopupMensajeResultado";
+        settings.ShowHeader = true;
+        settings.AllowDragging = true;
+        settings.AllowResize = false;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.Modal = true;
+        settings.Width = new Unit("400px");
+        settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+        settings.PopupVerticalOffset = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupAnimationType = AnimationType.Fade;
+        settings.ShowOnPageLoad = true;
+        settings.HeaderText = ViewBag.Title;
+
+        settings.SetContent(() =>
+        {
+            //ViewContext.Writer.Write("<div style='width: 100%; text-align: center; top: 30px; position: relative'>");
+            ViewContext.Writer.Write("<div class='Titulo'>" + ViewBag.MensajeResultado + "</div>");
+            ViewContext.Writer.Write("<br />");
+            ViewContext.Writer.Write("<div style='height: 30px;'></div>");
+            ViewContext.Writer.Write("<button id='btAsignar' OnClick='PopupMensajeResultado.Hide();' class='Botones' style='height: 30px;'>Continuar</button>");
+            //ViewContext.Writer.Write("<br />");
+            //ViewContext.Writer.Write("</div>");
+        });
+    }).GetHtml();
+}

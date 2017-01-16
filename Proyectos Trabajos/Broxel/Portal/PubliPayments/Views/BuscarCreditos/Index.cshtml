@@ -1,0 +1,445 @@
+﻿<link rel="stylesheet" href="~/Styles/CapturaWeb.css">
+<script src="~/Scripts/restrictors.js?version=3.0"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/ScriptFormularioCSD.js?version=11.1"></script>
+<script src="~/Scripts/ScriptFormularioRDST.js?version=3.0"></script>
+<script src="~/Scripts/CapturaWeb.js?version=2.7"></script>
+<link rel="stylesheet" href="~/Content/themes/blitzer/jquery-ui-1.10.4.custom.css" />
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="~/Styles/lightbox.css">
+<style>
+    #popupGestionar_PW-1 {
+        margin: auto;
+    }
+     #outerDiv {
+        overflow: hidden;
+        width: 148px;
+        height: 100px;
+    }
+
+    #popupDiv {
+        overflow: scroll;
+        width: 148px;
+        height: 117px;
+    }
+    .lightbox .lb-image {
+        height: 640px !important;
+        width: 480px !important;
+    }
+
+    #AreasTexto div {
+        float: left;
+    }
+
+    #Resultado {
+        width: 100%;
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+
+    #tablaRespuesta {
+        width: 830px;
+        height: 400px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+
+    #TCreditosManual {
+        width: 100%;
+    }
+
+    #TCreditosManual th, #TCreditosManual td {
+        border: 1px black solid;
+    }
+
+    .BtnAsignarManual, #Cargar {
+        width: 100px;
+        height: 30px;
+        margin-top: 10px;
+    }
+
+    .BtnAsignarManual {
+        margin-top: 32px;
+    }
+
+    .FooterCargaM {
+        width: 50%;
+        text-align: center;
+        height: 30px;
+        margin-top: 20px;
+        float: left;
+    }
+    #tablaRespuesta {
+        width: 830px;
+        height: 400px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+            
+</style>
+<script>
+
+    $(document).ready(function () {
+        $("#Mask").show();
+        $("#buscar").prop('disabled', true);
+        Buscador($("#cboBuscador"));
+        inactivaBotonVer();
+        $("#Mask").hide();
+    });
+
+    $("#btCerrar").click(function () {
+        window.popupGestionar.Hide();
+    });
+
+    function buscarOdenes(boton) {
+        $("#Mask").show();
+        $("#contenidoOrden").empty();
+        
+        if (BloquearMultiplesClicks(boton)) {
+            var modelo =
+            {
+                Credito: $("#txtCredito").val(),
+                Nss: $("#txtNSS").val(),
+                Rfc: $("#txtRFC").val(),
+                Nombre: $("#txtNombre   ").val(),
+                Delegacion: $("#cboDelegacion_I").val(),
+                Municipio: $("#CboMunicipio_I").val()
+            }
+            
+            $.ajax({
+                url: '/BuscarCreditos/GrdOrdenes',
+                type: 'POST',
+                data: JSON.stringify(modelo),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response.toString().indexOf("Se recomienda la utilización") != -1) {
+                        //window.location = "/Login.aspx";
+                        window.location = "~/Home";
+                    } else {
+                        $("#Mask").hide();
+                        $("#gridOrdenes").empty();
+                        $("#gridOrdenes").html(response);
+                        LimpiarBloqueoMultiplesClicks($("#btnVer"));
+                    }
+                },
+                error: function (msg, text, thrown) {
+                    $("#Mask").hide();
+                    alert("Error - " + msg + text + thrown);
+                }
+            });
+
+            return true;
+        }
+        return true;
+    }
+
+    function recargar() {
+
+        //$("#Mask").show();
+        //$.ajax({
+        //    url: '/BuscarCreditos/Refrescar',
+        //    type: 'POST',
+        //    async: false,
+        //    contentType: "application/json; charset=utf-8",
+        //    success: function () {
+        //        $("#Mask").hide();
+        //        LimpiarBloqueoMultiplesClicks($("#btnVer"));
+        //    },
+        //    error: function (msg, text, thrown) { 
+        //        $("#Mask").hide();
+        //        alert("Error - " + msg + text + thrown);
+        //    }
+        //});
+        location.reload();
+    }
+
+    function VerCredito(numCredito, snConv) {
+
+        $("#Mask").show();
+        
+        creditoSeleccionado = numCredito;
+        ordenActual = numCredito;// Se cambio la orden por credito
+        currentDate = new Date();
+
+        $.ajax({
+            url: '/BuscarCreditos/DetalleCredito',
+            type: 'POST',
+            data: JSON.stringify({ numcredito: numCredito, snConvenio: snConv }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#contenidoOrden").empty();
+
+                if (response == "6") {
+                    $("#Mask").hide();
+                    $("#contenidoOrden").append('<div style="width:250px;height:250;">Sincronizando respuesta en el movil, Intentar mas tarde <br/><br/><button id="btCerrar" style="margin: 10px 10px 0 0; height: 30px; width: 150px;" onclick="window.popupGestionar.Hide(); return BloquearMultiplesClicks(this);" class="Botones">Aceptar</button></div>');
+                    window.popupGestionar.Show();
+                    return;
+                }
+                
+                if (response.HtmlResp != undefined) {
+                    $("#contenidoOrden").append('<div id="tablaRespuestaHeader"></div><div id="tablaRespuesta"></div>');
+                    $("#tablaRespuesta").children().remove();
+                    $("#tablaRespuesta").append(response.HtmlResp);
+                    $("#tablaRespuestaHeader").html(response.usuario);
+                }
+                else
+                {
+                    
+                    $("#contenidoOrden").html("<div id='divGestionar' style='width: 820px;height: 580px'>" + response + "</div>");
+                    $(".CWDisabled").attr("disabled", "true");
+                    $('.CWReadonly').attr('readonly', true);
+                    $(".CWHidden").hide();
+                    if (window.Ruta == "CSD") { DicAplicaSMS(); }
+                    if (window.Ruta == "OriginaPP") { window.inicial(); }
+                    $(".numPago").before("<div id='pagosRegion' style='margin:10px 0px 10px 0px;padding:10px 0px 10px 0px;' ></div>");
+                    $(".numPago,.fechasPagos,.TX_PAGO_MES_ACTUAL").appendTo("#pagosRegion");
+                }
+                window.popupGestionar.Show();
+                window.popupGestionar.UpdatePosition();
+                $("#Mask").hide();
+            },
+            error: function (msg, text, thrown) {
+                $("#Mask").hide();
+                alert("Error - " + msg + text + thrown);
+            }
+        });
+    }
+
+    var ordenActual = "0";
+    var currentDate = new Date();
+    var OPC_STM = "IM_OPC1_STM";
+    var creditoSeleccionado = "";
+    $.datepicker.regional['mx'] = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['mx']);
+
+    function SubirArchivo(fileInput) {
+        if (window.File && window.FileList && window.FileReader) {
+            var files = document.getElementById(fileInput);
+            if (files != null) {
+                if (!files.files.length) {
+                    alert("Seleccione un archivo y luego precione el botón Subir.");
+                    return false;
+                }
+
+                $('#' + files.id + 'Url').val("");
+                $('#' + files.id + 'OKImg').css("visibility", "hidden");
+
+                var file = files.files[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function(f) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Upload", "CapturaWeb")",
+                        data: {
+                            'credito': creditoSeleccionado,
+                            'campo': fileInput,
+                            'contenido': f.target.result,
+                            'guid': window.ImagenGuid
+                        },
+                        success: function (result) {
+                            if (result.substring(0, 2) == "OK") {
+                                $('#' + files.id + 'Url').val(result.substring(3));
+                                $('#' + files.id + 'OKImg').css("visibility", "visible");
+                            } else {
+                                alert("Ocurrió un error al intentar subir el achivo. Intente nuevamente mas tarde. Si el problema continua intente recargar la página, disculpe las molestias que esto le pueda ocasionar.");
+                            }
+                        },
+                        error: function (msg) {
+                            alert(msg);
+                        }
+                    });
+                }
+                fileReader.readAsDataURL(file);
+            } else {
+                alert('No se encontró el archivo. Intente recargar la página y/o borrar el cache de su navegador.');
+            }
+        }else {
+            alert('Su navegador no es compatible con la carga de archivos de HTML5, por favor actualícelo e intente nuevamente.');
+        }
+        return false;
+    }
+
+    var ingtotalesDcp = 0, gastos = 0, fm = 0, ft = 0, salarioMinimo = 0, segDanAct = 0, segDanOms = 0, pagotemp = 0, factorFinal = 0;
+    var secciones = ["crd", "nss", "rfc", "nom"];
+    var StrMin = [3, 3, 4, 3];
+    var comp = ["txtCredito", "txtNSS", "txtRFC", "txtNombre"];
+
+    function Buscador(obj) {
+        var opc = $(obj).val();
+        $.each(secciones, function (i, valor) {
+            if (valor == opc) {
+                $("#" + valor).show(); 
+            } else {
+                $("#" + valor).hide();
+                $("#" + comp[i]).val("");
+                window.cboDelegacion.selectedIndex = -1;
+                window.cboDelegacion_I.selectedIndex = -1;
+                $("#cboDelegacion_I").val("");
+                $("#divCboMun").empty();
+                $("#lblMun").hide();
+            }
+        });
+        inactivaBotonVer();
+    }
+
+    function inactivaBotonVer(e) {
+        var opc = $("#cboBuscador").val();
+        
+        $('#btnVer').attr('disabled', true);
+        $("#btnVer").css("background-color", "#BDBDBD;");
+        $.each(secciones, function (i, valor) {
+            if (valor == opc) {
+                if (($("#" + comp[i]).val().length >= StrMin[i]) || (opc == "nom" && $('#cboDelegacion_I').val() != "")) {
+                    $('#btnVer').attr('disabled', false);
+                    $("#btnVer").css("background-color", "#DB002E;");
+                    $('#Msj').html("");
+                    if(e != undefined)
+                        if (e.keyCode == 13)
+                            $("#btnVer").click();
+                } else {
+                    $('#Msj').html("Mínimo " + (StrMin[i] - $("#" + comp[i]).val().length) + " caracteres");
+                }
+            }
+        });
+    }
+
+    function municipios() {
+        $("#Mask").show();
+        var del = $('#cboDelegacion_I').val();
+        inactivaBotonVer();
+        $.ajax({
+            url: '/BuscarCreditos/CboMunicipio',
+            data: JSON.stringify({ delegacion: del }),
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                $("#Mask").hide();
+                $("#lblMun").show();
+                $("#divCboMun").empty();
+                $("#divCboMun").html(response);
+            },
+            error: function (msg, text, thrown) {
+                $("#Mask").hide();
+                alert("Error - " + msg + text + thrown);
+            }
+        });
+    }
+
+    function funcionFinal() {
+        $("#contenidoOrden").empty();
+        $("#contenidoOrden").html("Gestión guardada correctamente");
+        $("#contenidoOrden").css("width", "250px");
+        $("#contenidoOrden").css("height", "80px");
+        $("#contenidoOrden").css("padding-top", "40px");
+        $("#contenidoOrden").css("text-align", "center");
+        window.popupGestionar.AdjustSize();
+        window.popupGestionar.UpdatePosition();
+    }
+    
+</script>   
+
+<div style="margin-left: 30px; position: relative">
+    <div id="cabecero" style="position: relative;text-align: left;">
+        <div class="TituloSeleccion" style="height: 66px; display: table-row; vertical-align: middle; width: 100%;">
+            Buscar Créditos
+            <img id="imgSeparador" src="~/imagenes/separador.png" style="margin-left: 15px; margin-right: 15px; position: relative; top: 10px;" alt=""/>
+            <div id="contentTipoReporte" style="border:0 solid; width: 60%;vertical-align: bottom;margin-bottom: 15px;margin-top:-33px ;margin-left:210px;text-align: left;">
+                <div id="Buscador" style="border: 0 solid; font-size: 12px;">
+                    <div style="display: inline-block;border:0 solid;" id="Buscador-Cabezera">
+                        <div style="width: 80px; float: left; margin-top: 5px; border:0 solid;"><ins>B</ins>uscar por:</div>
+                        <select class="Combos" style="width: 147px;" accesskey="B" onchange="Buscador(this);" id="cboBuscador">
+                            <option value="crd">Crédito</option>
+                            <option value="nss">NSS</option>
+                            <option value="rfc">RFC</option>
+                            <option value="nom">Nombre</option>
+                        </select>
+                    </div>
+                    <div style="margin-top: 15px; border: 0 solid; height: 30px;">
+                        <div style="border: 0 solid;" id="crd">
+                            <div style="width: 80px; float: left; margin-top: 5px; border:0 solid;"><ins>C</ins>rédito:</div>
+                            <input type="text" class="Combos AlinearIzquierda" accesskey="C" name="txtCredito" id="txtCredito" onkeypress="return validateInteger(event);" onkeyup="inactivaBotonVer(event);" maxlength="15" />
+                            
+                        </div>
+                        <div style="border: 0 solid;display: none" id="nss">
+                            <div style="width: 80px; float: left; margin-top: 5px; border: 0 solid;"><ins>N</ins>SS:</div>
+                            <input type="text" class="Combos AlinearIzquierda" accesskey="N" name="txtNSS" id="txtNSS" onkeypress="return validateInteger(event);" onkeyup="inactivaBotonVer(event) " maxlength="15" />
+                            
+                        </div>
+                        <div style="border: 0 solid;display: none" id="rfc">
+                            <div style="width: 80px; float: left; margin-top: 5px; border: 0 solid;"><ins>R</ins>FC:</div>
+                            <input type="text" class="Combos AlinearIzquierda" accesskey="R" name="txtRFC" id="txtRFC" onkeypress="return validateStringU(event);" onkeyup="inactivaBotonVer(event)" maxlength="15" />
+                            
+                        </div>
+                        <div style="border: 0 solid;display: none" id="nom">
+                            <div style="width: 80px; float: left; margin-top: 6px; border: 0 solid;">N<ins>o</ins>mbre:</div>
+                            <input type="text" style="float: left;" class="Combos AlinearIzquierda" accesskey="O" name="txtNombre" id="txtNombre" onkeypress="return validateString(event);" onkeyup="inactivaBotonVer(event)" maxlength="15" />
+                            <div style="width: 80px; float: left; margin-left: 15px; margin-top: 6px; border: 0 solid;">Delegación:</div>
+                            @Html.Action("CboDelegacion")
+                            <div style="width: 80px; float: left; margin-left: 15px; margin-top: 6px; border: 0 solid; display: none;" id="lblMun">Municipio:</div>
+                            <div style="width: 80px; float: left; margin-left: 15px; border: 0 solid;" id="divCboMun">@*@Html.Action("CboMunicipio")*@</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button class="Botones" style="width: 90px;height: 30px;" accesskey="S" onclick="recargar();">Re<ins>s</ins>tablecer</button>
+                        <button class="Botones" id="btnVer" accesskey="V" style="width: 90px;height: 30px; margin-left: 15px;" onclick="buscarOdenes(this);"><ins>V</ins>er</button>
+                        <label id="Msj" style="margin-left: 5px;"></label>
+                    </div>
+                </div>
+            </div>
+            <div id="gridOrdenes" style="border: 0 solid;overflow: auto; padding-right: 30px;">
+                @Html.Action("GrdOrdenes")
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "popupGestionar";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.HeaderText = "Gestión";
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.SetContent(() => ViewContext.Writer.Write("<div id='contenidoOrden'></div>"));
+}).GetHtml()

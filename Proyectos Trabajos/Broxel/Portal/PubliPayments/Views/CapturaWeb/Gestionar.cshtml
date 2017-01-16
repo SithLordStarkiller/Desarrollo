@@ -1,0 +1,401 @@
+﻿@using System.Globalization
+@using System.Text
+@using System.Web.UI.WebControls
+@using PubliPayments.Entidades
+@using PubliPayments.Models
+@using PubliPayments.Negocios
+@using PubliPayments.Utiles
+@model IEnumerable<FormularioModelCw>
+<link rel="stylesheet" href="~/Styles/CapturaWeb.css">
+
+@*@if (DevExpressHelper.IsCallback)
+    {
+            @Html.DevExpress().PageControl(settings =>
+            {
+                settings.Name = "pcFormularios";
+                settings.CallbackRouteValues = new {Controller = "CapturaWeb", Action = "Gestionar", idOrden = Request.Params["idOrden"]};
+
+                foreach (var item in Model)
+                {
+                    FormularioModel item1 = item;
+                    settings.TabPages.Add(item1.Formulario).SetContent(() => ViewContext.Writer.Write("<p>OK " + item1.Formulario + "</p>"));
+                }
+
+            }).GetHtml()
+    }
+    else
+    {*@
+<style>
+    #MaskGestionar {
+        background-color: black;
+        position: absolute;
+        z-index: 40000;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        -ms-opacity: 0.2;
+        opacity: 0.2;
+    }
+</style>
+
+<div style="width: 100%; height: 100%;">
+    @Html.Hidden("PositionGps", new { @id = "PositionGps" })
+    @{
+        var scriptFinal = "";
+    }
+            @Html.DevExpress().PageControl(settings =>
+       {
+        settings.Name = "pcFormularios";
+        settings.EnableClientSideAPI = true;
+        settings.TabAlign = TabAlign.Justify;
+        
+        //settings.CallbackRouteValues = new { Controller = "CapturaWeb", Action = "Gestionar", idOrden = Request.Params["idOrden"] };
+        var cantFrm = 0;
+        string btSiguiente = "<div class='CWDefault CWCentrado'><button id='SubForm{Pestania}' style='margin: 10px 88px 0 155px; height: 30px; width: 150px;float:right' onclick='SigPestania(this)' class='Botones'>Siguiente</button></div>";
+        foreach (var item in Model)
+        {
+            var listaSubfomrularios = new List<int>();
+            FormularioModelCw item1 = item;
+            var contenido = new StringBuilder();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 460px'>");
+            foreach (var campo in item1.ListaCamposXFormularios)
+            {
+
+                contenido.Append("<div class='CWDefault " + campo.NombreCampo + " " + campo.ClasesLinea + "'>");
+                switch (campo.idTipoCampo)
+                {
+                    case 1: //Tipo texto
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        break;
+                    case 2: //Input Texto
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append(Html.TextBox(campo.NombreCampo, campo.Valor, new
+                        {
+                            @class = campo.ClasesValor,
+                            @onblur = ((campo.NombreCampo == "CodSMS") ? "encriptaClave(this.value); " : campo.NombreCampo.StartsWith("CelularSMS_") ? "$(\"input[name^='ConfirmeSMS_']\").val('');" : "") + "GuardarValor(this);" +
+                            (((Dictionary<string, string>)ViewBag.Funciones).ContainsKey(campo.NombreCampo) ?
+                                ((Dictionary<string, string>)ViewBag.Funciones)[campo.NombreCampo] : ""),
+                            @detaultValue =  campo.Valor,
+                            @tabName = item1.Clase,
+                            @validacion = campo.Validacion,
+                            @crypto= (campo.NombreCampo=="CodRecSMS" && campo.Valor!="")?Security.HashSHA512(campo.Valor):""
+                        }).ToHtmlString());
+                        if ((campo.NombreCampo == "IDVISITA") || (campo.NombreCampo.ToLower().StartsWith("dic") && !campo.NombreCampo.ToLower().StartsWith("dictamen")))
+                        {
+                            scriptFinal += "arrValores[\"" + campo.NombreCampo.ToUpper() + "\"] = \"" + campo.Valor + "\";";
+                        }
+                        break;
+                    case 3: //RadioButton
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append(string.Format("<div class='{0}' style='display: inline-block;'><input type='radio' onclick='GuardarValor(this);{3}' name='{1}' value='{2}' tabName='{4}'></div>",
+                            campo.ClasesValor, campo.NombreCampo, campo.Texto,
+                            ((Dictionary<string, string>)ViewBag.Funciones).ContainsKey(campo.NombreCampo) ?
+                                ((Dictionary<string, string>)ViewBag.Funciones)[campo.NombreCampo] : "",
+                            item1.Clase));
+                        break;
+                    case 4: //CheckBox
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        var clasePadre = (from x in campo.ClasesLinea.Split(' ') where !x.StartsWith("CW") select x).ToArray();
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append(string.Format("<div class='{0}' style='display: inline-block;'><input type='checkbox' onclick='GuardarValor(this);{3}' name='{1}' value='{2}' tabName='{4}' class='{5}'></div>",
+                            campo.ClasesValor, campo.NombreCampo, campo.Valor,
+                            ((Dictionary<string, string>)ViewBag.Funciones).ContainsKey(campo.NombreCampo) ?
+                                ((Dictionary<string, string>)ViewBag.Funciones)[campo.NombreCampo] : "",
+                            item1.Clase, clasePadre[0]));
+                        break;
+                    case 5: //Imagenes
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(Html.MaxImage(campo.Texto, campo.Valor));
+                        contenido.Append("</div>");
+                        break;
+                    case 6: //gps
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(Html.Hidden(campo.NombreCampo, "", new
+                        {
+                            @id = campo.NombreCampo,
+                            @gps = true,
+                            @tabName = item1.Clase
+                        }));
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesValor + "'>");
+                        contenido.Append(Html.MaxImage("/imagenes/gps_unsel.png", campo.Valor, null, null,
+                            new { @onmouseover = "JavaScript:this.style.cursor='pointer'", @onclick = "ObtenerGps('" + campo.NombreCampo + "', this);" }));
+                        contenido.Append("</div>");
+                        break;
+                    case 7: //Calendario
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesValor + "'>");
+                        contenido.Append("<input id='" + campo.NombreCampo + "' type='text' class='" + campo.ClasesValor + "' tabName='" + item1.Clase + "' readonly='readonly' />");
+                        contenido.Append("<script>");
+                        if (campo.Valor != null)
+                        {
+                            string minDate;
+                            string maxDate;
+                            var opciones = campo.Valor.Split(',');
+                            var validacion = campo.Validacion != null ? campo.Validacion.Split(',') : null;
+                            switch (opciones[0])
+                            {
+                                case "InicioMesActual":
+                                    minDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) ";
+                                    break;
+                                case "FechaActual":
+                                    minDate = " 'today' ";
+                                    break;
+                                case "FinMesActual":
+                                    minDate = " new Date(date.getFullYear(), date.getMonth() + 1, 0) ";
+                                    break;
+                                case "Edad":
+                                    minDate = " new Date(currentDate.getFullYear()-150, 0, 1) ";
+                                    break;
+                                case "InicioMesAnterior":
+                                    minDate = " new Date(currentDate.getFullYear(), currentDate.getMonth()-1, 1) ";
+                                    break;
+                                case "FechaActual+dias":
+                                    minDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+" + (validacion != null ? validacion[0] : "0")+ ") ";
+                                    break;
+                                case "FechaActual-dias":
+                                    minDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-" + (validacion != null ? validacion[0] : "0") + ") ";
+                                    break;
+                                case "FechaActual+mes":
+                                    minDate = " new Date(currentDate.getFullYear(), currentDate.getMonth()+ "+(validacion != null ? validacion[0] : "0")+", currentDate.getDate())";
+                                    break;
+                                case "FechaActual-mes":
+                                    minDate = " new Date(currentDate.getFullYear(), currentDate.getMonth()-" + (validacion != null ? validacion[0] : "0") + " , currentDate.getDate()) ";
+                                    break;
+                                default:
+                                    minDate = opciones[0];
+                                    break;
+                            }
+
+                            switch (opciones[1])
+                            {
+                                case "InicioMesActual":
+                                    maxDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) ";
+                                    break;
+                                case "FechaActual":
+                                    maxDate = " 'today' ";
+                                    break;
+                                case "FinMesActual":
+                                    maxDate = " new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0) ";
+                                    break;
+                                case "Edad":
+                                    maxDate = " new Date(currentDate.getFullYear()-17, 0, 1) ";
+                                    break;
+                                case "FechaActual+dias":
+                                    maxDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()+" + (validacion != null ? validacion[1] : "0") + ") ";
+                                    break;
+                                case "FechaActual-dias":
+                                    maxDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()-" + (validacion != null ? validacion[1] : "0") + ") ";
+                                    break;
+                                case "FechaActual+mes":
+                                    maxDate = " new Date(currentDate.getFullYear(), currentDate.getMonth()+" + (validacion != null ? validacion[1] : "0") + ", currentDate.getDate()) ";
+                                    break;
+                                case "FechaActual-mes":
+                                    maxDate = " new Date(currentDate.getFullYear(), currentDate.getMonth()-" + (validacion != null ? validacion[1] : "0") + ", currentDate.getDate()) ";
+                                    break;
+                                default:
+                                    maxDate = opciones[1];
+                                    break;
+                            }
+                            contenido.Append("$('#" + campo.NombreCampo + "').datepicker({ maxDate: " + maxDate + ", minDate: " + minDate + " });");
+
+                            if (opciones.Count() > 2)
+                            {
+                                string setDate;
+                                switch (opciones[2])
+                                {
+                                    case "InicioMesActual":
+                                        setDate = " new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) ";
+                                        break;
+                                    case "FechaActual":
+                                        setDate = " currentDate ";
+                                        break;
+                                    case "FinMesActual":
+                                        setDate = " new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0) ";
+                                        break;
+                                    case "Edad":
+                                        setDate = " new Date(currentDate.getFullYear()-17, 0, 1) ";
+                                        break;
+                                    default:
+                                        setDate = opciones[2];
+                                        break;
+                                }
+                                contenido.Append("$('#" + campo.NombreCampo + "').datepicker('setDate', " + setDate + ");");
+                            }
+                        }
+                        else
+                        {
+                            contenido.Append("alert('Ocurrió un error al intenar procesar la fecha para el campo: " + campo.NombreCampo + "');");
+                        }
+                        contenido.Append("</script>");
+
+                        contenido.Append("</div>");
+                        break;
+                    case 8: //Password
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append(Html.Password(campo.NombreCampo, null, new
+                        {
+                            @class = campo.ClasesValor,
+                            @maxlength = campo.Valor,
+                            @tabName = item1.Clase,
+                            @validacion = campo.Validacion
+                        }).ToHtmlString());
+                        break;
+                    case 9: //Lista
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        try
+                        {
+                            var list = new List<SelectListItem>
+                            {
+                                new SelectListItem
+                                {
+                                    Selected = true,
+                                    Text = "Seleccione una opción", Value = ""
+                                }
+                            };
+                            list.AddRange(item.CatalogosListas[campo.idCampoFormulario]);
+                            contenido.Append(Html.DropDownList(campo.NombreCampo, list,
+                                new
+                                {
+                                    @class = campo.ClasesValor,
+                                    @tabName = item1.Clase,
+                                    @onchange = "GuardarValor(this);" + (((Dictionary<string, string>)ViewBag.Funciones).ContainsKey(campo.NombreCampo) ?
+                                        ((Dictionary<string, string>)ViewBag.Funciones)[campo.NombreCampo] : "")
+                                }));
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.WriteLine(Logger.TipoTraceLog.Error, 1, "Gestionar.cshtml", "Lista - 0 - Error:" + ex.Message);
+                        }
+                        break;
+                    case 10: //Archivos
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append(campo.Texto);
+                        contenido.Append("</div>");
+                        contenido.Append(Html.Hidden(campo.NombreCampo + "Url", "", new { @id = campo.NombreCampo + "Url"}));
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesValor + "'>");
+                        contenido.Append(Html.TextBox(campo.NombreCampo, "", new { @type = "file", @class = campo.ClasesValor, @accept = campo.Valor, @tabName = item1.Clase }).ToHtmlString());
+                        contenido.Append("</div>");
+                        contenido.Append("<button id='Subir" + campo.NombreCampo + "' style='margin: 10px 0 0 10px; height: 30px; width: 80px;' class='Botones' onclick='return SubirArchivo(\""
+                                         + campo.NombreCampo + "\");'>Subir</button>");
+                        contenido.Append(Html.MaxImage("/imagenes/CWOK.png", "", "28", "28", new { @class = campo.ClasesValor, @id = campo.NombreCampo + "OKImg", @style = "visibility:hidden;margin: 0 0 0 10px; vertical-align:middle;" }));
+                        break;
+                    case 11: //boton
+                        contenido.Append("<div class='CWDivTexto " + campo.ClasesTexto + "'>");
+                        contenido.Append("<button id='" + campo.NombreCampo + "' style='margin: 10px 0 0 10px;' class='Botones " + campo.ClasesValor + "' onclick='return " + campo.Valor + "(this)'>" + campo.Texto + "</button>");
+                        contenido.Append("</div>");
+                        break;
+                }
+                contenido.Append("</div>");
+            }
+
+            var tab = new MVCxTabPage(item1.Formulario) { Name = item1.Clase };
+            if (!listaSubfomrularios.Contains(item1.IdFormulario))
+            {
+                listaSubfomrularios.Add(item1.IdFormulario);
+                contenido.Append(btSiguiente.Replace("{Pestania}", settings.TabPages.Count.ToString(CultureInfo.InvariantCulture)));
+            }
+            contenido.Append("</div>");
+            tab.SetContent(contenido.ToString());
+            if (cantFrm > 4)
+            {
+                tab.NewLine = true;
+                cantFrm = 0;
+            }
+            else
+                cantFrm++;
+            //tab.TabStyle.CssClass = item1.Clase;
+
+            settings.TabPages.Add(tab);                                           
+        
+           
+        }
+    }).GetHtml()
+    <div>
+       <button id="btCerrar" style="margin: 10px 10px 0 0; height: 30px; width: 150px;" onclick="window.popupGestionar.Hide(); return BloquearMultiplesClicks(this);" class="Botones">Cerrar</button>
+       @if (ViewBag.EstatusOrden=="6")
+       {
+            <button id="btGuardar" style="margin: 10px 0 0 320px; height: 30px; width: 150px;" onclick=" alert('Esta órden ya se encuentra sincronizando por un móvil'); return BloquearMultiplesClicks(this); " class="Botones">Guardar</button>
+       }
+       else if (ViewBag.PorcentajePermitido != null && (((PorcentajePermitidoModel)ViewBag.PorcentajePermitido).CantidadActual < ((PorcentajePermitidoModel)ViewBag.PorcentajePermitido).PorcentajePermitido) || (bool)ViewBag.EsCallCenter)
+       {
+           <button id="btGuardar" style="margin: 10px 0 0 320px; height: 30px; width: 150px;" onclick=" GuardarParcialmente(); return BloquearMultiplesClicks(this); " class="Botones">Guardar</button>
+       }
+       else
+       {
+           <button id="btGuardar" style="margin: 10px 0 0 320px; height: 30px; width: 150px;" onclick=" alert('Se superó el limite de capturas web permitidas, por favor informe a su supervisor'); return BloquearMultiplesClicks(this); " class="Botones">Guardar</button>
+       }
+    </div>
+    <script>
+    arrValores = {};
+
+    //Inicializar variables
+    var Ruta = "@ViewBag.Ruta";
+    var InitialDate = FormatearFecha(new Date());
+    var AssignedTo = "@ViewBag.AssignedTo";
+    var imgTmp = "";
+    var ImagenGuid = "@ViewBag.ImagenGuid";
+    var ExternalType = "@ViewBag.ExternalType";
+    var EsCallCenter = "@ViewBag.EsCallCenter";
+
+
+        if (!Ruta.indexOf("Myo") > -1) {
+            arrValores["INTERESAFPP"] = "No";
+            arrValores["ACEPTAPRORR"] = "No";
+            arrValores["ACEPTABCN"] = "No";
+            arrValores["ACEPTACONV"] = "No";
+            arrValores["ACEPTAPAGOSTM"] = "No";
+            arrValores["AUTORIZADCP"] = "No";
+            arrValores["AUTORIZAESEV1"] = "No";
+            arrValores["CONTINUARGESTION"] = "si";
+            arrValores["PRECALIFICA"] = "si";
+            arrValores["GESTDESANT"] = $("#GestDesAnt").val();
+            arrValores["IN_SOLICITAR_CEL"] = $("#IN_SOLICITAR_CEL").val();
+            arrValores["ACREDITADOREGCAN"] = $("#AcreditadoRegCan").val() == "1" ? "1" : "0";
+            arrValores["CANTIDADPAGOS"] = $("#CantidadPagos").val();
+            arrValores["IN_OPCION_JUDICIAL"] = $("#IN_OPCION_JUDICIAL").val();
+            arrValores["OP_REGIMEN"] = $("#OP_REGIMEN").val();
+
+
+            ObtenerGps("PositionGps", imgTmp);
+        }
+        
+        if (Ruta.indexOf("RDST")>=0) {
+            arrValores["APLICAFPP"] = $("#AplicaFPP").val();
+            arrValores["APLICACONFPR"] = $("#AplicaConfPr").val();
+            arrValores["DICAPLICAFPP"] = $("#CalificaFPP").val();
+            arrValores["CALIFICAFPP"] = $("#CalificaFPP").val();
+            
+            arrValores["DICCALIFICAPRORROGA"] = $("#DicCalificaProrroga").val();
+
+        }
+
+
+        @Html.Raw(scriptFinal);
+    setTimeout(function () {
+        @if (ViewBag.Funciones != null)
+    {
+        foreach (KeyValuePair<string, string> f in ViewBag.Funciones)
+        {
+            @f.Value
+        }
+    }
+    }, 100);
+    </script>
+</div>
+@*}*@

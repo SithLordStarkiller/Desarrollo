@@ -1,0 +1,159 @@
+﻿@using System.Data
+@using PubliPayments.Controllers
+@model EnumerableRowCollection<DataRow>
+@{
+    var delegacion = from myRow in Model.AsEnumerable()
+                     where myRow.Field<string>("TipoCampos") == "delegacion"
+                     select myRow;
+    var despacho = from myRow1 in Model.AsEnumerable()
+                   where myRow1.Field<string>("TipoCampos") == "despacho"
+                   select myRow1;
+
+    var supervisor = from myRow1 in Model.AsEnumerable()
+                     where myRow1.Field<string>("TipoCampos") == "supervisor"
+                     select myRow1;
+
+    var gestor = from myRow1 in Model.AsEnumerable()
+                 where myRow1.Field<string>("TipoCampos") == "gestor"
+                 select myRow1;
+
+
+}
+<script>
+    function pintarFiltros(filtro) {
+        var random = Math.random();
+        window.UltimaSolicitud = random;
+
+        setTimeout(function () {
+            rellenarFiltros(random, filtro);
+        }, 1000);
+    }
+
+    function rellenarFiltros(random, filtro) {
+        if (random != window.UltimaSolicitud) {
+            return false;
+        }
+        var delegacion = $("#DDLDelegacion").val();
+        var despacho = $("#DDLDespacho").val();
+        var supervisor = $("#DDLSupervisor").val();
+        var gestor = $("#DDLGestor").val();
+        var tipoFormulario = $("#CtrlComboFormulario").val();
+
+        switch (filtro.id) {
+            case "DDLDelegacion":
+                despacho = "%";
+                supervisor = "%";
+                gestor = "%";
+                break;
+            case "DDLDespacho":
+                supervisor = "%";
+                gestor = "%";
+                break;
+            case "DDLSupervisor":
+                gestor = "%";
+                break;
+            default:
+                break;
+        }
+
+        $.ajax({
+            url: "/Filtros",
+            type: "POST",
+            dataType: "text",
+            cache: false,
+            traditional: true,
+            data: {
+                'Delegacion': delegacion,
+                'Despacho': despacho,
+                'Supervisor': supervisor,
+                'Gestor': gestor,
+                'TipoFormulario': tipoFormulario
+            },
+            success: function (response) {
+                if (response.toString().indexOf("Se recomienda la utilización") != -1 && response.toString().indexOf("indexOf(\"Se recomienda la utilización") == -1) {
+                    window.location = "/Home";
+                    return true;
+                } else {
+                    $("#combosFiltros").html(response);
+                    window.filtrosCambiados();
+                    return true;
+                }
+            },
+            error: function (msg) {
+                if (msg.getAllResponseHeaders()) {
+                    alertaError("No se pudo obtener el reporte.\nIntentelo mas tarde.");
+                    return false;
+                }
+                return false;
+            }
+        });
+
+        return true;
+    }
+
+</script>
+
+<table style="width:100%;">
+    <tr>
+        <td><label class="TituloSeleccion_Peq" id="LblDelegacion" style="@(ViewBag.rol.ToString() == "Administrador" || ViewBag.rol.ToString() == "Direccion" ? "" : "display:none;")">Delegación</label></td>
+        <td><label class="TituloSeleccion_Peq" id="LblDespacho" style="@(ViewBag.rol.ToString() == "Administrador" || ViewBag.rol.ToString() == "Direccion" || ViewBag.rol.ToString() == "Delegacion" ? "" : "display:none;")">Despacho</label></td>
+        @if (CtrlComboFormulariosController.ObtenerModeloFormularioActivo(Session).Ruta != "RDST")
+        {
+            <td><label class="TituloSeleccion_Peq" id="LblSupervisor" style="@(ViewBag.rol.ToString() == "Administrador" || ViewBag.rol.ToString() == "Despacho" || ViewBag.rol.ToString() == "Delegacion" ? "" : "display:none;")">Supervisor</label></td>
+        }
+        <td><label class="TituloSeleccion_Peq" id="LblGestor" style="@(ViewBag.rol.ToString() == "Gestor" || ViewBag.rol.ToString() == "Direccion" ? "display:none;" : "")">Gestor</label></td>
+    </tr>
+    <tr>
+        <td style="text-align:center" id="selDDLDelegacion">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLDelegacion"
+                    style="height:30px;width:95%;@(ViewBag.rol.ToString() == "Administrador" || ViewBag.rol.ToString() == "Direccion" ? "" : "display:none;")"
+                    class="Combos" title="Delegacion" onchange="pintarFiltros(this)">
+                <option value="%">Todas</option>
+                @foreach (var row in delegacion)
+                {
+                    <option value="@row["Valor"].ToString()" @(ViewBag.Delegacion.ToString() == row["Valor"].ToString() ? "selected='selected'" : "")>@row["Descripcion"].ToString()</option>
+                }
+            </select>
+        </td>
+        <td style="text-align:center" id="selDDLDespacho">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLDespacho" class="Combos" title="Despacho"
+                    style="height: 30px;width: 95%;@(ViewBag.rol.ToString() == "Administrador" || ViewBag.rol.ToString() == "Direccion" || ViewBag.rol.ToString() == "Delegacion" ? "" : "display:none;")"
+                    onchange="pintarFiltros(this)">
+                <option value="%" selected="selected">Todas</option>
+                @foreach (var row in despacho)
+                {
+                    <option value="@row["Valor"].ToString()" @(ViewBag.Despacho.ToString() == row["Valor"].ToString() ? "selected='selected'" : "")>@row["Descripcion"].ToString()</option>
+                }
+            </select>
+        </td>
+        @if (CtrlComboFormulariosController.ObtenerModeloFormularioActivo(Session).Ruta != "RDST")
+        {
+            <td style="text-align:center" id="selDDLSupervisor">
+                <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+                <select id="DDLSupervisor"
+                        style="height: 30px;width: 95%;@(ViewData["rol"].ToString() == "Administrador" || ViewData["rol"].ToString() == "Despacho" || ViewData["rol"].ToString() == "Delegacion" ? "" : "display:none;")"
+                        class="Combos" title="Supervisor" onchange="pintarFiltros(this)">
+                    <option value="%" selected="selected">Todas</option>
+                    @foreach (var row in supervisor)
+                    {
+                        <option value="@row["Valor"].ToString()" @(ViewBag.Supervisor.ToString() == row["Valor"].ToString() ? "selected='selected'" : "")>@row["Descripcion"].ToString()</option>
+                    }
+                </select>
+            </td>
+        }
+        <td style="text-align:center" id="selDDLGestor">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLGestor"
+                    style="height: 30px;width: 95%;@(ViewBag.rol.ToString() == "Gestor" || ViewBag.rol.ToString() == "Direccion" ? "display:none;" : "")"
+                    class="Combos" title="Gestor" onchange="pintarFiltros(this)">
+                <option value="%" selected="selected">Todas</option>
+                @foreach (var row in gestor)
+                {
+                    <option value="@row["Valor"].ToString()" @(ViewBag.Gestor.ToString() == row["Valor"].ToString() ? "selected='selected'" : "")>@row["Descripcion"].ToString()</option>
+                }
+            </select>
+        </td>
+    </tr>
+</table>

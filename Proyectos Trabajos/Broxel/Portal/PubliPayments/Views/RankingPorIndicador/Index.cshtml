@@ -1,0 +1,175 @@
+﻿
+<script>
+    var tabSeleccionado = "0";
+    var indicadorSeleccionado = "0";
+
+    function cambiaTab() {
+        $("#Mask").show();
+        //var indicador = document.querySelector("#pcRanking_C" + window.pcRanking.GetActiveTabIndex() + " > div > input").value;
+        var indicador = $("#pcRanking_C" + window.pcRanking.GetActiveTabIndex()).find("div").find("input")[0].value
+        
+        var renderTabla = null;
+        var despacho = null;
+        var supervisor = null;
+        var delegacion1 = null;
+        
+
+        if ($("#radioTipoReporte").is(":checked")) {
+            switch ("@ViewBag.tipoDashBoard") {
+            case "Administrador":
+                renderTabla = "RenderTablaDespacho";
+                break;
+            case "Despacho":
+                renderTabla = "RenderTablaSupervisor";
+                despacho = "@ViewBag.despacho";
+                break;
+            case "Supervisor":
+                renderTabla = "RenderTabla";
+                despacho = "@ViewBag.despacho";
+                supervisor = "@ViewBag.usuario";
+                break;
+            case "Delegacion":
+                renderTabla = "RenderTablaDelegacion_Despacho";
+                delegacion1 = "@ViewBag.delegacion";
+                
+                break;
+            default:
+                break;
+            }
+        } else {            
+            switch ("@ViewBag.tipoDashBoard") {
+                case "Administrador":
+                    renderTabla = "RenderTablaDelegacionMaster";
+                    break;
+                case "Despacho":
+                    renderTabla = "RenderTablaSupervisor";
+                    despacho = "@ViewBag.despacho";                    
+                break;
+            case "Supervisor":
+                renderTabla = "RenderTabla";
+                despacho = "@ViewBag.despacho";
+                supervisor = "@ViewBag.usuario";                
+                break;
+            case "Delegacion":
+                renderTabla = "RenderTablaDelegacion_Despacho";
+                delegacion1 = "@ViewBag.delegacion";
+
+            break;
+            default:
+                break;
+            }
+        }
+
+        
+        $.ajax({
+            url: "/RankingPorIndicador/" + renderTabla,
+            type: "POST",
+            dataType: "html",
+            data: { 'tipoDashBoard': "@ViewBag.tipoDashBoard", 'indicador': indicador, 'despacho': despacho, 'supervisor': supervisor, 'delegacion': delegacion1 },
+            success: function (response) {
+                if (response.toString().indexOf("Se recomienda la utilización") != -1) {
+                    //window.location = "/Login.aspx";
+                    window.location = "~/Home";
+                } else {
+                    if (indicadorSeleccionado!="0") {
+                        var cont = "<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id='divRenderTabla'><input type='hidden' value='" + indicadorSeleccionado + "' /></div>";
+                        document.getElementById("pcRanking_C" + tabSeleccionado).innerHTML=cont;
+                    }
+                
+                    $("#pcRanking_C" + window.pcRanking.GetActiveTabIndex()).html(response);
+                    tabSeleccionado = window.pcRanking.GetActiveTabIndex();
+                    indicadorSeleccionado = indicador;
+                    $("#Mask").hide();
+                }
+            },
+            error: function (msg) {
+                //alert("No se pudo obtener el reporte.\nIntentelo mas tarde.\n"+msg.responseText);
+                alert(msg.responseText);
+                return false;
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        if ("@ViewBag.tipoDashBoard"!="Administrador") {
+            document.getElementById("contentTipoReporte").style.visibility = "hidden";
+        }
+        cambiaTab();
+
+    });
+
+    function cambiaDelegacion() {
+        var cont = "<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id=     'divRenderTabla'><input type='hidden' value='" + indicadorSeleccionado + "' /></div>";
+        document.getElementById("pcRanking_C" + tabSeleccionado).innerHTML = cont;
+        cambiaTab();
+    }
+
+    function cambiaTipoReporte() {        
+        var cont = "<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id=     'divRenderTabla'><input type='hidden' value='" + indicadorSeleccionado + "' /></div>";
+        document.getElementById("pcRanking_C" + tabSeleccionado).innerHTML = cont;
+               
+        cambiaTab();
+    }
+
+    function popUpReporte() {
+        var indicador1 = window.pcRanking.GetActiveTab().GetText();
+        var tipoDashboard="@ViewBag.tipoDashBoard";
+        var despacho="@ViewBag.despacho";
+        var supervisor = "@ViewBag.usuario";
+        var delegacion1 = "@ViewBag.delegacion" == "" ? "NA" : "@ViewBag.delegacion";
+        var master = "";
+        var tpFrm = "@ViewBag.tpFrm";
+        var tipoFormulario = "@ViewBag.tipoFormulario";
+
+        switch ("@ViewBag.tipoDashBoard") {
+            case "Administrador":
+                master = $("#radioTipoReporte").is(":checked") ? "MasterDespachos" : "MasterDelegacion";
+                break;
+            case "Despacho":
+                master = "MasterDelegacionDespacho";
+                break;
+            case "Supervisor":
+                master = "MasterGestor";
+                break;
+            case "Delegacion":
+                master = "MasterDespachos_Delegacion";
+                break;
+        }
+
+        var queryString = "?tD=" + tipoDashboard + "&ind=" + indicadorSeleccionado + "&desp=" + despacho + "&spv=" + supervisor + "&mstr=" + master + "&ttl=" + indicador1 + "&del=" + delegacion1 + "&tpFrm=" + tpFrm + "&tipoFormulario=" + tipoFormulario;
+        window.open("/Reportes/ReporteRankingIndicador/ReporteRanking.aspx"+queryString, "_blank   ", "toolbar=0,location=0,resizable=1,scrollbars=1,statusbar=0,menubar=0,left = 50,top = 50,height=600,width=800");
+    }
+</script>
+<style>
+    #pcRanking_CC {
+        width: 85%;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    #pcRanking_CC div {
+        width: 100%;
+        overflow-y: auto;
+    }
+</style>
+
+<div style="margin-left: 30px;margin-right: 30px; position: relative">
+    <div class="TituloSeleccion" style="height: 66px; display: inline-block; vertical-align: middle; width: 100%;">
+        Ranking Por Indicador<img alt="|" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;" />
+        <div class="Combos" id="contentTipoReporte" style="height: 19px; width: 340px; display: inline-block; vertical-align: bottom">
+            <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">Tipo Reporte:</div>
+            <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <input type="radio" name="tipoReporte" id="radioTipoReporte" style="margin-left: 30px;vertical-align: middle;" checked="checked"  onchange="cambiaTipoReporte()"/>&nbsp;Por Despacho
+                <input type="radio" name="tipoReporte" style="margin-left: 30px;vertical-align: middle;" onchange="cambiaTipoReporte()"/>&nbsp;Por Delegación
+            </div>
+        </div>
+    </div>
+    <div  id="contentTipoReporte1" style="vertical-align: bottom;margin-top:0 ;margin-left:0;text-align: left;">
+        <div style="width: 300px;"> @Html.Action("Index", "CtrlComboFormularios")</div>
+            <div style="height: 19px; width: 370px; display: block; vertical-align: text-top;position: relative;margin-left: 304px;text-align: left; top:-30px">
+                <input type="button" style="height: 30px;width: 180px" class="Botones" value="Exportar" onclick="popUpReporte()"/>
+            </div>
+        </div>
+    <div style="margin-left: 30px;margin-right: 30px; position: relative;overflow-y: auto;overflow-x:hidden;" id="divRender">
+        @Html.Partial("TabPartial")
+    </div>
+</div>

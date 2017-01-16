@@ -1,0 +1,34 @@
+﻿@model DataTable
+@using System.Data
+@using System.Web.UI.WebControls
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "Soluciones";
+        settings.Width = Unit.Percentage(90);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "GestionMovil",
+            Action = "GestionXSolucionRDST",
+            delegacion = ViewData["delegacion"],
+            fechaCarga = ViewData["fechaCarga"],
+            estFinal = ViewData["estFinal"],
+            tipoFormulario = ViewData["tipoFormulario"]
+
+        };
+
+        settings.KeyFieldName = "idusuario";
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.HeaderFilterMaxRowCount = 50;
+        settings.Columns.Add(column => {column.FieldName = "Usuario";column.Caption = @"Usuario";column.CellStyle.HorizontalAlign = HorizontalAlign.Right;});
+        settings.Columns.Add(column => { column.FieldName = "Nombre"; column.Caption = @"Nombre"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+        settings.Columns.Add(column => { column.FieldName = "SinGestionar"; column.Caption = "Sin Gestionar"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+        settings.Columns.Add(column => { column.FieldName = "Gestionadas"; column.Caption = "Gestionadas"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+
+
+    }).Bind(Model).GetHtml()

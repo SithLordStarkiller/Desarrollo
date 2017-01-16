@@ -1,0 +1,36 @@
+﻿@model PubliPayments.Models.AdminUsuariosModel
+
+@{
+    Layout = null;
+}
+
+<table id="Table1" style="padding-right: 0; width: 430px">
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Usuario)</td>
+        <td>
+            @Html.TextBoxFor(m => m.Usuario, new {@class = "Combos AlinearIzquierda", @readonly = "True", width = "400px", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", maxlength = "30"})
+        </td>
+    </tr>
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Nombre)</td>
+        <td>
+            @Html.TextBoxFor(m => m.Nombre, new {@class = "Combos AlinearIzquierda", width = "400px", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", maxlength = "30"})
+        </td>
+    </tr>
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Correo)</td>
+        <td>
+            @Html.TextBoxFor(m => m.Correo, new {@class = "Combos AlinearIzquierda", width = "400px", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", maxlength = "50"})
+        </td>
+    </tr>
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.EsCallCenter)</td>
+        <td>
+            @Html.RadioButtonFor(m => m.EsCallCenter, 1, new { name = "EsCallCenter", @class = "Combos AlinearIzquierda", width = "400px" }) Sí
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            @Html.RadioButtonFor(m => m.EsCallCenter, 0, new { name = "EsCallCenter", @class = "Combos AlinearIzquierda", width = "400px" }) No
+        </td>
+    </tr>
+    @Html.HiddenFor(m => m.Accion)
+    @Html.HiddenFor(m => m.idUsuario)
+</table>

@@ -1,0 +1,632 @@
+﻿
+<script>
+    var tabSeleccionado = "0";
+    var indicadorSeleccionado = "0";
+    var tipoTabla = "";
+
+    function cambiaTab() {
+        $("#Mask").show();
+        var renderTabla = $("#pcRanking_C" + window.pcRanking.GetActiveTabIndex()).find("div").find("input")[0].value;
+
+        switch ("@ViewBag.tipoDashBoard") {
+            case "Administrador":
+                tipoTabla = renderTabla;
+                switch (renderTabla) {
+                    case "GestionXHora":
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divDiaGestionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("diaGestionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXDia":
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("fechaCargaCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("horaGestionCombo");
+                        }
+                        break;
+                    case "Soluciones":
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXSolucion":
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXSolucionRDST":
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                        
+
+                    case "ReportePagos":
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divFechaCargaCombo").style.display = "none";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+
+
+                    case "MarcajeNoExitoso":
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divFechaCargaCombo").style.display = "none";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+
+
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "Despacho":
+
+                switch (renderTabla) {
+                    case "GestionXHora":
+                        tipoTabla = renderTabla + "Despacho";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divDiaGestionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("diaGestionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXDia":
+                        tipoTabla = renderTabla + "Despacho";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("fechaCargaCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("horaGestionCombo");
+                        }
+                        break;
+                    case "Soluciones":
+                        tipoTabla = renderTabla;
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXSolucion":
+                        tipoTabla = renderTabla + "Despacho";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+
+                        break;
+
+                    case "GestionXSolucionRDST":
+                        tipoTabla = renderTabla +"Supervisor";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+
+                    case "ReportePagos":
+                        tipoTabla = renderTabla + "Delegaciones";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divFechaCargaCombo").style.display = "none";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                    
+                    case "MarcajeNoExitoso":
+                        tipoTabla = renderTabla + "Delegaciones";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divFechaCargaCombo").style.display = "none";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        
+                    default:
+                        break;
+                }
+                break;
+
+            case "Supervisor":
+                switch (renderTabla) {
+                    case "GestionXHora":
+                        tipoTabla = renderTabla + "Supervisor";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divDiaGestionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("diaGestionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXDia":
+                        tipoTabla = renderTabla + "Supervisor";
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("fechaCargaCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("horaGestionCombo");
+                        }
+                        break;
+                    case "Soluciones":
+                        tipoTabla = renderTabla;
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXSolucion":
+                        tipoTabla = renderTabla + "Supervisor";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case "Delegacion":
+                tipoTabla = renderTabla;
+                switch (renderTabla) {
+                    case "GestionXHora":
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "inline-block";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("diaGestionCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                        }
+                        break;
+                    case "GestionXDia":
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divResFinalCombo").style.display = "inline-block";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+
+                        if (renderTabla != indicadorSeleccionado) {
+                            document.getElementById("resFinalCombo").value = "";
+                            creaComboFiltro("fechaCargaCombo");
+                            creaComboFiltro("delegacionCombo");
+                            creaComboFiltro("horaGestionCombo");
+                        }
+                        break;
+                    case "Soluciones":
+                        document.getElementById("divEstFinalCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("fechaCargaCombo");
+                            creaComboFiltro("delegacionCombo");
+                        }
+                        break;
+                    case "GestionXSolucion":
+                        document.getElementById("divResFinalCombo").style.display = "none";
+                        document.getElementById("divHoraGestionCombo").style.display = "none";
+                        document.getElementById("divDiaGestionCombo").style.display = "none";
+                        document.getElementById("divEstFinalCombo").style.display = "inline-block";
+                        document.getElementById("divDelegacionCombo").style.display = "none";
+                        document.getElementById("divFechaCargaCombo").style.display = "inline-block";
+                        if (renderTabla != indicadorSeleccionado) {
+                            creaComboFiltro("estFinalCombo");
+                            creaComboFiltro("fechaCargaCombo");
+                            creaComboFiltro("delegacionCombo");
+                        }
+
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+
+        var despacho = null;
+        var supervisor = null;
+        var delegacion1 = null;
+        var fechaCarga = null;
+        var resFinal = null;
+        var estFinal = null;
+        var diaGestion = null;
+        var horaGestion = null;
+        var tipoFormulario = null;
+
+        setTimeout(function () {
+
+            switch ("@ViewBag.tipoDashBoard") {
+                case "Administrador":
+                    fechaCarga = document.getElementById("fechaCargaCombo").value;
+                    resFinal = document.getElementById("resFinalCombo").value;
+                    estFinal = document.getElementById("estFinalCombo").value;
+                    delegacion1 = document.getElementById("delegacionCombo").value;
+                    diaGestion = document.getElementById("diaGestionCombo").value;
+                    horaGestion = document.getElementById("horaGestionCombo").value;
+                    
+                    break;
+                case "Despacho":
+                    despacho = "@ViewBag.despacho";
+                    fechaCarga = document.getElementById("fechaCargaCombo").value;
+                    resFinal = document.getElementById("resFinalCombo").value;
+                    estFinal = document.getElementById("estFinalCombo").value;
+                    delegacion1 = document.getElementById("delegacionCombo").value;
+                    diaGestion = document.getElementById("diaGestionCombo").value;
+                    horaGestion = document.getElementById("horaGestionCombo").value;
+                    
+                    break;
+                case "Supervisor":
+                    despacho = "@ViewBag.despacho";
+                    supervisor = "@ViewBag.usuario";
+                    fechaCarga = document.getElementById("fechaCargaCombo").value;
+                    resFinal = document.getElementById("resFinalCombo").value;
+                    estFinal = document.getElementById("estFinalCombo").value;
+                    delegacion1 = document.getElementById("delegacionCombo").value;
+                    diaGestion = document.getElementById("diaGestionCombo").value;
+                    horaGestion = document.getElementById("horaGestionCombo").value;
+                    
+                    break;
+                case "Delegacion":
+                    delegacion1 = "@ViewBag.delegacion";
+                    fechaCarga = document.getElementById("fechaCargaCombo").value;
+                    resFinal = document.getElementById("resFinalCombo").value;
+                    estFinal = document.getElementById("estFinalCombo").value;
+                    diaGestion = document.getElementById("diaGestionCombo").value;
+                    horaGestion = document.getElementById("horaGestionCombo").value;
+                    
+                    break;
+                default:
+                    break;
+            }
+
+            $.ajax({
+                url: "/GestionMovil/" + tipoTabla,
+                type: "POST",
+                dataType: "html",
+                data: { 'delegacion': delegacion1, 'fechaCarga': fechaCarga, 'resFinal': resFinal, 'estFinal': estFinal, 'diaGestion': diaGestion, 'horaGestion': horaGestion, 'despacho': despacho, 'supervisor': supervisor, 'tipoFormulario': tipoFormulario },
+                success: function (response) {
+                    if (response.toString().indexOf("Se recomienda la utilización") != -1) {
+                        //window.location = "/Login.aspx";
+                        window.location = "~/Home";
+                    } else {
+                        if (indicadorSeleccionado != "0") {
+                            var cont = "<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id='divRenderTabla'><input type='hidden' value='" + indicadorSeleccionado + "' /></div>";
+                            document.getElementById("pcRanking_C" + tabSeleccionado).innerHTML = cont;
+                        }
+
+                        $("#pcRanking_C" + window.pcRanking.GetActiveTabIndex()).html(response + "<div style='text-align:left;margin-left: 30px;margin-top: 20px;margin-right: 30px; position: relative;overflow-y: hidden;overflow-x:hidden;display:inline-block;' id='divUltAct'></div>");
+                        tabSeleccionado = window.pcRanking.GetActiveTabIndex();
+                        indicadorSeleccionado = renderTabla;
+                        obtenerfechaActualizacion();
+                        $("#Mask").hide();
+                    }
+                },
+                error: function (msg) {
+                    //alert("No se pudo obtener el reporte.\nIntentelo mas tarde.\n"+msg.responseText);
+                    alert("No se pudo obtener el reporte.\nIntentelo mas tarde.");
+                    return false;
+                }
+            });
+
+        }, 2000);
+    }
+
+    $(document).ready(function () {
+        cambiaTab();
+    });
+
+
+    function obtenerfechaActualizacion() {
+
+        $.ajax({
+            url: "/GestionMovil/ObtenerFechaActualizacion",
+            type: "POST",
+            dataType: "html",
+            data: {},
+            success: function (response) {
+                $("#divUltAct").html("Última Actualización: " + response);
+            },
+            error: function (msg) {
+                $("#divUltAct").html("Última Actualización: ----...---");
+            }
+        });
+
+    }
+
+    function cambiaDelegacion() {
+        var cont = "<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id=     'divRenderTabla'><input type='hidden' value='" + indicadorSeleccionado + "' /></div>";
+        document.getElementById("pcRanking_C" + tabSeleccionado).innerHTML = cont;
+        cambiaTab();
+    }
+
+    function cambiaFiltroReporte() {
+        var cont = "<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id=     'divRenderTabla'><input type='hidden' value='" + indicadorSeleccionado + "' /></div>";
+        document.getElementById("pcRanking_C" + tabSeleccionado).innerHTML = cont;
+
+        cambiaTab();
+    }
+
+    function creaComboFiltro(idCombo) {
+        var opciones = "";
+        switch (idCombo) {
+            case "horaGestionCombo":
+                opciones = "<option value=''>Seleccionar una hora de gestión</option>";
+                break;
+            case "diaGestionCombo":
+                opciones = "<option value=''>Seleccionar un día de gestión</option>";
+                break;
+            case "estFinalCombo":
+                opciones = "<option value=''>Seleccionar un estatus final</option>";
+                break;
+            case "delegacionCombo":
+                opciones = "<option value=''>Seleccionar una delegación</option>";
+                break;
+            case "fechaCargaCombo":
+                opciones = "<option value=''>Seleccionar una fecha de carga</option>";
+                break;
+        }
+
+        $.ajax({
+            url: "/GestionMovil/creaComboFiltro",
+            type: "POST",
+            dataType: "html",
+            data: { 'idCombo': idCombo },
+            success: function (response) {
+                opciones += response;
+                $("#" + idCombo).html(opciones);
+            },
+            error: function (msg) {
+                alert("No se pudo obtener el filtro.\nIntentelo mas tarde.");
+                return false;
+            }
+        });
+    }
+
+
+    function popUpReporte() {
+        var fCar = document.getElementById("fechaCargaCombo").value;
+        var resF = document.getElementById("resFinalCombo").value;
+        var estF = document.getElementById("estFinalCombo").value;
+        var dGes = document.getElementById("diaGestionCombo").value;
+        var hGes = document.getElementById("horaGestionCombo").value;
+        var tpFrm = "@ViewBag.tpFrm";
+        var tipoFormulario = "@ViewBag.tipoFormulario";
+        var tD = "@ViewBag.tipoDashBoard";
+        var desp = ("@ViewBag.tipoDashBoard" == "Delegacion" || "@ViewBag.tipoDashBoard" == "Administrador") ? "" : "@ViewBag.despacho";
+        var spv = ("@ViewBag.tipoDashBoard" == "Delegacion" || "@ViewBag.tipoDashBoard" == "Administrador" || "@ViewBag.tipoDashBoard" == "Despacho") ? "" : "@ViewBag.usuario";
+        var mstr = indicadorSeleccionado;
+        var del = "@ViewBag.delegacion" == "" ? document.getElementById("delegacionCombo").value : "@ViewBag.delegacion";
+        var delegacion = del == 0 ? "" : document.getElementById("delegacionCombo").options[document.getElementById("delegacionCombo").selectedIndex].text;
+        var estatusFinal = document.getElementById("estFinalCombo").options[document.getElementById("estFinalCombo").selectedIndex].text;
+
+
+        if ("@ViewBag.delegacion" != "") {
+            document.getElementById("delegacionCombo").value = "@ViewBag.delegacion";
+            delegacion = document.getElementById("delegacionCombo").options[document.getElementById("delegacionCombo").selectedIndex].text;
+        }
+
+        var queryString = "fCar=" + fCar + "&resF=" + resF + "&estF=" + estF + "&dGes=" + dGes + "&hGes=" + hGes + "&tD=" + tD + "&desp=" + desp + "&spv=" + spv + "&mstr=" + mstr + "&del=" + del + "&delegacion=" + delegacion + "&estatusFinal=" + estatusFinal + "&tpFrm=" + tpFrm + "&tipoFormulario=" + tipoFormulario;
+
+        window.open("/Reportes/ReporteGestionMovil/ReporteGestionMovil.aspx?" + queryString, "_blank   ", "toolbar=0,location=0,resizable=1,scrollbars=1,statusbar=0,menubar=0,left = 50,top = 50,height=600,width=800");
+    }
+    $(window).bind("resize", function () {
+        var widthSize = $(this).width()*.80;
+        $("#pcRanking_CC").width(widthSize);
+    });
+</script>
+<style>
+    #pcRanking_CC {
+        width: 100%;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+        #pcRanking_CC div {
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+</style>
+
+<div style="margin-left: 30px;margin-right: 30px; position: relative">
+    <div class="TituloSeleccion" style="height: 66px; display: table-row; vertical-align: middle; width: 100%;">
+        Gestión Móvil<img alt="|" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;" />
+        <div id="contentTipoReporte" style="vertical-align: bottom;margin-top:-33px ;text-align: left;display: inline-block">
+            <div id="divDelegacionCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="delegacionCombo" class="Combos ddlGestores" style="margin-left: 5px;vertical-align: middle;" onchange="cambiaFiltroReporte()">
+                    <option value="">Seleccionar una delegación</option>
+                </select>
+            </div>
+            <div id="divFechaCargaCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="fechaCargaCombo" class="Combos ddlGestores" style="margin-left: 5px;vertical-align: middle;" onchange="cambiaFiltroReporte()">
+                    <option value="">Seleccionar una fecha de carga</option>
+                </select>
+            </div>
+            <div id="divEstFinalCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="estFinalCombo" class="Combos ddlGestores" style="margin-left: 5px;vertical-align: middle;" onchange="cambiaFiltroReporte()">
+                    <option value="">Seleccionar un estatus final</option>
+                </select>
+            </div>
+            <div id="divResFinalCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="resFinalCombo" class="Combos ddlGestores" style="margin-left: 5px;vertical-align: middle;" onchange="cambiaFiltroReporte()">
+                    <option value="">Seleccionar un resultado final</option>
+                    <option value="Movil">Móvil</option>
+                    <option value="Sin Asignar">Sin Asignar</option>
+                    <option value="Sin asignar 3 Visita">Sin asignar 3 Visita</option>
+                    <option value="Sin Asignar 2 Visita">Sin Asignar 2 Visita</option>
+                    <option value="Validas">Válidas</option>
+                    <option value="Validas Aprobadas">Válidas Aprobadas</option>
+                    <option value="Validas Sin Aprobar">Válidas Sin Aprobar</option>
+                </select>
+            </div>
+            <div id="divDiaGestionCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="diaGestionCombo" class="Combos ddlGestores" style="margin-left: 5px;vertical-align: middle;" onchange="cambiaFiltroReporte()">
+                    <option value="">Seleccionar un día de gestión</option>
+                </select>
+            </div>
+            <div id="divHoraGestionCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="horaGestionCombo" class="Combos ddlGestores" style="margin-left: 5px;vertical-align: middle;" onchange="cambiaFiltroReporte()">
+                    <option value="">Seleccionar una hora de gestión</option>
+                </select>
+            </div>
+
+        </div>
+        <div id="contentTipoReporte1" style="vertical-align: bottom;margin-top:0;margin-left:0;text-align: left;">
+            <div style="width: 215px;"> @Html.Action("Index", "CtrlComboFormularios")</div>
+            <div style="height: 19px; width: 370px; display: block; vertical-align: text-top;position: relative;margin-left: 195px;text-align: left; top:-36px">
+                <input type="button" style="height: 30px;width: 213px" class="Botones" value="Exportar" onclick="popUpReporte()" />
+            </div>
+        </div>
+
+    </div>
+    <span id="asdjhdfakjh"></span>
+    <div style="margin-left: 30px;margin-top: 20px;margin-right: 30px; position: relative;overflow-y: auto;overflow-x:hidden;" id="divRender">
+        
+        @{
+            if (ViewData["tpFrm"] != null && ViewData["tpFrm"].ToString().ToUpper() == "RDST")
+            {  @Html.Partial("TabPartialRDST")}
+            else {@Html.Partial("TabPartial");}
+    
+            
+}
+        
+        
+    </div>
+
+</div>

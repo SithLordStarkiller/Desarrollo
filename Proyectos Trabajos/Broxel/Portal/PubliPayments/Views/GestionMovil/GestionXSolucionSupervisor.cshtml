@@ -1,0 +1,65 @@
+﻿@model DataTable
+@using System.Data
+@using System.Web.UI.WebControls
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "Soluciones_"+ViewData["despacho"]+"_"+ViewData["supervisor"];
+        settings.Width = Unit.Percentage(90);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "GestionMovil",
+            Action = "GestionXSolucionSupervisor",
+            delegacion = ViewData["delegacion"],
+            fechaCarga = ViewData["fechaCarga"],
+            estFinal = ViewData["estFinal"],
+            despacho = ViewData["despacho"],
+            tipoFormulario = ViewData["tipoFormulario"]
+            
+        };
+        
+        settings.KeyFieldName = "idUsuario";
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.HeaderFilterMaxRowCount = 50;
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Usuario";
+            column.Caption = @"Usuario";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Nombre";
+            column.Caption = @"Nombre";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+        
+        
+        var columnas = (string[])ViewData["listaColumnas"];
+        var titulos = (string[])ViewData["titulosTabla"];
+        
+        for (var i=0;i<(columnas.Length-1);i++)
+        {
+           var i1 = i;
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Valor" + columnas[i1];
+                column.Caption = titulos[Convert.ToInt32(columnas[i1])];
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+            });
+
+        }
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Total";
+            column.Caption = @"Total";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+    
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        
+        
+        
+    }).Bind(Model).GetHtml()

@@ -1,0 +1,170 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    var delegacion = "9999";
+    var refreshIntervalId;
+    var idReporte;
+
+    $(document).ready(function () {
+
+
+        if (("@ViewData["Rol"]" > 1 ))
+            $("#divDelegacionCombo").hide();
+        refreshIntervalId = pulsoEstatus();
+        cambiaCombo("delegacionCombo", 5);
+        refreshIntervalId = setInterval(pulsoEstatus, 10000);
+    });
+    
+    function cambiaCombo(idCombo, tipoCombo) {
+        var delegacion = ("@ViewData["Rol"]" == "5") ? "@ViewData["Delegacion"]" : $("#delegacionCombo").val();
+        var despacho = $("#despachoCombo").val();
+        var supervisor = $("#supervisorCombo").val();
+
+        $("#Mask").show();
+        $.ajax({
+            url: "/ReporteAsignacion/ComboFiltro",
+            type: "POST",
+            dataType: "html",
+            data: { 'idCombo': idCombo, 'tipoCombo': tipoCombo, 'delegacion': delegacion, 'despacho': despacho, 'supervisor': supervisor },
+            success: function(response) {
+                $("#" + idCombo).html(response);
+                $("#Mask").hide();
+
+                if (tipoCombo == 5) {
+                    cambiaCombo("despachoCombo", 2);
+                }
+                if (tipoCombo == 2) {
+                    cambiaCombo("supervisorCombo", 1);
+                }
+            },
+            error: function(msg) {
+                alertaError("No se pudo obtener información.\nIntentelo mas tarde.");
+                $("#Mask").hide();
+                return false;
+            }
+        });
+    };
+    function pulsoEstatus() {
+        $.ajax({
+            url: "/ReporteAsignacion/VerificaEstatus",
+            type: 'POST',
+            data: "",
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (response.Estatus == "1") {
+                    exit = true;
+                    $("#Loader").hide();
+                    $(this).hide();
+                    $("#DescRepAsignacion").show();
+                    $("#Mensaje").show().html("Último reporte generado el " + response.Fecha);
+                    $("#GenerarRepAsignacion").hide();
+                    idReporte = response.idReporte;
+                    clearInterval(refreshIntervalId);
+                } else if (response.Estatus == "2") {
+                    $("#Loader").show();
+                    $("#DescRepAsignacion").hide();
+                    $("#Mensaje").show().html("Generando reporte... Por favor espere...");
+                    $("#GenerarRepAsignacion").hide();
+                } else if (response.bloqueado) {
+                    $("#Loader").show();
+                    $("#DescRepAsignacion").hide();
+                    $("#Mensaje").show().html("Por el momento no esta disponible, el proceso de reasignacion esta en proceso");
+                    $("#GenerarRepAsignacion").hide();
+                }
+                else {
+                    clearInterval(refreshIntervalId);
+                }
+                if (response.volverG && response.Estatus == "1") {
+                    LimpiarBloqueoMultiplesClicks($("#GenerarRepAsignacion"));
+                    $("#Mensaje").show().html("Último reporte generado el " + response.Fecha);
+                    $("#GenerarRepAsignacion").show().val("Volver a generar");
+                }
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + thrown);
+            }
+        });
+    }
+
+    function DescRepAsignacion($element) {
+        if (BloquearMultiplesClicks($element)) {
+            $("#DescRepAsignacion").attr("value", "Descargando");
+            $("#DescRepAsignacion").attr("class", "BotonesDesactivados");
+            window.open("/ReporteAsignacion/Descargar?idReporte=" + idReporte + "&fecha=", "_self");
+            setTimeout(function () {
+                HabilitarDescargar();
+            }, 10000);
+        }
+        return false;
+    }
+
+    function GenerarRepAsignacion($element) {
+        if (BloquearMultiplesClicks($element)) {
+            $("#GenerarRepAsignacion,#DescRepAsignacion").hide();
+            $($element).hide();
+            ProcesaArchivo();
+            $("#Loader").show();
+            $("#Mensaje").show().html("Generando reporte... Por favor espere...");
+            refreshIntervalId = setInterval(pulsoEstatus, 10000);
+        }
+        return false;
+    }
+
+    function ProcesaArchivo() {
+        var delegacionCombo = ("@ViewData["Rol"]" == "5") ? "@ViewData["Delegacion"]" : $("#delegacionCombo").val();
+        var despachoCombo = $("#despachoCombo").val();
+        var supervisorCombo = $("#supervisorCombo").val();
+
+        $.ajax({
+            url: "/ReporteAsignacion/GenerarReporteAsignacion",
+            type: 'POST',
+            data: JSON.stringify({ delegacion: delegacionCombo, despacho: despachoCombo, idsupervisor: supervisorCombo }),
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + thrown);
+            }
+        });
+    }
+
+    function HabilitarDescargar() {
+        $("#DescRepAsignacion").attr("class", "Botones");
+        $("#DescRepAsignacion").attr("value", "Descargar");
+        LimpiarBloqueoMultiplesClicks($("#DescRepAsignacion"));
+    }
+</script>
+
+    <div class="TituloSeleccion" style="display: table-row; vertical-align: middle; width: 100%;">
+        Reporte de asignación<img alt="|" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;" />
+        <div id="Combos" style="vertical-align: bottom; text-align: left; margin: -33px 0 0 400px;">
+            
+                <div id="divDelegacionCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="delegacionCombo" class="Combos" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="cambiaCombo('despachoCombo',2);">
+                        <option value="9999">Seleccionar una delegación</option>
+                    </select>
+                </div>    
+            
+
+            <div id="divDespachoCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="despachoCombo" class="Combos" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="cambiaCombo('supervisorCombo',3);">
+                    <option value="9999">Seleccionar un despacho</option>
+                </select>
+            </div>
+            <div id="divSupervisorCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="supervisorCombo" class="Combos" style="width: 165px;margin-left: 5px;vertical-align: middle;">
+                    <option value="9999">Seleccionar un supervisor</option>
+                </select>
+            </div>
+        </div>
+        <div id="Botones" style="vertical-align: bottom; text-align: left; margin: 0 0 0 400px;">
+            <div id="divRepAsignacion" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <input type="button" id="GenerarRepAsignacion" style="height: 30px;width: 165px;margin-left:5px" class="Botones" value="Generar" onclick="GenerarRepAsignacion(this)" />
+                <input type="button" id="DescRepAsignacion" style="height: 30px; width: 165px; margin-left: 5px; display: none" class="Botones" value="Descargar" onclick="DescRepAsignacion(this)" />
+                <img src="~/imagenes/ajax-loader-trans.gif" id="Loader" style="display: none" />
+                <label id="Mensaje" style="font-size: 15px"></label>
+            </div>
+        </div>
+</div>

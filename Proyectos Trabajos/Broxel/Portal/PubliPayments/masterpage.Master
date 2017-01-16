@@ -1,0 +1,418 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="masterpage.master.cs" Inherits="PubliPayments.MasterPage" %>
+
+<%@ Register Assembly="DevExpress.Web.v15.2" Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<head id="Head1" runat="server">
+    <title><%=aplicacion==1?"Infonavit":NombreAplicacion=="SIRA"? "SIRA": "Publipayments" %></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="Styles/normalize.css?version=1.0" rel="stylesheet" type="text/css" />
+    <style>
+        nav {
+            position: relative;
+            z-index: 1000;
+            text-align: left;
+            font: 14px 'Open Sans', sans-serif;
+            width: 100%;
+            height: 41px;
+            background-image: url(./imagenes/pat-menu.png);
+        }
+
+            nav ul {
+                position: relative;
+                top: -8px;
+            }
+
+                nav ul a {
+                    background-image: url(./imagenes/separador-menu.png);
+                    background-repeat: no-repeat;
+                    background-position: right;
+                }
+
+                nav ul ul {
+                    display: none;
+                }
+
+                nav ul li:hover > ul {
+                    display: block;
+                }
+
+            nav ul {
+                padding: 0 10px;
+                list-style: none;
+                position: relative;
+                display: inline-table;
+            }
+
+                nav ul:after {
+                    content: "";
+                    clear: both;
+                    display: block;
+                    color: #ffffff;
+                }
+
+                nav ul li {
+                    float: left;
+                }
+
+                    nav ul li:hover {
+                        color: #0000ff;
+                    }
+
+                        nav ul li:hover a {
+                            color: #ffffff;
+                        }
+
+                    nav ul li a {
+                        display: block;
+                        padding: 5px 14px;
+                        color: #ffffff;
+                        text-decoration: none;
+                    }
+
+                        nav ul li a:hover {
+                            color: #8A7A80;
+                        }
+
+                nav ul ul {
+                    background-color: #4A3A41;
+                    padding: 0;
+                    position: absolute;
+                    top: 100%;
+                }
+
+                    nav ul ul li {
+                        float: none;
+                        border-top: 1px solid #3B2E33;
+                        position: relative;
+                    }
+
+                        nav ul ul li a {
+                            padding: 5px 40px;
+                            color: #fff;
+                        }
+
+                            nav ul ul li a:hover {
+                                color: #8A7A80;
+                            }
+
+                    nav ul ul ul {
+                        position: absolute;
+                        left: 100%;
+                        top: 0;
+                    }
+
+        #ASPxPopupHintClientControl_PW-1 > div {
+            line-height: 17px !important;
+            margin: 0.5em 0 0 !important;
+            color: #FFFFFF !important;
+            content: "" !important;
+            background-color: #396392 !important;
+            background: #c00d3f !important;
+            background: -webkit-linear-gradient(#c00d3f, #7b0a2a) !important;
+            background: -moz-linear-gradient(#c00d3f, #7b0a2a) !important;
+            background: -o-linear-gradient(#c00d3f, #7b0a2a) !important;
+            background: -ms-linear-gradient(#c00d3f, #7b0a2a) !important;
+            background: linear-gradient(#c00d3f, #7b0a2a) !important;
+            -moz-box-shadow: 3px 3px 4px rgba(0,0,0, .65) !important;
+            -webkit-box-shadow: 3px 3px 4px rgba(0,0,0, .65) !important;
+            box-shadow: 3px 3px 4px rgba(0,0,0, .65) !important;
+        }
+    </style>
+
+    <link href="Styles/Principal.css?version=1.0" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-1.11.0.min.js"></script>
+    <script src="Scripts/Objetos.js"></script>
+    <script src="Scripts/watermark.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <form id="frmMaster" runat="server">
+        <link rel="icon" type="image/png" href="imagenes/Logos<%=LogosDir%>/faviconyy.png">
+        <link rel="shortcut icon" href="imagenes/Logos<%=LogosDir%>/faviconyy.png" />
+        <% if (ContentPlaceHolder1.Page.GetType().FullName != "ASP.login_aspx" && ContentPlaceHolder1.Page.GetType().FullName != "ASP.recuperarcontrasenia_aspx")
+           { %>
+        <header id="headerMaster" runat="server">
+            <div style="background-image: url(imagenes/pat-header.png); height: 70px; width: 100%; text-align: left">
+                <img src="imagenes/logo.png" style="margin-left: 14px; margin-top: 10px;" />
+                <asp:Label runat="server" ID="lblNombreDespacho" CssClass="NombreDespacho" Width="100%" Height="20px"></asp:Label>
+                <div style="width: 98%; text-align: right; position: relative; top: -54px">
+                    <img src="imagenes/ico-user.png" />
+                    <asp:Label runat="server" ID="lblNombre" CssClass="NombreUsuario" Width="185"></asp:Label>
+                    <asp:Button ID="LoginLink" Text="Cerrar sesión" CssClass="BotonCerrar"
+                        OnClick="LoginLink_OnClick" runat="server" TabIndex="10000" />
+                </div>
+            </div>
+            <nav id="navMaster">
+                <ul>
+                    <%if (!NombreAplicacion.Contains("SIRA"))
+                      {%>
+                    <li><a href="Dashboard">Resumen</a></li>
+                    <%} %>
+                    <% if ((!NombreAplicacion.Contains("MYO") && !NombreAplicacion.Contains("ORIGINACIONMOVIL") && !NombreAplicacion.Contains("SIRA")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("2") || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("5")))
+                       { %>
+                    <li><a href="#">Reportes<img src="imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <li><a href="RankingPorIndicador">Ranking Por Indicador</a></li>
+                            <li><a href="GestionMovil">Gestión móvil</a></li>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("2"))
+                               { %><li><a href="ReportesAvanzados.aspx">Reportes Avanzados</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                               { %><li><a href="TelSMSRepetidos">SMS Repetidos</a></li>
+                            <li><a href="ReporteAsignacion">Reporte de Asignación</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("3"))
+                               { %><li><a href="MapaSupervision">Reporte de Geoposiciones</a></li>
+                            <li><a href="ReporteGeneral">Reporte General</a></li>
+                            <li><a href="TelSMSRepetidos">SMS Repetidos</a></li>
+
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("5"))
+                               { %>
+                            <li><a href="ReporteGeneral">Reporte General</a></li>
+                            <li><a href="ReporteAsignacion">Reporte de Asignación</a></li>
+
+                            <% } %>
+                        </ul>
+                    </li>
+                    <% } %>
+                    <% if (((!NombreAplicacion.Contains("ORIGINACIONMOVIL") && !NombreAplicacion.Contains("MYO")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))) || NombreAplicacion.Contains("SIRA") && HttpContext.Current.User.IsInRole("2"))
+                       { %>
+                    <li><a href="#">Archivo<img src="imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <li><a href="Archivos">Archivos</a></li>
+                            <% if (NombreAplicacion.Contains("SIRA") && HttpContext.Current.User.IsInRole("2"))
+                               { %>
+                            <li><a href="ActualizarDatosComercios">Actualizar Datos</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                               { %>
+                            <li><a href="LlamadasNoExitosas">LlamadasNoExitosas</a></li>
+                            <% } %>
+                        </ul>
+                    </li>
+                    <% } %>
+                    <% if (HttpContext.Current.User.IsInRole("2"))
+                       { %>
+                    <li><a href="#">Archivo<img src="imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <li><a href="LlamadasNoExitosas">LlamadasNoExitosas</a></li>
+                            
+                        </ul>
+                    </li>
+                    <% } %>
+                    <% if ((!NombreAplicacion.Contains("MYO") && !NombreAplicacion.Contains("ORIGINACIONMOVIL")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("2")
+                           || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("4")))
+                       { %>
+                    <li><a href="#">Órdenes<img src="imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("2"))
+                               { %><li><a href="AsignaOrdenes.aspx">Asignar a supervisor</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("3"))
+                               { %><li><a href="AsignaOrdenes.aspx">Asignar</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("2") || HttpContext.Current.User.IsInRole("3"))
+                               { %><li><a href="OrdenesAsignadas.aspx">Ver Asignadas</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("3") && !NombreAplicacion.Contains("SIRA"))
+                               { %><li><a href="OrdenError.aspx">Reporte de Errores</a></li>
+                            <% } %>
+
+                            <% if (HttpContext.Current.User.IsInRole("4") && !NombreAplicacion.Contains("SIRA"))
+                               {
+                                   if (EsCallCenter)
+                                   {%><li><a href="BuscarCreditos">Buscar Creditos</a></li>
+                            <% }
+                                   else
+                                   { %><li><a href="CapturaWeb">Captura Web</a></li>
+                            <% }
+                               } %>
+                        </ul>
+                    </li>
+                    <% } %>
+
+                    <%if ((!NombreAplicacion.Contains("ORIGINACIONMOVIL") && !NombreAplicacion.Contains("MYO") && !NombreAplicacion.Contains("SIRA")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("5")))
+                      {%>
+                    <li>
+                        <a href="#">Respuestas<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <%if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3"))
+                              { %>
+                            <li><a href="Gestionadas.aspx">Ver Respuestas </a></li>
+                            <%} %>
+                            <%if (HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("0"))
+                              { %>
+                            <li><a href="Reversos">Reversar Ordenes </a></li>
+                            <%} %>
+                            <%if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("5"))
+                              { %>
+                            <li><a href="Auditoria">Auditoria </a></li>
+                            <%} %>
+                        </ul>
+                    </li>
+                    <% }
+                      else if (NombreAplicacion.Contains("ORIGINACIONMOVIL") && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3")))
+                      { %>
+                    <li>
+                        <a href="#">Originacion<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <li><a href="Gestionadas?tipo=AutorizarRechazar">Ver Gestiones</a></li>
+                            <li><a href="Gestionadas?tipo=Autorizadas">Ver Autorizadas</a></li>
+                            <li><a href="Gestionadas?tipo=Rechazadas">Ver Rechazadas</a></li>
+                        </ul>
+                    </li>
+                    <% }
+                      else if (NombreAplicacion.Contains("SIRA") && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3")))
+                      { %>
+                    <li>
+                        <a href="#">Respuestas<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <li><a href="Gestionadas?tipo=AutorizarRechazar">Ver Respuestas</a></li>
+                            <li><a href="Gestionadas?tipo=Autorizadas">Ver Autorizadas</a></li>
+                        </ul>
+                    </li>
+                    <% }
+                      else if (NombreAplicacion.Contains("MYO") && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("4")))
+                      { %>
+                    <li>
+                        <a href="#">Créditos<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <li><a href="Gestionadas?tipo=AutorizarRechazar">Ver Respuestas</a></li>
+                            <li><a href="Gestionadas?tipo=Autorizadas">Ver Autorizadas</a></li>
+                            <li><a href="Gestionadas?tipo=Rechazadas">Ver Rechazadas</a></li>
+                        </ul>
+                    </li>
+                    <% }%>
+                    <li><a href="#">Perfiles<img src="imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                        <ul>
+                            <% if (HttpContext.Current.User.IsInRole("0"))
+                               { %>
+                            <li><a href="AdminUsuarios.aspx?Rol=0">Super Administrador</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0"))
+                               { %>
+                            <li><a href="AdminUsuarios.aspx?Rol=6">Dirección</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                               { %>
+                            <li><a href="AdminUsuarios.aspx?Rol=1">Administrador</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                               { %>
+                            <li><a href="AdminUsuarios.aspx?Rol=5">Delegación</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                               { %>
+                            <%--<li><a href="AdminDespacho.aspx">Despacho</a></li>--%>
+                            <li><a href="AdminDespacho">Despacho</a></li>
+                            <% } %>
+                            <% if (HttpContext.Current.User.IsInRole("2"))
+                               { %>
+                            <li><a href="AdminUsuarios.aspx">Supervisor</a></li>
+                            <% } %>
+                            <% if ((!NombreAplicacion.Contains("ORIGINACIONMOVIL") && !NombreAplicacion.Contains("SIRA")) && (HttpContext.Current.User.IsInRole("3")))
+                               { %>
+                            <li><a href="AdminUsuarios.aspx">Gestores</a></li>
+                            <% } %>
+                            <li><a href="AdminPerfil">Mi Perfil</a></li>
+                            <%--<li><a href="AdminPerfil.aspx">Mi Perfil</a></li>--%>
+                            <%-- <li><a href="AdminUsuarios.aspx">Mi Perfil</a></li>--%>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <% } %>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
+        <dx:ASPxPopupControl ID="ConfirmacionBoton" runat="server" CloseAction="CloseButton" Modal="True" PopupVerticalAlign="TopSides" PopupVerticalOffset="100" CssClass="ConfirmacionBoton"
+            PopupHorizontalAlign="WindowCenter" ClientInstanceName="ConfirmacionBoton" PopupAnimationType="Fade" EnableViewState="False" Height="160px" Width="400px">
+            <HeaderContentTemplate>
+                <div>Confirmar acción</div>
+            </HeaderContentTemplate>
+            <ContentCollection>
+                <dx:PopupControlContentControl ID="ConfBtnContent" runat="server" SupportsDisabledAttribute="True" Height="130">
+                    <div style="width: 100%; text-align: center; top: 30px; position: relative" id="ConfBtnMensajeContainer">
+                        <label id="ConfBtnMensajePlantilla" class="ConfBtnMensajePlantilla" style="display: none"><%=(HttpContext.Current.User.IsInRole("2"))?"Los creditos seleccionados seran {0}dos , desea continuar.":"Las ordenes seleccionadas seran {0}das, desea continuar."%></label>
+                        <label id="ConfBtnMensajePlantilla2" class="ConfBtnMensajePlantilla" style="display: none"><%=(HttpContext.Current.User.IsInRole("2"))?"El credito sera {0}do , desea continuar.":"La orden sera {0}da, desea continuar."%></label>
+                        <label id="ConfBtnMensaje" class="ConfBtnMensaje"></label>
+                        <br />
+                        <div style="height: 30px"></div>
+                        <asp:Button runat="server" ID="ConfBtnAceptar" CssClass="Botones ConfBtnAceptar" OnClientClick="AceptaAccion(); return false;" Width="150px" Text="Aceptar" Height="30px"></asp:Button>
+                        <asp:Button runat="server" ID="ConfBtnCancelar" CssClass="Botones ConfBtnCancelar" OnClientClick="CancelarAccion(); return false;" Width="150px" Text="Cancelar" Height="30px"></asp:Button>
+                        <br />
+                    </div>
+                </dx:PopupControlContentControl>
+            </ContentCollection>
+        </dx:ASPxPopupControl>
+
+
+        <dx:ASPxPopupControl ClientInstanceName="ASPxPopupHintClientControl"
+            Width="250px" runat="server" EncodeHtml="false" EnableViewState="False"
+            PopupVerticalAlign="BottomSides" ShowHeader="False"
+            EnableHotTrack="False" PopupHorizontalOffset="1" PopupAction="None" CloseAction="CloseButton"
+            PopupVerticalOffset="-10" EnableHierarchyRecreation="True" ID="ASPxPopupHintClientControl">
+            <ContentCollection>
+                <dx:PopupControlContentControl ID="ConfBtnContent2" runat="server" SupportsDisabledAttribute="True" Height="130">
+                    <div id="HelpText" style="text-align: left; font: 12px 'Open Sans', sans-serif; color: white">xxx</div>
+                </dx:PopupControlContentControl>
+            </ContentCollection>
+            <%-- <ContentStyle BackColor="#65F954" ForeColor="#000000">
+            <Paddings PaddingBottom="12px" PaddingLeft="14px" PaddingRight="14px" PaddingTop="12px" />
+            <Border BorderWidth="0px" />
+        </ContentStyle>
+        <Border BorderColor="#13B501" BorderStyle="Solid" BorderWidth="1px" />--%>
+        </dx:ASPxPopupControl>
+
+    </form>
+    <footer>
+        <% if (ContentPlaceHolder1.Page.GetType().FullName != "ASP.login_aspx" && ContentPlaceHolder1.Page.GetType().FullName != "ASP.recuperarcontrasenia_aspx")
+           { %>
+        <div id="footerMaster" style="width: 100%; text-align: left; position: relative; top: 30px; background-image: url(imagenes/pat-footer.png); height: 81px;">
+            <img src="imagenes/Logos<%= LogosDir %>/logo-footer.png" style="margin-left: 16px; margin-top: 16px;" />
+            <p class="TextoFooter" id="Leyenda" <%=(aplicacion==1)?"": "style='display:block'" %>>
+                <%if (aplicacion == 1)
+                  {%>
+        © 2013 - Insituto del Fondo Nacional de la Vivienda para los Trabajadores (Infonavit)
+            <% } %>
+            </p>
+            <% if (!NombreAplicacion.Contains("SIRA"))
+               {%>
+            <div id="poweredImage" style="width: 75%; text-align: right; position: relative; top: -65px; vertical-align: top; display: inline-block;">
+                <a href="http://173.203.42.109/phplive/phplive.php?d=6&onpage=livechatimagelink&title=Live+Chat+Image+Link" target="new" style="position: relative; top: -50px; border-collapse: collapse">
+                    <img src="imagenes/chat.png" style="border-collapse: collapse">
+                </a>
+            </div>
+            <div style="display: inline-block;">
+                <img src="imagenes/powered-footer.png" style="position: relative; top: -80px; margin-left: 20px" /><br />
+                <p class="TextoFooter" style="top: 0; left: 0; position: relative; top: -101px; margin-left: 48px">
+                    <a href="mailto:soporte@publipayments.com">soporte@publipayments.com</a>
+                    <br />
+                    Teléfono soporte: 55 6266 2402
+                </p>
+            </div>
+
+            <%}%>
+        </div>
+        <% } %>
+
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-53857718-1', 'auto');
+            ga('require', 'linkid', 'linkid.js');
+            ga('require', 'displayfeatures');
+            ga('send', 'pageview');
+        </script>
+    </footer>
+</body>
+

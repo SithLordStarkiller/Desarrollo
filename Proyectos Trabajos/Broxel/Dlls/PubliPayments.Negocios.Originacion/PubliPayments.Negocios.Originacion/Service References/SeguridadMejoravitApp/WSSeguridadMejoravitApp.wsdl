@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns0="http://tempuri.org/" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:schema>
+      <xsd:import schemaLocation="WSSeguridadMejoravitApp.asmx.xsd1.xsd" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CambiaContrasenaSoapIn">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:CambiaContrasena" />
+  </wsdl:message>
+  <wsdl:message name="CambiaContrasenaSoapOut">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:CambiaContrasenaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidaUsuarioSoapIn">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:ValidaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="ValidaUsuarioSoapOut">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:ValidaUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSSeguridadMejoravitAppSoap">
+    <wsdl:operation name="CambiaContrasena">
+      <wsdl:input name="CambiaContrasenaRequest" message="ns0:CambiaContrasenaSoapIn" />
+      <wsdl:output name="CambiaContrasenaResponse" message="ns0:CambiaContrasenaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidaUsuario">
+      <wsdl:input name="ValidaUsuarioRequest" message="ns0:ValidaUsuarioSoapIn" />
+      <wsdl:output name="ValidaUsuarioResponse" message="ns0:ValidaUsuarioSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSSeguridadMejoravitAppSoap" type="ns0:WSSeguridadMejoravitAppSoap">
+    <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CambiaContrasena">
+      <soap11:operation soapAction="http://tempuri.org/CambiaContrasena" style="document" />
+      <wsdl:input name="CambiaContrasenaRequest">
+        <soap11:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CambiaContrasenaResponse">
+        <soap11:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaUsuario">
+      <soap11:operation soapAction="http://tempuri.org/ValidaUsuario" style="document" />
+      <wsdl:input name="ValidaUsuarioRequest">
+        <soap11:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ValidaUsuarioResponse">
+        <soap11:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSSeguridadMejoravitAppSoap12" type="ns0:WSSeguridadMejoravitAppSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CambiaContrasena">
+      <soap12:operation soapAction="http://tempuri.org/CambiaContrasena" style="document" />
+      <wsdl:input name="CambiaContrasenaRequest">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CambiaContrasenaResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidaUsuario">
+      <soap12:operation soapAction="http://tempuri.org/ValidaUsuario" style="document" />
+      <wsdl:input name="ValidaUsuarioRequest">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ValidaUsuarioResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSSeguridadMejoravitApp">
+    <wsdl:port name="WSSeguridadMejoravitAppSoap" binding="ns0:WSSeguridadMejoravitAppSoap">
+      <soap11:address location="https://127.0.0.1:143/UltMejoravit/webservices/QA11/WSSeguridadMejoravitApp.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSSeguridadMejoravitAppSoap12" binding="ns0:WSSeguridadMejoravitAppSoap12">
+      <soap12:address location="https://127.0.0.1:143/UltMejoravit/webservices/QA12/WSSeguridadMejoravitApp.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

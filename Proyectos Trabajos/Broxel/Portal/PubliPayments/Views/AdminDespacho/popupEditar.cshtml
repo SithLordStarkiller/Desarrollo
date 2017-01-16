@@ -1,0 +1,42 @@
+﻿
+@model PubliPayments.Models.DespachoEditModel
+
+<div class="PopUpContainer">
+    @using (@Html.BeginForm())
+    {
+        <div style="height: 210px">
+            <table id="TNuevoDespacho" style="padding-right: 0; width: 430px">
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.ADNombre)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.ADNombre, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", MaxLength = "30" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.ADNCorto)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.ADNCorto, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateStringD(event)", onkeydown = "return noCopyKey(event)", MaxLength = "20" })                        
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.ADEstatus)</td>
+                    <td style="text-align: left; font: 12px Tahoma, Geneva, sans-serif; ">
+                        <label>
+                            @Html.RadioButtonFor(m => m.ADEstatus, "false", new { @class = "AlinearIzquierda" })
+                            Inactivo
+                        </label><br/>
+                        <label>
+                            @Html.RadioButtonFor(m => m.ADEstatus, "true", new { @class = "AlinearIzquierda" })
+                            Activo
+                        </label>
+                    </td>
+                </tr>
+                @Html.HiddenFor(m => m.idDominio)
+                @Html.HiddenFor(m => m.ADEstatusH)
+            </table>
+        </div>
+        <div style="height: 30px">
+            <p id="MensajeUsuario" class="MensajeAlerta"></p>
+        </div>
+    }
+</div>

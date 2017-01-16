@@ -1,0 +1,25 @@
+﻿@using System.Configuration
+@using PubliPayments.Controllers
+
+<div style="width: 100%" id="indicadoresSuperior">
+    @Html.Action("IndicadoresSuperior")
+</div>
+<div style="width: 100%; margin-top: 30px" id="indicadoresInferior">
+    <div class="Grafico" style="background-color: #FAFAFA; border: solid 1px #D9D9D9; width: 98%; height: auto; text-align: left; height: 30px">
+        @if (CtrlComboFormulariosController.ObtenerModeloFormularioActivo(Session).Ruta != "RDST")
+        {
+            <div style="position: relative; top: 50%; margin-top: -10px; margin-left: 20px;">Gestión @(ConfigurationManager.AppSettings["EsCallCenter"] == "false" ? "Domiciliaria" : "Call Center")</div>
+        }
+        else
+        {
+            <div style="position: relative; top: 50%; margin-top: -10px; margin-left: 20px;">Gestión telefónica</div>
+        }
+    </div>
+    <div style="background-color: #FFFFFF; border: solid 1px #D9D9D9; width: 98%; height: auto; display: inline-block; text-align: center;margin-left: -35px;">
+        <div style="background-color: #FFFFFF; border: solid 1px #D9D9D9; width: 100%; height: auto; display: inline-block; text-align: center">
+            <br />
+            @Html.Action("IndicadoresInferior")
+            <br />
+        </div>
+    </div>
+</div>

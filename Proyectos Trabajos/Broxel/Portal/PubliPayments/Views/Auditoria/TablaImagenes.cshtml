@@ -1,0 +1,77 @@
+﻿@using System.Web.UI.WebControls
+@using Microsoft.Ajax.Utilities
+@using PubliPayments.Models
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "Auditoria_Imagenes";
+        settings.Width = Unit.Percentage(90);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "Auditoria", Action = "TablaImagenes",
+            delegacion = ViewData["delegacion"],
+            despacho = ViewData["despacho"],
+            supervisor = ViewData["supervisor"],
+            gestor = ViewData["gestor"],
+            dictamen = ViewData["dictamen"],
+            status = ViewData["status"],
+            autoriza=ViewData["autoriza"],
+            conexionBd = ViewData["conexionBd"],
+            valorOcr = ViewData["valorOcr"]
+            
+        };
+        settings.Settings.ShowColumnHeaders = false;
+        settings.ClientSideEvents.EndCallback = "function(s,e){agregarRespuesta();}";
+        
+        settings.SetDataRowTemplateContent(c =>
+        {
+            var audGes = new AuditoriaGestion
+            {
+                Autorizacion = DataBinder.Eval(c.DataItem, "Autorizacion") as String,
+                IdAuditoriaImagenes = DataBinder.Eval(c.DataItem, "IdAuditoriaImagenes") as String,
+                IdOrden = DataBinder.Eval(c.DataItem, "IdOrden") as String,
+                Despacho = DataBinder.Eval(c.DataItem, "Despacho") as String,
+                Supervisor = DataBinder.Eval(c.DataItem, "SUpervisor") as String,
+                Gestor = DataBinder.Eval(c.DataItem, "Gestor") as String,
+                Credito = DataBinder.Eval(c.DataItem, "Credito") as String,
+                Dictamen = DataBinder.Eval(c.DataItem, "Dictamen") as String,
+                Delegacion = DataBinder.Eval(c.DataItem, "Delegacion") as String,
+                Resultado= DataBinder.Eval(c.DataItem, "Resultado") as String,
+                ImagenTitulo1 = DataBinder.Eval(c.DataItem, "ImagenTitulo1") as String,
+                ImagenUrl1 = DataBinder.Eval(c.DataItem, "ImagenUrl1") as String,
+                ImagenResultado1 = DataBinder.Eval(c.DataItem, "ImagenResultado1") as String,
+                ImagenTitulo2 = DataBinder.Eval(c.DataItem, "ImagenTitulo2") as String,
+                ImagenUrl2 = DataBinder.Eval(c.DataItem, "ImagenUrl2") as String,
+                ImagenResultado2 = DataBinder.Eval(c.DataItem, "ImagenResultado2") as String,
+                ImagenTitulo3 = DataBinder.Eval(c.DataItem, "ImagenTitulo3") as String,
+                ImagenUrl3 = DataBinder.Eval(c.DataItem, "ImagenUrl3") as String,
+                ImagenResultado3 = DataBinder.Eval(c.DataItem, "ImagenResultado3") as String,
+                ImagenTitulo4 = DataBinder.Eval(c.DataItem, "ImagenTitulo4") as String,
+                ImagenUrl4 = DataBinder.Eval(c.DataItem, "ImagenUrl4") as String,
+                ImagenResultado4 = DataBinder.Eval(c.DataItem, "ImagenResultado4") as String,
+                ImagenTitulo5 = DataBinder.Eval(c.DataItem, "ImagenTitulo5") as String,
+                ImagenUrl5 = DataBinder.Eval(c.DataItem, "ImagenUrl5") as String,
+                ImagenResultado5 = DataBinder.Eval(c.DataItem, "ImagenResultado5") as String,
+                ImagenTitulo6 = DataBinder.Eval(c.DataItem, "ImagenTitulo6") as String,
+                ImagenUrl6 = DataBinder.Eval(c.DataItem, "ImagenUrl6") as String,
+                ImagenResultado6 = DataBinder.Eval(c.DataItem, "ImagenResultado6") as String,
+                ImagenTitulo7 = DataBinder.Eval(c.DataItem, "ImagenTitulo7") as String,
+                ImagenUrl7 = DataBinder.Eval(c.DataItem, "ImagenUrl7") as String,
+                ImagenResultado7 = DataBinder.Eval(c.DataItem, "ImagenResultado7") as String,
+                ImagenTitulo8 = DataBinder.Eval(c.DataItem, "ImagenTitulo8") as String,
+                ImagenUrl8 = DataBinder.Eval(c.DataItem, "ImagenUrl8") as String,
+                ImagenResultado8 = DataBinder.Eval(c.DataItem, "ImagenResultado8") as String,
+                ImagenTitulo9 = DataBinder.Eval(c.DataItem, "ImagenTitulo9") as String,
+                ImagenUrl9 = DataBinder.Eval(c.DataItem, "ImagenUrl9") as String,
+                ImagenResultado9 = DataBinder.Eval(c.DataItem, "ImagenResultado9") as String,
+                ImagenTitulo10 = DataBinder.Eval(c.DataItem, "ImagenTitulo10") as String,
+                ImagenUrl10 = DataBinder.Eval(c.DataItem, "ImagenUrl10") as String,
+                ImagenResultado10 = DataBinder.Eval(c.DataItem, "ImagenResultado10") as String
+            };
+            
+            Html.RenderPartial("ImagenesTemplate", audGes);
+        });
+
+
+    }).Bind(Model).GetHtml()

@@ -1,0 +1,1 @@
+﻿(function (e) { e.fn.Watermark = function (b, c) { c || (c = "#808080"); return this.each(function () { function d() { 0 == a.val().length || a.val() == b ? (a.val(b), a.css("color", c)) : a.css("color", f) } var a = e(this), f = a.css("color"); a.focus(function () { a.val() == b && a.val(""); a.css("color", f) }); a.blur(d); a.change(d); d() }) } })(jQuery);

@@ -1,0 +1,56 @@
+﻿   <!-- inicia Subtitulo y busquedas de Nuevo  Usuario-->
+@using PubliPayments.Models
+@model PubliPayments.Models.AdminUsuariosModel
+<div class="TituloSeleccion" style="min-height: 42px; display: inline-block; width: 100%; vertical-align: middle;margin-top: 15px;">
+    <div style="max-width: 600px;float:left;width: 340px">
+        Administrador de @ViewBag.TipoAdmin
+        @if (ViewBag.RolActual == 0 && ViewBag.RolHijo == -1)
+        {
+            Html.Raw("<br /><div style='float:left'> Despacho:&nbsp;</div> <div id='NombreDespacho' style='max-width:485px; float:left'></div>");
+        }
+    </div>
+    <img src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px;float: left;" alt="|" id="Image1" />
+    @*<asp:Image ID="Image1" runat="server" AlternateText="|" ImageUrl="~/imagenes/separador.png" Style="margin-left: 30px; margin-right: 30px;float: left;" />*@
+    <div style="width: 20px; display: inline-block; margin-left: 35px">
+        @if (ViewBag.RolActual == 0)
+        {
+            <button id="btNuevoUsuario" style="width: 200px; height: 30px;" class="Botones">Crear Usuario</button>
+            @*<dx:ASPxButton ID="btNuevoUsuario" runat="server" Text="Crear Usuario" AutoPostBack="False" UseSubmitBehavior="false" Width="200px" CssClass="Botones">
+                    <clientsideevents click="cargaPopUp" />
+                </dx:ASPxButton>*@
+        }
+        <div @if(ViewBag.RolActual == 0) { Html.Raw("style='margin-top: 20px;'"); }
+            id="PanelBusqueda">
+            <input type="submit" name="ctl00$ContentPlaceHolder1$TablaUsuarios$btLimpiar" value="Restablecer" id="ContentPlaceHolder1_TablaUsuarios_btLimpiar" class="Botones" style="height:30px;width:100px;">
+        </div>
+    </div>
+</div>
+@*@Html.DevExpress().TokenBox(
+                            settings =>
+                            {
+                                settings.Name = "tokenBox";
+                                settings.Width = 450;
+                                settings.Properties.AllowCustomTokens = true;
+                                settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+                                settings.Properties.ShowDropDownOnFocus = ShowDropDownOnFocusMode.Always;
+                                //settings.Properties.TextField = "Delegaciones";
+                                //settings.Properties.ValueField = "Delegaciones";
+                                //foreach (var m in (new DownList() { Tokens = (from xx in Model.Lista where xx.Value == "token1" select new { xx.Tokens }).ToList()[0].Tokens }).Tokens)
+                                //{
+                                //    settings.Properties.Tokens.Add(m);
+
+                                //}
+
+
+                                
+                            }
+                                                        ).BindList((new DownList() { Tokens = (from xx in Model.Lista where xx.Value == "token1" select new { xx.Tokens }).ToList()[0].Tokens }).Tokens).GetHtml()*@
+
+
+<div style="text-align: left; width: 100%; margin-top: 10px">
+    <label id="lblInformacion" class="MensajeAlerta ArribaMenos5"></label>
+    @*<asp:Label runat="server" ID="lblInformacion" CssClass="MensajeAlerta ArribaMenos5" Visible="False"></asp:Label>*@
+</div>
+<div id="grid" style="margin-top: 50px;">
+    @Html.Action("LbUsuariosLondon")
+</div>

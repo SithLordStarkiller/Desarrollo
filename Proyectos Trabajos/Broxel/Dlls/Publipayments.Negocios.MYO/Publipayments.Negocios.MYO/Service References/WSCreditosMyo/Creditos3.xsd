@@ -1,0 +1,1915 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Creditos.DAL" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Creditos.DAL" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfPR_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_TIPO_CREDITO" nillable="true" type="tns:ArrayOfPR_TIPO_CREDITO" />
+  <xs:complexType name="PR_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BASE_CAL_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="CF_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+      <xs:element minOccurs="0" name="CG_CATALOGO_X_EMPRESA" nillable="true" type="tns:CG_CATALOGO_X_EMPRESA" />
+      <xs:element minOccurs="0" name="COD_CARTERA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_NIVEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_PRODUCTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_TASA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_TASA_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CTA_ABONO_MASIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CTA_PUENTE_AJUSTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DESC_TPO_CREDITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIAS_VENCIDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_VENCIDO_ANTICIP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_VENC_REVOLV" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_ATRASO_CJ" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_ATRASO_COBRO_ADM" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GRACIA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GRACIA_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IND_ACREINOMINA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ACTIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_APLICA_ACCIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_BLOQ_NIV_APROB" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CALIF_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAPITALIZA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CARGO_SEGURO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CHEQUE_IND" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_COBRO_ADM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_COMISION_ATRASADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_IVA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_SALDO_NO_UTILIZADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRO_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CREDITO_RAPIDO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_IVA_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MYO_CREDIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_PR_REFACCIONARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_RETE_CUOTAS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_REVALORIZA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SALDO_REAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SOBREGIRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SOBRESCRIBE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TASA_VAL_AGREGADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MON_COMISION_NOR" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_COMISION_NOR_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_COMISION_NOR_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_INTERES_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_INTERES_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_X_ACCION" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MORA_DEBE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MORA_HABER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PA_TASAS_INTERES" nillable="true" type="tns:TASAS_INTERES" />
+      <xs:element minOccurs="0" name="PA_TASAS_INTERES1" nillable="true" type="tns:TASAS_INTERES" />
+      <xs:element minOccurs="0" name="PERIODO_CAPITALIZACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_CUOTA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PLAZO_MAX" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_AFORO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_APORTE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_GARANTIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_REQUISITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="POR_IVA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="POR_SOBREGIRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_NIVELES_APROBACION" nillable="true" type="tns:CAT_NIVELES_APROBACION" />
+      <xs:element minOccurs="0" name="PR_ORIGEN_FONDOS" nillable="true" type="tns:PR_ORIGEN_FONDOS" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO_OTRO" nillable="true" type="tns:PR_TIPO_CREDITO_OTRO" />
+      <xs:element minOccurs="0" name="TASA_INTERES" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INT_VAL_AGREGADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_CALENDARIO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_CREDITO_BW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_CUOTA_BASE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_MANEJO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_MODALIDAD_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_PLAZO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_TASA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_BASE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_PAGARE" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+  <xs:complexType name="CF_EMPRESAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="APDO_POSTAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_MON_ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_POSTAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CORREO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIR_FISICA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LOGO" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="NOM_COMERCIAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_ACCIONES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RAZON_SOCIAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+  <xs:complexType name="CAT_MONEDAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ABREV_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DESC_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OPER_CONVERSION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_RENDODEO" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+  <xs:complexType name="CG_CATALOGO_X_EMPRESA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CATEG_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="CF_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+      <xs:element minOccurs="0" name="CLASE_TPO_CAMBIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUENTA_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUENTA_MASCARA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_GRUPO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ACCESO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CENTRO_COSTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_REVALUACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TPO_CAMBIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_TPO_CAMBIO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CG_CATALOGO_X_EMPRESA" nillable="true" type="tns:CG_CATALOGO_X_EMPRESA" />
+  <xs:complexType name="TASAS_INTERES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ABREV_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="COD_TASA_BW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DESC_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EXTRA1_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SIGUIENTE_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIPO_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VALOR_ACTUAL" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TASAS_INTERES" nillable="true" type="tns:TASAS_INTERES" />
+  <xs:complexType name="CAT_NIVELES_APROBACION">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CANT_AUTORIZ" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="DESC_NIVEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_NIVEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="monto_max" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="monto_min" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_NIVELES_APROBACION" nillable="true" type="tns:CAT_NIVELES_APROBACION" />
+  <xs:complexType name="PR_ORIGEN_FONDOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="COD_CLIENTE_OP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_ORIGEN_BW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_ORIGEN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_ORIGEN_FONDOS" nillable="true" type="tns:PR_ORIGEN_FONDOS" />
+  <xs:complexType name="PR_TIPO_CREDITO_OTRO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_AHORRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FORMA_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_OBLIGATORIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MON_COBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_TIPO_CREDITO_OTRO" nillable="true" type="tns:PR_TIPO_CREDITO_OTRO" />
+  <xs:complexType name="ArrayOfCAT_TIPOS_PLAZOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_TIPOS_PLAZOS" nillable="true" type="tns:CAT_TIPOS_PLAZOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_TIPOS_PLAZOS" nillable="true" type="tns:ArrayOfCAT_TIPOS_PLAZOS" />
+  <xs:complexType name="CAT_TIPOS_PLAZOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="DESC_PLAZO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAZO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IND_PLAZO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PLAZO_MAX" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PLAZO_MIN" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_TIPOS_PLAZOS" nillable="true" type="tns:CAT_TIPOS_PLAZOS" />
+  <xs:complexType name="ArrayOfOP_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_TIPO_CREDITO" nillable="true" type="tns:OP_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_TIPO_CREDITO" nillable="true" type="tns:ArrayOfOP_TIPO_CREDITO" />
+  <xs:complexType name="OP_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BASE_CAL_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CG_CATALOGO_X_EMPRESA" nillable="true" type="tns:CG_CATALOGO_X_EMPRESA" />
+      <xs:element minOccurs="0" name="COD_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_NIVEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_PRODUCTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_TASA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_TASA_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CTA_ABONO_MASIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CTA_PUENTE_AJUSTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_TIP_CREDITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIAS_VENCIDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_VENCIDO_ANTICIP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_VENC_REVOLV" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_ATRASO_CJ" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_ATRASO_COBRO_ADM" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GRACIA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GRACIA_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IND_ACTIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_APLICA_ACCIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CALIF_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAPITALIZA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAPITALIZA_INTERESES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_COBRO_ADM" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_COMISION_ATRASADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_SALDO_NO_UTILIZADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRO_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CREDITO_RAPIDO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_IVA_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MYO_CREDIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_OP_REFACCIONARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_REVALORIZA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SOBREGIRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SOBRESCRIBE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TASA_VAL_AGREGADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MON_COMISION_NOR" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_COMISION_NOR_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_COMISION_NOR_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_INTERES_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_INTERES_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_X_ACCION" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MORA_DEBE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MORA_HABER" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_DESC_TIPO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PERIODO_CAPITALIZACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_CUOTA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PLAZO_MAX" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_COMISION_ADMIN" type="xs:decimal" />
+      <xs:element minOccurs="0" name="POR_IVA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="POR_SOBREGIRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INT_VAL_AGREGADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_CALENDARIO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_MANEJO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_MODALIDAD_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_PLAZO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_TASA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_BASE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_PAGARE" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_TIPO_CREDITO" nillable="true" type="tns:OP_TIPO_CREDITO" />
+  <xs:complexType name="ArrayOfPR_RUBRO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_RUBRO" nillable="true" type="tns:PR_RUBRO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_RUBRO" nillable="true" type="tns:ArrayOfPR_RUBRO" />
+  <xs:complexType name="PR_RUBRO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cod_Grupo_Rubro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DESC_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fec_Inclusion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Fec_Modificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ACTIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CALCULA_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_DIFERIDO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_GRUPO_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_IVA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Incluido_Por" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ind_Condonacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ind_Cont_X_Est" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ind_Pago_Terceros" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ind_cont_orden" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Modificado_Por" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOM_CAMPO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR_GRUPO_RUBRO" nillable="true" type="tns:CAT_GRUPO_RUBRO" />
+      <xs:element minOccurs="0" name="TABLA_CALCULO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CALCULO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_RUBRO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_RUBRO" nillable="true" type="tns:PR_RUBRO" />
+  <xs:complexType name="CAT_GRUPO_RUBRO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ABREV_GRUPO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DESC_GRUPO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_INCLUSION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MODIFICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_GRUPORUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INCLUIDO_POR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MODIFICADO_POR" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_GRUPO_RUBRO" nillable="true" type="tns:CAT_GRUPO_RUBRO" />
+  <xs:complexType name="ArrayOfPR_RUBRO_X_TIP_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_RUBRO_X_TIP_CREDITO" nillable="true" type="tns:PR_RUBRO_X_TIP_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_RUBRO_X_TIP_CREDITO" nillable="true" type="tns:ArrayOfPR_RUBRO_X_TIP_CREDITO" />
+  <xs:complexType name="PR_RUBRO_X_TIP_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cuenta_Contable" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Contable_Cond" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Contable_Dif" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Contable_Iva" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Orden_cre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Orden_cre_ant" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Orden_deb" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta_Orden_deb_ant" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fec_Inclusion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Fec_Modificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Incluido_Por" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Modificado_Por" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mon_Base" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_RUBRO" nillable="true" type="tns:PR_RUBRO" />
+      <xs:element minOccurs="0" name="Per_Cobro" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_RUBRO_X_TIP_CREDITO" nillable="true" type="tns:PR_RUBRO_X_TIP_CREDITO" />
+  <xs:complexType name="ArrayOfPagosCredito">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PagosCredito" nillable="true" type="tns:PagosCredito" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPagosCredito" nillable="true" type="tns:ArrayOfPagosCredito" />
+  <xs:complexType name="PagosCredito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DescEstado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FecCobroReal" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MontoAPagar" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoCuota" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoIntereses" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoIvaIntereses" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoPrincipal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NumPago" type="xs:short" />
+      <xs:element minOccurs="0" name="SaldoCredito" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SaldoIvaIntereses" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SaldoMontoIntereses" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SaldoPrincipal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TasaInteres" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PagosCredito" nillable="true" type="tns:PagosCredito" />
+  <xs:complexType name="ArrayOfPR_TIPO_CREDITO_OTRO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_TIPO_CREDITO_OTRO" nillable="true" type="tns:PR_TIPO_CREDITO_OTRO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_TIPO_CREDITO_OTRO" nillable="true" type="tns:ArrayOfPR_TIPO_CREDITO_OTRO" />
+  <xs:complexType name="ArrayOfPR_TIPO_CREDITO_REFUND">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_TIPO_CREDITO_REFUND" nillable="true" type="tns:PR_TIPO_CREDITO_REFUND" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_TIPO_CREDITO_REFUND" nillable="true" type="tns:ArrayOfPR_TIPO_CREDITO_REFUND" />
+  <xs:complexType name="PR_TIPO_CREDITO_REFUND">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CREDITO_REFUND" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_TIPO_CREDITO_REFUND" nillable="true" type="tns:PR_TIPO_CREDITO_REFUND" />
+  <xs:complexType name="ArrayOfPR_TIPO_CREDITO_RESTRICCIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_TIPO_CREDITO_RESTRICCIONES" nillable="true" type="tns:PR_TIPO_CREDITO_RESTRICCIONES" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_TIPO_CREDITO_RESTRICCIONES" nillable="true" type="tns:ArrayOfPR_TIPO_CREDITO_RESTRICCIONES" />
+  <xs:complexType name="PR_TIPO_CREDITO_RESTRICCIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RESTRICCION" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_TPO_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_RESTRICCION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="TIPO_APLICACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIPO_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIPO_VALIDACION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_TIPO_CREDITO_RESTRICCIONES" nillable="true" type="tns:PR_TIPO_CREDITO_RESTRICCIONES" />
+  <xs:complexType name="ArrayOfPR_TIPO_GARAN_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_TIPO_GARAN_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_GARAN_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_TIPO_GARAN_TIPO_CREDITO" nillable="true" type="tns:ArrayOfPR_TIPO_GARAN_TIPO_CREDITO" />
+  <xs:complexType name="PR_TIPO_GARAN_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PA_TIPOS_GARANTIA" nillable="true" type="tns:CAT_TIPOS_GARANTIA" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_TIPO_GARAN_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_GARAN_TIPO_CREDITO" />
+  <xs:complexType name="CAT_TIPOS_GARANTIA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ABREV_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="DESC_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_AFORO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_VALOR" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIPO_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_GARANTIA_BW" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_TIPOS_GARANTIA" nillable="true" type="tns:CAT_TIPOS_GARANTIA" />
+  <xs:complexType name="ArrayOfPR_REQUISITOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_REQUISITOS" nillable="true" type="tns:PR_REQUISITOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_REQUISITOS" nillable="true" type="tns:ArrayOfPR_REQUISITOS" />
+  <xs:complexType name="PR_REQUISITOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="DESC_REQUISITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_REQUISITO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_REQUISITOS" nillable="true" type="tns:PR_REQUISITOS" />
+  <xs:complexType name="ArrayOfPR_REQ_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_REQ_TIPO_CREDITO" nillable="true" type="tns:PR_REQ_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_REQ_TIPO_CREDITO" nillable="true" type="tns:ArrayOfPR_REQ_TIPO_CREDITO" />
+  <xs:complexType name="PR_REQ_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_REQUISITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_OBLIGATORIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR_REQUISITOS" nillable="true" type="tns:PR_REQUISITOS" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_REQ_TIPO_CREDITO" nillable="true" type="tns:PR_REQ_TIPO_CREDITO" />
+  <xs:complexType name="ArrayOfCAT_AGENCIAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_AGENCIAS" nillable="true" type="tns:CAT_AGENCIAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_AGENCIAS" nillable="true" type="tns:ArrayOfCAT_AGENCIAS" />
+  <xs:complexType name="CAT_AGENCIAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ABREV_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="APDO_POSTAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="DESC_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIR_FISICA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_AGENCIA_CENTRAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTATUS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TRABAJA_DOMINGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TRABAJA_SABADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOM_CIUDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TELEFONO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TRANBR" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_AGENCIAS" nillable="true" type="tns:CAT_AGENCIAS" />
+  <xs:complexType name="ArrayOfCAT_GRUPO_RUBRO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_GRUPO_RUBRO" nillable="true" type="tns:CAT_GRUPO_RUBRO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_GRUPO_RUBRO" nillable="true" type="tns:ArrayOfCAT_GRUPO_RUBRO" />
+  <xs:complexType name="ArrayOfCAT_MONEDAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_MONEDAS" nillable="true" type="tns:ArrayOfCAT_MONEDAS" />
+  <xs:complexType name="ArrayOfCAT_NIVELES_APROBACION">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_NIVELES_APROBACION" nillable="true" type="tns:CAT_NIVELES_APROBACION" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_NIVELES_APROBACION" nillable="true" type="tns:ArrayOfCAT_NIVELES_APROBACION" />
+  <xs:complexType name="ArrayOfPR_ORIGEN_FONDOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_ORIGEN_FONDOS" nillable="true" type="tns:PR_ORIGEN_FONDOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_ORIGEN_FONDOS" nillable="true" type="tns:ArrayOfPR_ORIGEN_FONDOS" />
+  <xs:complexType name="ArrayOfPR_CARGOS_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_CARGOS_TIPO_CREDITO" nillable="true" type="tns:PR_CARGOS_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_CARGOS_TIPO_CREDITO" nillable="true" type="tns:ArrayOfPR_CARGOS_TIPO_CREDITO" />
+  <xs:complexType name="PR_CARGOS_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="COD_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_CARGO_ASOCIADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUENTA_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CARGO_SEGURO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MON_CARGO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PER_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR_CARGOS" nillable="true" type="tns:PR_CARGOS" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="SUB_TIP_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_CARGOS_TIPO_CREDITO" nillable="true" type="tns:PR_CARGOS_TIPO_CREDITO" />
+  <xs:complexType name="PR_CARGOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="COD_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CTA_DIFERIMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_DIFERIBLE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_CARGOS" nillable="true" type="tns:PR_CARGOS" />
+  <xs:complexType name="ArrayOfPR_PLAN_INVERSION">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_PLAN_INVERSION" nillable="true" type="tns:PR_PLAN_INVERSION" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_PLAN_INVERSION" nillable="true" type="tns:ArrayOfPR_PLAN_INVERSION" />
+  <xs:complexType name="PR_PLAN_INVERSION">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAN_INVERSION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAN_INVERSION_BW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE_PLAN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_PLAN_INVERSION" nillable="true" type="tns:PR_PLAN_INVERSION" />
+  <xs:complexType name="ArrayOfCAT_PRODUCTOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_PRODUCTOS" nillable="true" type="tns:CAT_PRODUCTOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_PRODUCTOS" nillable="true" type="tns:ArrayOfCAT_PRODUCTOS" />
+  <xs:complexType name="CAT_PRODUCTOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="CF_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+      <xs:element minOccurs="0" name="DESC_PRODUCTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PRODUCTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SISTEMA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOMBRE_PRODUCTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REQUISITOS" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_PRODUCTOS" nillable="true" type="tns:CAT_PRODUCTOS" />
+  <xs:complexType name="ArrayOfCAT_TIPOS_GARANTIA">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CAT_TIPOS_GARANTIA" nillable="true" type="tns:CAT_TIPOS_GARANTIA" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCAT_TIPOS_GARANTIA" nillable="true" type="tns:ArrayOfCAT_TIPOS_GARANTIA" />
+  <xs:complexType name="ArrayOfOP_CARGOS_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_CARGOS_TIPO_CREDITO" nillable="true" type="tns:OP_CARGOS_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_CARGOS_TIPO_CREDITO" nillable="true" type="tns:ArrayOfOP_CARGOS_TIPO_CREDITO" />
+  <xs:complexType name="OP_CARGOS_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUENTA_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CARGO_ASOCIADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IND_CARGO_SEGURO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_CARGO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PERIODO_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SUB_TIP_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_CARGOS_TIPO_CREDITO" nillable="true" type="tns:OP_CARGOS_TIPO_CREDITO" />
+  <xs:complexType name="ArrayOfOP_TIPO_GARAN_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_TIPO_GARAN_TIPO_CREDITO" nillable="true" type="tns:OP_TIPO_GARAN_TIPO_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_TIPO_GARAN_TIPO_CREDITO" nillable="true" type="tns:ArrayOfOP_TIPO_GARAN_TIPO_CREDITO" />
+  <xs:complexType name="OP_TIPO_GARAN_TIPO_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_TPO_GARANTIA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_TIPO_GARAN_TIPO_CREDITO" nillable="true" type="tns:OP_TIPO_GARAN_TIPO_CREDITO" />
+  <xs:complexType name="ArrayOfOP_CUENTAS_CONCEPTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_CUENTAS_CONCEPTO" nillable="true" type="tns:OP_CUENTAS_CONCEPTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_CUENTAS_CONCEPTO" nillable="true" type="tns:ArrayOfOP_CUENTAS_CONCEPTO" />
+  <xs:complexType name="OP_CUENTAS_CONCEPTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUENTA_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CONCEPTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ESTADO_CRED" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TPO_CREDITO" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_CUENTAS_CONCEPTO" nillable="true" type="tns:OP_CUENTAS_CONCEPTO" />
+  <xs:complexType name="ArrayOfCG_ASTO_RESUMEN">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CG_ASTO_RESUMEN" nillable="true" type="tns:CG_ASTO_RESUMEN" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCG_ASTO_RESUMEN" nillable="true" type="tns:ArrayOfCG_ASTO_RESUMEN" />
+  <xs:complexType name="CG_ASTO_RESUMEN">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ASIENTO_ORIGEN" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CF_AGENCIAS" nillable="true" type="tns:CAT_AGENCIAS" />
+      <xs:element minOccurs="0" name="CF_SUBTIP_TRANSAC" nillable="true" type="tns:CAT_SUBTPOS_TRANSAC" />
+      <xs:element minOccurs="0" name="CF_TRANSAC_X_EMPRESA" nillable="true" type="tns:CAT_TRANSAC_X_EMPRESA" />
+      <xs:element minOccurs="0" name="DESCRIPCION_ASIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EST_ASIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_ASIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MOVIMIENTO" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REGISTRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SISTEMA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LIQUIDACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_ASIENTO" type="xs:int" />
+      <xs:element minOccurs="0" name="NUM_ASIENTO_REF" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SUBTPO_TRANSAC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CG_ASTO_RESUMEN" nillable="true" type="tns:CG_ASTO_RESUMEN" />
+  <xs:complexType name="CAT_SUBTPOS_TRANSAC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_TRANSAC_X_EMPRESA" nillable="true" type="tns:CAT_TRANSAC_X_EMPRESA" />
+      <xs:element minOccurs="0" name="DESC_SUBTRANSAC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SISTEMA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SUBTPO_TRANSAC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_SUBTPOS_TRANSAC" nillable="true" type="tns:CAT_SUBTPOS_TRANSAC" />
+  <xs:complexType name="CAT_TRANSAC_X_EMPRESA">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CF_CATAL_TRANSACCIONES" nillable="true" type="tns:CF_CATAL_TRANSACCIONES" />
+      <xs:element minOccurs="0" name="CF_EMPRESAS" nillable="true" type="tns:CF_EMPRESAS" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SISTEMA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_BITACORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIVEL_USO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CAT_TRANSAC_X_EMPRESA" nillable="true" type="tns:CAT_TRANSAC_X_EMPRESA" />
+  <xs:complexType name="CF_CATAL_TRANSACCIONES">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="COD_SISTEMA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MOVIMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIPO_MOVIMIENTO_BW" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ind_calculo_cat_gat" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CF_CATAL_TRANSACCIONES" nillable="true" type="tns:CF_CATAL_TRANSACCIONES" />
+  <xs:complexType name="ArrayOfCG_ASTO_DETALLE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CG_ASTO_DETALLE" nillable="true" type="tns:CG_ASTO_DETALLE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCG_ASTO_DETALLE" nillable="true" type="tns:ArrayOfCG_ASTO_DETALLE" />
+  <xs:complexType name="CG_ASTO_DETALLE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CG_ASTO_RESUMEN" nillable="true" type="tns:CG_ASTO_RESUMEN" />
+      <xs:element minOccurs="0" name="CG_CATALOGO_X_EMPRESA" nillable="true" type="tns:CG_CATALOGO_X_EMPRESA" />
+      <xs:element minOccurs="0" name="CG_CATALOGO_X_EMPRESA1" nillable="true" type="tns:CG_CATALOGO_X_EMPRESA" />
+      <xs:element minOccurs="0" name="CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CREDITO_CTA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CUENTA_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DEBITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DEBITO_CTA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DETALLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_MOVIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_UNIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_ASIENTO" type="xs:int" />
+      <xs:element minOccurs="0" name="NUM_LINEA" type="xs:int" />
+      <xs:element minOccurs="0" name="REFERENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CAM_BASE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CAM_CTA" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CG_ASTO_DETALLE" nillable="true" type="tns:CG_ASTO_DETALLE" />
+  <xs:complexType name="AllCreditosPasivosInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OpCargosCreditos" nillable="true" type="tns:ArrayOfOP_CARGOS_CREDITOS" />
+      <xs:element minOccurs="0" name="OpCreditos" nillable="true" type="tns:OP_CREDITOS" />
+      <xs:element minOccurs="0" name="OpFondeadoresCredito" nillable="true" type="tns:ArrayOfOP_FONDEADORES_CREDITO" />
+      <xs:element minOccurs="0" name="OpGarantiasCredito" nillable="true" type="tns:ArrayOfOP_GARANTIAS_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AllCreditosPasivosInfo" nillable="true" type="tns:AllCreditosPasivosInfo" />
+  <xs:complexType name="ArrayOfOP_CARGOS_CREDITOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_CARGOS_CREDITOS" nillable="true" type="tns:OP_CARGOS_CREDITOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_CARGOS_CREDITOS" nillable="true" type="tns:ArrayOfOP_CARGOS_CREDITOS" />
+  <xs:complexType name="OP_CARGOS_CREDITOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FEC_APLICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CARGO_ASOCIADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CARGO_SEGURO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PERIODO_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SUB_TPO_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CARGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VALOR_CARGO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_CARGOS_CREDITOS" nillable="true" type="tns:OP_CARGOS_CREDITOS" />
+  <xs:complexType name="OP_CREDITOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CANT_CUOTAS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CANT_HECTAREAS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CUENTA_REFERENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_DISTRITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_NOTAS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_ADICION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_APERTURA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CALIFICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CANCELACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CASTIGO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CONTRATO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ING_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INICIO_PLAN" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INI_PAGO_PRINC" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INT_VENCIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRIMER_DESEMBOLSO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRORROGA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROX_COMISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROX_REVISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_RECONOC_INT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REGISTRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_SAL_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_DESEMBOLSO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_COMISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_INTERESES" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_PRINCIPAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_REVISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_REVISION_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_VENCIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_VENC_SUBSIDIO_TASA_INT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="GRACIA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GRACIA_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_ACTIVIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CALIFICACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_COMERCIO_PRODUCTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CTA_FIDEIC_FOND" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_DIRECCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EJECUTIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ENTE_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EXTERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_OFICIAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAN_INVERSION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAZO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_PROPOSITO_PROYECTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_REFERENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_REGISTRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_ADMINISTRACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_APROVISIONAMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_COMERCIALIZACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_FINANCIEROS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_NATURALES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_ORGANIZACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RIESGOS_TECNOLOGICOS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SUBACTIV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SUBSUBACTIVIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_DESC_RP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ZONA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ANULAR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ARREGLO_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_BLOQUEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CALIF_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAMB_CUOTA1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAPITALIZA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CASTIGADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_INTERESES_INICIAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_IVA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_CARGOS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_POLIZA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CONTINUA_COBRO_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO_CONTRATO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_EST_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FON_MIXTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FORMA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINCRED_REVOLVENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MINISTRACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MYO_CREDIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_PR_LIM_VENC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_RELACION_JUNTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SOBREGIRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TASA_DESC_ADEL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TASA_VAL_AGREGADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_USA_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_USA_NUM_CONTRATO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_AJUSTE_X_REV_TASA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_COMISION_NORMAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CUOTA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_DESEMBOLSADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_GASTOS_FAMILIARES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_ANTES_CJ" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_ANTICIPADOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_CAPITALIZADOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_CIERRE_FISCAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_MORA_ACUMULA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_MORA_SUSPENSO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_SUSPENSO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_OTROS_INGRESOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO_INTERESES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGO_OBLIGACIONES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_REVALORIZACION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_SALDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_ULT_DESEMBOLSO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NOM_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_ACTA_COMITE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_ANIOS_EXPERIENCIA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_BENEFICIARIOS_ACTIVOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_BENEFICIARIOS_TOTAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CICLO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CICLOS_EVALUACION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CONTRATO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DESC_TIPO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DESTINO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_FOLIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_FOLIO_MERCANTIL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_LIBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_LINEA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_TOMO_MERCANTIL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_VOLUMEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_CAPITALIZACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_REV_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PLAZO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_FONDEO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_GTOS_MANEJO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_SOBREGIRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SAL_CORTE_LP" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES_RP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INT_DESC_ADEL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INT_PAGARE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INT_VAL_AGREGADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIPO_REGISTRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_IVA_NIVELADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TIP_TASA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CALENDARIO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_DESEMBOLSO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_MANEJO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_MODALIDAD_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_REG_COBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_REVISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_SUBSIDIO_TASA_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_BASE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_PAGARE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_RP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="prueba" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_CREDITOS" nillable="true" type="tns:OP_CREDITOS" />
+  <xs:complexType name="ArrayOfOP_FONDEADORES_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_FONDEADORES_CREDITO" nillable="true" type="tns:OP_FONDEADORES_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_FONDEADORES_CREDITO" nillable="true" type="tns:ArrayOfOP_FONDEADORES_CREDITO" />
+  <xs:complexType name="OP_FONDEADORES_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_FINANCIADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_LINEA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_PARTICIPACION" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_FONDEADORES_CREDITO" nillable="true" type="tns:OP_FONDEADORES_CREDITO" />
+  <xs:complexType name="ArrayOfOP_GARANTIAS_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_GARANTIAS_CREDITO" nillable="true" type="tns:OP_GARANTIAS_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_GARANTIAS_CREDITO" nillable="true" type="tns:ArrayOfOP_GARANTIAS_CREDITO" />
+  <xs:complexType name="OP_GARANTIAS_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_UTILIZADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_RESPALDO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_GARANTIAS_CREDITO" nillable="true" type="tns:OP_GARANTIAS_CREDITO" />
+  <xs:complexType name="AperturaCredito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PrCreditos" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PrGarantiasCreditos" nillable="true" type="tns:ArrayOfPR_GARANTIAS_CREDITO" />
+      <xs:element minOccurs="0" name="PrRubroXCreditos" nillable="true" type="tns:ArrayOfPR_RUBRO_X_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AperturaCredito" nillable="true" type="tns:AperturaCredito" />
+  <xs:complexType name="PR_CREDITOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CANT_CUOTAS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CANT_HECTAREAS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CF_AGENCIAS" nillable="true" type="tns:CAT_AGENCIAS" />
+      <xs:element minOccurs="0" name="CF_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+      <xs:element minOccurs="0" name="CODCTE_ASOCOM_GRPSOL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_CORREO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_DISTRITO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FEC_ADICION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_APERTURA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CALIFICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CANCELACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CASTIGO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CONTRATO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ING_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INICIO_PLAN" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INI_PAGO_PRINC" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INT_VENCIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MOVIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRIMER_DESEMBOLSO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRORROGA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROX_COMISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROX_REVISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROX_REVISION_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_RECONOC_INT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REGISTRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_SAL_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_DESEMBOLSO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_COMISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_INTERESES" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_PRINCIPAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PROCESO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_REVISION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_REVISION_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_VENCIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_VENC_SUBSIDIO_TASA_INT" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="GARANTIA_PERSONAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GRACIA_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GRACIA_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_ACTIVIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CALIFICACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CUENTA_CC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_DIRECCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_DIRECCION_EST" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EJECUTIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ENTE_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EXTERNO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_GRUPO_SOL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_OFICIAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAN_INVERSION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_PLAZO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_REFERENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_REGISTRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SUBACTIV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SUBSUBACTIVIDAD" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_DESC_RP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_TASA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ZONA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ACREINOMINA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ACTIVO_VS_PASIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ARREGLO_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_BLOQUEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CALIF_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAMB_CUOTA1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CAPITALIZA_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CASTIGADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CHEQUE_IND" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_IVA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRA_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COBRO_INTERES_INICIAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_CARGOS" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_COB_POLIZA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CONTINUA_COBRO_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO_CONT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO_CRED" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_EST_CONTABLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FON_MIXTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FORMA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_GEN_GRAFICO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINCRED_REVOLVENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MINISTRACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_NOMBRE_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_PAGO_AUTOMATICO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_PR_LIMITE_VENCIDO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_SOBREGIRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TASA_DESCTO_ADELANTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_TASA_VALOR_AGREGADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_USA_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_USA_NUM_CONTRATO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_AJUSTE_X_REV_TASA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CAT" nillable="true" type="xs:float" />
+      <xs:element minOccurs="0" name="MONTO_COMISION_NORMAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CUOTA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_DESEMBOLSADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INGRESO_SUGERIDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_ACUM_COMPLETO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_ANTES_CAJA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_ANTICIPADOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_CIERRE_FISCAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MAX" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MIN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MORA_ACUMULA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MORA_SUSPENSO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_SUSPENSO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO_INTERESES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO_INTERESES_AJUSTE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO_MES_EFECTIVO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_REVALORIZACION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_SALDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_SOLICITADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_TOTAL_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_ULTIMO_DESEMBOLSO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NOM_BENEFICIARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOM_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NOM_FONDEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUMERO_AGRUPACION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CICLO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CONTRATO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO_OP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CUENTA_APORTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_CUENTA_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_CUOTAS_RETE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DESC_TIPO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DESTINO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_FOLIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_ID_REFERENCIA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_LIBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_LINEA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_PAGARE" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_PAGOS_REQ" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_VOLUMEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PAGO_SOSTENIDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PARTICIPACION_FEDERAL" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PA_TASAS_INTERES" nillable="true" type="tns:TASAS_INTERES" />
+      <xs:element minOccurs="0" name="PA_TASAS_INTERES1" nillable="true" type="tns:TASAS_INTERES" />
+      <xs:element minOccurs="0" name="PERIODO_CAPITALIZACION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_REVISION_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERM_DESEMBOLSO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PLAZO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_GTOS_MANEJO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_SOBREGIRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_AFORO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_APORTE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_GARANTIA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORC_REQUISITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_ORIGEN_FONDOS" nillable="true" type="tns:PR_ORIGEN_FONDOS" />
+      <xs:element minOccurs="0" name="PR_PLAN_INVERSION" nillable="true" type="tns:PR_PLAN_INVERSION" />
+      <xs:element minOccurs="0" name="PR_TIPOS_PLAZOS" nillable="true" type="tns:CAT_TIPOS_PLAZOS" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="TASA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES_DESCTO_ADELANTADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES_PAGARE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES_RP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES_VALOR_AGREGADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CALENDARIO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CREDITO_OP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_DESEMBOLSO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_ENVIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_INTERES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_IVA_NIVELADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_MANEJO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_MODALIDAD_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_MORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_REG_COBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_REVISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TASA_PAGARE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VALOR_SUBSIDIO_TASA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VALOR_VARIACION_BASE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VALOR_VARIACION_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VALOR_VARIACION_RP" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VAL_VARIACION_PAGARE" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+  <xs:complexType name="ArrayOfPR_GARANTIAS_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_GARANTIAS_CREDITO" nillable="true" type="tns:PR_GARANTIAS_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_GARANTIAS_CREDITO" nillable="true" type="tns:ArrayOfPR_GARANTIAS_CREDITO" />
+  <xs:complexType name="PR_GARANTIAS_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LIBERA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_UTILIZADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_UTILIZADO_ACTUAL" type="xs:double" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PORCENTAJE_AFORO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PRIORIDAD" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PR_GARANTIAS" nillable="true" type="tns:PR_GARANTIAS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_GARANTIAS_CREDITO" nillable="true" type="tns:PR_GARANTIAS_CREDITO" />
+  <xs:complexType name="PR_GARANTIAS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BANCO_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BURSATILIDAD" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CF_MONEDAS" nillable="true" type="tns:CAT_MONEDAS" />
+      <xs:element minOccurs="0" name="FEC_ADJUDICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_AVALUO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_EMISION_GARANTIA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROX_INSPECCION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REGISTRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REMATE" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EVALUADOR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_FIRMA_LEGAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_GARANTIA_CONCENTRADORA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LIQUIDEZ" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MONTO_ADJUDICADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_GARANTIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_UTILIZADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_COMPROBANTE_CUSTODIA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_GARANTIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PA_TIPOS_GARANTIA" nillable="true" type="tns:CAT_TIPOS_GARANTIA" />
+      <xs:element minOccurs="0" name="SUBTPO_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_GARANTIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_MERCADO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_GARANTIAS" nillable="true" type="tns:PR_GARANTIAS" />
+  <xs:complexType name="ArrayOfPR_RUBRO_X_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_RUBRO_X_CREDITO" nillable="true" type="tns:PR_RUBRO_X_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_RUBRO_X_CREDITO" nillable="true" type="tns:ArrayOfPR_RUBRO_X_CREDITO" />
+  <xs:complexType name="PR_RUBRO_X_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FEC_FIN_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INCLUSION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INI_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MODIFICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INCLUIDO_POR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MODIFICADO_POR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PERIODO_COBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="TPO_CALCULO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_COBRO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_RUBRO_X_CREDITO" nillable="true" type="tns:PR_RUBRO_X_CREDITO" />
+  <xs:complexType name="AprobacionCredito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PrCreditos" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PrEncabezadoPago" nillable="true" type="tns:PR_ENCABEZADO_PAGO" />
+      <xs:element minOccurs="0" name="PrGarantias" nillable="true" type="tns:PR_GARANTIAS" />
+      <xs:element minOccurs="0" name="PrGarantiasCredito" nillable="true" type="tns:PR_GARANTIAS_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AprobacionCredito" nillable="true" type="tns:AprobacionCredito" />
+  <xs:complexType name="PR_ENCABEZADO_PAGO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FEC_APLICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MOVIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_AGENCIA_MOVIMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SECUENCIA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FORMA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_MOVIMIENTO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_ASIENTO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DEPOSITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_RECIBO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_REFERENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SUBTPO_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_ENCABEZADO_PAGO" nillable="true" type="tns:PR_ENCABEZADO_PAGO" />
+  <xs:complexType name="AperturaExpress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClientAccountNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpFondeadores" nillable="true" type="tns:ArrayOfFondeadores" />
+      <xs:element minOccurs="0" name="PrCredito" nillable="true" type="tns:PrCreditoExpress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AperturaExpress" nillable="true" type="tns:AperturaExpress" />
+  <xs:complexType name="ArrayOfFondeadores">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Fondeadores" nillable="true" type="tns:Fondeadores" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFondeadores" nillable="true" type="tns:ArrayOfFondeadores" />
+  <xs:complexType name="Fondeadores">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdAgencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoFinanciado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NumeroCreditoOp" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroLineaOp" type="xs:int" />
+      <xs:element minOccurs="0" name="PorcentajeParticipacion" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Fondeadores" nillable="true" type="tns:Fondeadores" />
+  <xs:complexType name="PrCreditoExpress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadCuotas" type="xs:int" />
+      <xs:element minOccurs="0" name="DiaPago" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaApertura" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaInicioPlanPagos" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaVencimiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdActividad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdAgencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEmpresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdPlanInversion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdPlazo" type="xs:int" />
+      <xs:element minOccurs="0" name="IdSolicitudMyo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdTpoCredito" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoCredito" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoCuota" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PeriodoComision" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PeriodoCuota" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PeriodoInteres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlazoCredito" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PrCreditoExpress" nillable="true" type="tns:PrCreditoExpress" />
+  <xs:complexType name="DesembolsoOP">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CgAstoDetalle" nillable="true" type="tns:ArrayOfCG_ASTO_DETALLE" />
+      <xs:element minOccurs="0" name="CgAstoResumen" nillable="true" type="tns:CG_ASTO_RESUMEN" />
+      <xs:element minOccurs="0" name="OpCredito" nillable="true" type="tns:OP_CREDITOS" />
+      <xs:element minOccurs="0" name="OpMovimientos" nillable="true" type="tns:ArrayOfOP_MOVIMIENTOS" />
+      <xs:element minOccurs="0" name="OpPlanPagos" nillable="true" type="tns:OP_PLAN_PAGOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DesembolsoOP" nillable="true" type="tns:DesembolsoOP" />
+  <xs:complexType name="ArrayOfOP_MOVIMIENTOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OP_MOVIMIENTOS" nillable="true" type="tns:OP_MOVIMIENTOS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOP_MOVIMIENTOS" nillable="true" type="tns:ArrayOfOP_MOVIMIENTOS" />
+  <xs:complexType name="OP_MOVIMIENTOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ASIENTO_CONTABLE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FEC_MOVIMIENTO" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_AGENCIA_MOV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_USUARIO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MODIF_CAPITAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_AJUSTE_X_REV_TASA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CARGOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CUOTA_ANTERIOR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA_MORATORIOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MOVIMIENTO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_POLIZA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_BOLETA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CTA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_IDENTIF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_INSTRUCTIVO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_MOVIMIENTO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_PAG_MASIVO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_RECIBO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ORIGEN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="REF_PAGO_MASIVO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SUB_TIP_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_IDENTIF" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VALOR_ACTUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VALOR_ANTERIOR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VAL_ANTERIOR_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VINCULO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_MOVIMIENTOS" nillable="true" type="tns:OP_MOVIMIENTOS" />
+  <xs:complexType name="OP_PLAN_PAGOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIAS_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_INT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIA_PENDIENTES_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PENDIENTES_INT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PENDIENTES_PRINCIPAL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PRINCIPAL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FECHA_ULTIMO_PAGO_MORA_REV" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CANCELACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CUOTA" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRORROGA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REAL_CUOTA" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CANC_ANTICIPADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CARTERA_VENCIDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CONGELADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CUOTA_DESCONTADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CUOTA_MANUAL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_POS_DESEMBOL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_VENCIDA_ANTICIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_VENCIDO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INT_NO_EXIGIBLE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_AJUSTE_X_REV_TASA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CUOTA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_RECUR_PROP" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_SUSPENSO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INT_VENCIDOS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MORA_REV" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_POLIZA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PRINCIPAL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CUOTA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_RECIBO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OP_CREDITOS" nillable="true" type="tns:OP_CREDITOS" />
+      <xs:element minOccurs="0" name="PERIODO_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PERIODO_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="POR_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_AJUSTE_X_REV_TASA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_COMISION" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_INT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_POLIZA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_PRINCIPAL" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INT" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CUOTA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OP_PLAN_PAGOS" nillable="true" type="tns:OP_PLAN_PAGOS" />
+  <xs:complexType name="DesembolsoCredito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CgAstoDetalle" nillable="true" type="tns:ArrayOfCG_ASTO_DETALLE" />
+      <xs:element minOccurs="0" name="CgAstoResumen" nillable="true" type="tns:CG_ASTO_RESUMEN" />
+      <xs:element minOccurs="0" name="PrCreditoRubroXEstado" nillable="true" type="tns:PR_CREDITO_RUBRO_X_ESTADO" />
+      <xs:element minOccurs="0" name="PrCreditos" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PrDetallePagos" nillable="true" type="tns:ArrayOfPR_DETALLE_PAGO" />
+      <xs:element minOccurs="0" name="PrEncabezadoPago" nillable="true" type="tns:PR_ENCABEZADO_PAGO" />
+      <xs:element minOccurs="0" name="PrRecibos" nillable="true" type="tns:PR_RECIBOS" />
+      <xs:element minOccurs="0" name="PrRubroCobroXCreditoOriginal" nillable="true" type="tns:ArrayOfPR_RUBRO_COBRO_X_CREDITO_ORIGINAL" />
+      <xs:element minOccurs="0" name="PrRubroCobroXCreditos" nillable="true" type="tns:ArrayOfPR_RUBRO_COBRO_X_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DesembolsoCredito" nillable="true" type="tns:DesembolsoCredito" />
+  <xs:complexType name="PR_CREDITO_RUBRO_X_ESTADO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIA_ACUMULADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_ANTICIPADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PEN_ACUMULADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PEN_TRASLADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_TRASLADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO_CONT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO_REG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_ANTICIPADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGADO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_TRASLADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PR_TIPO_CREDITO" nillable="true" type="tns:PR_TIPO_CREDITO" />
+      <xs:element minOccurs="0" name="SALDO_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_TRASLADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_CREDITO_RUBRO_X_ESTADO" nillable="true" type="tns:PR_CREDITO_RUBRO_X_ESTADO" />
+  <xs:complexType name="ArrayOfPR_DETALLE_PAGO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_DETALLE_PAGO" nillable="true" type="tns:PR_DETALLE_PAGO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_DETALLE_PAGO" nillable="true" type="tns:ArrayOfPR_DETALLE_PAGO" />
+  <xs:complexType name="PR_DETALLE_PAGO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FACTOR_CALCULO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ID_CONCEPTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_REFERENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SECUENCIA" type="xs:int" />
+      <xs:element minOccurs="0" name="ID_SECUENCIA_DETALLE" type="xs:int" />
+      <xs:element minOccurs="0" name="MONTO_PAGO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PAGO_IVA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_RUBRO_G" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_SALDO_ANTERIOR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_SALDO_IVA_ANTERIOR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DETALLE_SECUENCIA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DIAS" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_ENCABEZADO_PAGO" nillable="true" type="tns:PR_ENCABEZADO_PAGO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_DETALLE_PAGO" nillable="true" type="tns:PR_DETALLE_PAGO" />
+  <xs:complexType name="PR_RECIBOS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ASIENTO_CONTABLE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FEC_COMISION_FINAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_COMISION_INICIAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INTERES_FINAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INTERES_INICIAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MORA_FINAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MORA_INICIAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_POLIZA_FINAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_POLIZA_INICIAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRINCIPAL_FINAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PRINCIPAL_INICIAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_PROXIMO_PAGO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_RECIBO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_RECONOCIMIENTO_FINAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_RECONOCIMIENTO_INICIAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_AGENCIA_MOVIMIENTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CUENTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_SISTEMA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_FORMA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_AJUSTE_X_REVISION_TASA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_CARGOS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_COND" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_MORA_COND" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_RECONOCIDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_ORIGINAL_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_OTROS" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_POLIZA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_TOTAL_PAGAR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CUOTA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_TOTAL_CUOTA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_TRANSACCION" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="SALDO_ANTERIOR" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SUB_TPO_TRANSACCION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TASA_COMISION" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_MORA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_TRANSACCION" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_RECIBOS" nillable="true" type="tns:PR_RECIBOS" />
+  <xs:complexType name="ArrayOfPR_RUBRO_COBRO_X_CREDITO_ORIGINAL">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_RUBRO_COBRO_X_CREDITO_ORIGINAL" nillable="true" type="tns:PR_RUBRO_COBRO_X_CREDITO_ORIGINAL" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_RUBRO_COBRO_X_CREDITO_ORIGINAL" nillable="true" type="tns:ArrayOfPR_RUBRO_COBRO_X_CREDITO_ORIGINAL" />
+  <xs:complexType name="PR_RUBRO_COBRO_X_CREDITO_ORIGINAL">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIAS_CALCULO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_INTERES_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_PEN_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FACTOR_CALCULO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FEC_BASE_CALCULO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_BASE_DIAS" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_COBRO_REAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_INCLUSION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MODIFICACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INCLUIDO_POR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MODIFICADO_POR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_BASE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_DIARIO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DETALLE_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DETALLE_SECUENCIA_ORIGEN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PR_RUBRO" nillable="true" type="tns:PR_RUBRO" />
+      <xs:element minOccurs="0" name="SALDO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CALENDARIO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_RUBRO_COBRO_X_CREDITO_ORIGINAL" nillable="true" type="tns:PR_RUBRO_COBRO_X_CREDITO_ORIGINAL" />
+  <xs:complexType name="ArrayOfPR_RUBRO_COBRO_X_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_RUBRO_COBRO_X_CREDITO" nillable="true" type="tns:PR_RUBRO_COBRO_X_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_RUBRO_COBRO_X_CREDITO" nillable="true" type="tns:ArrayOfPR_RUBRO_COBRO_X_CREDITO" />
+  <xs:complexType name="PR_RUBRO_COBRO_X_CREDITO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIAS_CALCULO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_INTERES_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIAS_PEN_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FACTOR_CALCULO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FEC_BASE_CALCULO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_BASE_DIAS" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_COBRO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_COBRO_REAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Fec_Inclusion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Fec_Modificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_RUBRO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="INCLUIDO_POR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_BASE" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_ACUMULADO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERES_DIARIO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Modificado_Por" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DETALLE_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_DETALLE_SECUENCIA_ORIGEN" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_SECUENCIA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PR_CREDITOS" nillable="true" type="tns:PR_CREDITOS" />
+      <xs:element minOccurs="0" name="PR_RUBRO" nillable="true" type="tns:PR_RUBRO" />
+      <xs:element minOccurs="0" name="SALDO_IVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_RUBRO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CALENDARIO" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_RUBRO_COBRO_X_CREDITO" nillable="true" type="tns:PR_RUBRO_COBRO_X_CREDITO" />
+  <xs:complexType name="ArrayOfvw_OP_Lineas_Credito">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="vw_OP_Lineas_Credito" nillable="true" type="tns:vw_OP_Lineas_Credito" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfvw_OP_Lineas_Credito" nillable="true" type="tns:ArrayOfvw_OP_Lineas_Credito" />
+  <xs:complexType name="vw_OP_Lineas_Credito">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FEC_APERTURA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_INTERESES" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_PRINCIPAL" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_MONEDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_BLOQUEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_LINEA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_MYO_CREDIT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MONTO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_SALDO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NOM_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OBSERVACIONES" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TPO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_DESEMBOLSO" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="vw_OP_Lineas_Credito" nillable="true" type="tns:vw_OP_Lineas_Credito" />
+  <xs:complexType name="ArrayOfvw_PlanPagos">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="vw_PlanPagos" nillable="true" type="tns:vw_PlanPagos" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfvw_PlanPagos" nillable="true" type="tns:ArrayOfvw_PlanPagos" />
+  <xs:complexType name="vw_PlanPagos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DIAS_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_COMISION" type="xs:int" />
+      <xs:element minOccurs="0" name="DIA_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PAGO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIA_PENDIENTES_COMISION" type="xs:int" />
+      <xs:element minOccurs="0" name="DIA_PENDIENTES_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PENDIENTES_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DIA_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FECHA_CUOTA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FECHA_PRORROGA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_CANCELACION" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_MOVIMIENTO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_REAL_CUOTA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FEC_ULT_PAGO_MORA" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ID_AGENCIA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID_EMPRESA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CANC_ANTICIPADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CARTERA_VENCIDA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_CONGELADA" type="xs:int" />
+      <xs:element minOccurs="0" name="IND_CUOTA_DESCONTADA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_ESTADO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_VENCIDA_ANTICIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IND_VENCIDO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Iva_condonado" type="xs:int" />
+      <xs:element minOccurs="0" name="MONTO_COMISION" type="xs:int" />
+      <xs:element minOccurs="0" name="MONTO_CUOTA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_INTERESES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_IVA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MONTO_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_AJUSTE_X_REV_TASA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_INT_RECUR_PROP" type="xs:int" />
+      <xs:element minOccurs="0" name="MON_INT_SUSPENSO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_INT_VENCIDOS" type="xs:int" />
+      <xs:element minOccurs="0" name="MON_MORA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MON_POLIZA" type="xs:int" />
+      <xs:element minOccurs="0" name="NUM_CREDITO" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_CUOTA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_ID_REFERENCIA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NUM_RECIBO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PER_INT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="POR_COMISION" type="xs:int" />
+      <xs:element minOccurs="0" name="SALDO_COMISION" type="xs:int" />
+      <xs:element minOccurs="0" name="SALDO_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_INT" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_IVA" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SALDO_PRINCIPAL" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SAL_AJUSTE_X_REV_TASA" type="xs:int" />
+      <xs:element minOccurs="0" name="SAL_POLIZA" type="xs:int" />
+      <xs:element minOccurs="0" name="Sal_iva_mora" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TASA_INTERES" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TIP_COMISION" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TPO_CUOTA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fec_ult_pago_mora_rev" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ind_cuota" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="mon_mora_rev" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="vw_PlanPagos" nillable="true" type="tns:vw_PlanPagos" />
+  <xs:complexType name="ArrayOfPR_GetAllAdeudosResumen_Result1">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PR_GetAllAdeudosResumen_Result1" nillable="true" type="tns:PR_GetAllAdeudosResumen_Result1" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPR_GetAllAdeudosResumen_Result1" nillable="true" type="tns:ArrayOfPR_GetAllAdeudosResumen_Result1" />
+  <xs:complexType name="PR_GetAllAdeudosResumen_Result1">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CASA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CELULAR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="COD_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cod_Agencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cod_Empresa" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CvePerCuota" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DES_CORREO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DIA_ULT_PAGO" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Mon_Deduccion" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NOM_CLIENTE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumPagosAtrasados" type="xs:int" />
+      <xs:element minOccurs="0" name="Num_Credito" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OFICINA" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PR_GetAllAdeudosResumen_Result1" nillable="true" type="tns:PR_GetAllAdeudosResumen_Result1" />
+  <xs:complexType name="LineasCreditoOP">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="OpCargosCreditos" nillable="true" type="tns:ArrayOfOP_CARGOS_CREDITOS" />
+      <xs:element minOccurs="0" name="OpCreditos" nillable="true" type="tns:OP_CREDITOS" />
+      <xs:element minOccurs="0" name="OpGarantiasCredito" nillable="true" type="tns:ArrayOfOP_GARANTIAS_CREDITO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LineasCreditoOP" nillable="true" type="tns:LineasCreditoOP" />
+  <xs:complexType name="ArrayOfCargaTiposCreditoCapacidadPagoes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CargaTiposCreditoCapacidadPagoes" nillable="true" type="tns:CargaTiposCreditoCapacidadPagoes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCargaTiposCreditoCapacidadPagoes" nillable="true" type="tns:ArrayOfCargaTiposCreditoCapacidadPagoes" />
+  <xs:complexType name="CargaTiposCreditoCapacidadPagoes">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CapacidadPagoMaxima" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CapitalMasInteresessinIVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Frecuencia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:long" />
+      <xs:element minOccurs="0" name="InteresesconIVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="InteresessinIVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoComisionApertura" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoMaximoCredito" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="OPTIP_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Plazo" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="PlazoTotal" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PorcComisionApertura" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PorcTasaPlazoSinIVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PorcTasadeInteresAnual" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Producto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Riesgo" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="TIP_CREDITO" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TasaPlazoConIVA" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TotalaPagar" nillable="true" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CargaTiposCreditoCapacidadPagoes" nillable="true" type="tns:CargaTiposCreditoCapacidadPagoes" />
+</xs:schema>

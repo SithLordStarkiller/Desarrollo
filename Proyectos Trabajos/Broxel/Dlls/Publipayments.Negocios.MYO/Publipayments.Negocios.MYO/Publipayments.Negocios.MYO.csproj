@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3AF3ED83-5E72-4409-9EDF-EADB64315CDD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Publipayments.Negocios.MYO</RootNamespace>
+    <AssemblyName>Publipayments.Negocios.MYO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cobranza.cs" />
+    <Compile Include="Loan.cs" />
+    <Compile Include="CorreosMyo.cs" />
+    <Compile Include="MovimientosOrdenesMyo.cs" />
+    <Compile Include="Notificaciones.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenciasModel.cs" />
+    <Compile Include="Service References\NotificacionesWebServices\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WSCreditosMyo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ValidaDocumentos.cs" />
+    <Compile Include="ValidaReferencias.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PubliPayments.Utiles\PubliPayments.Utiles.csproj">
+      <Project>{549FAED2-8D20-4116-BAED-AAD8FB2E3D7C}</Project>
+      <Name>PubliPayments.Utiles</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PubliPayments.Entidades.MYO\PubliPayments.Entidades.MYO\PubliPayments.Entidades.MYO.csproj">
+      <Project>{04e020dc-a7e2-458e-b020-7c81374fcdca}</Project>
+      <Name>PubliPayments.Entidades.MYO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Entidades\PubliPayments.Entidades.csproj">
+      <Project>{0631a9f7-6889-42fe-a703-527100e6368c}</Project>
+      <Name>PubliPayments.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Negocios\PubliPayments.Negocios.csproj">
+      <Project>{B8D6CC17-BA3F-49BC-967E-F0995B6FFF7B}</Project>
+      <Name>PubliPayments.Negocios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Utiles\PubliPayments.Utiles.csproj">
+      <Project>{549FAED2-8D20-4116-BAED-AAD8FB2E3D7C}</Project>
+      <Name>PubliPayments.Utiles</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NotificacionesWebServices\NotificacionesWebServices.wsdl" />
+    <None Include="Service References\NotificacionesWebServices\NotificacionesWebServices.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NotificacionesWebServices\NotificacionesWebServices1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NotificacionesWebServices\NotificacionesWebServices2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\NotificacionesWebServices\Publipayments.Negocios.MYO.NotificacionesWebServices.NotificacionModel.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Creditos.wsdl" />
+    <None Include="Service References\WSCreditosMyo\Creditos.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Creditos1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Creditos2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Creditos3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WSCreditosMyo\CreditosOP.wsdl" />
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.AperturaCreditoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CargaTiposCreditoCapacidadPagoes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_AGENCIAS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_GRUPO_RUBRO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_MONEDAS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_NIVELES_APROBACION.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_PRODUCTOS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_TIPOS_GARANTIA.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CAT_TIPOS_PLAZOS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CG_ASTO_DETALLE.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.CG_ASTO_RESUMEN.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.OP_CARGOS_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.OP_CUENTAS_CONCEPTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.OP_MOVIMIENTOS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.OP_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.OP_TIPO_GARAN_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PagosCredito.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_CARGOS_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_GetAllAdeudosResumen_Result1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_ORIGEN_FONDOS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_PLAN_INVERSION.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_REQUISITOS.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_REQ_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_RUBRO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_RUBRO_X_TIP_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_TIPO_CREDITO_OTRO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_TIPO_CREDITO_REFUND.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_TIPO_CREDITO_RESTRICCIONES.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.PR_TIPO_GARAN_TIPO_CREDITO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.vw_OP_Lineas_Credito.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WSCreditosMyo\Publipayments.Negocios.MYO.WSCreditosMyo.vw_PlanPagos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\NotificacionesWebServices\" />
+    <WCFMetadataStorage Include="Service References\WSCreditosMyo\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WSCreditosMyo\Creditos.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WSCreditosMyo\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WSCreditosMyo\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WSCreditosMyo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificacionesWebServices\NotificacionesWebServices.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificacionesWebServices\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificacionesWebServices\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\NotificacionesWebServices\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,23 @@
+﻿@using System.Globalization
+@using System.Text
+@using System.Web.UI.WebControls
+@Html.DevExpress().PageControl(settings =>
+        {
+            settings.Name = "pcRanking";
+            settings.Width = Unit.Percentage(85);         
+
+            settings.CallbackRouteValues = new { Controller = "RankingPorIndicador", Action = "tabPartial",tipoDashboard=ViewData["tipoDashboard"]};
+            settings.TabPosition = TabPosition.Left;
+            settings.Styles.Tab.Height = Unit.Pixel(40);
+            settings.Styles.Tab.Paddings.PaddingTop = Unit.Pixel(10);
+    
+            foreach (var item in Model)
+            {
+                var contenido = new StringBuilder();
+                contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;' id='divRenderTabla'>");
+                contenido.Append("<input  type='hidden' value='" + item.Clave + "' />");
+                contenido.Append("</div>");
+                settings.TabPages.Add(item.Descripcion.ToString(CultureInfo.InvariantCulture)).SetContent(contenido.ToString());
+            }
+            settings.ClientSideEvents.ActiveTabChanged = "cambiaTab";
+        }).GetHtml()

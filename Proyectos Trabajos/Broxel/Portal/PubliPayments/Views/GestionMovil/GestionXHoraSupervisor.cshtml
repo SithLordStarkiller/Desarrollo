@@ -1,0 +1,77 @@
+﻿@model System.Data.DataTable
+@using System.Globalization
+@using System.Web.UI.WebControls
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "GestionXHora_"+ViewData["despacho"]+"_"+ViewData["supervisor"];
+        settings.Width = Unit.Percentage(90);
+        settings.CallbackRouteValues = new {Controller = "GestionMovil", Action = "GestionXHoraSupervisor", 
+                                            delegacion = ViewData["delegacion"],
+                                            fechaCarga = ViewData["fechaCarga"],
+                                            resFinal = ViewData["resFinal"],
+                                            diaGestion = ViewData["diaGestion"],
+                                            despacho = ViewData["despacho"],
+                                            supervisor = ViewData["supervisor"],
+                                            tipoFormulario = ViewData["tipoFormulario"]
+        };
+        
+        settings.KeyFieldName = "idUsuario";
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.HeaderFilterMaxRowCount = 50;
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Usuario";
+            column.Caption = @"Usuario";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Gestor";
+            column.Caption = @"Gestor";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+        
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Sin fecha de gestion";
+            column.Caption = @"Sin fecha de gestión";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+
+        var columnas = (string[])ViewData["listaColumnas"];
+        for (var i=0;i<(columnas.Length-1);i++)
+        {
+           var i1 = i;
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Valor" + columnas[i1];
+                column.Caption = columnas[i1].ToString(CultureInfo.InvariantCulture);
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+            });
+
+        }
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Total";
+            column.Caption = @"Total";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+    
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        
+        settings.Init = (sender, e) =>
+        {
+            var grid = (MVCxGridView)sender;
+            grid.DetailRowGetButtonVisibility += (s, ea) =>
+            {
+                if (ea.KeyValue != null && ea.KeyValue != DBNull.Value)
+                {
+                    ea.ButtonState = (string)ea.KeyValue == "0" ? GridViewDetailRowButtonState.Hidden : GridViewDetailRowButtonState.Visible;
+                }
+            };
+        };
+    }).Bind(Model).GetHtml()

@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B8D6CC17-BA3F-49BC-967E-F0995B6FFF7B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PubliPayments.Negocios</RootNamespace>
+    <AssemblyName>PubliPayments.Negocios</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OriginacionMovil|AnyCPU'">
+    <OutputPath>bin\OriginacionMovil\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PubliPaymentsTest|AnyCPU'">
+    <OutputPath>bin\PubliPaymentsTest\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'PortalPPTest|AnyCPU' ">
+    <OutputPath>bin\PortalPPSitioTest\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PublipaymentsCapacitacion|AnyCPU'">
+    <OutputPath>bin\PublipaymentsCapacitacion\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'OriginacionMovilTest|AnyCPU'">
+    <OutputPath>bin\OriginacionMovilTest\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SiraComercial|AnyCPU'">
+    <OutputPath>bin\SiraComercial\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'SIRA|AnyCPU'">
+    <OutputPath>bin\SIRA\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PPMTest|AnyCPU'">
+    <OutputPath>bin\PPMTest\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'portalPPMTest|AnyCPU'">
+    <OutputPath>bin\portalPPMTest\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Portal\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\Portal\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\Portal\packages\DotNetZip.1.9.3\lib\net20\Ionic.Zip.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="iTextSharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <HintPath>..\..\Portal\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Renci.SshNet">
+      <HintPath>..\..\packages\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Portal\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Portal\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminDespacho.cs" />
+    <Compile Include="AdministradorDesarrollo.cs" />
+    <Compile Include="ArchivosN.cs" />
+    <Compile Include="Auditoria.cs" />
+    <Compile Include="BloqueoConcurrencia.cs" />
+    <Compile Include="BuscarOrdenes.cs" />
+    <Compile Include="camposRespuestas.cs" />
+    <Compile Include="CatalogoGeneral.cs" />
+    <Compile Include="NegocioDashboard.cs" />
+    <Compile Include="EnvioSMS.cs" />
+    <Compile Include="Filtros.cs" />
+    <Compile Include="Formularios.cs" />
+    <Compile Include="Gestiones.cs" />
+    <Compile Include="GestionMovil.cs" />
+    <Compile Include="HtmlMaxImageExtension.cs" />
+    <Compile Include="Imagenes.cs" />
+    <Compile Include="LlamadasSinExitos.cs" />
+    <Compile Include="MensajesFormiik.cs" />
+    <Compile Include="Orden.cs" />
+    <Compile Include="ParseXmlAsignacion.cs" />
+    <Compile Include="ProcesarOcr.cs" />
+    <Compile Include="ProcesarTelefonos.cs" />
+    <Compile Include="ProcesoMonitor.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RegistroUsuario.cs" />
+    <Compile Include="ReporteGeneral.cs" />
+    <Compile Include="Reportes.cs" />
+    <Compile Include="Respuesta.cs" />
+    <Compile Include="Service References\ServicioOCR\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WebServiceFmk\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\WebServicePe\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsGestiones\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsSms\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ModelServiciosExternos.cs" />
+    <Compile Include="SFTP.cs" />
+    <Compile Include="NegocioUsuario.cs" />
+    <Compile Include="Usuarios.cs" />
+    <Compile Include="UsuariosServicios.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dlls\PubliPayments.Entidades\PubliPayments.Entidades.csproj">
+      <Project>{0631a9f7-6889-42fe-a703-527100e6368c}</Project>
+      <Name>PubliPayments.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PubliPayments.Utiles\PubliPayments.Utiles.csproj">
+      <Project>{549faed2-8d20-4116-baed-aad8fb2e3d7c}</Project>
+      <Name>PubliPayments.Utiles</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicioOCR\PubliPayments.Negocios.ServicioOCR.RespuestaOcr.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ServicioOCR\ServicioReconocimientoCaracteres.wsdl" />
+    <None Include="Service References\ServicioOCR\ServicioReconocimientoCaracteres.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioOCR\ServicioReconocimientoCaracteres1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicioOCR\ServicioReconocimientoCaracteres2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebServiceFmk\BackEnd.wsdl">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebServiceFmk\BackEnd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebServiceFmk\BackEnd1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebServiceFmk\BackEnd2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebServiceFmk\BackEnd3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\WebServicePe\PubliPayments.Negocios.WebServicePe.Respuesta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\WebServicePe\SolicitudSira.wsdl" />
+    <None Include="Service References\wsGestiones\WSCSIBM.wsdl" />
+    <None Include="Service References\wsSms\PubliPayments.Negocios.wsSms.Respuesta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\wsSms\ServicioSMS1.wsdl" />
+    <None Include="Service References\wsSms\ServicioSMS3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSms\ServicioSMS31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSms\ServicioSMS32.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ServicioOCR\" />
+    <WCFMetadataStorage Include="Service References\WebServiceFmk\" />
+    <WCFMetadataStorage Include="Service References\WebServicePe\" />
+    <WCFMetadataStorage Include="Service References\wsGestiones\" />
+    <WCFMetadataStorage Include="Service References\wsSms\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\wsGestiones\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\wsGestiones\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\wsGestiones\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WebServiceFmk\BackEnd.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WebServiceFmk\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WebServiceFmk\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\WebServiceFmk\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dlls\Renci.SshNet.dll" />
+    <None Include="Service References\wsSms\ServicioSMS1.disco" />
+    <None Include="Service References\ServicioOCR\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServicioOCR\configuration.svcinfo" />
+    <None Include="Service References\ServicioOCR\configuration91.svcinfo" />
+    <None Include="Service References\ServicioOCR\ServicioReconocimientoCaracteres.disco" />
+    <None Include="Service References\WebServicePe\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\WebServicePe\configuration.svcinfo" />
+    <None Include="Service References\WebServicePe\configuration91.svcinfo" />
+    <None Include="Service References\wsSms\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\wsSms\configuration.svcinfo" />
+    <None Include="Service References\wsSms\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="BackEnd" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_IBackEnd1_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="https://cloudnubiik.cloudapp.net:8084/BackEnd.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="https://cloudnubiik.cloudapp.net:8084/BackEnd.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="https://cloudnubiik.cloudapp.net:8084/BackEnd.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Emlink.Pitzotl.BackEndPipe.DataContracts" />
+      <xsd:import schemaLocation="https://cloudnubiik.cloudapp.net:8084/BackEnd.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IBackEnd_AddNewWorkOrderToUserName_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewWorkOrderToUserName" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_AddNewWorkOrderToUserName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddNewWorkOrderToUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_AddWorkOrdersXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorkOrdersXML" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_AddWorkOrdersXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorkOrdersXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_AddWorkOrdersXMLId_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorkOrdersXMLId" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_AddWorkOrdersXMLId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorkOrdersXMLIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_ReassignWorkOrdersXMLId_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReassignWorkOrdersXMLId" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_ReassignWorkOrdersXMLId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReassignWorkOrdersXMLIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_ReassignWorkOrdersXMLIdSync_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReassignWorkOrdersXMLIdSync" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_ReassignWorkOrdersXMLIdSync_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReassignWorkOrdersXMLIdSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrder_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrder" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersXML" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersXMLId_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersXMLId" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersXMLId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersXMLIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersByUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersByUser" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersByUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersByUser_FormiikOperationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Emlink.Pitzotl.BackEndPipe.DataContracts" name="detail" element="q1:FormiikOperationFault" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersByDateRange_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersByDateRange" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersByDateRange_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelWorkOrdersByDateRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CancelWorkOrdersByDateRange_FormiikOperationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/Emlink.Pitzotl.BackEndPipe.DataContracts" name="detail" element="q2:FormiikOperationFault" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_UpdateWorkOrdersXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkOrdersXML" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_UpdateWorkOrdersXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkOrdersXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_UpdateWorkOrdersXMLId_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkOrdersXMLId" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_UpdateWorkOrdersXMLId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkOrdersXMLIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CleanAttachments_InputMessage">
+    <wsdl:part name="parameters" element="tns:CleanAttachments" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_CleanAttachments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CleanAttachmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetWorkOrderHistoryByExternalIds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkOrderHistoryByExternalIds" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetWorkOrderHistoryByExternalIds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkOrderHistoryByExternalIdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetWorkOrdersStateByExternalIds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkOrdersStateByExternalIds" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetWorkOrdersStateByExternalIds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetWorkOrdersStateByExternalIdsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetWorkOrdersStateByExternalIds_FormiikOperationFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/Emlink.Pitzotl.BackEndPipe.DataContracts" name="detail" element="q3:FormiikOperationFault" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_QueueMessageToUserName_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueueMessageToUserName" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_QueueMessageToUserName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueueMessageToUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_QueueMessageToUserNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueueMessageToUserNames" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_QueueMessageToUserNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueueMessageToUserNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetUserActivity_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserActivity" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetUserActivity_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserActivityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_DeleteUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUsers" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_DeleteUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetUserCatalogs_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetUserCatalogs" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetUserCatalogs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetUserCatalogsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetGroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetGroup" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetGroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetUsersGroups_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetUsersGroups" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetUsersGroups_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetUsersGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetUser" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SetUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_DeleteUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_DeleteUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetUsersLastLoginAndVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersLastLoginAndVersion" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetUsersLastLoginAndVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersLastLoginAndVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetResponses_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetResponses" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetResponses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetResponsesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_DeleteResponses_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteResponses" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_DeleteResponses_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteResponsesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetSecurityToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSecurityToken" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetSecurityToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSecurityTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetLatitudeAndLongitude_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLatitudeAndLongitude" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_GetLatitudeAndLongitude_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLatitudeAndLongitudeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SendWorkOrderToClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendWorkOrderToClient" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_SendWorkOrderToClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendWorkOrderToClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_ReporteErrores_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteErrores" />
+  </wsdl:message>
+  <wsdl:message name="IBackEnd_ReporteErrores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReporteErroresResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IBackEnd">
+    <wsdl:operation name="AddNewWorkOrderToUserName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/AddNewWorkOrderToUserName" message="tns:IBackEnd_AddNewWorkOrderToUserName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/AddNewWorkOrderToUserNameResponse" message="tns:IBackEnd_AddNewWorkOrderToUserName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkOrdersXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/AddWorkOrdersXML" message="tns:IBackEnd_AddWorkOrdersXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/AddWorkOrdersXMLResponse" message="tns:IBackEnd_AddWorkOrdersXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkOrdersXMLId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/AddWorkOrdersXMLId" message="tns:IBackEnd_AddWorkOrdersXMLId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/AddWorkOrdersXMLIdResponse" message="tns:IBackEnd_AddWorkOrdersXMLId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReassignWorkOrdersXMLId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLId" message="tns:IBackEnd_ReassignWorkOrdersXMLId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLIdResponse" message="tns:IBackEnd_ReassignWorkOrdersXMLId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReassignWorkOrdersXMLIdSync">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLIdSync" message="tns:IBackEnd_ReassignWorkOrdersXMLIdSync_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLIdSyncResponse" message="tns:IBackEnd_ReassignWorkOrdersXMLIdSync_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrder" message="tns:IBackEnd_CancelWorkOrder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrderResponse" message="tns:IBackEnd_CancelWorkOrder_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersXML" message="tns:IBackEnd_CancelWorkOrdersXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersXMLResponse" message="tns:IBackEnd_CancelWorkOrdersXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersXMLId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersXMLId" message="tns:IBackEnd_CancelWorkOrdersXMLId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersXMLIdResponse" message="tns:IBackEnd_CancelWorkOrdersXMLId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersByUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersByUser" message="tns:IBackEnd_CancelWorkOrdersByUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersByUserResponse" message="tns:IBackEnd_CancelWorkOrdersByUser_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersByUserFormiikOperationFaultFault" name="FormiikOperationFaultFault" message="tns:IBackEnd_CancelWorkOrdersByUser_FormiikOperationFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersByDateRange">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersByDateRange" message="tns:IBackEnd_CancelWorkOrdersByDateRange_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersByDateRangeResponse" message="tns:IBackEnd_CancelWorkOrdersByDateRange_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBackEnd/CancelWorkOrdersByDateRangeFormiikOperationFaultFault" name="FormiikOperationFaultFault" message="tns:IBackEnd_CancelWorkOrdersByDateRange_FormiikOperationFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkOrdersXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/UpdateWorkOrdersXML" message="tns:IBackEnd_UpdateWorkOrdersXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/UpdateWorkOrdersXMLResponse" message="tns:IBackEnd_UpdateWorkOrdersXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkOrdersXMLId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/UpdateWorkOrdersXMLId" message="tns:IBackEnd_UpdateWorkOrdersXMLId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/UpdateWorkOrdersXMLIdResponse" message="tns:IBackEnd_UpdateWorkOrdersXMLId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CleanAttachments">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/CleanAttachments" message="tns:IBackEnd_CleanAttachments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/CleanAttachmentsResponse" message="tns:IBackEnd_CleanAttachments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrderHistoryByExternalIds">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetWorkOrderHistoryByExternalIds" message="tns:IBackEnd_GetWorkOrderHistoryByExternalIds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetWorkOrderHistoryByExternalIdsResponse" message="tns:IBackEnd_GetWorkOrderHistoryByExternalIds_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrdersStateByExternalIds">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetWorkOrdersStateByExternalIds" message="tns:IBackEnd_GetWorkOrdersStateByExternalIds_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetWorkOrdersStateByExternalIdsResponse" message="tns:IBackEnd_GetWorkOrdersStateByExternalIds_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBackEnd/GetWorkOrdersStateByExternalIdsFormiikOperationFaultFault" name="FormiikOperationFaultFault" message="tns:IBackEnd_GetWorkOrdersStateByExternalIds_FormiikOperationFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QueueMessageToUserName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/QueueMessageToUserName" message="tns:IBackEnd_QueueMessageToUserName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/QueueMessageToUserNameResponse" message="tns:IBackEnd_QueueMessageToUserName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QueueMessageToUserNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/QueueMessageToUserNames" message="tns:IBackEnd_QueueMessageToUserNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/QueueMessageToUserNamesResponse" message="tns:IBackEnd_QueueMessageToUserNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserActivity">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetUserActivity" message="tns:IBackEnd_GetUserActivity_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetUserActivityResponse" message="tns:IBackEnd_GetUserActivity_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/DeleteUsers" message="tns:IBackEnd_DeleteUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/DeleteUsersResponse" message="tns:IBackEnd_DeleteUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUserCatalogs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/SetUserCatalogs" message="tns:IBackEnd_SetUserCatalogs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/SetUserCatalogsResponse" message="tns:IBackEnd_SetUserCatalogs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetGroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/SetGroup" message="tns:IBackEnd_SetGroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/SetGroupResponse" message="tns:IBackEnd_SetGroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUsersGroups">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/SetUsersGroups" message="tns:IBackEnd_SetUsersGroups_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/SetUsersGroupsResponse" message="tns:IBackEnd_SetUsersGroups_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/SetUser" message="tns:IBackEnd_SetUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/SetUserResponse" message="tns:IBackEnd_SetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/DeleteUser" message="tns:IBackEnd_DeleteUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/DeleteUserResponse" message="tns:IBackEnd_DeleteUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersLastLoginAndVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetUsersLastLoginAndVersion" message="tns:IBackEnd_GetUsersLastLoginAndVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetUsersLastLoginAndVersionResponse" message="tns:IBackEnd_GetUsersLastLoginAndVersion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResponses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetResponses" message="tns:IBackEnd_GetResponses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetResponsesResponse" message="tns:IBackEnd_GetResponses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteResponses">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/DeleteResponses" message="tns:IBackEnd_DeleteResponses_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/DeleteResponsesResponse" message="tns:IBackEnd_DeleteResponses_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSecurityToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetSecurityToken" message="tns:IBackEnd_GetSecurityToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetSecurityTokenResponse" message="tns:IBackEnd_GetSecurityToken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLatitudeAndLongitude">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/GetLatitudeAndLongitude" message="tns:IBackEnd_GetLatitudeAndLongitude_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/GetLatitudeAndLongitudeResponse" message="tns:IBackEnd_GetLatitudeAndLongitude_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkOrderToClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/SendWorkOrderToClient" message="tns:IBackEnd_SendWorkOrderToClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/SendWorkOrderToClientResponse" message="tns:IBackEnd_SendWorkOrderToClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReporteErrores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBackEnd/ReporteErrores" message="tns:IBackEnd_ReporteErrores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBackEnd/ReporteErroresResponse" message="tns:IBackEnd_ReporteErrores_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IBackEnd" type="tns:IBackEnd">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewWorkOrderToUserName">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/AddNewWorkOrderToUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkOrdersXML">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/AddWorkOrdersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/AddWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignWorkOrdersXMLIdSync">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLIdSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrder">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersXML">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersByUser">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FormiikOperationFaultFault">
+        <soap:fault use="literal" name="FormiikOperationFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersByDateRange">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersByDateRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FormiikOperationFaultFault">
+        <soap:fault use="literal" name="FormiikOperationFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkOrdersXML">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/UpdateWorkOrdersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/UpdateWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CleanAttachments">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CleanAttachments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrderHistoryByExternalIds">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetWorkOrderHistoryByExternalIds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrdersStateByExternalIds">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetWorkOrdersStateByExternalIds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FormiikOperationFaultFault">
+        <soap:fault use="literal" name="FormiikOperationFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="QueueMessageToUserName">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/QueueMessageToUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueueMessageToUserNames">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/QueueMessageToUserNames" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserActivity">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetUserActivity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsers">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/DeleteUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserCatalogs">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetUserCatalogs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGroup">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUsersGroups">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetUsersGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUser">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersLastLoginAndVersion">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetUsersLastLoginAndVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResponses">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetResponses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteResponses">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/DeleteResponses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSecurityToken">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetSecurityToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatitudeAndLongitude">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetLatitudeAndLongitude" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkOrderToClient">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SendWorkOrderToClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteErrores">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/ReporteErrores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IBackEnd1" type="tns:IBackEnd">
+    <wsp:PolicyReference URI="#BasicHttpBinding_IBackEnd1_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AddNewWorkOrderToUserName">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/AddNewWorkOrderToUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkOrdersXML">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/AddWorkOrdersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/AddWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReassignWorkOrdersXMLIdSync">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/ReassignWorkOrdersXMLIdSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrder">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersXML">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersByUser">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FormiikOperationFaultFault">
+        <soap:fault use="literal" name="FormiikOperationFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CancelWorkOrdersByDateRange">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CancelWorkOrdersByDateRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FormiikOperationFaultFault">
+        <soap:fault use="literal" name="FormiikOperationFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkOrdersXML">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/UpdateWorkOrdersXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkOrdersXMLId">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/UpdateWorkOrdersXMLId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CleanAttachments">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/CleanAttachments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrderHistoryByExternalIds">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetWorkOrderHistoryByExternalIds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWorkOrdersStateByExternalIds">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetWorkOrdersStateByExternalIds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FormiikOperationFaultFault">
+        <soap:fault use="literal" name="FormiikOperationFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="QueueMessageToUserName">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/QueueMessageToUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueueMessageToUserNames">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/QueueMessageToUserNames" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserActivity">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetUserActivity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUsers">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/DeleteUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUserCatalogs">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetUserCatalogs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetGroup">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUsersGroups">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetUsersGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetUser">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteUser">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/DeleteUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersLastLoginAndVersion">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetUsersLastLoginAndVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResponses">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetResponses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteResponses">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/DeleteResponses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSecurityToken">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetSecurityToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLatitudeAndLongitude">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/GetLatitudeAndLongitude" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendWorkOrderToClient">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/SendWorkOrderToClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReporteErrores">
+      <soap:operation soapAction="http://tempuri.org/IBackEnd/ReporteErrores" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BackEnd">
+    <wsdl:port name="BasicHttpBinding_IBackEnd" binding="tns:BasicHttpBinding_IBackEnd">
+      <soap:address location="http://cloudnubiik.cloudapp.net:8081/BackEnd.svc" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IBackEnd1" binding="tns:BasicHttpBinding_IBackEnd1">
+      <soap:address location="https://cloudnubiik.cloudapp.net:8084/BackEnd.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

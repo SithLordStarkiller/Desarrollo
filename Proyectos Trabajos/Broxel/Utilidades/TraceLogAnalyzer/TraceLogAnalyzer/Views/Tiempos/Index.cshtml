@@ -1,0 +1,55 @@
+﻿@model IEnumerable<TraceLogAnalyzer.Models.TiempoModel>
+
+@{
+    ViewBag.Title = "Tiempos";
+}
+
+<h2>Tiempos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Origen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GUID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Diferencia)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Origen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GUID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Inicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Diferencia)
+            </td>
+        </tr>
+    }
+
+
+</table>
+<div>
+    <p>Tiempo en el acceso a datos: @ViewBag.TiempoBase</p>
+    <p>Tiempo en la generación de registros: @ViewBag.TiempoTotal</p>
+</div>

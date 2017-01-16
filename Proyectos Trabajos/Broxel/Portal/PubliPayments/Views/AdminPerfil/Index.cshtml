@@ -1,0 +1,226 @@
+﻿@model PubliPayments.Models.AdminPerfilModel
+@{
+    ViewBag.Title = "Index";
+}
+<script src="/Scripts/restrictors.js?version=3.0"></script>
+<script>
+    /*-Inicio- Validadores y restricciones*/
+    function ValidateEmpty(toValidate) {
+        var valid = false;
+        $.each(toValidate, function (key, value) {
+            if ($.trim(value.value) == "")
+                valid = true;
+        });
+        return valid;
+    }
+    function validatePass(evt) {
+        if (evt.charCode == 34 || evt.charCode == 39 || evt.charCode == 44 || evt.charCode == 47 || evt.charCode == 60 || evt.charCode == 62 || evt.charCode == 92) {
+            return false;
+        }
+        return true;
+    }
+
+    function updateTips(t) {
+        $("#Mensaje").html(t);
+        $("#Mensaje").show();
+        setTimeout(function () { $("#Mensaje").hide(); }, 6000);
+    }
+    /*-Fin- Validadores y restricciones*/
+    $(document).ready(function () {
+        $(document).keypress(function (e) {
+            if (e.keyCode == 13) { return false; }
+            return true;
+        });
+        $("input:text,input:password").bind("contextmenu", function (e) {
+            return false;
+        });
+        var mostrarMensaje = false;
+        if ($("#lblInformacion").html().trim() != "") {
+            $("#Mensaje").text($("#lblInformacion").html());
+            $("#Mensaje").show();
+        }
+        $($("#AuNuevoPassword,#AuConfirmarPassword")).blur(function () {
+            if ($(this).val() != "") {
+                if (validatePassU($(this))) {
+                    updateTips("Nueva contraseña invalida");
+                }
+            }
+        });
+
+        $("#btActualizar").click(function () {
+            mostrarMensaje = false;
+            if (ValidateEmpty($("#AuPassword"))) {
+                updateTips("Ingresar contraseña actual para validar");
+                mostrarMensaje = true;
+            }
+            //else {
+            //    if (validatePassU($("#<= AUPassword.ClientID%>"))) {   ////al descomentar le falta el %
+            //        updateTips("Contraseña actual invalida");
+            //        mostrarMensaje = true;
+            //    }
+            //}
+
+            var pass1 = $("#AuNuevoPassword").val();
+            var pass2 = $("#AuConfirmarPassword").val();
+            var kk = $("#AuNuevoPassword").val() != $("#AuConfirmarPassword").val() && !mostrarMensaje;
+            if ($("#AuNuevoPassword").val() != $("#AuConfirmarPassword").val() && !mostrarMensaje) {
+                updateTips("La nueva Contraseña y la confirmación no coincide");
+                mostrarMensaje = true;
+            }
+            if ($.trim($("#AuNuevoPassword").val()) != "" && $.trim($("#AuConfirmarPassword").val()) != "" && !mostrarMensaje) {
+                if (validatePassU($("#AuNuevoPassword")) && validatePassU($("#AuConfirmarPassword"))) {
+                    updateTips("Nueva contraseña invalida");
+                    mostrarMensaje = true;
+                }
+            }
+            if (!mostrarMensaje) {
+                LimpiarBloqueoMultiplesClicks(this);
+
+                if (BloquearMultiplesClicks(this)) {
+                    var modelo =
+                    {
+                        AuNombre: $("#AuNombre").val(),
+                        AuPassword: $("#AuPassword").val(),
+                        AuEmail: $("#AuEmail").val(),
+                        AuNuevoPassword: $("#AuNuevoPassword").val(),
+                        AuConfirmarPassword: $("#AuConfirmarPassword").val()
+                    };
+
+                    $.ajax({
+                        url: '/AdminPerfil/ActualizarPerfil',
+                        type: 'POST',
+                        data: JSON.stringify(modelo),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (response) {
+                            updateTips(response);
+                            $.ajax({
+                                url: '/AdminPerfil/ObtieneUsuario',
+                                type: 'POST',
+                                contentType: "application/json; charset=utf-8",
+                                success: function (response) {
+                                    var data = JSON.parse(response);
+                                    $("#AuUsuario").val(data.Usuario);
+                                    $("#AuNombre").val(data.Nombre);
+                                    $("#AuEmail").val(data.Email);
+                                }
+                            });
+                            mostrarMensaje = true;
+                        },
+                        error: function (msg, text, thrown) {
+                            alert("Error - " + msg + text + thrown);
+                        }
+                    });
+
+                    $("#AuPassword").val('');
+                    $("#AuNuevoPassword").val('');
+                    $("#AuConfirmarPassword").val('');
+
+                    return false;
+                }
+            }
+            return false;
+        });
+    });
+</script>
+<style type="text/css">
+    .ActualizarUsuario {
+        Width: 440px;
+        margin-top: 30px;
+        margin-left: 35%;
+    }
+
+    #AUContent {
+        border: 1px #666666 solid;
+    }
+
+    .DivbtActualizar {
+        margin-top: 20px;
+    }
+
+    .TituloAU {
+        font: 20px 'Open Sans', sans-serif;
+        color: #666666;
+        text-align: left;
+        height: 36px;
+        display: inline-block;
+        width: 100%;
+        vertical-align: middle;
+        background-color: #FAFAFA;
+    }
+
+    #lblInformacion, #Mensaje {
+        display: none;
+        padding-top: 10px;
+        height: 30px;
+        margin-left: -7px;
+    }
+
+    #Mensaje {
+        display: none;
+        margin: -5px 0 0 0;
+        height: 20px;
+    }
+</style>
+@*@using (Html.BeginForm())
+    {*@
+<div id="ActualizarUsuario" class="ActualizarUsuario">
+    <div id="AUContent">
+        <div class="TituloAU"> &nbsp;Actualizar mi perfil</div>
+        <div style="background: #FFFFFF; padding: 30px; height: 394px">
+            <table id="Table1" style="padding-right: 0;">
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">Usuario</td>
+                    <td class="AlinearDerecha">
+                        @*<a alt="Usuario del sistema no editable"/>*@
+                            @Html.TextBoxFor(m => m.AuUsuario, new { @class = "Combos", @style = "width: 200px;", @maxlength = "50", @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">Nombre</td>
+                    <td class="AlinearDerecha">
+                        @*<a alt="Nombre de usuario no editable"/>*@
+                            @Html.TextBoxFor(m => m.AuNombre, new { @class = "Combos", @style = "width: 200px;", @maxlength = "30", onkeypress = "return validateString(event)" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">Email</td>
+                    <td class="AlinearDerecha">
+                        @*<a alt="ej: soporte@publipayments.com"/>*@
+                            @Html.TextBoxFor(m => m.AuEmail, new { @class = "Combos", @style = "width: 200px;", @maxlength = "50", onkeypress = " return validateString(event)" })
+                        
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">Nueva Contraseña</td>
+                    <td class="AlinearDerecha">
+                        @*<a alt="Al menos una letra minúscula (a-z), una letra mayúscula (A-Z) y un carácter numérico (0 - 9) o un carácter especial (# $ & / +). (No repetir contraseñas anteriores, longitud min 8 caracteres)"/>*@
+                            @Html.PasswordFor(m => m.AuNuevoPassword, new { @class = "Combos", @style = "width: 200px;", @maxlength = "20", onkeypress = "return validatePass(event)" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">Confirmar contraseña</td>
+                    <td class="AlinearDerecha">
+                        @*<a alt="Al menos una letra minúscula (a-z), una letra mayúscula (A-Z) y un carácter numérico (0 - 9) o un carácter especial (# $ & / +). (No repetir contraseñas anteriores, longitud min 8 caracteres)"/>*@
+                            @Html.PasswordFor(m => m.AuConfirmarPassword, new { @class = "Combos", @style = "width: 200px;", @maxlength = "20", onkeypress = "return validatePass(event)" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">Contraseña actual</td>
+                    <td class="AlinearDerecha">
+                        @*<a alt="Contraseña actual del sistema (obligatorio)"/>*@
+                            @Html.PasswordFor(m => m.AuPassword, new { @class = "Combos", @style = "width: 200px;", @maxlength = "20", onkeypress = "return validatePass(event)" })
+                    </td>
+                </tr>
+            </table>
+            <div style="height: 40px"><p id="Mensaje" class="MensajeAlerta"></p></div>
+            <label id="lblInformacion"></label>
+        </div>
+    </div>
+</div>
+<div class="DivbtActualizar">
+    <button id="btActualizar" class="Botones" style="Width: 200px; Height: 30px;">Actualizar</button>
+    @*<button id="btActualizarO" class="Botones Oculto" onclick=" btActualizarO_Click "></button>*@
+    @*<asp:Button runat="server" ID="btActualizarO" CssClass="Botones Oculto" OnClick="btActualizarO_Click" />*@
+</div>
+@*}*@
+

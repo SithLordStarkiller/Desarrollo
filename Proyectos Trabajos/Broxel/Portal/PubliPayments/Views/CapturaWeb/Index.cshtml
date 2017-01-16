@@ -1,0 +1,218 @@
+﻿@model PubliPayments.Models.CapturaWeb
+
+@{
+    ViewBag.Title = "Captura Web";
+}
+<script src="~/Scripts/restrictors.js?version=3.0"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/ScriptFormularioCSD.js?version=11.1"></script>
+<script src="~/Scripts/ScriptFormularioRDST.js?version=3.0"></script>
+<script src="~/Scripts/CapturaWeb.js?version=2.7"></script>
+<link rel="stylesheet" href="~/Content/themes/blitzer/jquery-ui-1.10.4.custom.css" />
+
+<div style="margin-left: 30px; position: relative">
+    <div class="TituloSeleccion" style="height: 63px; display: inline-block; vertical-align: middle; width: 100%;">
+        Captura Web
+        <img src="~/imagenes/separador.png" alt="|" style="margin-left: 15px; margin-right: 15px; position: relative; top: 10px;" />
+
+        <button id="btnLimpiar" style="margin-left: 30px; margin-bottom: 10px; height: 30px; width: 150px;" onclick="location.reload(); return BloquearMultiplesClicks(this);" class="Botones">Restablecer</button>
+    </div>
+    <div style="width: 204px; margin-left: -23px; "> @Html.Action("Index", "CtrlComboFormularios")</div>
+    <br/>
+    <div style="width:100%;overflow-x:auto">
+        @Html.Action("CapturaWebGridViewPartial")
+    </div>
+
+    @Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "popupGestionar";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.HeaderText = "Gestión";
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+    settings.SetContent(() => ViewContext.Writer.Write("<div id='divGestionar' style='width: 820px;height: 580px'></div>"));
+}).GetHtml()
+    
+    
+    @Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "QPagoTemp";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.HeaderText = "Calcular DCP";
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+    settings.SetContent(() => ViewContext.Writer.Write("<div id='QPagoTempDiv' style='width: 300px'> <div style='width: 100%; text-align: center;position: relative'><div id='QPagoTempHeader' style='height: 30px;margin: 20px 0px 25px 0px;'></div><button id='QPagoTempSi' style='height: 30px;width: 140px;margin-right: 20px;' class='Botones' onclick='QPagoTempSi()'>Si</button><button id='QPagoTempNo' style='height: 30px;width: 140px' class='Botones' onclick='QPagoTempNo()'>No</button><br/></div></div>"));
+}).GetHtml()
+
+
+    @*@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "ASPxPopupHintClientControl";
+    settings.ShowHeader = false;
+    settings.AllowDragging = false;
+    settings.EnableHotTrack = false;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Width = 250;
+    settings.PopupVerticalAlign = PopupVerticalAlign.Below;
+    
+    settings.SetContent(() => ViewContext.Writer.Write("<div id='HelpText' style='text-align: left; font: 12px 'Open Sans', sans-serif; color: white'>xxx</div>"));
+}).GetHtml()*@
+
+</div>
+
+<script>
+    var ordenActual = "0";
+    var currentDate = new Date();
+    var OPC_STM = "IM_OPC1_STM";
+    var creditoSeleccionado = "";
+    $.datepicker.regional['mx'] = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['mx']);
+
+    $("#CapturaWebGridView").on("click", ".idOrden a", function(e) {
+        e.preventDefault();
+        //$("#Mask").css('top', $(document).scrollTop().toString() + "px");
+        //$("#Mask").css('bottom', ($(document).scrollTop() * -1).toString() + "px");
+        $("#Mask").show();
+        var orden = ($(this).html());
+        creditoSeleccionado = $(this).parent().next().html();
+        ordenActual = orden;
+        currentDate = new Date();
+        $.ajax({
+            url: '/CapturaWeb/Gestionar',
+            type: 'GET',
+            data: {
+                credito: creditoSeleccionado
+            },
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            success: Gestionar,
+            error: function(msg, text, thrown) {
+                alert("error " + thrown);
+                $("#Mask").hide();
+            }
+        });
+    });
+
+    function Gestionar(response) {
+        if (response.toString().indexOf("</title>") > 0) {
+            window.location.reload();
+        }
+        $("#Mask").hide();
+        window.popupGestionar.Show();
+        $("#divGestionar").html(response);
+        $(".CWDisabled").attr("disabled", "true");
+        $('.CWReadonly').attr('readonly', true);
+        $(".CWHidden").hide();
+        setTimeout(function () {
+            if (Ruta == "CSD") { DicAplicaSMS(); }
+            if (Ruta == "OriginaPP") { inicial(); }
+            if (Ruta.toUpperCase() == "MYO") {
+                mostrarReferenciasAnteriores(); mostrarReferencias();
+            }
+        }, 100);
+        //AgregarAyuda();
+    }
+
+    function SubirArchivo(fileInput) {
+        if (window.File && window.FileList && window.FileReader) {
+            var files = document.getElementById(fileInput);
+            if (files != null) {
+                if (!files.files.length) {
+                    alert("Seleccione un archivo y luego precione el botón Subir.");
+                    return false;
+                }
+
+                $('#' + files.id + 'Url').val("");
+                $('#' + files.id + 'OKImg').css("visibility", "hidden");
+
+                var file = files.files[0];
+                var fileReader = new FileReader();
+                fileReader.onload = function(f) {
+                    $.ajax({
+                        type: "POST",
+                        url: "@Url.Action("Upload", "CapturaWeb")",
+                        data: {
+                            'credito': creditoSeleccionado,
+                            'campo': fileInput,
+                            'contenido': f.target.result,
+                            'guid': window.ImagenGuid
+                        },
+                        success: function(result) {
+                            if (result.substring(0, 2) == "OK") {
+                                $('#' + files.id + 'Url').val(result.substring(3));
+                                $('#' + files.id + 'OKImg').css("visibility", "visible");
+                            } else {
+                                alert("Ocurrió un error al intentar subir el achivo. Intente nuevamente mas tarde. Si el problema continua intente recargar la página, disculpe las molestias que esto le pueda ocasionar.");
+                            }
+                        },
+                        error: function(msg) {
+                            alert(msg);
+                        }
+                    });
+                }
+                fileReader.readAsDataURL(file);
+            } else {
+                alert('No se encontró el archivo. Intente recargar la página y/o borrar el cache de su navegador.');
+            }
+        } else {
+            alert('Su navegador no es compatible con la carga de archivos de HTML5, por favor actualícelo e intente nuevamente.');
+        }
+        return false;
+    }
+
+    var ingtotalesDcp = 0, gastos = 0, fm = 0, ft = 0, salarioMinimo = 0, segDanAct = 0, segDanOms = 0, pagotemp = 0, factorFinal = 0;
+
+    //function AgregarAyuda() {
+    //    var $numericos = $("input[validacion^='^[0123456789]']");
+    //    var $textos = $("input[validacion^='^[abc']");
+    //    var $correo = $("input[validacion^='[a-zA-Z0-9._-]']");
+
+    //    $numericos.each(function(i) {
+    //        var txtVal = $(this).attr("validacion");
+    //        var limites = txtVal.substring(txtVal.indexOf('{') + 1, txtVal.indexOf('}')).split(',');
+    //        $(this).addClass("HelpText");
+    //        var mensaje = limites[0] == limites[1] ? limites[0] + " caracteres numéricos (0-9)" : "Almenos " + limites[0] + " caracteres numéricos (0-9) con un máximo de " + limites[1]+".";
+    //        $(this).attr("helptext", mensaje);
+    //    });
+    //    $textos.each(function (i) {
+    //        var txtVal = $(this).attr("validacion");
+    //        var limites = txtVal.substring(txtVal.indexOf('{') + 1, txtVal.indexOf('}')).split(',');
+    //        $(this).addClass("HelpText");
+    //        var mensaje = (limites[0] !="0"? "Almenos " + limites[0] :"")+" letras mayusculas (A-Z), minusculas (a-z), numeros (0-9), con un máximo de " + limites[1] +" caracteres.";
+    //        $(this).attr("helptext", mensaje);
+    //    });
+    //    $correo.each(function (i) {
+    //        var txtVal = $(this).attr("validacion");
+    //        var limites = txtVal.substring(txtVal.indexOf('{') + 1, txtVal.indexOf('}')).split(',');
+    //        $(this).addClass("HelpText");
+    //        var mensaje = "ej: soporte@publipayments.com";
+    //        $(this).attr("helptext", mensaje);
+    //    });
+
+    //}
+    function funcionFinal() { }
+</script>

@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/OrdenesController.js?version=1.2"></script>
+<script src="~/Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="~/Styles/lightbox.css">
+
+<style>
+    .lb-outerContainer {
+        height: 85% !important;
+    }
+
+    .lightbox .lb-image {
+        height: 640px !important;
+        width: 480px !important;
+    }
+
+    #tablaRespuesta {
+        width: 820px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+        border-collapse: collapse !important;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+</style>
+
+<script>
+    function Asignar(idOrden) {
+        $.ajax({
+            url: "Asignacion",
+            type: 'POST',
+            dataType: "html",
+            cache: false,
+            traditional: true,
+            data: {
+                "idOrden": idOrden
+            },
+            success: function (response) {
+                alert(response);
+            },
+            error: function (msg, text, thrown) {
+                alert("error " + msg.responseText);
+                alert(text);
+                alert(thrown);
+            }
+        });
+    }
+
+    function OnGridViewEndCallback() {
+        //UpdateTitlePanel();
+    }
+</script>
+<h2>Asignacion</h2>
+<hr/>
+
+<div id="grid" style="margin-left: 30px;margin-top: 10px;">
+    @Html.Action("GridAsignacion")
+</div>

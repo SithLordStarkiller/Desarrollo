@@ -1,0 +1,26 @@
+﻿@model DataTable
+@using System.Data
+@using System.Web.UI.WebControls
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "Pagos_" + ViewData["despacho"] + "_" + ViewData["usuario"] +"_"+ViewData["Delegacion"] ;
+        settings.Width = Unit.Percentage(90);
+
+        settings.KeyFieldName = "idDominio";
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.HeaderFilterMaxRowCount = 50;
+        
+        settings.Columns.Add(column => { column.FieldName = "Delegacion"; column.Caption = "Delegacion"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+        settings.Columns.Add(column => { column.FieldName = "SinPago"; column.Caption = "Sin Pago"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+        settings.Columns.Add(column => { column.FieldName = "PagoParcial"; column.Caption = "Pago Parcial"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+        settings.Columns.Add(column => { column.FieldName = "PagoTotal"; column.Caption = "PagoTotal"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+        settings.Columns.Add(column => { column.FieldName = "Total"; column.Caption = "Total Pagos Registrados"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+
+
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        
+
+    }).Bind(Model).GetHtml()

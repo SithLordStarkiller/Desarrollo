@@ -1,0 +1,95 @@
+﻿@using System.Data
+@model System.Data.DataTable
+
+@{
+    string credAsigPoolNum = "0";
+    string credAsigPoolPor = "0";
+    string credAsigMoviNum = "0";
+    string credAsigMoviPor = "0%";
+    string textoRecuadroDerecho = "Créditos Asignados a un Móvil";
+    string textoClaveRecuadroDerecho = "DASH_CREDASIGMOVIL";
+
+    foreach (DataRow r in Model.Rows)
+    {
+        if (r[0].ToString() == "DASH_CREDASIGPOOL")
+        {
+            var dat = Convert.ToDouble(r[1]);
+            credAsigPoolNum = dat.ToString("G");
+            credAsigPoolPor = r[2].ToString();
+        }
+        else
+        {
+            var dat = Convert.ToDouble(r[1]);
+            credAsigMoviNum = dat.ToString("G");
+            credAsigMoviPor = r[2].ToString();
+            textoRecuadroDerecho = r[3].ToString();
+            textoClaveRecuadroDerecho = r[0].ToString(); 
+        }
+        
+    }
+}
+
+
+<div style="background-color: #FFFFFF; border: solid 1px #D9D9D9; width: 30%; height: auto; display: inline-block; text-align: center">
+    <table style="text-align:center;width: 100%">
+        <tr>
+            <td rowspan="2"><img alt="" src="~/imagenes/calendario.png" /></td>
+            <td style="color: #666666; font-size: 16px; text-align: left; vertical-align: bottom;">Día de Corte</td>
+        </tr>
+        <tr>
+            <td>
+                <label id="LblFechaCorte" style="color: #000000; font-size: 32px; font-weight: bold; text-align: left; ">
+                    @(ViewData["fecha"])
+                </label>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="width: 3%; display: inline-block"></div>
+<div style="background-color: #FFFFFF; border: solid 1px #D9D9D9; width: 30%; height: auto; display: inline-block; text-align: center">
+    <table width="100%" style="text-align:center">
+        <tr>
+            <td rowspan="2"><img alt="" src="~/imagenes/Usuarios.png" /></td>
+            <td style="color: #666666; font-size: 16px; text-align: left; vertical-align: bottom;">Créditos Asignados Pool</td>
+        </tr>
+        <tr>
+            <td>
+                <label id="LblCredAsigPoolNum" style="color: #000000; font-size: 32px; font-weight: bold; text-align: left; ">
+                    <label id="DASH_CREDASIGPOOLValorLabel">@(credAsigPoolNum)</label>
+                    <span id="DASH_CREDASIGPOOLValorImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                </label>
+                <label id="LblSigno1" style="color: #666666; font-size: 32px; font-weight: bold; text-align: left; ">
+                    /
+                </label>
+                <label id="LblCredAsigPoolPorc" style="color: #3DB1D3; font-size: 32px; font-weight: bold; text-align: left; ">
+                    <label id="DASH_CREDASIGPOOLPorcentajeLabel">@(credAsigPoolPor)</label>
+                    <span id="DASH_CREDASIGPOOLPorcentajeImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                </label>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="width: 3%; display: inline-block"></div>
+<div style="background-color: #FFFFFF; border: solid 1px #D9D9D9; width: 30%; height: auto; display: inline-block; text-align: center">
+    <table style="text-align:center; width: 100%">
+        <tr>
+            <td rowspan="2"><img alt="" src="~/imagenes/usermovil.png" style="position: relative;top: -1px;" /></td>
+            <td style="color: #666666; font-size: 16px; text-align: left; vertical-align: bottom;">@(textoRecuadroDerecho)</td>
+        </tr>
+        <tr>
+            <td>
+                <label id="LblCredAsigMovilNum" style="color: #000000; font-size: 32px; font-weight: bold; ">
+                    <label id="@(textoClaveRecuadroDerecho)ValorLabel">@(credAsigMoviNum)</label>
+                    <span id="@(textoClaveRecuadroDerecho)ValorImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                </label>
+                <label id="LblSigno2" style="color: #666666; font-size: 32px; font-weight: bold; ">
+                    /
+                </label>
+                <label id="LblCredAsigMovilPorc" style="color: #3DB1D3; font-size: 32px; font-weight: bold; ">
+                    <label id="@(textoClaveRecuadroDerecho)PorcentajeLabel">@(credAsigMoviPor)</label>
+                    <span id="@(textoClaveRecuadroDerecho)PorcentajeImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                </label>
+            </td>
+        </tr>
+    </table>
+</div>

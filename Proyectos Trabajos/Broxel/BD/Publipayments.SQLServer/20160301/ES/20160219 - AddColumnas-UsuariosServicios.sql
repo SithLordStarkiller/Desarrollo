@@ -1,0 +1,1 @@
+ALTER TABLE UsuariosServicios add Nombre VARCHAR(500) ,Servidor varchar(2000), Extra Varchar(2000), Descripcion Varchar(500)

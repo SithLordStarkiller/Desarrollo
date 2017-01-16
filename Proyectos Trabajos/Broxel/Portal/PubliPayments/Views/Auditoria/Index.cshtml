@@ -1,0 +1,411 @@
+﻿@using System.Web.UI.WebControls
+@using PubliPayments.Negocios.Properties
+
+<script src="~/Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="~/Styles/lightbox.css">
+<script>
+    var refresh = false;
+    $(document).ready(function () {
+        cambiaCombo("historicoCombo", 14);
+        cambiaCombo("dictamenCombo", 12);
+        cambiaCombo("autorizacionCombo", 13);
+        cambiaCombo("delegacionCombo", 5);
+        cambiaCombo("despachoCombo", 2);
+        cambiaCombo("ocrCombo", 15);
+   
+        agregarRespuesta();
+        $(".Combos").css("font-family", "'Crystal', Monaco, monospace");
+    });
+
+    function agregarRespuesta() {
+        var conexionBd = $("#historicoCombo").val();
+        
+        $("table.idOrdenTabla").on("click", "a", function (e) {
+            e.preventDefault();
+            showMask();
+            var orden = ($(this).html());
+            $.ajax({
+                url: '/Respuesta/Ver',
+                type: 'GET',
+                data: {
+                    idOrden: orden
+                    , proceso: 1
+                    , conexionBd: conexionBd
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: ShowResponse,
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                    $("#Mask").hide();
+                }
+            });
+        });
+    }
+    function showMask() {
+        $("#Mask").css('width', $("body").width());
+        $("#Mask").css('height', $("body").height() + 30);
+        $("#Mask").show();
+    }
+    function ShowResponse(response) {
+        $("#tablaRespuesta").children().remove();
+        $("#tablaRespuesta").append(response.HtmlResp);
+        $("#tablaRespuestaHeader").html(response.usuario);
+        $("#Mask").hide();
+        window.PopupOrdenInfo.Show();
+    };
+    
+    var mensajeMostrado = false;
+
+    function alertaError(texto) {
+        if (mensajeMostrado == false) {
+            mensajeMostrado = true;
+            alert(texto);
+            mensajeMostrado = false;
+        }
+
+    }
+
+    function cambiaCombo(idCombo, tipoCombo) {
+        
+        var delegacion = ("@ViewData["Rol"]" == "5")?"@ViewData["Delegacion"]":$("#delegacionCombo").val();
+        var despacho = $("#despachoCombo").val();
+        var supervisor = $("#supervisorCombo").val();
+        var conexionBd = $("#historicoCombo").val();
+
+        $("#Mask").show();
+        $.ajax({
+            url: "/Auditoria/ComboFiltro",
+            type: "POST",
+            dataType: "html",
+            data: { 'idCombo': idCombo, 'tipoCombo': tipoCombo, 'delegacion': delegacion, 'despacho': despacho, 'supervisor': supervisor, 'conexionBd': conexionBd },
+            success: function(response) {
+                $("#"+idCombo).html(response);
+                $("#Mask").hide();
+
+                if (tipoCombo == 3) {
+                    cambiaCombo("gestorCombo", 1);
+                }
+                if (tipoCombo == 2) {
+                    formatoComboDespacho();
+                    cambiaCombo("supervisorCombo", 1);
+                    cambiaCombo("gestorCombo", 1);
+                }
+                if (idCombo == "gestorCombo") {
+                    refreshTabla();
+                }
+            },
+            error: function(msg) {
+                alertaError("No se pudo obtener el reporte.\nIntentelo mas tarde.");
+                $("#Mask").hide();
+                return false;
+            }
+        });
+    }
+
+    function refreshTabla() {
+        var delegacion = ("@ViewData["Rol"]" == "5") ? "@ViewData["Delegacion"]" : $("#delegacionCombo").val();
+        var despacho = $("#despachoCombo").val();
+        var supervisor = $("#supervisorCombo").val();
+        var gestor = $("#gestorCombo").val();
+        var dictamen = $("#dictamenCombo").val();
+        var status = $("#autorizaCombo").val();
+        var autoriza = $("#autorizacionCombo").val();
+        var conexionBd = $("#historicoCombo").val();
+        var valorOcr = $("#ocrCombo").val();
+        var pagina = Auditoria_Imagenes.pageIndex;
+        $("#Mask").show();
+        $.ajax({
+            url: "/Auditoria/TablaImagenes",
+            type: "POST",
+            dataType: "html",
+            data: { 'delegacion': delegacion, 'despacho': despacho, 'supervisor': supervisor, 'gestor': gestor, 'dictamen': dictamen, 'status': status, 'autoriza': autoriza, 'valorOcr': valorOcr, 'conexionBd': conexionBd },
+            success: function(response) {
+                $("#divRender").html(response);
+                agregarRespuesta();
+                $("#Mask").hide();
+                if (refresh) {
+                    refresh = false;
+                    Auditoria_Imagenes.GotoPage(pagina);
+                }
+            },
+            error: function(msg) {
+                alertaError("No se pudo obtener el reporte.\nIntentelo mas tarde.");
+                $("#Mask").hide();
+                return false;
+            }
+        });
+    }
+
+    function autorizarGestion(credito, idAuditoriaGestion) {
+        var autoriza = $("input[type='radio'][name='aut_" + credito + "']:checked").val();
+        var conexionBd = $("#historicoCombo").val();
+        for (var t = 1; t < 9; t++) {
+            var imagenResultados = $("input[type='radio'][name='img" + t + "_" + credito + "']:checked").val();
+            var imagenRes = $("#img" + t + "_" + credito).attr("src");
+
+            if (typeof imagenResultados === "undefined" && !(typeof imagenRes === "undefined")) {
+                alert("Debe calificar la imagen " + t + ".");
+                return false;
+            }
+        }
+
+        if (typeof autoriza === "undefined") {
+            alert("Debe calificar la auditoria.");
+            return false;
+        }
+        
+        $("#Mask").show();
+        $.ajax({
+            url: "/Auditoria/AutorizarGestion",
+            type: "POST",
+            dataType: "html",
+            data: { 'autorizado': autoriza, 'credito': credito, 'idAuditoriaGestion': idAuditoriaGestion, 'conexionBd': conexionBd },
+            success: function(response) {
+                autorizarImagenes(response, credito);
+            },
+            error: function(msg) {
+                alertaError("No se pudo completar la operacion.\nIntentelo mas tarde.");
+                $("#Mask").hide();
+                return false;
+            }
+        });
+
+    }
+
+    function autorizarImagenes(idAuditoriaImagenes, credito) {
+        var imagenResultados = $("#imagenes_" + credito + " input[type='radio']:checked");
+        var imagenRutas = $("#imagenes_" + credito + " img");
+        var conexionBd = $("#historicoCombo").val();
+
+        if (imagenResultados.length==0) {
+            CancelacionAutomaticaXRechazo(idAuditoriaImagenes, credito);
+        } else {
+            for (var i = 0; i < imagenResultados.length; i++) {
+                var resultado = imagenResultados[i].value;
+                var ruta = imagenRutas[i].src;
+
+                $.ajax({
+                    url: "/Auditoria/AutorizarImagenes",
+                    type: "POST",
+                    dataType: "html",
+                    data: { 'idAuditoriaImagenes': idAuditoriaImagenes, 'imagen': ruta, 'resultado': resultado, 'conexionBd': conexionBd },
+                    success: function (response) {
+                        CancelacionAutomaticaXRechazo(idAuditoriaImagenes, credito);
+                    },
+                    error: function (msg) {
+                        alertaError("No se pudo completar la operacion.\nIntentelo mas tarde.");
+                        $("#Mask").hide();
+                        return false;
+                    }
+                });
+            }
+        }
+        refresh = true;
+        
+        $("#Mask").hide();
+        alert("Guardado");
+        refreshTabla();
+    }
+
+    function CancelacionAutomaticaXRechazo(idAuditoriaImagenes, credito) {
+        $.ajax({
+            url: "/Auditoria/CancelacionAutomaticaXRechazo",
+            type: "POST",
+            dataType: "html",
+            data: { 'idAuditoriaImagenes': idAuditoriaImagenes, 'credito': credito }
+        });
+    }
+
+
+    function popUpReporte() {
+        var tD = ("@ViewData["Rol"]" == "5") ? "Delegacion" : "Administrador";
+        var del = ("@ViewData["Rol"]" == "5") ? "@ViewData["Delegacion"]" : $("#delegacionCombo").val();
+        var desp = $("#despachoCombo").val();
+        var spv = $("#supervisorCombo").val();
+        var gst = $("#gestorCombo").val();
+        var dct = $("#dictamenCombo").val();
+        var tpFrm = $("#CtrlComboFormulario").val();
+        var stt = $("#autorizaCombo").val();
+        var aut = $("#autorizacionCombo").val();
+        var mstr = "MasterAuditoria";
+        var bd = $("#historicoCombo").val();
+        var valorOcr = $("#ocrCombo").val();
+
+        if ("@ViewBag.delegacion" != "") {
+            document.getElementById("delegacionCombo").value = "@ViewBag.delegacion";
+        }
+
+        var nomDelegacion = document.getElementById("delegacionCombo").options[document.getElementById("delegacionCombo").selectedIndex].text;
+        var nomDespacho = document.getElementById("despachoCombo").options[document.getElementById("despachoCombo").selectedIndex].text;
+        var nomSupervisor = document.getElementById("supervisorCombo").options[document.getElementById("supervisorCombo").selectedIndex].text;
+        var nomGestor = document.getElementById("gestorCombo").options[document.getElementById("gestorCombo").selectedIndex].text;
+        var nomDictamen = document.getElementById("dictamenCombo").options[document.getElementById("dictamenCombo").selectedIndex].text;
+        var nomAutorizacion = document.getElementById("autorizacionCombo").options[document.getElementById("autorizacionCombo").selectedIndex].text;
+        var tipoFormulario = document.getElementById("CtrlComboFormulario").options[document.getElementById("CtrlComboFormulario").selectedIndex].text;
+        
+        var queryString = "tD=" + tD + "&del=" + del + "&desp=" + desp + "&spv=" + spv + "&gst=" + gst + "&dct=" + dct + "&stt=" + stt + "&mstr=" + mstr +
+            "&nomDelegacion=" + nomDelegacion + "&nomDespacho=" + nomDespacho + "&nomSupervisor=" + nomSupervisor + "&nomGestor=" + nomGestor +
+            "&nomDictamen=" + nomDictamen + "&tpFrm=" + tpFrm + "&tipoFormulario=" + tipoFormulario +
+            "&aut=" + aut + "&nomAutorizacion=" + nomAutorizacion + "&valorOcr=" + valorOcr + "&conexionBd=" + bd;
+
+        window.open("/Reportes/ReporteAuditoriaImagenes/Auditoria.aspx?" + queryString, "_blank   ", "toolbar=0,location=0,resizable=1,scrollbars=1,statusbar=0,menubar=0,left = 50,top = 50,height=600,width=800");
+    }
+
+    function formatoComboDespacho() {
+        var spacesToAdd = 1;
+        var biggestLength = 0;
+        $("#despachoCombo option").each(function (index) {
+            if (index > 0) {
+                var len = $(this).text().split('-')[0].length;
+                if (len > biggestLength) {
+                    biggestLength = len;
+                }
+            }
+        });
+        var padLength = biggestLength + spacesToAdd;
+
+        $("#despachoCombo option").each(function (index) {
+            if (index > 0) {
+                var parts = $(this).text().split('-');
+                var strLength = (parts[0].length);
+                for (var x = 0; x < (padLength - strLength) ; x++) {
+                    parts[0] = parts[0] + ' ';
+                }
+                $(this).text(parts[0].replace(/ /g, '\u00a0') + '-' + parts[1]).text;
+            }
+
+        });
+    }
+
+</script>
+<style>
+    .lb-outerContainer {
+        height: 85% !important;
+    }
+
+    .lightbox .lb-image {
+        height: 640px !important;
+        width: 480px !important;
+    }
+
+    #tablaRespuesta {
+        width: 820px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+        border-collapse: collapse !important;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+</style>
+<div style="margin-left: 30px;margin-right: 30px; position: relative">
+    <div class="TituloSeleccion" style="height: 66px; display: table-row; vertical-align: middle; width: 100%;">
+        <div style="width: 250px;float: left" >
+           <div>Auditoría Imágenes</div>
+            <div id="divFormularioCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;width: 160px;">
+                @Html.Action("Index", "CtrlComboFormularios")
+            </div>
+            <div style="font: 18px 'Open Sans', sans-serif; font-weight: 300; float: left; margin-top: 50px; width: 20%; ">Histórico</div> 
+            <div id="divHistoricoCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px; width: 160px;">
+                <select id="historicoCombo" class="Combos ddlGestores" style="width: 80%; margin-left: 5px; vertical-align: middle;" onchange="refreshTabla();">
+                    <option value="SqlDefault">Mes Actual</option>
+                </select>
+            </div>  
+        </div>
+        <img alt="|" src="~/imagenes/separador.png" style="float: left; margin-top: 3px;" />
+        
+        <div style="float: left; margin-top: 35px;">
+            <div id="contentTipoReporte1" style="margin-left:30px;">
+                <div id="divOCRCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="ocrCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="refreshTabla();">
+                        <option value="9999">Lectura OCR</option>
+                    </select>
+                </div>
+                <div id="divDelegacionCombo" style="text-align: right; vertical-align: top; margin-top: 2px; @(ViewData["Rol"].ToString() == "5"?"display: none;":"display: inline-block;")">
+                    <select id="delegacionCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="cambiaCombo('despachoCombo',2);">
+                        <option value="9999">Delegación</option>
+                    </select>
+                </div>
+                <div id="divDespachoCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="despachoCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="cambiaCombo('supervisorCombo',3);">
+                        <option value="9999">Despacho</option>
+                    </select>
+                </div>
+                <div id="divSupervisorCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="supervisorCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="cambiaCombo('gestorCombo',4);">
+                        <option value="9999">Supervisor</option>
+                    </select>
+                </div>
+                <div id="divBotonCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <input type="button" style="height: 30px;width: 165px;margin-left:5px" class="Botones MovType11" value="Exportar" onclick="popUpReporte()" />
+                </div>
+            </div>
+            <div id="contentTipoReporte" style="margin-left:30px;">
+
+                <div id="divGestorCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="gestorCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="refreshTabla()">
+                        <option value="9999">Gestor</option>
+                    </select>
+                </div>
+                <div id="divDictamenCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="dictamenCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="refreshTabla();">
+                        <option value="9999">Dictamen</option>
+                    </select>
+                </div>
+                <div id="divAutorizaCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="autorizaCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="refreshTabla();">
+                        <option value="9999">Estatus auditoría</option>
+                        <option value="2">Sin Auditar</option>
+                        <option value="1">Autorizados</option>
+                        <option value="0">No Autorizado</option>
+                    </select>
+                </div>
+                <div id="divAutorizacionCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                    <select id="autorizacionCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="refreshTabla();">
+                        <option value="9999">Autorización</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+     
+        
+    </div>
+
+    <span id="asdjhdfakjh"></span>
+    <div style="margin-left: 30px;margin-top: 20px;margin-right: 30px; position: relative;overflow-y: auto;overflow-x:hidden;" id="divRender">
+        @Html.Action("TablaImagenes");
+    </div>
+    
+</div>
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "PopupOrdenInfo";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.AllowResize = false;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.Width = new Unit("800px");
+    settings.Height = new Unit("600px");
+    settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+    settings.PopupVerticalOffset = 50;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.HeaderText = "Respuestas";
+    settings.ScrollBars=ScrollBars.Vertical;
+
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div id='tablaRespuestaHeader'></div>");
+        ViewContext.Writer.Write("<div id='tablaRespuesta'></div>");
+    });
+}).GetHtml()
+

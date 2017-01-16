@@ -1,0 +1,80 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data
+
+
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "TablaComercios";
+        settings.CallbackRouteValues = new { Controller = "ActualizarDatosComercios", Action = "TablaComercios" };
+        settings.Width = new Unit("97%");
+
+        settings.KeyFieldName = "CV_CREDITO";
+
+        settings.Styles.EditFormTable.Font.Size = new FontUnit("12px");
+        settings.Styles.EditFormCell.Font.Size = new FontUnit("12px");
+        settings.Styles.Cell.Font.Size = new FontUnit("12px");
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 20;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+        settings.Settings.ShowFooter = true;
+
+
+
+        var columnaOrden = new GridViewDataTextColumn { Caption = @"Número de Reporte", FieldName = "NumReporte" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Razón Social", FieldName = "RazonSocial" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Nombre Comercial", FieldName = "NombreComercial" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"RFC", FieldName = "CV_CREDITO" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"No Sucursal", FieldName = "IdentificadorSucursal" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Estado", FieldName = "Estado" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Municipio", FieldName = "Municipio" };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columnaOrden);
+
+        
+        
+        settings.Columns.Add(column =>
+        {
+            column.Caption = @"Acciones";
+            column.SetDataItemTemplateContent(c => ViewContext.Writer.Write(@Html.ActionLink("Editar", "Edit", new { Rfc = DataBinder.Eval(c.DataItem, "CV_CREDITO"), IdS = DataBinder.Eval(c.DataItem, "IdentificadorSucursal") }) + "|" + @Html.ActionLink("Detalles", "Details", new { Rfc = DataBinder.Eval(c.DataItem, "CV_CREDITO"), IdS = DataBinder.Eval(c.DataItem, "IdentificadorSucursal") })));
+            
+        });
+        
+
+    });
+}
+@grid.Bind(Model).GetHtml()

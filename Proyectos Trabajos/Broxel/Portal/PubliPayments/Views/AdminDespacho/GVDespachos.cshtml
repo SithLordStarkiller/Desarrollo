@@ -1,0 +1,69 @@
+﻿@using System.Web.UI.WebControls
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GVDespachos";
+        
+        settings.Attributes.Add("id", "GVDespachos");
+        settings.CallbackRouteValues = new { Controller = "AdminDespacho", Action = "GVDespachos" };
+        
+        settings.Style.Add("class","GridCelda");
+        settings.Styles.Cell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormCell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormTable.Font.Size = FontUnit.Parse("12px"); 
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+        
+        settings.Width = new Unit("90%");
+        settings.KeyFieldName = "IdDominio";
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowFilterRow = true;
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 50;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+        var columna1 = new GridViewDataHyperLinkColumn { FieldName = "idDominio", Caption = @"Despacho" };
+        columna1.PropertiesHyperLinkEdit.TextField = "NombreDominio";
+        columna1.PropertiesHyperLinkEdit.NavigateUrlFormatString = "~/AdminUsuarios.aspx?Despacho={0}";
+        columna1.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna1.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        settings.Columns.Add(columna1);
+            
+        var columna = new GridViewDataTextColumn { FieldName = "nom_corto", Caption = @"Nombre corto" };
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn { FieldName = "FechaAlta", Caption = @"Fecha de Alta" };
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains; 
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn { FieldName = "EstatusTxt", Caption = @"Estatus" };
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains; 
+        settings.Columns.Add(columna);
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    "<div style='padding: 5px;text-align: center;'><Button id='Button1' style ='width:100px; height:25px;' onClick='editarDespacho(" + DataBinder.Eval(c.DataItem, "idDominio").ToString() + ")' Class='Botones'>Modificar</Button></div> "
+                    + "<div style='display:none'>"
+                        + "<label id='Label1' Class='TbidDominioHidden'>" + DataBinder.Eval(c.DataItem, "idDominio").ToString() + "</label>"
+                        + "<label id='Label2' Class='TbidDominioHidden'>" + DataBinder.Eval(c.DataItem, "Estatus").ToString() + "</label>"
+                    + "</div>"
+                 );
+            });
+        });     
+    });
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()

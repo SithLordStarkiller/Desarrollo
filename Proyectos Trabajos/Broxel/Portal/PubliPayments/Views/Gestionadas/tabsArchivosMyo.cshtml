@@ -1,0 +1,91 @@
+﻿@using System.Data
+@using System.Text
+@using System.Web.UI.WebControls
+@model DataTable
+@Html.DevExpress().PageControl(settings =>
+        {
+            settings.Name = "pcArchivos";
+            settings.Width = Unit.Percentage(100);
+            settings.EnableClientSideAPI = true;
+            settings.TabAlign = TabAlign.Justify;
+            settings.Styles.Tab.Height = Unit.Pixel(40);
+            settings.Styles.Tab.Paddings.PaddingTop = Unit.Pixel(10);
+            
+            var contenido = new StringBuilder();
+
+            if (ViewBag.idVisita ==1)
+            {
+                contenido.Clear();
+                var tab1 = new MVCxTabPage {Text = @"Documentación", Name = @"Documentacion"};
+                var coment = false;
+                try
+                {
+                    var archivos = from myRow in Model.AsEnumerable()
+                                   where myRow.Field<int>("visitaCorresp") == 1 || myRow.Field<int>("visitaCorresp") == 99
+                                   select myRow;
+
+                    foreach (DataRow row in archivos)
+                    {
+                        if (row["Comentario"].ToString() == "1")
+                        {
+                            coment = true;
+                        }
+                    }
+
+                    var asdd = coment ? Html.Partial("ArchivosPartialComentarios", archivos).ToString() : Html.Partial("ArchivosPartial", archivos).ToString();
+                    contenido.Append(asdd);
+                }
+                catch (Exception ex)
+                {
+                    contenido.Append("Ocurrio un error al cargar la informacion.<br/>Intente de nuevo mas tarde.");
+                }
+                tab1.SetContent(contenido.ToString());
+                settings.TabPages.Add(tab1);
+            }
+
+            if (ViewBag.idVisita ==2)
+            {
+                contenido.Clear();
+                var tab2 = new MVCxTabPage { Text = @"Referencias", Name = @"Referencias" };
+                
+                try
+                {
+                    var archivos = from myRow in Model.AsEnumerable()
+                                   where myRow.Field<int>("visitaCorresp") == 2 || myRow.Field<int>("visitaCorresp") == 99
+                                   select myRow;
+                    
+                    var asdd = Html.Partial("ReferenciasPartial", archivos).ToString();
+                    contenido.Append(asdd);
+                }
+                catch (Exception ex)
+                {
+                    contenido.Append("Ocurrio un error al cargar la informacion.<br/>Intente de nuevo mas tarde.");
+                }
+                tab2.SetContent(contenido.ToString());
+                settings.TabPages.Add(tab2);
+            }
+
+            if (ViewBag.idVisita == 3)
+            {
+                contenido.Clear();
+                var tab2 = new MVCxTabPage { Text = @"Documentos Fisicos", Name = @"Documentos Fisicos" };
+
+                try
+                {
+                    var archivos = from myRow in Model.AsEnumerable()
+                                   where myRow.Field<int>("visitaCorresp") == 3 
+                                   select myRow;
+
+                    var asdd = Html.Partial("ArchivosPartialComentarios", archivos).ToString();
+                    contenido.Append(asdd);
+                }
+                catch (Exception ex)
+                {
+                    contenido.Append("Ocurrio un error al cargar la informacion.<br/>Intente de nuevo mas tarde.");
+                }
+                tab2.SetContent(contenido.ToString());
+                settings.TabPages.Add(tab2);
+            }
+
+
+        }).GetHtml()

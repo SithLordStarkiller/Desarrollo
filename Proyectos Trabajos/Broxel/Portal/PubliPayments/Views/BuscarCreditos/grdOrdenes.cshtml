@@ -1,0 +1,162 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data
+@using DevExpress.PivotGrid.OLAP.AdoWrappers
+@using Microsoft.Ajax.Utilities
+@using PubliPayments.Controllers
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "grdOrdenes";
+        settings.CallbackRouteValues = new { Controller = "BuscarCreditos", Action = "GrdOrdenes" };
+        settings.Width = Unit.Percentage(100);
+
+        //settings.Attributes.Add("class", "GridCelda");
+        settings.KeyFieldName = "Credito";
+
+        //settings.Styles.EditFormTable.Font.Size = new FontUnit("12px");
+        //settings.Styles.EditFormCell.Font.Size = new FontUnit("12px");
+        //settings.Styles.Cell.Font.Size = new FontUnit("12px");
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.Visible = false;
+        settings.SettingsPager.PageSize = 20;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowHeaderFilterButton = false;
+        settings.Settings.ShowFooter = true;
+
+        //var columnaCheck = new GridViewCommandColumn("Selección") { ButtonType = GridViewCommandButtonType.Button, ShowSelectCheckbox = true };
+        //settings.Columns.Add(columnaCheck);
+
+        //var columnaOrdenLink = new GridViewDataHyperLinkColumn { Caption = @"Credito", FieldName = "Credito", ReadOnly = true };
+        //columnaOrdenLink.PropertiesHyperLinkEdit.NavigateUrlFormatString = "";
+        //columnaOrdenLink.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        //columnaOrdenLink.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        //columnaOrdenLink.EditFormSettings.Visible = DefaultBoolean.False;
+        //columnaOrdenLink.CellStyle.CssClass = "Num_Credito";
+        //settings.Columns.Add(columnaOrdenLink);
+
+        var columnaOrden = new GridViewDataTextColumn { Caption = @"Fila", FieldName = "num", ReadOnly = true };
+        //columnaOrden.Width = new Unit(1);
+        columnaOrden.Width = Unit.Percentage(1);
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = @"Crédito";
+            column.SetDataItemTemplateContent(c => ViewContext.Writer.Write(
+                "<a href='#' onclick='VerCredito(&apos;" + DataBinder.Eval(c.DataItem, "Credito") + "&apos;,1);'>" + DataBinder.Eval(c.DataItem, "Credito") + "</a>"));
+        });
+
+        //var columnaOrden = new GridViewDataTextColumn { Caption = @"Crédito", FieldName = "Credito", ReadOnly = true };
+        //columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        //columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        //columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        //settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Soluciones", FieldName = "Soluciones" };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Estatus", FieldName = "EstatusTxt" };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Vuelta", FieldName = "idVisita" };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Despacho", FieldName = "Despacho", ReadOnly = true };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Nombre", FieldName = "Nombre", ReadOnly = true };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"NSS", FieldName = "CV_NSS", ReadOnly = true };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"RFC", FieldName = "CV_RFC", ReadOnly = true };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Calle", FieldName = "Calle", ReadOnly = true };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Colonia", FieldName = "Colonia", ReadOnly = true };
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Municipio", FieldName = "Municipio", ReadOnly = true };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"CP", FieldName = "CP", ReadOnly = true };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Delegación", FieldName = "Delegacion", ReadOnly = true };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+        columnaOrden = new GridViewDataTextColumn { Caption = @"Fin de Rama", FieldName = "FinRama", ReadOnly = true };
+        columnaOrden.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.Settings.AllowSort = DefaultBoolean.False;
+        settings.Columns.Add(columnaOrden);
+
+            settings.Columns.Add(column =>
+            {
+                column.Caption = @"";
+                column.SetDataItemTemplateContent(c => ViewContext.Writer.Write(
+                    ((string) DataBinder.Eval(c.DataItem, "Convenio") == "0" ?
+                    "<button class='Botones' style='height:30px;' onclick='VerCredito(&apos;" + DataBinder.Eval(c.DataItem, "Credito") + "&apos;,0)' >Gestionar</button>"
+                    : "")
+                    ));
+            });
+        
+        settings.TotalSummary.Add(SummaryItemType.Count, "Nombre");
+
+    });
+}
+@grid.Bind(Model).GetHtml()

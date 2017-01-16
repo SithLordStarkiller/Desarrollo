@@ -1,0 +1,322 @@
+﻿<style>
+    nav {
+        position: relative;
+        z-index: 1000;
+        text-align: left;
+        font: 14px 'Open Sans', sans-serif;
+        width: 100%;
+        height: 41px;
+        background-image: url(../../imagenes/pat-menu.png);
+    }
+
+        nav ul {
+            position: relative;
+            top: -8px;
+        }
+
+            nav ul a {
+                background-image: url(../../imagenes/separador-menu.png);
+                background-repeat: no-repeat;
+                background-position: right;
+            }
+
+            nav ul ul {
+                display: none;
+            }
+
+            nav ul li:hover > ul {
+                display: block;
+            }
+
+        nav ul {
+            padding: 0 10px;
+            list-style: none;
+            position: relative;
+            display: inline-table;
+        }
+
+            nav ul:after {
+                content: "";
+                clear: both;
+                display: block;
+                color: #ffffff;
+            }
+
+            nav ul li {
+                float: left;
+            }
+
+                nav ul li:hover {
+                    color: #0000ff;
+                }
+
+                    nav ul li:hover a {
+                        color: #ffffff;
+                    }
+
+                nav ul li a {
+                    display: block;
+                    padding: 5px 14px;
+                    color: #ffffff;
+                    text-decoration: none;
+                }
+
+                    nav ul li a:hover {
+                        color: #8A7A80;
+                    }
+
+            nav ul ul {
+                background-color: #4A3A41;
+                padding: 0;
+                position: absolute;
+                top: 100%;
+            }
+
+                nav ul ul li {
+                    float: none;
+                    border-top: 1px solid #3B2E33;
+                    position: relative;
+                }
+
+                    nav ul ul li a {
+                        padding: 5px 40px;
+                        color: #fff;
+                    }
+
+                        nav ul ul li a:hover {
+                            color: #8A7A80;
+                        }
+
+                nav ul ul ul {
+                    position: absolute;
+                    left: 100%;
+                    top: 0;
+                }
+</style>
+
+
+<div style="background-image: url(../../imagenes/pat-header.png); height: 70px; width: 100%; text-align: left">
+    <img src="~/imagenes/logo.png" style="margin-left: 14px; margin-top: 10px;" />
+    <label id="lblNombreDespacho" class="NombreDespacho" style="width: 100%; height: 20px;">@ViewBag.NombreDominio</label>
+    <div style="width: 98%; text-align: right; position: relative; top: -54px">
+        <img src="~/imagenes/ico-user.png" alt="" />
+        <div id="lblNombre" class="NombreUsuario" style="width: 185px; display: inline-block">@ViewBag.NombreUsuario<br />@ViewBag.RolUsuario</div>
+        <button id="LoginLink" class="BotonCerrar" onclick="location.href='@Url.Action("CerrarSesion", "Menu")'" tabindex="10000">Cerrar sesión</button>
+    </div>
+</div>
+<nav id="navMaster">
+    <ul>
+        @if (!ViewBag.NombreAplicacion.Contains("SIRA"))
+        {
+            <li><a href="/Dashboard">Resumen</a></li>
+        }
+        
+
+        @if ((!ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL") && !ViewBag.NombreAplicacion.Contains("SIRA") && !ViewBag.NombreAplicacion.Contains("MYO")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("2") || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("5")))
+        {
+            <li>
+                <a href="#">Reportes<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="~/RankingPorIndicador">Ranking Por Indicador</a></li>
+                    <li><a href="~/GestionMovil">Gestión Móvil</a></li>
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("2"))
+                    {
+                        <li><a href="~/ReportesAvanzados.aspx">Reportes Avanzados</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                    {
+                        <li><a href="@Url.Action("Index", "TelSMSRepetidos")">SMS Repetidos</a></li>
+                        <li><a href="@Url.Action("Index", "ReporteAsignacion")">Reporte de Asignación</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("3"))
+                    {
+                        <li><a href="@Url.Action("Index", "MapaSupervision")">Reporte de Geoposiciones</a></li>
+                        <li><a href="@Url.Action("Index", "ReporteGeneral")">Reporte General</a></li>
+                        <li><a href="@Url.Action("Index", "TelSMSRepetidos")">SMS Repetidos</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("5"))  
+                        {
+                            <li><a href="@Url.Action("Index", "ReporteGeneral")">Reporte General</a></li>
+                            <li><a href="@Url.Action("Index", "ReporteAsignacion")">Reporte de Asignación</a></li>
+                        }
+                </ul>
+            </li>
+        }
+        @if ((!ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL") && !ViewBag.NombreAplicacion.Contains("SIRA") && !ViewBag.NombreAplicacion.Contains("MYO")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1")))
+        {
+            <li>
+                <a href="#">Archivo<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li>
+                        <a href="@Url.Action("Index", "Archivos")">Archivos</a>
+                    </li>
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                    {
+                        <li><a href="@Url.Action("Index", "LlamadasNoExitosas")">LlamadasNoExitosas</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        @if (ViewBag.NombreAplicacion.Contains("SIRA")  && HttpContext.Current.User.IsInRole("2"))
+        {
+            <li>
+                <a href="#">Archivo<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="~/ActualizarDatosComercios">Actualizar Datos</a></li>
+                    <li><a href="@Url.Action("Index", "Archivos")">Archivos</a></li>
+                </ul>
+            </li>
+            
+        }
+        @if (HttpContext.Current.User.IsInRole("2"))
+        {
+            <li>
+                <a href="#">Archivo<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="@Url.Action("Index", "LlamadasNoExitosas")">LlamadasNoExitosas</a></li>
+                </ul>
+            </li>
+
+        }
+        @if ((!ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL") && !ViewBag.NombreAplicacion.Contains("MYO")) && ((HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("2"))
+            || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("4")))
+        {
+            <li>
+                <a href="#">Órdenes<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("2"))
+                    {
+                    <li><a href="~/AsignaOrdenes.aspx">Asignar a supervisor</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("3"))
+                    {
+                    <li><a href="~/AsignaOrdenes.aspx">Asignar</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("2") || HttpContext.Current.User.IsInRole("3"))
+                    {
+                        <li><a href="~/OrdenesAsignadas.aspx">Ver Asignadas</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("3") && !ViewBag.NombreAplicacion.Contains("SIRA"))
+                    {
+                        <li><a href="~/OrdenError.aspx">Reporte de Errores</a></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("4") && !ViewBag.NombreAplicacion.Contains("SIRA"))
+                    {
+                        if (!ViewBag.EsCallCenter)
+                        {
+                            <li><a href="~/CapturaWeb">Captura Web</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="~/BuscarCreditos">Buscar Creditos</a></li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+
+        @if ((!ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL") && !ViewBag.NombreAplicacion.Contains("SIRA") && !ViewBag.NombreAplicacion.Contains("MYO")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("5")))
+        {
+            <li>
+                <a href="#">Respuestas<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3"))
+                    {
+                        <li ><a href = "Gestionadas.aspx" > Ver Respuestas </a ></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("0"))
+                    {
+                        <li ><a href = "Reversos" > Reversar Ordenes </a ></li>
+                    }
+                    @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1") || HttpContext.Current.User.IsInRole("5"))
+                    {
+                        <li ><a href = "Auditoria" > Auditoria </a ></li>
+                    }
+                </ul>
+            </li>
+        }
+        else if (ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL") && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3")))
+        {
+        <li>
+                <a href="#">Originacion<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="~/Gestionadas?tipo=AutorizarRechazar">Ver Gestiones</a></li>
+                    <li><a href="~/Gestionadas?tipo=Autorizadas">Ver Autorizadas</a></li>
+                    @if(ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL"))
+                    {
+                    <li><a href="~/Gestionadas?tipo=Rechazadas">Ver Rechazadas</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        else if ((ViewBag.NombreAplicacion.Contains("SIRA")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3")))
+        {
+        <li>
+                <a href="#">Respuestas<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="~/Gestionadas?tipo=AutorizarRechazar">Ver Respuestas</a></li>
+                    <li><a href="~/Gestionadas?tipo=Autorizadas">Ver Autorizadas</a></li>
+                </ul>
+            </li>
+        }
+        else if ((ViewBag.NombreAplicacion.Contains("MYO")) && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3") || HttpContext.Current.User.IsInRole("4")))
+        {
+        <li>
+                <a href="#">Créditos<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="~/Gestionadas?tipo=AutorizarRechazar">Ver Respuestas</a></li>
+                    @if ( (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3")))
+                    {
+                        <li><a href="~/Gestionadas?tipo=Autorizadas">Ver Autorizadas</a></li>
+                        <li><a href="~/Gestionadas?tipo=Rechazadas">Ver Rechazadas</a></li>
+                    }
+                </ul>
+            </li>
+        }
+        @*else if (ViewBag.NombreAplicacion.Contains("SIRA") && (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("3")))
+        {
+            <li>
+                <a href="#">Respuestas<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+                <ul>
+                    <li><a href="~/Gestionadas?tipo=AutorizarRechazar">Ver Respuestas</a></li>
+                </ul>
+            </li>
+        }*@
+        <li>
+            <a href="#">Perfiles<img src="../../imagenes/down.png" alt="\/" class="ImagenDown" /></a>
+            <ul>
+                @if (HttpContext.Current.User.IsInRole("0"))
+                {
+                    <li><a href="~/AdminUsuarios.aspx?Rol=0">Super Administrador</a></li>
+                }
+                @if (HttpContext.Current.User.IsInRole("0"))
+                {
+                    <li><a href="~/AdminUsuarios.aspx?Rol=6">Dirección</a></li>
+                }
+                @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                {
+                    <li><a href="~/AdminUsuarios.aspx?Rol=1">Administrador</a></li>
+                }
+                @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                {
+                    <li><a href="~/AdminUsuarios.aspx?Rol=5">Delegación</a></li>
+                }
+                @if (HttpContext.Current.User.IsInRole("0") || HttpContext.Current.User.IsInRole("1"))
+                {
+                    @*<li><a href="~/AdminDespacho.aspx">Despacho</a></li>*@
+                    <li>@Html.ActionLink("Despacho","Index","AdminDespacho")</li>
+                }
+                @if (HttpContext.Current.User.IsInRole("2"))
+                {
+                    <li><a href="~/AdminUsuarios.aspx">Supervisor</a></li>
+                }
+                @if ((!ViewBag.NombreAplicacion.Contains("ORIGINACIONMOVIL") && !ViewBag.NombreAplicacion.Contains("SIRA")) && (HttpContext.Current.User.IsInRole("3")))
+                {
+                    <li><a href="~/AdminUsuarios.aspx">Gestores</a></li>
+                }
+                @*<li><a href="~/AdminPerfil.aspx">Mi Perfil</a></li>*@
+                <li><a href="AdminPerfil">Mi Perfil</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>

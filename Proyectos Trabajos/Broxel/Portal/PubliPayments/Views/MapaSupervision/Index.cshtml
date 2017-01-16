@@ -1,0 +1,388 @@
+﻿@using System.Web.UI.WebControls
+@{
+    ViewBag.Title = "Mapa de Supervisión";
+}
+
+<style>
+    .lb-outerContainer {
+        height: 85% !important;
+    }
+
+    .lightbox .lb-image {
+        height: 640px !important;
+        width: 480px !important;
+    }
+
+    #tablaRespuesta {
+        width: 820px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+        border-collapse: collapse !important;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+</style>
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?v=3.5&client=gme-publipayments&sensor=false">
+</script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/colores.js"></script>
+<link rel="stylesheet" href="~/Content/themes/blitzer/jquery-ui-1.10.4.custom.css" />
+<script src="~/Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="~/Styles/lightbox.css">
+<script>
+    $.datepicker.regional['mx'] = {
+        closeText: 'Cerrar',
+        prevText: '<Ant',
+        nextText: 'Sig>',
+        currentText: 'Hoy',
+        monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        monthNamesShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+        dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié', 'Juv', 'Vie', 'Sáb'],
+        dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+        weekHeader: 'Sm',
+        dateFormat: 'dd/mm/yy',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['mx']);
+</script>
+
+<div id="cabecero" style="margin-left: 30px; position: relative;text-align: left;">
+    <div id="tituloPagina" class="TituloSeleccion" style="display: inline-block;vertical-align: top;">
+        @ViewBag.Title<img id="Image1" alt="|" src="~/imagenes/separador.png" style="margin-left: 15px; margin-right: 15px; position: relative; top: 10px;" />
+        <br />
+        @Html.Action("Index","CtrlComboFormularios")
+    </div>
+    <div class="TituloSeleccion" style="height: 96px; display: inline-block; vertical-align: middle; width: auto;">
+        <div class="Combos" style="height: 19px; width: 240px; display: inline-block; vertical-align: bottom">
+            <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">Tipo Reporte:</div>
+            <select id="cmbReporte" style="width: 150px">
+                <option value="0">Por fecha final</option>
+                <option value="1">Por fecha recepción</option>
+            </select>
+        </div>
+        <div class="Combos" style="height: 19px; width: 140px; display: inline-block; vertical-align: bottom">
+            <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">Fecha:</div>
+            <input id="datepicker" type="text" style="width: 90px" />
+        </div>
+        <br/>
+        <div style="margin-top: 10px; display: inline-block; text-align: left;">
+            <button id="MapaAplicar" class="Botones" style="height: 30px; width: 100px" onclick="">Aplicar</button>
+            <button id="MapaAjustar" class="Botones" style="height: 30px; width: 100px" onclick="">Ajustar</button>
+            <button id="MapaLimpiar" class="Botones" style="height: 30px; width: 100px" onclick="">Limpiar</button>
+        </div>
+    </div>
+</div>
+<div id="AreaDeTrabajo" style="width: 98%">
+    <div id="map_canvas" style="width: 70%; height: 550px; display: inline-block"></div>
+    <div style="display: inline-block; vertical-align: top; width: 220px;">
+        <div class="GridTitulo">Seleccione los usuarios</div>
+        <div style="height: 500px; overflow-y: scroll;" id="UsuariosMapa">
+        </div>
+        <div class="Combos" style="width: 180px">
+            <div style="width: 150px !important; text-align: left; display: inline-block">
+                Seleccionar todos
+            </div>
+            <input type="checkbox" name="Todos" id="chkTodos" />
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    var ajaxCount = 0;
+    $(document).ready(function () {
+        $("#Mask").show();
+     
+        $.ajax({
+            url: "/MapaSupervision/ObtenerUsuarios",
+            type: "POST",
+            dataType: "html",
+            data: null,
+            success: function (response) {
+                $("#Mask").hide();
+                $("#UsuariosMapa").html(response);
+            },
+            error: function (msg, text, thrown) {
+                $("#Mask").hide();
+                if (msg.responseText.toString().indexOf("</title>") > 0) {
+                    //window.location = "/Login.aspx";
+                    window.location = "~/Home";
+                }
+                alert("No se pudieron obtener los usuarios");
+                return false;
+            }
+        });
+        var currentDate = new Date();
+
+        $("#datepicker").datepicker({ maxDate: 'today', minDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1) });
+        $("#datepicker").datepicker("setDate", currentDate);
+        initialize();
+
+        $("#MapaAplicar").click(function () {
+
+            var selected = [];
+            $('input:checkbox[name=Usuarios]:checked').each(function () {
+                selected.push($(this).val());
+            });
+
+            if (selected.length > 0) {
+
+                $.ajax({
+                    url: '/MapaSupervision/ObtenerRespuestasGps',
+                    type: 'POST',
+                    dataType: "json",
+                    traditional: true,
+                    cache: false,
+                    beforeSend: function () { $("#Mask").show(); limpiarMapa(); },
+                    data: { 'usuarios': selected, 'fecha': $("#datepicker").val(), "tipo": $("#cmbReporte").val() },
+                    success: function (response) {
+                        $("#Mask").hide();
+                        if (response.toString().indexOf("<!DOCTYPE html>") > 0)
+                        { return; }
+
+                        //Obtiene la información guardada en el div
+                        var map = $("#ScriptMapa").data("map");
+                        var marcadores = $("#ScriptMapa").data("marcadores");
+                        var rutas = $("#ScriptMapa").data("rutas");
+                        var ventanas = $("#ScriptMapa").data("ventanas");
+
+                        if (response.length > 0) {
+                            response.forEach(function (grupo) {
+                                var listaMarcadores = grupo.ListaMarcadores;
+                                var nombreUsuario = grupo.Nombre;
+                                var marcadoresGrupo = [];
+                                //Crea los nuevos marcadores
+                                listaMarcadores.forEach(function (marcador) {
+                                    var marker = new google.maps.Marker({
+                                        position: new google.maps.LatLng(marcador.Latitud, marcador.Longitud),
+                                        map: map,
+                                        title: nombreUsuario
+                                    });
+
+                                    var infowindow = new google.maps.InfoWindow({
+                                        content: '<div style="height:80px; witdh: 180px !important;" class="MapaSupervisionPopup">Nombre: ' + nombreUsuario + '<br/>'
+                                            + 'Fecha Inicial: ' + marcador.FechaInicial + '<br/>'
+                                            + 'Fecha Final: ' + marcador.FechaFinal + '<br/>'
+                                            + 'Fecha Recepción: ' + marcador.FechaRecepcion + '<br/>'
+                                            + 'Ver Respuesta: <a href="#" onclick="ObtenerRespuesta(' + marcador.Id + ');return false;">' + marcador.Referencia + '</a></div>'
+                                    });
+
+                                    ventanas.push(infowindow);
+
+                                    google.maps.event.addListener(marker, 'click', function () {
+                                        var ventanasCerrar = $("#ScriptMapa").data("ventanas");
+                                        ventanasCerrar.forEach(function (ventana) {
+                                            ventana.close();
+                                        });
+                                        infowindow.open(map, marker);
+                                    });
+
+                                    marcadores.push(marker);
+                                    marcadoresGrupo.push(marker);
+                                });
+
+                                $("#ScriptMapa").data("marcadores", marcadores);
+                                $("#ScriptMapa").data("ventanas", ventanas);
+
+                                //Crea las rutas nuevas
+                                var posicionesRuta = [];
+                                marcadoresGrupo.forEach(function (marcador) {
+                                    posicionesRuta.push(marcador.position);
+                                });
+
+                                //Dibujar ruta
+                                var ruta = new google.maps.Polyline({
+                                    path: posicionesRuta,
+                                    geodesic: true,
+                                    strokeColor: ObtenerColor(grupo.Color),
+                                    strokeOpacity: 1.0,
+                                    strokeWeight: 2,
+                                    map: map
+                                });
+                                rutas.push(ruta);
+                                $("#ScriptMapa").data("rutas", rutas);
+                            });
+                            //Centrar en los marcadores
+                            var latlngbounds = new google.maps.LatLngBounds();
+                            marcadores.forEach(function (marcador) {
+                                latlngbounds.extend(marcador.position);
+                            });
+                            map.setCenter(latlngbounds.getCenter());
+                            map.fitBounds(latlngbounds);
+                        } else {
+                            map.setCenter(new google.maps.LatLng(23, -101.5));
+                            map.setZoom(5);
+                            alert("No existen marcadores para los usuarios y el día seleccionado.");
+                        }
+                    },
+                    error: function (msg, text, thrown) {
+                        $("#Mask").hide();
+                        if (msg.responseText.toString().indexOf("</title>") > 0) {
+                            //window.location = "/Login.aspx";
+                            window.location = "~/Home";
+                        }
+                        alert("No se pudieron obtener los valores GPS");
+                        return false;
+                    }
+                });
+
+                //$.ajax({
+                //    url: "/MapaSupervision/ObtenerRespuestasGps",
+                //    type: "POST",
+                //    dataType: "html",
+                //    traditional: true,
+                //    data: { usuarios: selected},
+                //    success: function (response) {
+                //        $("#ScriptMapa").html(response);
+                //    }
+
+                //});
+            } else {
+                alert("Seleccione los usuarios que quiere supervisar.");
+            }
+        });
+
+        $("#MapaAjustar").click(function () {
+            var map = $("#ScriptMapa").data("map");
+            var marcadores = $("#ScriptMapa").data("marcadores");
+            if (marcadores.length > 0) {
+                var latlngbounds = new google.maps.LatLngBounds();
+                marcadores.forEach(function (marcador) {
+                    latlngbounds.extend(marcador.position);
+                });
+                map.setCenter(latlngbounds.getCenter());
+                map.fitBounds(latlngbounds);
+            } else {
+                map.setCenter(new google.maps.LatLng(23, -101.5));
+                map.setZoom(5);
+            }
+        });
+
+        $("#chkTodos").change(function () {
+            $('input:checkbox[name=Usuarios]').prop('checked', this.checked);
+        });
+
+        $("#MapaLimpiar").click(function () {
+            var map = $("#ScriptMapa").data("map");
+            map.setCenter(new google.maps.LatLng(23, -101.5));
+            map.setZoom(5);
+            limpiarMapa();
+        });
+    });
+
+    function limpiarMapa() {
+        var map = $("#ScriptMapa").data("map");
+        var marcadores = $("#ScriptMapa").data("marcadores");
+        var rutas = $("#ScriptMapa").data("rutas");
+        var ventanas = $("#ScriptMapa").data("ventanas");
+
+        //Borra todos los eventos click de los marcadores
+        google.maps.event.clearListeners(map, 'click');
+
+        //Borra los marcadores y las rutas
+        marcadores.forEach(function (marcador) {
+            marcador.setMap(null);
+        });
+
+        rutas.forEach(function (rutaMapa) {
+            rutaMapa.setMap(null);
+        });
+
+        marcadores = [];
+        rutas = [];
+        ventanas = [];
+
+        $("#ScriptMapa").data("rutas", rutas);
+        $("#ScriptMapa").data("marcadores", marcadores);
+        $("#ScriptMapa").data("ventanas", ventanas);
+    }
+
+    function initialize() {
+        var mapOptions = {
+            center: new google.maps.LatLng(23, -101.5),
+            zoom: 5,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+
+        var marcadores = [];
+        var rutas = [];
+        var ventanas = [];
+
+        $("#ScriptMapa").data("map", map);
+        $("#ScriptMapa").data("marcadores", marcadores);
+        $("#ScriptMapa").data("rutas", rutas);
+        $("#ScriptMapa").data("ventanas", ventanas);
+    }
+
+    function ObtenerRespuesta(orden) {
+        showMask();
+        $.ajax({
+            url: '/Respuesta/Ver',
+            type: 'GET',
+            data: {
+                idOrden: orden
+                , proceso: 1
+            },
+            contentType: 'application/json; charset=utf-8',
+            success: ShowResponse,
+            error: function (msg, text, thrown) {
+                alert("error " + thrown);
+                $("#Mask").hide();
+            }
+        });
+    };
+
+    function showMask() {
+        $("#Mask").css('width', $("body").width());
+        $("#Mask").css('height', $("body").height() + 30);
+        $("#Mask").show();
+    }
+
+    function ShowResponse(response) {
+        $("#tablaRespuesta").children().remove();
+        $("#tablaRespuesta").append(response.HtmlResp);
+        $("#tablaRespuestaHeader").html(response.usuario);
+        $('#tablaRespuesta').css("height", ($(window).height() - 100) > 700 ? "700px" : ($(window).height() - 100) + "px");
+
+        window.PopupRespuestas.Show();
+    };
+</script>
+
+<div id="ScriptMapa"></div>
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "PopupRespuestas";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.AllowResize = false;
+    settings.HeaderText = "Respuestas";
+    settings.Width = 800;
+    settings.Height = Unit.Percentage(70);
+    settings.Modal = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalOffset = 50;
+    settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.CloseAction = CloseAction.CloseButton;
+
+    settings.ClientSideEvents.CloseUp = "function(s, e) {  $(\"#Mask\").hide(); }";
+    settings.SetContent(() => ViewContext.Writer.Write("<div id=\"tablaRespuestaHeader\"></div><div id=\"tablaRespuesta\"></div>"));
+}).GetHtml()

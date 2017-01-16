@@ -1,0 +1,416 @@
+﻿@model PubliPayments.Entidades.Creditos
+
+@{
+    ViewBag.Title = "Actualizar datos";
+}
+
+
+<style>
+    .inputCarga {
+        margin: 0 0 10px 50px;
+        text-align: left;
+    }
+    .inputCarga input {
+        width: 90%;
+    }
+   .inputCarga.Display {
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-align: left;
+        margin: 0 0 10px 50px;
+    }
+    .labelEncabezado {
+        text-align: left;
+        margin: 0 0 0 50px;
+    }
+    
+</style>
+
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    
+    
+    <fieldset>
+        
+        <legend style="padding-top: 5px">@Html.DisplayFor(model => model.RazonSocial) ... @Html.DisplayFor(model => model.CV_CREDITO) (@Html.DisplayFor(model => model.IdentificadorSucursal))   </legend>
+      
+        <div class="labelEncabezado">
+            Razón Social
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.RazonSocial)
+        </div>
+      
+      
+        <div>
+            <div class="labelEncabezado">
+                Nombre Comercial
+            </div>
+            <div class="inputCarga">
+                @Html.EditorFor(model => model.NombreComercial)
+            </div>
+        </div>
+        
+        <div class="labelEncabezado">
+            Personalidad Jurídica
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.PersonalidadJuridica)
+        </div>
+            
+        <div class="labelEncabezado">
+            RFC
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.CV_CREDITO)
+        </div>
+            
+
+        <div class="labelEncabezado">
+            Punto de Venta
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.PuntoDeVenta)
+        </div>
+            
+        <div class="inputCarga">
+            Calle
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Calle)
+        </div>
+            
+        <div class="labelEncabezado">
+            Número Exterior
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumExt)
+        </div>
+            
+        <div class="labelEncabezado">
+            Número Interior
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumInt)
+        </div>
+            
+        <div class="labelEncabezado">
+            Colonia
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Colonia)
+        </div>
+            
+        <div class="labelEncabezado">
+            Código Postal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.CodigoPostal)
+        </div>
+            
+        <div class="labelEncabezado">
+            Municipio
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Municipio)
+        </div>
+            
+        <div class="labelEncabezado">
+            Ciudad
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Ciudad)
+        </div>
+            
+        <div class="labelEncabezado">
+            Estado
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Estado)
+        </div>
+            
+        <div class="labelEncabezado">
+            Teléfono
+        </div>
+        <div class="inputCarga Display">
+            @Html.DisplayFor(model => model.Telefono)
+        </div>
+        
+        <div class="labelEncabezado">
+            Lada
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Telefono_Lada)
+        </div>
+        
+        <div class="labelEncabezado">
+            Números de Teléfono de Atención a Clientes
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Telefono_AtencionClientes)
+        </div>
+        
+        <div class="labelEncabezado">
+            Extención
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Telefono_Extencion)
+        </div>
+
+        <div class="labelEncabezado">
+            Nombre Completo de Contacto
+        </div>
+
+        <div class="inputCarga Display">
+            @Html.DisplayFor(model => model.NombreContacto)
+        </div>
+
+        <div class="labelEncabezado">
+            Nombre de Contacto
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ContactoComercio_Nombre)
+        </div>
+           
+        <div class="labelEncabezado">
+            Apellido Paterno de Contacto
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ContactoComercio_ApellidoP)
+        </div>
+        
+        <div class="labelEncabezado">
+            Apellido Materno de Contacto
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ContactoComercio_ApellidoM)
+        </div>
+        <div class="labelEncabezado">
+            Cargo de Contacto
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ContactoComercio_Cargo)
+        </div>
+        
+        <div class="labelEncabezado">
+            Telefono de Contacto
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.TelefonoContacto)
+        </div>
+            
+        <div class="labelEncabezado">
+            Número de Extencion
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumExtencion)
+        </div>
+            
+        <div class="labelEncabezado">
+            Email de Contacto
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.EmailContacto)
+        </div>
+            
+        <div class="labelEncabezado">
+            Horarios de Atención
+        </div>
+        <div class="inputCarga Display">
+            @Html.DisplayFor(model => model.HorariosAtencion)
+        </div>
+        <div class="labelEncabezado">
+            Días de atención
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.HorariosAtencion_Dias)
+        </div>
+        <div class="labelEncabezado">
+            Horarios de Atención
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.HorariosAtencion_Horario)
+        </div>
+        <div class="labelEncabezado">
+            PaginaWeb
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.PaginaWeb)
+        </div>
+            
+        <div class="labelEncabezado">
+            Nombre Completo de Representante Legal
+        </div>
+        <div class="inputCarga Display">
+            @Html.DisplayFor(model => model.NombreRepresentanteLegal)
+        </div>
+        
+        <div class="labelEncabezado">
+            Apellido Paterno de Representante Legal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.RepresentanteLegal_ApellidoP)
+        </div>
+         
+        <div class="labelEncabezado">
+            Apellido Materno de Representante Legal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.RepresentanteLegal_ApellidoM)
+        </div>
+
+        <div class="labelEncabezado">
+            Nombre de Representante Legal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.RepresentanteLegal_Nombre)
+        </div>
+        
+        <div class="labelEncabezado">
+            Cargo de Representante Legal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.RepresentanteLegal_Cargo)
+        </div>
+
+        <div class="labelEncabezado">
+            Email de Representante Legal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.EmailRepresentanteLegal)
+        </div>
+            
+        <div class="labelEncabezado">
+            Telefono de Representante Legal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.TelefonoRepresentanteLegal)
+        </div>
+            
+        <div class="labelEncabezado">
+            Número de Extencion de Representante Legal)
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumExtencionRepresentanteLegal)
+        </div>
+            
+           
+        <div class="labelEncabezado">
+            Objeto Sociedad
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ObjetoSociedad)
+        </div>
+            
+
+        <div class="labelEncabezado">
+            Fecha de Constitucion
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.FechaConstitucion)
+        </div>
+            
+          
+        <div class="labelEncabezado">
+            Domicilio Fiscal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.DomicilioFiscal)
+        </div>
+            
+        <div class="labelEncabezado">
+            Actividad Registrada
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ActividadRegistrada)
+        </div>
+            
+            
+        <div class="labelEncabezado">
+            Número de Empleados Total
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumEmpleadosTotal)
+        </div>
+            
+        <div class="labelEncabezado">
+            Número de Empleados en Cada Sucursal
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumEmpleadosCadaSucursal)
+        </div>
+
+        <div class="labelEncabezado">
+            Número de Sucursales
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.NumSucursales)
+        </div>
+        
+        <div class="labelEncabezado">
+            Nombre de Socios
+        </div>
+        <div class="inputCarga Display">
+            @Html.DisplayFor(model => model.NombreSocios)
+        </div>
+        
+        <div class="labelEncabezado">
+            Dueño
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Socios_Duenio)
+        </div>
+        
+        <div class="labelEncabezado">
+            Accionista 1
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Socios_Accionista1)
+        </div>
+        
+        <div class="labelEncabezado">
+            Accionista 2
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Socios_Accionista2)
+        </div>
+        
+
+        <div class="labelEncabezado">
+            Accionista 3
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.Socios_Accionista3)
+        </div>
+
+        <div class="labelEncabezado">
+            SIC preponderante
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.SICPreponderante)
+        </div>
+        
+
+        <div class="labelEncabezado">
+            Comentarios Reporte
+        </div>
+        <div class="inputCarga">
+            @Html.EditorFor(model => model.ComentariosResolucion)
+        </div>
+
+
+        @Html.HiddenFor(model => model.IdentificadorSucursal)
+        
+        <p>
+            <input type="submit" width="200" value="Guardar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+

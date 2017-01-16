@@ -1,0 +1,59 @@
+﻿
+<table style="width:100%;">
+    @*<tr><td colspan="5"> <label class="TituloSeleccion_Peq" id="LblTipoFormulario" runat="server">Tipo de  formulario</label></td>
+    </tr>
+    <tr>
+        
+        <td colspan="5" style="text-align:left" id="selDDLTipoFormulario">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLTipoFormulario" style="height:30px;width:15%;margin-left:14px;" class="Combos" title="Formulario" onchange="PintaIndicadores()">
+                <option value="%" selected="selected">Todas</option>
+            </select>  
+        </td>
+    </tr>*@
+    <tr>
+        <td><label class="TituloSeleccion_Peq" id="LblDelegacion" runat="server" >Delegación</label></td>
+        <td><label class="TituloSeleccion_Peq" id="LblEstado" runat="server" style="visibility: hidden" >Estado</label></td>
+        <td><label class="TituloSeleccion_Peq" id="LblDespacho" runat="server">Despacho</label></td>
+        <td><label class="TituloSeleccion_Peq" id="LblSupervisor" runat="server">Supervisor</label></td>
+        <td><label class="TituloSeleccion_Peq" id="LblGestor" runat="server" >Gestor</label></td>                    
+    </tr>
+    <tr>
+        <td style="text-align:center" id="selDDLDelegacion">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLDelegacion" style="height:30px;width:95%;" class="Combos" title="Delegacion" onchange="PintaIndicadores(this.id + this.selectedIndex)" >
+                <option value="%" selected="selected">Todas</option>
+            </select>
+        </td>
+        <td style="text-align:center" id="selDDLEstado">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLEstado"  style="height:30px;width:95%;visibility:hidden;" title="Estado" class="Combos"  onchange="PintaIndicadores(this.id + this.selectedIndex)">
+                <option value="%" selected="selected">Todas</option>
+            </select>
+        </td>
+        <td style="text-align:center" id="selDDLDespacho">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLDespacho" class="Combos" title="Despacho" style="height:30px;width:95%;"  onchange="CambiaDespacho(this.id + this.selectedIndex)">
+                <option value="%" selected="selected">Todas</option>
+            </select>
+        </td>
+        <td style="text-align:center" id="selDDLSupervisor">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLSupervisor" style="height:30px;width:95%;" class="Combos" title="Supervisor"  onchange="CambiaSupervisor(this.id + this.selectedIndex)">
+                <option value="%" selected="selected">Todas</option>
+            </select>
+        </td>
+        <td style="text-align:center" id="selDDLGestor">
+            <label style="display:none;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+            <select id="DDLGestor" style="height:30px;width:95%;" class="Combos" title="Gestor"  onchange="PintaIndicadores(this.id + this.selectedIndex)">
+                <option value="%" selected="selected">Todas</option>
+            </select>
+        </td>                   
+    </tr>
+</table>
+
+<script>
+
+    decideCombosVisibles("@ViewBag.tipoDashBoard1","@ViewBag.nUser");
+    
+</script>

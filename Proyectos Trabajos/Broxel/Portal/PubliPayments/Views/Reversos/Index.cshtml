@@ -1,0 +1,200 @@
+﻿@using System.Web.UI.WebControls
+@using PubliPayments
+@model PubliPayments.Entidades.GestionadasModel
+
+@{
+    ViewBag.Title = "Reversos";
+}
+<script src="~/Scripts/OrdenesController.js?version=1.2"></script>
+<script src="~/Scripts/jquery-ui-1.10.4.min.js"></script>
+<script src="~/Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="~/Styles/lightbox.css">
+
+<style>
+    .lb-outerContainer {
+        height: 85% !important;
+    }
+
+    .lightbox .lb-image {
+        height: 640px !important;
+        width: 480px !important;
+    }
+
+    #tablaRespuesta {
+        width: 820px;
+        overflow-y: auto;
+        font: 12px 'Open Sans', sans-serif;
+        border-collapse: collapse !important;
+    }
+
+    #tablaRespuestaHeader {
+        background: #DCDCDC;
+        margin: 10px;
+        font: 12px 'Open Sans', sans-serif;
+    }
+
+    #tablaRespuesta table td {
+        padding: 0 6px 0 6px;
+    }
+</style>
+
+<script>
+    function btDescargar_OnClick() {
+        window.open('/ArchivoRespuestas/Descargar?idUsuarioPadre=' + '@ViewBag.idUsuarioPadre', "_self");
+    }
+
+    function reversarOrden(boton, idOrden) {
+        if (BloquearMultiplesClicksConf(boton, "reversa",2)) {
+            var jsonOrder = JSON.stringify({ "ordenesList": [idOrden], "paginaActual": ContainerPage });
+            return $OrdenesController.ProcessOrder("22", jsonOrder);
+        }
+    }
+
+
+    function UpdateTitlePanel() {
+        $("#selCount").text(window.GridReversos.GetSelectedRowCount());
+    }
+
+
+    function GetSelectedFieldValueCallback(values) {
+        var ordenesA = [];
+        for (var j = 0; j < values.length; j++) {
+            ordenesA.push([values[j], '3']);
+        }
+        window.ArrIdOrdenesA = ordenesA;
+
+        //OrdAsig = "0";
+
+        var ordenes = [];
+        for (var x = 0; x < values.length; x++) {
+            ordenes.push(values[x]);
+        }
+
+        window.ArrIdOrdenes = ordenes;
+        var node = document.getElementById("popupDiv");
+        if (node == null)
+            return;
+        while (node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+        var limit = (values.length > 100) ? 101 : values.length;
+        for (var i = 0; i < limit; i++) {
+
+            var nodeP = document.createElement("P");
+            var textNode = document.createTextNode(values[i][0]);
+            nodeP.appendChild(textNode);
+            document.getElementById("popupDiv").appendChild(nodeP);
+            if (i >= 100) {
+                var messageNode = document.createElement("P");
+                var messageContent = document.createTextNode("...");
+                messageNode.appendChild(messageContent);
+                document.getElementById("popupDiv").appendChild(messageNode);
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        window.ContainerPage = ["Gestionadas", "3", "VBD"];
+        window.MaskAjax = '.MaskAjax';
+
+
+        $("#GridReversos").on("click", ".idOrden a", function (e) {
+            e.preventDefault();
+            $("#Mask").show();
+            var orden = ($(this).html());
+            $.ajax({
+                url: '/Respuesta/Ver',
+                type: 'GET',
+                data: {
+                    idOrden: orden
+                    , proceso: 1
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: ShowResponse,
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                    $("#Mask").hide();
+                }
+            });
+        });
+    });
+
+    function ShowResponse(response) {
+        $("#tablaRespuesta").children().remove();
+        $("#tablaRespuesta").append(response.HtmlResp);
+        $("#tablaRespuestaHeader").html(response.usuario);
+        $("#Mask").hide();
+        window.PopupOrdenInfo.Show();
+    };
+</script>
+
+<div id="cabecero" style="margin-left: 30px; position: relative;text-align: left;">
+    <div id="tituloPagina" class="TituloSeleccion" style="display: inline-block;vertical-align: top;">
+        @ViewBag.Title<img id="Image1" alt="|" src="~/imagenes/separador.png" style="margin-left: 15px; margin-right: 15px; position: relative; top: 10px;" />
+    </div>
+    <div class="TituloSeleccion" style="height: 96px; display: inline-block; vertical-align: middle; width: auto;">
+        <div style="margin-top: 5px; display: block; text-align: left;">
+            <div style="margin-top: 0px; display: inline-block; text-align: left;">
+                <button class="Botones btnLimpiar" id="btLimpiar" style="width: 150px;height: 30px" onclick="location.reload(); return BloquearMultiplesClicks(this);">Restablecer</button>
+            </div>
+        </div>
+        <div style="margin-top: 0;margin-left:-140px; display: inline-block; text-align: left;">
+            @Html.Action("Index","CtrlComboFormularios")
+        </div>
+    </div>
+</div>
+<div id="grid" style="margin-left: 30px;margin-top: 10px;">
+    @Html.Action("GridReversosPartial")
+</div>
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "PopupOrdenInfo";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.AllowResize = false;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.Width = new Unit("800px");
+    settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+    settings.PopupVerticalOffset = 50;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.HeaderText = "Respuestas";
+
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div id='tablaRespuestaHeader'></div>");
+        ViewContext.Writer.Write("<div id='tablaRespuesta'></div>");
+    });
+}).GetHtml()
+
+@if (ViewBag.MensajeResultado != null)
+{
+    Html.DevExpress().PopupControl(settings =>
+    {
+        settings.Name = "PopupMensajeResultado";
+        settings.ShowHeader = true;
+        settings.AllowDragging = true;
+        settings.AllowResize = false;
+        settings.CloseAction = CloseAction.CloseButton;
+        settings.Modal = true;
+        settings.Width = new Unit("400px");
+        settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+        settings.PopupVerticalOffset = 50;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupAnimationType = AnimationType.Fade;
+        settings.ShowOnPageLoad = true;
+        settings.HeaderText = ViewBag.Title;
+
+        settings.SetContent(() =>
+        {
+            //ViewContext.Writer.Write("<div style='width: 100%; text-align: center; top: 30px; position: relative'>");
+            ViewContext.Writer.Write("<div class='Titulo'>" + ViewBag.MensajeResultado + "</div>");
+            ViewContext.Writer.Write("<br />");
+            ViewContext.Writer.Write("<div style='height: 30px;'></div>");
+            ViewContext.Writer.Write("<button id='btAsignar' OnClick='PopupMensajeResultado.Hide();' class='Botones' style='height: 30px;'>Continuar</button>");
+            //ViewContext.Writer.Write("<br />");
+            //ViewContext.Writer.Write("</div>");
+        });
+    }).GetHtml();
+}

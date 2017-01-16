@@ -1,0 +1,10 @@
+﻿@using PubliPayments.Entidades
+@model IEnumerable<OpcionesFiltroDashboard>
+
+<select id="comboDelegaciones" style="height:30px;width:95%;vertical-align: top;" class="Combos" title="comboDelegaciones" onchange="cambiaDelegacion()" >
+    <option value="0" selected="selected">Todas</option>                
+    @foreach (OpcionesFiltroDashboard item in Model)
+    {
+        <option value="@item.Value">@item.Description</option>
+    }
+</select>

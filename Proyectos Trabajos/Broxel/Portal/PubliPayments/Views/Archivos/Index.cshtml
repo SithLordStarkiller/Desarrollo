@@ -1,0 +1,133 @@
+﻿@using PubliPayments.Entidades;
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<style type="text/css">
+    .ui-state-default .ui-tabs-anchor {
+        font: 14px 'Open Sans', sans-serif !important;
+        color: #ffffff !important;
+        background: #4A3A41 !important;
+    }
+
+        .ui-state-default .ui-tabs-anchor:hover {
+            color: gray !important;
+        }
+
+    .ui-state-default {
+        border: none !important;
+    }
+
+    .ui-state-active .ui-tabs-anchor {
+        color: #000000 !important;
+        background: #EDEDED !important;
+    }
+
+        .ui-state-active .ui-tabs-anchor:hover {
+            color: #000000 !important;
+            background: #EDEDED !important;
+        }
+
+    .ui-tabs-active {
+        background: #EDEDED !important;
+    }
+
+    .ui-tabs-nav {
+        background: #4A3A41 !important;
+    }
+
+    .ui-tabs {
+        background: #EDEDED !important;
+        border: none;
+    }
+
+
+    .ui-widget-content {
+        border-top-style: none !important;
+        border-bottom-style: none !important;
+        border-left-style: none !important;
+        border-right-style: none !important;
+    }
+
+
+
+
+    .tabContent td {
+        vertical-align: top;
+        padding: 8px;
+    }
+
+    .tabTemplate,
+    .tabTemplate .label {
+        border-collapse: collapse;
+        font: 12px Tahoma;
+        color: #333333;
+    }
+
+        .tabTemplate img {
+            margin: 0;
+            display: block;
+        }
+
+        .tabTemplate td {
+            padding: 0;
+        }
+
+    .pcTemplates .dxtc-leftIndent,
+    .pcTemplates .dxtc-tab,
+    .pcTemplates .dxtc-activeTab,
+    .pcTemplates .dxtc-rightIndent {
+        border-width: 0 !important;
+        background-color: white !important;
+    }
+
+    .pcTemplates .dxtc-leftIndent,
+    .pcTemplates .dxtc-tab,
+    .pcTemplates .dxtc-rightIndent {
+        border-bottom-width: 1px !important;
+    }
+    .myCenteredGrid
+        {
+            margin: 0 auto;
+            width:70%
+        }
+</style>
+<script>
+    $(function () {
+        $("#tabs").tabs();
+    });
+
+    function OnGetId(value) {
+        window.open("/ArchivoError/Descargar?arg=" + value, "_self");
+    }
+
+    function Actualizar() {
+        location.reload();
+    }
+</script>
+<div class="TituloSeleccion" id="Principal" style="margin-left: 30px; position: relative; top: 0; left: 0;" runat="server">
+    Cargar Archivo
+    <img alt="|" src="/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;">
+    <input id="btActualiza" type="button" value="Actualizar" class="Botones" style="width: 150px;height: 30px" onclick="return Actualizar()" />
+</div>
+<div style="margin-left: 10px; margin-top: 30px;">
+    <div id="tabs">
+        <ul>
+            <li><a href="#tabsTxt">TXT</a></li>
+            <li><a href="#tabsRar">ZIP</a></li>
+
+        </ul>
+
+        <div id="tabsTxt">
+            <div id="txtContainer" style="padding-left: 15px">
+                @*ID="gridTxt"*@
+                @Html.Action("NextPage", "Archivos", new { tipo = "txt" })
+            </div>
+        </div>
+        <div id="tabsRar">
+            <div id="containerRar" style="padding-left: 15px">
+                @*ID="gridRar"*@
+                @Html.Action("NextPage", "Archivos", new { tipo = "zip" })
+            </div>
+        </div>
+    </div>
+</div>

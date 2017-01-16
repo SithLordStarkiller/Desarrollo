@@ -1,0 +1,64 @@
+﻿@using System.Data
+@model DataTable
+           
+@{
+    var tablaInd1 = Model.Select("Parte='1'");
+    var tablaInd2 = Model.Select("Parte='2'");
+}
+
+<div id="tablaIndicadores">
+    <table style="margin:0 auto 0 auto; width: 83%;">
+        <tr>
+            <td style="vertical-align:middle; width: 48%; text-align: center;">
+                <div id="TablaIndicadores1">
+                    <table style="color:#666666;width:100%; border: 1px solid #D0CECE" class="gridDashBoardSinLineas_Izquierda">
+                        @foreach (DataRow row in tablaInd1)
+                        {
+                            <tr style="height: 40px;">
+                                <td style="border: 1px solid #D0CECE;width: 60%; font-weight: normal; color: #000000; text-align: left; font-size: 13px;">
+                                    <label>@row[3].ToString()</label>
+                                </td>
+                                <td style="border: 1px solid #D0CECE;width: 20%; font-weight: bold; color: #000000; text-align: center;">
+                                    <label id="@row[0].ToString()ValorLabel">@row[1].ToString()</label>
+                                    <span id="@row[0].ToString()ValorImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                                </td>
+                                <td style="border: 1px solid #D0CECE;width: 20%; font-weight: bold; color: #000000; text-align: center;">
+                                    <label id="@row[0].ToString()PorcentajeLabel">@row[2].ToString()</label>
+                                    <span id="@row[0].ToString()PorcentajeImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                            
+                </div>
+            </td>
+            <td style="text-align:center; vertical-align:middle; width: 10%;">
+                &nbsp;
+            </td>
+            <td style="text-align:center; vertical-align:middle; width: 42%;">
+                <div id="TablaIndicadores2">
+                    <table style="color:#666666;width:100%; border: 1px solid #D0CECE" class="gridDashBoardSinLineas_Izquierda">
+                        @foreach (DataRow row in tablaInd2)
+                        {
+                            <tr style="height: 40px;">
+                                <td style="border: 1px solid #D0CECE;width: 60%; font-weight: normal; color: #000000; text-align: left; font-size: 13px;">
+                                    <label>@row[3].ToString()</label>
+                                </td>
+                                <td style="border: 1px solid #D0CECE;width: 20%; font-weight: bold; color: #000000; text-align: center;">
+                                    <label id="@row[0].ToString()ValorLabel">@row[1].ToString()</label>
+                                    <span id="@row[0].ToString()ValorImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                                </td>
+                                <td style="border: 1px solid #D0CECE;width: 20%; font-weight: bold; color: #000000; text-align: center;">
+                                    <label id="@row[0].ToString()PorcentajeLabel">@row[2].ToString()</label>
+                                    <span id="@row[0].ToString()PorcentajeImg" style="display: none;"><img src="~/imagenes/ajax-loader-trans.gif" /></span>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+        

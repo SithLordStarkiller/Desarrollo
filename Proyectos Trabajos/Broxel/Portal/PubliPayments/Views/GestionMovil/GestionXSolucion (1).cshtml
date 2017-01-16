@@ -1,0 +1,83 @@
+﻿@model DataTable
+@using System.Data
+@using System.Web.UI.WebControls
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "Soluciones";
+        settings.Width = Unit.Percentage(90);
+        settings.CallbackRouteValues = new
+        {
+            Controller = "GestionMovil",
+            Action = "GestionXSolucion",
+            delegacion = ViewData["delegacion"],
+            fechaCarga = ViewData["fechaCarga"],
+            estFinal = ViewData["estFinal"],
+            tipoFormulario = ViewData["tipoFormulario"]
+            
+        };
+        
+        settings.KeyFieldName = "idDespacho";
+        settings.SettingsBehavior.AllowSort = false;
+        settings.SettingsBehavior.HeaderFilterMaxRowCount = 50;      
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Despacho";
+            column.Caption = @"Despacho";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+        
+        var columnas = (string[])ViewData["listaColumnas"];
+        var titulos = (string[])ViewData["titulosTabla"];
+        
+        for (var i=0;i<(columnas.Length-1);i++)
+        {
+           var i1 = i;
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Valor" + columnas[i1];
+                column.Caption = titulos[Convert.ToInt32(columnas[i1])];
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+            });
+
+        }
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Total";
+            column.Caption = @"Total";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+    
+        settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+
+        settings.SetDetailRowTemplateContent(c => Html.RenderAction("GestionXSolucionDespacho", new
+        {
+            delegacion = ViewData["delegacion"],
+            fechaCarga = ViewData["fechaCarga"],
+            estFinal = ViewData["estFinal"],
+            despacho = DataBinder.Eval(c.DataItem, "idDespacho"),
+            tipoFormulario = ViewData["tipoFormulario"]
+
+        }));
+        settings.PreRender = (sender, e) =>
+        {
+            //((MVCxGridView)sender).DetailRows.ExpandRow(0);
+        };
+        settings.Init = (sender, e) =>
+        {
+            var grid = (MVCxGridView)sender;
+            grid.DetailRowGetButtonVisibility += (s, ea) =>
+            {
+                if (ea.KeyValue != null && ea.KeyValue != DBNull.Value)
+                {
+                    ea.ButtonState = (string)ea.KeyValue == "0" ? GridViewDetailRowButtonState.Hidden : GridViewDetailRowButtonState.Visible;
+                }
+            };
+        };
+        
+        
+    }).Bind(Model).GetHtml()

@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.broxel.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.broxel.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.broxel.com/Imports">
+      <xsd:import schemaLocation="http://192.168.75.23:8889/wsCreditos/Creditos.svc?xsd=xsd0" namespace="http://www.broxel.com" />
+      <xsd:import schemaLocation="http://192.168.75.23:8889/wsCreditos/Creditos.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.75.23:8889/wsCreditos/Creditos.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Creditos.DAL" />
+      <xsd:import schemaLocation="http://192.168.75.23:8889/wsCreditos/Creditos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Creditos" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICreditos_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPR_TIPOS_PLAZOS_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPR_TIPOS_PLAZOS" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPR_TIPOS_PLAZOS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPR_TIPOS_PLAZOSResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditobyID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditobyID" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditobyID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditobyIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpTiposCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpTiposCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpTiposCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpTiposCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPTipoCreditobyID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPTipoCreditobyID" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPTipoCreditobyID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPTipoCreditobyIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetRubros_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRubros" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetRubros_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRubrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetRubroXTipCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRubroXTipCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetRubroXTipCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRubroXTipCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPagosCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPagosCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPagosCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPagosCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetSaldoPr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSaldoPr" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetSaldoPr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSaldoPrResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditoOtros_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditoOtros" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditoOtros_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditoOtrosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditoRefunds_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditoRefunds" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditoRefunds_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditoRefundsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditoRestricciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditoRestricciones" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoCreditoRestricciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoCreditoRestriccionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoGaranTipoCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoGaranTipoCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoGaranTipoCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoGaranTipoCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetRequisitos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequisitos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetRequisitos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequisitosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetReqTipoCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReqTipoCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetReqTipoCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReqTipoCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetAgencias_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgencias" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetAgencias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgenciasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetAgencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgencia" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetAgencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAgenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetGruposRubro_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGruposRubro" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetGruposRubro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGruposRubroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetGrupoRubro_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGrupoRubro" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetGrupoRubro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGrupoRubroResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetMonedas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonedas" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetMonedas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonedasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetMoneda_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMoneda" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetMoneda_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMonedaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetNivelesAprobacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelesAprobacion" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetNivelesAprobacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelesAprobacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetNivelAprobacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelAprobacion" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetNivelAprobacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNivelAprobacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOrigenFondos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrigenFondos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOrigenFondos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrigenFondosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetCargosTipoCreditoPr_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCargosTipoCreditoPr" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetCargosTipoCreditoPr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCargosTipoCreditoPrResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPlanInversion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlanInversion" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPlanInversion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlanInversionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetProductos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetProductos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetProducto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProducto" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetProducto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTiposGarantias_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiposGarantias" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTiposGarantias_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTiposGarantiasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoGarantia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoGarantia" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTipoGarantia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTipoGarantiaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpCargosTipoCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpCargosTipoCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpCargosTipoCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpCargosTipoCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPCargosTipoCreditobyID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPCargosTipoCreditobyID" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPCargosTipoCreditobyID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPCargosTipoCreditobyIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpGarantiasTipoCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpGarantiasTipoCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpGarantiasTipoCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpGarantiasTipoCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPTpoGarantiaTipoCreditobyID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPTpoGarantiaTipoCreditobyID" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPTpoGarantiaTipoCreditobyID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPTpoGarantiaTipoCreditobyIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpCuentasConcepto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpCuentasConcepto" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOpCuentasConcepto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOpCuentasConceptoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPCuentasConceptobyID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPCuentasConceptobyID" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPCuentasConceptobyID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPCuentasConceptobyIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetListResumenRegContab_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListResumenRegContab" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetListResumenRegContab_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListResumenRegContabResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetListDetalleRegContab_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListDetalleRegContab" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetListDetalleRegContab_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListDetalleRegContabResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_RealizaCargosAutomaticos_InputMessage">
+    <wsdl:part name="parameters" element="tns:RealizaCargosAutomaticos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_RealizaCargosAutomaticos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RealizaCargosAutomaticosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AperturaOperacionPasiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:AperturaOperacionPasiva" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AperturaOperacionPasiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AperturaOperacionPasivaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AperturaCredito_InputMessage">
+    <wsdl:part name="parameters" element="tns:AperturaCredito" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AperturaCredito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AperturaCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AprobacionCredito_InputMessage">
+    <wsdl:part name="parameters" element="tns:AprobacionCredito" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AprobacionCredito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AprobacionCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AperturaExpressCredito_InputMessage">
+    <wsdl:part name="parameters" element="tns:AperturaExpressCredito" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AperturaExpressCredito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AperturaExpressCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_DesembolsoOPasiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:DesembolsoOPasiva" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_DesembolsoOPasiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DesembolsoOPasivaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_DesembolsoCredito_InputMessage">
+    <wsdl:part name="parameters" element="tns:DesembolsoCredito" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_DesembolsoCredito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DesembolsoCreditoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetLineasCreditosxRiesgo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLineasCreditosxRiesgo" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetLineasCreditosxRiesgo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLineasCreditosxRiesgoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPlanPagos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlanPagos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPlanPagos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlanPagosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPlanPagosbyId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlanPagosbyId" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetPlanPagosbyId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlanPagosbyIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetCalculoCuota_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCalculoCuota" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetCalculoCuota_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCalculoCuotaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTablaPagos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTablaPagos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetTablaPagos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTablaPagosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_VinculaOperacionesOpPr_InputMessage">
+    <wsdl:part name="parameters" element="tns:VinculaOperacionesOpPr" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_VinculaOperacionesOpPr_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VinculaOperacionesOpPrResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoNormal_InputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoNormal" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoNormal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoNormalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoExtraordinario_InputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoExtraordinario" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoExtraordinario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoExtraordinarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoCancelacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoCancelacion" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoCancelacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoCancelacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetCobranza_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCobranza" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetCobranza_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCobranzaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_ObtenResumenAdeudos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenResumenAdeudos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_ObtenResumenAdeudos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenResumenAdeudosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_RegistroLineaCreditoOp_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistroLineaCreditoOp" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_RegistroLineaCreditoOp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistroLineaCreditoOpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_CancelacionLineaCreditoOp_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelacionLineaCreditoOp" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_CancelacionLineaCreditoOp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelacionLineaCreditoOpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_ConsultaDisponibleLineaCredOp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaDisponibleLineaCredOp" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_ConsultaDisponibleLineaCredOp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultaDisponibleLineaCredOpResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetLineasCreditos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLineasCreditos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetLineasCreditos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLineasCreditosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetMovimientosOP_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMovimientosOP" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetMovimientosOP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMovimientosOPResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPPlanPagos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPPlanPagos" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetOPPlanPagos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOPPlanPagosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoExtraordinarioSimplificado_InputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoExtraordinarioSimplificado" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_AbonoExtraordinarioSimplificado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AbonoExtraordinarioSimplificadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetAsientosGetRegContablesReporte_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAsientosGetRegContablesReporte" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_GetAsientosGetRegContablesReporte_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAsientosGetRegContablesReporteResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_ObtenTiposCreditoCapacidadPagoXRiesgo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTiposCreditoCapacidadPagoXRiesgo" />
+  </wsdl:message>
+  <wsdl:message name="ICreditos_ObtenTiposCreditoCapacidadPagoXRiesgo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenTiposCreditoCapacidadPagoXRiesgoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICreditos">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetData" message="tns:ICreditos_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetDataResponse" message="tns:ICreditos_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditos" message="tns:ICreditos_GetTipoCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditosResponse" message="tns:ICreditos_GetTipoCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPR_TIPOS_PLAZOS">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetPR_TIPOS_PLAZOS" message="tns:ICreditos_GetPR_TIPOS_PLAZOS_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetPR_TIPOS_PLAZOSResponse" message="tns:ICreditos_GetPR_TIPOS_PLAZOS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoCreditobyID">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditobyID" message="tns:ICreditos_GetTipoCreditobyID_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditobyIDResponse" message="tns:ICreditos_GetTipoCreditobyID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpTiposCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOpTiposCreditos" message="tns:ICreditos_GetOpTiposCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOpTiposCreditosResponse" message="tns:ICreditos_GetOpTiposCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOPTipoCreditobyID">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOPTipoCreditobyID" message="tns:ICreditos_GetOPTipoCreditobyID_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOPTipoCreditobyIDResponse" message="tns:ICreditos_GetOPTipoCreditobyID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRubros">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetRubros" message="tns:ICreditos_GetRubros_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetRubrosResponse" message="tns:ICreditos_GetRubros_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRubroXTipCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetRubroXTipCreditos" message="tns:ICreditos_GetRubroXTipCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetRubroXTipCreditosResponse" message="tns:ICreditos_GetRubroXTipCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPagosCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetPagosCreditos" message="tns:ICreditos_GetPagosCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetPagosCreditosResponse" message="tns:ICreditos_GetPagosCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSaldoPr">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetSaldoPr" message="tns:ICreditos_GetSaldoPr_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetSaldoPrResponse" message="tns:ICreditos_GetSaldoPr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoCreditoOtros">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditoOtros" message="tns:ICreditos_GetTipoCreditoOtros_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditoOtrosResponse" message="tns:ICreditos_GetTipoCreditoOtros_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoCreditoRefunds">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditoRefunds" message="tns:ICreditos_GetTipoCreditoRefunds_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditoRefundsResponse" message="tns:ICreditos_GetTipoCreditoRefunds_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoCreditoRestricciones">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditoRestricciones" message="tns:ICreditos_GetTipoCreditoRestricciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoCreditoRestriccionesResponse" message="tns:ICreditos_GetTipoCreditoRestricciones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoGaranTipoCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoGaranTipoCreditos" message="tns:ICreditos_GetTipoGaranTipoCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoGaranTipoCreditosResponse" message="tns:ICreditos_GetTipoGaranTipoCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequisitos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetRequisitos" message="tns:ICreditos_GetRequisitos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetRequisitosResponse" message="tns:ICreditos_GetRequisitos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReqTipoCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetReqTipoCreditos" message="tns:ICreditos_GetReqTipoCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetReqTipoCreditosResponse" message="tns:ICreditos_GetReqTipoCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgencias">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetAgencias" message="tns:ICreditos_GetAgencias_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetAgenciasResponse" message="tns:ICreditos_GetAgencias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAgencia">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetAgencia" message="tns:ICreditos_GetAgencia_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetAgenciaResponse" message="tns:ICreditos_GetAgencia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGruposRubro">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetGruposRubro" message="tns:ICreditos_GetGruposRubro_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetGruposRubroResponse" message="tns:ICreditos_GetGruposRubro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetGrupoRubro">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetGrupoRubro" message="tns:ICreditos_GetGrupoRubro_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetGrupoRubroResponse" message="tns:ICreditos_GetGrupoRubro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMonedas">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetMonedas" message="tns:ICreditos_GetMonedas_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetMonedasResponse" message="tns:ICreditos_GetMonedas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMoneda">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetMoneda" message="tns:ICreditos_GetMoneda_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetMonedaResponse" message="tns:ICreditos_GetMoneda_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNivelesAprobacion">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetNivelesAprobacion" message="tns:ICreditos_GetNivelesAprobacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetNivelesAprobacionResponse" message="tns:ICreditos_GetNivelesAprobacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNivelAprobacion">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetNivelAprobacion" message="tns:ICreditos_GetNivelAprobacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetNivelAprobacionResponse" message="tns:ICreditos_GetNivelAprobacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrigenFondos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOrigenFondos" message="tns:ICreditos_GetOrigenFondos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOrigenFondosResponse" message="tns:ICreditos_GetOrigenFondos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCargosTipoCreditoPr">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetCargosTipoCreditoPr" message="tns:ICreditos_GetCargosTipoCreditoPr_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetCargosTipoCreditoPrResponse" message="tns:ICreditos_GetCargosTipoCreditoPr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlanInversion">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetPlanInversion" message="tns:ICreditos_GetPlanInversion_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetPlanInversionResponse" message="tns:ICreditos_GetPlanInversion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetProductos" message="tns:ICreditos_GetProductos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetProductosResponse" message="tns:ICreditos_GetProductos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProducto">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetProducto" message="tns:ICreditos_GetProducto_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetProductoResponse" message="tns:ICreditos_GetProducto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTiposGarantias">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTiposGarantias" message="tns:ICreditos_GetTiposGarantias_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTiposGarantiasResponse" message="tns:ICreditos_GetTiposGarantias_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTipoGarantia">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTipoGarantia" message="tns:ICreditos_GetTipoGarantia_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTipoGarantiaResponse" message="tns:ICreditos_GetTipoGarantia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpCargosTipoCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOpCargosTipoCreditos" message="tns:ICreditos_GetOpCargosTipoCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOpCargosTipoCreditosResponse" message="tns:ICreditos_GetOpCargosTipoCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOPCargosTipoCreditobyID">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOPCargosTipoCreditobyID" message="tns:ICreditos_GetOPCargosTipoCreditobyID_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOPCargosTipoCreditobyIDResponse" message="tns:ICreditos_GetOPCargosTipoCreditobyID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpGarantiasTipoCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOpGarantiasTipoCreditos" message="tns:ICreditos_GetOpGarantiasTipoCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOpGarantiasTipoCreditosResponse" message="tns:ICreditos_GetOpGarantiasTipoCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOPTpoGarantiaTipoCreditobyID">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOPTpoGarantiaTipoCreditobyID" message="tns:ICreditos_GetOPTpoGarantiaTipoCreditobyID_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOPTpoGarantiaTipoCreditobyIDResponse" message="tns:ICreditos_GetOPTpoGarantiaTipoCreditobyID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOpCuentasConcepto">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOpCuentasConcepto" message="tns:ICreditos_GetOpCuentasConcepto_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOpCuentasConceptoResponse" message="tns:ICreditos_GetOpCuentasConcepto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOPCuentasConceptobyID">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOPCuentasConceptobyID" message="tns:ICreditos_GetOPCuentasConceptobyID_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOPCuentasConceptobyIDResponse" message="tns:ICreditos_GetOPCuentasConceptobyID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListResumenRegContab">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetListResumenRegContab" message="tns:ICreditos_GetListResumenRegContab_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetListResumenRegContabResponse" message="tns:ICreditos_GetListResumenRegContab_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListDetalleRegContab">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetListDetalleRegContab" message="tns:ICreditos_GetListDetalleRegContab_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetListDetalleRegContabResponse" message="tns:ICreditos_GetListDetalleRegContab_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RealizaCargosAutomaticos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/RealizaCargosAutomaticos" message="tns:ICreditos_RealizaCargosAutomaticos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/RealizaCargosAutomaticosResponse" message="tns:ICreditos_RealizaCargosAutomaticos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AperturaOperacionPasiva">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AperturaOperacionPasiva" message="tns:ICreditos_AperturaOperacionPasiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AperturaOperacionPasivaResponse" message="tns:ICreditos_AperturaOperacionPasiva_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AperturaCredito">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AperturaCredito" message="tns:ICreditos_AperturaCredito_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AperturaCreditoResponse" message="tns:ICreditos_AperturaCredito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AprobacionCredito">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AprobacionCredito" message="tns:ICreditos_AprobacionCredito_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AprobacionCreditoResponse" message="tns:ICreditos_AprobacionCredito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AperturaExpressCredito">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AperturaExpressCredito" message="tns:ICreditos_AperturaExpressCredito_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AperturaExpressCreditoResponse" message="tns:ICreditos_AperturaExpressCredito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DesembolsoOPasiva">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/DesembolsoOPasiva" message="tns:ICreditos_DesembolsoOPasiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/DesembolsoOPasivaResponse" message="tns:ICreditos_DesembolsoOPasiva_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DesembolsoCredito">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/DesembolsoCredito" message="tns:ICreditos_DesembolsoCredito_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/DesembolsoCreditoResponse" message="tns:ICreditos_DesembolsoCredito_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineasCreditosxRiesgo">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetLineasCreditosxRiesgo" message="tns:ICreditos_GetLineasCreditosxRiesgo_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetLineasCreditosxRiesgoResponse" message="tns:ICreditos_GetLineasCreditosxRiesgo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlanPagos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetPlanPagos" message="tns:ICreditos_GetPlanPagos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetPlanPagosResponse" message="tns:ICreditos_GetPlanPagos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlanPagosbyId">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetPlanPagosbyId" message="tns:ICreditos_GetPlanPagosbyId_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetPlanPagosbyIdResponse" message="tns:ICreditos_GetPlanPagosbyId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCalculoCuota">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetCalculoCuota" message="tns:ICreditos_GetCalculoCuota_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetCalculoCuotaResponse" message="tns:ICreditos_GetCalculoCuota_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTablaPagos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetTablaPagos" message="tns:ICreditos_GetTablaPagos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetTablaPagosResponse" message="tns:ICreditos_GetTablaPagos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VinculaOperacionesOpPr">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/VinculaOperacionesOpPr" message="tns:ICreditos_VinculaOperacionesOpPr_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/VinculaOperacionesOpPrResponse" message="tns:ICreditos_VinculaOperacionesOpPr_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AbonoNormal">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AbonoNormal" message="tns:ICreditos_AbonoNormal_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AbonoNormalResponse" message="tns:ICreditos_AbonoNormal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AbonoExtraordinario">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AbonoExtraordinario" message="tns:ICreditos_AbonoExtraordinario_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AbonoExtraordinarioResponse" message="tns:ICreditos_AbonoExtraordinario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AbonoCancelacion">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AbonoCancelacion" message="tns:ICreditos_AbonoCancelacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AbonoCancelacionResponse" message="tns:ICreditos_AbonoCancelacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCobranza">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetCobranza" message="tns:ICreditos_GetCobranza_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetCobranzaResponse" message="tns:ICreditos_GetCobranza_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenResumenAdeudos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/ObtenResumenAdeudos" message="tns:ICreditos_ObtenResumenAdeudos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/ObtenResumenAdeudosResponse" message="tns:ICreditos_ObtenResumenAdeudos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistroLineaCreditoOp">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/RegistroLineaCreditoOp" message="tns:ICreditos_RegistroLineaCreditoOp_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/RegistroLineaCreditoOpResponse" message="tns:ICreditos_RegistroLineaCreditoOp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelacionLineaCreditoOp">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/CancelacionLineaCreditoOp" message="tns:ICreditos_CancelacionLineaCreditoOp_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/CancelacionLineaCreditoOpResponse" message="tns:ICreditos_CancelacionLineaCreditoOp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaDisponibleLineaCredOp">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/ConsultaDisponibleLineaCredOp" message="tns:ICreditos_ConsultaDisponibleLineaCredOp_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/ConsultaDisponibleLineaCredOpResponse" message="tns:ICreditos_ConsultaDisponibleLineaCredOp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLineasCreditos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetLineasCreditos" message="tns:ICreditos_GetLineasCreditos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetLineasCreditosResponse" message="tns:ICreditos_GetLineasCreditos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMovimientosOP">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetMovimientosOP" message="tns:ICreditos_GetMovimientosOP_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetMovimientosOPResponse" message="tns:ICreditos_GetMovimientosOP_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOPPlanPagos">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetOPPlanPagos" message="tns:ICreditos_GetOPPlanPagos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetOPPlanPagosResponse" message="tns:ICreditos_GetOPPlanPagos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AbonoExtraordinarioSimplificado">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/AbonoExtraordinarioSimplificado" message="tns:ICreditos_AbonoExtraordinarioSimplificado_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/AbonoExtraordinarioSimplificadoResponse" message="tns:ICreditos_AbonoExtraordinarioSimplificado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAsientosGetRegContablesReporte">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/GetAsientosGetRegContablesReporte" message="tns:ICreditos_GetAsientosGetRegContablesReporte_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/GetAsientosGetRegContablesReporteResponse" message="tns:ICreditos_GetAsientosGetRegContablesReporte_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenTiposCreditoCapacidadPagoXRiesgo">
+      <wsdl:input wsaw:Action="http://www.broxel.com/ICreditos/ObtenTiposCreditoCapacidadPagoXRiesgo" message="tns:ICreditos_ObtenTiposCreditoCapacidadPagoXRiesgo_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.broxel.com/ICreditos/ObtenTiposCreditoCapacidadPagoXRiesgoResponse" message="tns:ICreditos_ObtenTiposCreditoCapacidadPagoXRiesgo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

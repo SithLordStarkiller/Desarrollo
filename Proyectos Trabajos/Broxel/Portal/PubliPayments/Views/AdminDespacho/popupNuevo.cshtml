@@ -1,0 +1,45 @@
+﻿@model PubliPayments.Models.DespachoModel
+
+<div class="PopUpContainer">
+    @using (@Html.BeginForm())
+    {
+        <div style="height: 335px">
+            <table id="TNuevoDespacho" style="padding-right: 0; width: 430px">
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.tbDespacho)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tbDespacho, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", MaxLength = "30", placeholder = "razón social" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.tbNombreCorto)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tbNombreCorto, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateStringD(event)", onkeydown = "return noCopyKey(event)", MaxLength = "20", placeholder = "nombre corto" })
+                        @*ToolTip="Sólo se permiten nombres con letras MAYUSCULAS"*@
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.tbNombreUsuario)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tbNombreUsuario, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateStringU(event)", onkeydown = "return noCopyKey(event)", MaxLength = "30", placeholder = "usuario" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.tbNombre)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tbNombre, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", MaxLength = "30", placeholder = "nombre" })
+                    </td>
+                </tr>
+                <tr style="height: 60px">
+                    <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.tbEmail)</td>
+                    <td>
+                        @Html.TextBoxFor(m => m.tbEmail, new { @class = "Combos AlinearIzquierda", autocomplete = "false", style = "width:200px;", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", MaxLength = "49", placeholder = "email" })
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="height: 30px">
+            <p id="MensajeUsuario" class="MensajeAlerta"></p>
+        </div>
+    }
+</div>

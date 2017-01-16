@@ -1,0 +1,156 @@
+﻿<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+@*<script src="~/Scripts/Dashboard.js?version=2.0" type="text/javascript"></script>*@
+
+<style>
+    .Combos {
+        font-family: Crystal, Monaco, monospace;
+    }
+</style>
+<script>
+    window.UltimaSolicitud = 0;
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Dashboard/ContenidoDashboard",
+            type: "GET",
+            dataType: "text",
+            cache: false,
+            traditional: true,
+            data: {},
+            success: function (response) {
+                if (response.toString().indexOf("Se recomienda la utilización") !== -1) {
+                    window.location = "/Home";
+                } else {
+                    $("#divContenidoDashboard").html(response);
+                    formatoComboDespacho();
+                }
+
+            },
+            error: function (msg) {
+                if (msg.getAllResponseHeaders()) {
+                    alertaError("No se pudo obtener el reporte.\nInténtelo mas tarde.");
+                    return false;
+                }
+                return false;
+            }
+        });
+    });
+
+    function cargarDatos() {
+        var delegacion = $("#DDLDelegacion").val();
+        var despacho = $("#DDLDespacho").val();
+        var supervisor = $("#DDLSupervisor").val();
+        var gestor = $("#DDLGestor").val();
+        var tipoFormulario = $("#CtrlComboFormulario").val();
+
+        $.ajax({
+            url: "/Dashboard/ObtenerDatosDashboard",
+            type: "POST",
+            dataType: "text",
+            cache: false,
+            traditional: true,
+            data: {
+                'Delegacion': delegacion,
+                'Despacho': despacho,
+                'Supervisor': supervisor,
+                'Gestor': gestor,
+                'TipoFormulario': tipoFormulario
+            },
+            beforeSend: function () {
+                var camposOcultar = document.querySelectorAll("[id$='PorcentajeLabel'],[id$='ValorLabel']");
+                var camposMostrar = document.querySelectorAll("[id$='PorcentajeImg'],[id$='ValorImg']");
+
+                for (var i = 0; i < camposOcultar.length; i++) {
+                    camposOcultar[i].style.display = "none";
+                }
+
+                for (var e = 0; e < camposMostrar.length; e++) {
+                    camposMostrar[e].style.display = "inline-block";
+                }
+            },
+            success: function (response) {
+                if (response.toString().indexOf("Se recomienda la utilización") !== -1) {
+                    window.location = "/Home";
+                } else {
+                    var responseAux = (JSON.parse(response));
+
+                    responseAux.forEach(function (element) {
+                        var clave = element.FcClave;
+
+                        $("#" + clave + "ValorLabel").html(element.FiValue);
+                        $("#" + clave + "PorcentajeLabel").html(element.FiPorcentaje);
+                    });
+                    formatoComboDespacho();
+                }
+            },
+            error: function (msg) {
+                if (msg.getAllResponseHeaders()) {
+                    alertaError("No se pudo obtener el reporte.\nInténtelo mas tarde.");
+                    return false;
+                }
+                return false;
+            },
+            complete: function () {
+                var camposOcultar = document.querySelectorAll("[id$='PorcentajeImg'],[id$='ValorImg']");
+                var camposMostrar = document.querySelectorAll("[id$='PorcentajeLabel'],[id$='ValorLabel']");
+
+                for (var juuj = 0; juuj < camposOcultar.length; juuj++) {
+                    var tick = function (juj) {
+                        return function () {
+                            camposOcultar[juj].style.display = "none";
+                            camposMostrar[juj].style.display = "inline-block";
+                        }
+                    };
+
+                    setTimeout(tick(juuj), 35 * juuj);
+                }
+
+            }
+        });
+    }
+
+    function filtrosCambiados() {
+        cargarDatos();
+    }
+
+    function formatoComboDespacho() {
+        var spacesToAdd = 2;
+        var biggestLength = 0;
+        $("#DDLDespacho option").each(function () {
+            var len = $(this).text().split('-')[0].length;
+            if (len > biggestLength) {
+                biggestLength = len;
+            }
+        });
+        var padLength = biggestLength + spacesToAdd;
+
+        $("#DDLDespacho option").each(function (index) {
+            if (index > 0) {
+                var parts = $(this).text().split('-');
+                var strLength = (parts[0].length);
+                for (var x = 0; x < (padLength - strLength) ; x++) {
+                    parts[0] = parts[0] + ' ';
+                }
+                $(this).text(parts[0].replace(/ /g, '\u00a0') + '-' + parts[1]);
+            }
+
+        });
+    }
+
+</script>
+<div style="text-align: left; margin-left: 30px">
+    <div style="margin-right: 30px; margin-bottom: 20px; text-align: left;">
+        <img alt="" src="~/imagenes/ico-dashboard.png" style="width: 46px; position: relative; top: 13px; height: 46px; padding-right: 20px" />
+
+        <label class="TituloSeleccion" id="LblTitulo_Dash">@ViewBag.LblTitulo_Dash</label>
+        <br />
+        <div style="width: 300px;"> @Html.Action("Index", "CtrlComboFormularios")</div>
+    </div>
+    <div style="margin-right: 30px; margin-bottom: 20px; vertical-align: middle; align-content:center; align-items:center; align-self:center;">
+        &nbsp;
+        <div style="margin:auto;" id="combosFiltros">
+            @Html.Action("Index", "Filtros")
+        </div>
+        &nbsp;
+    </div>
+    <div id="divContenidoDashboard" style="width: 100%;text-align: center;"><img src="~/imagenes/ajax-loader-trans.gif" /></div><br />
+</div>

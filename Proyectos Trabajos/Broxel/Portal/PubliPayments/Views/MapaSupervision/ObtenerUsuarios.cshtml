@@ -1,0 +1,27 @@
+﻿@using System.Globalization
+@using PubliPayments.Models
+@model IEnumerable<UsuarioMapa>
+
+<table>
+    <tr>
+        <th class="Combos" style="background-color: #DBDBDB">
+            @Html.DisplayNameFor(model => model.Usuario)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="Combos" style="width: 180px">
+                <div style="width: 150px !important; text-align: left; display: inline-block">
+                    @{
+                        UsuarioMapa item2 = item;
+                    }
+
+                    @Html.DisplayFor(modelItem => item2.Usuario)
+                </div>
+                <input type="checkbox" name="Usuarios" value="@item.IdUduario.ToString(CultureInfo.InvariantCulture)" />
+            </td>
+        </tr>
+    }
+</table>

@@ -1,0 +1,145 @@
+﻿@using System.Activities.Statements
+@using System.Web.UI.WebControls
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.CallbackRouteValues = new { Controller = "AdminUsuarios", Action = "lbUsuariosLondon" };
+        settings.Width = Unit.Percentage(98);
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.ClientSideEvents.EndCallback = "function(s,e){BotonesAltaBaja();}";
+        settings.ClientSideEvents.Init = "function(s,e){BotonesAltaBaja();}";
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+        settings.Styles.EditFormTable.Font.Size = new FontUnit(Unit.Pixel(12)); //FontUnit.Parse("12px");
+        settings.Styles.EditFormCell.Font.Size = new FontUnit(Unit.Pixel(12)); //FontUnit.Parse("12px");
+        settings.Styles.Cell.Font.Size = new FontUnit(Unit.Pixel(12)); //FontUnit.Parse("12px");
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+        settings.KeyFieldName = "idUsuario";
+        settings.CommandColumn.Visible = true;
+        settings.CommandColumn.ShowSelectCheckbox = true;
+        settings.CommandColumn.ShowClearFilterButton = true;
+
+        var columna = new GridViewDataTextColumn();
+        columna.Caption = "Selección";
+        
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columna.Visible = false;
+        settings.Columns.Add(columna);
+        
+        columna.Caption = "Despacho";
+        columna.FieldName = "NombreDominio";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columna.Visible = false;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn();
+        columna.Caption = "Usuario";
+        columna.FieldName = "Usuario";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn();
+        columna.Caption = "Nombre";
+        columna.FieldName = "Nombre";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn();
+        columna.Caption = "Email";
+        columna.FieldName = "Email";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn();
+        columna.Caption = @"Asignado";
+        columna.FieldName = "Padre";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn();
+        columna.Caption = "Estatus";
+        columna.FieldName = "EstatusTxt";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn();
+        columna.Caption = "Perfil";
+        columna.FieldName = "NombreRol";
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        //columna = new GridViewDataTextColumn();
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    ""
+                );
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    ""
+                );
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    ""
+                );
+            });
+        });
+
+        settings.Columns.Add(column =>
+        {
+            column.Caption = "";
+            column.SetDataItemTemplateContent(c =>
+            {
+                ViewContext.Writer.Write(
+                    ""
+                );
+            });
+        });
+
+        //settings.SettingsEditing.Mode = GridViewEditingMode.EditFormAndDisplayRow;
+        //settings.SettingsBehavior.ConfirmDelete = true;
+
+        //settings.CommandColumn.Visible = true;
+        //settings.CommandColumn.ShowNewButton = true;
+        //settings.CommandColumn.ShowDeleteButton = true;
+        //settings.CommandColumn.ShowEditButton = true;
+
+        //settings.SettingsPager.Visible = true;
+        //settings.Settings.ShowGroupPanel = true;
+        //settings.Settings.ShowFilterRow = true;
+        //settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+    });
+}
+@grid.Bind(Model).GetHtml()

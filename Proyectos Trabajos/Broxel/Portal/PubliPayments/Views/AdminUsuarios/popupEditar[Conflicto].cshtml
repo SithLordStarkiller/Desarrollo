@@ -1,0 +1,44 @@
+﻿@model PubliPayments.Models.AdminUsuariosModel
+@using DevExpress.Data
+
+@{
+    Layout = null;
+}
+
+
+<table id="Table1" style="padding-right: 0; width: 430px">
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Usuario)</td>
+        <td>
+            @Html.TextBoxFor(m => m.Usuario, new {@class = "Combos AlinearIzquierda", @readonly = "True", width = "400px", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", maxlength = "30"})
+        </td>
+    </tr>
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Nombre)</td>
+        <td>
+            @Html.TextBoxFor(m => m.Nombre, new {@class = "Combos AlinearIzquierda", width = "400px", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", maxlength = "30"})
+        </td>
+    </tr>
+    <tr style="height: 60px">
+        <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Correo)</td>
+        <td>
+            @Html.TextBoxFor(m => m.Correo, new {@class = "Combos AlinearIzquierda", width = "400px", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", maxlength = "30"})
+        </td>
+    </tr>
+    <tr>
+        @Html.DevExpress().TokenBox(
+            settings =>
+            {
+                settings.Name = "tokenBox";
+                settings.Width = 450;
+                settings.Properties.TextField = "Name";
+                settings.Properties.ValueField = "Email";
+                settings.Properties.Tokens.Add("Julia Evans");
+                settings.Properties.Tokens.Add("Kevin Collins");
+                settings.Properties.Tokens.Add("Diana Martin");
+            }
+                           ).BindList(m.Delegaciones) GetHtml()
+    </tr>
+    @Html.HiddenFor(m => m.Accion)
+    @Html.HiddenFor(m => m.idUsuario)
+</table>

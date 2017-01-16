@@ -1,0 +1,130 @@
+﻿@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@(HttpContext.Current.Application["Aplicacion"].ToString().Equals("1")?"Infonavit": HttpContext.Current.Application["NombreAplicacion"].ToString().ToUpper().Contains("SIRA")?"SIRA":"PubliPayments")</title>
+    <link href="@HttpContext.Current.Application["AplicacionLogos"]faviconyy.png" rel="shortcut icon" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="@HttpContext.Current.Application["AplicacionLogos"]faviconyy.png">
+    <meta name="viewport" content="width=device-width" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="~/Styles/Principal.css?version=1.0" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/normalize.css?version=1.0" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.11.0.min.js"></script>
+    <script src="~/Scripts/Objetos.js"></script>
+    <script src="~/Scripts/watermark.js" type="text/javascript"></script>
+    <script src="~/Scripts/restrictors.js?version=3.0"></script>
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new Script { ExtensionSuite = ExtensionSuite.GridView },
+        new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.Chart },
+        new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.Scheduler },
+        new Script { ExtensionSuite = ExtensionSuite.TreeList }
+    )
+</head>
+<body>
+    <div id="Mask" style="display: none" class="MaskAjax"><img src="~/imagenes/mask-loader.gif" style="position: absolute;margin: auto;top: 0;left: 0;right: 0;bottom: 0;" /></div>
+    <style>
+        #Mask {
+            background-color: black;
+            position: fixed;
+            z-index: 3;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            -ms-opacity: 0.2;
+            opacity: 0.2;
+        }
+    </style>
+    @Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+            )
+    <header id="headerMaster">
+        @Html.Action("Header", "Menu")
+    </header>
+    @Html.DevExpress().PopupControl(settings =>
+    {   
+        settings.Name = "ConfirmacionBoton";
+        settings.ShowHeader = true;
+        settings.AllowDragging = true;
+        settings.AllowResize = false;
+        settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+        settings.PopupAnimationType = AnimationType.Fade;
+        settings.Modal = true;
+        settings.PopupVerticalOffset = 100;
+        settings.Height = new Unit("160px");
+        settings.Width = new Unit("400px");
+
+        settings.HeaderText = "Confirmar acción";
+    
+        settings.SetContent(() =>
+        {
+            ViewContext.Writer.Write("<label id='ConfBtnMensajePlantilla' class='ConfBtnMensajePlantilla' style='display: none'>" + (HttpContext.Current.User.IsInRole("2") ? "Los creditos seleccionados seran {0}dos , desea continuar." : "Las ordenes seleccionadas seran {0}das, desea continuar.") + "</label>");
+            ViewContext.Writer.Write("<label id='ConfBtnMensajePlantilla2' class='ConfBtnMensajePlantilla' style='display: none'>" + ((HttpContext.Current.User.IsInRole("2")) ? "El credito sera {0}do , desea continuar." : "La orden sera {0}da, desea continuar.") + "</label>");
+            ViewContext.Writer.Write("<label id='ConfBtnMensaje' class='ConfBtnMensaje'></label>");
+            ViewContext.Writer.Write("<br />");
+            ViewContext.Writer.Write("<div style='height: 30px'></div>");
+            ViewContext.Writer.Write("<button id='ConfBtnAceptar' class='Botones ConfBtnAceptar' OnClick='AceptaAccion(); return false;' style='width:150px;height:30px'>Aceptar</button>");
+            ViewContext.Writer.Write("<button id='ConfBtnCancelar' class='Botones ConfBtnCancelar' OnClick='CancelarAccion(); return false;' style='width:150px;height:30px; margin-left: 10px;'>Cancelar</button>");
+            ViewContext.Writer.Write("<br />");
+        });
+    }).GetHtml()
+    <div id="body">
+        @RenderBody()
+    </div>
+    <footer>
+            <div id="footerMaster" style="width: 100%; text-align: left; position: relative; top: 30px; background-image: url(../../imagenes/pat-footer.png); height: 81px;">
+            <img src="@HttpContext.Current.Application["AplicacionLogos"]logo-footer.png" style="margin-left: 16px; margin-top: 16px;" />
+            <p class="TextoFooter" @(HttpContext.Current.Application["Aplicacion"].ToString().Equals("1") ? "" : "style=display:inherit")>
+                @(HttpContext.Current.Application["Aplicacion"].ToString().Equals("1") ? "© 2013 - Insituto del Fondo Nacional de la Vivienda para los Trabajadores (Infonavit)" : "")
+            </p>
+            @{
+                if (!HttpContext.Current.Application["NombreAplicacion"].ToString().ToUpper().Contains("SIRA"))
+                {
+                            <div id="poweredImage" style="width: 75%; text-align: right; position: relative; top: -65px; vertical-align: top; display: inline-block;">
+                                <a href="http://173.203.42.109/phplive/phplive.php?d=6&onpage=livechatimagelink&title=Live+Chat+Image+Link" target="new" style="position: relative; top: -50px;border-collapse: collapse">
+                                    <img src="~/imagenes/chat.png" style="border-collapse: collapse">
+                                </a>
+                            </div>
+                            <div style="display: inline-block;">
+                                <img src="~/imagenes/powered-footer.png" style="position: relative; top: -80px; margin-left: 20px" /><br />
+                                <p class="TextoFooter" style="top: 0; left: 0; position: relative; top: -101px; margin-left: 48px">
+                                <a href="mailto:soporte@publipayments.com">soporte@publipayments.com</a>
+                                <br />
+                                Teléfono soporte: 55 6266 2402
+                                </p>
+                            </div>
+                }
+            }
+        </div>
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+            ga('create', 'UA-53857718-1', 'auto');
+            ga('require', 'linkid', 'linkid.js');
+            ga('require', 'displayfeatures');
+            ga('send', 'pageview');
+        </script>
+    </footer>
+</body>
+</html>

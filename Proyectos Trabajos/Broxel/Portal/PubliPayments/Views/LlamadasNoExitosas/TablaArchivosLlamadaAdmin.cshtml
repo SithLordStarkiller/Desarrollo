@@ -1,0 +1,73 @@
+﻿@using System.Web.UI.WebControls
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+@model List<PubliPayments.Entidades.ArchivosModel>
+@{
+    var tipoGrid = Model.Select(f => f.Tipo).FirstOrDefault();
+}
+
+@Html.DevExpress().GridView(settings =>
+{
+    settings.Name = "gvLlamadasAdmin" + tipoGrid;
+    settings.ControlStyle.CssClass = "myCenteredGrid";
+    settings.CallbackRouteValues = new { Controller = "LlamadasNoExitosas", Action = "NextPage", tipo = tipoGrid };
+    settings.SettingsPager.Position = PagerPosition.Bottom;
+    settings.SettingsPager.Visible = true;
+    settings.SettingsPager.PageSize = 50;
+    settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+    settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+    settings.Settings.ShowFilterRow = true;
+    settings.Settings.ShowGroupPanel = true;
+    settings.Settings.ShowHeaderFilterButton = true;
+
+    settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+    settings.Settings.ShowGroupPanel = true;
+
+    settings.BeforeGetCallbackResult = (sender, e) =>
+    {
+        if (ViewBag.GroupedColumns == null)
+            return;
+
+        MVCxGridView grid = (MVCxGridView)sender;
+        string[] columnNames = ViewBag.GroupedColumns.Split(';');
+        grid.ClearSort();
+        foreach (string name in columnNames)
+        {
+            grid.GroupBy(grid.Columns[name]);
+        }
+        grid.ExpandAll();
+    };
+
+    settings.Columns.Add(column => { column.FieldName = "NombreDominio"; column.Caption = "Despacho"; column.CellStyle.HorizontalAlign = HorizontalAlign.Left;});
+    settings.Columns.Add(column => { column.FieldName = "Usuario"; column.Caption = "Usuario"; column.CellStyle.HorizontalAlign = HorizontalAlign.Left; });
+    settings.Columns.Add(column => { column.FieldName = "Archivo"; column.Caption = "Archivo"; column.CellStyle.HorizontalAlign = HorizontalAlign.Left; });
+    settings.Columns.Add(column => { column.FieldName = "Registros"; column.Caption = "Registros"; column.CellStyle.HorizontalAlign = HorizontalAlign.Right; });
+    settings.Columns.Add(column => { column.FieldName = "Fecha"; column.Caption = "Fecha"; column.CellStyle.HorizontalAlign = HorizontalAlign.Center; });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Estatus"; column.Caption = "Estatus"; column.CellStyle.HorizontalAlign = HorizontalAlign.Left; 
+        column.Settings.AllowAutoFilter = DefaultBoolean.False;
+        column.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+    });
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Error";
+        column.Caption = "Error";
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Center;
+        column.Settings.AllowAutoFilter = DefaultBoolean.False;
+        column.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        column.EditFormSettings.Visible = DefaultBoolean.False;
+        
+        column.SetDataItemTemplateContent(c =>
+        {
+            if (((Int32)DataBinder.Eval(c.DataItem, "Error")) > 0)
+            {
+                var id = ((Int32)DataBinder.Eval(c.DataItem, "id"));
+                ViewContext.Writer.Write("<input type='button' value='Descargar' onclick='OnGetId(\"" + id + "\");' />");
+            }
+        } );
+        
+    });
+}).Bind(Model).GetHtml()
+

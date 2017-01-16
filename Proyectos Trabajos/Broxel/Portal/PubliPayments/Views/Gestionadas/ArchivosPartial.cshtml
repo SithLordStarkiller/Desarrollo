@@ -1,0 +1,125 @@
+﻿@using System.Data
+@model EnumerableRowCollection<DataRow>
+@{
+    var imagenes = from myRow in Model.AsEnumerable()
+                   where myRow.Field<int>("TipoCampos") == 1 
+                   select myRow;
+    var archivos = from myRow1 in Model.AsEnumerable()
+                   where myRow1.Field<int>("TipoCampos") == 2
+                   select myRow1; 
+}
+
+@{
+    var idOrden = ViewBag.idOrden;
+    var idVisita = ViewBag.idVisita;
+}
+
+@if(imagenes.Any()){
+<fieldset>
+    <legend style="font-weight: bold; text-align: left;">Documentos Asesor</legend>
+    <div style="overflow-x: auto;overflow-y: hidden;width: 775px;">
+        <table border="1">
+            <tr>
+            @foreach (DataRow row in imagenes)
+            {
+                var nombre1 = "img1_" + row["Titulo"]; 
+                <td>
+                    <table border="0">
+                        <tr>
+                            <td style="width: 130px;padding-right: 5px;">@row["Titulo"].ToString()</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 130px;padding-right: 5px;">
+                                <a target="_blank" href="@row["Valor"].ToString()" data-lightbox="@row["idOrden"].ToString()">
+                                    <img height="120" width="100" id="@nombre1" src="@row["Valor"].ToString()" />
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 130px;padding-right: 5px;">
+                                @*@if (row["idVisita"].ToString() == row["visitaCorresp"].ToString() && row["Estatus"].ToString() == "3")*@
+                                @if (row["Estatus"].ToString() == "3")
+                                {
+                                    <input type="checkbox"  value="@row["Titulo"].ToString()" /><label>Borrar</label>
+                                }
+                                else
+                                {
+                                    <label>&nbsp;</label>
+                                }
+                                
+                            </td>
+                        </tr>
+                    </table>
+            </td>
+            }
+            </tr>
+        </table>
+    </div>
+</fieldset>
+}
+
+<hr />
+
+<fieldset>
+    <legend style="font-weight:bold;text-align: left;">Documentos OCI</legend>
+    <div style="overflow-y: auto;overflow-x: hidden;width: 775px;height: 300px;">
+        @if (archivos.Any())
+        {
+            <table style="width: 775px;">
+                @foreach (DataRow row in archivos)
+                {
+                    if (@row["Valor"].ToString() != "")
+                    {
+                        <tr>
+                            <td>@row["Titulo"].ToString()</td>
+                            <td>
+                                <a href="@(row["Valor"].ToString().Replace(@"\\",@"\").Replace(@"\",@"/"))" target="_blank">
+                                    @(row["Valor"].ToString().Replace(@"\\", @"\").Replace(@"\", @"/"))
+                                    <img src="/imagenes/pdf.jpg" style="width: 28px; height: 28px; margin: 0 0 0 10px; vertical-align: middle;" />
+                                </a>
+                            </td>
+                            <td>
+                                @*@if (row["idVisita"].ToString() == row["visitaCorresp"].ToString() && row["Estatus"].ToString() == "3")
+                            {
+                                <input type="button" id='@row["Titulo"].ToString()Borrar' style='height: 30px; width: 80px;' class='Botones' onclick='return BorrarArchivo("@row["Titulo"].ToString()","@idOrden","@idVisita")' value="Borrar">
+                            }
+                            else
+                            {*@
+                                <label>&nbsp;</label>
+                                @*}*@
+                            </td>
+                            <td><img src="/imagenes/CWOK.png" id="@row["Titulo"].ToString()OKImg" style="width: 28px; height: 28px; visibility: hidden; margin: 0 0 0 10px; vertical-align: middle;" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td>@row["Titulo"].ToString()</td>
+                            <td><input type="hidden" id="@row["Titulo"].ToString()Url" /><input type="file" id="@row["Titulo"].ToString()" style="width: 100%;" /></td>
+                            <td><input type="button" id='@row["Titulo"].ToString()Subir' style='height: 30px; width: 80px;' class='Botones' onclick=' return SubirArchivo("@row["Titulo"].ToString()", "@idOrden", "@idVisita"); ' value="Subir"></td>
+                            <td><img src="/imagenes/CWOK.png" id="@row["Titulo"].ToString()OKImg" style="width: 28px; height: 28px; visibility: hidden; margin: 0 0 0 10px; vertical-align: middle;" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    </div>
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+

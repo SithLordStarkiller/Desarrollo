@@ -1,0 +1,61 @@
+﻿@using System.Web.UI.WebControls
+@using System.Windows.Forms.VisualStyles
+@using HorizontalAlign = System.Web.UI.WebControls.HorizontalAlign
+
+@Html.DevExpress().GridView(
+    settings =>
+    {
+        settings.Name = "GridDelegacion_"+ViewData["despacho"];
+        settings.CallbackRouteValues = new { Controller = "RankingPorIndicador", Action = "TablaDelegaciones", tipoDashboard = ViewData["tipoDashboard"], indicador = ViewData["indicador"], despacho = ViewData["despacho"], valor = ViewData["valor"]};
+        settings.Width = Unit.Percentage(90);
+
+        settings.KeyFieldName = "Identificador";
+    settings.Columns.Add(column =>
+    {
+        column.FieldName = "Posicion";
+        column.Caption = @"Posición";
+        column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+    });
+    //settings.Columns.Add(column =>
+    //{
+    //    column.FieldName = "Identificador";
+    //    column.Caption = "Nombre Corto";
+    //    column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+    //});            
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Nombre";
+            column.Caption = @"Nombre";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Left;
+        });
+        settings.Columns.Add(column =>
+        {
+            column.FieldName = "Valor";
+            column.Caption = @"Valor";
+            column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+        });
+
+        if ((String) ViewData["tipoDashboard"] == "Administrador")
+        {
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Porcentaje";
+                column.Caption = @"Porcentaje";
+                column.CellStyle.HorizontalAlign = HorizontalAlign.Right;
+                column.PropertiesEdit.DisplayFormatString = @"{0}%";
+            });
+            settings.SettingsPager.PageSize = 16;
+        }
+        else
+        {
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowAllRecords;
+        }
+
+        settings.SettingsDetail.AllowOnlyOneMasterRowExpanded = true;
+        settings.SettingsDetail.ShowDetailRow = true;
+
+        settings.SetDetailRowTemplateContent(c => Html.RenderAction("TablaSupervisor", new { tipoDashboard = ViewData["tipoDashboard"], indicador = ViewData["indicador"], despacho = ViewData["despacho"], delegacion = DataBinder.Eval(c.DataItem, "Identificador"), valor = DataBinder.Eval(c.DataItem, "Valor") }));
+        settings.PreRender = (sender, e) => {
+            //((MVCxGridView)sender).DetailRows.ExpandRow(0);
+        };
+    }).Bind(Model).GetHtml()

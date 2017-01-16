@@ -1,0 +1,59 @@
+﻿@using DevExpress.Office.Utils
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Consola de desarrollo</h2>
+<div style="margin: 0 auto 0 auto; width: 100%;">
+    <table style ="width:100%;table-layout: fixed">
+        <tr>
+            <td>
+                <div>
+                    <textarea id="txtScript" class="EstiloScript" rows="10"></textarea>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><button id="btEnviar" onclick="EjecutarQuery();return false;">Enviar</button></td>
+        </tr>
+        <tr>
+            <td><div id="Resultado" style="overflow-x: scroll; width: 100%"></div></td>
+        </tr>
+    </table>
+</div>
+
+<style>
+    .EstiloScript {
+        width: 90%;
+        resize: none;
+    }
+</style>
+
+<script>
+    function showMask() {
+        $("#Mask").css('width', $("body").width());
+        $("#Mask").css('height', $("body").height() + 30);
+        $("#Mask").show();
+    }
+
+    function EjecutarQuery() {
+        showMask();
+        var script = $("#txtScript").val();
+        $.ajax({
+            url: '@Url.Action("EjecutarQuery")',
+            type: 'GET',
+            data: {
+                sql: script
+            },
+            dataType: 'html',
+            success: function(response) {
+                $("#Resultado").html(response);
+                $("#Mask").hide();
+            },
+            error: function(msg, text, thrown) {
+                alert("error " + thrown);
+                $("#Mask").hide();
+            }
+        });
+    }
+</script>

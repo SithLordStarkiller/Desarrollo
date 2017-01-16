@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns0="http://tempuri.org/" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:schema>
+      <xsd:import schemaLocation="WSRegistraSolicitudCreditoMejoravitApp11.asmx.xsd1.xsd" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="RegistraSolicitudSoapIn">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:RegistraSolicitud" />
+  </wsdl:message>
+  <wsdl:message name="RegistraSolicitudSoapOut">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:RegistraSolicitudResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistraSolicitudTarjetaSoapIn">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:RegistraSolicitudTarjeta" />
+  </wsdl:message>
+  <wsdl:message name="RegistraSolicitudTarjetaSoapOut">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:RegistraSolicitudTarjetaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSRegistraSolicitudCreditoMejoravitAppSoap">
+    <wsdl:operation name="RegistraSolicitud">
+      <wsdl:input name="RegistraSolicitudRequest" message="ns0:RegistraSolicitudSoapIn" />
+      <wsdl:output name="RegistraSolicitudResponse" message="ns0:RegistraSolicitudSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraSolicitudTarjeta">
+      <wsdl:input name="RegistraSolicitudTarjetaRequest" message="ns0:RegistraSolicitudTarjetaSoapIn" />
+      <wsdl:output name="RegistraSolicitudTarjetaResponse" message="ns0:RegistraSolicitudTarjetaSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSRegistraSolicitudCreditoMejoravitAppSoap" type="ns0:WSRegistraSolicitudCreditoMejoravitAppSoap">
+    <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegistraSolicitud">
+      <soap11:operation soapAction="http://tempuri.org/RegistraSolicitud" style="document" />
+      <wsdl:input name="RegistraSolicitudRequest">
+        <soap11:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RegistraSolicitudResponse">
+        <soap11:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraSolicitudTarjeta">
+      <soap11:operation soapAction="http://tempuri.org/RegistraSolicitudTarjeta" style="document" />
+      <wsdl:input name="RegistraSolicitudTarjetaRequest">
+        <soap11:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RegistraSolicitudTarjetaResponse">
+        <soap11:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSRegistraSolicitudCreditoMejoravitAppSoap12" type="ns0:WSRegistraSolicitudCreditoMejoravitAppSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RegistraSolicitud">
+      <soap12:operation soapAction="http://tempuri.org/RegistraSolicitud" style="document" />
+      <wsdl:input name="RegistraSolicitudRequest">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RegistraSolicitudResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraSolicitudTarjeta">
+      <soap12:operation soapAction="http://tempuri.org/RegistraSolicitudTarjeta" style="document" />
+      <wsdl:input name="RegistraSolicitudTarjetaRequest">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="RegistraSolicitudTarjetaResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSRegistraSolicitudCreditoMejoravitApp">
+    <wsdl:port name="WSRegistraSolicitudCreditoMejoravitAppSoap" binding="ns0:WSRegistraSolicitudCreditoMejoravitAppSoap">
+      <soap11:address location="https://127.0.0.1:143/UltMejoravit/webservices/WSRegistraSolicitudCreditoMejoravitApp11.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSRegistraSolicitudCreditoMejoravitAppSoap12" binding="ns0:WSRegistraSolicitudCreditoMejoravitAppSoap12">
+      <soap12:address location="https://127.0.0.1:143/UltMejoravit/webservices/WSRegistraSolicitudCreditoMejoravitApp12.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

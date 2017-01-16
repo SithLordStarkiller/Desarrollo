@@ -1,0 +1,251 @@
+﻿@using System.Activities.Statements
+@using System.Configuration
+@using System.Data
+@model EnumerableRowCollection<DataRow>
+@{
+    var imagenes = from myRow in Model.AsEnumerable()
+                   where myRow.Field<int>("TipoCampos") == 1
+                   select myRow;
+    var archivos = from myRow1 in Model.AsEnumerable()
+                   where myRow1.Field<int>("TipoCampos") == 2
+                   select myRow1;
+
+    var preguntas = from myRow1 in Model.AsEnumerable()
+                   where myRow1.Field<int>("TipoCampos") == 3
+                    select myRow1;
+
+    var respuestas = from myRow1 in Model.AsEnumerable()
+                    where myRow1.Field<int>("TipoCampos") == 99
+                    select myRow1;
+
+    var respDic = respuestas.ToDictionary(respuesta => respuesta["NombreCampo"].ToString(), respuesta => respuesta["Valor"].ToString());
+
+    var docsNoObligatorios = ConfigurationManager.AppSettings["documentosNoObligatorios"].Split('|');
+}
+
+@{
+    var idOrden = ViewBag.idOrden;
+    var idVisita = ViewBag.idVisita;
+}
+
+@if (imagenes.Any())
+{
+    <fieldset>
+        <legend style="font-weight: bold; text-align: left;">Documentos</legend>
+        <div style="overflow-y: auto; overflow-x: hidden; width: 775px; max-height: 270px;">
+            <table border="1" style="width:100%;">  
+                @foreach (DataRow row in imagenes)
+                {
+                    <tr>
+                        @{
+                            var nombre1 = "img1_" + row["Titulo"];
+
+                            var imagenDatos = row["Valor"].ToString().Split('*');
+
+                            var d = 0;
+                        }
+                        
+                        <td style="width: 130px;padding-right: 5px;">@row["Titulo"].ToString() &nbsp; @(docsNoObligatorios.Contains(row["NombreCampo"].ToString())?"":"*")</td>
+                        <td style="width: 130px;padding-right: 5px;">
+                            @if (!imagenDatos[0].EndsWith(".pdf"))
+                            {
+                                <a target="_blank" href="@imagenDatos[0]" data-lightbox="@row["idOrden"].ToString()">
+                                    <img height="120" width="100" id="@nombre1" src="@imagenDatos[0]" />
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@(imagenDatos[0])" target="_blank">
+                                    <img src="/imagenes/pdf.jpg" style="width: 28px; height: 28px; margin: 0 0 0 10px; vertical-align: middle;" />
+                                </a>
+                            }
+                        </td>
+                        <td style="width: 130px;padding-right: 5px;">
+                            @*@if (row["idVisita"].ToString() == row["visitaCorresp"].ToString() && row["Estatus"].ToString() == "3")*@
+                            @if (row["Estatus"].ToString() == "3" && row["Confirmar"].ToString() == "1")
+                            {
+                                <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioSi@(imagenDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "Si" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Correcto</label>
+                                <br/>
+                            <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioNo@(imagenDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "No" ? " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Incorrecto</label>
+                            }
+                            else
+                            {
+                                <label>&nbsp;</label>
+                            }
+
+                        </td>
+                        <td>
+                            @if (row["Comentario"].ToString() == "1")
+                            {
+                                <label>Comentario</label><br/>
+    <textarea id="@row["NombreCampo"].ToString()Comentario" rows="5" @(respDic.ContainsKey(row["NombreCampo"] + "Result") ? "disabled='disabled'" : "")  cols="35">@(respDic.ContainsKey(row["NombreCampo"] + "Comentario") ? respDic[row["NombreCampo"] + "Comentario"] : "")</textarea>
+                            }
+                            else
+                            {
+                                <label>&nbsp;</label>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </fieldset>
+}
+
+<hr />
+
+<fieldset>
+    <legend style="font-weight:bold;text-align: left;">Documentos</legend>
+    <div style="overflow-y: auto;overflow-x: hidden;width: 775px;max-height: 300px;">
+        @if (archivos.Any())
+        {
+            <table class="tablaDoc">
+                @foreach (DataRow row in archivos)
+                {
+                    if (respDic.ContainsKey(row["NombreCampo"] + "Url"))
+                    {
+                        <tr >
+                            <td>@row["Titulo"].ToString() &nbsp; @(docsNoObligatorios.Contains(row["NombreCampo"].ToString()) ? "" : "*")</td>
+                            <td>
+                                <a href="@(respDic[row["NombreCampo"] + "Url"].Replace(@"\\", @"\").Replace(@"\", @"/"))" target="_blank">
+                                    @(respDic[row["NombreCampo"] + "Url"].Replace(@"\\", @"\").Replace(@"\", @"/"))
+                                    <img src="/imagenes/pdf.jpg" style="width: 28px; height: 28px; margin: 0 0 0 10px; vertical-align: middle;" />
+                                </a>
+                            </td>
+                            <td>
+                                @*@if (row["idVisita"].ToString() == row["visitaCorresp"].ToString() && row["Estatus"].ToString() == "3")
+                                    {
+                                        <input type="button" id='@row["Titulo"].ToString()Borrar' style='height: 30px; width: 80px;' class='Botones' onclick='return BorrarArchivo("@row["Titulo"].ToString()","@idOrden","@idVisita")' value="Borrar">
+                                    }
+                                    else
+                                    {*@
+                                <label>&nbsp;</label>
+                                @*}*@
+                            </td>
+                            <td><img src="/imagenes/CWOK.png" id="@row["NombreCampo"].ToString()OKImg" style="width: 28px; height: 28px; visibility: hidden; margin: 0 0 0 10px; vertical-align: middle;" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr class="rowAlto">
+                            <td rowspan="2">@row["Titulo"].ToString() &nbsp; @(docsNoObligatorios.Contains(row["NombreCampo"].ToString()) ? "" : "*")</td>
+                            <td><input type="hidden" id="@row["NombreCampo"].ToString()Url" /><input type="file" id="@row["NombreCampo"].ToString()" style="width: 100%;" /></td>
+                            <td><input type="button" id='@row["NombreCampo"].ToString()Subir' style='height: 30px; width: 80px;' class='Botones' onclick='return SubirArchivo@(ViewBag.Aplicacion=="MYO"?"MYO":"")("@row["NombreCampo"].ToString()", "@idOrden" , "@idVisita" ); ' value="Subir"></td>
+                            <td><img src="/imagenes/CWOK.png" id="@row["NombreCampo"].ToString()okimg" style="width: 28px; height: 28px; visibility: hidden; margin: 0 0 0 10px; vertical-align: middle;" /></td>
+                        </tr>
+    <tr class="rowBajo">
+        <td colspan="2">
+            @if (row["Comentario"].ToString() == "1")
+            {
+                <label>Comentario</label><br />
+    <textarea id="@row["NombreCampo"].ToString()Comentario" @(respDic.ContainsKey(row["NombreCampo"] + "Result") ? "disabled='disabled'" : "") rows="3" cols="50">@(respDic.ContainsKey(row["NombreCampo"] + "Comentario") ? respDic[row["NombreCampo"] + "Comentario"] : "")</textarea>
+            }
+            else
+            {
+                <label>&nbsp;</label>
+            }
+        </td>
+        <td style="width: 130px; padding-right: 5px; ">
+            @*@if (row["idVisita"].ToString() == row["visitaCorresp"].ToString() && row["Estatus"].ToString() == "3")*@
+                                    @if (row["Confirmar"].ToString() == "1")
+            {
+                <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioSi" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "Si" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Correcto</label>
+                <br />
+            <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioNo" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "No" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Incorrecto</label>
+
+            }
+            else
+            {
+                <label>&nbsp;</label>
+            }
+        </td>
+    </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend style="font-weight:bold;text-align: left;">Revisar</legend>
+
+    <table class="tablaDoc1">
+        @foreach (DataRow row in preguntas)
+        {
+            <tr class="rowAlto">
+                <td>@row["Titulo"].ToString() &nbsp; @(docsNoObligatorios.Contains(row["NombreCampo"].ToString()) ? "" : "*")</td>
+                <td rowspan="3">
+                    <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioSi" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "Si" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Correcto</label>
+                    <br />
+                    <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioNo" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "No" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Incorrecto</label>
+                </td>
+                <td>
+                    @if (row["Comentario"].ToString() == "1")
+                    {
+                        <label>Comentario</label><br />
+    <textarea id="@row["NombreCampo"].ToString()Comentario" @(respDic.ContainsKey(row["NombreCampo"] + "Result") ? "disabled='disabled'" : "") rows="5" cols="35">@(respDic.ContainsKey(row["NombreCampo"] + "Comentario") ? respDic[row["NombreCampo"] + "Comentario"] : "") </textarea>
+                    }
+                    else
+                    {
+                        <label>&nbsp;</label>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+        }
+    </table>
+
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    .tablaDoc {
+        width: 775px;
+    }
+
+        .tablaDoc tr.rowBajo {
+            border-bottom: 1px solid;
+            border-color: #B0B0B0;
+        }
+            .tablaDoc tr.rowBajo td:last-child {
+                border-right: 1px solid;
+                border-color: #B0B0B0;
+            }
+
+        .tablaDoc tr.rowAlto {
+            border-top: 1px solid;
+            border-color: #B0B0B0;
+        }
+
+            .tablaDoc tr.rowAlto td:first-child {
+                border-left: 1px solid;
+                border-color: #B0B0B0;
+            }
+
+            .tablaDoc tr.rowAlto td:last-child {
+                border-right: 1px solid;
+                border-color: #B0B0B0;
+            }
+
+
+</style>

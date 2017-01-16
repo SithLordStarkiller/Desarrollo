@@ -1,0 +1,20 @@
+﻿@model PubliPayments.Entidades.CamposRespuestaModel
+@using(@Html.BeginForm())
+{
+    <table id="TNuevoDespacho" style="padding-right: 0; width: 430px">
+        <tr style="height: 60px">
+            <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Nombre)</td>
+            <td>
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateString(event)", onkeydown = "return noCopyKey(event)", MaxLength = "100",@readonly = "readonly" })
+            </td>
+        </tr>
+        <tr style="height: 60px">
+            <td style="width: 200px" class="TextoFormulario">@Html.LabelFor(m => m.Etiqueta)</td>
+            <td>
+                @Html.TextBoxFor(m => m.Etiqueta, new { @class = "Combos AlinearIzquierda", style = "width:200px;", onkeypress = "return validateStringD(event)", onkeydown = "return noCopyKey(event)", MaxLength = "150",@required = "required"})
+            </td>
+        </tr>
+        @Html.HiddenFor(m => m.IdCampo)
+    </table>
+}
+<div id="Mensaje"></div>

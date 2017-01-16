@@ -1,0 +1,96 @@
+﻿@using System.Data
+@using System.Text
+@using System.Web.UI.WebControls
+@model DataTable
+@Html.DevExpress().PageControl(settings =>
+        {
+            settings.Name = "pcArchivos";
+            settings.Width = Unit.Percentage(100);
+            settings.EnableClientSideAPI = true;
+            settings.TabAlign = TabAlign.Justify;
+            settings.Styles.Tab.Height = Unit.Pixel(40);
+            settings.Styles.Tab.Paddings.PaddingTop = Unit.Pixel(10);
+
+            var tab1 = new MVCxTabPage();
+            var tab2 = new MVCxTabPage();
+            var tab3 = new MVCxTabPage();
+            var contenido = new StringBuilder();
+
+            tab1.Text = @"Originación";
+            tab1.Name = @"Originacion";
+            try
+            {
+                var archivos = from myRow in Model.AsEnumerable()
+                               where myRow.Field<int>("visitaCorresp") == 1
+                    select myRow;
+                
+                var asdd = Html.Partial("ArchivosPartial",archivos).ToString();
+                contenido.Append(asdd);
+            }
+            catch (Exception)
+            {
+                contenido.Append("Ocurrio un error al cargar la informacion.<br/>Intente de nuevo mas tarde.");
+            }
+            tab1.SetContent(contenido.ToString());
+            settings.TabPages.Add(tab1);
+
+            contenido.Clear();
+            tab2.Text = @"Formalización";
+            tab2.Name = @"Formalizacion";
+            if (ViewBag.idVisita < 2)
+            {
+                contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;text-align:center;'>");
+                contenido.Append("<h2>Se debe completar la fase de Originación<br/>para continuar el proceso.</h2>");
+                contenido.Append("</div>");
+                tab2.SetContent(contenido.ToString());
+            }
+            else
+            {
+                try
+                {
+                    var archivos = from myRow in Model.AsEnumerable()
+                                   where myRow.Field<int>("visitaCorresp") == 2
+                                   select myRow;
+
+                    var asdd = Html.Partial("ArchivosPartial", archivos).ToString();
+                    contenido.Append(asdd);
+                }
+                catch (Exception)
+                {
+                    contenido.Append("Ocurrio un error al cargar la informacion.<br/>Intente de nuevo mas tarde.");
+                }
+                tab2.SetContent(contenido.ToString());
+            }
+            settings.TabPages.Add(tab2);
+
+            contenido.Clear();
+            tab3.Text = @"PreAutorización";
+            tab3.Name = @"PreAutorizacion";
+            if (ViewBag.idVisita < 3)
+            {
+                contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;text-align:center;'>");
+                contenido.Append("<h2>Se debe completar la fase de Formalización<br/>para continuar el proceso.</h2>");
+                contenido.Append("</div>");
+                tab3.SetContent(contenido.ToString());
+            }
+            else
+            {
+                try
+                {
+                    var archivos = from myRow in Model.AsEnumerable()
+                                   where myRow.Field<int>("visitaCorresp") == 3
+                                   select myRow;
+
+                    var asdd = Html.Partial("ArchivosPartial", archivos).ToString();
+                    contenido.Append(asdd);
+                }
+                catch (Exception)
+                {
+                    contenido.Append("Ocurrio un error al cargar la informacion.<br/>Intente de nuevo mas tarde.");
+                }
+                tab3.SetContent(contenido.ToString());
+            }
+            
+            settings.TabPages.Add(tab3);
+
+        }).GetHtml()

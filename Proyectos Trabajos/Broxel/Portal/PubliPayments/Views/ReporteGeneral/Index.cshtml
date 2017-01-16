@@ -1,0 +1,161 @@
+﻿@model IEnumerable<PubliPayments.Entidades.FechasReporteGeneralModel>
+@{
+    ViewBag.Title = "Reporte General";
+}
+<script src="~/Scripts/restrictors.js?version=3.0"></script>
+
+<style type="text/css">
+    #Mensaje {
+        font: 20px 'Open Sans', sans-serif;
+        color: gray;
+    }
+    .TextoInformativoGris {
+        font: 12px 'Open Sans', sans-serif;
+        color: gray;
+        margin-left: 180px;
+    }
+</style>
+
+<script>
+        var exit = false;
+        var refreshIntervalId;
+        var idReporte;
+        function pulsoEstatus() {
+            $.ajax({
+                url: "/ReporteGeneral/VerificaEstatus",
+                type: 'POST',
+                data: "",
+                contentType: 'application/json; charset=utf-8',
+                success:function (response) {
+                    if (response.Estatus == "1") {
+                        exit = true;
+                        $("#Loader").hide();
+                        $(this).hide();
+                        $("#btDescargar").show();
+                        $("#Mensaje").show().html("Último reporte generado el " + response.Fecha);
+                        $("#btGenera").hide();
+                        idReporte = response.idReporte;
+                        clearInterval(refreshIntervalId);
+                    } else if (response.Estatus == "2") {
+                        $("#Loader").show();
+                        $("#btDescargar").hide();
+                        $("#Mensaje").show().html("Generando reporte... Por favor espere...");
+                        $("#btGenera").hide();
+                    } else {
+                        clearInterval(refreshIntervalId);
+                    }
+                    if (response.volverG && response.Estatus != "2") {
+                        LimpiarBloqueoMultiplesClicks($("#btGenera"));
+                        $("#btDescargar").show().css("margin-left",20);
+                        $("#Mensaje").show().html("Último reporte generado el " + response.Fecha);
+                        $("#btGenera").show().val("Volver a generar");
+                    }
+                },
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                }
+            });
+        }
+
+        function ProcesaArchivo() {
+            $.ajax({
+                url: "/ReporteGeneral/Generar",
+                type: 'POST',
+                data: "",
+                contentType: 'application/json; charset=utf-8',
+                success: function () {
+                },
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                }
+            });
+        }
+
+        function HabilitarDescargar() {
+            $("#btDescargar").attr("class", "Botones");
+            $("#btDescargar").attr("value", "Descargar");
+            LimpiarBloqueoMultiplesClicks($("#btDescargar"));
+        }
+
+        function HabilitarDescargarHistorico() {
+            $("#btDescargarHist").attr("class", "Botones");
+            $("#btDescargarHist").attr("value", "Descargar");
+            LimpiarBloqueoMultiplesClicks($("#btDescargarHist"));
+        }
+
+        $(document).ready(function() {
+            refreshIntervalId = pulsoEstatus();
+            $("#btGenera").on("click", function() {
+                if (BloquearMultiplesClicks(this)) {
+                    $("#btDescargar").hide();
+                    $(this).hide();
+                    ProcesaArchivo();
+                    $("#Loader").show();
+                    $("#Mensaje").show().html("Generando reporte... Por favor espere...");
+                    refreshIntervalId = setInterval(pulsoEstatus, 10000);
+                }
+                return false;
+            });
+            $("#btDescargar").on("click", function() {
+                if (BloquearMultiplesClicks(this)) {
+                    $("#btDescargar").attr("value", "Descargando");
+                    $("#btDescargar").attr("class", "BotonesDesactivados");
+                    window.open("/ReporteGeneral/Descargar?idReporte=" + idReporte + "&fecha=", "_self");
+                    setTimeout(function() {
+                        HabilitarDescargar();
+                    }, 10000);
+                }
+                return false;
+            });
+
+            $("#btDescargarHist").on("click", function() {
+                var fechahist = $('#fechaHistorico').val();
+                if (fechahist != '999999') {
+                    if (BloquearMultiplesClicks(this)) {
+                        $("#btDescargarHist").attr("value", "Descargando");
+                        $("#btDescargarHist").attr("class", "BotonesDesactivados");
+                        window.open("/ReporteGeneral/Descargar?idReporte=" + idReporte + "&fecha=" + $('#fechaHistorico').val(), "_self");
+                        setTimeout(function() {
+                            HabilitarDescargarHistorico();
+                        }, 10000);
+                    }
+                }
+                return false;
+            });
+
+            refreshIntervalId = setInterval(pulsoEstatus, 10000);
+        });
+</script>
+
+<div class="TituloSeleccion" id="Principal" style="margin-left: 30px; position: relative; top: 0; left: 0;">
+    Reporte General<img alt="|" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;" />
+
+    <div style="margin: 0 auto 0 auto;width: 830px">
+        <div style="text-align: left;">
+            <input id="btGenera" type="button" value="Generar" class="Botones" style="width: 165px;height: 30px" />
+            <input type="button" id="btDescargar" value="Descargar" class="Botones" style="width: 165px;height: 30px;display: none" />
+            <img src="~/imagenes/ajax-loader-trans.gif" id="Loader" style="display: none" />
+            <label id="Mensaje"></label>
+        </div>
+        <div class="TextoInformativoGris">Este reporte se puede volver a generar cada 2 hs...</div>
+    </div>
+</div>
+
+<div class="TituloSeleccion" id="HistoricoReporte" style="margin-left: 30px; position: relative; top: 30px; left: 0;">
+    Histórico Reporte General<img alt="|" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;" />
+    <div style="margin: 0 auto 0 auto;width: 830px; margin-bottom: 30px;">
+        <div style="text-align: left;">
+            <div id="divMes" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 3px;">
+                <select id="fechaHistorico" class="Combos" style="width: 165px;vertical-align: middle;">
+                    @foreach (var fec in @Model)
+                    {
+                        <option value="@fec.FechaReporte">@fec.Fecha</option>
+                    }
+                </select>
+            </div>
+            <div style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <input type="button" id="btDescargarHist" value="Descargar" class="Botones" style="margin-left: 20px;width: 165px;height: 30px;" />
+            </div>
+        </div>
+    </div>
+</div>

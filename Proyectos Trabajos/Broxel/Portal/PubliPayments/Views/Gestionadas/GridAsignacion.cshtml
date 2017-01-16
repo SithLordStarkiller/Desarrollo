@@ -1,0 +1,66 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data
+@using Microsoft.Ajax.Utilities
+@using PubliPayments.Controllers
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridGestionadas";
+        settings.CallbackRouteValues = new { Controller = "Gestionadas", Action = "GridAsignacion" };
+
+        settings.ControlStyle.CssClass = "GridCelda";
+
+        settings.KeyFieldName = "idOrden";
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 50;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+
+        
+        var columnaOrden = new GridViewDataHyperLinkColumn { Caption = @"Orden", FieldName = "idOrden", ReadOnly = true };
+        columnaOrden.PropertiesHyperLinkEdit.NavigateUrlFormatString = "";
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.CellStyle.CssClass = "idOrden";
+        settings.Columns.Add(columnaOrden);
+
+
+        var columna = new GridViewDataTextColumn { FieldName = "idVisita", Caption = @"idVisita" };
+        columna.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columna.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        settings.Columns.Add(columna);
+
+        var columna1 = new GridViewDataTextColumn { FieldName = "Estatus", Caption = @"Estatus" };
+        columna1.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columna1.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        settings.Columns.Add(columna1);
+        
+        
+        
+        settings.Columns.Add(column =>
+            {
+                column.Caption = @"Reasignar";
+                column.SetDataItemTemplateContent(c => ViewContext.Writer.Write("<input type='button' style='height:30px;' class='Botones' value='Reasignar'  onclick='Asignar(" + DataBinder.Eval(c.DataItem, "idOrden") + ");'  />"));
+                //onclick='reversarOrden(this,\"" + DataBinder.Eval(c.DataItem, "idOrden") + "\");'
+            });
+        
+
+        settings.GroupSummary.Add(new ASPxSummaryItem("idOrden", SummaryItemType.Count));
+
+        settings.Styles.Cell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormCell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormTable.Font.Size = FontUnit.Parse("12px");
+
+    });
+}
+@grid.Bind(Model).GetHtml()

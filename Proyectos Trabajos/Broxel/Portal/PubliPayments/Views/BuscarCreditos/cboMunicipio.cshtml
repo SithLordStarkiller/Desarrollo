@@ -1,0 +1,19 @@
+﻿@using System.Web.UI.WebControls
+@Html.DevExpress().ComboBox(
+    settings =>
+    {
+        settings.Name = "CboMunicipio";
+        settings.Height = new Unit("25px");
+        settings.Style.Add("float", "left");
+        settings.Width = 130;
+        //settings.SelectedIndex = 0;
+        //settings.SelectedIndex = -1;
+        settings.CallbackRouteValues = new { Controller = "BuscarCreditos", Action = "CboMunicipio" };
+        settings.Properties.CallbackPageSize = 15;
+        settings.Properties.AllowUserInput = true;
+        //settings.ReadOnly = true;
+        //settings.Properties.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
+        settings.Properties.TextField = "nombre";
+        settings.Properties.ValueField = "nombre";
+    }
+    ).BindList(ViewData["Municipios"]).GetHtml()

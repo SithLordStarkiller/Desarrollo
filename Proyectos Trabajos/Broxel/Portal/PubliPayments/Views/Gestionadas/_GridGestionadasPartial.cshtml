@@ -1,0 +1,90 @@
+@using System.Web.UI.WebControls
+@using DevExpress.Data
+@using Microsoft.Ajax.Utilities
+@using PubliPayments.Controllers
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridGestionadas";
+        settings.CallbackRouteValues = new {Controller = "Gestionadas", Action = "GridGestionadasPartial"};
+
+        settings.ControlStyle.CssClass = "GridCelda";
+
+        settings.KeyFieldName = "Orden";
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 50;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] {"10", "20", "50", "100"};
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+
+        settings.ClientSideEvents.SelectionChanged = "OnGridViewSelectionChanged";
+        settings.ClientSideEvents.EndCallback = "OnGridViewEndCallback";
+        settings.ClientSideEvents.SelectionChanged = "OnGridSelectionChanged";
+         
+        if (ViewData["Sira"]!=null)
+        {
+            var columnaCheck = new GridViewCommandColumn("Selección") { ButtonType = GridViewCommandButtonType.Button, ShowSelectCheckbox = true };
+            settings.Columns.Add(columnaCheck);   
+        }
+        var columnaOrden = new GridViewDataHyperLinkColumn {Caption = @"Orden", FieldName = "Orden", ReadOnly = true};
+        columnaOrden.PropertiesHyperLinkEdit.NavigateUrlFormatString = "";
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.CellStyle.CssClass = "idOrden";
+        settings.Columns.Add(columnaOrden);
+
+        var datosColumnas = (String[][]) ViewData["datosColumnas"];
+
+        foreach (string[] t in datosColumnas)
+        {
+            switch (t[0])
+            {
+                case "1":
+                    var columna1 = new GridViewDataTextColumn { FieldName = t[1], Caption = t[2] };
+                    columna1.Settings.AllowAutoFilter = DefaultBoolean.False;
+                    columna1.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+                    settings.Columns.Add(columna1);
+                    break;
+                case "2":
+                    var columna2 = new GridViewDataTextColumn { FieldName = t[1], Caption = t[2] };
+                    columna2.Settings.AllowHeaderFilter = DefaultBoolean.False;
+                    columna2.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+                    settings.Columns.Add(columna2);
+                    break;
+                case "3":
+                    var columna3 = new GridViewDataImageColumn(){ FieldName = t[1], Caption = t[2] }; // new GridViewDataTextColumn { FieldName = t[1], Caption = t[2] };
+                    columna3.Settings.AllowHeaderFilter = DefaultBoolean.False;
+                    settings.Columns.Add(columna3);
+                    break;
+            }
+            
+            
+        }
+        if (Convert.ToBoolean(ViewData["VerArchivos"]))
+        {
+            settings.Columns.Add(column =>
+            {
+                column.Caption = @"Archivos";
+                column.SetDataItemTemplateContent(c => ViewContext.Writer.Write("<input type='button' style='height:30px;' class='Botones archivosBoton' value='Archivos'  src='" + DataBinder.Eval(c.DataItem, "Orden") + "'  />"));
+                //onclick='reversarOrden(this,\"" + DataBinder.Eval(c.DataItem, "idOrden") + "\");'
+            });
+        }
+      
+
+        settings.GroupSummary.Add(new ASPxSummaryItem("Orden", SummaryItemType.Count));
+
+        settings.Styles.Cell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormCell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormTable.Font.Size = FontUnit.Parse("12px");
+
+    });
+}
+@grid.Bind(Model).GetHtml()

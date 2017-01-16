@@ -1,0 +1,1012 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.broxel.com" elementFormDefault="qualified" targetNamespace="http://www.broxel.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.75.23:8889/wsCreditos/Creditos.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Creditos.DAL" />
+  <xs:import schemaLocation="http://192.168.75.23:8889/wsCreditos/Creditos.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Creditos" />
+  <xs:element name="GetData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="value" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetTipoCreditosResult" nillable="true" type="q1:ArrayOfPR_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPR_TIPOS_PLAZOS">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPR_TIPOS_PLAZOSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetPR_TIPOS_PLAZOSResult" nillable="true" type="q2:ArrayOfCAT_TIPOS_PLAZOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditobyID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditobyIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTipoCreditobyIDResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpTiposCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpTiposCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetOpTiposCreditosResult" nillable="true" type="q3:ArrayOfOP_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPTipoCreditobyID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPTipoCreditobyIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOPTipoCreditobyIDResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRubros">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRubrosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetRubrosResult" nillable="true" type="q4:ArrayOfPR_RUBRO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRubroXTipCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRubroXTipCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetRubroXTipCreditosResult" nillable="true" type="q5:ArrayOfPR_RUBRO_X_TIP_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPagosCreditos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPagosCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetPagosCreditosResult" nillable="true" type="q6:ArrayOfPagosCredito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSaldoPr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSaldoPrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSaldoPrResult" nillable="true" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditoOtros">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditoOtrosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetTipoCreditoOtrosResult" nillable="true" type="q7:ArrayOfPR_TIPO_CREDITO_OTRO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditoRefunds">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditoRefundsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetTipoCreditoRefundsResult" nillable="true" type="q8:ArrayOfPR_TIPO_CREDITO_REFUND" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditoRestricciones">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoCreditoRestriccionesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetTipoCreditoRestriccionesResult" nillable="true" type="q9:ArrayOfPR_TIPO_CREDITO_RESTRICCIONES" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoGaranTipoCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoGaranTipoCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetTipoGaranTipoCreditosResult" nillable="true" type="q10:ArrayOfPR_TIPO_GARAN_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRequisitos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRequisitosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetRequisitosResult" nillable="true" type="q11:ArrayOfPR_REQUISITOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReqTipoCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetReqTipoCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetReqTipoCreditosResult" nillable="true" type="q12:ArrayOfPR_REQ_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAgencias">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAgenciasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetAgenciasResult" nillable="true" type="q13:ArrayOfCAT_AGENCIAS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAgencia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idAgencia" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAgenciaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAgenciaResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGruposRubro">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGruposRubroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetGruposRubroResult" nillable="true" type="q14:ArrayOfCAT_GRUPO_RUBRO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGrupoRubro">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idGrupoRubro" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGrupoRubroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetGrupoRubroResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMonedas">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMonedasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetMonedasResult" nillable="true" type="q15:ArrayOfCAT_MONEDAS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMoneda">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idMoneda" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMonedaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetMonedaResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNivelesAprobacion">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNivelesAprobacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetNivelesAprobacionResult" nillable="true" type="q16:ArrayOfCAT_NIVELES_APROBACION" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNivelAprobacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNivelAprob" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNivelAprobacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetNivelAprobacionResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrigenFondos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrigenFondosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetOrigenFondosResult" nillable="true" type="q17:ArrayOfPR_ORIGEN_FONDOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCargosTipoCreditoPr">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCargosTipoCreditoPrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetCargosTipoCreditoPrResult" nillable="true" type="q18:ArrayOfPR_CARGOS_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlanInversion">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlanInversionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetPlanInversionResult" nillable="true" type="q19:ArrayOfPR_PLAN_INVERSION" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetProductosResult" nillable="true" type="q20:ArrayOfCAT_PRODUCTOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProducto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idProducto" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetProductoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetProductoResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTiposGarantias">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTiposGarantiasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetTiposGarantiasResult" nillable="true" type="q21:ArrayOfCAT_TIPOS_GARANTIA" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoGarantia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idTpoGarantia" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTipoGarantiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTipoGarantiaResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpCargosTipoCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpCargosTipoCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetOpCargosTipoCreditosResult" nillable="true" type="q22:ArrayOfOP_CARGOS_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPCargosTipoCreditobyID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNumCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="idCargo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPCargosTipoCreditobyIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOPCargosTipoCreditobyIDResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpGarantiasTipoCreditos">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpGarantiasTipoCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetOpGarantiasTipoCreditosResult" nillable="true" type="q23:ArrayOfOP_TIPO_GARAN_TIPO_CREDITO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPTpoGarantiaTipoCreditobyID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNumCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="idTipoGarantia" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPTpoGarantiaTipoCreditobyIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOPTpoGarantiaTipoCreditobyIDResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpCuentasConcepto">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOpCuentasConceptoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetOpCuentasConceptoResult" nillable="true" type="q24:ArrayOfOP_CUENTAS_CONCEPTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPCuentasConceptobyID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNumCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="idConcepto" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPCuentasConceptobyIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOPCuentasConceptobyIDResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListResumenRegContab">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListResumenRegContabResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetListResumenRegContabResult" nillable="true" type="q25:ArrayOfCG_ASTO_RESUMEN" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListDetalleRegContab">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListDetalleRegContabResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetListDetalleRegContabResult" nillable="true" type="q26:ArrayOfCG_ASTO_DETALLE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RealizaCargosAutomaticos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdSolicitud" type="xs:int" />
+        <xs:element minOccurs="0" name="pIdUsuario" type="xs:int" />
+        <xs:element minOccurs="0" name="pIdComercio" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RealizaCargosAutomaticosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RealizaCargosAutomaticosResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AperturaOperacionPasiva">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pOpInfo" nillable="true" type="q27:AllCreditosPasivosInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AperturaOperacionPasivaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AperturaOperacionPasivaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AperturaCredito">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pCredito" nillable="true" type="q28:AperturaCredito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AperturaCreditoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AperturaCreditoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AprobacionCredito">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pCredito" nillable="true" type="q29:AprobacionCredito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AprobacionCreditoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AprobacionCreditoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AperturaExpressCredito">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pAperturaCredito" nillable="true" type="q30:AperturaExpress" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AperturaExpressCreditoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Creditos" minOccurs="0" name="AperturaExpressCreditoResult" nillable="true" type="q31:AperturaCreditoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesembolsoOPasiva">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pDesembolsoOp" nillable="true" type="q32:DesembolsoOP" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesembolsoOPasivaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DesembolsoOPasivaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesembolsoCredito">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pCredito" nillable="true" type="q33:DesembolsoCredito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DesembolsoCreditoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DesembolsoCreditoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLineasCreditosxRiesgo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTipCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLineasCreditosxRiesgoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetLineasCreditosxRiesgoResult" nillable="true" type="q34:ArrayOfvw_OP_Lineas_Credito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlanPagos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlanPagosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetPlanPagosResult" nillable="true" type="q35:ArrayOfvw_PlanPagos" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlanPagosbyId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPlanPagosbyIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetPlanPagosbyIdResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCalculoCuota">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdSistema" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTpoCalendario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pGraciaPrincipal" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pdtFecVencimiento" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pdtFecApertura" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pPeriodoCuota" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTasaInteres" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTpoCuota" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTpoInteres" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTpoIvaNivelado" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pdtFechaInicioPlan" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pCambiaCuota" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pMontoCredito" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCobraIva" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCalculoCuotaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCalculoCuotaResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTablaPagos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdTipoCredito" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdTasaInteres" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdProducto" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pdtFecApertura" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pdtFecVencimiento" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pPeriodicidad" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdPlazo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pPlazoCredito" type="xs:int" />
+        <xs:element minOccurs="0" name="pTipoPlazo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pMontoCredito" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTablaPagosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTablaPagosResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VinculaOperacionesOpPr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresaOp" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgenciaOp" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCreditoOp" type="xs:decimal" />
+        <xs:element minOccurs="0" name="pIdEmpresaPr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgenciaPr" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCreditoPr" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VinculaOperacionesOpPrResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="VinculaOperacionesOpPrResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoNormal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="codAgenciaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaPago" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pcUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmMonto" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmIntExigible" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmIvaExigible" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmMonBase" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoAbono" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuentaDestino" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="recalculoCuota" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pagaInteres" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pvcAsiento" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="modalidadPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="conceptoCond" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pcIndAplicacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoNormalResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AbonoNormalResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoExtraordinario">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="codAgenciaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaPago" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pcUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmMonto" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmIntExigible" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmIvaExigible" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmMonBase" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoAbono" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuentaDestino" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="recalculoCuota" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pagaInteres" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pvcAsiento" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="modalidadPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="conceptoCond" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pcIndAplicacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoExtraordinarioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AbonoExtraordinarioResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoCancelacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="codAgenciaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaPago" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="pcUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmMonto" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmIntExigible" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmIvaExigible" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="vmMonBase" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoAbono" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="formaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="cuentaDestino" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="recalculoCuota" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pagaInteres" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pvcAsiento" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="modalidadPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="conceptoCond" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pcIndAplicacion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoCancelacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AbonoCancelacionResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCobranza">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pFecGeneracion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCliente" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pProducto" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCobranzaResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenResumenAdeudos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pFecGeneracion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenResumenAdeudosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="ObtenResumenAdeudosResult" nillable="true" type="q36:ArrayOfPR_GetAllAdeudosResumen_Result1" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistroLineaCreditoOp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="pLineasCreditoOp" nillable="true" type="q37:LineasCreditoOP" />
+        <xs:element minOccurs="0" name="pUserName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistroLineaCreditoOpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistroLineaCreditoOpResult" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelacionLineaCreditoOp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pNumLinea" type="xs:decimal" />
+        <xs:element minOccurs="0" name="pMonto" type="xs:decimal" />
+        <xs:element minOccurs="0" name="pEsPorcentaje" type="xs:boolean" />
+        <xs:element minOccurs="0" name="pUsername" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pAccountOrigen" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CancelacionLineaCreditoOpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CancelacionLineaCreditoOpResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaDisponibleLineaCredOp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaDisponibleLineaCredOpResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaDisponibleLineaCredOpResult" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLineasCreditos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdCliente" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCredito" nillable="true" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLineasCreditosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetLineasCreditosResult" nillable="true" type="q38:ArrayOfvw_OP_Lineas_Credito" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMovimientosOP">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMovimientosOPResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="GetMovimientosOPResult" nillable="true" type="q39:ArrayOfOP_MOVIMIENTOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPPlanPagos">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pidEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pidAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pnumCredito" type="xs:decimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOPPlanPagosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetOPPlanPagosResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoExtraordinarioSimplificado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdAgencia" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numCredito" type="xs:decimal" />
+        <xs:element minOccurs="0" name="codAgenciaPago" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaPago" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="vmMonto" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AbonoExtraordinarioSimplificadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AbonoExtraordinarioSimplificadoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAsientosGetRegContablesReporte">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="rutaArchivo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaInicial" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaFinal" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAsientosGetRegContablesReporteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetAsientosGetRegContablesReporteResult" nillable="true" type="xs:base64Binary" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenTiposCreditoCapacidadPagoXRiesgo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pRiesgo" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenTiposCreditoCapacidadPagoXRiesgoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/Creditos.DAL" minOccurs="0" name="ObtenTiposCreditoCapacidadPagoXRiesgoResult" nillable="true" type="q40:ArrayOfCargaTiposCreditoCapacidadPagoes" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

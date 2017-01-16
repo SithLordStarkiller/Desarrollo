@@ -1,0 +1,41 @@
+﻿@model  List<PubliPayments.Entidades.ComboFormularioModel>
+
+<select id="CtrlComboFormulario" class="Combos" style="width:80%;margin-left: 5px;margin-top: 5px;vertical-align: middle;">
+    @foreach (var combo in Model)
+    {
+        if (ViewBag.ComboSeleccionado == combo.IdFormulario)
+        {
+            <option value="@combo.IdFormulario" selected="selected">@combo.Descripcion</option>
+        }
+        else
+        {
+            <option value="@combo.IdFormulario">@combo.Descripcion</option>
+        }
+    }
+</select>
+<script>
+    $('#CtrlComboFormulario').on('change', function () {
+        $("#Mask").show();
+        $.ajax({
+            url: '/CtrlComboFormularios/CambiarFormulario',
+            async: false,
+            cache: false,
+            type: 'GET',
+            data: {
+                idFormulario: this.value
+            },
+            success: function(msg) {
+                if (msg == "OK") {
+                    location.reload();
+                } else {
+                    location.reload();
+                    $("#Mask").hide();
+                }
+            },
+            error: function (msg, text, thrown) {
+                location.reload();
+                $("#Mask").hide();
+            }
+        });
+    });
+</script>

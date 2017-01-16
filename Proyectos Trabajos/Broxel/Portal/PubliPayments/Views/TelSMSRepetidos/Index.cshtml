@@ -1,0 +1,267 @@
+﻿@using System.Web.UI.WebControls
+
+<script src="./Scripts/lightbox.min.js"></script>
+<link rel="stylesheet" href="./Styles/lightbox.css">
+<script>
+    var tabSeleccionado = "0";
+    var indicadorSeleccionado = "0";
+    var tipoTabla = "";
+
+    $(document).ready(function () {
+       cambiaCombo("delegacionCombo", 5);
+       cambiaCombo("despachoCombo", 2);
+        
+       if (("@ViewData["Rol"]" == "3")) {
+         setTimeout(function () {
+              document.getElementById("despachoCombo").value = "@ViewBag.despacho";
+               setTimeout(function() { cambiaCombo('supervisorCombo', 3); }, 500);
+               setTimeout(function() {
+                    document.getElementById("supervisorCombo").value = "@ViewBag.supervisor";
+               }, 1000);
+           }, 1000);
+       }
+
+        formatComboFormularios();
+        
+
+        //$.ajax({
+        //    url: "/Dashboard/ObtenerListaFormularios",
+        //    type: "POST",
+        //    dataType: "json",
+        //    contentType: "application/json",
+        //    cache: false,
+        //    traditional: true,
+        //    success: function (response) {
+        //        //obtenerFormularios(response);
+        //    },
+        //    error: function (msg) {
+        //        if (msg.responseText.toString() == "" || msg.responseText.toString() == null) {
+
+        //            alertaError("No se pudo obtener los formularios.\nIntentelo mas tarde.");
+        //            return false;
+        //        }
+
+        //        if (msg.getAllResponseHeaders()) {
+        //            //if (msg.responseText.toString().indexOf("</title>") > 0) {
+        //            //     window.location = "/Login.aspx";
+        //            //}
+        //            alertaError("No se pudo obtener los formularios.\nIntentelo mas tarde.");
+        //            return false;
+        //        }
+        //        return false;
+        //    }
+        //});
+
+        agregarRespuesta();
+    });
+
+    function obtenerFormularios(listaFormularios) {
+
+        var selectFinal = '';
+        $.each(listaFormularios, function (index, formulario) {
+            selectFinal += '<option value="' + formulario.Ruta + '">' + formulario.Descripcion + '</option>';
+        });
+
+        $("#tipoFormularioCombo").html(selectFinal);
+
+    }
+
+    function showMask() {
+        $("#Mask").css('width', $("body").width());
+        $("#Mask").css('height', $("body").height() + 30);
+        $("#Mask").show();
+    }
+
+    function ShowResponse(response) {
+        $("#tablaRespuesta").children().remove();
+        $("#tablaRespuesta").append(response.HtmlResp);
+        $("#tablaRespuestaHeader").html(response.usuario);
+        $("#Mask").hide();
+        window.PopupOrdenInfo.Show();
+    };
+
+    function agregarRespuesta() {
+        $("#divRender").on("click", ".idOrden a", function (e) {
+            e.preventDefault();
+            showMask();
+            var orden = ($(this).html());
+            $.ajax({
+                url: '/Respuesta/Ver',
+                type: 'GET',
+                data: {
+                    idOrden: orden
+                    , proceso: 1
+                },
+                contentType: 'application/json; charset=utf-8',
+                success: ShowResponse,
+                error: function (msg, text, thrown) {
+                    alert("error " + thrown);
+                    $("#Mask").hide();
+                }
+            });
+        });
+    }
+
+    function refreshTabla() {
+        var delegacion = ("@ViewData["Rol"]" == "5")?"@ViewData["Delegacion"]":$("#delegacionCombo").val();
+        var despacho = ("@ViewData["Rol"]" == "3") ? "@ViewData["Despacho"]" :$("#despachoCombo").val();
+        var supervisor = ("@ViewData["Rol"]" == "3") ? "@ViewData["Supervisor"]" :$("#supervisorCombo").val();
+        
+        $("#Mask").show();
+        $.ajax({
+            url: "/telSMSRepetidos/TablaTelefonos",
+            type: "POST",
+            dataType: "html",
+            data: { 'delegacion': delegacion, 'despacho': despacho, 'supervisor': supervisor },
+            success: function (response) {
+                $("#divRender").html(response);
+                $("#Mask").hide();
+            },
+            error: function (msg) {
+                alertaError("No se pudo obtener el reporte.\nIntentelo mas tarde.");
+                $("#Mask").hide();
+                return false;
+            }
+        });
+    }
+
+    function cambiaCombo(idCombo, tipoCombo) {
+        
+        var delegacion = $("#delegacionCombo").val();
+        var despacho = ("@ViewData["Rol"]" == "3") ? "@ViewData["Despacho"]" :$("#despachoCombo").val();
+        var supervisor = ("@ViewData["Rol"]" == "3") ? "@ViewData["Supervisor"]" :$("#supervisorCombo").val();
+        
+        $("#Mask").show();
+        $.ajax({
+            url: "/Auditoria/ComboFiltro",
+            type: "POST",
+            dataType: "html",
+            data: { 'idCombo': idCombo, 'tipoCombo': tipoCombo, 'delegacion': delegacion, 'despacho': despacho, 'supervisor': supervisor },
+            success: function(response) {
+                $("#"+idCombo).html(response);
+                $("#Mask").hide();
+
+                if (tipoCombo == 3) {
+                    cambiaCombo("gestorCombo", 1);
+                }
+                if (tipoCombo == 2) {
+                    cambiaCombo("supervisorCombo", 1);
+                    cambiaCombo("gestorCombo", 1);
+                }
+                if (idCombo == "gestorCombo") {
+                    refreshTabla();
+                }
+            },
+            error: function(msg) {
+                alertaError("No se pudo obtener el reporte.\nIntentelo mas tarde.");
+                $("#Mask").hide();
+                return false;
+            }
+        });
+    }
+
+    function popUpReporte() {
+        var tD = ("@ViewData["Rol"]" == "3") ? "Supervisor" : "Administrador";
+        var del = $("#delegacionCombo").val();
+        var desp= ("@ViewData["Rol"]" == "3") ? "@ViewData["Despacho"]" :$("#despachoCombo").val();
+        var spv=("@ViewData["Rol"]" == "3") ? "@ViewData["Supervisor"]" :$("#supervisorCombo").val();
+        var tpFrm = $("#CtrlComboFormulario").val();
+        var mstr = "MasterTelRepetido";
+
+        $("#supervisorCombo").val(spv);
+        $("#despachoCombo").val(desp);
+
+       var nomDelegacion = document.getElementById("delegacionCombo").options[document.getElementById("delegacionCombo").selectedIndex].text;
+        var nomDespacho = document.getElementById("despachoCombo").options[document.getElementById("despachoCombo").selectedIndex].text; 
+        var nomSupervisor = document.getElementById("supervisorCombo").options[document.getElementById("supervisorCombo").selectedIndex].text;
+        var tipoFormulario = document.getElementById("CtrlComboFormulario").options[document.getElementById("CtrlComboFormulario").selectedIndex].text;
+        
+        var queryString = "tD=" + tD + "&del=" + del + "&desp=" + desp + "&spv=" + spv + "&mstr=" + mstr +
+            "&nomDelegacion=" + nomDelegacion + "&nomDespacho=" + nomDespacho + "&nomSupervisor=" + nomSupervisor +  "&tpFrm=" + tpFrm + "&tipoFormulario=" + tipoFormulario;
+
+        window.open("/Reportes/ReporteTelefonosRepetidos/ReporteTelefonosRepetidos.aspx?" + queryString, "_blank   ", "toolbar=0,location=0,resizable=1,scrollbars=1,statusbar=0,menubar=0,left = 50,top = 50,height=600,width=800");
+    }
+
+    function formatComboFormularios() {
+        $("#CtrlComboFormulario").removeClass();
+        $("#CtrlComboFormulario").addClass("Combos ddlGestores");
+        $("#CtrlComboFormulario").removeAttr("style");
+        $("#CtrlComboFormulario").attr("style", "width:160px;margin-left: 5px;vertical-align: middle;");
+    }
+    
+</script>
+<style>
+    #pcRanking_CC {
+        width: 85%;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+        #pcRanking_CC div {
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+</style>
+
+<div style="margin-left: 30px;margin-right: 30px; position: relative">
+    <div class="TituloSeleccion" style="height: 66px; display: table-row; vertical-align: middle; width: 100%;">
+        Teléfonos SMS Repetidos<img alt="|" src="~/imagenes/separador.png" style="margin-left: 30px; margin-right: 30px; position: relative; top: 10px;" />
+        <div id="contentTipoReporte" style="vertical-align: bottom;margin-top:-33px ;margin-left:320px;text-align: left;">
+            <div id="divDelegacionCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px; ">
+                <select id="delegacionCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle; @(ViewData["Rol"].ToString() == "3"?"display: none;":"display: inline-block;")" onchange="cambiaCombo('despachoCombo',2);">
+                    <option value="9999">Seleccionar una delegación</option>
+                </select>
+            </div>
+            <div id="divDespachoCombo" style="text-align: right; display: inline-block; vertical-align: top; margin-top: 2px;">
+                <select id="despachoCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle; @(ViewData["Rol"].ToString() == "3"?"display: none;":"display: inline-block;")" onchange="cambiaCombo('supervisorCombo',3);">
+                    <option value="9999">Seleccionar un despacho</option>
+                </select>
+            </div>
+            <div id="divSupervisorCombo" style="text-align: right;display: inline-block;vertical-align: top;margin-top: 2px; @(ViewData["Rol"].ToString() == "3"?"display: none;":"display: inline-block;")">
+                <select id="supervisorCombo" class="Combos ddlGestores" style="width: 165px;margin-left: 5px;vertical-align: middle;" onchange="cambiaCombo('gestorCombo',4);">
+                    <option value="9999">Seleccionar un supervisor</option>
+                </select>
+            </div>
+
+        </div>
+        <div id="contentTipoReporte1" style="vertical-align: bottom;margin-top:10px;margin-left:0;text-align: left;">
+            <div id="divTipoFormularioCombo" style="height: 19px; width: 370px; display: block; vertical-align: text-top;position: relative;margin-left: 0;text-align: left;">
+                @Html.Action("Index", "CtrlComboFormularios")
+                @*<select id="tipoFormularioCombo" class="Combos ddlGestores" style="width:160px;margin-left: 5px;vertical-align: middle;" onchange="refreshTabla()">
+                    <option value="">Tipo de formulario</option>
+                </select>*@
+            </div>
+            <div style="height: 19px; width: 370px; display: block; vertical-align: text-top;position: relative;margin-left: 195px;text-align: left; top:-21px">
+                <input type="button" style="height: 30px;width: 180px" class="Botones" value="Exportar" onclick="popUpReporte()" />
+            </div>
+        </div>
+
+    </div>
+    <span id="asdjhdfakjh"></span>
+    <div style="margin-left: 30px; margin-top: 20px; margin-right: 30px; position: relative; overflow-y: auto; overflow-x: hidden; padding-bottom: 100px;" id="divRender">
+        
+    </div>
+
+</div>
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "PopupOrdenInfo";
+    settings.ShowHeader = true;
+    settings.AllowDragging = true;
+    settings.AllowResize = false;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.Modal = true;
+    settings.Width = new Unit("830px");
+    settings.PopupVerticalAlign = PopupVerticalAlign.TopSides;
+    settings.PopupVerticalOffset = 50;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupAnimationType = AnimationType.Fade;
+    settings.HeaderText = "Respuestas";
+
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div id='tablaRespuestaHeader'></div>");
+        ViewContext.Writer.Write("<div id='tablaRespuesta'></div>");
+    });
+}).GetHtml()

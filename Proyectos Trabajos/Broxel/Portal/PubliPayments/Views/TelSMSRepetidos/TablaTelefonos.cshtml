@@ -1,0 +1,73 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Data
+@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridTelSMSRepetidos";
+        
+        settings.ControlStyle.CssClass = "GridCelda";
+        settings.CallbackRouteValues = new
+        {
+            Controller = "TelSMSRepetidos",
+            Action = "TablaTelefonos",
+            delegacion = ViewData["delegacion"],
+            supervisor = ViewData["supervisor"],
+            despacho = ViewData["despacho"]
+        };
+
+        settings.KeyFieldName = "idOrden";
+
+        settings.SettingsPager.Position = PagerPosition.Bottom;
+        settings.SettingsPager.Visible = true;
+        settings.SettingsPager.PageSize = 50;
+        settings.SettingsPager.PageSizeItemSettings.Items = new[] { "10", "20", "50", "100" };
+        settings.SettingsPager.PageSizeItemSettings.Visible = true;
+
+        settings.Settings.ShowFilterRow = true;
+        settings.Settings.ShowGroupPanel = true;
+        settings.Settings.ShowHeaderFilterButton = true;
+
+        settings.Styles.AlternatingRow.Enabled = DefaultBoolean.True;
+        
+        var columnaOrden = new GridViewDataHyperLinkColumn { Caption = @"Orden", FieldName = "idOrden", ReadOnly = true };
+        columnaOrden.PropertiesHyperLinkEdit.NavigateUrlFormatString = "";
+        columnaOrden.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columnaOrden.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        columnaOrden.EditFormSettings.Visible = DefaultBoolean.False;
+        columnaOrden.CellStyle.CssClass = "idOrden";
+        settings.Columns.Add(columnaOrden);
+
+        var columna = new GridViewDataTextColumn { FieldName = "num_Cred", Caption = @"Crédito" };
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn { FieldName = "Valor", Caption = @"Teléfono" };
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+                    
+        columna = new GridViewDataTextColumn { FieldName = "Gestor", Caption = @"Gestor" };
+        columna.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columna.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn { FieldName = "Supervisor", Caption = @"Supervisor" };
+        columna.Settings.AllowAutoFilter = DefaultBoolean.False;
+        columna.Settings.HeaderFilterMode = HeaderFilterMode.CheckedList;
+        settings.Columns.Add(columna);
+
+        columna = new GridViewDataTextColumn { FieldName = "credOrig", Caption = @"Asociado a Crédito" };
+        columna.Settings.AllowHeaderFilter = DefaultBoolean.False;
+        columna.Settings.AutoFilterCondition = AutoFilterCondition.Contains;
+        settings.Columns.Add(columna);
+
+        settings.GroupSummary.Add(new ASPxSummaryItem("Orden", SummaryItemType.Count));
+
+        settings.Styles.Cell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormCell.Font.Size = FontUnit.Parse("12px");
+        settings.Styles.EditFormTable.Font.Size = FontUnit.Parse("12px");
+
+    });
+}
+@grid.Bind(Model).GetHtml()

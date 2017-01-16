@@ -1,0 +1,205 @@
+﻿@using System.Data
+@model EnumerableRowCollection<DataRow>
+@{
+    var familiares = from myRow in Model.AsEnumerable()
+                     where myRow.Field<string>("Titulo").Contains("Familiar") && myRow.Field<int>("TipoCampos") != 99
+        select myRow;
+    var personales = from myRow1 in Model.AsEnumerable()
+                     where myRow1.Field<string>("Titulo").Contains("Personal") && myRow1.Field<int>("TipoCampos") != 99
+        select myRow1;
+    var laborales = from myRow2 in Model.AsEnumerable()
+        where myRow2.Field<string>("Titulo").Contains("Laboral") && myRow2.Field<int>("TipoCampos") != 99
+                    select myRow2;
+
+    var respuestas = from myRow1 in Model.AsEnumerable()
+                     where myRow1.Field<int>("TipoCampos") == 99
+                     select myRow1;
+
+    var respDic = respuestas.ToDictionary(respuesta => respuesta["NombreCampo"].ToString(), respuesta => respuesta["Valor"].ToString());
+}
+
+@{
+    var idOrden = ViewBag.idOrden;
+    var idVisita = ViewBag.idVisita;
+}
+
+<fieldset>
+    <legend style="font-weight:bold;text-align: left;">Referencias Familiares</legend>
+    
+    <table class="tablaDoc1">
+        @foreach (DataRow row in familiares)
+        {
+            var refDatos = row["Valor"].ToString().Split('*');
+            var refer = refDatos[0].Split('/');
+            if (refDatos[0] == "") { continue; }
+
+            <tr class="rowAlto">
+                <td>Nombre</td>
+                <td>@refer[0]</td>
+                <td rowspan="3">
+                    <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioSi@(refDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "Si" ? " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Correcto</label>
+                    <br />
+                    <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioNo@(refDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "No" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Incorrecto</label>
+                </td>
+                <td rowspan="3">
+                    @if (row["Comentario"].ToString() == "1")
+                    {
+                        <label>Comentario</label><br />
+    <textarea id="@row["NombreCampo"].ToString()Comentario" @(respDic.ContainsKey(row["NombreCampo"] + "Result") ? "disabled='disabled'" : "") rows="5" cols="35">@(respDic.ContainsKey(row["NombreCampo"] + "Comentario") ? respDic[row["NombreCampo"] + "Comentario"] : "")</textarea>
+                    }
+                    else
+                    {
+                        <label>&nbsp;</label>
+                    }
+                </td>
+            </tr>
+    <tr class="rowMedio">
+        <td>Relacion</td>
+        <td>@refer[2]</td>
+    </tr>
+    <tr class="rowBajo rowMedio"> 
+        <td>Número Telefónico</td>
+        <td>@refer[1]</td>
+    </tr>
+            <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+        }
+    </table>
+
+</fieldset>
+
+<fieldset>
+    <legend style="font-weight:bold;text-align: left;">Referencias Personales</legend>
+
+    <table class="tablaDoc1">
+        @foreach (DataRow row in personales)
+{
+    var refDatos = row["Valor"].ToString().Split('*');
+    var refer = refDatos[0].Split('/');
+    if (refDatos[0] == ""){ continue;}
+
+    <tr class="rowAlto">
+        <td>Nombre</td>
+        <td>@refer[0]</td>
+        <td rowspan="3">
+            <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioSi@(refDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "Si" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Correcto</label>
+            <br />
+            <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioNo@(refDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "No" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Incorrecto</label>
+        </td>
+        <td rowspan="4">
+            @if (row["Comentario"].ToString() == "1")
+            {
+                <label>Comentario</label><br />
+    <textarea id="@row["NombreCampo"].ToString()Comentario" @(respDic.ContainsKey(row["NombreCampo"] + "Result") ? "disabled='disabled'" : "") rows="5" cols="35">@(respDic.ContainsKey(row["NombreCampo"] + "Comentario") ? respDic[row["NombreCampo"] + "Comentario"] : "")</textarea>
+            }
+            else
+            {
+                <label>&nbsp;</label>
+            }
+        </td>
+    </tr>
+    <tr class="rowMedio">
+        <td>Relacion</td>
+        <td>@refer[2]</td>
+    </tr>
+    <tr class="rowMedio">
+        <td>Número Telefónico</td>
+        <td>@refer[1]</td>
+    </tr>
+    <tr class="rowBajo rowMedio">
+        <td>Tiempo de Conocerlo</td>
+        <td>@refer[3]</td>
+    </tr>
+                    <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+}
+    </table>
+
+</fieldset>
+
+<fieldset>
+    <legend style="font-weight:bold;text-align: left;">Referencias Laborales</legend>
+
+    <table class="tablaDoc1">
+        @foreach (DataRow row in laborales)
+        {
+            var refDatos = row["Valor"].ToString().Split('*');
+            var refer = refDatos[0].Split('/');
+            if (refDatos[0] == "") { continue; }
+
+    <tr class="rowAlto">
+        <td>Nombre</td>
+        <td>@refer[0]</td>
+        <td rowspan="3">
+            <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioSi@(refDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "Si" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Correcto</label>
+            <br />
+            <input type="radio" value="@row["TipoCampos"].ToString()@row["NombreCampo"].ToString()RadioNo@(refDatos[1])" @(respDic.ContainsKey(row["NombreCampo"] + "Result") && respDic[row["NombreCampo"] + "Result"] == "No" ?  " checked='checked'" : "") @(respDic.ContainsKey(row["NombreCampo"] + "Result")? " disabled='disabled'" : "") name="@row["NombreCampo"].ToString()Radio" /><label>Incorrecto</label>
+        </td>
+        <td rowspan="4">
+            @if (row["Comentario"].ToString() == "1")
+            {
+                <label>Comentario</label><br />
+    <textarea id="@row["NombreCampo"].ToString()Comentario" @(respDic.ContainsKey(row["NombreCampo"] + "Result") ? "disabled='disabled'" : "") rows="5" cols="35">@(respDic.ContainsKey(row["NombreCampo"] + "Comentario") ? respDic[row["NombreCampo"] + "Comentario"] : "")</textarea>
+            }
+            else
+            {
+                <label>&nbsp;</label>
+            }
+        </td>
+    </tr>
+    <tr class="rowMedio">
+        <td>Relacion</td>
+        <td>@refer[2]</td>
+    </tr>
+    <tr class="rowMedio">
+        <td>Número Telefónico</td>
+        <td>@refer[1]</td>
+    </tr>
+    <tr class="rowBajo rowMedio">
+        <td>Tiempo de Conocerlo</td>
+        <td>@refer[3]</td>
+    </tr>
+                    <tr>
+                <td colspan="4">&nbsp;</td>
+            </tr>
+}
+    </table>
+
+</fieldset>
+
+
+<style>
+    .tablaDoc1 {
+        width: 775px;
+    }
+
+    .tablaDoc1  td {
+        padding: 7px !important;
+    }
+
+        .tablaDoc1 tr.rowBajo {
+            border-bottom: 1px solid;
+            border-color: #B0B0B0;
+        }         
+
+        .tablaDoc1 tr.rowAlto {
+            border-top: 1px solid;
+            border-color: #B0B0B0;
+        }
+
+            .tablaDoc1 tr.rowAlto td:first-child {
+                border-left: 1px solid;
+                border-color: #B0B0B0;
+            }
+
+            .tablaDoc1 tr.rowAlto td:last-child {
+                border-right: 1px solid;
+                border-color: #B0B0B0;
+            }
+        .tablaDoc1 tr.rowMedio {
+            border-left: 1px solid;
+            border-color: #B0B0B0;
+        }
+</style>

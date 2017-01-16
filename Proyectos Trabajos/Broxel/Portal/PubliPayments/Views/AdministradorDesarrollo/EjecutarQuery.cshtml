@@ -1,0 +1,34 @@
+﻿@using System.Globalization
+@model System.Data.DataTable
+
+<table style="border: 1px Solid #9F9F9F; margin-top: 12px">
+    <thead>
+        <tr>
+            @foreach (System.Data.DataColumn col in Model.Columns)
+            {
+                <th style="border: 1px Solid #9F9F9F; background-color: #DCDCDC; line-height: normal;font-size: 12px;">@col.Caption</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Rows)
+        {
+            <tr>
+                @foreach (var cell in row.ItemArray)
+                {
+                    <td class="grdAdm">@cell.ToString()</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+<style>
+    .grdAdm {
+        border: 1px Solid #9F9F9F;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+        text-align: left;
+        padding: 2px;
+    }
+</style>
+<div>Total registros: @Model.Rows.Count.ToString(CultureInfo.InvariantCulture)</div>

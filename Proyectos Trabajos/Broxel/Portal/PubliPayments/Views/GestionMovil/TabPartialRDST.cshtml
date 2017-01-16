@@ -1,0 +1,47 @@
+﻿@using System.Text
+@using System.Web.UI.WebControls
+@Html.DevExpress().PageControl(settings =>
+        {
+            settings.Name = "pcRanking";
+            settings.Width = Unit.Percentage(85);
+            
+            settings.Styles.Tab.Height = Unit.Pixel(40);
+            settings.Styles.Tab.Paddings.PaddingTop = Unit.Pixel(10);
+
+            var contenido = new StringBuilder();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='GestionXHora' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Gestión X Hora").SetContent(contenido.ToString());
+
+            contenido.Clear();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='GestionXDia' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Gestión X Día").SetContent(contenido.ToString());
+
+            contenido.Clear();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='GestionXSolucionRDST' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Gestión X Solución").SetContent(contenido.ToString());
+            contenido.Clear();
+
+            if (ViewBag.IdRol.ToString() == "0" || ViewBag.IdRol.ToString() == "1" || ViewBag.IdRol.ToString() == "2")
+            { 
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='ReportePagos' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Pagos").SetContent(contenido.ToString());
+            contenido.Clear();
+
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='MarcajeNoExitoso' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Llamadas sin Exito").SetContent(contenido.ToString());
+            contenido.Clear();
+            }
+            
+            settings.ClientSideEvents.ActiveTabChanged = "cambiaTab";
+
+        }).GetHtml()

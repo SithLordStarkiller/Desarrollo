@@ -1,0 +1,38 @@
+﻿@using System.Text
+@using System.Web.UI.WebControls
+@Html.DevExpress().PageControl(settings =>
+        {
+            settings.Name = "pcRanking";
+            settings.Width = Unit.Percentage(85);         
+
+            //settings.CallbackRouteValues = new { Controller = "RankingPorIndicador", Action = "tabPartial",tipoDashboard=ViewData["tipoDashboard"]};
+            settings.Styles.Tab.Height = Unit.Pixel(40);
+            settings.Styles.Tab.Paddings.PaddingTop = Unit.Pixel(10);
+
+            var contenido = new StringBuilder();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='GestionXHora' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Gestión X Hora").SetContent(contenido.ToString());
+
+            contenido.Clear();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='GestionXDia' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Gestión X Día").SetContent(contenido.ToString());
+
+            contenido.Clear();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='Soluciones' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Soluciones").SetContent(contenido.ToString());
+
+            contenido.Clear();
+            contenido.Append("<div style='width: 800px; overflow-y: scroll;height: 600px;visibility:hidden;'>");
+            contenido.Append("<input  type='hidden' value='GestionXSolucion' />");
+            contenido.Append("</div>");
+            settings.TabPages.Add("Gestión X Solución").SetContent(contenido.ToString());
+            
+            settings.ClientSideEvents.ActiveTabChanged = "cambiaTab";
+            
+        }).GetHtml()

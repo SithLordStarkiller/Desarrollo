@@ -1,0 +1,105 @@
+﻿<script>
+    function EditarEtiqueta(id) {
+        $("#MensajeUsuario").html("");
+        var modelo =
+            {
+                idCampo: id
+            }
+
+        $.ajax({
+            url: '/AdminFormulario/EditarEtiqueta',
+            type: 'POST',
+            data: JSON.stringify(modelo),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response.toString().indexOf("Se recomienda la utilización") != -1) {
+                    //window.location = "/Login.aspx";
+                    window.location = "~/Home";
+                } else {
+                    $("#MensajeUsuario").html(response);
+                    $("#MensajeUsuario").show();
+                }
+            },
+            error: function (msg, text, thrown) {
+                alert("Error - " + msg + text + thrown);
+            }
+        });
+
+        window.EditarDatos.Show();
+    }
+
+    function GuardarEtiqueta(boton) {
+        var modelo =
+            {
+                idCampo: $("#IdCampo").val(),
+                Etiqueta: $("#Etiqueta").val(),
+                Nombre: $("#Nombre").val()
+            }
+        if (BloquearMultiplesClicks(boton)) {
+            $.ajax({
+                url: '/AdminFormulario/GuardarEtiqueta',
+                type: 'POST',
+                data: JSON.stringify(modelo),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response.toString().indexOf("Se recomienda la utilización") != -1) {
+                        //window.location = "/Login.aspx";
+                        window.location = "~/Home";
+                    } else {
+                        if (response == "OK") {
+                            $("#MensajeError").html("Etiqueta guardada correctamente");
+                            $("#MensajeError").show();
+                            setTimeout(function refresh() { location.reload(); }, 3000);
+
+                        } else {
+                            LimpiarBloqueoMultiplesClicks($("#NuevoDButton"));
+                            $("#MensajeError").html("Error al guardar el registro");
+                            $("#MensajeError").show();
+                        }
+                    }
+                },
+                error: function (msg, text, thrown) {
+                    alert("Error - " + msg + text + thrown);
+                }
+            });
+        }
+    }
+
+</script>
+
+
+<div style="margin-left: 30px; margin-bottom: 20px; text-align: left;">
+    <label class="TituloSeleccion" id="LblTitulo_Dash" runat="server">Editar Etiquetas</label>
+    <img id="Image1" alt="|" src="/imagenes/separador.png" style="margin-left: 15px; margin-right: 15px; position: relative; top: 10px;">
+    @*<br />
+        <div style="width: 300px;"> @Html.Action("Index", "CtrlComboFormularios")</div>*@
+</div>
+
+<div style="margin-left: 30px;">
+    @Html.Action("grdConfiguracion")
+</div>
+
+
+@Html.DevExpress().PopupControl(settings =>
+{
+    settings.Name = "EditarDatos";
+    settings.HeaderText = "Editar Etiqueta";
+    settings.ShowHeader = true;
+    settings.ShowFooter = true;
+    settings.ShowCloseButton = true;
+    settings.CloseAction = CloseAction.CloseButton;
+    settings.AllowDragging = true;
+    settings.AllowResize = false;
+    settings.Modal = true;
+    settings.AutoUpdatePosition = true;
+    settings.PopupHorizontalAlign = PopupHorizontalAlign.WindowCenter;
+    settings.PopupVerticalAlign = PopupVerticalAlign.WindowCenter;
+
+    settings.SetContent(() =>
+    {
+        ViewContext.Writer.Write("<div id='MensajeUsuario' style='width:430;height:120;position:absolite'></div><div id='MensajeError' class='MensajeAlerta' style='display:none; height:19px; !important;margin-left: -5px !important;'></div>");
+    });
+    settings.SetFooterTemplateContent(
+            "<button id='NuevoDButton' style='width:200px; height:30px;' class='Botones' onClick='GuardarEtiqueta(this)'>Guardar</button>"
+        );
+}).GetHtml()

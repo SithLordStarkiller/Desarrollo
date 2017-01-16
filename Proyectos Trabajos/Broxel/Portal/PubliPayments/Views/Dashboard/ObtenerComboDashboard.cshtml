@@ -1,0 +1,11 @@
+﻿@using PubliPayments.Entidades
+@model IEnumerable<OpcionesFiltroDashboard>
+
+<label style="visibility: hidden;"><img src="~/imagenes/ajax-loader-trans.gif" /></label>
+<select id="@ViewBag.idSelect" style="height:30px;width:95%;" class="Combos" title="@ViewBag.titleSelect" onchange="@ViewBag.metodoChange" >
+    <option value="%" selected="selected">Todas</option>                
+    @foreach (OpcionesFiltroDashboard item in Model)
+    {
+        <option value="@item.Value">@item.Description</option>
+    }
+</select>
