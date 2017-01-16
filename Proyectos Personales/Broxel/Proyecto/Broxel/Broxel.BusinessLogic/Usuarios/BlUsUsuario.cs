@@ -14,9 +14,14 @@
             return new DaUsUsuarios().ObtenUsUsuarionPorLogin(usuario, contrasena);
         }
 
+        public USUSUARIOS InsertaUsuario(USUSUARIOS usuario)
+        {
+            return new DaUsUsuarios().InsertaUsuarioLinQ(usuario).Result;
+        }
+
         public List<USUSUARIOS> InsertaListaUsuarios(List<USUSUARIOS> listaUsuarios)
         {
-            return new DaUsUsuarios().InsertaListaUsuarios(listaUsuarios);
+            return new DaUsUsuarios().InsertaListaUsuariosLinQ(listaUsuarios);
         }
     }
 

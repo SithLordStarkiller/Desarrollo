@@ -14,7 +14,7 @@ namespace Broxel.Entities
     
     public partial class USUSUARIOS
     {
-        public int IDUSUARIO { get; set; }
+        public int IDUSUSARIO { get; set; }
         public Nullable<int> IDESTATUS { get; set; }
         public string USUARIO { get; set; }
         public string CONTRASENA { get; set; }

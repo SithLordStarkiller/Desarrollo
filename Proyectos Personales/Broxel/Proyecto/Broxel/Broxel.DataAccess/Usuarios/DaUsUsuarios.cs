@@ -10,6 +10,8 @@
 
     public class DaUsUsuarios
     {
+        private readonly BroxelEntities _contexto = new BroxelEntities();
+
         #region Metodos
 
         public UsUsuariosEntity ObtenUsUsuarionPorLogin(string usuario, string contrasena)
@@ -29,7 +31,7 @@
             return usuariResultado;
         }
 
-        public async Task<USUSUARIOS> InsertaUsuario(USUSUARIOS usuario)
+        public async Task<USUSUARIOS> InsertaUsuarioLinQ(USUSUARIOS usuario)
         {
             using (var proceso = new Repositorio<USUSUARIOS>())
             {
@@ -37,25 +39,11 @@
             }
         }
 
-        public List<USUSUARIOS> InsertaListaUsuarios(List<USUSUARIOS> listaUsuarios)
+        public List<USUSUARIOS> InsertaListaUsuariosLinQ(List<USUSUARIOS> listaUsuarios)
         {
-            var resultado = new List<USUSUARIOS>();
-
-            using (var r = new Repositorio<USUSUARIOS>())
-            {
-                Parallel.ForEach(listaUsuarios, a =>
-                {
-                    var entity = new USUSUARIOS();
-
-                    lock (entity)
-                    {
-                        resultado.Add(r.Insertar(entity).Result);
-                    }
-                });
-               
-            }
-
-            return resultado;
+            var a = _contexto.USUSUARIOS.AddRange(listaUsuarios);
+            _contexto.SaveChangesAsync();
+            return listaUsuarios;
         }
 
         #endregion
@@ -77,6 +65,14 @@
 
         private static List<UsUsuariosEntity> ConvertirListaUsUsuario(DataTable tabla)
         {
+            var lista = Parallel.ForEach(tabla.AsEnumerable().Select(row => new UsUsuariosEntity
+            {
+                IdUsuario = row.Field<int>("IdUsuario"),
+                IdEstatus = row.Field<int?>("IdEstatus"),
+                Usuario = row.Field<string>("Usuario"),
+                Contrasena = row.Field<string>("Contrasena")
+            }).ToList(), drow =>{});
+
             var listaUsuario = tabla.AsEnumerable().Select(row => new UsUsuariosEntity
             {
                 IdUsuario = row.Field<int>("IdUsuario"),

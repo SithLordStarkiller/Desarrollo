@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,13 +42,82 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControladorWcf\ControladorWcfClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\UsuariosWcf\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UsuariosWs\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Broxel.Entities\Broxel.Entities.csproj">
       <Project>{8b1dda42-3fe4-40de-90a0-a10b0343f58a}</Project>
       <Name>Broxel.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\DataSources\Broxel.Entities.Entidades.UsUsuarios.datasource" />
+    <None Include="Service References\UsuariosWcf\UsuariosServer.wsdl" />
+    <None Include="Service References\UsuariosWcf\UsuariosWcf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UsuariosWcf\UsuariosWcf1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UsuariosWcf\UsuariosWcf2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UsuariosWs\Broxel.Controller.UsuariosWs.ObtenUsUsuarionPorLoginResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UsuariosWs\Broxel.Controller.UsuariosWs.UsUsuarios.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\UsuariosWs\UsuariosWs.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\UsuariosWcf\" />
+    <WCFMetadataStorage Include="Service References\UsuariosWs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWs\UsuariosWs.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWs\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWs\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWs\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWcf\UsuariosWcf.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWcf\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWcf\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosWcf\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

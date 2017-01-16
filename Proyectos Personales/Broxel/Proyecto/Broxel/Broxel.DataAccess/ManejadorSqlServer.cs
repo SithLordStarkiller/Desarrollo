@@ -36,10 +36,7 @@
 
                 var cmd = new SqlCommand { Connection = conn, CommandType = commandType, CommandText = commandText };
 
-                foreach (var t in commandParameters)
-                {
-                    cmd.Parameters.Add(t);
-                }
+                cmd.Parameters.AddRange(commandParameters);
 
                 var dataTable = new DataTable();
 

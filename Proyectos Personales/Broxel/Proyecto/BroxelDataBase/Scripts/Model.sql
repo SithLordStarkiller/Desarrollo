@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     25/12/2016 03:22:27 a. m.                    */
+/* Created on:     15/01/2017 03:24:26 p. m.                    */
 /*==============================================================*/
 
 
@@ -30,7 +30,7 @@ go
 /*==============================================================*/
 create table USESTATUS (
    IDESTATUS            int                  not null,
-   ESTATUS              Varchar(50)          not null,
+   ESTATUS              varchar(50)          not null,
    DESCRIPCION          varchar(200)         null,
    constraint PK_USESTATUS primary key (IDESTATUS)
 )
@@ -40,11 +40,11 @@ go
 /* Table: USUSUARIOS                                            */
 /*==============================================================*/
 create table USUSUARIOS (
-   IDUSUARIO            int                  not null,
+   IDUSUSARIO           int                  not null,
    IDESTATUS            int                  null,
-   USUARIO              varchar(50)          null,
-   CONTRASENA           varchar(20)          null,
-   constraint PK_USUSUARIOS primary key (IDUSUARIO)
+   USUARIO              varchar(30)          not null,
+   CONTRASENA           varchar(20)          not null,
+   constraint PK_USUSUARIOS primary key (IDUSUSARIO)
 )
 go
 
