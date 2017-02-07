@@ -2,7 +2,7 @@
 {
     using System.Web.Services;
     using BusinessLogic.Usuarios;
-    using Entities.Entidades;
+    using Entities;
     using System.Web.Script.Services;
 
     /// <summary>
@@ -16,9 +16,9 @@
     {
 
         [WebMethod, ScriptMethod]
-        public UsUsuariosEntity ObtenUsUsuarionPorLogin(string usuario, string contrasena)
+        public USUSUARIOS ObtenUsUsuarionPorLogin(string usuario, string contrasena)
         {
-            return new BlUsUsuario().ObtenUsUsuarion(usuario, contrasena);
+            return new BlUsUsuario().ObtenUsUsuarionPorLogin(usuario, contrasena);
         }
     }
 }

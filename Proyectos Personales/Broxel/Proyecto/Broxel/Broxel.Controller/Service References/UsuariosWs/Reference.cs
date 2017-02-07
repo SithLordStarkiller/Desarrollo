@@ -15,9 +15,9 @@ namespace Broxel.Controller.UsuariosWs {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UsUsuarios", Namespace="http://tempuri.org/")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="UsUsuariosEntity", Namespace="http://tempuri.org/")]
     [System.SerializableAttribute()]
-    public partial class UsUsuarios : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class UsUsuariosEntity : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -178,12 +178,12 @@ namespace Broxel.Controller.UsuariosWs {
     public partial class ObtenUsUsuarionPorLoginResponseBody {
         
         [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
-        public Broxel.Controller.UsuariosWs.UsUsuarios ObtenUsUsuarionPorLoginResult;
+        public Broxel.Controller.UsuariosWs.UsUsuariosEntity ObtenUsUsuarionPorLoginResult;
         
         public ObtenUsUsuarionPorLoginResponseBody() {
         }
         
-        public ObtenUsUsuarionPorLoginResponseBody(Broxel.Controller.UsuariosWs.UsUsuarios ObtenUsUsuarionPorLoginResult) {
+        public ObtenUsUsuarionPorLoginResponseBody(Broxel.Controller.UsuariosWs.UsUsuariosEntity ObtenUsUsuarionPorLoginResult) {
             this.ObtenUsUsuarionPorLoginResult = ObtenUsUsuarionPorLoginResult;
         }
     }
@@ -220,7 +220,7 @@ namespace Broxel.Controller.UsuariosWs {
             return base.Channel.ObtenUsUsuarionPorLogin(request);
         }
         
-        public Broxel.Controller.UsuariosWs.UsUsuarios ObtenUsUsuarionPorLogin(string usuario, string contrasena) {
+        public Broxel.Controller.UsuariosWs.UsUsuariosEntity ObtenUsUsuarionPorLogin(string usuario, string contrasena) {
             Broxel.Controller.UsuariosWs.ObtenUsUsuarionPorLoginRequest inValue = new Broxel.Controller.UsuariosWs.ObtenUsUsuarionPorLoginRequest();
             inValue.Body = new Broxel.Controller.UsuariosWs.ObtenUsUsuarionPorLoginRequestBody();
             inValue.Body.usuario = usuario;

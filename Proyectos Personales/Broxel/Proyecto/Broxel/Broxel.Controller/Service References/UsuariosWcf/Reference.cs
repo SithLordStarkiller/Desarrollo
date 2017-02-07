@@ -16,12 +16,16 @@ namespace Broxel.Controller.UsuariosWcf {
     public interface IUsuariosWcf {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLogin", ReplyAction="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLoginResponse")]
-        Broxel.Entities.Entidades.UsUsuarios ObtenUsUsuarionPorLogin(string usuario, string contrasena);
+        Broxel.Entities.USUSUARIOS ObtenUsUsuarionPorLogin(string usuario, string contrasena);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLogin", ReplyAction="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLoginResponse")]
-        System.IAsyncResult BeginObtenUsUsuarionPorLogin(string usuario, string contrasena, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLogin", ReplyAction="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLoginResponse")]
+        System.Threading.Tasks.Task<Broxel.Entities.USUSUARIOS> ObtenUsUsuarionPorLoginAsync(string usuario, string contrasena);
         
-        Broxel.Entities.Entidades.UsUsuarios EndObtenUsUsuarionPorLogin(System.IAsyncResult result);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuariosWcf/InsertaListaUsuarios", ReplyAction="http://tempuri.org/IUsuariosWcf/InsertaListaUsuariosResponse")]
+        System.Collections.Generic.List<Broxel.Entities.USUSUARIOS> InsertaListaUsuarios(System.Collections.Generic.List<Broxel.Entities.USUSUARIOS> listaUsuarios);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuariosWcf/InsertaListaUsuarios", ReplyAction="http://tempuri.org/IUsuariosWcf/InsertaListaUsuariosResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<Broxel.Entities.USUSUARIOS>> InsertaListaUsuariosAsync(System.Collections.Generic.List<Broxel.Entities.USUSUARIOS> listaUsuarios);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -30,32 +34,7 @@ namespace Broxel.Controller.UsuariosWcf {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ObtenUsUsuarionPorLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public ObtenUsUsuarionPorLoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public Broxel.Entities.Entidades.UsUsuarios Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((Broxel.Entities.Entidades.UsUsuarios)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class UsuariosWcfClient : System.ServiceModel.ClientBase<Broxel.Controller.UsuariosWcf.IUsuariosWcf>, Broxel.Controller.UsuariosWcf.IUsuariosWcf {
-        
-        private BeginOperationDelegate onBeginObtenUsUsuarionPorLoginDelegate;
-        
-        private EndOperationDelegate onEndObtenUsUsuarionPorLoginDelegate;
-        
-        private System.Threading.SendOrPostCallback onObtenUsUsuarionPorLoginCompletedDelegate;
         
         public UsuariosWcfClient() {
         }
@@ -76,58 +55,20 @@ namespace Broxel.Controller.UsuariosWcf {
                 base(binding, remoteAddress) {
         }
         
-        public event System.EventHandler<ObtenUsUsuarionPorLoginCompletedEventArgs> ObtenUsUsuarionPorLoginCompleted;
-        
-        public Broxel.Entities.Entidades.UsUsuarios ObtenUsUsuarionPorLogin(string usuario, string contrasena) {
+        public Broxel.Entities.USUSUARIOS ObtenUsUsuarionPorLogin(string usuario, string contrasena) {
             return base.Channel.ObtenUsUsuarionPorLogin(usuario, contrasena);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginObtenUsUsuarionPorLogin(string usuario, string contrasena, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginObtenUsUsuarionPorLogin(usuario, contrasena, callback, asyncState);
+        public System.Threading.Tasks.Task<Broxel.Entities.USUSUARIOS> ObtenUsUsuarionPorLoginAsync(string usuario, string contrasena) {
+            return base.Channel.ObtenUsUsuarionPorLoginAsync(usuario, contrasena);
         }
         
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Broxel.Entities.Entidades.UsUsuarios EndObtenUsUsuarionPorLogin(System.IAsyncResult result) {
-            return base.Channel.EndObtenUsUsuarionPorLogin(result);
+        public System.Collections.Generic.List<Broxel.Entities.USUSUARIOS> InsertaListaUsuarios(System.Collections.Generic.List<Broxel.Entities.USUSUARIOS> listaUsuarios) {
+            return base.Channel.InsertaListaUsuarios(listaUsuarios);
         }
         
-        private System.IAsyncResult OnBeginObtenUsUsuarionPorLogin(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string usuario = ((string)(inValues[0]));
-            string contrasena = ((string)(inValues[1]));
-            return this.BeginObtenUsUsuarionPorLogin(usuario, contrasena, callback, asyncState);
-        }
-        
-        private object[] OnEndObtenUsUsuarionPorLogin(System.IAsyncResult result) {
-            Broxel.Entities.Entidades.UsUsuarios retVal = this.EndObtenUsUsuarionPorLogin(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnObtenUsUsuarionPorLoginCompleted(object state) {
-            if ((this.ObtenUsUsuarionPorLoginCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.ObtenUsUsuarionPorLoginCompleted(this, new ObtenUsUsuarionPorLoginCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void ObtenUsUsuarionPorLoginAsync(string usuario, string contrasena) {
-            this.ObtenUsUsuarionPorLoginAsync(usuario, contrasena, null);
-        }
-        
-        public void ObtenUsUsuarionPorLoginAsync(string usuario, string contrasena, object userState) {
-            if ((this.onBeginObtenUsUsuarionPorLoginDelegate == null)) {
-                this.onBeginObtenUsUsuarionPorLoginDelegate = new BeginOperationDelegate(this.OnBeginObtenUsUsuarionPorLogin);
-            }
-            if ((this.onEndObtenUsUsuarionPorLoginDelegate == null)) {
-                this.onEndObtenUsUsuarionPorLoginDelegate = new EndOperationDelegate(this.OnEndObtenUsUsuarionPorLogin);
-            }
-            if ((this.onObtenUsUsuarionPorLoginCompletedDelegate == null)) {
-                this.onObtenUsUsuarionPorLoginCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnObtenUsUsuarionPorLoginCompleted);
-            }
-            base.InvokeAsync(this.onBeginObtenUsUsuarionPorLoginDelegate, new object[] {
-                        usuario,
-                        contrasena}, this.onEndObtenUsUsuarionPorLoginDelegate, this.onObtenUsUsuarionPorLoginCompletedDelegate, userState);
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<Broxel.Entities.USUSUARIOS>> InsertaListaUsuariosAsync(System.Collections.Generic.List<Broxel.Entities.USUSUARIOS> listaUsuarios) {
+            return base.Channel.InsertaListaUsuariosAsync(listaUsuarios);
         }
     }
 }

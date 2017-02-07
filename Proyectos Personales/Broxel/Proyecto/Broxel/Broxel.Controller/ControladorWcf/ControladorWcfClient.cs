@@ -1,13 +1,21 @@
 ﻿namespace Broxel.Controller.ControladorWcf
 {
     using System;
+    using System.ServiceModel;
     using System.Xml;
 
     public class ControladorWcfClient
     {
-        public System.ServiceModel.BasicHttpBinding ObtenBasicHttpBinding()
+        private readonly string _urlServe;
+
+        public ControladorWcfClient(string urlServe)
         {
-            var result = new System.ServiceModel.BasicHttpBinding
+            _urlServe = urlServe;
+        }
+
+        public BasicHttpBinding ObtenBasicHttpBinding()
+        {
+            var result = new BasicHttpBinding
             {
                 MaxBufferSize = int.MaxValue,
                 MaxReceivedMessageSize = int.MaxValue,
@@ -23,13 +31,11 @@
             return result;
         }
 
-        public System.ServiceModel.EndpointAddress ObtenEndpointAddress(UserSession sesion, string directory, string service)
+        public EndpointAddress ObtenEndpointAddress(string directory, string service)
         {
             try
             {
-                return sesion != null
-                    ? new System.ServiceModel.EndpointAddress(sesion.UrlServer + directory + service)
-                    : null;
+                return new EndpointAddress(_urlServe + directory + service);
             }
             catch (UriFormatException)
             {

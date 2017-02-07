@@ -4,7 +4,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:4277/Usuarios/UsuariosWcf.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:4277/Usuarios/UsuariosWcf.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:4277/Usuarios/UsuariosWcf.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Broxel.Entities.Entidades" />
+      <xsd:import schemaLocation="http://localhost:4277/Usuarios/UsuariosWcf.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Broxel.Entities" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUsuariosWcf_ObtenUsUsuarionPorLogin_InputMessage">
@@ -13,16 +13,35 @@
   <wsdl:message name="IUsuariosWcf_ObtenUsUsuarionPorLogin_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenUsUsuarionPorLoginResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuariosWcf_InsertaListaUsuarios_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertaListaUsuarios" />
+  </wsdl:message>
+  <wsdl:message name="IUsuariosWcf_InsertaListaUsuarios_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertaListaUsuariosResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuariosWcf">
     <wsdl:operation name="ObtenUsUsuarionPorLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLogin" message="tns:IUsuariosWcf_ObtenUsUsuarionPorLogin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLoginResponse" message="tns:IUsuariosWcf_ObtenUsUsuarionPorLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertaListaUsuarios">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuariosWcf/InsertaListaUsuarios" message="tns:IUsuariosWcf_InsertaListaUsuarios_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuariosWcf/InsertaListaUsuariosResponse" message="tns:IUsuariosWcf_InsertaListaUsuarios_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuariosWcf" type="tns:IUsuariosWcf">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ObtenUsUsuarionPorLogin">
       <soap:operation soapAction="http://tempuri.org/IUsuariosWcf/ObtenUsUsuarionPorLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertaListaUsuarios">
+      <soap:operation soapAction="http://tempuri.org/IUsuariosWcf/InsertaListaUsuarios" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

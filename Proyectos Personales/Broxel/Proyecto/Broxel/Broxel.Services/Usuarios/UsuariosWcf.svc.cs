@@ -1,15 +1,19 @@
-﻿namespace Broxel.Services.Usuarios
+﻿using Newtonsoft.Json;
+
+namespace Broxel.Services.Usuarios
 {
-    using Entities.Entidades;
     using Entities;
     using BusinessLogic.Usuarios;
     using System.Collections.Generic;
 
     public class UsuariosServer : IUsuariosWcf
     {
-        public UsUsuariosEntity ObtenUsUsuarionPorLogin(string usuario, string contrasena)
+        public USUSUARIOS ObtenUsUsuarionPorLogin(string usuario, string contrasena)
         {
-            return new BlUsUsuario().ObtenUsUsuarion(usuario,contrasena);
+            var a =  new BlUsUsuario().ObtenUsUsuarionPorLogin(usuario,contrasena);
+            var serial = JsonConvert.SerializeObject(a);
+
+            return a;
         }
 
         public List<USUSUARIOS> InsertaListaUsuarios(List<USUSUARIOS> listaUsuarios)

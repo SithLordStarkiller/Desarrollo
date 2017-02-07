@@ -2,16 +2,16 @@
 {
     using DataAccess.Usuarios;
     using Entities;
-    using Entities.Entidades;
     using System.Collections.Generic;
+
 
     #region UsUsuario
 
     public class BlUsUsuario
     {
-        public UsUsuariosEntity ObtenUsUsuarion(string usuario, string contrasena)
+        public USUSUARIOS ObtenUsUsuarionPorLogin(string usuario, string contrasena)
         {
-            return new DaUsUsuarios().ObtenUsUsuarionPorLogin(usuario, contrasena);
+            return new DaUsUsuarios().ObtenUsUsuarionPorLoginLinQ(usuario, contrasena).Result;
         }
 
         public USUSUARIOS InsertaUsuario(USUSUARIOS usuario)

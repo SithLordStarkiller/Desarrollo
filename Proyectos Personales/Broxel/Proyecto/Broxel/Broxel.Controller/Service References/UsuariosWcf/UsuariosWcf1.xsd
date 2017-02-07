@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:4277/Usuarios/UsuariosWcf.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Broxel.Entities.Entidades" />
+  <xs:import schemaLocation="http://localhost:4277/Usuarios/UsuariosWcf.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Broxel.Entities" />
   <xs:element name="ObtenUsUsuarionPorLogin">
     <xs:complexType>
       <xs:sequence>
@@ -12,7 +12,21 @@
   <xs:element name="ObtenUsUsuarionPorLoginResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Broxel.Entities.Entidades" minOccurs="0" name="ObtenUsUsuarionPorLoginResult" nillable="true" type="q1:UsUsuarios" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Broxel.Entities" minOccurs="0" name="ObtenUsUsuarionPorLoginResult" nillable="true" type="q1:USUSUARIOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertaListaUsuarios">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Broxel.Entities" minOccurs="0" name="listaUsuarios" nillable="true" type="q2:ArrayOfUSUSUARIOS" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertaListaUsuariosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Broxel.Entities" minOccurs="0" name="InsertaListaUsuariosResult" nillable="true" type="q3:ArrayOfUSUSUARIOS" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

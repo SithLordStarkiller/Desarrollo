@@ -1,87 +1,139 @@
 ﻿namespace Broxel.DataAccess.Usuarios
 {
+    using System;
     using System.Linq;
     using System.Data;
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Threading.Tasks;
     using Entities;
-    using Entities.Entidades;
+    using Helpers.Log;
+    using Helpers.CustomExceptions;
 
+    /// <summary>
+    /// Clase encargada de manejar el acceso a datos de los usuarios
+    /// </summary>
     public class DaUsUsuarios
     {
         private readonly BroxelEntities _contexto = new BroxelEntities();
 
         #region Metodos
 
-        public UsUsuariosEntity ObtenUsUsuarionPorLogin(string usuario, string contrasena)
+        public USUSUARIOS ObtenUsUsuarionPorLoginAdo(string usuario, string contrasena)
         {
-            var parametros = new SqlParameter[2];
+            try
+            {
+                var parametros = new SqlParameter[2];
 
-            parametros[0] = new SqlParameter { ParameterName = "@Usuario", DbType = DbType.String, Value = usuario };
-            parametros[1] = new SqlParameter { ParameterName = "@Contrasena", DbType = DbType.String, Value = contrasena };
+                parametros[0] = new SqlParameter { ParameterName = "@Usuario", DbType = DbType.String, Value = usuario };
+                parametros[1] = new SqlParameter { ParameterName = "@Contrasena", DbType = DbType.String, Value = contrasena };
 
-            var resultado = new ManejadorSqlServer().ExecuteDataTable(Constantes.ConexionBaseDatos, CommandType.StoredProcedure, "Usp_ObtenUsUsuarionPorLogin", parametros);
+                var task =
+                    Task<DataTable>.Factory.StartNew(
+                        () =>
+                            new ManejadorSqlServer().ExecuteDataTable(Constantes.ConexionBaseDatos,
+                                CommandType.StoredProcedure, "Usp_ObtenUsUsuarionPorLogin", parametros));
 
-            if (resultado == null || resultado.Rows.Count <= 0)
-                return null;
+                var resultado = task.Result;
 
-            var usuariResultado = ConvertirUsUsuario(resultado);
+                if (resultado == null || resultado.Rows.Count <= 0)
+                    throw new UserNotFindException(usuario, contrasena);
 
-            return usuariResultado;
+                var usuariResultado = (USUSUARIOS)ConvertirUsUsuario(resultado, false);
+
+                return usuariResultado;
+            }
+            catch (Exception e)
+            {
+                new Looger().EscribeLog(Looger.TipoLog.ErrorCritico,"Error en conexion con base de datos",);
+                throw;
+            }
+        }
+
+        public async Task<USUSUARIOS> ObtenUsUsuarionPorLoginLinQ(string usuario, string contrasena)
+        {
+            try
+            {
+                using (var proceso = new Repositorio<USUSUARIOS>())
+                {
+                    var resultado = await proceso.Consulta(x => x.USUARIO == usuario && x.CONTRASENA == contrasena);
+
+                    if (resultado == null)
+                        throw new UserNotFindException(usuario, contrasena);
+
+                    return resultado;
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<USUSUARIOS> InsertaUsuarioLinQ(USUSUARIOS usuario)
         {
-            using (var proceso = new Repositorio<USUSUARIOS>())
+            try
             {
-                return await proceso.Insertar(usuario);
+                using (var proceso = new Repositorio<USUSUARIOS>())
+                {
+                    return await proceso.Insertar(usuario);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public List<USUSUARIOS> InsertaListaUsuariosLinQ(List<USUSUARIOS> listaUsuarios)
         {
-            var a = _contexto.USUSUARIOS.AddRange(listaUsuarios);
-            _contexto.SaveChangesAsync();
-            return listaUsuarios;
+            try
+            {
+                _contexto.USUSUARIOS.AddRange(listaUsuarios);
+                _contexto.SaveChangesAsync();
+                return listaUsuarios;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #endregion
 
         #region Convertidores
 
-        private static UsUsuariosEntity ConvertirUsUsuario(DataTable tabla)
+        public static object ConvertirUsUsuario(DataTable tabla, bool list)
         {
-            var usuario = tabla.AsEnumerable().Select(row => new UsUsuariosEntity
+            try
             {
-                IdUsuario = row.Field<int>("IdUsuario"),
-                IdEstatus = row.Field<int?>("IdEstatus"),
-                Usuario = row.Field<string>("Usuario"),
-                Contrasena = row.Field<string>("Contrasena")
-            }).FirstOrDefault();
+                if (!list)
+                {
+                    var usuario = tabla.AsEnumerable().Select(row => new USUSUARIOS
+                    {
+                        IDUSUARIO = row.Field<int>("IDUSUARIO"),
+                        IDESTATUS = row.Field<int?>("IDESTATUS"),
+                        USUARIO = row.Field<string>("USUARIO"),
+                        CONTRASENA = row.Field<string>("CONTRASENA")
+                    });
 
-            return usuario;
-        }
+                    return usuario.FirstOrDefault();
+                }
 
-        private static List<UsUsuariosEntity> ConvertirListaUsUsuario(DataTable tabla)
-        {
-            var lista = Parallel.ForEach(tabla.AsEnumerable().Select(row => new UsUsuariosEntity
+                var lista = Parallel.ForEach(tabla.AsEnumerable().Select(row => new USUSUARIOS
+                {
+                    IDUSUARIO = row.Field<int>("IDUSUARIO"),
+                    IDESTATUS = row.Field<int?>("IDESTATUS"),
+                    USUARIO = row.Field<string>("USUARIO"),
+                    CONTRASENA = row.Field<string>("CONTRASENA")
+                }).ToList(), drow => { });
+
+                return lista;
+            }
+            catch (Exception)
             {
-                IdUsuario = row.Field<int>("IdUsuario"),
-                IdEstatus = row.Field<int?>("IdEstatus"),
-                Usuario = row.Field<string>("Usuario"),
-                Contrasena = row.Field<string>("Contrasena")
-            }).ToList(), drow =>{});
-
-            var listaUsuario = tabla.AsEnumerable().Select(row => new UsUsuariosEntity
-            {
-                IdUsuario = row.Field<int>("IdUsuario"),
-                IdEstatus = row.Field<int?>("IdEstatus"),
-                Usuario = row.Field<string>("Usuario"),
-                Contrasena = row.Field<string>("Contrasena")
-            }).ToList();
-
-            return listaUsuario;
+                throw;
+            }
         }
 
         #endregion
