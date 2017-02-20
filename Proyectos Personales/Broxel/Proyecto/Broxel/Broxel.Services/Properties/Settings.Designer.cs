@@ -22,5 +22,15 @@ namespace Broxel.Services.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Desarrollo\\Proyectos\\Proyectos Personales\\Broxel\\Proyecto\\Broxel\\Broxel.Servic" +
+            "es\\Log")]
+        public string UrlArchivoLog {
+            get {
+                return ((string)(this["UrlArchivoLog"]));
+            }
+        }
     }
 }

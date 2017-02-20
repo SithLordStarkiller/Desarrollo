@@ -11,7 +11,7 @@
     {
         public USUSUARIOS ObtenUsUsuarionPorLogin(string usuario, string contrasena)
         {
-            return new DaUsUsuarios().ObtenUsUsuarionPorLoginLinQ(usuario, contrasena).Result;
+            return new DaUsUsuarios().ObtenUsUsuarionPorLoginAdo(usuario, contrasena);
         }
 
         public USUSUARIOS InsertaUsuario(USUSUARIOS usuario)

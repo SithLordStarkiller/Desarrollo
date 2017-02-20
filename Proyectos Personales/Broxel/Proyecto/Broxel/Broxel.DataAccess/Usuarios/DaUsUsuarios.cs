@@ -6,6 +6,7 @@
     using System.Collections.Generic;
     using System.Data.SqlClient;
     using System.Threading.Tasks;
+    using System.Reflection;
     using Entities;
     using Helpers.Log;
     using Helpers.CustomExceptions;
@@ -16,6 +17,8 @@
     public class DaUsUsuarios
     {
         private readonly BroxelEntities _contexto = new BroxelEntities();
+
+        private readonly Looger _logLooger = new Looger(Constantes.UrlLog, Constantes.ConnectionString);
 
         #region Metodos
 
@@ -45,7 +48,11 @@
             }
             catch (Exception e)
             {
-                new Looger().EscribeLog(Looger.TipoLog.ErrorCritico,"Error en conexion con base de datos",);
+                Task.Factory.StartNew(
+                    () =>
+                        _logLooger.EscribeLog(Looger.TipoLog.Preventivo,
+                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                            MethodBase.GetCurrentMethod().Name, "Login error", "", e, ""));
                 throw;
             }
         }
@@ -66,6 +73,9 @@
             }
             catch (Exception e)
             {
+                _logLooger.EscribeLog(Looger.TipoLog.Preventivo,
+                    Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                    MethodBase.GetCurrentMethod().Name, "Login error", "", e, "");
                 throw;
             }
         }
@@ -79,8 +89,11 @@
                     return await proceso.Insertar(usuario);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                           _logLooger.EscribeLog(Looger.TipoLog.Preventivo,
+                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                               MethodBase.GetCurrentMethod().Name, "Login error", "", e, "");
                 throw;
             }
         }
