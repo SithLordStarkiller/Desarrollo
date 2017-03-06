@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MembershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="PKID" />
+          </Key>
+          <Property Name="PKID" Type="int" Nullable="false" />
+          <Property Name="USERNAME" Type="varchar" MaxLength="255" />
+          <Property Name="APPLICATIONNAME" Type="varchar" MaxLength="255" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="128" />
+          <Property Name="COMMENT" Type="varchar" MaxLength="255" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="128" />
+          <Property Name="PASSWORDQUESTION" Type="varchar" MaxLength="255" />
+          <Property Name="PASSWORDANSWER" Type="varchar" MaxLength="255" />
+          <Property Name="ISAPPROVED" Type="bit" />
+          <Property Name="LASTACTIVITYDATE" Type="datetime" />
+          <Property Name="LASTLOGINDATE" Type="datetime" />
+          <Property Name="LASTPASSWORDCHANGEDDATE" Type="datetime" />
+          <Property Name="CREATIONDATE" Type="datetime" />
+          <Property Name="ISONLINE" Type="bit" />
+          <Property Name="ISLOCKEDOUT" Type="bit" />
+          <Property Name="LASTLOCKEDOUTDATE" Type="datetime" />
+          <Property Name="FAILEDPASSWORDATTEMPTCOUNT" Type="int" />
+          <Property Name="FAILEDPASSWORDATTEMPTWINDOWSTART" Type="datetime" />
+          <Property Name="FAILEDPASSWORDANSWERATTEMPTCOUNT" Type="int" />
+          <Property Name="FAILEDPASSWORDANSWERATTEMPTWINDOWSTART" Type="datetime" />
+          <Property Name="ISSUBSCRIBER" Type="bit" />
+          <Property Name="CUSTOMERID" Type="varchar" MaxLength="64" />
+        </EntityType>
+        <EntityContainer Name="MembershipModelStoreContainer">
+          <EntitySet Name="USERS" EntityType="Self.USERS" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MembershipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="USERS">
+          <Key>
+            <PropertyRef Name="PKID" />
+          </Key>
+          <Property Name="PKID" Type="Int32" Nullable="false" />
+          <Property Name="USERNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="APPLICATIONNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="COMMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORDQUESTION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PASSWORDANSWER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ISAPPROVED" Type="Boolean" />
+          <Property Name="LASTACTIVITYDATE" Type="DateTime" Precision="3" />
+          <Property Name="LASTLOGINDATE" Type="DateTime" Precision="3" />
+          <Property Name="LASTPASSWORDCHANGEDDATE" Type="DateTime" Precision="3" />
+          <Property Name="CREATIONDATE" Type="DateTime" Precision="3" />
+          <Property Name="ISONLINE" Type="Boolean" />
+          <Property Name="ISLOCKEDOUT" Type="Boolean" />
+          <Property Name="LASTLOCKEDOUTDATE" Type="DateTime" Precision="3" />
+          <Property Name="FAILEDPASSWORDATTEMPTCOUNT" Type="Int32" />
+          <Property Name="FAILEDPASSWORDATTEMPTWINDOWSTART" Type="DateTime" Precision="3" />
+          <Property Name="FAILEDPASSWORDANSWERATTEMPTCOUNT" Type="Int32" />
+          <Property Name="FAILEDPASSWORDANSWERATTEMPTWINDOWSTART" Type="DateTime" Precision="3" />
+          <Property Name="ISSUBSCRIBER" Type="Boolean" />
+          <Property Name="CUSTOMERID" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="MembershipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="USERS" EntityType="Self.USERS" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MembershipModelStoreContainer" CdmEntityContainer="MembershipEntities">
+          <EntitySetMapping Name="USERS">
+            <EntityTypeMapping TypeName="MembershipModel.USERS">
+              <MappingFragment StoreEntitySet="USERS">
+                <ScalarProperty Name="PKID" ColumnName="PKID" />
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="APPLICATIONNAME" ColumnName="APPLICATIONNAME" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="COMMENT" ColumnName="COMMENT" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="PASSWORDQUESTION" ColumnName="PASSWORDQUESTION" />
+                <ScalarProperty Name="PASSWORDANSWER" ColumnName="PASSWORDANSWER" />
+                <ScalarProperty Name="ISAPPROVED" ColumnName="ISAPPROVED" />
+                <ScalarProperty Name="LASTACTIVITYDATE" ColumnName="LASTACTIVITYDATE" />
+                <ScalarProperty Name="LASTLOGINDATE" ColumnName="LASTLOGINDATE" />
+                <ScalarProperty Name="LASTPASSWORDCHANGEDDATE" ColumnName="LASTPASSWORDCHANGEDDATE" />
+                <ScalarProperty Name="CREATIONDATE" ColumnName="CREATIONDATE" />
+                <ScalarProperty Name="ISONLINE" ColumnName="ISONLINE" />
+                <ScalarProperty Name="ISLOCKEDOUT" ColumnName="ISLOCKEDOUT" />
+                <ScalarProperty Name="LASTLOCKEDOUTDATE" ColumnName="LASTLOCKEDOUTDATE" />
+                <ScalarProperty Name="FAILEDPASSWORDATTEMPTCOUNT" ColumnName="FAILEDPASSWORDATTEMPTCOUNT" />
+                <ScalarProperty Name="FAILEDPASSWORDATTEMPTWINDOWSTART" ColumnName="FAILEDPASSWORDATTEMPTWINDOWSTART" />
+                <ScalarProperty Name="FAILEDPASSWORDANSWERATTEMPTCOUNT" ColumnName="FAILEDPASSWORDANSWERATTEMPTCOUNT" />
+                <ScalarProperty Name="FAILEDPASSWORDANSWERATTEMPTWINDOWSTART" ColumnName="FAILEDPASSWORDANSWERATTEMPTWINDOWSTART" />
+                <ScalarProperty Name="ISSUBSCRIBER" ColumnName="ISSUBSCRIBER" />
+                <ScalarProperty Name="CUSTOMERID" ColumnName="CUSTOMERID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

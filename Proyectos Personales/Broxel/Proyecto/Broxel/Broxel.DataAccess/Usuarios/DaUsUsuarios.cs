@@ -18,7 +18,7 @@
     {
         private readonly BroxelEntities _contexto = new BroxelEntities();
 
-        private readonly Looger _logLooger = new Looger(Constantes.UrlLog, Constantes.ConnectionString);
+        private readonly Logger _logLogger = new Logger(Constantes.UrlLog, Constantes.ConnectionStringTrabajo);
 
         #region Metodos
 
@@ -50,7 +50,7 @@
             {
                 Task.Factory.StartNew(
                     () =>
-                        _logLooger.EscribeLog(Looger.TipoLog.Preventivo,
+                        _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                             Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                             MethodBase.GetCurrentMethod().Name, "Login error", "", e, ""));
                 throw;
@@ -73,7 +73,7 @@
             }
             catch (Exception e)
             {
-                _logLooger.EscribeLog(Looger.TipoLog.Preventivo,
+                _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                     Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                     MethodBase.GetCurrentMethod().Name, "Login error", "", e, "");
                 throw;
@@ -91,7 +91,7 @@
             }
             catch (Exception e)
             {
-                           _logLooger.EscribeLog(Looger.TipoLog.Preventivo,
+                           _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                                Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                                MethodBase.GetCurrentMethod().Name, "Login error", "", e, "");
                 throw;
@@ -103,7 +103,7 @@
             try
             {
                 _contexto.USUSUARIOS.AddRange(listaUsuarios);
-                _contexto.SaveChangesAsync();
+                //_contexto.();
                 return listaUsuarios;
             }
             catch (Exception)

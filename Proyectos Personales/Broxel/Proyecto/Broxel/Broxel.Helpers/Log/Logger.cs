@@ -1,14 +1,11 @@
-﻿using System.Diagnostics;
-using System.Linq;
-
-namespace Broxel.Helpers.Log
+﻿namespace Broxel.Helpers.Log
 {
     using System;
     using System.Data;
     using System.Data.SqlClient;
     using System.IO;
 
-    public class Looger
+    public class Logger
     {
 
         public string UrlLog { get; }
@@ -25,7 +22,7 @@ namespace Broxel.Helpers.Log
 
         private string Archivo { get; }
 
-        public Looger(string urlLog, string connectionString)
+        public Logger(string urlLog, string connectionString)
         {
             ConectionString = connectionString;
             UrlLog = urlLog;
