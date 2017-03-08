@@ -9,6 +9,7 @@
     using System.Reflection;
     using Entities;
     using Helpers.Log;
+    using Helpers.Extencions;
     using Helpers.CustomExceptions;
 
     /// <summary>
@@ -42,7 +43,7 @@
                 if (resultado == null || resultado.Rows.Count <= 0)
                     throw new UserNotFindException(usuario, contrasena);
 
-                var usuariResultado = (USUSUARIOS)ConvertirUsUsuario(resultado, false);
+                var usuariResultado = Extensions.ToList<USUSUARIOS>(resultado).FirstOrDefault();//(USUSUARIOS)ConvertirUsUsuario(resultado, false);
 
                 return usuariResultado;
             }
