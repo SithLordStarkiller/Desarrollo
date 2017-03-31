@@ -1,0 +1,52 @@
+﻿@model Mock.Models.Formulario
+@{
+    ViewBag.Title = "Mock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var enumEstados = (IEnumerable<SelectListItem>)ViewBag.EnumEstados;
+    var enumTrabajos = (IEnumerable<SelectListItem>)ViewBag.EnumTrabajos;
+    var enumLugares = (IEnumerable<SelectListItem>)ViewBag.EnumLugares;
+
+}
+<div class=" col-md-8 col-lg-offset-2" style="width:100%">
+    <br />
+    <br />
+    <div id="divEstados">
+        <label>
+            Lista de estados:
+        </label>
+        @Html.DropDownListFor(x => x.IdEstado, enumEstados, new { @class = "form-control" })
+        <br />
+    </div>
+
+    <div id="divTrabajos">
+        <label>
+            Lista de trabajos:
+        </label>
+        @Html.DropDownListFor(x => x.IdTrabajo, enumTrabajos, new { @class = "form-control" })
+        <br />
+    </div>
+
+    <div id="divLugares">
+        <label>
+            Lista de lugares:
+        </label>
+        @Html.DropDownListFor(x => x.IdLugar, enumLugares, new { @class = "form-control" })
+        <br />
+    </div>
+
+    <div>
+        <label>
+            Telefonos:
+        </label>
+        @Html.TextBoxFor(x => x.Telefono, new { @class = "form-control" })
+        <br />
+    </div>
+
+    <div>
+        <label>
+            Clave:
+        </label>
+        @Html.TextBoxFor(x => x.Clave, new { @class = "form-control" })
+        <br />
+    </div>
+</div>
