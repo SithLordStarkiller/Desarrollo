@@ -1,1 +1,0 @@
-insert into catalogoGeneral (llave,valor,Descripcion) values  ('BloqueoReasignaciones','1','Indica si el proceso de reasignaciones se encuentra en proceso')

@@ -1,1 +1,0 @@
-alter table Bitacoracreditos add  IN_SOLICITAR_CEL varchar(10)
