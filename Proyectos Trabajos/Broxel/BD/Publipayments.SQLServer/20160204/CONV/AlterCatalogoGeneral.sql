@@ -1,1 +1,0 @@
-update catalogoGeneral set llave='BloqueoReasignaciones' where id=10
