@@ -1,6 +1,6 @@
-﻿namespace Mock.Models
+﻿namespace Mock
 {
-    public class Trabajo
+    public class VmTrabajo
     {
         public int IdTrabajo { get; set; }
         public int IdPadre { get; set; }
