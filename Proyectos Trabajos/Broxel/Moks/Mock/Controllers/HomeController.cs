@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Mock.Models;
-using System.Globalization;
-
-namespace Mock.Controllers
+﻿namespace Mock.Controllers
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Globalization;
+
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -31,9 +28,9 @@ namespace Mock.Controllers
 
         public ActionResult Mock()
         {
-            var listaEstados = new List<Estado>();
+            var listaEstados = new List<VmEstado>();
 
-            listaEstados.Insert(0, new Estado { IdEstado = 0, Descripcion = "Seleccionar Estado" });
+            listaEstados.Insert(0, new VmEstado { IdEstado = 0, Descripcion = "Seleccionar Estado" });
 
             var enumEstados = listaEstados.Select(c => new SelectListItem
             {
@@ -44,9 +41,9 @@ namespace Mock.Controllers
             ViewBag.EnumEstados = enumEstados;
 
 
-            var listaTrabajos = new List<Trabajo>();
+            var listaTrabajos = new List<VmTrabajo>();
 
-            listaTrabajos.Insert(0, new Trabajo { IdTrabajo = 0, Descripcion = "Seleccionar trabajo" });
+            listaTrabajos.Insert(0, new VmTrabajo { IdTrabajo = 0, Descripcion = "Seleccionar trabajo" });
 
             var enumTrabajos = listaTrabajos.Select(c => new SelectListItem
             {
@@ -56,9 +53,9 @@ namespace Mock.Controllers
 
             ViewBag.EnumTrabajos = enumTrabajos;
 
-            var listaLugar = new List<Lugar>();
+            var listaLugar = new List<VmLugar>();
 
-            listaLugar.Insert(0, new Lugar { IdLugar = 0, Descripcion = "Seleccionar Lugar" });
+            listaLugar.Insert(0, new VmLugar { IdLugar = 0, Descripcion = "Seleccionar Lugar" });
 
             var enumLugares = listaLugar.Select(c => new SelectListItem
             {
