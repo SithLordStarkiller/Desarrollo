@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ContinuarProceso";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <label>
+        Teléfonos
+    </label>
+    @Html.TextBox("Teléfono", "", new { @class = "form-control" })
+    <button id="btnReenviar" value="Reenviar" class="btn btn-success btn-sm pull-left" style="" onclick="ReenviaClaveSms();">Reenviar</button>
+</div>
+
+
+<div id="Clave">
+    <label>
+        Clave
+    </label>
+    @Html.TextBox("Clave", "", new { @class = "form-control" })
+    <br />
+</div>
+
+<div>
+    <button id="btnContinuar" value="Continuar" class="btn btn-success btn-sm pull-right" style="margin:20px;" onclick="Continuar();">Continuar</button>
+</div>
