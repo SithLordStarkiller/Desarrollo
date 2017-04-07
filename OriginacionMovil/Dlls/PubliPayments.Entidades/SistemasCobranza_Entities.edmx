@@ -1,0 +1,2083 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SistemasCobranzaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aplicacion">
+          <Key>
+            <PropertyRef Name="idAplicacion" />
+          </Key>
+          <Property Name="idAplicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClientId" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="ProductId" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Productivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Archivos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Archivo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Registros" Type="int" />
+          <Property Name="Tiempo" Type="int" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="Estatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ArchivosError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_archivo" Type="int" Nullable="false" />
+          <Property Name="Error" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BitacoraPasswords">
+          <Key>
+            <PropertyRef Name="idBitacora" />
+          </Key>
+          <Property Name="idBitacora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="130" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CamposRespuesta">
+          <Key>
+            <PropertyRef Name="idCampo" />
+          </Key>
+          <Property Name="idCampo" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Tipo" Type="int" />
+          <Property Name="Referencia" Type="nvarchar" MaxLength="50" />
+          <Property Name="idFormulario" Type="int" />
+        </EntityType>
+        <EntityType Name="CamposXSubFormulario">
+          <Key>
+            <PropertyRef Name="idCampoFormulario" />
+          </Key>
+          <Property Name="idCampoFormulario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSubFormulario" Type="int" Nullable="false" />
+          <Property Name="idTipoCampo" Type="int" Nullable="false" />
+          <Property Name="NombreCampo" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Texto" Type="nvarchar" MaxLength="500" />
+          <Property Name="Valor" Type="nvarchar" MaxLength="250" />
+          <Property Name="ClasesLinea" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClasesTexto" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClasesValor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Orden" Type="int" Nullable="false" />
+          <Property Name="Validacion" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="CatalogoXCampo">
+          <Key>
+            <PropertyRef Name="idCatalogoCampo" />
+          </Key>
+          <Property Name="idCatalogoCampo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCampoFormulario" Type="int" Nullable="false" />
+          <Property Name="Texto" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar" MaxLength="250" />
+          <Property Name="Auxiliar" Type="nvarchar" MaxLength="250" />
+          <Property Name="Ayuda" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="CatCamposFormulario">
+          <Key>
+            <PropertyRef Name="idTipoCampo" />
+          </Key>
+          <Property Name="idTipoCampo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoCampo" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatDelegaciones">
+          <Key>
+            <PropertyRef Name="idCatalogo" />
+          </Key>
+          <Property Name="idCatalogo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Delegacion" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatEstatusUsuario">
+          <Key>
+            <PropertyRef Name="Estatus" />
+          </Key>
+          <Property Name="Estatus" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatFuncionesJS">
+          <Key>
+            <PropertyRef Name="idFuncionJS" />
+          </Key>
+          <Property Name="idFuncionJS" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Validacion" Type="varchar" MaxLength="8000" />
+          <Property Name="FuncionSI" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="FuncionNo" Type="varchar" MaxLength="8000" />
+          <Property Name="idFormulario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Creditos">
+          <Key>
+            <PropertyRef Name="ID_ARCHIVO" />
+            <PropertyRef Name="CV_CREDITO" />
+          </Key>
+          <Property Name="ID_ARCHIVO" Type="int" Nullable="false" />
+          <Property Name="CV_DELEGACION" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="CV_ZONA" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="CV_CREDITO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="FH_OTORGAMIENTO" Type="date" />
+          <Property Name="CV_REGIMEN" Type="varchar" MaxLength="5" />
+          <Property Name="CV_ESTATUS_CONTABLE" Type="varchar" MaxLength="5" />
+          <Property Name="IM_SALDO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="PC_DESCUENTO_LIQUIDACION" Type="int" />
+          <Property Name="IM_MONTO_DESCUENTO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_MONTO_LIQUIDAR_CON_DESCUENTO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="CT_FACTOR_REA_ORIGINAL" Type="float" />
+          <Property Name="CT_FACTOR_REA" Type="float" />
+          <Property Name="CT_FACTOR_ROA" Type="float" />
+          <Property Name="IM_PAGO_MENSUAL_SIN_SEG_DAN" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PRIMA_SEG_DAN" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_MENSUAL" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_SALDO_SEG_DAN" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="CV_ETIQUETA" Type="varchar" MaxLength="5" />
+          <Property Name="TX_SOLUCIONES" Type="varchar" MaxLength="100" />
+          <Property Name="NU_MESES_RECUPERAR" Type="int" />
+          <Property Name="IM_MONTO_RECUPERAR" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_MINIMO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_RECOMENDADO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_TOPE" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_MINIMO_TEORICO" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_FPP" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_BENEFICIO_FPP" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="NU_MESES_DISP_FPP" Type="int" />
+          <Property Name="NU_MESES_FIN_PRORROGA" Type="int" />
+          <Property Name="IN_FPP" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IN_PPAR" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_PPAR" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="FH_INI_PRORROGA" Type="date" />
+          <Property Name="FH_FIN_PRORROGA" Type="date" />
+          <Property Name="FH_ASIGNACION" Type="date" />
+          <Property Name="TX_NOMBRE_ACREDITADO" Type="nvarchar" MaxLength="100" />
+          <Property Name="CV_RFC" Type="varchar" MaxLength="15" />
+          <Property Name="FH_NACIMIENTO" Type="date" />
+          <Property Name="CV_NSS" Type="varchar" MaxLength="15" />
+          <Property Name="TX_CALLE" Type="nvarchar" MaxLength="100" />
+          <Property Name="TX_COLONIA" Type="nvarchar" MaxLength="50" />
+          <Property Name="TX_MUNICIPIO" Type="nvarchar" MaxLength="50" />
+          <Property Name="CV_CODIGO_POSTAL" Type="varchar" MaxLength="5" />
+          <Property Name="NU_TELEFONO_CASA" Type="varchar" MaxLength="10" />
+          <Property Name="NU_TELEFONO_CELULAR" Type="varchar" MaxLength="10" />
+          <Property Name="GP_LONGITUD" Type="float" />
+          <Property Name="GP_LATITUD" Type="float" />
+          <Property Name="GP_ALTITUD" Type="float" />
+          <Property Name="CV_CANAL" Type="varchar" MaxLength="1" />
+          <Property Name="TX_NOMBRE_DESPACHO" Type="varchar" MaxLength="20" />
+          <Property Name="CV_DESPACHO" Type="nvarchar" MaxLength="50" />
+          <Property Name="TX_ULTIMA_GESTION_4MESES" Type="varchar" MaxLength="75" />
+          <Property Name="TX_ULTIMA_GESTION_3MESES" Type="varchar" MaxLength="75" />
+          <Property Name="TX_ULTIMA_GESTION_2MESES" Type="varchar" MaxLength="75" />
+          <Property Name="TX_ULTIMA_GESTION_1MES" Type="varchar" MaxLength="75" />
+          <Property Name="TX_VECTOR_PAGOS" Type="varchar" MaxLength="4" />
+          <Property Name="TX_PAGO_4MESES" Type="varchar" MaxLength="50" />
+          <Property Name="TX_PAGO_3MESES" Type="varchar" MaxLength="50" />
+          <Property Name="TX_PAGO_2MESES" Type="varchar" MaxLength="50" />
+          <Property Name="TX_PAGO_1MES" Type="varchar" MaxLength="50" />
+          <Property Name="IM_OPC1_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC2_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC3_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC4_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC1_STM_PRIMER_PAGO" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC2_STM_PRIMER_PAGO" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC3_STM_PRIMER_PAGO" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC4_STM_PRIMER_PAGO" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC1_STM_PAGO_SUBSEC" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC2_STM_PAGO_SUBSEC" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC3_STM_PAGO_SUBSEC" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_OPC4_STM_PAGO_SUBSEC" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_BEN1_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_BEN2_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_BEN3_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_BEN4_STM" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="IM_PAGO_TOPE_PESOS" Type="numeric" Precision="13" Scale="2" />
+          <Property Name="CV_PROVEEDOR" Type="varchar" MaxLength="10" />
+          <Property Name="CV_CONTRATO" Type="varchar" MaxLength="15" />
+          <Property Name="TX_SCRIPT" Type="varchar" MaxLength="300" />
+          <Property Name="CV_RUTA" Type="varchar" MaxLength="10" />
+          <Property Name="IN_SOLICITAR_CEL" Type="varchar" MaxLength="10" />
+          <Property Name="IN_SOLICITAR_SERVICIO_EMPLEO" Type="int" />
+          <Property Name="TX_PORTAFOLIO" Type="varchar" MaxLength="200" />
+          <Property Name="TX_ETIQUETA" Type="varchar" MaxLength="100" />
+          <Property Name="IN_OPCION_JUDICIAL" Type="int" />
+          <Property Name="TX_PAGA1" Type="varchar" MaxLength="200" />
+          <Property Name="TX_PAGA2" Type="varchar" MaxLength="200" />
+          <Property Name="TX_PAGA3" Type="varchar" MaxLength="200" />
+          <Property Name="TX_PAGA4" Type="varchar" MaxLength="200" />
+          <Property Name="TX_PAGA5" Type="varchar" MaxLength="200" />
+          <Property Name="TX_PAGA6" Type="varchar" MaxLength="200" />
+          <Property Name="CC_DESPACHO" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Dominio">
+          <Key>
+            <PropertyRef Name="idDominio" />
+          </Key>
+          <Property Name="idDominio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreDominio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom_corto" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Formulario">
+          <Key>
+            <PropertyRef Name="idFormulario" />
+          </Key>
+          <Property Name="idFormulario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAplicacion" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="Version" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Estatus" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="Captura" Type="int" />
+          <Property Name="Ruta" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="FuncionesXCampos">
+          <Key>
+            <PropertyRef Name="idFuncionJS" />
+            <PropertyRef Name="idCampoFormulario" />
+          </Key>
+          <Property Name="idFuncionJS" Type="int" Nullable="false" />
+          <Property Name="idCampoFormulario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HistoricoOrdenes">
+          <Key>
+            <PropertyRef Name="idHistorico" />
+          </Key>
+          <Property Name="idHistorico" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="num_cred" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+          <Property Name="Dictamen" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idDominio" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+          <Property Name="PromesaPago" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="FechaPromesa" Type="nvarchar" MaxLength="15" />
+          <Property Name="Saldo" Type="numeric" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SistemasCobranza.dbo.Monitoreo' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Monitoreo">
+          <Key>
+            <PropertyRef Name="idMonitoreo" />
+            <PropertyRef Name="idAplicacion" />
+            <PropertyRef Name="Nombre" />
+            <PropertyRef Name="Ejecutar" />
+            <PropertyRef Name="Warning" />
+            <PropertyRef Name="Error" />
+            <PropertyRef Name="Tipo" />
+            <PropertyRef Name="TimeOut" />
+            <PropertyRef Name="ErrorNegativo" />
+            <PropertyRef Name="SoloWarning" />
+            <PropertyRef Name="Intervalo" />
+            <PropertyRef Name="UltimaEjecucion" />
+          </Key>
+          <Property Name="idMonitoreo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAplicacion" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ejecutar" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="Warning" Type="int" Nullable="false" />
+          <Property Name="Error" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TimeOut" Type="int" Nullable="false" />
+          <Property Name="ErrorNegativo" Type="bit" Nullable="false" />
+          <Property Name="SoloWarning" Type="bit" Nullable="false" />
+          <Property Name="Intervalo" Type="int" Nullable="false" />
+          <Property Name="UltimaEjecucion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="idOrden" />
+          </Key>
+          <Property Name="idOrden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPool" Type="int" Nullable="false" />
+          <Property Name="num_Cred" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idUsuarioPadre" Type="int" Nullable="false" />
+          <Property Name="idUsuarioAlta" Type="int" Nullable="false" />
+          <Property Name="idDominio" Type="int" Nullable="false" />
+          <Property Name="idVisita" Type="int" Nullable="false" />
+          <Property Name="FechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="32" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="FechaEnvio" Type="datetime" />
+          <Property Name="FechaRecepcion" Type="datetime" />
+          <Property Name="Auxiliar" Type="varchar" MaxLength="20" />
+          <Property Name="idUsuarioAnterior" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="RelacionDelegaciones">
+          <Key>
+            <PropertyRef Name="idRelacion" />
+          </Key>
+          <Property Name="idRelacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="Delegacion" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelacionUsuarios">
+          <Key>
+            <PropertyRef Name="idRelacion" />
+          </Key>
+          <Property Name="idRelacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPadre" Type="int" Nullable="false" />
+          <Property Name="idHijo" Type="int" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Respuestas">
+          <Key>
+            <PropertyRef Name="idOrden" />
+            <PropertyRef Name="idCampo" />
+          </Key>
+          <Property Name="idOrden" Type="int" Nullable="false" />
+          <Property Name="idCampo" Type="int" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar" MaxLength="350" />
+          <Property Name="idDominio" Type="int" />
+          <Property Name="idUsuarioPadre" Type="int" />
+          <Property Name="idFormulario" Type="int" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="NombreRol" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubFormulario">
+          <Key>
+            <PropertyRef Name="idSubFormulario" />
+          </Key>
+          <Property Name="idSubFormulario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idFormulario" Type="int" Nullable="false" />
+          <Property Name="SubFormulario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Clase" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TraceLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTipoLog" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="Pagina" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Texto" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDominio" Type="int" Nullable="false" />
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="130" />
+          <Property Name="Alta" Type="datetime" Nullable="false" />
+          <Property Name="UltimoLogin" Type="datetime" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+          <Property Name="Intentos" Type="int" />
+          <Property Name="Bloqueo" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SistemasCobranza.dbo.VUsuarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VUsuarios">
+          <Key>
+            <PropertyRef Name="NombreDominio" />
+            <PropertyRef Name="nom_corto" />
+            <PropertyRef Name="NombreRol" />
+            <PropertyRef Name="Usuario" />
+            <PropertyRef Name="Email" />
+            
+            <PropertyRef Name="idDominio" />
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idRol" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="EstatusTxt" />
+            <PropertyRef Name="idPadre" />
+          </Key>
+          <Property Name="NombreDominio" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="nom_corto" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NombreRol" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="nvarchar" MaxLength="30" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="idDominio" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="idRol" Type="int" Nullable="false" />
+          <Property Name="Estatus" Type="int" Nullable="false" />
+          <Property Name="EstatusTxt" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPadre" Type="int" Nullable="false" />
+          <Property Name="Padre" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Aplicacion_Formulario">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Formulario" Type="Self.Formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="idAplicacion" />
+            </Principal>
+            <Dependent Role="Formulario">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArchivosError_Cascade">
+          <End Role="Archivos" Type="Self.Archivos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ArchivosError" Type="Self.ArchivosError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archivos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ArchivosError">
+              <PropertyRef Name="id_archivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BitacoraPasswords_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="BitacoraPasswords" Type="Self.BitacoraPasswords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="BitacoraPasswords">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CamposXFormulario_CatCamposFormulario">
+          <End Role="CatCamposFormulario" Type="Self.CatCamposFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CamposXSubFormulario" Type="Self.CamposXSubFormulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatCamposFormulario">
+              <PropertyRef Name="idTipoCampo" />
+            </Principal>
+            <Dependent Role="CamposXSubFormulario">
+              <PropertyRef Name="idTipoCampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CamposXSubFormulario_001">
+          <End Role="SubFormulario" Type="Self.SubFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CamposXSubFormulario" Type="Self.CamposXSubFormulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubFormulario">
+              <PropertyRef Name="idSubFormulario" />
+            </Principal>
+            <Dependent Role="CamposXSubFormulario">
+              <PropertyRef Name="idSubFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogoXCampo_CamposXFormulario">
+          <End Role="CamposXSubFormulario" Type="Self.CamposXSubFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CatalogoXCampo" Type="Self.CatalogoXCampo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CamposXSubFormulario">
+              <PropertyRef Name="idCampoFormulario" />
+            </Principal>
+            <Dependent Role="CatalogoXCampo">
+              <PropertyRef Name="idCampoFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatFuncionesJS_Formulario">
+          <End Role="Formulario" Type="Self.Formulario" Multiplicity="1" />
+          <End Role="CatFuncionesJS" Type="Self.CatFuncionesJS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulario">
+              <PropertyRef Name="idFormulario" />
+            </Principal>
+            <Dependent Role="CatFuncionesJS">
+              <PropertyRef Name="idFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuncionesXCampos_CamposXSubFormulario">
+          <End Role="CamposXSubFormulario" Type="Self.CamposXSubFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FuncionesXCampos" Type="Self.FuncionesXCampos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CamposXSubFormulario">
+              <PropertyRef Name="idCampoFormulario" />
+            </Principal>
+            <Dependent Role="FuncionesXCampos">
+              <PropertyRef Name="idCampoFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FuncionesXCampos_CatFuncionesJS">
+          <End Role="CatFuncionesJS" Type="Self.CatFuncionesJS" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="FuncionesXCampos" Type="Self.FuncionesXCampos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatFuncionesJS">
+              <PropertyRef Name="idFuncionJS" />
+            </Principal>
+            <Dependent Role="FuncionesXCampos">
+              <PropertyRef Name="idFuncionJS" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Monitoreo_Aplicacion">
+          <End Role="Aplicacion" Type="Self.Aplicacion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Monitoreo" Type="Self.Monitoreo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="idAplicacion" />
+            </Principal>
+            <Dependent Role="Monitoreo">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelacionDelegaciones_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RelacionDelegaciones" Type="Self.RelacionDelegaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RelacionDelegaciones">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelacionUsuarios_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RelacionUsuarios" Type="Self.RelacionUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RelacionUsuarios">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelacionUsuarios_Usuario1">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="RelacionUsuarios" Type="Self.RelacionUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RelacionUsuarios">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubFormulario_Formulario">
+          <End Role="Formulario" Type="Self.Formulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SubFormulario" Type="Self.SubFormulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulario">
+              <PropertyRef Name="idFormulario" />
+            </Principal>
+            <Dependent Role="SubFormulario">
+              <PropertyRef Name="idFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="BorrarRespuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idOrden" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsUpdLondon" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idArchivo" Type="int" Mode="In" />
+          <Parameter Name="Credito" Type="varchar" Mode="In" />
+          <Parameter Name="Campos" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Valores" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Tipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ObtenerCamposTabla" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Tabla" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="ObtenerClavesDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="fc_DashBoard" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ObtenerIndicadorBloqueDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Accion" Type="varchar" Mode="In" />
+          <Parameter Name="SubAccion" Type="varchar" Mode="In" />
+          <Parameter Name="Bloque" Type="int" Mode="In" />
+          <Parameter Name="fi_Usuario" Type="int" Mode="In" />
+          <Parameter Name="fc_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="fi_Dominio" Type="int" Mode="In" />
+          <Parameter Name="fi_Rol" Type="int" Mode="In" />
+          <Parameter Name="fc_DashBoard" Type="varchar" Mode="In" />
+          <Parameter Name="fc_Delegacion" Type="varchar" Mode="In" />
+          <Parameter Name="fc_Despacho" Type="varchar" Mode="In" />
+          <Parameter Name="fc_Estado" Type="varchar" Mode="In" />
+          <Parameter Name="fc_idUsuarioPadre" Type="varchar" Mode="In" />
+          <Parameter Name="fc_idUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="debug" Type="varchar" Mode="In" />
+          <Parameter Name="TipoFormulario" Type="varchar" Mode="In" />
+          <Parameter Name="esCallCenter" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ObtenerIndicadorDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Accion" Type="varchar" Mode="In" />
+          <Parameter Name="SubAccion" Type="varchar" Mode="In" />
+          <Parameter Name="Indicador" Type="varchar" Mode="In" />
+          <Parameter Name="fi_Usuario" Type="int" Mode="In" />
+          <Parameter Name="fc_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="fi_Dominio" Type="int" Mode="In" />
+          <Parameter Name="fi_Rol" Type="int" Mode="In" />
+          <Parameter Name="fc_DashBoard" Type="varchar" Mode="In" />
+          <Parameter Name="fc_Delegacion" Type="varchar" Mode="In" />
+          <Parameter Name="fc_Despacho" Type="varchar" Mode="In" />
+          <Parameter Name="fc_Estado" Type="varchar" Mode="In" />
+          <Parameter Name="fc_idUsuarioPadre" Type="varchar" Mode="In" />
+          <Parameter Name="fc_idUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="debug" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ObtenerListasDashboard" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Accion" Type="varchar" Mode="In" />
+          <Parameter Name="SubAccion" Type="varchar" Mode="In" />
+          <Parameter Name="fi_Usuario" Type="int" Mode="In" />
+          <Parameter Name="fc_Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="fi_Dominio" Type="int" Mode="In" />
+          <Parameter Name="fi_Rol" Type="int" Mode="In" />
+          <Parameter Name="fc_DashBoard" Type="varchar" Mode="In" />
+          <Parameter Name="Delegacion" Type="varchar" Mode="In" />
+          <Parameter Name="nom_corto" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="varchar" Mode="In" />
+          <Parameter Name="idUsuarioPadre" Type="varchar" Mode="In" />
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ObtenerUltimoLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="SistemasCobranzaModelStoreContainer">
+          <EntitySet Name="Aplicacion" EntityType="Self.Aplicacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Archivos" EntityType="Self.Archivos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArchivosError" EntityType="Self.ArchivosError" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraPasswords" EntityType="Self.BitacoraPasswords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CamposRespuesta" EntityType="Self.CamposRespuesta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CamposXSubFormulario" EntityType="Self.CamposXSubFormulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatalogoXCampo" EntityType="Self.CatalogoXCampo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatCamposFormulario" EntityType="Self.CatCamposFormulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatDelegaciones" EntityType="Self.CatDelegaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatEstatusUsuario" EntityType="Self.CatEstatusUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatFuncionesJS" EntityType="Self.CatFuncionesJS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Creditos" EntityType="Self.Creditos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dominio" EntityType="Self.Dominio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Formulario" EntityType="Self.Formulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FuncionesXCampos" EntityType="Self.FuncionesXCampos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HistoricoOrdenes" EntityType="Self.HistoricoOrdenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelacionDelegaciones" EntityType="Self.RelacionDelegaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelacionUsuarios" EntityType="Self.RelacionUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Respuestas" EntityType="Self.Respuestas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubFormulario" EntityType="Self.SubFormulario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TraceLog" EntityType="Self.TraceLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monitoreo" EntityType="Self.Monitoreo" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Monitoreo].[idMonitoreo] AS [idMonitoreo], 
+    [Monitoreo].[idAplicacion] AS [idAplicacion], 
+    [Monitoreo].[Nombre] AS [Nombre], 
+    [Monitoreo].[Ejecutar] AS [Ejecutar], 
+    [Monitoreo].[Warning] AS [Warning], 
+    [Monitoreo].[Error] AS [Error], 
+    [Monitoreo].[Tipo] AS [Tipo], 
+    [Monitoreo].[TimeOut] AS [TimeOut], 
+    [Monitoreo].[ErrorNegativo] AS [ErrorNegativo], 
+    [Monitoreo].[SoloWarning] AS [SoloWarning], 
+    [Monitoreo].[Intervalo] AS [Intervalo], 
+    [Monitoreo].[UltimaEjecucion] AS [UltimaEjecucion]
+    FROM [dbo].[Monitoreo] AS [Monitoreo]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VUsuarios" EntityType="Self.VUsuarios" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VUsuarios].[NombreDominio] AS [NombreDominio], 
+    [VUsuarios].[nom_corto] AS [nom_corto], 
+    [VUsuarios].[NombreRol] AS [NombreRol], 
+    [VUsuarios].[Usuario] AS [Usuario], 
+    [VUsuarios].[Nombre] AS [Nombre], 
+    [VUsuarios].[Email] AS [Email], 
+    [VUsuarios].[Password] AS [Password], 
+    [VUsuarios].[idDominio] AS [idDominio], 
+    [VUsuarios].[idUsuario] AS [idUsuario], 
+    [VUsuarios].[idRol] AS [idRol], 
+    [VUsuarios].[Estatus] AS [Estatus], 
+    [VUsuarios].[EstatusTxt] AS [EstatusTxt], 
+    [VUsuarios].[idPadre] AS [idPadre], 
+    [VUsuarios].[Padre] AS [Padre]
+    FROM [dbo].[VUsuarios] AS [VUsuarios]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Aplicacion_Formulario" Association="Self.FK_Aplicacion_Formulario">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Formulario" EntitySet="Formulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArchivosError_Cascade" Association="Self.FK_ArchivosError_Cascade">
+            <End Role="Archivos" EntitySet="Archivos" />
+            <End Role="ArchivosError" EntitySet="ArchivosError" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BitacoraPasswords_Usuario" Association="Self.FK_BitacoraPasswords_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="BitacoraPasswords" EntitySet="BitacoraPasswords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CamposXFormulario_CatCamposFormulario" Association="Self.FK_CamposXFormulario_CatCamposFormulario">
+            <End Role="CatCamposFormulario" EntitySet="CatCamposFormulario" />
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CamposXSubFormulario_001" Association="Self.FK_CamposXSubFormulario_001">
+            <End Role="SubFormulario" EntitySet="SubFormulario" />
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormulario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogoXCampo_CamposXFormulario" Association="Self.FK_CatalogoXCampo_CamposXFormulario">
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormulario" />
+            <End Role="CatalogoXCampo" EntitySet="CatalogoXCampo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatFuncionesJS_Formulario" Association="Self.FK_CatFuncionesJS_Formulario">
+            <End Role="Formulario" EntitySet="Formulario" />
+            <End Role="CatFuncionesJS" EntitySet="CatFuncionesJS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuncionesXCampos_CamposXSubFormulario" Association="Self.FK_FuncionesXCampos_CamposXSubFormulario">
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormulario" />
+            <End Role="FuncionesXCampos" EntitySet="FuncionesXCampos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FuncionesXCampos_CatFuncionesJS" Association="Self.FK_FuncionesXCampos_CatFuncionesJS">
+            <End Role="CatFuncionesJS" EntitySet="CatFuncionesJS" />
+            <End Role="FuncionesXCampos" EntitySet="FuncionesXCampos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Monitoreo_Aplicacion" Association="Self.FK_Monitoreo_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Monitoreo" EntitySet="Monitoreo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelacionDelegaciones_Usuario" Association="Self.FK_RelacionDelegaciones_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionDelegaciones" EntitySet="RelacionDelegaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelacionUsuarios_Usuario" Association="Self.FK_RelacionUsuarios_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionUsuarios" EntitySet="RelacionUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelacionUsuarios_Usuario1" Association="Self.FK_RelacionUsuarios_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionUsuarios" EntitySet="RelacionUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubFormulario_Formulario" Association="Self.FK_SubFormulario_Formulario">
+            <End Role="Formulario" EntitySet="Formulario" />
+            <End Role="SubFormulario" EntitySet="SubFormulario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemasCobranzaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SistemasCobranzaEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="BorrarRespuestas">
+          <Parameter Name="idOrden" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="TraceLog" EntityType="SistemasCobranzaModel.TraceLog" />
+          <EntitySet Name="CatDelegaciones" EntityType="SistemasCobranzaModel.CatDelegaciones" />
+          <EntitySet Name="Dominio" EntityType="SistemasCobranzaModel.Dominio" />
+          <EntitySet Name="RelacionDelegaciones" EntityType="SistemasCobranzaModel.RelacionDelegaciones" />
+          <EntitySet Name="RelacionUsuarios" EntityType="SistemasCobranzaModel.RelacionUsuarios" />
+          <EntitySet Name="Roles" EntityType="SistemasCobranzaModel.Roles" />
+          <EntitySet Name="Archivos" EntityType="SistemasCobranzaModel.Archivos" />
+          <EntitySet Name="ArchivosError" EntityType="SistemasCobranzaModel.ArchivosError" />
+          <AssociationSet Name="FK_ArchivosError_Cascade" Association="SistemasCobranzaModel.FK_ArchivosError_Cascade">
+            <End Role="Archivos" EntitySet="Archivos" />
+            <End Role="ArchivosError" EntitySet="ArchivosError" />
+          </AssociationSet>
+          <FunctionImport Name="InsUpdLondon" ReturnType="Collection(SistemasCobranzaModel.InsUpdLondon_Result)">
+            <Parameter Name="idArchivo" Mode="In" Type="Int32" />
+            <Parameter Name="Credito" Mode="In" Type="String" />
+            <Parameter Name="Campos" Mode="In" Type="String" />
+            <Parameter Name="Valores" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ObtenerCamposTabla" ReturnType="Collection(SistemasCobranzaModel.ObtenerCamposTabla_Result)">
+          <Parameter Name="Tabla" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="VUsuarios" EntityType="SistemasCobranzaModel.VUsuarios" />
+          <EntitySet Name="HistoricoOrdenes" EntityType="SistemasCobranzaModel.HistoricoOrdenes" />
+          <EntitySet Name="CatEstatusUsuario" EntityType="SistemasCobranzaModel.CatEstatusUsuario" />
+          <EntitySet Name="CatCamposFormulario" EntityType="SistemasCobranzaModel.CatCamposFormulario" />
+          <FunctionImport Name="ObtenerListasDashboard" ReturnType="Collection(SistemasCobranzaModel.ObtenerListasDashboard_Result)">
+            <Parameter Name="Accion" Mode="In" Type="String" />
+            <Parameter Name="SubAccion" Mode="In" Type="String" />
+            <Parameter Name="fi_Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fc_Usuario" Mode="In" Type="String" />
+            <Parameter Name="fi_Dominio" Mode="In" Type="Int32" />
+            <Parameter Name="fi_Rol" Mode="In" Type="Int32" />
+            <Parameter Name="fc_DashBoard" Mode="In" Type="String" />
+            <Parameter Name="Delegacion" Mode="In" Type="String" />
+            <Parameter Name="nom_corto" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="String" />
+            <Parameter Name="idUsuarioPadre" Mode="In" Type="String" />
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ObtenerClavesDashboard" ReturnType="Collection(SistemasCobranzaModel.ObtenerClavesDashboard_Result)">
+          <Parameter Name="fc_DashBoard" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ObtenerUltimoLogin" ReturnType="Collection(SistemasCobranzaModel.ObtenerUltimoLogin_Result)">
+          <Parameter Name="idUsuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="CatalogoXCampoes" EntityType="SistemasCobranzaModel.CatalogoXCampo" />
+          <EntitySet Name="CatFuncionesJS" EntityType="SistemasCobranzaModel.CatFuncionesJ" />
+          <EntitySet Name="SubFormularios" EntityType="SistemasCobranzaModel.SubFormulario" />
+          <EntitySet Name="CamposXSubFormularios" EntityType="SistemasCobranzaModel.CamposXSubFormulario" />
+          <AssociationSet Name="FK_CamposXFormulario_CatCamposFormulario" Association="SistemasCobranzaModel.FK_CamposXFormulario_CatCamposFormulario">
+            <End Role="CatCamposFormulario" EntitySet="CatCamposFormulario" />
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormularios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CamposXSubFormulario_001" Association="SistemasCobranzaModel.FK_CamposXSubFormulario_001">
+            <End Role="SubFormulario" EntitySet="SubFormularios" />
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormularios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatalogoXCampo_CamposXFormulario" Association="SistemasCobranzaModel.FK_CatalogoXCampo_CamposXFormulario">
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormularios" />
+            <End Role="CatalogoXCampo" EntitySet="CatalogoXCampoes" />
+          </AssociationSet>
+          <AssociationSet Name="FuncionesXCampos" Association="SistemasCobranzaModel.FuncionesXCampos">
+            <End Role="CamposXSubFormulario" EntitySet="CamposXSubFormularios" />
+            <End Role="CatFuncionesJ" EntitySet="CatFuncionesJS" />
+          </AssociationSet>
+          <EntitySet Name="BitacoraPasswords" EntityType="SistemasCobranzaModel.BitacoraPassword" />
+          <EntitySet Name="Usuario" EntityType="SistemasCobranzaModel.Usuario" />
+          <AssociationSet Name="FK_BitacoraPasswords_Usuario" Association="SistemasCobranzaModel.FK_BitacoraPasswords_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="BitacoraPassword" EntitySet="BitacoraPasswords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelacionDelegaciones_Usuario" Association="SistemasCobranzaModel.FK_RelacionDelegaciones_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionDelegaciones" EntitySet="RelacionDelegaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelacionUsuarios_Usuario" Association="SistemasCobranzaModel.FK_RelacionUsuarios_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionUsuarios" EntitySet="RelacionUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RelacionUsuarios_Usuario1" Association="SistemasCobranzaModel.FK_RelacionUsuarios_Usuario1">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="RelacionUsuarios" EntitySet="RelacionUsuarios" />
+          </AssociationSet>
+          <EntitySet Name="Respuestas" EntityType="SistemasCobranzaModel.Respuestas" />
+          <EntitySet Name="Formulario" EntityType="SistemasCobranzaModel.Formulario" />
+          <AssociationSet Name="FK_CatFuncionesJS_Formulario" Association="SistemasCobranzaModel.FK_CatFuncionesJS_Formulario">
+            <End Role="Formulario" EntitySet="Formulario" />
+            <End Role="CatFuncionesJ" EntitySet="CatFuncionesJS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SubFormulario_Formulario" Association="SistemasCobranzaModel.FK_SubFormulario_Formulario">
+            <End Role="Formulario" EntitySet="Formulario" />
+            <End Role="SubFormulario" EntitySet="SubFormularios" />
+          </AssociationSet>
+          <EntitySet Name="CamposRespuesta" EntityType="SistemasCobranzaModel.CamposRespuesta" />
+          <EntitySet Name="Aplicacion" EntityType="SistemasCobranzaModel.Aplicacion" />
+          <AssociationSet Name="FK_Aplicacion_Formulario" Association="SistemasCobranzaModel.FK_Aplicacion_Formulario">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Formulario" EntitySet="Formulario" />
+          </AssociationSet>
+          <FunctionImport Name="ObtenerIndicadorDashboard" ReturnType="Collection(SistemasCobranzaModel.ObtenerIndicadorDashboard_Result1)">
+            <Parameter Name="Accion" Mode="In" Type="String" />
+            <Parameter Name="SubAccion" Mode="In" Type="String" />
+            <Parameter Name="Indicador" Mode="In" Type="String" />
+            <Parameter Name="fi_Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fc_Usuario" Mode="In" Type="String" />
+            <Parameter Name="fi_Dominio" Mode="In" Type="Int32" />
+            <Parameter Name="fi_Rol" Mode="In" Type="Int32" />
+            <Parameter Name="fc_DashBoard" Mode="In" Type="String" />
+            <Parameter Name="fc_Delegacion" Mode="In" Type="String" />
+            <Parameter Name="fc_Despacho" Mode="In" Type="String" />
+            <Parameter Name="fc_Estado" Mode="In" Type="String" />
+            <Parameter Name="fc_idUsuarioPadre" Mode="In" Type="String" />
+            <Parameter Name="fc_idUsuario" Mode="In" Type="String" />
+            <Parameter Name="debug" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ObtenerIndicadorBloqueDashboard" ReturnType="Collection(SistemasCobranzaModel.ObtenerIndicadorBloqueDashboard_Result)">
+            <Parameter Name="Accion" Mode="In" Type="String" />
+            <Parameter Name="SubAccion" Mode="In" Type="String" />
+            <Parameter Name="Bloque" Mode="In" Type="Int32" />
+            <Parameter Name="fi_Usuario" Mode="In" Type="Int32" />
+            <Parameter Name="fc_Usuario" Mode="In" Type="String" />
+            <Parameter Name="fi_Dominio" Mode="In" Type="Int32" />
+            <Parameter Name="fi_Rol" Mode="In" Type="Int32" />
+            <Parameter Name="fc_DashBoard" Mode="In" Type="String" />
+            <Parameter Name="fc_Delegacion" Mode="In" Type="String" />
+            <Parameter Name="fc_Despacho" Mode="In" Type="String" />
+            <Parameter Name="fc_Estado" Mode="In" Type="String" />
+            <Parameter Name="fc_idUsuarioPadre" Mode="In" Type="String" />
+            <Parameter Name="fc_idUsuario" Mode="In" Type="String" />
+            <Parameter Name="debug" Mode="In" Type="String" />
+            <Parameter Name="TipoFormulario" Mode="In" Type="String" />
+            <Parameter Name="esCallCenter" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Ordenes" EntityType="SistemasCobranzaModel.Ordenes" />
+          <EntitySet Name="Creditos" EntityType="SistemasCobranzaModel.Creditos" />
+          <EntitySet Name="Monitoreo" EntityType="SistemasCobranzaModel.Monitoreo" />
+          <AssociationSet Name="FK_Monitoreo_Aplicacion" Association="SistemasCobranzaModel.FK_Monitoreo_Aplicacion">
+            <End Role="Aplicacion" EntitySet="Aplicacion" />
+            <End Role="Monitoreo" EntitySet="Monitoreo" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="TraceLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idTipoLog" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Pagina" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Texto" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="CatDelegaciones">
+          <Key>
+            <PropertyRef Name="idCatalogo" />
+          </Key>
+          <Property Name="idCatalogo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Delegacion" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Dominio">
+          <Key>
+            <PropertyRef Name="idDominio" />
+          </Key>
+          <Property Name="idDominio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreDominio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nom_corto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RelacionDelegaciones">
+          <Key>
+            <PropertyRef Name="idRelacion" />
+          </Key>
+          <Property Name="idRelacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Delegacion" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usuario" Relationship="SistemasCobranzaModel.FK_RelacionDelegaciones_Usuario" FromRole="RelacionDelegaciones" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="RelacionUsuarios">
+          <Key>
+            <PropertyRef Name="idRelacion" />
+          </Key>
+          <Property Name="idRelacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPadre" Type="Int32" Nullable="false" />
+          <Property Name="idHijo" Type="Int32" Nullable="false" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="SistemasCobranzaModel.FK_RelacionUsuarios_Usuario" FromRole="RelacionUsuarios" ToRole="Usuario" />
+          <NavigationProperty Name="Usuario1" Relationship="SistemasCobranzaModel.FK_RelacionUsuarios_Usuario1" FromRole="RelacionUsuarios" ToRole="Usuario" />
+          </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="idRol" />
+          </Key>
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="NombreRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Archivos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Archivo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Registros" Type="Int32" />
+          <Property Name="Tiempo" Type="Int32" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ArchivosError" Relationship="SistemasCobranzaModel.FK_ArchivosError_Cascade" FromRole="Archivos" ToRole="ArchivosError" />
+        </EntityType>
+        <EntityType Name="ArchivosError">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_archivo" Type="Int32" Nullable="false" />
+          <Property Name="Error" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Archivos" Relationship="SistemasCobranzaModel.FK_ArchivosError_Cascade" FromRole="ArchivosError" ToRole="Archivos" />
+        </EntityType>
+        <Association Name="FK_ArchivosError_Cascade">
+          <End Type="SistemasCobranzaModel.Archivos" Role="Archivos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SistemasCobranzaModel.ArchivosError" Role="ArchivosError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archivos">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ArchivosError">
+              <PropertyRef Name="id_archivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="InsUpdLondon_Result">
+          <Property Type="Int32" Name="Codigo" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="67" />
+        </ComplexType>
+        <ComplexType Name="ObtenerCamposTabla_Result">
+          <Property Type="String" Name="Tabla" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Columna" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Tipo" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="Largo" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="VUsuarios">
+          <Key>
+            <PropertyRef Name="NombreDominio" />
+            <PropertyRef Name="nom_corto" />
+            <PropertyRef Name="NombreRol" />
+            <PropertyRef Name="Usuario" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="idDominio" />
+            <PropertyRef Name="idUsuario" />
+            <PropertyRef Name="idRol" />
+            <PropertyRef Name="Estatus" />
+            <PropertyRef Name="EstatusTxt" />
+            <PropertyRef Name="idPadre" />
+          </Key>
+          <Property Name="NombreDominio" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="nom_corto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NombreRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="idDominio" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <Property Name="EstatusTxt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idPadre" Type="Int32" Nullable="false" />
+          <Property Name="Padre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HistoricoOrdenes">
+          <Key>
+            <PropertyRef Name="idHistorico" />
+          </Key>
+          <Property Name="idHistorico" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="num_cred" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <Property Name="Dictamen" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idDominio" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PromesaPago" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FechaPromesa" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Saldo" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="CatEstatusUsuario">
+          <Key>
+            <PropertyRef Name="Estatus" />
+          </Key>
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CatCamposFormulario">
+          <Key>
+            <PropertyRef Name="idTipoCampo" />
+          </Key>
+          <Property Name="idTipoCampo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoCampo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CamposXSubFormularios" Relationship="SistemasCobranzaModel.FK_CamposXFormulario_CatCamposFormulario" FromRole="CatCamposFormulario" ToRole="CamposXSubFormulario" />
+        </EntityType>
+        <ComplexType Name="ObtenerListasDashboard_Result">
+          <Property Type="String" Name="Value" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SpU_DashBoard_Handler3_Result">
+          <Property Type="String" Name="fc_Clave" Nullable="false" MaxLength="35" />
+          <Property Type="String" Name="fc_Descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int64" Name="fi_Parte" Nullable="false" />
+          <Property Type="Decimal" Name="fi_Value" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Decimal" Name="fi_Porcentaje" Nullable="true" Precision="18" Scale="4" />
+          <Property Type="Int64" Name="fi_Orden" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ObtenerClavesDashboard_Result">
+          <Property Type="String" Name="fc_Clave" Nullable="false" MaxLength="35" />
+          <Property Type="Int64" Name="fi_Parte" Nullable="false" />
+          <Property Type="String" Name="permisoModulo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ObtenerIndicadorDashboard_Result">
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="porcentaje" Nullable="true" />
+          <Property Type="String" Name="fc_Clave" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int64" Name="fi_Parte" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ObtenerUltimoLogin_Result">
+          <Property Type="Int32" Name="idUsuario" Nullable="false" />
+          <Property Type="String" Name="ultimoLogin" Nullable="true" MaxLength="14" />
+        </ComplexType>
+        <EntityType Name="CatalogoXCampo">
+          <Key>
+            <PropertyRef Name="idCatalogoCampo" />
+          </Key>
+          <Property Name="idCatalogoCampo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCampoFormulario" Type="Int32" Nullable="false" />
+          <Property Name="Texto" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Auxiliar" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Ayuda" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CamposXSubFormulario" Relationship="SistemasCobranzaModel.FK_CatalogoXCampo_CamposXFormulario" FromRole="CatalogoXCampo" ToRole="CamposXSubFormulario" />
+        </EntityType>
+        <EntityType Name="CatFuncionesJ">
+          <Key>
+            <PropertyRef Name="idFuncionJS" />
+          </Key>
+          <Property Name="idFuncionJS" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Validacion" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="FuncionSI" Type="String" Nullable="false" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="FuncionNo" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="idFormulario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CamposXSubFormularios" Relationship="SistemasCobranzaModel.FuncionesXCampos" FromRole="CatFuncionesJ" ToRole="CamposXSubFormulario" />
+          <NavigationProperty Name="Formulario" Relationship="SistemasCobranzaModel.FK_CatFuncionesJS_Formulario" FromRole="CatFuncionesJ" ToRole="Formulario" />
+        </EntityType>
+        <EntityType Name="SubFormulario">
+          <Key>
+            <PropertyRef Name="idSubFormulario" />
+          </Key>
+          <Property Name="idSubFormulario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idFormulario" Type="Int32" Nullable="false" />
+          <Property Name="SubFormulario1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CamposXSubFormularios" Relationship="SistemasCobranzaModel.FK_CamposXSubFormulario_001" FromRole="SubFormulario" ToRole="CamposXSubFormulario" />
+          <NavigationProperty Name="Formulario" Relationship="SistemasCobranzaModel.FK_SubFormulario_Formulario" FromRole="SubFormulario" ToRole="Formulario" />
+        </EntityType>
+        <EntityType Name="CamposXSubFormulario">
+          <Key>
+            <PropertyRef Name="idCampoFormulario" />
+          </Key>
+          <Property Name="idCampoFormulario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSubFormulario" Type="Int32" Nullable="false" />
+          <Property Name="idTipoCampo" Type="Int32" Nullable="false" />
+          <Property Name="NombreCampo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Texto" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ClasesLinea" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClasesTexto" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClasesValor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Orden" Type="Int32" Nullable="false" />
+          <Property Name="Validacion" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CatCamposFormulario" Relationship="SistemasCobranzaModel.FK_CamposXFormulario_CatCamposFormulario" FromRole="CamposXSubFormulario" ToRole="CatCamposFormulario" />
+          <NavigationProperty Name="SubFormulario" Relationship="SistemasCobranzaModel.FK_CamposXSubFormulario_001" FromRole="CamposXSubFormulario" ToRole="SubFormulario" />
+          <NavigationProperty Name="CatalogoXCampoes" Relationship="SistemasCobranzaModel.FK_CatalogoXCampo_CamposXFormulario" FromRole="CamposXSubFormulario" ToRole="CatalogoXCampo" />
+          <NavigationProperty Name="CatFuncionesJS" Relationship="SistemasCobranzaModel.FuncionesXCampos" FromRole="CamposXSubFormulario" ToRole="CatFuncionesJ" />
+        </EntityType>
+        <Association Name="FK_CamposXFormulario_CatCamposFormulario">
+          <End Type="SistemasCobranzaModel.CatCamposFormulario" Role="CatCamposFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SistemasCobranzaModel.CamposXSubFormulario" Role="CamposXSubFormulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatCamposFormulario">
+              <PropertyRef Name="idTipoCampo" />
+            </Principal>
+            <Dependent Role="CamposXSubFormulario">
+              <PropertyRef Name="idTipoCampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CamposXSubFormulario_001">
+          <End Type="SistemasCobranzaModel.SubFormulario" Role="SubFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SistemasCobranzaModel.CamposXSubFormulario" Role="CamposXSubFormulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubFormulario">
+              <PropertyRef Name="idSubFormulario" />
+            </Principal>
+            <Dependent Role="CamposXSubFormulario">
+              <PropertyRef Name="idSubFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatalogoXCampo_CamposXFormulario">
+          <End Type="SistemasCobranzaModel.CamposXSubFormulario" Role="CamposXSubFormulario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SistemasCobranzaModel.CatalogoXCampo" Role="CatalogoXCampo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CamposXSubFormulario">
+              <PropertyRef Name="idCampoFormulario" />
+            </Principal>
+            <Dependent Role="CatalogoXCampo">
+              <PropertyRef Name="idCampoFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FuncionesXCampos">
+          <End Type="SistemasCobranzaModel.CamposXSubFormulario" Role="CamposXSubFormulario" Multiplicity="*" />
+          <End Type="SistemasCobranzaModel.CatFuncionesJ" Role="CatFuncionesJ" Multiplicity="*" />
+        </Association>
+        <EntityType Name="BitacoraPassword">
+          <Key>
+            <PropertyRef Name="idBitacora" />
+          </Key>
+          <Property Name="idBitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="PassWord" Type="String" MaxLength="130" FixedLength="false" Unicode="true" />
+          <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Usuario" Relationship="SistemasCobranzaModel.FK_BitacoraPasswords_Usuario" FromRole="BitacoraPassword" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDominio" Type="Int32" Nullable="false" />
+          <Property Name="idRol" Type="Int32" Nullable="false" />
+          <Property Name="Usuario1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="130" FixedLength="false" Unicode="true" />
+          <Property Name="Alta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UltimoLogin" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <Property Name="Intentos" Type="Int32" />
+          <Property Name="Bloqueo" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="BitacoraPasswords" Relationship="SistemasCobranzaModel.FK_BitacoraPasswords_Usuario" FromRole="Usuario" ToRole="BitacoraPassword" />
+          <NavigationProperty Name="RelacionDelegaciones" Relationship="SistemasCobranzaModel.FK_RelacionDelegaciones_Usuario" FromRole="Usuario" ToRole="RelacionDelegaciones" />
+          <NavigationProperty Name="RelacionUsuarios" Relationship="SistemasCobranzaModel.FK_RelacionUsuarios_Usuario" FromRole="Usuario" ToRole="RelacionUsuarios" />
+          <NavigationProperty Name="RelacionUsuarios1" Relationship="SistemasCobranzaModel.FK_RelacionUsuarios_Usuario1" FromRole="Usuario" ToRole="RelacionUsuarios" />
+        </EntityType>
+        <Association Name="FK_BitacoraPasswords_Usuario">
+          <End Type="SistemasCobranzaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SistemasCobranzaModel.BitacoraPassword" Role="BitacoraPassword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="BitacoraPassword">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelacionDelegaciones_Usuario">
+          <End Type="SistemasCobranzaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SistemasCobranzaModel.RelacionDelegaciones" Role="RelacionDelegaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RelacionDelegaciones">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelacionUsuarios_Usuario">
+          <End Type="SistemasCobranzaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SistemasCobranzaModel.RelacionUsuarios" Role="RelacionUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RelacionUsuarios">
+              <PropertyRef Name="idPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RelacionUsuarios_Usuario1">
+          <End Type="SistemasCobranzaModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="SistemasCobranzaModel.RelacionUsuarios" Role="RelacionUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="RelacionUsuarios">
+              <PropertyRef Name="idHijo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Respuestas">
+          <Key>
+            <PropertyRef Name="idOrden" />
+            <PropertyRef Name="idCampo" />
+          </Key>
+          <Property Name="idOrden" Type="Int32" Nullable="false" />
+          <Property Name="idCampo" Type="Int32" Nullable="false" />
+          <Property Name="Valor" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="idDominio" Type="Int32" />
+          <Property Name="idUsuarioPadre" Type="Int32" />
+          <Property Name="idFormulario" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Formulario">
+          <Key>
+            <PropertyRef Name="idFormulario" />
+          </Key>
+          <Property Name="idFormulario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAplicacion" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Version" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Estatus" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Captura" Type="Int32" />
+          <NavigationProperty Name="CatFuncionesJS" Relationship="SistemasCobranzaModel.FK_CatFuncionesJS_Formulario" FromRole="Formulario" ToRole="CatFuncionesJ" />
+          <NavigationProperty Name="SubFormulario" Relationship="SistemasCobranzaModel.FK_SubFormulario_Formulario" FromRole="Formulario" ToRole="SubFormulario" />
+          <NavigationProperty Name="Aplicacion" Relationship="SistemasCobranzaModel.FK_Aplicacion_Formulario" FromRole="Formulario" ToRole="Aplicacion" />
+          <Property Name="Ruta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_CatFuncionesJS_Formulario">
+          <End Type="SistemasCobranzaModel.Formulario" Role="Formulario" Multiplicity="1" />
+          <End Type="SistemasCobranzaModel.CatFuncionesJ" Role="CatFuncionesJ" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulario">
+              <PropertyRef Name="idFormulario" />
+            </Principal>
+            <Dependent Role="CatFuncionesJ">
+              <PropertyRef Name="idFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SubFormulario_Formulario">
+          <End Type="SistemasCobranzaModel.Formulario" Role="Formulario" Multiplicity="1" />
+          <End Type="SistemasCobranzaModel.SubFormulario" Role="SubFormulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Formulario">
+              <PropertyRef Name="idFormulario" />
+            </Principal>
+            <Dependent Role="SubFormulario">
+              <PropertyRef Name="idFormulario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CamposRespuesta">
+          <Key>
+            <PropertyRef Name="idCampo" />
+          </Key>
+          <Property Name="idCampo" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Tipo" Type="Int32" />
+          <Property Name="Referencia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idFormulario" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Aplicacion">
+          <Key>
+            <PropertyRef Name="idAplicacion" />
+          </Key>
+          <Property Name="idAplicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClientId" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ProductId" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Productivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Formulario" Relationship="SistemasCobranzaModel.FK_Aplicacion_Formulario" FromRole="Aplicacion" ToRole="Formulario" />
+          <NavigationProperty Name="Monitoreo" Relationship="SistemasCobranzaModel.FK_Monitoreo_Aplicacion" FromRole="Aplicacion" ToRole="Monitoreo" />
+        </EntityType>
+        <Association Name="FK_Aplicacion_Formulario">
+          <End Type="SistemasCobranzaModel.Aplicacion" Role="Aplicacion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SistemasCobranzaModel.Formulario" Role="Formulario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="idAplicacion" />
+            </Principal>
+            <Dependent Role="Formulario">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ObtenerIndicadorDashboard_Result1">
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="porcentaje" Nullable="true" />
+          <Property Type="String" Name="fc_Clave" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int64" Name="fi_Parte" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ObtenerIndicadorBloqueDashboard_Result">
+          <Property Type="Int32" Name="value" Nullable="true" />
+          <Property Type="Int32" Name="porcentaje" Nullable="true" />
+          <Property Type="String" Name="fc_Clave" Nullable="false" MaxLength="35" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="500" />
+          <Property Type="Int64" Name="fi_Parte" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Ordenes">
+          <Key>
+            <PropertyRef Name="idOrden" />
+          </Key>
+          <Property Name="idOrden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPool" Type="Int32" Nullable="false" />
+          <Property Name="num_Cred" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="idUsuarioPadre" Type="Int32" Nullable="false" />
+          <Property Name="idUsuarioAlta" Type="Int32" Nullable="false" />
+          <Property Name="idDominio" Type="Int32" Nullable="false" />
+          <Property Name="idVisita" Type="Int32" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Estatus" Type="Int32" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaEnvio" Type="DateTime" Precision="3" />
+          <Property Name="FechaRecepcion" Type="DateTime" Precision="3" />
+          <Property Name="Auxiliar" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="idUsuarioAnterior" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Creditos">
+          <Key>
+            <PropertyRef Name="ID_ARCHIVO" />
+            <PropertyRef Name="CV_CREDITO" />
+          </Key>
+          <Property Name="ID_ARCHIVO" Type="Int32" Nullable="false" />
+          <Property Name="CV_DELEGACION" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="CV_ZONA" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CV_CREDITO" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FH_OTORGAMIENTO" Type="DateTime" Precision="0" />
+          <Property Name="CV_REGIMEN" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="CV_ESTATUS_CONTABLE" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="IM_SALDO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PC_DESCUENTO_LIQUIDACION" Type="Int32" />
+          <Property Name="IM_MONTO_DESCUENTO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_MONTO_LIQUIDAR_CON_DESCUENTO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CT_FACTOR_REA_ORIGINAL" Type="Double" />
+          <Property Name="CT_FACTOR_REA" Type="Double" />
+          <Property Name="CT_FACTOR_ROA" Type="Double" />
+          <Property Name="IM_PAGO_MENSUAL_SIN_SEG_DAN" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PRIMA_SEG_DAN" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_MENSUAL" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_SALDO_SEG_DAN" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CV_ETIQUETA" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TX_SOLUCIONES" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NU_MESES_RECUPERAR" Type="Int32" />
+          <Property Name="IM_MONTO_RECUPERAR" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_MINIMO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_RECOMENDADO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_TOPE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_MINIMO_TEORICO" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_FPP" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_BENEFICIO_FPP" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="NU_MESES_DISP_FPP" Type="Int32" />
+          <Property Name="NU_MESES_FIN_PRORROGA" Type="Int32" />
+          <Property Name="IN_FPP" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IN_PPAR" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IM_PAGO_PPAR" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FH_INI_PRORROGA" Type="DateTime" Precision="0" />
+          <Property Name="FH_FIN_PRORROGA" Type="DateTime" Precision="0" />
+          <Property Name="FH_ASIGNACION" Type="DateTime" Precision="0" />
+          <Property Name="TX_NOMBRE_ACREDITADO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CV_RFC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FH_NACIMIENTO" Type="DateTime" Precision="0" />
+          <Property Name="CV_NSS" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TX_CALLE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TX_COLONIA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TX_MUNICIPIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CV_CODIGO_POSTAL" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="NU_TELEFONO_CASA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="NU_TELEFONO_CELULAR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="GP_LONGITUD" Type="Double" />
+          <Property Name="GP_LATITUD" Type="Double" />
+          <Property Name="GP_ALTITUD" Type="Double" />
+          <Property Name="CV_CANAL" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="TX_NOMBRE_DESPACHO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CV_DESPACHO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TX_ULTIMA_GESTION_4MESES" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="TX_ULTIMA_GESTION_3MESES" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="TX_ULTIMA_GESTION_2MESES" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="TX_ULTIMA_GESTION_1MES" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
+          <Property Name="TX_VECTOR_PAGOS" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGO_4MESES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGO_3MESES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGO_2MESES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGO_1MES" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IM_OPC1_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC2_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC3_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC4_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC1_STM_PRIMER_PAGO" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC2_STM_PRIMER_PAGO" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC3_STM_PRIMER_PAGO" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC4_STM_PRIMER_PAGO" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC1_STM_PAGO_SUBSEC" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC2_STM_PAGO_SUBSEC" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC3_STM_PAGO_SUBSEC" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_OPC4_STM_PAGO_SUBSEC" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_BEN1_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_BEN2_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_BEN3_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_BEN4_STM" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="IM_PAGO_TOPE_PESOS" Type="Decimal" Precision="13" Scale="2" />
+          <Property Name="CV_PROVEEDOR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CV_CONTRATO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TX_SCRIPT" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CV_RUTA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IN_SOLICITAR_CEL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IN_SOLICITAR_SERVICIO_EMPLEO" Type="Int32" />
+          <Property Name="TX_PORTAFOLIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TX_ETIQUETA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IN_OPCION_JUDICIAL" Type="Int32" />
+          <Property Name="TX_PAGA1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGA2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGA3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGA4" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGA5" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TX_PAGA6" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CC_DESPACHO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Monitoreo">
+          <Key>
+            <PropertyRef Name="idMonitoreo" />
+            <PropertyRef Name="idAplicacion" />
+            <PropertyRef Name="Nombre" />
+            <PropertyRef Name="Ejecutar" />
+            <PropertyRef Name="Warning" />
+            <PropertyRef Name="Error" />
+            <PropertyRef Name="Tipo" />
+            <PropertyRef Name="TimeOut" />
+            <PropertyRef Name="ErrorNegativo" />
+            <PropertyRef Name="SoloWarning" />
+            <PropertyRef Name="Intervalo" />
+            <PropertyRef Name="UltimaEjecucion" />
+          </Key>
+          <Property Name="idMonitoreo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAplicacion" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ejecutar" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Warning" Type="Int32" Nullable="false" />
+          <Property Name="Error" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TimeOut" Type="Int32" Nullable="false" />
+          <Property Name="ErrorNegativo" Type="Boolean" Nullable="false" />
+          <Property Name="SoloWarning" Type="Boolean" Nullable="false" />
+          <Property Name="Intervalo" Type="Int32" Nullable="false" />
+          <Property Name="UltimaEjecucion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Aplicacion" Relationship="SistemasCobranzaModel.FK_Monitoreo_Aplicacion" FromRole="Monitoreo" ToRole="Aplicacion" />
+        </EntityType>
+        <Association Name="FK_Monitoreo_Aplicacion">
+          <End Type="SistemasCobranzaModel.Aplicacion" Role="Aplicacion" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SistemasCobranzaModel.Monitoreo" Role="Monitoreo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Aplicacion">
+              <PropertyRef Name="idAplicacion" />
+            </Principal>
+            <Dependent Role="Monitoreo">
+              <PropertyRef Name="idAplicacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemasCobranzaModelStoreContainer" CdmEntityContainer="SistemasCobranzaEntities">
+          <FunctionImportMapping FunctionImportName="BorrarRespuestas" FunctionName="SistemasCobranzaModel.Store.BorrarRespuestas" />
+          <EntitySetMapping Name="TraceLog">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.TraceLog">
+              <MappingFragment StoreEntitySet="TraceLog">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="Pagina" ColumnName="Pagina" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idTipoLog" ColumnName="idTipoLog" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatDelegaciones">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CatDelegaciones">
+              <MappingFragment StoreEntitySet="CatDelegaciones">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Delegacion" ColumnName="Delegacion" />
+                <ScalarProperty Name="idCatalogo" ColumnName="idCatalogo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dominio">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Dominio">
+              <MappingFragment StoreEntitySet="Dominio">
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="nom_corto" ColumnName="nom_corto" />
+                <ScalarProperty Name="NombreDominio" ColumnName="NombreDominio" />
+                <ScalarProperty Name="idDominio" ColumnName="idDominio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelacionDelegaciones">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.RelacionDelegaciones">
+              <MappingFragment StoreEntitySet="RelacionDelegaciones">
+                <ScalarProperty Name="Delegacion" ColumnName="Delegacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idRelacion" ColumnName="idRelacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelacionUsuarios">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.RelacionUsuarios">
+              <MappingFragment StoreEntitySet="RelacionUsuarios">
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="idHijo" ColumnName="idHijo" />
+                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+                <ScalarProperty Name="idRelacion" ColumnName="idRelacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Archivos">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Archivos">
+              <MappingFragment StoreEntitySet="Archivos">
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Tiempo" ColumnName="Tiempo" />
+                <ScalarProperty Name="Registros" ColumnName="Registros" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArchivosError">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.ArchivosError">
+              <MappingFragment StoreEntitySet="ArchivosError">
+                <ScalarProperty Name="Error" ColumnName="Error" />
+                <ScalarProperty Name="id_archivo" ColumnName="id_archivo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="InsUpdLondon" FunctionName="SistemasCobranzaModel.Store.InsUpdLondon">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.InsUpdLondon_Result">
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerCamposTabla" FunctionName="SistemasCobranzaModel.Store.ObtenerCamposTabla">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.ObtenerCamposTabla_Result">
+                <ScalarProperty Name="Tabla" ColumnName="Tabla" />
+                <ScalarProperty Name="Columna" ColumnName="Columna" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Largo" ColumnName="Largo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="VUsuarios">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.VUsuarios">
+              <MappingFragment StoreEntitySet="VUsuarios">
+                <ScalarProperty Name="Padre" ColumnName="Padre" />
+                <ScalarProperty Name="idPadre" ColumnName="idPadre" />
+                <ScalarProperty Name="EstatusTxt" ColumnName="EstatusTxt" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idDominio" ColumnName="idDominio" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+                <ScalarProperty Name="nom_corto" ColumnName="nom_corto" />
+                <ScalarProperty Name="NombreDominio" ColumnName="NombreDominio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HistoricoOrdenes">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.HistoricoOrdenes">
+              <MappingFragment StoreEntitySet="HistoricoOrdenes">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="FechaPromesa" ColumnName="FechaPromesa" />
+                <ScalarProperty Name="PromesaPago" ColumnName="PromesaPago" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="idDominio" ColumnName="idDominio" />
+                <ScalarProperty Name="Dictamen" ColumnName="Dictamen" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="num_cred" ColumnName="num_cred" />
+                <ScalarProperty Name="idHistorico" ColumnName="idHistorico" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatEstatusUsuario">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CatEstatusUsuario">
+              <MappingFragment StoreEntitySet="CatEstatusUsuario">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatCamposFormulario">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CatCamposFormulario">
+              <MappingFragment StoreEntitySet="CatCamposFormulario">
+                <ScalarProperty Name="TipoCampo" ColumnName="TipoCampo" />
+                <ScalarProperty Name="idTipoCampo" ColumnName="idTipoCampo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerListasDashboard" FunctionName="SistemasCobranzaModel.Store.ObtenerListasDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.ObtenerListasDashboard_Result">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerClavesDashboard" FunctionName="SistemasCobranzaModel.Store.ObtenerClavesDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.ObtenerClavesDashboard_Result">
+                <ScalarProperty Name="fc_Clave" ColumnName="fc_Clave" />
+                <ScalarProperty Name="fi_Parte" ColumnName="fi_Parte" />
+                <ScalarProperty Name="permisoModulo" ColumnName="permisoModulo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerUltimoLogin" FunctionName="SistemasCobranzaModel.Store.ObtenerUltimoLogin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.ObtenerUltimoLogin_Result">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="ultimoLogin" ColumnName="ultimoLogin" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="CatalogoXCampoes">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CatalogoXCampo">
+              <MappingFragment StoreEntitySet="CatalogoXCampo">
+                <ScalarProperty Name="Ayuda" ColumnName="Ayuda" />
+                <ScalarProperty Name="Auxiliar" ColumnName="Auxiliar" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="idCampoFormulario" ColumnName="idCampoFormulario" />
+                <ScalarProperty Name="idCatalogoCampo" ColumnName="idCatalogoCampo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatFuncionesJS">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CatFuncionesJ">
+              <MappingFragment StoreEntitySet="CatFuncionesJS">
+                <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
+                <ScalarProperty Name="FuncionNo" ColumnName="FuncionNo" />
+                <ScalarProperty Name="FuncionSI" ColumnName="FuncionSI" />
+                <ScalarProperty Name="Validacion" ColumnName="Validacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idFuncionJS" ColumnName="idFuncionJS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubFormularios">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.SubFormulario">
+              <MappingFragment StoreEntitySet="SubFormulario">
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="SubFormulario1" ColumnName="SubFormulario" />
+                <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
+                <ScalarProperty Name="idSubFormulario" ColumnName="idSubFormulario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CamposXSubFormularios">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CamposXSubFormulario">
+              <MappingFragment StoreEntitySet="CamposXSubFormulario">
+                <ScalarProperty Name="Validacion" ColumnName="Validacion" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="ClasesValor" ColumnName="ClasesValor" />
+                <ScalarProperty Name="ClasesTexto" ColumnName="ClasesTexto" />
+                <ScalarProperty Name="ClasesLinea" ColumnName="ClasesLinea" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Texto" ColumnName="Texto" />
+                <ScalarProperty Name="NombreCampo" ColumnName="NombreCampo" />
+                <ScalarProperty Name="idTipoCampo" ColumnName="idTipoCampo" />
+                <ScalarProperty Name="idSubFormulario" ColumnName="idSubFormulario" />
+                <ScalarProperty Name="idCampoFormulario" ColumnName="idCampoFormulario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FuncionesXCampos" TypeName="SistemasCobranzaModel.FuncionesXCampos" StoreEntitySet="FuncionesXCampos">
+            <EndProperty Name="CatFuncionesJ">
+              <ScalarProperty Name="idFuncionJS" ColumnName="idFuncionJS" />
+            </EndProperty>
+            <EndProperty Name="CamposXSubFormulario">
+              <ScalarProperty Name="idCampoFormulario" ColumnName="idCampoFormulario" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="BitacoraPasswords">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.BitacoraPassword">
+              <MappingFragment StoreEntitySet="BitacoraPasswords">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idBitacora" ColumnName="idBitacora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Bloqueo" ColumnName="Bloqueo" />
+                <ScalarProperty Name="Intentos" ColumnName="Intentos" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="UltimoLogin" ColumnName="UltimoLogin" />
+                <ScalarProperty Name="Alta" ColumnName="Alta" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="idDominio" ColumnName="idDominio" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Respuestas">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Respuestas">
+              <MappingFragment StoreEntitySet="Respuestas">
+                <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
+                <ScalarProperty Name="idUsuarioPadre" ColumnName="idUsuarioPadre" />
+                <ScalarProperty Name="idDominio" ColumnName="idDominio" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="idCampo" ColumnName="idCampo" />
+                <ScalarProperty Name="idOrden" ColumnName="idOrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Formulario">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Formulario">
+              <MappingFragment StoreEntitySet="Formulario">
+                <ScalarProperty Name="Ruta" ColumnName="Ruta" />
+                <ScalarProperty Name="Captura" ColumnName="Captura" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+                <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CamposRespuesta">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.CamposRespuesta">
+              <MappingFragment StoreEntitySet="CamposRespuesta">
+                <ScalarProperty Name="idFormulario" ColumnName="idFormulario" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idCampo" ColumnName="idCampo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Aplicacion">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Aplicacion">
+              <MappingFragment StoreEntitySet="Aplicacion">
+                <ScalarProperty Name="Productivo" ColumnName="Productivo" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerIndicadorDashboard" FunctionName="SistemasCobranzaModel.Store.ObtenerIndicadorDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.ObtenerIndicadorDashboard_Result1">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="porcentaje" ColumnName="porcentaje" />
+                <ScalarProperty Name="fc_Clave" ColumnName="fc_Clave" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fi_Parte" ColumnName="fi_Parte" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerIndicadorBloqueDashboard" FunctionName="SistemasCobranzaModel.Store.ObtenerIndicadorBloqueDashboard">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SistemasCobranzaModel.ObtenerIndicadorBloqueDashboard_Result">
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="porcentaje" ColumnName="porcentaje" />
+                <ScalarProperty Name="fc_Clave" ColumnName="fc_Clave" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fi_Parte" ColumnName="fi_Parte" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Ordenes">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Ordenes">
+              <MappingFragment StoreEntitySet="Ordenes">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="idUsuarioAnterior" ColumnName="idUsuarioAnterior" />
+                <ScalarProperty Name="Auxiliar" ColumnName="Auxiliar" />
+                <ScalarProperty Name="FechaRecepcion" ColumnName="FechaRecepcion" />
+                <ScalarProperty Name="FechaEnvio" ColumnName="FechaEnvio" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="idVisita" ColumnName="idVisita" />
+                <ScalarProperty Name="idDominio" ColumnName="idDominio" />
+                <ScalarProperty Name="idUsuarioAlta" ColumnName="idUsuarioAlta" />
+                <ScalarProperty Name="idUsuarioPadre" ColumnName="idUsuarioPadre" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="num_Cred" ColumnName="num_Cred" />
+                <ScalarProperty Name="idPool" ColumnName="idPool" />
+                <ScalarProperty Name="idOrden" ColumnName="idOrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Creditos">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Creditos">
+              <MappingFragment StoreEntitySet="Creditos">
+                <ScalarProperty Name="CC_DESPACHO" ColumnName="CC_DESPACHO" />
+                <ScalarProperty Name="TX_PAGA6" ColumnName="TX_PAGA6" />
+                <ScalarProperty Name="TX_PAGA5" ColumnName="TX_PAGA5" />
+                <ScalarProperty Name="TX_PAGA4" ColumnName="TX_PAGA4" />
+                <ScalarProperty Name="TX_PAGA3" ColumnName="TX_PAGA3" />
+                <ScalarProperty Name="TX_PAGA2" ColumnName="TX_PAGA2" />
+                <ScalarProperty Name="TX_PAGA1" ColumnName="TX_PAGA1" />
+                <ScalarProperty Name="IN_OPCION_JUDICIAL" ColumnName="IN_OPCION_JUDICIAL" />
+                <ScalarProperty Name="TX_ETIQUETA" ColumnName="TX_ETIQUETA" />
+                <ScalarProperty Name="TX_PORTAFOLIO" ColumnName="TX_PORTAFOLIO" />
+                <ScalarProperty Name="IN_SOLICITAR_SERVICIO_EMPLEO" ColumnName="IN_SOLICITAR_SERVICIO_EMPLEO" />
+                <ScalarProperty Name="IN_SOLICITAR_CEL" ColumnName="IN_SOLICITAR_CEL" />
+                <ScalarProperty Name="CV_RUTA" ColumnName="CV_RUTA" />
+                <ScalarProperty Name="TX_SCRIPT" ColumnName="TX_SCRIPT" />
+                <ScalarProperty Name="CV_CONTRATO" ColumnName="CV_CONTRATO" />
+                <ScalarProperty Name="CV_PROVEEDOR" ColumnName="CV_PROVEEDOR" />
+                <ScalarProperty Name="IM_PAGO_TOPE_PESOS" ColumnName="IM_PAGO_TOPE_PESOS" />
+                <ScalarProperty Name="IM_BEN4_STM" ColumnName="IM_BEN4_STM" />
+                <ScalarProperty Name="IM_BEN3_STM" ColumnName="IM_BEN3_STM" />
+                <ScalarProperty Name="IM_BEN2_STM" ColumnName="IM_BEN2_STM" />
+                <ScalarProperty Name="IM_BEN1_STM" ColumnName="IM_BEN1_STM" />
+                <ScalarProperty Name="IM_OPC4_STM_PAGO_SUBSEC" ColumnName="IM_OPC4_STM_PAGO_SUBSEC" />
+                <ScalarProperty Name="IM_OPC3_STM_PAGO_SUBSEC" ColumnName="IM_OPC3_STM_PAGO_SUBSEC" />
+                <ScalarProperty Name="IM_OPC2_STM_PAGO_SUBSEC" ColumnName="IM_OPC2_STM_PAGO_SUBSEC" />
+                <ScalarProperty Name="IM_OPC1_STM_PAGO_SUBSEC" ColumnName="IM_OPC1_STM_PAGO_SUBSEC" />
+                <ScalarProperty Name="IM_OPC4_STM_PRIMER_PAGO" ColumnName="IM_OPC4_STM_PRIMER_PAGO" />
+                <ScalarProperty Name="IM_OPC3_STM_PRIMER_PAGO" ColumnName="IM_OPC3_STM_PRIMER_PAGO" />
+                <ScalarProperty Name="IM_OPC2_STM_PRIMER_PAGO" ColumnName="IM_OPC2_STM_PRIMER_PAGO" />
+                <ScalarProperty Name="IM_OPC1_STM_PRIMER_PAGO" ColumnName="IM_OPC1_STM_PRIMER_PAGO" />
+                <ScalarProperty Name="IM_OPC4_STM" ColumnName="IM_OPC4_STM" />
+                <ScalarProperty Name="IM_OPC3_STM" ColumnName="IM_OPC3_STM" />
+                <ScalarProperty Name="IM_OPC2_STM" ColumnName="IM_OPC2_STM" />
+                <ScalarProperty Name="IM_OPC1_STM" ColumnName="IM_OPC1_STM" />
+                <ScalarProperty Name="TX_PAGO_1MES" ColumnName="TX_PAGO_1MES" />
+                <ScalarProperty Name="TX_PAGO_2MESES" ColumnName="TX_PAGO_2MESES" />
+                <ScalarProperty Name="TX_PAGO_3MESES" ColumnName="TX_PAGO_3MESES" />
+                <ScalarProperty Name="TX_PAGO_4MESES" ColumnName="TX_PAGO_4MESES" />
+                <ScalarProperty Name="TX_VECTOR_PAGOS" ColumnName="TX_VECTOR_PAGOS" />
+                <ScalarProperty Name="TX_ULTIMA_GESTION_1MES" ColumnName="TX_ULTIMA_GESTION_1MES" />
+                <ScalarProperty Name="TX_ULTIMA_GESTION_2MESES" ColumnName="TX_ULTIMA_GESTION_2MESES" />
+                <ScalarProperty Name="TX_ULTIMA_GESTION_3MESES" ColumnName="TX_ULTIMA_GESTION_3MESES" />
+                <ScalarProperty Name="TX_ULTIMA_GESTION_4MESES" ColumnName="TX_ULTIMA_GESTION_4MESES" />
+                <ScalarProperty Name="CV_DESPACHO" ColumnName="CV_DESPACHO" />
+                <ScalarProperty Name="TX_NOMBRE_DESPACHO" ColumnName="TX_NOMBRE_DESPACHO" />
+                <ScalarProperty Name="CV_CANAL" ColumnName="CV_CANAL" />
+                <ScalarProperty Name="GP_ALTITUD" ColumnName="GP_ALTITUD" />
+                <ScalarProperty Name="GP_LATITUD" ColumnName="GP_LATITUD" />
+                <ScalarProperty Name="GP_LONGITUD" ColumnName="GP_LONGITUD" />
+                <ScalarProperty Name="NU_TELEFONO_CELULAR" ColumnName="NU_TELEFONO_CELULAR" />
+                <ScalarProperty Name="NU_TELEFONO_CASA" ColumnName="NU_TELEFONO_CASA" />
+                <ScalarProperty Name="CV_CODIGO_POSTAL" ColumnName="CV_CODIGO_POSTAL" />
+                <ScalarProperty Name="TX_MUNICIPIO" ColumnName="TX_MUNICIPIO" />
+                <ScalarProperty Name="TX_COLONIA" ColumnName="TX_COLONIA" />
+                <ScalarProperty Name="TX_CALLE" ColumnName="TX_CALLE" />
+                <ScalarProperty Name="CV_NSS" ColumnName="CV_NSS" />
+                <ScalarProperty Name="FH_NACIMIENTO" ColumnName="FH_NACIMIENTO" />
+                <ScalarProperty Name="CV_RFC" ColumnName="CV_RFC" />
+                <ScalarProperty Name="TX_NOMBRE_ACREDITADO" ColumnName="TX_NOMBRE_ACREDITADO" />
+                <ScalarProperty Name="FH_ASIGNACION" ColumnName="FH_ASIGNACION" />
+                <ScalarProperty Name="FH_FIN_PRORROGA" ColumnName="FH_FIN_PRORROGA" />
+                <ScalarProperty Name="FH_INI_PRORROGA" ColumnName="FH_INI_PRORROGA" />
+                <ScalarProperty Name="IM_PAGO_PPAR" ColumnName="IM_PAGO_PPAR" />
+                <ScalarProperty Name="IN_PPAR" ColumnName="IN_PPAR" />
+                <ScalarProperty Name="IN_FPP" ColumnName="IN_FPP" />
+                <ScalarProperty Name="NU_MESES_FIN_PRORROGA" ColumnName="NU_MESES_FIN_PRORROGA" />
+                <ScalarProperty Name="NU_MESES_DISP_FPP" ColumnName="NU_MESES_DISP_FPP" />
+                <ScalarProperty Name="IM_BENEFICIO_FPP" ColumnName="IM_BENEFICIO_FPP" />
+                <ScalarProperty Name="IM_PAGO_FPP" ColumnName="IM_PAGO_FPP" />
+                <ScalarProperty Name="IM_MINIMO_TEORICO" ColumnName="IM_MINIMO_TEORICO" />
+                <ScalarProperty Name="IM_PAGO_TOPE" ColumnName="IM_PAGO_TOPE" />
+                <ScalarProperty Name="IM_PAGO_RECOMENDADO" ColumnName="IM_PAGO_RECOMENDADO" />
+                <ScalarProperty Name="IM_PAGO_MINIMO" ColumnName="IM_PAGO_MINIMO" />
+                <ScalarProperty Name="IM_MONTO_RECUPERAR" ColumnName="IM_MONTO_RECUPERAR" />
+                <ScalarProperty Name="NU_MESES_RECUPERAR" ColumnName="NU_MESES_RECUPERAR" />
+                <ScalarProperty Name="TX_SOLUCIONES" ColumnName="TX_SOLUCIONES" />
+                <ScalarProperty Name="CV_ETIQUETA" ColumnName="CV_ETIQUETA" />
+                <ScalarProperty Name="IM_SALDO_SEG_DAN" ColumnName="IM_SALDO_SEG_DAN" />
+                <ScalarProperty Name="IM_PAGO_MENSUAL" ColumnName="IM_PAGO_MENSUAL" />
+                <ScalarProperty Name="IM_PRIMA_SEG_DAN" ColumnName="IM_PRIMA_SEG_DAN" />
+                <ScalarProperty Name="IM_PAGO_MENSUAL_SIN_SEG_DAN" ColumnName="IM_PAGO_MENSUAL_SIN_SEG_DAN" />
+                <ScalarProperty Name="CT_FACTOR_ROA" ColumnName="CT_FACTOR_ROA" />
+                <ScalarProperty Name="CT_FACTOR_REA" ColumnName="CT_FACTOR_REA" />
+                <ScalarProperty Name="CT_FACTOR_REA_ORIGINAL" ColumnName="CT_FACTOR_REA_ORIGINAL" />
+                <ScalarProperty Name="IM_MONTO_LIQUIDAR_CON_DESCUENTO" ColumnName="IM_MONTO_LIQUIDAR_CON_DESCUENTO" />
+                <ScalarProperty Name="IM_MONTO_DESCUENTO" ColumnName="IM_MONTO_DESCUENTO" />
+                <ScalarProperty Name="PC_DESCUENTO_LIQUIDACION" ColumnName="PC_DESCUENTO_LIQUIDACION" />
+                <ScalarProperty Name="IM_SALDO" ColumnName="IM_SALDO" />
+                <ScalarProperty Name="CV_ESTATUS_CONTABLE" ColumnName="CV_ESTATUS_CONTABLE" />
+                <ScalarProperty Name="CV_REGIMEN" ColumnName="CV_REGIMEN" />
+                <ScalarProperty Name="FH_OTORGAMIENTO" ColumnName="FH_OTORGAMIENTO" />
+                <ScalarProperty Name="CV_CREDITO" ColumnName="CV_CREDITO" />
+                <ScalarProperty Name="CV_ZONA" ColumnName="CV_ZONA" />
+                <ScalarProperty Name="CV_DELEGACION" ColumnName="CV_DELEGACION" />
+                <ScalarProperty Name="ID_ARCHIVO" ColumnName="ID_ARCHIVO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monitoreo">
+            <EntityTypeMapping TypeName="SistemasCobranzaModel.Monitoreo">
+              <MappingFragment StoreEntitySet="Monitoreo">
+                <ScalarProperty Name="UltimaEjecucion" ColumnName="UltimaEjecucion" />
+                <ScalarProperty Name="Intervalo" ColumnName="Intervalo" />
+                <ScalarProperty Name="SoloWarning" ColumnName="SoloWarning" />
+                <ScalarProperty Name="ErrorNegativo" ColumnName="ErrorNegativo" />
+                <ScalarProperty Name="TimeOut" ColumnName="TimeOut" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Error" ColumnName="Error" />
+                <ScalarProperty Name="Warning" ColumnName="Warning" />
+                <ScalarProperty Name="Ejecutar" ColumnName="Ejecutar" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="idAplicacion" ColumnName="idAplicacion" />
+                <ScalarProperty Name="idMonitoreo" ColumnName="idMonitoreo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

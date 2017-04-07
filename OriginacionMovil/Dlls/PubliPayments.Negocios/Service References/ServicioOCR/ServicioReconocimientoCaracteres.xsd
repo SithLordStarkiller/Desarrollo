@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/ReconocimientoCaracteres" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ReconocimientoCaracteres" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:15025/ServicioReconocimientoCaracteres.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ImagenOcr">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MejorarResolucion" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrioridadAlta" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Tipo" type="tns:TipoDeExtraccion" />
+      <xs:element minOccurs="0" name="Uri" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ImagenOcr" nillable="true" type="tns:ImagenOcr" />
+  <xs:simpleType name="TipoDeExtraccion">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Texto">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Xml">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Documento">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="TipoDeExtraccion" nillable="true" type="tns:TipoDeExtraccion" />
+  <xs:complexType name="RespuestaOcr">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DocumentoReconocido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Error" type="xs:int" />
+      <xs:element minOccurs="0" name="EstatusOcr" type="tns:Estatus" />
+      <xs:element minOccurs="0" name="Guid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InformacionExtraida" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaOcr" nillable="true" type="tns:RespuestaOcr" />
+  <xs:simpleType name="Estatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Error">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">-1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Recibido" />
+      <xs:enumeration value="DescargandoImagen" />
+      <xs:enumeration value="ImagenDescargada" />
+      <xs:enumeration value="Procesando" />
+      <xs:enumeration value="Procesada" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Estatus" nillable="true" type="tns:Estatus" />
+</xs:schema>

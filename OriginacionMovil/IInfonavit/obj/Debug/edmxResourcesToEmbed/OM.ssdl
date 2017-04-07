@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SistemasOriginacionMovilModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PrecalificacionOcur">
+    <Key>
+      <PropertyRef Name="idOcur" />
+    </Key>
+    <Property Name="idOcur" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idPrecalificacion" Type="bigint" Nullable="false" />
+    <Property Name="plazo" Type="int" />
+    <Property Name="mto_credo" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="pago" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="contarias" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="PrecalificacionRequest">
+    <Key>
+      <PropertyRef Name="idPrecalificacion" />
+    </Key>
+    <Property Name="idPrecalificacion" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idOrden" Type="bigint" Nullable="false" />
+    <Property Name="nss" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="proceso" Type="varchar" MaxLength="50" />
+    <Property Name="pen_alim" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PrecalificacionResponse">
+    <Key>
+      <PropertyRef Name="idPrecalificacion" />
+    </Key>
+    <Property Name="idPrecalificacion" Type="bigint" Nullable="false" />
+    <Property Name="codigo" Type="varchar" MaxLength="10" />
+    <Property Name="mensaje" Type="varchar" MaxLength="200" />
+    <Property Name="nrp_pun" Type="varchar" MaxLength="20" />
+    <Property Name="rfc" Type="varchar" MaxLength="20" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="pat" Type="varchar" MaxLength="50" />
+    <Property Name="mat" Type="varchar" MaxLength="50" />
+    <Property Name="sex" Type="int" />
+    <Property Name="eda" Type="int" />
+    <Property Name="curp" Type="varchar" MaxLength="30" />
+    <Property Name="edo_muni" Type="varchar" MaxLength="40" />
+    <Property Name="edo_muni_nom" Type="varchar" MaxLength="100" />
+    <Property Name="pun_cal" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="smd_df" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="sal_dia_mon" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="sal_dia_pun" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="est_sol" Type="varchar" MaxLength="10" />
+    <Property Name="sdo_s92" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="sdo_s97" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="sdo_sar" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="bim_fdo" Type="varchar" MaxLength="10" />
+    <Property Name="bim_sar" Type="varchar" MaxLength="10" />
+    <Property Name="ano_bim_top" Type="varchar" MaxLength="10" />
+    <Property Name="eda_sal_pto" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="sdo_sar_pto" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="bim_sar_pto" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="tot_pto" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="tot_ir" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="tas_int" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="num_plazos" Type="int" />
+    <Property Name="gastos" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <Association Name="FK_PrecalificacionOcur_PrecalificacionResponse">
+    <End Role="PrecalificacionResponse" Type="Self.PrecalificacionResponse" Multiplicity="1" />
+    <End Role="PrecalificacionOcur" Type="Self.PrecalificacionOcur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrecalificacionResponse">
+        <PropertyRef Name="idPrecalificacion" />
+      </Principal>
+      <Dependent Role="PrecalificacionOcur">
+        <PropertyRef Name="idPrecalificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrecalificacionResponse_PrecalificacionRequest">
+    <End Role="PrecalificacionRequest" Type="Self.PrecalificacionRequest" Multiplicity="1" />
+    <End Role="PrecalificacionResponse" Type="Self.PrecalificacionResponse" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PrecalificacionRequest">
+        <PropertyRef Name="idPrecalificacion" />
+      </Principal>
+      <Dependent Role="PrecalificacionResponse">
+        <PropertyRef Name="idPrecalificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spInsPrecalifReq" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="idOrden" Type="bigint" Mode="In" />
+    <Parameter Name="nss" Type="varchar" Mode="In" />
+    <Parameter Name="proceso" Type="varchar" Mode="In" />
+    <Parameter Name="pen_alim" Type="varchar" Mode="In" />
+    <Parameter Name="idInsert" Type="bigint" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="SistemasOriginacionMovilModelStoreContainer">
+    <EntitySet Name="PrecalificacionOcur" EntityType="Self.PrecalificacionOcur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrecalificacionRequest" EntityType="Self.PrecalificacionRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrecalificacionResponse" EntityType="Self.PrecalificacionResponse" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PrecalificacionOcur_PrecalificacionResponse" Association="Self.FK_PrecalificacionOcur_PrecalificacionResponse">
+      <End Role="PrecalificacionResponse" EntitySet="PrecalificacionResponse" />
+      <End Role="PrecalificacionOcur" EntitySet="PrecalificacionOcur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrecalificacionResponse_PrecalificacionRequest" Association="Self.FK_PrecalificacionResponse_PrecalificacionRequest">
+      <End Role="PrecalificacionRequest" EntitySet="PrecalificacionRequest" />
+      <End Role="PrecalificacionResponse" EntitySet="PrecalificacionResponse" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

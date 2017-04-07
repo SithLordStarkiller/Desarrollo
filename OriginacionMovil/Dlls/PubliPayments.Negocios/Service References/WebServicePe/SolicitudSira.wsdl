@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://tempuri.org/AbstractTypes" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SolicitudSira">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Solicitudes" type="tns:ArrayOfNuevaOrden" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfNuevaOrden">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="NuevaOrden" nillable="true" type="tns:NuevaOrden" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="NuevaOrden">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdOrden" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Parametros" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SolicitudSiraResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SolicitudSiraResult" type="tns:Respuesta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Respuesta">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ordenesError" type="tns:ArrayOfOrdenError" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfOrdenError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="OrdenError" nillable="true" type="tns:OrdenError" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrdenError">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="IdOrden" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Mensaje" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="cancelaSolicitud">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="IdOrdenes" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="cancelaSolicitudResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="cancelaSolicitudResult" type="tns:Respuesta" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Respuesta" nillable="true" type="tns:Respuesta" />
+    </s:schema>
+    <s:schema targetNamespace="http://tempuri.org/AbstractTypes">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <s:complexType name="StringArray">
+        <s:complexContent mixed="false">
+          <s:restriction base="soapenc:Array">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="String" type="s:string" />
+            </s:sequence>
+          </s:restriction>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SolicitudSiraSoapIn">
+    <wsdl:part name="parameters" element="tns:SolicitudSira" />
+  </wsdl:message>
+  <wsdl:message name="SolicitudSiraSoapOut">
+    <wsdl:part name="parameters" element="tns:SolicitudSiraResponse" />
+  </wsdl:message>
+  <wsdl:message name="cancelaSolicitudSoapIn">
+    <wsdl:part name="parameters" element="tns:cancelaSolicitud" />
+  </wsdl:message>
+  <wsdl:message name="cancelaSolicitudSoapOut">
+    <wsdl:part name="parameters" element="tns:cancelaSolicitudResponse" />
+  </wsdl:message>
+  <wsdl:message name="cancelaSolicitudHttpGetIn">
+    <wsdl:part name="Usuario" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="IdOrdenes" type="s1:StringArray" />
+  </wsdl:message>
+  <wsdl:message name="cancelaSolicitudHttpGetOut">
+    <wsdl:part name="Body" element="tns:Respuesta" />
+  </wsdl:message>
+  <wsdl:message name="cancelaSolicitudHttpPostIn">
+    <wsdl:part name="Usuario" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="IdOrdenes" type="s1:StringArray" />
+  </wsdl:message>
+  <wsdl:message name="cancelaSolicitudHttpPostOut">
+    <wsdl:part name="Body" element="tns:Respuesta" />
+  </wsdl:message>
+  <wsdl:portType name="Service1Soap">
+    <wsdl:operation name="SolicitudSira">
+      <wsdl:input message="tns:SolicitudSiraSoapIn" />
+      <wsdl:output message="tns:SolicitudSiraSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelaSolicitud">
+      <wsdl:input message="tns:cancelaSolicitudSoapIn" />
+      <wsdl:output message="tns:cancelaSolicitudSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpGet">
+    <wsdl:operation name="cancelaSolicitud">
+      <wsdl:input message="tns:cancelaSolicitudHttpGetIn" />
+      <wsdl:output message="tns:cancelaSolicitudHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="Service1HttpPost">
+    <wsdl:operation name="cancelaSolicitud">
+      <wsdl:input message="tns:cancelaSolicitudHttpPostIn" />
+      <wsdl:output message="tns:cancelaSolicitudHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Service1Soap" type="tns:Service1Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SolicitudSira">
+      <soap:operation soapAction="http://tempuri.org/SolicitudSira" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelaSolicitud">
+      <soap:operation soapAction="http://tempuri.org/cancelaSolicitud" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1Soap12" type="tns:Service1Soap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SolicitudSira">
+      <soap12:operation soapAction="http://tempuri.org/SolicitudSira" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelaSolicitud">
+      <soap12:operation soapAction="http://tempuri.org/cancelaSolicitud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpGet" type="tns:Service1HttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="cancelaSolicitud">
+      <http:operation location="/cancelaSolicitud" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="Service1HttpPost" type="tns:Service1HttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="cancelaSolicitud">
+      <http:operation location="/cancelaSolicitud" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="Service1Soap" binding="tns:Service1Soap">
+      <soap:address location="http://www.promoespacio.com.mx/wsSira/SolicitudSira.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1Soap12" binding="tns:Service1Soap12">
+      <soap12:address location="http://www.promoespacio.com.mx/wsSira/SolicitudSira.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpGet" binding="tns:Service1HttpGet">
+      <http:address location="http://www.promoespacio.com.mx/wsSira/SolicitudSira.asmx" />
+    </wsdl:port>
+    <wsdl:port name="Service1HttpPost" binding="tns:Service1HttpPost">
+      <http:address location="http://www.promoespacio.com.mx/wsSira/SolicitudSira.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

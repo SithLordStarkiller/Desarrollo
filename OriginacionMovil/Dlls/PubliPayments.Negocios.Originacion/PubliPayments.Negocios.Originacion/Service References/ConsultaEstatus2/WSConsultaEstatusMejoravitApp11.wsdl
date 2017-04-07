@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsp200607="http://www.w3.org/2006/07/ws-policy" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns0="http://tempuri.org/" xmlns:wsp200409="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap11="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:schema>
+      <xsd:import schemaLocation="WSConsultaEstatusMejoravitApp11.asmx.xsd1.xsd" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaEstatusSoapIn">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:ConsultaEstatus" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaEstatusSoapOut">
+    <wsdl:part xmlns:xsns="http://tempuri.org/" name="parameters" element="xsns:ConsultaEstatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WSConsultaEstatusMejoravitAppSoap">
+    <wsdl:operation name="ConsultaEstatus">
+      <wsdl:input name="ConsultaEstatusRequest" message="ns0:ConsultaEstatusSoapIn" />
+      <wsdl:output name="ConsultaEstatusResponse" message="ns0:ConsultaEstatusSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSConsultaEstatusMejoravitAppSoap" type="ns0:WSConsultaEstatusMejoravitAppSoap">
+    <soap11:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaEstatus">
+      <soap11:operation soapAction="http://tempuri.org/ConsultaEstatus" style="document" />
+      <wsdl:input name="ConsultaEstatusRequest">
+        <soap11:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ConsultaEstatusResponse">
+        <soap11:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WSConsultaEstatusMejoravitAppSoap12" type="ns0:WSConsultaEstatusMejoravitAppSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaEstatus">
+      <soap12:operation soapAction="http://tempuri.org/ConsultaEstatus" style="document" />
+      <wsdl:input name="ConsultaEstatusRequest">
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ConsultaEstatusResponse">
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WSConsultaEstatusMejoravitApp">
+    <wsdl:port name="WSConsultaEstatusMejoravitAppSoap" binding="ns0:WSConsultaEstatusMejoravitAppSoap">
+      <soap11:address location="https://127.0.0.1:143/UltMejoravit/webservices/WSConsultaEstatusMejoravitApp11.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WSConsultaEstatusMejoravitAppSoap12" binding="ns0:WSConsultaEstatusMejoravitAppSoap12">
+      <soap12:address location="https://127.0.0.1:143/UltMejoravit/webservices/WSConsultaEstatusMejoravitApp12.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
