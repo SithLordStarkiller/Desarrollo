@@ -1,0 +1,839 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Broxel_SociedadesCreditoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="Broxel_SociedadesCreditoEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="spInsConsultaBC">
+      <Parameter Name="APaterno" Mode="In" Type="String" />
+      <Parameter Name="AMaterno" Mode="In" Type="String" />
+      <Parameter Name="PNombre" Mode="In" Type="String" />
+      <Parameter Name="SNombre" Mode="In" Type="String" />
+      <Parameter Name="Rfc" Mode="In" Type="String" />
+      <Parameter Name="idConsultaBC" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="CaracteristicasBC" EntityType="Broxel_SociedadesCreditoModel.CaracteristicasBC" />
+    <EntitySet Name="catConsultasEmpresa" EntityType="Broxel_SociedadesCreditoModel.catConsultasEmpresa" />
+    <EntitySet Name="catEncabezadoXEmpresa" EntityType="Broxel_SociedadesCreditoModel.catEncabezadoXEmpresa" />
+    <EntitySet Name="ConsultaBC" EntityType="Broxel_SociedadesCreditoModel.ConsultaBC" />
+    <EntitySet Name="ConsultaEfectuadaRespBC" EntityType="Broxel_SociedadesCreditoModel.ConsultaEfectuadaRespBC" />
+    <EntitySet Name="CuentaBCResp" EntityType="Broxel_SociedadesCreditoModel.CuentaBCResp" />
+    <EntitySet Name="DireccionBCResp" EntityType="Broxel_SociedadesCreditoModel.DireccionBCResp" />
+    <EntitySet Name="EmpleoBCResp" EntityType="Broxel_SociedadesCreditoModel.EmpleoBCResp" />
+    <EntitySet Name="EncabezadoBCResp" EntityType="Broxel_SociedadesCreditoModel.EncabezadoBCResp" />
+    <EntitySet Name="ErrorRespBC" EntityType="Broxel_SociedadesCreditoModel.ErrorRespBC" />
+    <EntitySet Name="MensajeBCResp" EntityType="Broxel_SociedadesCreditoModel.MensajeBCResp" />
+    <EntitySet Name="PersonaRespBC" EntityType="Broxel_SociedadesCreditoModel.PersonaRespBC" />
+    <EntitySet Name="ScoreBuroCreditoRespBC" EntityType="Broxel_SociedadesCreditoModel.ScoreBuroCreditoRespBC" />
+    <AssociationSet Name="FK_CaracteristicasBC_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_CaracteristicasBC_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="CaracteristicasBC" EntitySet="CaracteristicasBC" />
+    </AssociationSet>
+    <AssociationSet Name="FK_catEncabezadoXEmpresa_catConsultasEmpresa" Association="Broxel_SociedadesCreditoModel.FK_catEncabezadoXEmpresa_catConsultasEmpresa">
+      <End Role="catConsultasEmpresa" EntitySet="catConsultasEmpresa" />
+      <End Role="catEncabezadoXEmpresa" EntitySet="catEncabezadoXEmpresa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MensajeBCResp_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_MensajeBCResp_ConsultaBC">
+      <End Role="ConsultaBC" EntitySet="ConsultaBC" />
+      <End Role="MensajeBCResp" EntitySet="MensajeBCResp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PersonaRespBC_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_PersonaRespBC_ConsultaBC">
+      <End Role="ConsultaBC" EntitySet="ConsultaBC" />
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ConsultaEfectuadaRespBC_ConsultaEfectuadaRespBC" Association="Broxel_SociedadesCreditoModel.FK_ConsultaEfectuadaRespBC_ConsultaEfectuadaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="ConsultaEfectuadaRespBC" EntitySet="ConsultaEfectuadaRespBC" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CuentaBCResp_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_CuentaBCResp_ConsultaBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="CuentaBCResp" EntitySet="CuentaBCResp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DireccionBCResp_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_DireccionBCResp_ConsultaBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="DireccionBCResp" EntitySet="DireccionBCResp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleoBCResp_EmpleoBCResp" Association="Broxel_SociedadesCreditoModel.FK_EmpleoBCResp_EmpleoBCResp">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="EmpleoBCResp" EntitySet="EmpleoBCResp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EncabezadoBCResp_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_EncabezadoBCResp_ConsultaBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="EncabezadoBCResp" EntitySet="EncabezadoBCResp" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ErrorRespBC_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_ErrorRespBC_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="ErrorRespBC" EntitySet="ErrorRespBC" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ScoreBuroCreditoRespBC_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_ScoreBuroCreditoRespBC_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="ScoreBuroCreditoRespBC" EntitySet="ScoreBuroCreditoRespBC" />
+    </AssociationSet>
+    <EntitySet Name="CPSepomex" EntityType="Broxel_SociedadesCreditoModel.CPSepomex" />
+    <EntitySet Name="DomicilioBCRequest" EntityType="Broxel_SociedadesCreditoModel.DomicilioBCRequest" />
+    <AssociationSet Name="FK_DomicilioBCRequest_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_DomicilioBCRequest_ConsultaBC">
+      <End Role="ConsultaBC" EntitySet="ConsultaBC" />
+      <End Role="DomicilioBCRequest" EntitySet="DomicilioBCRequest" />
+    </AssociationSet>
+    <FunctionImport Name="spInsPersonaRespBC">
+      <Parameter Name="pIdConsultaBC" Mode="In" Type="Int32" />
+      <Parameter Name="pReporteImpreso" Mode="In" Type="String" />
+      <Parameter Name="pIdPersonaRespBC" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="NombreBCResp" EntityType="Broxel_SociedadesCreditoModel.NombreBCResp" />
+    <AssociationSet Name="FK_NombreBCResp_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_NombreBCResp_ConsultaBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="NombreBCResp" EntitySet="NombreBCResp" />
+    </AssociationSet>
+    <FunctionImport Name="spInsErrorRespBC">
+      <Parameter Name="idPersonaRespBC" Mode="In" Type="Int32" />
+      <Parameter Name="idErrorRespBC" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="ResumenReporteResp" EntityType="Broxel_SociedadesCreditoModel.ResumenReporteResp" />
+    <AssociationSet Name="FK_ResumenReporteResp_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_ResumenReporteResp_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="ResumenReporteResp" EntitySet="ResumenReporteResp" />
+    </AssociationSet>
+    <EntitySet Name="DeclaracionesClienteRespBC" EntityType="Broxel_SociedadesCreditoModel.DeclaracionesClienteRespBC" />
+    <AssociationSet Name="FK_DeclaracionesClienteRespBC_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_DeclaracionesClienteRespBC_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="DeclaracionesClienteRespBC" EntitySet="DeclaracionesClienteRespBC" />
+    </AssociationSet>
+    <EntitySet Name="CatParametros" EntityType="Broxel_SociedadesCreditoModel.CatParametros" />
+    <EntitySet Name="LogErrorConsultaBC" EntityType="Broxel_SociedadesCreditoModel.LogErrorConsultaBC" />
+    <AssociationSet Name="FK_LogErrorConsultaBC_ConsultaBC" Association="Broxel_SociedadesCreditoModel.FK_LogErrorConsultaBC_ConsultaBC">
+      <End Role="ConsultaBC" EntitySet="ConsultaBC" />
+      <End Role="LogErrorConsultaBC" EntitySet="LogErrorConsultaBC" />
+    </AssociationSet>
+    <EntitySet Name="HawkAlertBDRespBC" EntityType="Broxel_SociedadesCreditoModel.HawkAlertBDRespBC" />
+    <EntitySet Name="HawkAlertConsultaRespBC" EntityType="Broxel_SociedadesCreditoModel.HawkAlertConsultaRespBC" />
+    <AssociationSet Name="FK_HawkAlertBDRespBC_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_HawkAlertBDRespBC_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="HawkAlertBDRespBC" EntitySet="HawkAlertBDRespBC" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HawkAlertConsultaRespBC_PersonaRespBC" Association="Broxel_SociedadesCreditoModel.FK_HawkAlertConsultaRespBC_PersonaRespBC">
+      <End Role="PersonaRespBC" EntitySet="PersonaRespBC" />
+      <End Role="HawkAlertConsultaRespBC" EntitySet="HawkAlertConsultaRespBC" />
+    </AssociationSet>
+    <EntitySet Name="ARBC" EntityType="Broxel_SociedadesCreditoModel.ARBC" />
+    <AssociationSet Name="FK_ARBC_ErrorRespBC" Association="Broxel_SociedadesCreditoModel.FK_ARBC_ErrorRespBC">
+      <End Role="ErrorRespBC" EntitySet="ErrorRespBC" />
+      <End Role="ARBC" EntitySet="ARBC" />
+    </AssociationSet>
+    <EntitySet Name="URBC" EntityType="Broxel_SociedadesCreditoModel.URBC" />
+    <AssociationSet Name="FK_URBC_ErrorRespBC" Association="Broxel_SociedadesCreditoModel.FK_URBC_ErrorRespBC">
+      <End Role="ErrorRespBC" EntitySet="ErrorRespBC" />
+      <End Role="URBC" EntitySet="URBC" />
+    </AssociationSet>
+    <FunctionImport Name="spCheckBuroHistoric" ReturnType="Collection(Broxel_SociedadesCreditoModel.spCheckBuroHistoric_Result)">
+      <Parameter Name="APaterno" Mode="In" Type="String" />
+      <Parameter Name="AMaterno" Mode="In" Type="String" />
+      <Parameter Name="PNombre" Mode="In" Type="String" />
+      <Parameter Name="SNombre" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+      <Parameter Name="Calle" Mode="In" Type="String" />
+      <Parameter Name="numeroExt" Mode="In" Type="String" />
+      <Parameter Name="numeroInt" Mode="In" Type="String" />
+      <Parameter Name="colonia" Mode="In" Type="String" />
+      <Parameter Name="delegacion" Mode="In" Type="String" />
+      <Parameter Name="estado" Mode="In" Type="String" />
+      <Parameter Name="cp" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="CaracteristicasBC">
+    <Key>
+      <PropertyRef Name="idCaracteristicasBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idCaracteristicasBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="plantilla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idCaracteristica" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="valor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="codigoError" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_CaracteristicasBC_PersonaRespBC" FromRole="CaracteristicasBC" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="catConsultasEmpresa">
+    <Key>
+      <PropertyRef Name="idEmpresa" />
+      <PropertyRef Name="idConsulta" />
+    </Key>
+    <Property Name="idEmpresa" Type="Int32" Nullable="false" />
+    <Property Name="idConsulta" Type="Int32" Nullable="false" />
+    <Property Name="Descripción" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="catEncabezadoXEmpresa" Relationship="Broxel_SociedadesCreditoModel.FK_catEncabezadoXEmpresa_catConsultasEmpresa" FromRole="catConsultasEmpresa" ToRole="catEncabezadoXEmpresa" />
+  </EntityType>
+  <EntityType Name="catEncabezadoXEmpresa">
+    <Key>
+      <PropertyRef Name="idEmpresa" />
+      <PropertyRef Name="idConsultaConfig" />
+    </Key>
+    <Property Name="idEmpresa" Type="Int32" Nullable="false" />
+    <Property Name="idConsultaConfig" Type="Int32" Nullable="false" />
+    <Property Name="version" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="numeroReferenciaOperador" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="productoRequerido" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="clavePais" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="identificadorBuro" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="claveUsuario" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipoConsulta" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="tipoContrato" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="claveUnidadMonetaria" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="importeContrato" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="idioma" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <Property Name="tipoSalida" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="catConsultasEmpresa" Relationship="Broxel_SociedadesCreditoModel.FK_catEncabezadoXEmpresa_catConsultasEmpresa" FromRole="catEncabezadoXEmpresa" ToRole="catConsultasEmpresa" />
+  </EntityType>
+  <EntityType Name="ConsultaBC">
+    <Key>
+      <PropertyRef Name="idConsultaBC" />
+    </Key>
+    <Property Name="idConsultaBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="APaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PNombre" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="SNombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Rfc" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="MensajeBCResp" Relationship="Broxel_SociedadesCreditoModel.FK_MensajeBCResp_ConsultaBC" FromRole="ConsultaBC" ToRole="MensajeBCResp" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_PersonaRespBC_ConsultaBC" FromRole="ConsultaBC" ToRole="PersonaRespBC" />
+    <NavigationProperty Name="DomicilioBCRequest" Relationship="Broxel_SociedadesCreditoModel.FK_DomicilioBCRequest_ConsultaBC" FromRole="ConsultaBC" ToRole="DomicilioBCRequest" />
+    <NavigationProperty Name="LogErrorConsultaBC" Relationship="Broxel_SociedadesCreditoModel.FK_LogErrorConsultaBC_ConsultaBC" FromRole="ConsultaBC" ToRole="LogErrorConsultaBC" />
+  </EntityType>
+  <EntityType Name="ConsultaEfectuadaRespBC">
+    <Key>
+      <PropertyRef Name="idConsultaEfectuadaRespBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idConsultaEfectuadaRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaConsulta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="identificacionBuro" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="claveOtorgante" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombreOtorgante" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefonoOtorgante" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="tipoContrato" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="claveUnidadMonetaria" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="importeContrato" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="indicadorTipoResponsabilidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="consumidorNuevo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="resultadoFinal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="identificadorOrigenConsulta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ConsultaEfectuadaRespBC_ConsultaEfectuadaRespBC" FromRole="ConsultaEfectuadaRespBC" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="CuentaBCResp">
+    <Key>
+      <PropertyRef Name="idCuentaResp" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idCuentaResp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaActualizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="registroImpugnado" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="claveOtorgante" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nombreOtorgante" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="numeroCuentaActual" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="indicadorTipoResponsabilidad" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tipoCuenta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tipoContrato" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="claveUnidadMonetaria" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="valorActivoValuacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="numeroPagos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="frecuenciaPagos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="montoPagar" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaAperturaCuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaUltimoPago" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaUltimaCompra" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaCierreCuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaReporte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modoReportarField" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ultimaFechaSaldoCero" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="garantia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="creditoMaximo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="saldoActual" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="limiteCredito" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="saldoVencido" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroPagosVencidos" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="formaPagoActual" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="historicoPagos" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="fechaRecienteHistoricoPagos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaMasAntiguaHistoricoPagos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="claveObservacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalPagosReportados" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalPagosCalificadosMOP2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalPagosCalificadosMOP3" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalPagosCalificadosMOP4" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalPagosCalificadosMOP5" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="importeSaldoMorosidadHistMasGrave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaHistoricaMorosidadMasGrave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mopHistoricoMorosidadMasGrave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaInicioReestructura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="montoUltimoPago" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_CuentaBCResp_ConsultaBC" FromRole="CuentaBCResp" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="DireccionBCResp">
+    <Key>
+      <PropertyRef Name="idDireccionResp" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idDireccionResp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="direccion1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="direccion2" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="coloniaPoblacion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="delegacionMunicipio" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="cp" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="fechaResidencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroTelefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="tipoDomicilio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="indicadorEspecialDomicilio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaReporteDireccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_DireccionBCResp_ConsultaBC" FromRole="DireccionBCResp" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="EmpleoBCResp">
+    <Key>
+      <PropertyRef Name="idEmpleo" />
+    </Key>
+    <Property Name="idPersonaBCResp" Type="Int32" Nullable="false" />
+    <Property Name="idEmpleo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreEmpresa" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="direccion1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="direccion2" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="coloniaPoblacion" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="delegacionMunicipio" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="ciudad" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cp" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="numeroTelefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="extension" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fax" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaContratacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="claveMoneda" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="salario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="baseSalarial" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaUltimoDiaEmpleo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaReportoEmpleo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaVerificacionEmpleo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="modoVerificacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_EmpleoBCResp_EmpleoBCResp" FromRole="EmpleoBCResp" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="EncabezadoBCResp">
+    <Key>
+      <PropertyRef Name="idEncabezadoResp" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idEncabezadoResp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="claveOtorgante" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="claveRetornoConsumidorPrincipal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="claveRetornoConsumidorSecundario" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroControlConsulta" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_EncabezadoBCResp_ConsultaBC" FromRole="EncabezadoBCResp" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="ErrorRespBC">
+    <Key>
+      <PropertyRef Name="idErrorRespBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idErrorRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ErrorRespBC_PersonaRespBC" FromRole="ErrorRespBC" ToRole="PersonaRespBC" />
+    <NavigationProperty Name="ARBC" Relationship="Broxel_SociedadesCreditoModel.FK_ARBC_ErrorRespBC" FromRole="ErrorRespBC" ToRole="ARBC" />
+    <NavigationProperty Name="URBC" Relationship="Broxel_SociedadesCreditoModel.FK_URBC_ErrorRespBC" FromRole="ErrorRespBC" ToRole="URBC" />
+  </EntityType>
+  <EntityType Name="MensajeBCResp">
+    <Key>
+      <PropertyRef Name="idMensajeResp" />
+    </Key>
+    <Property Name="idConsultaBC" Type="Int32" Nullable="false" />
+    <Property Name="idMensajeResp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipoMensaje" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="leyenda" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ConsultaBC" Relationship="Broxel_SociedadesCreditoModel.FK_MensajeBCResp_ConsultaBC" FromRole="MensajeBCResp" ToRole="ConsultaBC" />
+  </EntityType>
+  <EntityType Name="PersonaRespBC">
+    <Key>
+      <PropertyRef Name="idPersonaRespBC" />
+    </Key>
+    <Property Name="idConsultaBC" Type="Int32" Nullable="false" />
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="reporteImpreso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="CaracteristicasBC" Relationship="Broxel_SociedadesCreditoModel.FK_CaracteristicasBC_PersonaRespBC" FromRole="PersonaRespBC" ToRole="CaracteristicasBC" />
+    <NavigationProperty Name="ConsultaBC" Relationship="Broxel_SociedadesCreditoModel.FK_PersonaRespBC_ConsultaBC" FromRole="PersonaRespBC" ToRole="ConsultaBC" />
+    <NavigationProperty Name="ConsultaEfectuadaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ConsultaEfectuadaRespBC_ConsultaEfectuadaRespBC" FromRole="PersonaRespBC" ToRole="ConsultaEfectuadaRespBC" />
+    <NavigationProperty Name="CuentaBCResp" Relationship="Broxel_SociedadesCreditoModel.FK_CuentaBCResp_ConsultaBC" FromRole="PersonaRespBC" ToRole="CuentaBCResp" />
+    <NavigationProperty Name="DireccionBCResp" Relationship="Broxel_SociedadesCreditoModel.FK_DireccionBCResp_ConsultaBC" FromRole="PersonaRespBC" ToRole="DireccionBCResp" />
+    <NavigationProperty Name="EmpleoBCResp" Relationship="Broxel_SociedadesCreditoModel.FK_EmpleoBCResp_EmpleoBCResp" FromRole="PersonaRespBC" ToRole="EmpleoBCResp" />
+    <NavigationProperty Name="EncabezadoBCResp" Relationship="Broxel_SociedadesCreditoModel.FK_EncabezadoBCResp_ConsultaBC" FromRole="PersonaRespBC" ToRole="EncabezadoBCResp" />
+    <NavigationProperty Name="ErrorRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ErrorRespBC_PersonaRespBC" FromRole="PersonaRespBC" ToRole="ErrorRespBC" />
+    <NavigationProperty Name="ScoreBuroCreditoRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ScoreBuroCreditoRespBC_PersonaRespBC" FromRole="PersonaRespBC" ToRole="ScoreBuroCreditoRespBC" />
+    <NavigationProperty Name="NombreBCResp" Relationship="Broxel_SociedadesCreditoModel.FK_NombreBCResp_ConsultaBC" FromRole="PersonaRespBC" ToRole="NombreBCResp" />
+    <NavigationProperty Name="ResumenReporteResp" Relationship="Broxel_SociedadesCreditoModel.FK_ResumenReporteResp_PersonaRespBC" FromRole="PersonaRespBC" ToRole="ResumenReporteResp" />
+    <NavigationProperty Name="DeclaracionesClienteRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_DeclaracionesClienteRespBC_PersonaRespBC" FromRole="PersonaRespBC" ToRole="DeclaracionesClienteRespBC" />
+    <NavigationProperty Name="HawkAlertBDRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_HawkAlertBDRespBC_PersonaRespBC" FromRole="PersonaRespBC" ToRole="HawkAlertBDRespBC" />
+    <NavigationProperty Name="HawkAlertConsultaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_HawkAlertConsultaRespBC_PersonaRespBC" FromRole="PersonaRespBC" ToRole="HawkAlertConsultaRespBC" />
+  </EntityType>
+  <EntityType Name="ScoreBuroCreditoRespBC">
+    <Key>
+      <PropertyRef Name="idScoreBuroCreditoRespBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idScoreBuroCreditoRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombreScore" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigoScore" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="valorScore" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigoRazon" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="codigoError" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ScoreBuroCreditoRespBC_PersonaRespBC" FromRole="ScoreBuroCreditoRespBC" ToRole="PersonaRespBC" />
+  </EntityType>
+  <Association Name="FK_CaracteristicasBC_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.CaracteristicasBC" Role="CaracteristicasBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="CaracteristicasBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_catEncabezadoXEmpresa_catConsultasEmpresa">
+    <End Type="Broxel_SociedadesCreditoModel.catConsultasEmpresa" Role="catConsultasEmpresa" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.catEncabezadoXEmpresa" Role="catEncabezadoXEmpresa" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="catConsultasEmpresa">
+        <PropertyRef Name="idEmpresa" />
+        <PropertyRef Name="idConsulta" />
+      </Principal>
+      <Dependent Role="catEncabezadoXEmpresa">
+        <PropertyRef Name="idEmpresa" />
+        <PropertyRef Name="idConsultaConfig" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MensajeBCResp_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.ConsultaBC" Role="ConsultaBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.MensajeBCResp" Role="MensajeBCResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConsultaBC">
+        <PropertyRef Name="idConsultaBC" />
+      </Principal>
+      <Dependent Role="MensajeBCResp">
+        <PropertyRef Name="idConsultaBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PersonaRespBC_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.ConsultaBC" Role="ConsultaBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConsultaBC">
+        <PropertyRef Name="idConsultaBC" />
+      </Principal>
+      <Dependent Role="PersonaRespBC">
+        <PropertyRef Name="idConsultaBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ConsultaEfectuadaRespBC_ConsultaEfectuadaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.ConsultaEfectuadaRespBC" Role="ConsultaEfectuadaRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="ConsultaEfectuadaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CuentaBCResp_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.CuentaBCResp" Role="CuentaBCResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="CuentaBCResp">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DireccionBCResp_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.DireccionBCResp" Role="DireccionBCResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="DireccionBCResp">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleoBCResp_EmpleoBCResp">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.EmpleoBCResp" Role="EmpleoBCResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="EmpleoBCResp">
+        <PropertyRef Name="idPersonaBCResp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EncabezadoBCResp_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.EncabezadoBCResp" Role="EncabezadoBCResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="EncabezadoBCResp">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ErrorRespBC_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.ErrorRespBC" Role="ErrorRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="ErrorRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ScoreBuroCreditoRespBC_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.ScoreBuroCreditoRespBC" Role="ScoreBuroCreditoRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="ScoreBuroCreditoRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CPSepomex">
+    <Key>
+      <PropertyRef Name="idRecord" />
+    </Key>
+    <Property Name="idRecord" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="d_codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="d_asenta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="d_tipo_asenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="D_mnpio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="d_estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="d_ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="d_CP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="c_estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="c_oficina" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="c_CP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="c_tipo_asenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="c_mnpio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="id_asenta_cpcons" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="d_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="c_cve_ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cve_edo_bc" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="DomicilioBCRequest">
+    <Key>
+      <PropertyRef Name="idDomicilio" />
+    </Key>
+    <Property Name="idConsultaBC" Type="Int32" Nullable="false" />
+    <Property Name="idDomicilio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="calle" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="numeroExt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroInt" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="colonia" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="delegacion" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="estado" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+    <Property Name="cp" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="direccionBC1" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="direccionBC2" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="coloniaBC" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="delegacionBC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="estadoBC" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ConsultaBC" Relationship="Broxel_SociedadesCreditoModel.FK_DomicilioBCRequest_ConsultaBC" FromRole="DomicilioBCRequest" ToRole="ConsultaBC" />
+  </EntityType>
+  <Association Name="FK_DomicilioBCRequest_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.ConsultaBC" Role="ConsultaBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.DomicilioBCRequest" Role="DomicilioBCRequest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConsultaBC">
+        <PropertyRef Name="idConsultaBC" />
+      </Principal>
+      <Dependent Role="DomicilioBCRequest">
+        <PropertyRef Name="idConsultaBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="NombreBCResp">
+    <Key>
+      <PropertyRef Name="idNombreResp" />
+    </Key>
+    <Property Name="idPersonaBCResp" Type="Int32" Nullable="false" />
+    <Property Name="idNombreResp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="apellidoPaterno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="apellidoMaterno" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="apellidoAdicional" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="primerNombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="segundoNombre" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+    <Property Name="fechaNacimiento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rfc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="prefijo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sufijo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nacionalidad" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="residencia" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="estadoCivil" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="sexo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="numeroCedulaProfesional" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroRegistroElectoral" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="claveImpuestosOtroPais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="claveOtroPais" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroDependientes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="edadesDependientes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaDefuncion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaRecepciónInformacionDependientes" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_NombreBCResp_ConsultaBC" FromRole="NombreBCResp" ToRole="PersonaRespBC" />
+  </EntityType>
+  <Association Name="FK_NombreBCResp_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.NombreBCResp" Role="NombreBCResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="NombreBCResp">
+        <PropertyRef Name="idPersonaBCResp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ResumenReporteResp">
+    <Key>
+      <PropertyRef Name="idResumenReporteRespBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" />
+    <Property Name="idResumenReporteRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaIngreso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP7" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP6" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP5" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP4" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP3" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP2" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP0" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOPUR" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroCuentas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuentasPagosFijosHipotecas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuentasRevolventesAbiertas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuentasCerradas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuentasNegativasActuales" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuentasClaveHistoriaNegativa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="cuentasDisputa" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroSolicitudesUltimos6Meses" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="nuevaDireccionReportadaUltimos60Dias" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mensajesAlertaField" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="existenciaDeclaracionesConsumidor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tipoMoneda" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalCreditosMaximosRevolventes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalLimitesCreditoRevolventes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalSaldosActualesRevolventes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalSaldosVencidosRevolventes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="pctLimiteCreditoUtilizadoRevolventes" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalCreditosMaximosPagosFijos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalSaldosVencidosPagosFijos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="totalPagosPagosFijos" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP96" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP97" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="numeroMOP99" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaAperturaCuentaMasAntigua" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="fechaAperturaCuentaMasReciente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="totalSolicitudesReporte" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaSolicitudReporteMasReciente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroTotalCuentasDespachoCobranza" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="fechaSolicitudMasRecienteDespachoCobranza" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ResumenReporteResp_PersonaRespBC" FromRole="ResumenReporteResp" ToRole="PersonaRespBC" />
+  </EntityType>
+  <Association Name="FK_ResumenReporteResp_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="0..1" />
+    <End Type="Broxel_SociedadesCreditoModel.ResumenReporteResp" Role="ResumenReporteResp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="ResumenReporteResp">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DeclaracionesClienteRespBC">
+    <Key>
+      <PropertyRef Name="idDeclaracionesClienteRespBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idDeclaracionesClienteRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="declaracionConsumidor" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_DeclaracionesClienteRespBC_PersonaRespBC" FromRole="DeclaracionesClienteRespBC" ToRole="PersonaRespBC" />
+  </EntityType>
+  <Association Name="FK_DeclaracionesClienteRespBC_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.DeclaracionesClienteRespBC" Role="DeclaracionesClienteRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="DeclaracionesClienteRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CatParametros">
+    <Key>
+      <PropertyRef Name="idParametro" />
+    </Key>
+    <Property Name="idParametro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="valor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="LogErrorConsultaBC">
+    <Key>
+      <PropertyRef Name="idErrorEnvio" />
+    </Key>
+    <Property Name="idConsultaBC" Type="Int32" Nullable="false" />
+    <Property Name="idErrorEnvio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ConsultaBC" Relationship="Broxel_SociedadesCreditoModel.FK_LogErrorConsultaBC_ConsultaBC" FromRole="LogErrorConsultaBC" ToRole="ConsultaBC" />
+  </EntityType>
+  <Association Name="FK_LogErrorConsultaBC_ConsultaBC">
+    <End Type="Broxel_SociedadesCreditoModel.ConsultaBC" Role="ConsultaBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.LogErrorConsultaBC" Role="LogErrorConsultaBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ConsultaBC">
+        <PropertyRef Name="idConsultaBC" />
+      </Principal>
+      <Dependent Role="LogErrorConsultaBC">
+        <PropertyRef Name="idConsultaBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="HawkAlertBDRespBC">
+    <Key>
+      <PropertyRef Name="idHawAlertBDRespBC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idHawAlertBDRespBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaReporte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigoClave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tipoInstitucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mensaje" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_HawkAlertBDRespBC_PersonaRespBC" FromRole="HawkAlertBDRespBC" ToRole="PersonaRespBC" />
+  </EntityType>
+  <EntityType Name="HawkAlertConsultaRespBC">
+    <Key>
+      <PropertyRef Name="idHawkAlertConsultaRespC" />
+    </Key>
+    <Property Name="idPersonaRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idHawkAlertConsultaRespC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fechaReporte" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="codigoClave" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="tipoInstitucion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="mensaje" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PersonaRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_HawkAlertConsultaRespBC_PersonaRespBC" FromRole="HawkAlertConsultaRespBC" ToRole="PersonaRespBC" />
+  </EntityType>
+  <Association Name="FK_HawkAlertBDRespBC_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.HawkAlertBDRespBC" Role="HawkAlertBDRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="HawkAlertBDRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HawkAlertConsultaRespBC_PersonaRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.PersonaRespBC" Role="PersonaRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.HawkAlertConsultaRespBC" Role="HawkAlertConsultaRespBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Principal>
+      <Dependent Role="HawkAlertConsultaRespBC">
+        <PropertyRef Name="idPersonaRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ARBC">
+    <Key>
+      <PropertyRef Name="idAR" />
+    </Key>
+    <Property Name="idErrorRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idAR" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="referenciaOperador" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="sujetoNoAutenticado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="claveOPasswordErroneso" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="errorSistemaBC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="etiquetaSegmentoErronea" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="faltaCampoRequerido" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ErrorRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_ARBC_ErrorRespBC" FromRole="ARBC" ToRole="ErrorRespBC" />
+  </EntityType>
+  <Association Name="FK_ARBC_ErrorRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.ErrorRespBC" Role="ErrorRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.ARBC" Role="ARBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ErrorRespBC">
+        <PropertyRef Name="idErrorRespBC" />
+      </Principal>
+      <Dependent Role="ARBC">
+        <PropertyRef Name="idErrorRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="URBC">
+    <Key>
+      <PropertyRef Name="idURBC" />
+    </Key>
+    <Property Name="idErrorRespBC" Type="Int32" Nullable="false" />
+    <Property Name="idURBC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="numeroReferenciaOperador" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="solicitudClienteErronea" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="versionProporcionadaErronea" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="productoSolicitadoErroneo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="passwordOClaveErronea" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="segmentoRequerido" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ultimaInformacionValidaCliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="informacionErroneaParaConsulta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="valorErroneoCampoRelacionado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="errorSistemaBuroCredito" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="etiquetaSegmentoErronea" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ordenErroneoSegmento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numeroErroneoSegmentos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="faltaCampoRequerido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="errorReporteBloqueado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ErrorRespBC" Relationship="Broxel_SociedadesCreditoModel.FK_URBC_ErrorRespBC" FromRole="URBC" ToRole="ErrorRespBC" />
+  </EntityType>
+  <Association Name="FK_URBC_ErrorRespBC">
+    <End Type="Broxel_SociedadesCreditoModel.ErrorRespBC" Role="ErrorRespBC" Multiplicity="1" />
+    <End Type="Broxel_SociedadesCreditoModel.URBC" Role="URBC" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ErrorRespBC">
+        <PropertyRef Name="idErrorRespBC" />
+      </Principal>
+      <Dependent Role="URBC">
+        <PropertyRef Name="idErrorRespBC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="spCheckBuroHistoric_Result">
+    <Property Type="String" Name="numeroMOP96" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="numeroMOP97" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="numeroMOP99" Nullable="true" MaxLength="10" />
+  </ComplexType>
+</Schema>

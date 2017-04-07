@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/wsExpedientesDigitales" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/wsExpedientesDigitales" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ModeloRespuestaExpediente">
+    <xs:sequence>
+      <xs:element name="Crédito" nillable="true" type="xs:string" />
+      <xs:element name="Estatus" type="xs:int" />
+      <xs:element minOccurs="0" name="Motivo" nillable="true" type="xs:string" />
+      <xs:element name="Token" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioRespuesta" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ModeloRespuestaExpediente" nillable="true" type="tns:ModeloRespuestaExpediente" />
+  <xs:complexType name="ModeloGuardarExpediente">
+    <xs:sequence>
+      <xs:element name="Credito" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEntidadFinanciera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NomArchivo" nillable="true" type="xs:string" />
+      <xs:element name="NombreAcreditado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ruta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Token" nillable="true" type="xs:string" />
+      <xs:element name="Usuario" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ModeloGuardarExpediente" nillable="true" type="tns:ModeloGuardarExpediente" />
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" type="xs:int" />
+      <xs:element minOccurs="0" name="Detalle" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Response" nillable="true" type="tns:Response" />
+</xs:schema>

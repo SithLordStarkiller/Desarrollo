@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SistemasOriginacionMovilModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="FormiikConsultas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="jRequest" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaRequest" Type="DateTime" Nullable="false" Precision="7" />
+    <Property Name="jResponse" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="fechaResponse" Type="DateTime" Precision="7" />
+    <Property Name="externalId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="idWorkOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="idWorkFormType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="userName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="workOrderType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="action" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="SistemasOriginacionMovilEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="FormiikConsultas" EntityType="Self.FormiikConsultas" />
+    <FunctionImport Name="spInsFormikConsultas">
+      <Parameter Name="pjRequest" Mode="In" Type="String" />
+      <Parameter Name="pExternalId" Mode="In" Type="String" />
+      <Parameter Name="pIdWorkOrder" Mode="In" Type="String" />
+      <Parameter Name="pIdWorkFormType" Mode="In" Type="String" />
+      <Parameter Name="pUserName" Mode="In" Type="String" />
+      <Parameter Name="pWorkOrderType" Mode="In" Type="String" />
+      <Parameter Name="pAction" Mode="In" Type="String" />
+      <Parameter Name="idInsert" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <FunctionImport Name="spInsPrecalifReq">
+      <Parameter Name="idOrden" Mode="In" Type="Int64" />
+      <Parameter Name="nss" Mode="In" Type="String" />
+      <Parameter Name="pen_alim" Mode="In" Type="String" />
+      <Parameter Name="usuario" Mode="In" Type="String" />
+      <Parameter Name="nombre_oficina" Mode="In" Type="String" />
+      <Parameter Name="oficina" Mode="In" Type="String" />
+      <Parameter Name="idInsert" Mode="InOut" Type="Int64" />
+    </FunctionImport>
+    <EntitySet Name="CatOficinasInfonavit" EntityType="SistemasOriginacionMovilModel.CatOficinasInfonavit" />
+    <EntitySet Name="PrecalificacionOcur" EntityType="SistemasOriginacionMovilModel.PrecalificacionOcur" />
+    <EntitySet Name="PrecalificacionRequest" EntityType="SistemasOriginacionMovilModel.PrecalificacionRequest" />
+    <EntitySet Name="PrecalificacionResponse" EntityType="SistemasOriginacionMovilModel.PrecalificacionResponse" />
+    <AssociationSet Name="FK_PrecalificacionOcur_PrecalificacionResponse" Association="SistemasOriginacionMovilModel.FK_PrecalificacionOcur_PrecalificacionResponse">
+      <End Role="PrecalificacionResponse" EntitySet="PrecalificacionResponse" />
+      <End Role="PrecalificacionOcur" EntitySet="PrecalificacionOcur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PrecalificacionResponse_PrecalificacionRequest" Association="SistemasOriginacionMovilModel.FK_PrecalificacionResponse_PrecalificacionRequest">
+      <End Role="PrecalificacionRequest" EntitySet="PrecalificacionRequest" />
+      <End Role="PrecalificacionResponse" EntitySet="PrecalificacionResponse" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CatOficinasInfonavit">
+    <Key>
+      <PropertyRef Name="oficina" />
+    </Key>
+    <Property Name="oficina" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="NombreOficina" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PrecalificacionOcur">
+    <Key>
+      <PropertyRef Name="idPrecalificacion" />
+      <PropertyRef Name="plazo" />
+    </Key>
+    <Property Name="idPrecalificacion" Type="Int64" Nullable="false" />
+    <Property Name="plazo" Type="Int32" Nullable="false" />
+    <Property Name="monto_credito" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="pago_mensual" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="contarias" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="mano_obra" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="PrecalificacionResponse" Relationship="SistemasOriginacionMovilModel.FK_PrecalificacionOcur_PrecalificacionResponse" FromRole="PrecalificacionOcur" ToRole="PrecalificacionResponse" />
+  </EntityType>
+  <EntityType Name="PrecalificacionRequest">
+    <Key>
+      <PropertyRef Name="idPrecalificacion" />
+    </Key>
+    <Property Name="idPrecalificacion" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idOrden" Type="Int64" Nullable="false" />
+    <Property Name="nss" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="pen_alim" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="nombre_oficina" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="oficina" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PrecalificacionResponse" Relationship="SistemasOriginacionMovilModel.FK_PrecalificacionResponse_PrecalificacionRequest" FromRole="PrecalificacionRequest" ToRole="PrecalificacionResponse" />
+  </EntityType>
+  <EntityType Name="PrecalificacionResponse">
+    <Key>
+      <PropertyRef Name="idPrecalificacion" />
+    </Key>
+    <Property Name="idPrecalificacion" Type="Int64" Nullable="false" />
+    <Property Name="wsIdMensaje" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="wsMensaje" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="wsNumRegistroPatronal" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="wsRFC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="wsNombreTitular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="wsCurp" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="wsPuntMin" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="wsPuntTotal" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="wsNumPlazos" Type="Int32" />
+    <Property Name="wsGastosApertura" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="wsTasaInteres" Type="Decimal" Precision="10" Scale="2" />
+    <Property Name="WSNombreEmpresa" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="PrecalificacionOcur" Relationship="SistemasOriginacionMovilModel.FK_PrecalificacionOcur_PrecalificacionResponse" FromRole="PrecalificacionResponse" ToRole="PrecalificacionOcur" />
+    <NavigationProperty Name="PrecalificacionRequest" Relationship="SistemasOriginacionMovilModel.FK_PrecalificacionResponse_PrecalificacionRequest" FromRole="PrecalificacionResponse" ToRole="PrecalificacionRequest" />
+  </EntityType>
+  <Association Name="FK_PrecalificacionOcur_PrecalificacionResponse">
+    <End Type="SistemasOriginacionMovilModel.PrecalificacionResponse" Role="PrecalificacionResponse" Multiplicity="1" />
+    <End Type="SistemasOriginacionMovilModel.PrecalificacionOcur" Role="PrecalificacionOcur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PrecalificacionResponse">
+        <PropertyRef Name="idPrecalificacion" />
+      </Principal>
+      <Dependent Role="PrecalificacionOcur">
+        <PropertyRef Name="idPrecalificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PrecalificacionResponse_PrecalificacionRequest">
+    <End Type="SistemasOriginacionMovilModel.PrecalificacionRequest" Role="PrecalificacionRequest" Multiplicity="1" />
+    <End Type="SistemasOriginacionMovilModel.PrecalificacionResponse" Role="PrecalificacionResponse" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="PrecalificacionRequest">
+        <PropertyRef Name="idPrecalificacion" />
+      </Principal>
+      <Dependent Role="PrecalificacionResponse">
+        <PropertyRef Name="idPrecalificacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

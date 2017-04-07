@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7550FE9E-394B-43B1-ABF7-227ACD06B87C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PubliPayments.Negocios.Originacion</RootNamespace>
+    <AssemblyName>PubliPayments.Negocios.Originacion</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>7ec0232a</NuGetPackageImportStamp>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\servicio01800pagos\IInfonavit\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'PPMTest|AnyCPU'">
+    <OutputPath>bin\PPMTest\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Tareas\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=17.1.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\wsServices01800\bin\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ComponentModel.DataAnnotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.configuration">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.ServiceModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.DataSetExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.XML.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Documento.cs" />
+    <Compile Include="DocumentosOrden.cs" />
+    <Compile Include="EncriptaTarjeta.cs" />
+    <Compile Include="ConsultaEstatusMejoravit.cs" />
+    <Compile Include="ExpedienteServicios.cs" />
+    <Compile Include="GeneradorPDFDeHTML.cs" />
+    <Compile Include="GeneraPdf.cs" />
+    <Compile Include="LoginUsuario.cs" />
+    <Compile Include="OrdenesFallidas.cs" />
+    <Compile Include="Originacion.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegenerarDocumento.cs" />
+    <Compile Include="RegistrarUsuarioWeb.cs" />
+    <Compile Include="RegistroCreditos.cs" />
+    <Compile Include="Service References\ConsultaEstatus2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RegistraSolicitud2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SeguridadMejoravit2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServiciosOriginar.cs" />
+    <Compile Include="SolicitudesExternasLoggerNegocio.cs" />
+    <Compile Include="ValidacionesOCI.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ConsultaEstatus2\PubliPayments.Negocios.Originacion.ConsultaEstatus2.ConsultaEstatusResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ConsultaEstatus2\PubliPayments.Negocios.Originacion.ConsultaEstatus2.WsResConsultaEstatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ConsultaEstatus2\WSConsultaEstatusMejoravitApp11.wsdl" />
+    <None Include="Service References\ConsultaEstatus2\WSConsultaEstatusMejoravitApp11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RegistraSolicitud2\PubliPayments.Negocios.Originacion.RegistraSolicitud2.RegistraSolicitudResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RegistraSolicitud2\PubliPayments.Negocios.Originacion.RegistraSolicitud2.RegistraSolicitudTarjetaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RegistraSolicitud2\PubliPayments.Negocios.Originacion.RegistraSolicitud2.WsRespuestaRegSol.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RegistraSolicitud2\PubliPayments.Negocios.Originacion.RegistraSolicitud2.WsRespuestaRegTarjeta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\RegistraSolicitud2\WSRegistraSolicitudCreditoMejoravitApp11.wsdl" />
+    <None Include="Service References\RegistraSolicitud2\WSRegistraSolicitudCreditoMejoravitApp11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\SeguridadMejoravit2\PubliPayments.Negocios.Originacion.SeguridadMejoravit2.CambiaContrasenaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SeguridadMejoravit2\PubliPayments.Negocios.Originacion.SeguridadMejoravit2.ValidaUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SeguridadMejoravit2\PubliPayments.Negocios.Originacion.SeguridadMejoravit2.WsRespuestaAPP.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SeguridadMejoravit2\WSSeguridadMejoravitApp11.wsdl" />
+    <None Include="Service References\SeguridadMejoravit2\WSSeguridadMejoravitApp11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ConsultaEstatus2\" />
+    <WCFMetadataStorage Include="Service References\RegistraSolicitud2\" />
+    <WCFMetadataStorage Include="Service References\SeguridadMejoravit2\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Web\OriginacionWeb\OriginacionWeb.Models\OriginacionMovil.Models\OriginacionMovil.Models.csproj">
+      <Project>{51438476-F534-478F-B514-FAA342E8C38F}</Project>
+      <Name>OriginacionMovil.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Entidades.Originacion\PubliPayments.Entidades.Originacion\PubliPayments.Entidades.Originacion.csproj">
+      <Project>{3033dedb-484c-4be5-9818-a913f4a01027}</Project>
+      <Name>PubliPayments.Entidades.Originacion</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Entidades\PubliPayments.Entidades.csproj">
+      <Project>{0631a9f7-6889-42fe-a703-527100e6368c}</Project>
+      <Name>PubliPayments.Entidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Negocios\PubliPayments.Negocios.csproj">
+      <Project>{b8d6cc17-ba3f-49bc-967e-f0995b6fff7b}</Project>
+      <Name>PubliPayments.Negocios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Negocios\PubliPayments.Negocios.csproj">
+      <Project>{b8d6cc17-ba3f-49bc-967e-f0995b6fff7b}</Project>
+      <Name>PubliPayments.Negocios</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PubliPayments.Utiles\PubliPayments.Utiles.csproj">
+      <Project>{549FAED2-8D20-4116-BAED-AAD8FB2E3D7C}</Project>
+      <Name>PubliPayments.Utiles</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeguridadMejoravit2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeguridadMejoravit2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SeguridadMejoravit2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ConsultaEstatus2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ConsultaEstatus2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ConsultaEstatus2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RegistraSolicitud2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RegistraSolicitud2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RegistraSolicitud2\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\..\..\Portal\packages\Select.HtmlToPdf.2.3.0.0\build\Select.HtmlToPdf.targets" Condition="Exists('..\..\..\Portal\packages\Select.HtmlToPdf.2.3.0.0\build\Select.HtmlToPdf.targets')" />
+  <Import Project="..\..\..\packages\Select.HtmlToPdf.2.4.0.1\build\Select.HtmlToPdf.targets" Condition="Exists('..\..\..\packages\Select.HtmlToPdf.2.4.0.1\build\Select.HtmlToPdf.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

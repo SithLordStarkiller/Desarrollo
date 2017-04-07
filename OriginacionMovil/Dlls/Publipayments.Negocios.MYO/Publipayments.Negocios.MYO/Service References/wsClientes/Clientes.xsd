@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.75.23:8889/wsClientes/Clientes.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Clientes.DAL" />
+  <xs:import schemaLocation="http://192.168.75.23:8889/wsClientes/Clientes.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Clientes" />
+  <xs:element name="GetData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="value" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdCliente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetClienteResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSAFClientInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdCliente" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSAFClientInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetSAFClientInfoResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaOFAC">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pNombre" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pApPaterno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pApMaterno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCalleNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCiudad" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pPais" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaOFACResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ConsultaOFACResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AvisoListaNegra">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pNombre" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pApPaterno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pApMaterno" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCalleNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCiudad" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pPais" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AvisoListaNegraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AvisoListaNegraResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFondeadoresData">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFondeadoresDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetFondeadoresDataResult" nillable="true" type="q1:ArrayOfCliente" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="pAllClientData" nillable="true" type="q2:AllClientData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsClienteResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsFondeador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="pAllClientData" nillable="true" type="q3:AllClientData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsFondeadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsFondeadorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="pAllClientData" nillable="true" type="q4:AllClientData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModClienteResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModFondeador">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="pAllClientData" nillable="true" type="q5:AllClientData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ModFondeadorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ModFondeadorResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategCliente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategClienteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCategClienteResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategClientes">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCategClientesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetCategClientesResult" nillable="true" type="q6:ArrayOfCAT_CATEG_CLIENTES" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatActividadEconomica">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatActividadEconomicaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCatActividadEconomicaResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatActividadesEconomicas">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatActividadesEconomicasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetCatActividadesEconomicasResult" nillable="true" type="q7:ArrayOfCAT_ACTIVIDAD_ECONOMICA" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatProfesion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatProfesionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCatProfesionResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatProfesiones">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatProfesionesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetCatProfesionesResult" nillable="true" type="q8:ArrayOfCAT_PROFESIONES" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatSector">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatSectorResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCatSectorResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatSectores">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatSectoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetCatSectoresResult" nillable="true" type="q9:ArrayOfCAT_SECTOR_ECONOMICO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetColonias">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetColoniasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetColoniasResult" nillable="true" type="q10:ArrayOfvw_ObtenerDistritos" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatTiposID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatTiposIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCatTiposIDResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTiposIdent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pIdEmpresa" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTiposIdentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetTiposIdentResult" nillable="true" type="q11:ArrayOfCAT_TIPOS_ID" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatClaseSociedad">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatClaseSociedadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCatClaseSociedadResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatClasesSociedad">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCatClasesSociedadResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Clientes.DAL" minOccurs="0" name="GetCatClasesSociedadResult" nillable="true" type="q12:ArrayOfCAT_CLASES_SOCIEDAD" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaEntidadCrediticia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoCliente" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoSolicitud" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaEntidadCrediticiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Clientes" minOccurs="0" name="ConsultaEntidadCrediticiaResult" nillable="true" type="q13:CcResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

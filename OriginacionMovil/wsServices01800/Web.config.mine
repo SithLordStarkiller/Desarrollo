@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 --></configSections>
+  <system.web>
+    <customErrors mode="Off" />
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+  <system.webServer>
+    <httpProtocol>
+      <customHeaders>
+        <add name="Access-Control-Allow-Headers" value="Authorization" />
+        <add name="Access-Control-Allow-Methods" value="*" />
+        <add name="Access-Control-Allow-Origin" value="*" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+  <appSettings>
+    <add key="Aplicacion" value="OriginacionMovil" />
+    <add key="Produccion" value="false" />
+    <add key="ProducBuro" value="false" />    
+    <add key="DirectorioLog" value="C:\\FormiikOrdersOriginacion\\" />
+    <add key="pdfTemplates" value="D:\\inetpub\\wwwroot\\servicios.01800pagos.com\\Plantillas\\" />
+    <!--<add key="pdfTemplates" value="C:\\inetpub\\temp\\DocsSolicitudCredito\\"/>-->
+    <!--<add key="CWDirectorioImagenesOriginacion" value="C:\\Reportes\\"/>
+    <add key="CWDirectorioDocumentosOriginacionDescarga" value="C:\\Reportes\\"/>-->
+    <add key="CWDirectorioImagenesOriginacion" value="D:\\inetpub\\wwwroot\\imagenes.01800pagos.com\\" />
+    <add key="DirectorioDocsSolicitudCredito" value="D:\\inetpub\\wwwroot\\imagenes.01800pagos.com\\SolicitudesCreditoFront\\" />
+    <!--<add key="DirectorioDocsSolicitudCredito" value="C:\Users\giovanni.crescencio\Documents\tmp\docs01800\DocsSolicitudCredito\\"/>-->
+    <add key="urlDocsSolCred" value="https://imagenes.01800pagos.com/SolicitudesCreditoFront" />
+    <add key="PasarOriginacion" value="false" />
+
+
+    <add key="CWDirectorioImagenesOriginacionFront" value="D:\\inetpub\\wwwroot\\imagenes.01800pagos.com\\FrontDocs\\" />
+    <add key="CWDirectorioDocumentosOriginacionDescarga" value="http:\\\\imagenes.01800pagos.com\\" />
+
+
+
+    <add key="PermitirLogin" value="false" />
+    <add key="TarjetaValida" value="false" />
+    <add key="ReiniciarCurp" value="false" />
+
+    <!--Inicia Sección para generación de documentos PDF a partir de HTML-->
+    <!--Este directorio se usara para ubicar en el HTML los recursos como imágenes-->
+    <add key="DirectorioPlantillasHTML" value="D://inetpub//wwwroot//servicios.01800pagos.com//PlantillasHTML//" />
+
+
+    <add key="ConsultaBuroHTMLTemplate" value="D:\\inetpub\\wwwroot\\servicios.01800pagos.com\\PlantillasHTML\\ConsultaABuroMejoravit.html" />
+    <add key="CartaSesionIrrevocableHTMLTemplate" value="D:\\inetpub\\wwwroot\\servicios.01800pagos.com\\PlantillasHTML\\Carta de Cesión Irrevocable Mejoravit.html" />
+    <add key="DocumentoPreventivoHTMLTemplate" value="D:\\inetpub\\wwwroot\\servicios.01800pagos.com\\PlantillasHTML\\documentoPreventivo.html" />
+    <add key="ReciboTarjetaHTMLTemplate" value="D:\\inetpub\\wwwroot\\servicios.01800pagos.com\\PlantillasHTML\\Acuse de recibo.html" />
+
+    <add key="CWDirectorioBitacoraImagenesOriginacion" value="D:\\inetpub\\wwwroot\\imagenes.01800pagos.com\\FrontDocs\\" />
+
+    <!--Termina Sección para generación de documentos PDF a partir de HTML-->
+  </appSettings>
+  <system.serviceModel>
+    <bindings>
+      <basicHttpBinding>
+        <binding closeTimeout="00:05:00" openTimeout="00:05:00" receiveTimeout="00:10:00" sendTimeout="00:05:00" maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647">
+          <readerQuotas maxDepth="2147483647" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+        </binding>
+        <binding name="WSConsultaPortBinding" />
+        <binding name="SOCLDR12HTTPSoapBinding">
+          <security mode="Transport">
+            <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+          </security>
+        </binding>
+        <binding name="WSPrecalificacionMejoravitAppSoap">
+          <security mode="Transport">
+            <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+          </security>
+        </binding>
+        <binding name="WSPrecalificacionMejoravitAppSoap1" />
+        <binding name="WSSeguridadMejoravitAppSoap">
+          <security mode="Transport" />
+        </binding>
+        <binding name="WSSeguridadMejoravitAppSoap1" />
+        <binding name="WSConsultaEstatusMejoravitAppSoap">
+          <security mode="Transport" />
+        </binding>
+        <binding name="WSConsultaEstatusMejoravitAppSoap1" />
+        <binding name="WSRegistraSolicitudCreditoMejoravitAppSoap">
+          <security mode="Transport">
+            <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+          </security>
+        </binding>
+        <binding name="WSRegistraSolicitudCreditoMejoravitAppSoap1">
+          <security mode="Transport">
+            <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+          </security>
+        </binding>
+        <binding name="BasicHttpBinding_IService1">
+          <security mode="Transport">
+            <transport clientCredentialType="None" proxyCredentialType="None" realm="" />
+          </security>
+        </binding>
+        
+      </basicHttpBinding>
+      <customBinding>
+        <binding name="WSSeguridadMejoravitAppSoap12">
+          <textMessageEncoding messageVersion="Soap12" />
+          <httpsTransport />
+        </binding>
+        
+      </customBinding>
+      
+      <webHttpBinding>
+        <binding maxBufferSize="2147483647" maxReceivedMessageSize="2147483647" />
+      </webHttpBinding>
+    </bindings>
+    <client>
+      <!-- QA -->
+      <endpoint address="https://201.134.132.139:7443/WebService/cremtcwsprod" binding="basicHttpBinding" bindingConfiguration="SOCLDR12HTTPSoapBinding" contract="Infonavit.SOCLDR12Port" name="SOCLDR12Port" />
+      <endpoint address="http://128.9.55.14:9080/WSConsultaBCC/WSConsultaService" binding="basicHttpBinding" bindingConfiguration="WSConsultaPortBinding" contract="buroCredito.WSConsultaDelegate" name="WSConsultaPort" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/QA11/WSPrecalificacionMejoravitApp.asmx" binding="basicHttpBinding" bindingConfiguration="WSPrecalificacionMejoravitAppSoap" contract="InfonavitPrecalifica2.WSPrecalificacionMejoravitAppSoap" name="WSPrecalificacionMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/QA11/WSPrecalificacionMejoravitApp.asmx" binding="basicHttpBinding" bindingConfiguration="WSPrecalificacionMejoravitAppSoap" contract="PrecalificacionMejoravit2.WSPrecalificacionMejoravitAppSoap" name="WSPrecalificacionMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/QA11/WSSeguridadMejoravitApp.asmx" binding="basicHttpBinding" bindingConfiguration="WSSeguridadMejoravitAppSoap" contract="SeguridadMejoravitApp.WSSeguridadMejoravitAppSoap" name="WSSeguridadMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/WSConsultaEstatusMejoravitApp11.asmx" binding="basicHttpBinding" bindingConfiguration="WSConsultaEstatusMejoravitAppSoap" contract="ConsultaEstatusMejoravitApp11.WSConsultaEstatusMejoravitAppSoap" name="WSConsultaEstatusMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/WSConsultaEstatusMejoravitApp11.asmx" binding="basicHttpBinding" bindingConfiguration="WSConsultaEstatusMejoravitAppSoap" contract="ConsultaEstatus2.WSConsultaEstatusMejoravitAppSoap" name="WSConsultaEstatusMejoravitAppSoap" />
+     <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/QA/WSRegistraSolicitudCreditoMejoravitApp11" binding="basicHttpBinding" bindingConfiguration="WSRegistraSolicitudCreditoMejoravitAppSoap" contract="RegistraSolicitud2.WSRegistraSolicitudCreditoMejoravitAppSoap" name="WSRegistraSolicitudCreditoMejoravitAppSoap" />
+     <endpoint address="https://201.134.132.139:7443/UltMejoravit/webservices/QA/WSSeguridadMejoravitApp11" binding="basicHttpBinding" bindingConfiguration="WSSeguridadMejoravitAppSoap" contract="SeguridadMejoravit2.WSSeguridadMejoravitAppSoap" name="WSSeguridadMejoravitAppSoap" />      
+      <!-- Produccion -->
+      <!--<endpoint address="https://201.134.132.139:7443/WebService/cremtcwsprod" binding="basicHttpBinding" bindingConfiguration="SOCLDR12HTTPSoapBinding" contract="Infonavit.SOCLDR12Port" name="SOCLDR12Port" />
+      <endpoint address="http://128.9.55.14:9080/WSConsultaBCC/WSConsultaService" binding="basicHttpBinding" bindingConfiguration="WSConsultaPortBinding" contract="buroCredito.WSConsultaDelegate" name="WSConsultaPort" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSPrecalificacionMejoravitApp" binding="basicHttpBinding" bindingConfiguration="WSPrecalificacionMejoravitAppSoap" contract="InfonavitPrecalifica2.WSPrecalificacionMejoravitAppSoap" name="WSPrecalificacionMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSPrecalificacionMejoravitApp" binding="basicHttpBinding" bindingConfiguration="WSPrecalificacionMejoravitAppSoap" contract="PrecalificacionMejoravit2.WSPrecalificacionMejoravitAppSoap" name="WSPrecalificacionMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSSeguridadMejoravitApp?wsdl" binding="basicHttpBinding" bindingConfiguration="WSSeguridadMejoravitAppSoap" contract="SeguridadMejoravitApp.WSSeguridadMejoravitAppSoap" name="WSSeguridadMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSConsultaEstatusMejoravitApp" binding="basicHttpBinding" bindingConfiguration="WSConsultaEstatusMejoravitAppSoap" contract="ConsultaEstatusMejoravitApp11.WSConsultaEstatusMejoravitAppSoap" name="WSConsultaEstatusMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSConsultaEstatusMejoravitApp" binding="basicHttpBinding" bindingConfiguration="WSConsultaEstatusMejoravitAppSoap" contract="ConsultaEstatus2.WSConsultaEstatusMejoravitAppSoap" name="WSConsultaEstatusMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSRegistraSolicitudCreditoMejoravitApp" binding="basicHttpBinding" bindingConfiguration="WSRegistraSolicitudCreditoMejoravitAppSoap" contract="RegistraSolicitud2.WSRegistraSolicitudCreditoMejoravitAppSoap" name="WSRegistraSolicitudCreditoMejoravitAppSoap" />
+      <endpoint address="https://201.134.132.139:7443/UltMejoravit/WSSeguridadMejoravitApp" binding="basicHttpBinding" bindingConfiguration="WSSeguridadMejoravitAppSoap" contract="SeguridadMejoravit2.WSSeguridadMejoravitAppSoap" name="WSSeguridadMejoravitAppSoap" />-->
+    </client>
+    <behaviors>
+      <endpointBehaviors>
+        <behavior name="webHttp">
+          <webHttp />
+        </behavior>
+      </endpointBehaviors>
+      <serviceBehaviors>
+        <behavior name="">
+          <serviceMetadata httpGetEnabled="true" httpsGetEnabled="true" />
+          <serviceDebug includeExceptionDetailInFaults="false" />
+        </behavior>
+      </serviceBehaviors>
+    </behaviors>
+    <services>
+      <service name="wsServices01800.services">
+        <endpoint address="" binding="webHttpBinding" contract="wsServices01800.Iservices" behaviorConfiguration="webHttp" />
+      </service>
+    </services>
+    <serviceHostingEnvironment multipleSiteBindingsEnabled="true" />
+  </system.serviceModel>
+  <system.diagnostics>
+    <trace autoflush="true">
+      <listeners>
+        <add name="textListener" type="System.Diagnostics.TextWriterTraceListener" initializeData="C:\Transfer\catarsys\wsFormiik-OriginacionMovil.log" />
+        <remove name="Default" />
+      </listeners>
+    </trace>
+  </system.diagnostics>
+  <connectionStrings>
+    <add name="OriginacionMovilEntities" connectionString="metadata=res://*/OriginacionMovil.csdl|res://*/OriginacionMovil.ssdl|res://*/OriginacionMovil.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=192.168.80.187;initial catalog=SistemasOriginacionMovilTest;user id=devuser;password=Z341nao27L;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="SistemasOriginacionMovilEntities" connectionString="metadata=res://*/OM.csdl|res://*/OM.ssdl|res://*/OM.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=192.168.80.187;initial catalog=SistemasOriginacionMovilTest;persist security info=True;user id=devuser;password=Z341nao27L;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="SqlDefault" connectionString="Data Source=192.168.80.187;Initial Catalog=SistemasOriginacionMovilTest;Persist Security Info=True;User ID=devuser;Password=Z341nao27L" providerName="System.Data.SqlClient" />
+    <add name="SistemasCobranzaEntities" connectionString="metadata=res://*/SistemasCobranza_Entities.csdl|res://*/SistemasCobranza_Entities.ssdl|res://*/SistemasCobranza_Entities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=192.168.80.187;initial catalog=SistemasOriginacionMovilTest;persist security info=True;user id=DevUser;password=Z341nao27L;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="Broxel_SociedadesCreditoEntities" connectionString="metadata=res://*/SociedadesCredito.csdl|res://*/SociedadesCredito.ssdl|res://*/SociedadesCredito.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=192.168.80.187;initial catalog=Broxel_SociedadesCredito;persist security info=True;user id=devuser;password=Z341nao27L;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    
+  </connectionStrings>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.SqlConnectionFactory, EntityFramework" />
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" publicKeyToken="30ad4fe6b2a6aeed" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+</configuration>

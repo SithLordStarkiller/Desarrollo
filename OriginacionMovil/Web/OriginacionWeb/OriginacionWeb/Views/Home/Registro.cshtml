@@ -1,0 +1,352 @@
+﻿@model OriginacionWeb.ViewModel.VmFormulario
+@{
+    ViewBag.Title = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var enumEstados = (IEnumerable<SelectListItem>)ViewBag.EnumEstados;
+    var enumTrabajos = (IEnumerable<SelectListItem>)ViewBag.EnumTrabajos;
+    var enumLugares = (IEnumerable<SelectListItem>)ViewBag.EnumLugares;
+
+}
+<br />
+<br />
+<br />
+<div>
+    <div class="col-md-6">
+        <div @*class="col-lg-offset-2 col-md-10" style="margin-top:20%;"*@>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Registrate</div>
+                    @*<div style="float: right; font-size: 80%; position: relative; top: -10px"><a href="#">Reenviar Clave</a></div>*@
+                </div>
+                <div style="padding-top: 30px" class="panel-body">
+                    <div id="divEstados">
+                        <label>
+                            Donde vives
+                        </label>
+                        @Html.DropDownList("sliEstado", enumEstados, new { @class = "form-control" })
+                        <br />
+                    </div>
+
+                    <div id="divTrabajos">
+                        <label>
+                            Donde trabajas
+                        </label>
+                        @Html.DropDownList("sliTrabajo", enumTrabajos, new { @class = "form-control" })
+                        <br />
+                    </div>
+
+                    <div id="divLugares">
+                        <label>
+                            Lugar de entrega de documentos
+                        </label>
+                        @Html.DropDownList("sliLugares", enumLugares, new { @class = "form-control" })
+                        <br />
+                    </div>
+
+                    <div id="divNumero">
+                        <label>
+                            Tu número de teléfono
+                        </label>
+                        @Html.TextBox("txtTelefonoReg", "", new { @class = "form-control" })
+                        <label id="idMensage" class=" label label-warning hidden"> </label>
+                        <br />
+                        <div class="col-md-12">
+                            <button id="btnEnviar" value="Generar Codigo" class="btn btn-success btn-sm pull-right" onclick="EnviaMensajeSms();">Enviar</button>
+                        </div>
+                        <br />
+                    </div>
+
+                    <div id="divClave">
+                        <label>
+                            Se te envió una clave por SMS al número de teléfono que ingresaste, por favor escríbela a continuación
+                        </label>
+                        @Html.TextBox("txtClaveReg", "", new { @class = "form-control" })
+                        <label id="idMensageClave" class=" label label-warning hidden"> </label>
+                        <br />
+                    </div>
+                    <div id="divBtnPrincipal" class="col-md-12">
+                        <br />
+                        <button id="btnReenviar" value="" class="btn btn-warning btn-sm pull-left hidden" onclick="ReenviaClaveSms();">Si no resibiste tu clave, has click aquí para reenviarla  <span id="spmReenviar" class=" badge label-warning"> </span></button>
+                        <button id="btnContinuar" value="" class="btn btn-success btn-sm pull-right" onclick="Continuar();">Continuar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="col-lg-offset-2 col-md-10" style="margin-top:20%;">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">Login</div>
+                    <div style="float: right; font-size: 80%; position: relative; top: -10px"><a href="#">Reenviar Clave</a></div>
+                </div>
+
+                <div style="padding-top: 30px" class="panel-body">
+
+                    <div style="display: none" id="login-alert" class="alert alert-danger col-sm-4"></div>
+
+
+                    <div style="margin-bottom: 25px; top: 0; left: 0;" class="input-group col-md-8 col-md-offset-2">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        @Html.TextBox("txtTelefonoLogin", "", new { @class = "form-control col-lg-8", @placeholder = "Ingresa tu teléfono" })
+
+                    </div>
+
+                    <div style="margin-bottom: 25px" class="input-group col-md-8 col-md-offset-2">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        @Html.Password("txtClaveLogin", "", new { @class = "form-control col-lg-8", @placeholder = "Ingresa tu clave" })
+                    </div>
+
+                    <div class="col-md-12 form-group">
+                        <div class="col-sm-12">
+                            <button type="button" value="" class="btn btn-success btn-sm pull-right col-lg-offset-4 col-md-4" onclick="Login();">Log In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#sliTrabajo").attr('disabled', 'disabled');
+        $("#sliLugares").attr('disabled', 'disabled');
+        $("#txtTelefonoReg").attr('disabled', 'disabled');
+        $("#divClave").attr('disabled', 'disabled');
+
+        $("#btnContinuar").attr('disabled', 'disabled');
+
+        $("#divClave").addClass("hidden");
+
+        $("#btnEnviar").addClass("hidden");
+        $("#btnContinuar").addClass("hidden");
+
+        $("#btnReenviar").attr('disabled', 'disabled');
+        $("#btnReenviar").addClass('hidden');
+    });
+
+    $("#sliEstado").change(function () {
+
+        $("#sliTrabajo").attr('disabled', 'disabled');
+        $("#sliLugares").attr('disabled', 'disabled');
+        $("#txtTelefonoReg").attr('disabled', 'disabled');
+        $("#divClave").attr('disabled', 'disabled');
+
+        var padre = $("#sliEstado").val();
+
+        $("#divBtnVer").hide();
+        $("#divBtnReasignar").hide();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("sliEmpresas", "Home")' + '?idPadre=' + padre,
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                $("#sliTrabajo").html(data);
+                $("#sliTrabajo").show();
+                $("#sliTrabajo").attr('disabled', false);
+                $("#sliLugares").attr('disabled', 'disabled');
+            },
+            error: function (msg, text, thrown) {
+                alert("Error Change sliEstado: " + msg + " text: " + text + "Throw: " + thrown);
+            }
+        });
+
+    });
+
+    $("#sliTrabajo").change(function () {
+
+
+        var externo = $("#sliTrabajo").val();
+
+        $("#divBtnVer").hide();
+        $("#divBtnReasignar").hide();
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("sliLugar", "Home")' + '?idExterno=' + externo,
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                $("#sliLugares").html(data);
+                $("#sliLugares").show();
+                $("#sliLugares").attr('disabled', false);
+            },
+            error: function(msg, text, thrown) {
+                alert("Error Change sliTrabajo: " + msg + " text: " + text + "Throw: " + thrown);
+            }
+        });
+
+    });
+
+    $("#sliLugares").change(function() {
+        $("#txtTelefonoReg").attr('disabled', false);
+        $("#btnEnviar").attr('disabled', false);
+        $("#btnEnviar").removeClass("hidden");
+    });
+
+    function EnviaMensajeSms() {
+        var valor = $("#txtTelefonoReg").val().trim();
+        var telefono = valor.replace(/[`()_\- ,.<>\\\//]/gi, '');
+        var pattern = /^\d{10}$/;
+
+        if(telefono.match(pattern))
+        {
+            alert('match!');
+            //This code never executes
+        } else {
+            $("#idMensage").removeClass("hidden");
+            $("#idMensage").text("El teléfono no es valido este debe contener 10 digitos");
+        }
+    }
+
+    function ValidadExistenciaNumero() {
+        var numero = $("#txtTelefonoReg").val();
+        $("#btnEnviar").addClass("hidden");
+        if (numero == 1234) {
+            $("#idMensage").removeClass("hidden");
+            $("#idMensage").text("El teléfono ya fue registrado");
+            $("#lnkLogin").removeClass("hidden");
+        }
+        else {
+            //$("#btnEnviar").attr('disabled', false);
+            //$("#btnEnviar").removeClass("hidden");
+            $("#divClave").removeClass("hidden");
+
+            $("#btnContinuar").attr('disabled', false);
+            $("#btnContinuar").removeClass("hidden");
+            //$("#btnReenviar").removeClass("hidden");
+        }
+    }
+
+    function ValidaClaveSms() {
+        var clave = $("#txtClaveReg").val();
+        var telefono = $("#txtTelefonoReg").val();
+        $("#btnReenviar").attr('disabled', 'disabled');
+
+        $.ajax({
+            type: "POST",
+            data: {
+                'Clave': Clave,
+                'telefono': telefono
+            },
+            url: '@Url.Action("ValidaClaveSms", "Home")',
+            success: function (response) {
+                return response;
+            },
+            error: function (xhr, status, error) {
+                alert(status + " : " + error);
+            }
+        });
+    }
+
+    function ReenviaClaveSms() {
+        var clave = $("#txtClaveReg").val();
+        var telefono = $("#txtTelefonoReg").val();
+
+        $.ajax({
+            type: "POST",
+            data: {
+                clave: clave,
+                telefono: telefono
+            },
+            url: '@Url.Action("ReenviaClaveSms", "Home")',
+            success: function (response) {
+                $("#spmReenviar").removeClass('hidden');
+                //$("#btnReenviar").removeClass('hidden');
+                var timespam = 60;
+                Reenvio(timespam);
+            },
+            error: function (xhr, status, error) {
+                alert(status + " : " + error);
+            }
+        });
+    }
+
+    
+    function Continuar() {
+        var clave = $("#txtClaveReg");
+
+        $("#btnEnviar").addClass("hidden");
+
+        if (clave.val() == 1234) {
+            $("#idMensageClave").text("La clave es incorrecta");
+            $("#idMensageClave").removeClass("hidden");
+            $("#btnReenviar").attr('disabled', 'disabled');
+            $("#btnReenviar").removeClass("hidden");
+            var timespam = 30;
+            Reenvio(timespam);
+        }
+        else {
+            Login();
+        }
+    }
+
+    function Reenvio(timespam) {
+        $("#btnReenviar").attr('disabled', 'disabled');
+        var myVar = setInterval(
+            function () {
+                timespam--;
+                TimerSpan(timespam);
+                if (timespam == 0) {
+                    $("#spmReenviar").addClass('hidden');
+                    $("#btnReenviar").attr('disabled', false);
+                    $("#spmReenviar").text(timespam);
+                    clearInterval(myVar);
+                }
+            }, 1000);
+    }
+
+    function TimerSpan(timespam) {
+        CambiarSpam(timespam);
+    }
+
+    function CambiarSpam(time) {
+        $("#spmReenviar").text(time);
+    }
+
+    function Login() {
+        window.location = "/Home/Proceso";
+    }
+
+    function Proceso() {
+        var idEstado = $("#sliEstado").val();
+        var idTrabajo = $("#sliTrabajo").val();
+        var idLugar = $("#idLugar").val();
+        var clave = $("#Clave").val();
+        var telefono = $("#txtTelefonoReg").val();
+
+        var correcto = ValidaClaveSms();
+
+        $.ajax({
+            type: "POST",
+            data: {
+                'idEstado': idEstado,
+                'idTrabajo': idTrabajo,
+                'idLugar': idLugar,
+                'Clave': Clave,
+                'telefono': telefono
+            },
+            url: '@Url.Action("ReenviarClaveSms", "Home")',
+            success: function (response) {
+                //var listado = JSON.parse(response);
+                //var result = '';
+                //var selectList = $("#ddlMunicipios");
+                //selectList.empty();
+                //$("#ddlColonias").empty();
+                //for (var i = 0, iL = listado.length; i < iL; i++) {
+                //    var id = listado[i].Value;
+                //    var texto = listado[i].Text;
+                //    result += '<option value="' + id + '">' + texto + '</option>';
+                //}
+                //$("#ddlMunicipios").html(result).selectpicker('refresh');
+            },
+            error: function (xhr, status, error) {
+                //alert(status + " : " + error);
+            }
+        });
+    }
+</script>
