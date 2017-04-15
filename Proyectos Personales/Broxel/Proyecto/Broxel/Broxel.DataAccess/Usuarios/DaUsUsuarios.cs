@@ -43,7 +43,7 @@
                 if (resultado == null || resultado.Rows.Count <= 0)
                     throw new UserNotFindException(usuario, contrasena);
 
-                var usuariResultado = Extensions.ToList<USUSUARIOS>(resultado).FirstOrDefault();//(USUSUARIOS)ConvertirUsUsuario(resultado, false);
+                var usuariResultado = resultado.ToList<USUSUARIOS>().FirstOrDefault();//(USUSUARIOS)ConvertirUsUsuario(resultado, false);
 
                 return usuariResultado;
             }
