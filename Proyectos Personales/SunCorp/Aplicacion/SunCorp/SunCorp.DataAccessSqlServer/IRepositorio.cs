@@ -3,17 +3,20 @@
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     internal interface IRepositorio<TEntity> : IDisposable where TEntity : class
     {
-        TEntity Agregar(TEntity toAgregar);
+        Task<TEntity> Insertar(TEntity agregar);
 
-        bool Eliminar(TEntity toElminar);
+        Task<bool> Eliminar(TEntity eliminar);
 
-        bool Actualizar(TEntity toActualizar);
+        Task<bool> Actualizar(TEntity actualizar);
 
-        TEntity Extraer(Expression<Func<TEntity, bool>> criterio);
+        Task<TEntity> Consulta(Expression<Func<TEntity, bool>> criterio);
 
-        List<TEntity> Filtro(Expression<Func<TEntity, bool>> criterio);
+        Task<List<TEntity>> ConsultaLista(Expression<Func<TEntity, bool>> listaCriterio);
+
+        Task<List<TEntity>> ObtenerTabla();
     }
 }

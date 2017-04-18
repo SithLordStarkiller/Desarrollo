@@ -1,11 +1,13 @@
-﻿namespace SunCorp.DataAccessSqlServer.CatalogsDataAccess
+﻿
+
+namespace SunCorp.DataAccessSqlServer.CatalogsDataAccess
 {
-    using System;
-    using System.Data;
     using System.Collections.Generic;
     using System.Linq;
-    using Entities.Generic;
+    using System;
+    using System.Threading.Tasks;
     using Entities;
+    using Entities.Generic;
 
     public class CatalogsDataAccess
     {
@@ -15,61 +17,41 @@
 
         public List<GenericTable> GetListCatalogsSystem()
         {
-            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
-                "Usp_GetListCatalogsSystem", null);
+            var uspResult = _contexto.Usp_GetListCatalogsSystem();
 
-            var resultado = new List<GenericTable>();
+            //var list = uspResult.Convetidor<GenericTable>();
 
-            if (obj != null)
+            var result = uspResult.AsEnumerable().Select(x => new GenericTable
             {
-                resultado = (from DataRow row in obj.Rows
-                             select new GenericTable
-                             {
-                                 IdTable = Convert.ToInt32(row["IdTable"]),
-                                 TableName = (string)row["TableName"],
-                                 TableDescription = (string)row["Descriptions"],
-                                 Deleted = false
-                             }).ToList();
-            }
+                IdTable = (int) Convert.ToInt64(x.IdTable),
+                TableName = x.TableName,
+                TableDescription = x.Descriptions,
+                Deleted = false
+            }).ToList();
 
-            return resultado;
+            return result;
         }
 
         #endregion
 
-        #region ListCatalogProducts
+        //    #region ListCatalogProducts
 
         public List<GenericTable> GetListCatalogsProducts()
         {
-            var obj = ControllerSqlServer.ExecuteDataTable(ParametersSql.StrConDbLsWebApp, CommandType.StoredProcedure,
-                "Usp_GetListCatalogsProducts", null);
-
-            var resultado = new List<GenericTable>();
-
-            if (obj != null)
-            {
-                resultado = (from DataRow row in obj.Rows
-                             select new GenericTable
-                             {
-                                 IdTable = Convert.ToInt32(row["IdTable"]),
-                                 TableName = (string)row["TableName"],
-                                 TableDescription = (string)row["Descriptions"],
-                                 Deleted = false
-                             }).ToList();
-            }
-
-            return resultado;
+            var obj = _contexto.Usp_GetListCatalogsSystem();
+            
+            return  null;
         }
 
-        #endregion
+        //#endregion
 
         #region TreeMenu
 
-        public List<SisArbolMenu> GetListMenu()
+        public async Task<List<SisArbolMenu>> GetListMenu()
         {
             using (var aux = new Repositorio<SisArbolMenu>())
             {
-                return aux.TablaCompleta();
+                return await aux.ObtenerTabla();
             }
         }
 

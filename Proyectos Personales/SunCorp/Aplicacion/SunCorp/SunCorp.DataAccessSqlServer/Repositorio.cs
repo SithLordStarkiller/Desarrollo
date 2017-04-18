@@ -4,15 +4,14 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
 
     public class Repositorio<TEntity> : IRepositorio<TEntity> where TEntity : class
     {
         private readonly SunCorpEntities _contexto;
 
-        private DbSet<TEntity> EntitySet
-        {
-            get { return _contexto.Set<TEntity>(); }
-        }
+        private DbSet<TEntity> EntitySet => _contexto.Set<TEntity>();
 
         public Repositorio()
         {
@@ -20,48 +19,45 @@
             _contexto.Configuration.ProxyCreationEnabled = false;
         }
 
-
-        public TEntity Agregar(TEntity agregar)
+        public async Task<TEntity> Insertar(TEntity agregar)
         {
             TEntity resultado;
 
             try
             {
                 EntitySet.Add(agregar);
-                _contexto.SaveChanges();
+                await _contexto.SaveChangesAsync();
                 resultado = agregar;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException.ToString());
-                return null;
+                throw ex;
             }
 
             return resultado;
         }
 
-        public bool Eliminar(TEntity elminar)
+        public async Task<bool> Eliminar(TEntity eliminar)
         {
             bool resultado;
 
             try
             {
 
-                EntitySet.Attach(elminar);
-                EntitySet.Remove(elminar);
-                resultado = _contexto.SaveChanges() > 0;
+                EntitySet.Attach(eliminar);
+                EntitySet.Remove(eliminar);
+                resultado = await _contexto.SaveChangesAsync() > 0;
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException.ToString());
-                return false;
+                throw ex;
             }
 
             return resultado;
         }
 
-        public bool Actualizar(TEntity actualizar)
+        public async Task<bool> Actualizar(TEntity actualizar)
         {
             bool resultado;
 
@@ -69,72 +65,67 @@
             {
                 EntitySet.Attach(actualizar);
                 _contexto.Entry(actualizar).State = EntityState.Modified;
-                resultado = _contexto.SaveChanges() > 0;
+                resultado = await _contexto.SaveChangesAsync() > 0;
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException.ToString());
-                return false;
+                throw ex;
             }
 
             return resultado;
         }
 
-        public TEntity Extraer(System.Linq.Expressions.Expression<Func<TEntity, bool>> criterio)
+        public async Task<TEntity> Consulta(Expression<Func<TEntity, bool>> criterio)
         {
             TEntity resultado;
 
             try
             {
-                resultado = EntitySet.FirstOrDefault(criterio);
+                resultado = await EntitySet.FirstOrDefaultAsync(criterio);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException.ToString());
-                return null;
+                throw ex;
             }
 
             return resultado;
         }
 
-        public List<TEntity> Filtro(System.Linq.Expressions.Expression<Func<TEntity, bool>> criterio)
+        public async Task<List<TEntity>> ConsultaLista(Expression<Func<TEntity, bool>> listaCriterio)
         {
             List<TEntity> resultado;
 
             try
             {
-                resultado = EntitySet.Where(criterio).ToList();
+                resultado = await EntitySet.Where(listaCriterio).ToListAsync();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException.ToString());
-                return null;
+                throw ex;
             }
 
             return resultado;
         }
 
-        public List<TEntity> TablaCompleta()
+        public async Task<List<TEntity>> ObtenerTabla()
         {
             List<TEntity> resultado;
 
             try
             {
-                resultado = EntitySet.ToList();
+                resultado = await EntitySet.ToListAsync();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.InnerException.ToString());
-                return null;
+                throw ex;
             }
 
             return resultado;
         }
-
         public void Dispose()
         {
-            _contexto.Dispose();
+            _contexto?.Dispose();
         }
     }
 }
