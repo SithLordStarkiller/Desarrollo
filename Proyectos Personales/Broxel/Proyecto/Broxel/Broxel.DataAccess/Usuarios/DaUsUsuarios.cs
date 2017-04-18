@@ -19,7 +19,7 @@
     {
         private readonly BroxelEntities _contexto = new BroxelEntities();
 
-        private readonly Logger _logLogger = new Logger(Constantes.UrlLog, Constantes.ConnectionStringTrabajo);
+        private readonly Logger _logLogger = new Logger(Constantes.UrlLog, Constantes.ConexionBaseDatos);
 
         #region Metodos
 

@@ -1,6 +1,7 @@
 ﻿namespace SunCorp.BusinessLogic.CatalogsBussinessLogic
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using DataAccessSqlServer.CatalogsDataAccess;
     using DataAccessSqlServer.EntitiesDataAccesss;
     using Entities;
@@ -31,12 +32,14 @@
 
         public List<SisArbolMenu> GetListMenuForUserType(UsUsuarios user)
         {
-            var listMenus = new CatalogsDataAccess().GetListMenu();
+            var listMenus =  new CatalogsDataAccess().GetListMenu();
             var listPermissions = new EntitiesAccess().GetListMenusForTypeUser(user);
+
+            Task.WaitAll(listPermissions, listMenus);
             
-            listMenus = listMenus.Where(r => listPermissions.Any(x => x.IdMenu == r.IdMenu)).ToList();
+            var result = listMenus.Result.Where(r => listPermissions.Result.Any(x => x.IdMenu == r.IdMenu)).ToList();
             
-            return listMenus;
+            return result;
         }
 
         #endregion
