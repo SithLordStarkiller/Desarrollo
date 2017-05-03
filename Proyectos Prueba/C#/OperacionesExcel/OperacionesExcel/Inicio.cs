@@ -61,7 +61,7 @@ namespace OperacionesExcel
             tbpVistaTablas.TabPages.Clear();
             btnCargarArchivo.Enabled = false;
             btnCargarExcelOLDB.Enabled = false;
-            var a = await CargaExcel();
+            //var a = await CargaExcel();
             btnCargarArchivo.Enabled = true;
             btnCargarExcelOLDB.Enabled = true;
 
