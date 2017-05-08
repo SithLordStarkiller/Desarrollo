@@ -7,31 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Suncorp.Models
+namespace Suncorp.DataAccess
 {
-    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
-    [DataContract]
-    public partial class LogLogger{
-    	[DataMember]
+    public partial class LogLogger
+    {
         public long IdLog { get; set; }
-    	[DataMember]
         public Nullable<int> IdTipoLog { get; set; }
-    	[DataMember]
         public string Proyecto { get; set; }
-    	[DataMember]
         public string Clase { get; set; }
-    	[DataMember]
         public string Metodo { get; set; }
-    	[DataMember]
         public string Mensage { get; set; }
-    	[DataMember]
         public string Log { get; set; }
-    	[DataMember]
         public string Excepcion { get; set; }
-    	[DataMember]
         public string Auxiliar { get; set; }
     
         public virtual LogCatTipoLog LogCatTipoLog { get; set; }

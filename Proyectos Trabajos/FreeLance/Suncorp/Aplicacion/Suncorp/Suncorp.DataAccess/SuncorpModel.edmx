@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SuncorpV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SuncorpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="LogCatTipoLog">
           <Key>
             <PropertyRef Name="IdTipoLog" />
@@ -19,6 +19,7 @@
             <PropertyRef Name="IdLog" />
           </Key>
           <Property Name="IdLog" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoLog" Type="int" />
           <Property Name="Proyecto" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Clase" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Metodo" Type="varchar" MaxLength="50" />
@@ -26,7 +27,6 @@
           <Property Name="Log" Type="varchar(max)" />
           <Property Name="Excepcion" Type="varchar(max)" />
           <Property Name="Auxiliar" Type="varchar(max)" />
-          <Property Name="IdTipoLog" Type="int" />
         </EntityType>
         <Association Name="FK_LogLogger_LogCatTipoLog">
           <End Role="LogCatTipoLog" Type="Self.LogCatTipoLog" Multiplicity="0..1" />
@@ -40,7 +40,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SuncorpV2ModelStoreContainer">
+        <EntityContainer Name="SuncorpModelStoreContainer">
           <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogLogger" EntityType="Self.LogLogger" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
@@ -52,7 +52,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SuncorpV2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SuncorpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="LogCatTipoLog">
           <Key>
             <PropertyRef Name="IdTipoLog" />
@@ -68,6 +68,7 @@
             <PropertyRef Name="IdLog" />
           </Key>
           <Property Name="IdLog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoLog" Type="Int32" />
           <Property Name="Proyecto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Metodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -75,7 +76,6 @@
           <Property Name="Log" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Excepcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Auxiliar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IdTipoLog" Type="Int32" />
           <NavigationProperty Name="LogCatTipoLog" Relationship="Self.FK_LogLogger_LogCatTipoLog" FromRole="LogLogger" ToRole="LogCatTipoLog" />
         </EntityType>
         <Association Name="FK_LogLogger_LogCatTipoLog">
@@ -90,7 +90,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SuncorpV2Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SuncorpEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" />
           <EntitySet Name="LogLogger" EntityType="Self.LogLogger" />
           <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
@@ -103,9 +103,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SuncorpV2ModelStoreContainer" CdmEntityContainer="SuncorpV2Entities">
+        <EntityContainerMapping StorageEntityContainer="SuncorpModelStoreContainer" CdmEntityContainer="SuncorpEntities">
           <EntitySetMapping Name="LogCatTipoLog">
-            <EntityTypeMapping TypeName="SuncorpV2Model.LogCatTipoLog">
+            <EntityTypeMapping TypeName="SuncorpModel.LogCatTipoLog">
               <MappingFragment StoreEntitySet="LogCatTipoLog">
                 <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
                 <ScalarProperty Name="TipoLog" ColumnName="TipoLog" />
@@ -115,9 +115,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogLogger">
-            <EntityTypeMapping TypeName="SuncorpV2Model.LogLogger">
+            <EntityTypeMapping TypeName="SuncorpModel.LogLogger">
               <MappingFragment StoreEntitySet="LogLogger">
                 <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
                 <ScalarProperty Name="Proyecto" ColumnName="Proyecto" />
                 <ScalarProperty Name="Clase" ColumnName="Clase" />
                 <ScalarProperty Name="Metodo" ColumnName="Metodo" />
@@ -125,7 +126,6 @@
                 <ScalarProperty Name="Log" ColumnName="Log" />
                 <ScalarProperty Name="Excepcion" ColumnName="Excepcion" />
                 <ScalarProperty Name="Auxiliar" ColumnName="Auxiliar" />
-                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
