@@ -27,5 +27,9 @@ namespace Suncorp.DataAccess
     
         public virtual DbSet<LogCatTipoLog> LogCatTipoLog { get; set; }
         public virtual DbSet<LogLogger> LogLogger { get; set; }
+        public virtual DbSet<UsCatNivelUsuario> UsCatNivelUsuario { get; set; }
+        public virtual DbSet<UsCatTipoUsuario> UsCatTipoUsuario { get; set; }
+        public virtual DbSet<UsEstatusUsuario> UsEstatusUsuario { get; set; }
+        public virtual DbSet<UsUsuarios> UsUsuarios { get; set; }
     }
 }

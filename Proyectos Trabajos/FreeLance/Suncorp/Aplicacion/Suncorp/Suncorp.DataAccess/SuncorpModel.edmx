@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SuncorpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SuncorpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="LogCatTipoLog">
           <Key>
             <PropertyRef Name="IdTipoLog" />
@@ -28,6 +28,45 @@
           <Property Name="Excepcion" Type="varchar(max)" />
           <Property Name="Auxiliar" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="UsCatNivelUsuario">
+          <Key>
+            <PropertyRef Name="IdNivelUsuario" />
+          </Key>
+          <Property Name="IdNivelUsuario" Type="int" Nullable="false" />
+          <Property Name="NivelUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsCatTipoUsuario">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="int" Nullable="false" />
+          <Property Name="TipoUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsEstatusUsuario">
+          <Key>
+            <PropertyRef Name="IdEstatusUsuario" />
+          </Key>
+          <Property Name="IdEstatusUsuario" Type="int" Nullable="false" />
+          <Property Name="EstatusUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsUsuarios">
+          <Key>
+            <PropertyRef Name="idUsuarios" />
+          </Key>
+          <Property Name="idUsuarios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoUsuario" Type="int" />
+          <Property Name="IdNivelUsuario" Type="int" />
+          <Property Name="IdEstatusUsuario" Type="int" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
         <Association Name="FK_LogLogger_LogCatTipoLog">
           <End Role="LogCatTipoLog" Type="Self.LogCatTipoLog" Multiplicity="0..1" />
           <End Role="LogLogger" Type="Self.LogLogger" Multiplicity="*" />
@@ -40,16 +79,51 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UsUsuarios_UsCatNivelUsuario">
+          <End Role="UsCatNivelUsuario" Type="Self.UsCatNivelUsuario" Multiplicity="0..1" />
+          <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsCatNivelUsuario">
+              <PropertyRef Name="IdNivelUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarios">
+              <PropertyRef Name="IdNivelUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsUsuarios_UsEstatusUsuario">
+          <End Role="UsEstatusUsuario" Type="Self.UsEstatusUsuario" Multiplicity="0..1" />
+          <End Role="UsUsuarios" Type="Self.UsUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsEstatusUsuario">
+              <PropertyRef Name="IdEstatusUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarios">
+              <PropertyRef Name="IdEstatusUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SuncorpModelStoreContainer">
           <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogLogger" EntityType="Self.LogLogger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsCatNivelUsuario" EntityType="Self.UsCatNivelUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsCatTipoUsuario" EntityType="Self.UsCatTipoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsEstatusUsuario" EntityType="Self.UsEstatusUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsUsuarios" EntityType="Self.UsUsuarios" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
             <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
             <End Role="LogLogger" EntitySet="LogLogger" />
           </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarios_UsCatNivelUsuario" Association="Self.FK_UsUsuarios_UsCatNivelUsuario">
+            <End Role="UsCatNivelUsuario" EntitySet="UsCatNivelUsuario" />
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarios_UsEstatusUsuario" Association="Self.FK_UsUsuarios_UsEstatusUsuario">
+            <End Role="UsEstatusUsuario" EntitySet="UsEstatusUsuario" />
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuncorpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -97,7 +171,86 @@
             <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
             <End Role="LogLogger" EntitySet="LogLogger" />
           </AssociationSet>
+          <EntitySet Name="UsCatNivelUsuario" EntityType="SuncorpModel.UsCatNivelUsuario" />
+          <EntitySet Name="UsCatTipoUsuario" EntityType="SuncorpModel.UsCatTipoUsuario" />
+          <EntitySet Name="UsEstatusUsuario" EntityType="SuncorpModel.UsEstatusUsuario" />
+          <EntitySet Name="UsUsuarios" EntityType="SuncorpModel.UsUsuarios" />
+          <AssociationSet Name="FK_UsUsuarios_UsCatNivelUsuario" Association="SuncorpModel.FK_UsUsuarios_UsCatNivelUsuario">
+            <End Role="UsCatNivelUsuario" EntitySet="UsCatNivelUsuario" />
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsUsuarios_UsEstatusUsuario" Association="SuncorpModel.FK_UsUsuarios_UsEstatusUsuario">
+            <End Role="UsEstatusUsuario" EntitySet="UsEstatusUsuario" />
+            <End Role="UsUsuarios" EntitySet="UsUsuarios" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="UsCatNivelUsuario">
+          <Key>
+            <PropertyRef Name="IdNivelUsuario" />
+          </Key>
+          <Property Name="IdNivelUsuario" Type="Int32" Nullable="false" />
+          <Property Name="NivelUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UsUsuarios" Relationship="SuncorpModel.FK_UsUsuarios_UsCatNivelUsuario" FromRole="UsCatNivelUsuario" ToRole="UsUsuarios" />
+        </EntityType>
+        <EntityType Name="UsCatTipoUsuario">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="TipoUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsEstatusUsuario">
+          <Key>
+            <PropertyRef Name="IdEstatusUsuario" />
+          </Key>
+          <Property Name="IdEstatusUsuario" Type="Int32" Nullable="false" />
+          <Property Name="EstatusUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UsUsuarios" Relationship="SuncorpModel.FK_UsUsuarios_UsEstatusUsuario" FromRole="UsEstatusUsuario" ToRole="UsUsuarios" />
+        </EntityType>
+        <EntityType Name="UsUsuarios">
+          <Key>
+            <PropertyRef Name="idUsuarios" />
+          </Key>
+          <Property Name="idUsuarios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoUsuario" Type="Int32" />
+          <Property Name="IdNivelUsuario" Type="Int32" />
+          <Property Name="IdEstatusUsuario" Type="Int32" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UsCatNivelUsuario" Relationship="SuncorpModel.FK_UsUsuarios_UsCatNivelUsuario" FromRole="UsUsuarios" ToRole="UsCatNivelUsuario" />
+          <NavigationProperty Name="UsEstatusUsuario" Relationship="SuncorpModel.FK_UsUsuarios_UsEstatusUsuario" FromRole="UsUsuarios" ToRole="UsEstatusUsuario" />
+        </EntityType>
+        <Association Name="FK_UsUsuarios_UsCatNivelUsuario">
+          <End Type="SuncorpModel.UsCatNivelUsuario" Role="UsCatNivelUsuario" Multiplicity="0..1" />
+          <End Type="SuncorpModel.UsUsuarios" Role="UsUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsCatNivelUsuario">
+              <PropertyRef Name="IdNivelUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarios">
+              <PropertyRef Name="IdNivelUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsUsuarios_UsEstatusUsuario">
+          <End Type="SuncorpModel.UsEstatusUsuario" Role="UsEstatusUsuario" Multiplicity="0..1" />
+          <End Type="SuncorpModel.UsUsuarios" Role="UsUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsEstatusUsuario">
+              <PropertyRef Name="IdEstatusUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuarios">
+              <PropertyRef Name="IdEstatusUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -126,6 +279,49 @@
                 <ScalarProperty Name="Log" ColumnName="Log" />
                 <ScalarProperty Name="Excepcion" ColumnName="Excepcion" />
                 <ScalarProperty Name="Auxiliar" ColumnName="Auxiliar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsCatNivelUsuario">
+            <EntityTypeMapping TypeName="SuncorpModel.UsCatNivelUsuario">
+              <MappingFragment StoreEntitySet="UsCatNivelUsuario">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NivelUsuario" ColumnName="NivelUsuario" />
+                <ScalarProperty Name="IdNivelUsuario" ColumnName="IdNivelUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsCatTipoUsuario">
+            <EntityTypeMapping TypeName="SuncorpModel.UsCatTipoUsuario">
+              <MappingFragment StoreEntitySet="UsCatTipoUsuario">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsEstatusUsuario">
+            <EntityTypeMapping TypeName="SuncorpModel.UsEstatusUsuario">
+              <MappingFragment StoreEntitySet="UsEstatusUsuario">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="EstatusUsuario" ColumnName="EstatusUsuario" />
+                <ScalarProperty Name="IdEstatusUsuario" ColumnName="IdEstatusUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsUsuarios">
+            <EntityTypeMapping TypeName="SuncorpModel.UsUsuarios">
+              <MappingFragment StoreEntitySet="UsUsuarios">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="IdEstatusUsuario" ColumnName="IdEstatusUsuario" />
+                <ScalarProperty Name="IdNivelUsuario" ColumnName="IdNivelUsuario" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

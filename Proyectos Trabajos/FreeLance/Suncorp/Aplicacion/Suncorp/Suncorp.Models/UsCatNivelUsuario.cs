@@ -7,25 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Suncorp.DataAccess
+namespace Suncorp.Models
 {
+    using System.Runtime.Serialization;
     using System;
     using System.Collections.Generic;
     
-    public partial class LogCatTipoLog
-    {
+    [DataContract]
+    public partial class UsCatNivelUsuario{
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LogCatTipoLog()
+        public UsCatNivelUsuario()
         {
-            this.LogLogger = new HashSet<LogLogger>();
+            this.UsUsuarios = new HashSet<UsUsuarios>();
         }
     
-        public int IdTipoLog { get; set; }
-        public string TipoLog { get; set; }
+    	[DataMember]
+        public int IdNivelUsuario { get; set; }
+    	[DataMember]
+        public string NivelUsuario { get; set; }
+    	[DataMember]
         public string Descripcion { get; set; }
-        public Nullable<bool> Borrado { get; set; }
+    	[DataMember]
+        public bool Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LogLogger> LogLogger { get; set; }
+        public virtual ICollection<UsUsuarios> UsUsuarios { get; set; }
     }
 }
