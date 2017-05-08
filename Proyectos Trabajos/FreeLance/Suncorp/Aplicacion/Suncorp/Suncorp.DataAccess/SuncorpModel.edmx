@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SuncorpV2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LogCatTipoLog">
+          <Key>
+            <PropertyRef Name="IdTipoLog" />
+          </Key>
+          <Property Name="IdTipoLog" Type="int" Nullable="false" />
+          <Property Name="TipoLog" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
+        <EntityType Name="LogLogger">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proyecto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Clase" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Metodo" Type="varchar" MaxLength="50" />
+          <Property Name="Mensage" Type="varchar" MaxLength="50" />
+          <Property Name="Log" Type="varchar(max)" />
+          <Property Name="Excepcion" Type="varchar(max)" />
+          <Property Name="Auxiliar" Type="varchar(max)" />
+          <Property Name="IdTipoLog" Type="int" />
+        </EntityType>
+        <Association Name="FK_LogLogger_LogCatTipoLog">
+          <End Role="LogCatTipoLog" Type="Self.LogCatTipoLog" Multiplicity="0..1" />
+          <End Role="LogLogger" Type="Self.LogLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogCatTipoLog">
+              <PropertyRef Name="IdTipoLog" />
+            </Principal>
+            <Dependent Role="LogLogger">
+              <PropertyRef Name="IdTipoLog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SuncorpV2ModelStoreContainer">
+          <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogLogger" EntityType="Self.LogLogger" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
+            <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
+            <End Role="LogLogger" EntitySet="LogLogger" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SuncorpV2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LogCatTipoLog">
+          <Key>
+            <PropertyRef Name="IdTipoLog" />
+          </Key>
+          <Property Name="IdTipoLog" Type="Int32" Nullable="false" />
+          <Property Name="TipoLog" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="LogLogger" Relationship="Self.FK_LogLogger_LogCatTipoLog" FromRole="LogCatTipoLog" ToRole="LogLogger" />
+        </EntityType>
+        <EntityType Name="LogLogger">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proyecto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Metodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mensage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Log" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Excepcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Auxiliar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoLog" Type="Int32" />
+          <NavigationProperty Name="LogCatTipoLog" Relationship="Self.FK_LogLogger_LogCatTipoLog" FromRole="LogLogger" ToRole="LogCatTipoLog" />
+        </EntityType>
+        <Association Name="FK_LogLogger_LogCatTipoLog">
+          <End Role="LogCatTipoLog" Type="Self.LogCatTipoLog" Multiplicity="0..1" />
+          <End Role="LogLogger" Type="Self.LogLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogCatTipoLog">
+              <PropertyRef Name="IdTipoLog" />
+            </Principal>
+            <Dependent Role="LogLogger">
+              <PropertyRef Name="IdTipoLog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SuncorpV2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" />
+          <EntitySet Name="LogLogger" EntityType="Self.LogLogger" />
+          <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
+            <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
+            <End Role="LogLogger" EntitySet="LogLogger" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SuncorpV2ModelStoreContainer" CdmEntityContainer="SuncorpV2Entities">
+          <EntitySetMapping Name="LogCatTipoLog">
+            <EntityTypeMapping TypeName="SuncorpV2Model.LogCatTipoLog">
+              <MappingFragment StoreEntitySet="LogCatTipoLog">
+                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
+                <ScalarProperty Name="TipoLog" ColumnName="TipoLog" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogLogger">
+            <EntityTypeMapping TypeName="SuncorpV2Model.LogLogger">
+              <MappingFragment StoreEntitySet="LogLogger">
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+                <ScalarProperty Name="Proyecto" ColumnName="Proyecto" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="Metodo" ColumnName="Metodo" />
+                <ScalarProperty Name="Mensage" ColumnName="Mensage" />
+                <ScalarProperty Name="Log" ColumnName="Log" />
+                <ScalarProperty Name="Excepcion" ColumnName="Excepcion" />
+                <ScalarProperty Name="Auxiliar" ColumnName="Auxiliar" />
+                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
