@@ -8,9 +8,9 @@
     public class Logger
     {
 
-        public string UrlLog { get; }
+        private string UrlLog { get; }
 
-        public string ConectionString { get; }
+        private string ConectionString { get; }
 
         private string NombreArchivo { get; set; }
 
