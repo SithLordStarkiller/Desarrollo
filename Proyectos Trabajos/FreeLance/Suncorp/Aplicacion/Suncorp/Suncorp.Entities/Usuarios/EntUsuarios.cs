@@ -33,7 +33,7 @@
             {
                 using (var aux = new Repositorio<UsUsuarios>())
                 {
-                    return await aux.Consulta(r => r.Usuario == usuario && r.Contrasena == contrasena)?? throw new UserNotFindException(usuario,contrasena);
+                    return await aux.Consulta(r => r.Usuario == usuario && r.Contrasena == contrasena) ?? throw new UserNotFindException(usuario,contrasena);
                 }
             }
             catch (Exception e)
