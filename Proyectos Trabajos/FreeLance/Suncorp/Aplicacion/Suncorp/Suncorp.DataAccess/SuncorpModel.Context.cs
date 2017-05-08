@@ -12,12 +12,11 @@ namespace Suncorp.DataAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using Suncorp.Models;
     
-    public partial class SuncorpV2Entities : DbContext
+    public partial class SuncorpEntities : DbContext
     {
-        public SuncorpV2Entities()
-            : base("name=SuncorpV2Entities")
+        public SuncorpEntities()
+            : base("name=SuncorpEntities")
         {
         }
     
