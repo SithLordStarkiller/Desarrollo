@@ -3,6 +3,7 @@
     using BusinessLogic.Usuarios;
     using Helpers;
     using Models;
+    using System;
 
     /// <summary>
     /// Clase con los servicios WCF de los usuarios
@@ -19,7 +20,14 @@
         /// <returns>Retorna un modelo con la el registro del usuario</returns>
         public UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena)
         {
-            return new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
+            try
+            {
+                return new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
