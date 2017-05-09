@@ -1,5 +1,8 @@
 ﻿namespace Suncorp.DataAccess
 {
+    using Helpers;
+    using Models;
+    using System.Reflection;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
@@ -9,6 +12,8 @@
 
     public class Repositorio<TEntity> : IRepositorio<TEntity> where TEntity : class
     {
+        private readonly Logger _logLogger = new Logger(Constantes.UrlLog, Constantes.ConnectionStringTrabajo);
+
         private readonly SuncorpEntities _contexto;
 
         private DbSet<TEntity> EntitySet => _contexto.Set<TEntity>();
@@ -31,6 +36,11 @@
             }
             catch (Exception ex)
             {
+                Task.Factory.StartNew(
+                   () =>
+                       _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
+                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                           MethodBase.GetCurrentMethod().Name, "Error al insertar en entityFramework", "", ex, agregar.GetType().ToString()));
                 throw ex;
             }
 
@@ -51,6 +61,11 @@
             }
             catch (Exception ex)
             {
+                Task.Factory.StartNew(
+                      () =>
+                          _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
+                              Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                              MethodBase.GetCurrentMethod().Name, "Error al eliminar en entityFramework", "", ex, eliminar.GetType().ToString()));
                 throw ex;
             }
 
@@ -70,6 +85,11 @@
             }
             catch (Exception ex)
             {
+                Task.Factory.StartNew(
+                      () =>
+                          _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                              Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                              MethodBase.GetCurrentMethod().Name, "Login error", "", ex, ""));
                 throw ex;
             }
 
@@ -86,6 +106,11 @@
             }
             catch (Exception ex)
             {
+                Task.Factory.StartNew(
+                      () =>
+                          _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
+                              Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                              MethodBase.GetCurrentMethod().Name, "Error al eliminar en entityFramework", "", ex, criterio.ToString()));
                 throw ex;
             }
 
@@ -102,6 +127,11 @@
             }
             catch (Exception ex)
             {
+                Task.Factory.StartNew(
+                      () =>
+                          _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                              Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                              MethodBase.GetCurrentMethod().Name, "Login error", "", ex, ""));
                 throw ex;
             }
 
@@ -118,6 +148,11 @@
             }
             catch (Exception ex)
             {
+                Task.Factory.StartNew(
+                      () =>
+                          _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                              Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                              MethodBase.GetCurrentMethod().Name, "Login error", "", ex, ""));
                 throw ex;
             }
 
