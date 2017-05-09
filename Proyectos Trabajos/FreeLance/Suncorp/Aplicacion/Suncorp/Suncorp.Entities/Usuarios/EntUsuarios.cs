@@ -33,8 +33,17 @@
             {
                 using (var aux = new Repositorio<UsUsuarios>())
                 {
-                    return await aux.Consulta(r => r.Usuario == usuario && r.Contrasena == contrasena) ?? throw new UserNotFindException(usuario,contrasena);
+                    return await aux.Consulta(r => r.Usuario == usuario && r.Contrasena == contrasena) ?? throw new UserNotFindException(usuario, contrasena);
                 }
+            }
+            catch (UserNotFindException e)
+            {
+                await Task.Factory.StartNew(
+                   () =>
+                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                           MethodBase.GetCurrentMethod().Name, "Login error", "", e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
+                throw;
             }
             catch (Exception e)
             {
@@ -45,6 +54,7 @@
                            MethodBase.GetCurrentMethod().Name, "Login error", "", e, ""));
                 throw;
             }
+            
         }
 
     }

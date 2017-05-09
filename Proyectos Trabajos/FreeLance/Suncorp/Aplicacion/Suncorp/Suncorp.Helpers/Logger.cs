@@ -54,14 +54,14 @@
 
                 var parametros = new SqlParameter[8];
 
-                parametros[0] = new SqlParameter("@tipoLog", SqlDbType.VarChar, -1) { Value = tipoLog };
-                parametros[1] = new SqlParameter("@proyecto", SqlDbType.VarChar, -1) { Value = proyecto };
-                parametros[2] = new SqlParameter("@clase", SqlDbType.VarChar, -1) { Value = clase };
-                parametros[3] = new SqlParameter("@metodo", SqlDbType.VarChar, -1) { Value = metodo };
-                parametros[4] = new SqlParameter("@mensage", SqlDbType.VarChar, -1) { Value = mensage };
-                parametros[5] = new SqlParameter("@log", SqlDbType.VarChar, -1) { Value = log };
-                parametros[6] = new SqlParameter("@Excepcion", SqlDbType.VarChar, -1) { Value = er.ToString() };
-                parametros[7] = new SqlParameter("@auxiliar", SqlDbType.VarChar, -1) { Value = auxiliar };
+                parametros[0] = new SqlParameter("@tipoLog", (int)tipoLog);
+                parametros[1] = new SqlParameter("@proyecto", proyecto);
+                parametros[2] = new SqlParameter("@clase", clase);
+                parametros[3] = new SqlParameter("@metodo", metodo);
+                parametros[4] = new SqlParameter("@mensage", mensage);
+                parametros[5] = new SqlParameter("@log", log);
+                parametros[6] = new SqlParameter("@excepcion", er.ToString());
+                parametros[7] = new SqlParameter("@auxiliar", auxiliar);
 
                 sc.Parameters.AddRange(parametros);
 
