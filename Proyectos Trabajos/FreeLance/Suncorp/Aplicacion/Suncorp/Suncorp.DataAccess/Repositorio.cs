@@ -36,7 +36,7 @@
             }
             catch (Exception ex)
             {
-                Task.Factory.StartNew(
+                await Task.Factory.StartNew(
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
@@ -61,7 +61,7 @@
             }
             catch (Exception ex)
             {
-                Task.Factory.StartNew(
+                await Task.Factory.StartNew(
                       () =>
                           _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
@@ -85,7 +85,7 @@
             }
             catch (Exception ex)
             {
-                Task.Factory.StartNew(
+                await Task.Factory.StartNew(
                       () =>
                           _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
@@ -106,8 +106,8 @@
             }
             catch (Exception ex)
             {
-                Task.Factory.StartNew(
-                      () =>
+                await Task.Factory.StartNew(
+                       () =>
                           _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                               MethodBase.GetCurrentMethod().Name, "Error al eliminar en entityFramework", "", ex, criterio.ToString()));
@@ -127,7 +127,7 @@
             }
             catch (Exception ex)
             {
-                Task.Factory.StartNew(
+                await Task.Factory.StartNew(
                       () =>
                           _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
@@ -148,7 +148,7 @@
             }
             catch (Exception ex)
             {
-                Task.Factory.StartNew(
+                await Task.Factory.StartNew(
                       () =>
                           _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
