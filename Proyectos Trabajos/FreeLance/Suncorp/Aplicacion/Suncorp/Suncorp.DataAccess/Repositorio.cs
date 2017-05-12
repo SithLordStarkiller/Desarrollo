@@ -87,9 +87,9 @@
             {
                 await Task.Factory.StartNew(
                       () =>
-                          _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                          _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                              MethodBase.GetCurrentMethod().Name, "Login error", "", ex, ""));
+                              MethodBase.GetCurrentMethod().Name, "Error al actualizar en entityFramework", "", ex, actualizar.GetType().ToString()));
                 throw ex;
             }
 
@@ -110,7 +110,7 @@
                        () =>
                           _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                              MethodBase.GetCurrentMethod().Name, "Error al eliminar en entityFramework", "", ex, criterio.ToString()));
+                              MethodBase.GetCurrentMethod().Name, "Error al consultar en entityFramework", "", ex, criterio.ToString()));
                 throw ex;
             }
 
@@ -129,9 +129,9 @@
             {
                 await Task.Factory.StartNew(
                       () =>
-                          _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                          _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                              MethodBase.GetCurrentMethod().Name, "Login error", "", ex, ""));
+                              MethodBase.GetCurrentMethod().Name, "Error al consultar lista en entityFramework", "", ex, listaCriterio.ToString()));
                 throw ex;
             }
 
@@ -152,7 +152,7 @@
                       () =>
                           _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                              MethodBase.GetCurrentMethod().Name, "Login error", "", ex, ""));
+                              MethodBase.GetCurrentMethod().Name, "Error al consultar lista en entityFramework", "", ex, ""));
                 throw ex;
             }
 
