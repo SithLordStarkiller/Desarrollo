@@ -38,6 +38,11 @@
         public void EscribeLog(TipoLog tipoLog, string proyecto, string clase, string metodo, string mensage, string log, Exception er, string auxiliar)
         {
             GuardaLogBaseDatos(tipoLog, proyecto, clase, metodo, mensage, log, er, auxiliar);
+
+            if(tipoLog == TipoLog.ErrorCritico || tipoLog == TipoLog.Error)
+            {
+                
+            }
         }
 
         private void GuardaLogBaseDatos(TipoLog tipoLog, string proyecto, string clase, string metodo, string mensage, string log, Exception er, string auxiliar)
