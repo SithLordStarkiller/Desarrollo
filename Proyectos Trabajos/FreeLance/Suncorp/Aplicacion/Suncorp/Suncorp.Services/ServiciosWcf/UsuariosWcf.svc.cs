@@ -3,7 +3,10 @@
     using BusinessLogic.Usuarios;
     using Helpers;
     using Models;
+    using Helpers.CustomExcepciones;
     using System;
+    using System.Threading.Tasks;
+    using System.Reflection;
 
     /// <summary>
     /// Clase con los servicios WCF de los usuarios
@@ -23,6 +26,15 @@
             try
             {
                 return new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
+            }
+            catch (UserNotFindException e)
+            {
+                Task.Factory.StartNew(
+                   () =>
+                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
+                throw;
             }
             catch (Exception)
             {

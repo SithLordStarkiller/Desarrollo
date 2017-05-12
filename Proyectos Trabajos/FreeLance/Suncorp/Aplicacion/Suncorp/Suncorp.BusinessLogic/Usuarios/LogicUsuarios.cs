@@ -6,6 +6,7 @@
     using System;
     using System.Threading.Tasks;
     using System.Reflection;
+    using Suncorp.Helpers.CustomExcepciones;
 
     /// <summary>
     /// Se encarga de manejar la logica de los usuarios
@@ -26,13 +27,22 @@
             {
                 return new EntUsuarios().ObtenerUsuarioLogin(usuario, contrasena).Result;
             }
+            catch (UserNotFindException e)
+            {
+                Task.Factory.StartNew(
+                   () =>
+                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
+                throw;
+            }
             catch (Exception e)
             {
                 Task.Factory.StartNew(
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Login error", "", e, ""));
+                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, ""));
                 throw;
             }
         }

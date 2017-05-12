@@ -42,16 +42,16 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Login error", "", e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
+                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
                 throw;
             }
             catch (Exception e)
             {
                 await Task.Factory.StartNew(
                    () =>
-                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                       _logLogger.EscribeLog(Logger.TipoLog.Error,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Login error", "", e, ""));
+                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, ""));
                 throw;
             }
             
