@@ -13,6 +13,8 @@ namespace Suncorp.DataAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SuncorpEntities : DbContext
     {
@@ -26,11 +28,54 @@ namespace Suncorp.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<DirCatColonias> DirCatColonias { get; set; }
+        public virtual DbSet<DirCatEstados> DirCatEstados { get; set; }
+        public virtual DbSet<DirCatMunicipios> DirCatMunicipios { get; set; }
+        public virtual DbSet<DirDirecciones> DirDirecciones { get; set; }
         public virtual DbSet<LogCatTipoLog> LogCatTipoLog { get; set; }
         public virtual DbSet<LogLogger> LogLogger { get; set; }
+        public virtual DbSet<OpeCatZonas> OpeCatZonas { get; set; }
+        public virtual DbSet<OpeZonasPorEstados> OpeZonasPorEstados { get; set; }
         public virtual DbSet<UsCatNivelUsuario> UsCatNivelUsuario { get; set; }
         public virtual DbSet<UsCatTipoUsuario> UsCatTipoUsuario { get; set; }
         public virtual DbSet<UsEstatusUsuario> UsEstatusUsuario { get; set; }
         public virtual DbSet<UsUsuarios> UsUsuarios { get; set; }
+    
+        public virtual ObjectResult<Nullable<decimal>> Usp_LogAlmacenaLog(Nullable<int> tipoLog, string proyecto, string clase, string metodo, string mensage, string log, string excepcion, string auxiliar)
+        {
+            var tipoLogParameter = tipoLog.HasValue ?
+                new ObjectParameter("tipoLog", tipoLog) :
+                new ObjectParameter("tipoLog", typeof(int));
+    
+            var proyectoParameter = proyecto != null ?
+                new ObjectParameter("proyecto", proyecto) :
+                new ObjectParameter("proyecto", typeof(string));
+    
+            var claseParameter = clase != null ?
+                new ObjectParameter("clase", clase) :
+                new ObjectParameter("clase", typeof(string));
+    
+            var metodoParameter = metodo != null ?
+                new ObjectParameter("metodo", metodo) :
+                new ObjectParameter("metodo", typeof(string));
+    
+            var mensageParameter = mensage != null ?
+                new ObjectParameter("mensage", mensage) :
+                new ObjectParameter("mensage", typeof(string));
+    
+            var logParameter = log != null ?
+                new ObjectParameter("log", log) :
+                new ObjectParameter("log", typeof(string));
+    
+            var excepcionParameter = excepcion != null ?
+                new ObjectParameter("excepcion", excepcion) :
+                new ObjectParameter("excepcion", typeof(string));
+    
+            var auxiliarParameter = auxiliar != null ?
+                new ObjectParameter("auxiliar", auxiliar) :
+                new ObjectParameter("auxiliar", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Usp_LogAlmacenaLog", tipoLogParameter, proyectoParameter, claseParameter, metodoParameter, mensageParameter, logParameter, excepcionParameter, auxiliarParameter);
+        }
     }
 }

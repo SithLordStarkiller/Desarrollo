@@ -5,6 +5,54 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SuncorpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DirCatColonias">
+          <Key>
+            <PropertyRef Name="IdColonia" />
+          </Key>
+          <Property Name="IdColonia" Type="smallint" Nullable="false" />
+          <Property Name="IdEstado" Type="smallint" Nullable="false" />
+          <Property Name="IdMunicipio" Type="smallint" Nullable="false" />
+          <Property Name="NombreColonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ClaveCepomexColonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DirCatEstados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="smallint" Nullable="false" />
+          <Property Name="NombreOficial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreNoOficial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClaveEstadoSepomex" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DirCatMunicipios">
+          <Key>
+            <PropertyRef Name="IdMunicipio" />
+          </Key>
+          <Property Name="IdMunicipio" Type="smallint" Nullable="false" />
+          <Property Name="IdEstado" Type="smallint" Nullable="false" />
+          <Property Name="NombreOficial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreNoOficial" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClaveMunicipioSepomex" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DirDirecciones">
+          <Key>
+            <PropertyRef Name="IdDireccion" />
+          </Key>
+          <Property Name="IdDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstado" Type="smallint" Nullable="false" />
+          <Property Name="IdMunicipio" Type="smallint" Nullable="false" />
+          <Property Name="NombreColonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="NumeroExterio" Type="varchar" MaxLength="30" />
+          <Property Name="NumeroInterior" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Referencias" Type="varchar" MaxLength="700" />
+          <Property Name="Borrado" Type="bit" />
+        </EntityType>
         <EntityType Name="LogCatTipoLog">
           <Key>
             <PropertyRef Name="IdTipoLog" />
@@ -20,13 +68,32 @@
           </Key>
           <Property Name="IdLog" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdTipoLog" Type="int" />
-          <Property Name="Proyecto" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Clase" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Metodo" Type="varchar" MaxLength="50" />
-          <Property Name="Mensage" Type="varchar" MaxLength="50" />
+          <Property Name="Proyecto" Type="varchar(max)" Nullable="false" />
+          <Property Name="Clase" Type="varchar(max)" Nullable="false" />
+          <Property Name="Metodo" Type="varchar(max)" />
+          <Property Name="Mensage" Type="varchar(max)" />
           <Property Name="Log" Type="varchar(max)" />
           <Property Name="Excepcion" Type="varchar(max)" />
           <Property Name="Auxiliar" Type="varchar(max)" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OpeCatZonas">
+          <Key>
+            <PropertyRef Name="IdZona" />
+          </Key>
+          <Property Name="IdZona" Type="smallint" Nullable="false" />
+          <Property Name="NombreZona" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="Borrado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OpeZonasPorEstados">
+          <Key>
+            <PropertyRef Name="IdZonasEstados" />
+          </Key>
+          <Property Name="IdZonasEstados" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstado" Type="smallint" />
+          <Property Name="IdZona" Type="smallint" />
+          <Property Name="Borrado" Type="bit" />
         </EntityType>
         <EntityType Name="UsCatNivelUsuario">
           <Key>
@@ -67,6 +134,66 @@
           <Property Name="Contrasena" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Borrado" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_DirCatColonias_DirCatEstados">
+          <End Role="DirCatEstados" Type="Self.DirCatEstados" Multiplicity="1" />
+          <End Role="DirCatColonias" Type="Self.DirCatColonias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirCatColonias">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonias_DirCatMunicipios">
+          <End Role="DirCatMunicipios" Type="Self.DirCatMunicipios" Multiplicity="1" />
+          <End Role="DirCatColonias" Type="Self.DirCatColonias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatMunicipios">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="DirCatColonias">
+              <PropertyRef Name="IdMunicipio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatMunicipios_DirCatEstados">
+          <End Role="DirCatEstados" Type="Self.DirCatEstados" Multiplicity="1" />
+          <End Role="DirCatMunicipios" Type="Self.DirCatMunicipios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirCatMunicipios">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatEstados">
+          <End Role="DirCatEstados" Type="Self.DirCatEstados" Multiplicity="1" />
+          <End Role="DirDirecciones" Type="Self.DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatMunicipios">
+          <End Role="DirCatMunicipios" Type="Self.DirCatMunicipios" Multiplicity="1" />
+          <End Role="DirDirecciones" Type="Self.DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatMunicipios">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdMunicipio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LogLogger_LogCatTipoLog">
           <End Role="LogCatTipoLog" Type="Self.LogCatTipoLog" Multiplicity="0..1" />
           <End Role="LogLogger" Type="Self.LogLogger" Multiplicity="*" />
@@ -76,6 +203,30 @@
             </Principal>
             <Dependent Role="LogLogger">
               <PropertyRef Name="IdTipoLog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpeZonasPorEstados_DirCatEstados">
+          <End Role="DirCatEstados" Type="Self.DirCatEstados" Multiplicity="0..1" />
+          <End Role="OpeZonasPorEstados" Type="Self.OpeZonasPorEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="OpeZonasPorEstados">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpeZonasPorEstados_OpeCatZonas">
+          <End Role="OpeCatZonas" Type="Self.OpeCatZonas" Multiplicity="0..1" />
+          <End Role="OpeZonasPorEstados" Type="Self.OpeZonasPorEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpeCatZonas">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="OpeZonasPorEstados">
+              <PropertyRef Name="IdZona" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -103,16 +254,60 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Usp_LogAlmacenaLog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipoLog" Type="int" Mode="In" />
+          <Parameter Name="proyecto" Type="varchar(max)" Mode="In" />
+          <Parameter Name="clase" Type="varchar(max)" Mode="In" />
+          <Parameter Name="metodo" Type="varchar(max)" Mode="In" />
+          <Parameter Name="mensage" Type="varchar(max)" Mode="In" />
+          <Parameter Name="log" Type="varchar(max)" Mode="In" />
+          <Parameter Name="excepcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="auxiliar" Type="varchar(max)" Mode="In" />
+        </Function>
         <EntityContainer Name="SuncorpModelStoreContainer">
+          <EntitySet Name="DirCatColonias" EntityType="Self.DirCatColonias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatEstados" EntityType="Self.DirCatEstados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirCatMunicipios" EntityType="Self.DirCatMunicipios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DirDirecciones" EntityType="Self.DirDirecciones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LogLogger" EntityType="Self.LogLogger" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpeCatZonas" EntityType="Self.OpeCatZonas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OpeZonasPorEstados" EntityType="Self.OpeZonasPorEstados" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsCatNivelUsuario" EntityType="Self.UsCatNivelUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsCatTipoUsuario" EntityType="Self.UsCatTipoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsEstatusUsuario" EntityType="Self.UsEstatusUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsUsuarios" EntityType="Self.UsUsuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DirCatColonias_DirCatEstados" Association="Self.FK_DirCatColonias_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="DirCatColonias" EntitySet="DirCatColonias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonias_DirCatMunicipios" Association="Self.FK_DirCatColonias_DirCatMunicipios">
+            <End Role="DirCatMunicipios" EntitySet="DirCatMunicipios" />
+            <End Role="DirCatColonias" EntitySet="DirCatColonias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatMunicipios_DirCatEstados" Association="Self.FK_DirCatMunicipios_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="DirCatMunicipios" EntitySet="DirCatMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatEstados" Association="Self.FK_DirDirecciones_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatMunicipios" Association="Self.FK_DirDirecciones_DirCatMunicipios">
+            <End Role="DirCatMunicipios" EntitySet="DirCatMunicipios" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
           <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
             <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
             <End Role="LogLogger" EntitySet="LogLogger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpeZonasPorEstados_DirCatEstados" Association="Self.FK_OpeZonasPorEstados_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="OpeZonasPorEstados" EntitySet="OpeZonasPorEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpeZonasPorEstados_OpeCatZonas" Association="Self.FK_OpeZonasPorEstados_OpeCatZonas">
+            <End Role="OpeCatZonas" EntitySet="OpeCatZonas" />
+            <End Role="OpeZonasPorEstados" EntitySet="OpeZonasPorEstados" />
           </AssociationSet>
           <AssociationSet Name="FK_UsUsuarios_UsCatNivelUsuario" Association="Self.FK_UsUsuarios_UsCatNivelUsuario">
             <End Role="UsCatNivelUsuario" EntitySet="UsCatNivelUsuario" />
@@ -127,54 +322,51 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SuncorpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="LogCatTipoLog">
-          <Key>
-            <PropertyRef Name="IdTipoLog" />
-          </Key>
-          <Property Name="IdTipoLog" Type="Int32" Nullable="false" />
-          <Property Name="TipoLog" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
-          <Property Name="Borrado" Type="Boolean" />
-          <NavigationProperty Name="LogLogger" Relationship="Self.FK_LogLogger_LogCatTipoLog" FromRole="LogCatTipoLog" ToRole="LogLogger" />
-        </EntityType>
-        <EntityType Name="LogLogger">
-          <Key>
-            <PropertyRef Name="IdLog" />
-          </Key>
-          <Property Name="IdLog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdTipoLog" Type="Int32" />
-          <Property Name="Proyecto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Clase" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Metodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Mensage" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Log" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Excepcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Auxiliar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="LogCatTipoLog" Relationship="Self.FK_LogLogger_LogCatTipoLog" FromRole="LogLogger" ToRole="LogCatTipoLog" />
-        </EntityType>
-        <Association Name="FK_LogLogger_LogCatTipoLog">
-          <End Role="LogCatTipoLog" Type="Self.LogCatTipoLog" Multiplicity="0..1" />
-          <End Role="LogLogger" Type="Self.LogLogger" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LogCatTipoLog">
-              <PropertyRef Name="IdTipoLog" />
-            </Principal>
-            <Dependent Role="LogLogger">
-              <PropertyRef Name="IdTipoLog" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="SuncorpEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LogCatTipoLog" EntityType="Self.LogCatTipoLog" />
-          <EntitySet Name="LogLogger" EntityType="Self.LogLogger" />
-          <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="Self.FK_LogLogger_LogCatTipoLog">
-            <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
-            <End Role="LogLogger" EntitySet="LogLogger" />
-          </AssociationSet>
+          <EntitySet Name="DirCatColonias" EntityType="SuncorpModel.DirCatColonias" />
+          <EntitySet Name="DirCatEstados" EntityType="SuncorpModel.DirCatEstados" />
+          <EntitySet Name="DirCatMunicipios" EntityType="SuncorpModel.DirCatMunicipios" />
+          <EntitySet Name="DirDirecciones" EntityType="SuncorpModel.DirDirecciones" />
+          <EntitySet Name="LogCatTipoLog" EntityType="SuncorpModel.LogCatTipoLog" />
+          <EntitySet Name="LogLogger" EntityType="SuncorpModel.LogLogger" />
+          <EntitySet Name="OpeCatZonas" EntityType="SuncorpModel.OpeCatZonas" />
+          <EntitySet Name="OpeZonasPorEstados" EntityType="SuncorpModel.OpeZonasPorEstados" />
           <EntitySet Name="UsCatNivelUsuario" EntityType="SuncorpModel.UsCatNivelUsuario" />
           <EntitySet Name="UsCatTipoUsuario" EntityType="SuncorpModel.UsCatTipoUsuario" />
           <EntitySet Name="UsEstatusUsuario" EntityType="SuncorpModel.UsEstatusUsuario" />
           <EntitySet Name="UsUsuarios" EntityType="SuncorpModel.UsUsuarios" />
+          <AssociationSet Name="FK_DirCatColonias_DirCatEstados" Association="SuncorpModel.FK_DirCatColonias_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="DirCatColonias" EntitySet="DirCatColonias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatColonias_DirCatMunicipios" Association="SuncorpModel.FK_DirCatColonias_DirCatMunicipios">
+            <End Role="DirCatMunicipios" EntitySet="DirCatMunicipios" />
+            <End Role="DirCatColonias" EntitySet="DirCatColonias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirCatMunicipios_DirCatEstados" Association="SuncorpModel.FK_DirCatMunicipios_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="DirCatMunicipios" EntitySet="DirCatMunicipios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatEstados" Association="SuncorpModel.FK_DirDirecciones_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpeZonasPorEstados_DirCatEstados" Association="SuncorpModel.FK_OpeZonasPorEstados_DirCatEstados">
+            <End Role="DirCatEstados" EntitySet="DirCatEstados" />
+            <End Role="OpeZonasPorEstados" EntitySet="OpeZonasPorEstados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DirDirecciones_DirCatMunicipios" Association="SuncorpModel.FK_DirDirecciones_DirCatMunicipios">
+            <End Role="DirCatMunicipios" EntitySet="DirCatMunicipios" />
+            <End Role="DirDirecciones" EntitySet="DirDirecciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogLogger_LogCatTipoLog" Association="SuncorpModel.FK_LogLogger_LogCatTipoLog">
+            <End Role="LogCatTipoLog" EntitySet="LogCatTipoLog" />
+            <End Role="LogLogger" EntitySet="LogLogger" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OpeZonasPorEstados_OpeCatZonas" Association="SuncorpModel.FK_OpeZonasPorEstados_OpeCatZonas">
+            <End Role="OpeCatZonas" EntitySet="OpeCatZonas" />
+            <End Role="OpeZonasPorEstados" EntitySet="OpeZonasPorEstados" />
+          </AssociationSet>
           <AssociationSet Name="FK_UsUsuarios_UsCatNivelUsuario" Association="SuncorpModel.FK_UsUsuarios_UsCatNivelUsuario">
             <End Role="UsCatNivelUsuario" EntitySet="UsCatNivelUsuario" />
             <End Role="UsUsuarios" EntitySet="UsUsuarios" />
@@ -183,7 +375,123 @@
             <End Role="UsEstatusUsuario" EntitySet="UsEstatusUsuario" />
             <End Role="UsUsuarios" EntitySet="UsUsuarios" />
           </AssociationSet>
+          <FunctionImport Name="Usp_LogAlmacenaLog" ReturnType="Collection(Decimal)">
+            <Parameter Name="tipoLog" Mode="In" Type="Int32" />
+            <Parameter Name="proyecto" Mode="In" Type="String" />
+            <Parameter Name="clase" Mode="In" Type="String" />
+            <Parameter Name="metodo" Mode="In" Type="String" />
+            <Parameter Name="mensage" Mode="In" Type="String" />
+            <Parameter Name="log" Mode="In" Type="String" />
+            <Parameter Name="excepcion" Mode="In" Type="String" />
+            <Parameter Name="auxiliar" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <EntityType Name="DirCatColonias">
+          <Key>
+            <PropertyRef Name="IdColonia" />
+          </Key>
+          <Property Name="IdColonia" Type="Int16" Nullable="false" />
+          <Property Name="IdEstado" Type="Int16" Nullable="false" />
+          <Property Name="IdMunicipio" Type="Int16" Nullable="false" />
+          <Property Name="NombreColonia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="ClaveCepomexColonia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DirCatEstados" Relationship="SuncorpModel.FK_DirCatColonias_DirCatEstados" FromRole="DirCatColonias" ToRole="DirCatEstados" />
+          <NavigationProperty Name="DirCatMunicipios" Relationship="SuncorpModel.FK_DirCatColonias_DirCatMunicipios" FromRole="DirCatColonias" ToRole="DirCatMunicipios" />
+        </EntityType>
+        <EntityType Name="DirCatEstados">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int16" Nullable="false" />
+          <Property Name="NombreOficial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreNoOficial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClaveEstadoSepomex" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DirCatColonias" Relationship="SuncorpModel.FK_DirCatColonias_DirCatEstados" FromRole="DirCatEstados" ToRole="DirCatColonias" />
+          <NavigationProperty Name="DirCatMunicipios" Relationship="SuncorpModel.FK_DirCatMunicipios_DirCatEstados" FromRole="DirCatEstados" ToRole="DirCatMunicipios" />
+          <NavigationProperty Name="DirDirecciones" Relationship="SuncorpModel.FK_DirDirecciones_DirCatEstados" FromRole="DirCatEstados" ToRole="DirDirecciones" />
+          <NavigationProperty Name="OpeZonasPorEstados" Relationship="SuncorpModel.FK_OpeZonasPorEstados_DirCatEstados" FromRole="DirCatEstados" ToRole="OpeZonasPorEstados" />
+        </EntityType>
+        <EntityType Name="DirCatMunicipios">
+          <Key>
+            <PropertyRef Name="IdMunicipio" />
+          </Key>
+          <Property Name="IdMunicipio" Type="Int16" Nullable="false" />
+          <Property Name="IdEstado" Type="Int16" Nullable="false" />
+          <Property Name="NombreOficial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreNoOficial" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ClaveMunicipioSepomex" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DirCatColonias" Relationship="SuncorpModel.FK_DirCatColonias_DirCatMunicipios" FromRole="DirCatMunicipios" ToRole="DirCatColonias" />
+          <NavigationProperty Name="DirCatEstados" Relationship="SuncorpModel.FK_DirCatMunicipios_DirCatEstados" FromRole="DirCatMunicipios" ToRole="DirCatEstados" />
+          <NavigationProperty Name="DirDirecciones" Relationship="SuncorpModel.FK_DirDirecciones_DirCatMunicipios" FromRole="DirCatMunicipios" ToRole="DirDirecciones" />
+        </EntityType>
+        <EntityType Name="DirDirecciones">
+          <Key>
+            <PropertyRef Name="IdDireccion" />
+          </Key>
+          <Property Name="IdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int16" Nullable="false" />
+          <Property Name="IdMunicipio" Type="Int16" Nullable="false" />
+          <Property Name="NombreColonia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostal" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Calle" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroExterio" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroInterior" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Referencias" Type="String" MaxLength="700" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatEstados" Relationship="SuncorpModel.FK_DirDirecciones_DirCatEstados" FromRole="DirDirecciones" ToRole="DirCatEstados" />
+          <NavigationProperty Name="DirCatMunicipios" Relationship="SuncorpModel.FK_DirDirecciones_DirCatMunicipios" FromRole="DirDirecciones" ToRole="DirCatMunicipios" />
+        </EntityType>
+        <EntityType Name="LogCatTipoLog">
+          <Key>
+            <PropertyRef Name="IdTipoLog" />
+          </Key>
+          <Property Name="IdTipoLog" Type="Int32" Nullable="false" />
+          <Property Name="TipoLog" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="LogLogger" Relationship="SuncorpModel.FK_LogLogger_LogCatTipoLog" FromRole="LogCatTipoLog" ToRole="LogLogger" />
+        </EntityType>
+        <EntityType Name="LogLogger">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoLog" Type="Int32" />
+          <Property Name="Proyecto" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Clase" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Metodo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Mensage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Log" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Excepcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Auxiliar" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LogCatTipoLog" Relationship="SuncorpModel.FK_LogLogger_LogCatTipoLog" FromRole="LogLogger" ToRole="LogCatTipoLog" />
+        </EntityType>
+        <EntityType Name="OpeCatZonas">
+          <Key>
+            <PropertyRef Name="IdZona" />
+          </Key>
+          <Property Name="IdZona" Type="Int16" Nullable="false" />
+          <Property Name="NombreZona" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Borrado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="OpeZonasPorEstados" Relationship="SuncorpModel.FK_OpeZonasPorEstados_OpeCatZonas" FromRole="OpeCatZonas" ToRole="OpeZonasPorEstados" />
+        </EntityType>
+        <EntityType Name="OpeZonasPorEstados">
+          <Key>
+            <PropertyRef Name="IdZonasEstados" />
+          </Key>
+          <Property Name="IdZonasEstados" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int16" />
+          <Property Name="IdZona" Type="Int16" />
+          <Property Name="Borrado" Type="Boolean" />
+          <NavigationProperty Name="DirCatEstados" Relationship="SuncorpModel.FK_OpeZonasPorEstados_DirCatEstados" FromRole="OpeZonasPorEstados" ToRole="DirCatEstados" />
+          <NavigationProperty Name="OpeCatZonas" Relationship="SuncorpModel.FK_OpeZonasPorEstados_OpeCatZonas" FromRole="OpeZonasPorEstados" ToRole="OpeCatZonas" />
+        </EntityType>
         <EntityType Name="UsCatNivelUsuario">
           <Key>
             <PropertyRef Name="IdNivelUsuario" />
@@ -227,6 +535,102 @@
           <NavigationProperty Name="UsCatNivelUsuario" Relationship="SuncorpModel.FK_UsUsuarios_UsCatNivelUsuario" FromRole="UsUsuarios" ToRole="UsCatNivelUsuario" />
           <NavigationProperty Name="UsEstatusUsuario" Relationship="SuncorpModel.FK_UsUsuarios_UsEstatusUsuario" FromRole="UsUsuarios" ToRole="UsEstatusUsuario" />
         </EntityType>
+        <Association Name="FK_DirCatColonias_DirCatEstados">
+          <End Type="SuncorpModel.DirCatEstados" Role="DirCatEstados" Multiplicity="1" />
+          <End Type="SuncorpModel.DirCatColonias" Role="DirCatColonias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirCatColonias">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatColonias_DirCatMunicipios">
+          <End Type="SuncorpModel.DirCatMunicipios" Role="DirCatMunicipios" Multiplicity="1" />
+          <End Type="SuncorpModel.DirCatColonias" Role="DirCatColonias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatMunicipios">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="DirCatColonias">
+              <PropertyRef Name="IdMunicipio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirCatMunicipios_DirCatEstados">
+          <End Type="SuncorpModel.DirCatEstados" Role="DirCatEstados" Multiplicity="1" />
+          <End Type="SuncorpModel.DirCatMunicipios" Role="DirCatMunicipios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirCatMunicipios">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatEstados">
+          <End Type="SuncorpModel.DirCatEstados" Role="DirCatEstados" Multiplicity="1" />
+          <End Type="SuncorpModel.DirDirecciones" Role="DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpeZonasPorEstados_DirCatEstados">
+          <End Type="SuncorpModel.DirCatEstados" Role="DirCatEstados" Multiplicity="0..1" />
+          <End Type="SuncorpModel.OpeZonasPorEstados" Role="OpeZonasPorEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatEstados">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="OpeZonasPorEstados">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DirDirecciones_DirCatMunicipios">
+          <End Type="SuncorpModel.DirCatMunicipios" Role="DirCatMunicipios" Multiplicity="1" />
+          <End Type="SuncorpModel.DirDirecciones" Role="DirDirecciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DirCatMunicipios">
+              <PropertyRef Name="IdMunicipio" />
+            </Principal>
+            <Dependent Role="DirDirecciones">
+              <PropertyRef Name="IdMunicipio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogLogger_LogCatTipoLog">
+          <End Type="SuncorpModel.LogCatTipoLog" Role="LogCatTipoLog" Multiplicity="0..1" />
+          <End Type="SuncorpModel.LogLogger" Role="LogLogger" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogCatTipoLog">
+              <PropertyRef Name="IdTipoLog" />
+            </Principal>
+            <Dependent Role="LogLogger">
+              <PropertyRef Name="IdTipoLog" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OpeZonasPorEstados_OpeCatZonas">
+          <End Type="SuncorpModel.OpeCatZonas" Role="OpeCatZonas" Multiplicity="0..1" />
+          <End Type="SuncorpModel.OpeZonasPorEstados" Role="OpeZonasPorEstados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OpeCatZonas">
+              <PropertyRef Name="IdZona" />
+            </Principal>
+            <Dependent Role="OpeZonasPorEstados">
+              <PropertyRef Name="IdZona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UsUsuarios_UsCatNivelUsuario">
           <End Type="SuncorpModel.UsCatNivelUsuario" Role="UsCatNivelUsuario" Multiplicity="0..1" />
           <End Type="SuncorpModel.UsUsuarios" Role="UsUsuarios" Multiplicity="*" />
@@ -251,34 +655,107 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="SuncorpModelStoreContainer" CdmEntityContainer="SuncorpEntities">
+          <EntitySetMapping Name="DirCatColonias">
+            <EntityTypeMapping TypeName="SuncorpModel.DirCatColonias">
+              <MappingFragment StoreEntitySet="DirCatColonias">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="ClaveCepomexColonia" ColumnName="ClaveCepomexColonia" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="NombreColonia" ColumnName="NombreColonia" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatEstados">
+            <EntityTypeMapping TypeName="SuncorpModel.DirCatEstados">
+              <MappingFragment StoreEntitySet="DirCatEstados">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="ClaveEstadoSepomex" ColumnName="ClaveEstadoSepomex" />
+                <ScalarProperty Name="NombreNoOficial" ColumnName="NombreNoOficial" />
+                <ScalarProperty Name="NombreOficial" ColumnName="NombreOficial" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirCatMunicipios">
+            <EntityTypeMapping TypeName="SuncorpModel.DirCatMunicipios">
+              <MappingFragment StoreEntitySet="DirCatMunicipios">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="ClaveMunicipioSepomex" ColumnName="ClaveMunicipioSepomex" />
+                <ScalarProperty Name="NombreNoOficial" ColumnName="NombreNoOficial" />
+                <ScalarProperty Name="NombreOficial" ColumnName="NombreOficial" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DirDirecciones">
+            <EntityTypeMapping TypeName="SuncorpModel.DirDirecciones">
+              <MappingFragment StoreEntitySet="DirDirecciones">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Referencias" ColumnName="Referencias" />
+                <ScalarProperty Name="NumeroInterior" ColumnName="NumeroInterior" />
+                <ScalarProperty Name="NumeroExterio" ColumnName="NumeroExterio" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="NombreColonia" ColumnName="NombreColonia" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="LogCatTipoLog">
             <EntityTypeMapping TypeName="SuncorpModel.LogCatTipoLog">
               <MappingFragment StoreEntitySet="LogCatTipoLog">
-                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
-                <ScalarProperty Name="TipoLog" ColumnName="TipoLog" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
                 <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="TipoLog" ColumnName="TipoLog" />
+                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogLogger">
             <EntityTypeMapping TypeName="SuncorpModel.LogLogger">
               <MappingFragment StoreEntitySet="LogLogger">
-                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
-                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
-                <ScalarProperty Name="Proyecto" ColumnName="Proyecto" />
-                <ScalarProperty Name="Clase" ColumnName="Clase" />
-                <ScalarProperty Name="Metodo" ColumnName="Metodo" />
-                <ScalarProperty Name="Mensage" ColumnName="Mensage" />
-                <ScalarProperty Name="Log" ColumnName="Log" />
-                <ScalarProperty Name="Excepcion" ColumnName="Excepcion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
                 <ScalarProperty Name="Auxiliar" ColumnName="Auxiliar" />
+                <ScalarProperty Name="Excepcion" ColumnName="Excepcion" />
+                <ScalarProperty Name="Log" ColumnName="Log" />
+                <ScalarProperty Name="Mensage" ColumnName="Mensage" />
+                <ScalarProperty Name="Metodo" ColumnName="Metodo" />
+                <ScalarProperty Name="Clase" ColumnName="Clase" />
+                <ScalarProperty Name="Proyecto" ColumnName="Proyecto" />
+                <ScalarProperty Name="IdTipoLog" ColumnName="IdTipoLog" />
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpeCatZonas">
+            <EntityTypeMapping TypeName="SuncorpModel.OpeCatZonas">
+              <MappingFragment StoreEntitySet="OpeCatZonas">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="NombreZona" ColumnName="NombreZona" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OpeZonasPorEstados">
+            <EntityTypeMapping TypeName="SuncorpModel.OpeZonasPorEstados">
+              <MappingFragment StoreEntitySet="OpeZonasPorEstados">
+                <ScalarProperty Name="Borrado" ColumnName="Borrado" />
+                <ScalarProperty Name="IdZona" ColumnName="IdZona" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdZonasEstados" ColumnName="IdZonasEstados" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -325,6 +802,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Usp_LogAlmacenaLog" FunctionName="SuncorpModel.Store.Usp_LogAlmacenaLog" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

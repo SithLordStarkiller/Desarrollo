@@ -14,28 +14,23 @@ namespace Suncorp.Models
     using System.Collections.Generic;
     
     [DataContract]
-    public partial class LogLogger{
-    	[DataMember]
-        public long IdLog { get; set; }
-    	[DataMember]
-        public Nullable<int> IdTipoLog { get; set; }
-    	[DataMember]
-        public string Proyecto { get; set; }
-    	[DataMember]
-        public string Clase { get; set; }
-    	[DataMember]
-        public string Metodo { get; set; }
-    	[DataMember]
-        public string Mensage { get; set; }
-    	[DataMember]
-        public string Log { get; set; }
-    	[DataMember]
-        public string Excepcion { get; set; }
-    	[DataMember]
-        public string Auxiliar { get; set; }
-    	[DataMember]
-        public System.DateTime FechaCreacion { get; set; }
+    public partial class OpeCatZonas{
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OpeCatZonas()
+        {
+            this.OpeZonasPorEstados = new HashSet<OpeZonasPorEstados>();
+        }
     
-        public virtual LogCatTipoLog LogCatTipoLog { get; set; }
+    	[DataMember]
+        public short IdZona { get; set; }
+    	[DataMember]
+        public string NombreZona { get; set; }
+    	[DataMember]
+        public string Descripcion { get; set; }
+    	[DataMember]
+        public bool Borrado { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OpeZonasPorEstados> OpeZonasPorEstados { get; set; }
     }
 }

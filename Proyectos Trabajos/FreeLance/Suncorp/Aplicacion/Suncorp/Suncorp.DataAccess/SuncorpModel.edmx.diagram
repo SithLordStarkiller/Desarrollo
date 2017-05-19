@@ -5,13 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7aed37560b8e45e6a0ed4731ab2050ce" Name="Diagram1">
-        <EntityTypeShape EntityType="SuncorpModel.LogCatTipoLog" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SuncorpModel.LogLogger" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="SuncorpModel.FK_LogLogger_LogCatTipoLog" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SuncorpModel.UsCatNivelUsuario" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="SuncorpModel.UsCatTipoUsuario" Width="1.5" PointX="6.75" PointY="5.625" />
-        <EntityTypeShape EntityType="SuncorpModel.UsEstatusUsuario" Width="1.5" PointX="0.75" PointY="8.375" />
-        <EntityTypeShape EntityType="SuncorpModel.UsUsuarios" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="SuncorpModel.DirCatColonias" Width="1.5" PointX="5.25" PointY="8" />
+        <EntityTypeShape EntityType="SuncorpModel.DirCatEstados" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SuncorpModel.DirCatMunicipios" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="SuncorpModel.DirDirecciones" Width="1.5" PointX="8.25" PointY="7.75" />
+        <EntityTypeShape EntityType="SuncorpModel.LogCatTipoLog" Width="1.5" PointX="7.75" PointY="1.5" />
+        <EntityTypeShape EntityType="SuncorpModel.LogLogger" Width="1.5" PointX="10" PointY="1" />
+        <EntityTypeShape EntityType="SuncorpModel.OpeCatZonas" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="SuncorpModel.OpeZonasPorEstados" Width="1.5" PointX="3" PointY="5.125" />
+        <EntityTypeShape EntityType="SuncorpModel.UsCatNivelUsuario" Width="1.5" PointX="2.75" PointY="8.375" />
+        <EntityTypeShape EntityType="SuncorpModel.UsCatTipoUsuario" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="SuncorpModel.UsEstatusUsuario" Width="1.5" PointX="2.75" PointY="1.375" />
+        <EntityTypeShape EntityType="SuncorpModel.UsUsuarios" Width="1.5" PointX="5" PointY="1" />
+        <AssociationConnector Association="SuncorpModel.FK_DirCatColonias_DirCatEstados" />
+        <AssociationConnector Association="SuncorpModel.FK_DirCatColonias_DirCatMunicipios" />
+        <AssociationConnector Association="SuncorpModel.FK_DirCatMunicipios_DirCatEstados" />
+        <AssociationConnector Association="SuncorpModel.FK_DirDirecciones_DirCatEstados" />
+        <AssociationConnector Association="SuncorpModel.FK_OpeZonasPorEstados_DirCatEstados" />
+        <AssociationConnector Association="SuncorpModel.FK_DirDirecciones_DirCatMunicipios" />
+        <AssociationConnector Association="SuncorpModel.FK_LogLogger_LogCatTipoLog" />
+        <AssociationConnector Association="SuncorpModel.FK_OpeZonasPorEstados_OpeCatZonas" />
         <AssociationConnector Association="SuncorpModel.FK_UsUsuarios_UsCatNivelUsuario" />
         <AssociationConnector Association="SuncorpModel.FK_UsUsuarios_UsEstatusUsuario" />
       </Diagram>

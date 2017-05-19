@@ -14,28 +14,29 @@ namespace Suncorp.Models
     using System.Collections.Generic;
     
     [DataContract]
-    public partial class LogLogger{
+    public partial class DirDirecciones{
     	[DataMember]
-        public long IdLog { get; set; }
+        public int IdDireccion { get; set; }
     	[DataMember]
-        public Nullable<int> IdTipoLog { get; set; }
+        public short IdEstado { get; set; }
     	[DataMember]
-        public string Proyecto { get; set; }
+        public short IdMunicipio { get; set; }
     	[DataMember]
-        public string Clase { get; set; }
+        public string NombreColonia { get; set; }
     	[DataMember]
-        public string Metodo { get; set; }
+        public string CodigoPostal { get; set; }
     	[DataMember]
-        public string Mensage { get; set; }
+        public string Calle { get; set; }
     	[DataMember]
-        public string Log { get; set; }
+        public string NumeroExterio { get; set; }
     	[DataMember]
-        public string Excepcion { get; set; }
+        public string NumeroInterior { get; set; }
     	[DataMember]
-        public string Auxiliar { get; set; }
+        public string Referencias { get; set; }
     	[DataMember]
-        public System.DateTime FechaCreacion { get; set; }
+        public Nullable<bool> Borrado { get; set; }
     
-        public virtual LogCatTipoLog LogCatTipoLog { get; set; }
+        public virtual DirCatEstados DirCatEstados { get; set; }
+        public virtual DirCatMunicipios DirCatMunicipios { get; set; }
     }
 }

@@ -23,16 +23,16 @@
         /// </summary>
         /// <param name="criterio">Criterio por el cual se va a filtrar el registro</param>
         /// <returns>Retorna un registro de UsUsuario</returns>
-        [OperationContract]
-        UsUsuarios ObteneRegistroUsuario(Expression<Func<UsUsuarios, bool>> criterio);
+        //[OperationContract]
+        //UsUsuarios ObteneRegistroUsuario(Expression<Func<UsUsuarios, bool>> criterio);
 
         /// <summary>
         /// Retorna una lista de registros de UsUsuario por un criterio
         /// </summary>
         /// <param name="criterio">Criterio por el cual se va a filtrar el registro</param>
         /// <returns>Retorna lista de registros de UsUsuario</returns>
-        [OperationContract]
-        List<UsUsuarios> ObteneRegistrosUsuarios(Expression<Func<UsUsuarios, bool>> criterio);
+        //[OperationContract]
+        //List<UsUsuarios> ObteneRegistrosUsuarios(Expression<Func<UsUsuarios, bool>> criterio);
 
         /// <summary>
         /// Inserta en la tabla de usuarios
