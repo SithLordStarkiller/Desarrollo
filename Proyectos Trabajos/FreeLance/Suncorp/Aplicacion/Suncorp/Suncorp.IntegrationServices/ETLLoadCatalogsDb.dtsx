@@ -1,0 +1,1606 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="6/3/2016 12:42:36 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STARKILLER-PC"
+  DTS:CreatorName="STARKILLER-PC\Esteban"
+  DTS:DTSID="{959C9BFD-E0C9-4AC1-AE33-B08BD54A6E58}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="3082"
+  DTS:ObjectName="ETLLoadCatalogsDb"
+  DTS:PackageType="5"
+  DTS:VersionBuild="85"
+  DTS:VersionGUID="{AB04FFB0-25B6-4DB8-B2AF-E85443D18ABA}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Db Suncorp]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+      DTS:ObjectName="Db Suncorp">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=OF-22QOMC2\MSSQLSERVER2014;User ID=sa;Initial Catalog=Suncorp;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0lSZkUb+h0C/zm0kQxVBwwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAAAKsyES6HhESJWFAmh2PIOLAAAAAASAAACgAAAAEAAAAK4MJNuOJl4FVN7lyAWAzJYgAAAAAnsc6O0Nngl7GMlWbU7KVZugFS1JtfG3kd47GIKnYp8UAAAATilozKw8rrL7JeVkuBWtYlecyE4</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Old Db]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6EBF7F53-65A6-4826-B70D-E04841B2EFD1}"
+      DTS:ObjectName="Old Db">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=OF-22QOMC2\MSSQLSERVER2008;User ID=sa;Initial Catalog=SuncorpOld;Provider=SQLNCLI11.1;Persist Security Info=True;Auto Translate=False;">
+          <DTS:Password
+            DTS:Name="Password"
+            Sensitive="1"
+            Encrypted="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0lSZkUb+h0C/zm0kQxVBwwAAAAAIAAAARABUAFMAAAADZgAAwAAAABAAAABmIzSq/1/SXcWv94qp+KBEAAAAAASAAACgAAAAEAAAAEUFLGa+iUn5v7yDZJ8bt4ogAAAA7YlrmzK0JGgbwxBd55QWmB5TRJvZbCDq+TPyLn59+6cUAAAA7Uopbfk4+f+3vGKXn8SdTqhqlZo</DTS:Password>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E623B146-02B1-41C2-8196-612FBBF7550A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ObjTableOldDbDiviciones">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{281212BE-F486-42DE-9F9B-DDAAE871081E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ObjTableOldDbFamilias">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{794F2996-FA48-4FB0-8B70-CE8F4A0C2EAB}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ObjTableOldDbMarcas">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{583EC2AA-83A5-4274-A0F2-43FA32BD2101}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ObjTableOldDbProductos">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{691508A3-C154-417B-8846-7FF08D1ECB1F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue0">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{98DC0AF3-9B5C-492A-9372-00E4AA7331D8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue1">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{593F4A65-37A2-4709-95AE-16B97BD80292}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue10">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{03D7C379-9546-4AAA-8C3E-5E0CD86AFF4C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue11">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{83F244CE-2BC7-4537-BCEE-20C6988AA229}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue12">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E9C41B60-8574-46EE-B9CE-159EC13A4BD1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue13">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E4699A18-F0F2-4284-9CF2-6E4918F56F51}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue14">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F216DCD4-31CA-4635-9756-C582ADC24B88}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue15">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{23E6ADEE-7F0D-4285-83F9-C31FADAF5775}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue16">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{550CCEDE-6C72-49A0-9D69-AD1CD8E81207}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue17">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4AE8E9A1-A7A2-4050-8EF2-6CE0AD364E84}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue2">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C653DE96-7FD0-4F70-BFF5-B719FD54A85B}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue3">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BD0262CC-7FC7-40CA-AE80-9231B8278E7D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue4">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A33CD8E0-E12F-4CCA-B601-B7C77A1B3076}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue5">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1C4CE693-9AAB-4A13-B49B-F8174C41BF0D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue6">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4530165C-A3D3-4EAA-BDD9-163931F8CAF2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue7">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0D7178FC-92FB-464D-94BD-EFC58C534729}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue8">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{30F2354B-D46F-45E4-BE56-23E8D1E928DB}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ParamValue9">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Stored Procedures"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D0D092FE-71E8-4143-BDFA-1986F3F1BD32}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Stored Procedures"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+          SQLTask:SqlStatementSource="&#xA;/****** Object:  StoredProcedure [dbo].[InsertaCatalogosFam]    Script Date: 07/06/2016 18:09:39 ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;CREATE PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#x9;@ID_FAMILIAS int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@FA_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;INSERT INTO SSISTABLEFAMILIAS (ID_FAMILIAS, TITULO, CREADOR, FECHA_CREACION, FA_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_FAMILIAS, @TITULO, @CREADOR, @FECHA_CREACION, @FA_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;Create PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#x9;@ID_MARCAS int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@MA_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;&#xA;INSERT INTO SSISTABLEMARCAS (ID_MARCAS, TITULO, CREADOR, FECHA_CREACION, MA_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_MARCAS, @TITULO, @CREADOR, @FECHA_CREACION, @MA_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;Create PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#x9;@ID_DIVICIONES int&#xA;    ,@TITULO Varchar(MAX)&#xA;&#x9;,@CREADOR Varchar(MAX)&#xA;&#x9;,@FECHA_CREACION Varchar(MAX)&#xA;&#x9;,@DIV_NOMBRE Varchar(MAX)&#xA;&#x9;,@TITULODETALLE Varchar(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;&#xA;INSERT INTO SSISTABLEDIVICIONES (ID_DIVICIONES, TITULO, CREADOR, FECHA_CREACION, DIV_NOMBRE,TITULODETALLE)&#xA;VALUES (@ID_DIVICIONES, @TITULO, @CREADOR, @FECHA_CREACION, @DIV_NOMBRE, @TITULODETALLE)&#xA;&#xA;&#xA;END&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;&#xA;CREATE PROCEDURE [dbo].[ETLInsertCatalogsProductos]&#xA;&#x9;@ID_PRODUCTOS INT,&#xA;&#x9;@TITULO VARCHAR(MAX),&#xA;&#x9;@CREADOR VARCHAR(MAX),&#xA;&#x9;@FECHA_CREACION VARCHAR(MAX),&#xA;&#x9;@PR_CODBAR VARCHAR(MAX),&#xA;&#x9;@PR_NOMBRE VARCHAR(MAX),&#xA;&#x9;@PR_MODELO VARCHAR(MAX),&#xA;&#x9;@PR_OBSERVACIONES VARCHAR(MAX),&#xA;&#x9;@PR_HAYSERIES VARCHAR(MAX),&#xA;&#x9;@PR_REPARABLE VARCHAR(MAX),&#xA;&#x9;@ID_MARCAS INT,&#xA;&#x9;@ID_DIVISIONES INT,&#xA;&#x9;@ID_FAMILIAS INT,&#xA;&#x9;@TITULODETALLE VARCHAR(MAX),&#xA;&#x9;@PR_VALSERIE VARCHAR (MAX),&#xA;&#x9;@PR_FECVENTA VARCHAR(MAX)&#xA;AS&#xA;BEGIN&#xA;  SET NOCOUNT ON;&#xA;&#xA;INSERT INTO SSISTABLEPRODUCTOS (ID_PRODUCTOS, TITULO, CREADOR,FECHA_CREACION, PR_CODBAR, PR_NOMBRE, PR_MODELO, PR_OBSERVACIONES, PR_HAYSERIES, PR_REPARABLE, ID_MARCAS, ID_DIVISIONES, ID_FAMILIAS, TITULODETALLE, PR_VALSERIE, PR_FECVENTA)&#xA;VALUES (@ID_PRODUCTOS, @TITULO,&#x9;@CREADOR, @FECHA_CREACION, @PR_CODBAR, @PR_NOMBRE, @PR_MODELO, @PR_OBSERVACIONES, @PR_HAYSERIES, @PR_REPARABLE, @ID_MARCAS, @ID_DIVISIONES,&#x9;@ID_FAMILIAS, @TITULODETALLE, @PR_VALSERIE,&#x9;@PR_FECVENTA)&#xA;&#xA;END&#xA;&#xA;&#xA;&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;CREATE PROCEDURE Usp_ETLLoadTableCatalogsProduct &#xA;AS&#xA;BEGIN&#xA;---------------------------------------------Inserta Registros ProFamilias-------------------------------------------------------------------&#xA;&#xA;&#x9;INSERT INTO ProFamilias (IdFamilia, NombreFamilia, Descripcion, Creador,FechaCreacion,Borrado) &#xA;&#x9;SELECT  &#xA;&#x9;ROW_NUMBER() OVER(order by o.FA_NOMBRE) AS IdTable,&#xA;&#x9;FA_NOMBRE,&#xA;&#x9;TITULO,&#xA;&#x9;'ETL',&#xA;&#x9;GETDATE(),&#xA;&#x9;0&#xA;&#x9;FROM SSISTABLEFAMILIAS AS o&#xA;&#x9;GROUP BY&#xA;&#x9;FA_NOMBRE,TITULO&#xA;&#xA;------------------------------------------------Inserta Registros MARCAS --------------------------------------------------------------------&#xA;&#x9;&#xA;&#x9;INSERT INTO ProCatMarca (IdMarca, NombreMarca, Descripcion, Creador, FechaCreacion,Borrado) &#xA;&#x9;SELECT&#xA;&#x9;ROW_NUMBER() OVER(order by o.MA_NOMBRE) AS IdTable&#xA;&#x9;, MA_NOMBRE&#xA;&#x9;, TITULO&#xA;&#x9;, 'ETL'&#xA;&#x9;, GETDATE()&#xA;&#x9;, 0&#xA;&#x9;FROM SSISTABLEMARCAS AS o&#xA;&#x9;Group By &#xA;&#x9;MA_NOMBRE,TITULO&#xA;&#xA;-------------------------------------------------Inserta Registros Modelos -------------------------------------------------------------------&#xA;&#xA;&#x9;INSERT INTO ProCatModelo (IdModelo, IdMarca, NombreModelo, Descripcion, Creador, FechaCreacion, Borrado)&#xA;&#x9;SELECT&#xA;&#x9;ROW_NUMBER() OVER(order by O.PR_MODELO) AS IdTable&#xA;&#x9;, (SELECT IdMarca FROM ProCatMarca WHERE NombreMarca = M.MA_NOMBRE) AS IdModel&#xA;&#x9;, O.PR_MODELO&#xA;&#x9;, O.TITULO&#xA;&#x9;, 'ETL'&#xA;&#x9;, GETDATE()&#xA;&#x9;, 0&#xA;&#x9;FROM SSISTABLEPRODUCTOS AS O&#xA;    INNER JOIN SSISTABLEMARCAS AS M ON O.ID_MARCAS = M.ID_MARCAS&#xA;&#x9;GROUP BY O.PR_MODELO,M.MA_NOMBRE, O.PR_NOMBRE, O.TITULO&#xA;&#xA;-------------------------------------------------Inserta Registros Diviciones -------------------------------------------------------------------&#xA;&#xA;&#x9;INSERT INTO ProDiviciones(IdDivicion, NombreDivicion, Descripcion, Creador, FechaCreacion, Borrado)&#xA;&#x9;SELECT&#xA;&#x9;ROW_NUMBER() OVER(order by O.DIV_NOMBRE) AS IdTable&#xA;&#x9;, DIV_NOMBRE&#xA;&#x9;, TITULO&#xA;&#x9;, 'ETL'&#xA;&#x9;, GETDATE()&#xA;&#x9;, 0&#xA;&#x9;FROM SSISTABLEDIVICIONES AS O&#xA;&#x9;GROUP BY O.DIV_NOMBRE, O.TITULO&#xA;&#xA;------------------------------------------------Inserta Registro de Productos ---------------------------------------------------------------&#xA;&#x9;&#xA;&#x9;SET IDENTITY_INSERT ProProducto ON&#xA;&#xA;&#x9;INSERT INTO ProProducto (IdProducto, IdModelo, IdMarca, IdFamilia, IdDivicion, NombreProducto, Descripcion&#xA;&#x9;, CodigoBarras, Detalles, EsReparable, HaySeries, Borrado, Creador, FechaCreacion)&#xA;&#x9;SELECT &#xA;&#x9;ROW_NUMBER() OVER (ORDER BY SP.PR_NOMBRE)&#xA;&#x9;,(SELECT MO.IdModelo FROM ProCatModelo AS MO INNER JOIN ProCatMarca MA ON MO.IdMarca = MA.IdMarca WHERE MO.NombreModelo = SP.PR_MODELO GROUP BY MO.IdModelo)&#xA;&#x9;,(SELECT MA.IdMarca FROM ProCatMarca AS MA WHERE MA.NombreMarca = SM.MA_NOMBRE)&#xA;&#x9;,(SELECT PF.IdFamilia FROM ProFamilias AS PF  WHERE pf.NombreFamilia = SF.FA_NOMBRE)&#xA;&#x9;,(SELECT PD.IdDivicion FROM ProDiviciones AS PD WHERE PD.NombreDivicion = SD.DIV_NOMBRE)&#xA;&#x9;,SP.PR_NOMBRE&#xA;&#x9;,SP.TITULO&#xA;&#x9;,SP.PR_CODBAR&#xA;&#x9;,SP.PR_OBSERVACIONES&#xA;&#x9;,SP.PR_REPARABLE&#xA;&#x9;,SP.PR_HAYSERIES&#xA;&#x9;,0&#xA;&#x9;,'ETL'&#xA;&#x9;,GETDATE()&#xA;&#x9;FROM SSISTABLEPRODUCTOS SP&#xA;&#x9;INNER JOIN SSISTABLEMARCAS SM ON SP.ID_MARCAS = SM.ID_MARCAS&#xA;&#x9;INNER JOIN SSISTABLEDIVICIONES SD ON SP.ID_DIVISIONES = SD.ID_DIVICIONES&#xA;&#x9;INNER JOIN SSISTABLEFAMILIAS SF ON SP.ID_FAMILIAS = SF.ID_FAMILIAS&#xA;&#x9;GROUP BY SP.PR_NOMBRE,SP.PR_MODELO,sm.MA_NOMBRE, SD.DIV_NOMBRE, SP.TITULO, FA_NOMBRE,SP.PR_CODBAR, SP.PR_OBSERVACIONES, SP.PR_REPARABLE, SP.PR_HAYSERIES&#xA;&#xA;&#x9;SET IDENTITY_INSERT ProProducto OFF&#xA;&#xA;END&#xA;GO&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Create Temporal Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{62E247F4-5092-4D9D-A879-7DE6807EA36C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Temporal Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+          SQLTask:SqlStatementSource=" CREATE TABLE dbo.SSISTABLEFAMILIAS&#xA;(&#xA;    ID_FAMILIAS int primary key, &#xA;    TITULO Varchar(MAX), &#xA;    CREADOR Varchar(MAX), &#xA;    FECHA_CREACION DatetIme, &#xA;    FA_NOMBRE Varchar(max),&#xA;    TITULODETALLE Varchar(max)&#xA;)&#xA;&#xA;CREATE TABLE dbo.SSISTABLEMARCAS&#xA;(&#xA;    ID_MARCAS int primary key, &#xA;    TITULO Varchar(MAX), &#xA;    CREADOR Varchar(MAX), &#xA;    FECHA_CREACION DatetIme, &#xA;    MA_NOMBRE Varchar(max),&#xA;    TITULODETALLE Varchar(max)&#xA;)&#xA;&#xA;CREATE TABLE dbo.SSISTABLEDIVICIONES&#xA;(&#xA;    ID_DIVICIONES int primary key, &#xA;    TITULO Varchar(MAX), &#xA;    CREADOR Varchar(MAX), &#xA;    FECHA_CREACION DatetIme, &#xA;    DIV_NOMBRE Varchar(max),&#xA;    TITULODETALLE Varchar(max)&#xA;)&#xA;&#xA;CREATE TABLE dbo.SSISTABLEPRODUCTOS&#xA;(&#xA;&#x9;ID_PRODUCTOS INT PRIMARY KEY,&#xA;&#x9;TITULO VARCHAR(MAX),&#xA;&#x9;CREADOR VARCHAR(MAX),&#xA;&#x9;FECHA_CREACION DATETIME,&#xA;&#x9;PR_CODBAR VARCHAR(MAX),&#xA;&#x9;PR_NOMBRE VARCHAR(MAX),&#xA;&#x9;PR_MODELO VARCHAR(MAX),&#xA;&#x9;PR_OBSERVACIONES VARCHAR(MAX),&#xA;&#x9;PR_HAYSERIES BIT,&#xA;&#x9;PR_REPARABLE BIT,&#xA;&#x9;ID_MARCAS INT,&#xA;&#x9;ID_DIVISIONES INT,&#xA;&#x9;ID_FAMILIAS INT,&#xA;&#x9;TITULODETALLE VARCHAR(MAX),&#xA;&#x9;PR_VALSERIE VARCHAR (MAX),&#xA;&#x9;PR_FECVENTA DATETIME&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete Temporal Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BDE7FA59-16E7-4F6D-97FA-3443C631104F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete Temporal Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+          SQLTask:SqlStatementSource="&#xA;DROP TABLE SSISTABLEFAMILIAS&#xA;DROP TABLE SSISTABLEMARCAS&#xA;DROP TABLE SSISTABLEDIVICIONES&#xA;DROP TABLE SSISTABLEPRODUCTOS&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertaCatalogosFam]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsMarcas]&#xA;&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsDiviciones]&#xA;&#xA;DROP PROCEDURE [dbo].[ETLInsertCatalogsProductos]&#xA;&#xA;DROP PROCEDURE [dbo].[Usp_ETLLoadTableCatalogsProduct]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Insert Temporal Table Diviciones"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{C1E688FD-1F2D-48A0-B5C5-6680E2419ACA}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert Temporal Table Diviciones">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachADOEnumerator"
+        DTS:DTSID="{01C59FCF-BD9F-4551-8FDC-B39FBC535DC8}"
+        DTS:ObjectName="{01C59FCF-BD9F-4551-8FDC-B39FBC535DC8}">
+        <DTS:ObjectData>
+          <FEEADO
+            EnumType="EnumerateRowsInFirstTable"
+            VarName="User::ObjTableOldDbDiviciones" />
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Insert Temporal Table Diviciones\Insert Row data Diviciones"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{DC2D6F62-335D-4599-A0B5-FAC1149C905E}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Insert Row data Diviciones"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+              SQLTask:SqlStatementSource="EXECUTE [dbo].[ETLInsertCatalogsDiviciones] ?,?,?,?,?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_DIVICIONES"
+                SQLTask:DtsVariableName="User::ParamValue0"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULO"
+                SQLTask:DtsVariableName="User::ParamValue1"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@CREADOR"
+                SQLTask:DtsVariableName="User::ParamValue2"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@FECHA_CREACION"
+                SQLTask:DtsVariableName="User::ParamValue3"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@DIV_NOMBRE"
+                SQLTask:DtsVariableName="User::ParamValue4"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULODETALLE"
+                SQLTask:DtsVariableName="User::ParamValue5"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{D98B9BD3-2E33-4742-B46B-E5910F0C5348}"
+          DTS:ObjectName="{D98B9BD3-2E33-4742-B46B-E5910F0C5348}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::ParamValue0" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{CC13E89C-CD80-4802-93AB-0D8D65ACF76A}"
+          DTS:ObjectName="{CC13E89C-CD80-4802-93AB-0D8D65ACF76A}"
+          DTS:ValueIndex="1"
+          DTS:VariableName="User::ParamValue1" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{6F8D0BDA-F138-4AFE-ADC3-BFF76916F37B}"
+          DTS:ObjectName="{6F8D0BDA-F138-4AFE-ADC3-BFF76916F37B}"
+          DTS:ValueIndex="2"
+          DTS:VariableName="User::ParamValue2" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{EEF52E38-AC0F-4C36-8BB3-D2E0169B2AA4}"
+          DTS:ObjectName="{EEF52E38-AC0F-4C36-8BB3-D2E0169B2AA4}"
+          DTS:ValueIndex="3"
+          DTS:VariableName="User::ParamValue3" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{9EC04C1E-FA18-4A85-9CBA-95D39EA10699}"
+          DTS:ObjectName="{9EC04C1E-FA18-4A85-9CBA-95D39EA10699}"
+          DTS:ValueIndex="4"
+          DTS:VariableName="User::ParamValue4" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{97F4B66D-E2D0-4EE5-9853-AE8ACAB1CE4B}"
+          DTS:ObjectName="{97F4B66D-E2D0-4EE5-9853-AE8ACAB1CE4B}"
+          DTS:ValueIndex="5"
+          DTS:VariableName="User::ParamValue5" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Insert Temporal Table Familias"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{495512C4-66B9-4764-8E47-9BA1BD7C70A0}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert Temporal Table Familias">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachADOEnumerator"
+        DTS:DTSID="{AAAC27C4-F2CC-471D-81C5-D161D45C079D}"
+        DTS:ObjectName="{AAAC27C4-F2CC-471D-81C5-D161D45C079D}">
+        <DTS:ObjectData>
+          <FEEADO
+            EnumType="EnumerateRowsInFirstTable"
+            VarName="User::ObjTableOldDbFamilias" />
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Insert Temporal Table Familias\Insert row data Familias"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{F1DAC8E1-AACD-4A9E-987E-98D43DD4AABB}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Insert row data Familias"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+              SQLTask:SqlStatementSource="EXECUTE dbo.ETLInsertaCatalogosFam ?,?,?,?,?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_FAMILIA"
+                SQLTask:DtsVariableName="User::ParamValue0"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULO"
+                SQLTask:DtsVariableName="User::ParamValue1"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@CREADOR"
+                SQLTask:DtsVariableName="User::ParamValue2"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@FECHA_CREACION"
+                SQLTask:DtsVariableName="User::ParamValue3"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@FA_NOMBRE"
+                SQLTask:DtsVariableName="User::ParamValue4"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULODETALLE"
+                SQLTask:DtsVariableName="User::ParamValue5"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{2F34DC3A-EC70-4E40-89F9-4FD2B72EE209}"
+          DTS:ObjectName="{2F34DC3A-EC70-4E40-89F9-4FD2B72EE209}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::ParamValue0" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{9C840170-FEC8-417F-9A86-D0D876CB5407}"
+          DTS:ObjectName="{9C840170-FEC8-417F-9A86-D0D876CB5407}"
+          DTS:ValueIndex="1"
+          DTS:VariableName="User::ParamValue1" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{B7C262D6-6BDD-43F7-BA45-361F7595F4C9}"
+          DTS:ObjectName="{B7C262D6-6BDD-43F7-BA45-361F7595F4C9}"
+          DTS:ValueIndex="2"
+          DTS:VariableName="User::ParamValue2" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{C805AA2C-A5A3-4FF8-9DA8-E81103B91B4A}"
+          DTS:ObjectName="{C805AA2C-A5A3-4FF8-9DA8-E81103B91B4A}"
+          DTS:ValueIndex="3"
+          DTS:VariableName="User::ParamValue3" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{DF3E815F-CB16-473E-9739-7C8943A71000}"
+          DTS:ObjectName="{DF3E815F-CB16-473E-9739-7C8943A71000}"
+          DTS:ValueIndex="4"
+          DTS:VariableName="User::ParamValue4" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{72654784-EA3E-4190-84C8-A4A0F9FCCD48}"
+          DTS:ObjectName="{72654784-EA3E-4190-84C8-A4A0F9FCCD48}"
+          DTS:ValueIndex="5"
+          DTS:VariableName="User::ParamValue5" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Insert Temporal Table Marcas"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{BB05F030-6A0D-40B7-B1A9-F9D937A35C88}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert Temporal Table Marcas">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachADOEnumerator"
+        DTS:DTSID="{8C41615F-3404-4474-941A-2D10F926D732}"
+        DTS:ObjectName="{8C41615F-3404-4474-941A-2D10F926D732}">
+        <DTS:ObjectData>
+          <FEEADO
+            EnumType="EnumerateRowsInFirstTable"
+            VarName="User::ObjTableOldDbMarcas" />
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Insert Temporal Table Marcas\Insert row data Marcas"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1A157408-0027-4961-BEFC-06260785F208}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Insert row data Marcas"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+              SQLTask:SqlStatementSource="EXECUTE dbo.[ETLInsertCatalogsMarcas] ?,?,?,?,?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_MARCAS"
+                SQLTask:DtsVariableName="User::ParamValue0"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULO"
+                SQLTask:DtsVariableName="User::ParamValue1"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@CREADOR"
+                SQLTask:DtsVariableName="User::ParamValue2"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@FECHA_CREACION"
+                SQLTask:DtsVariableName="User::ParamValue3"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@MA_NOMBRE"
+                SQLTask:DtsVariableName="User::ParamValue4"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULODETALLE"
+                SQLTask:DtsVariableName="User::ParamValue5"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{B9399AFB-260C-4C11-9BDC-4FD885108F75}"
+          DTS:ObjectName="{B9399AFB-260C-4C11-9BDC-4FD885108F75}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::ParamValue0" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{90C9AF65-9DA5-4233-B2AA-9A56221C100B}"
+          DTS:ObjectName="{90C9AF65-9DA5-4233-B2AA-9A56221C100B}"
+          DTS:ValueIndex="1"
+          DTS:VariableName="User::ParamValue1" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{C195AB42-23FD-40D5-8309-A774C2C0FC41}"
+          DTS:ObjectName="{C195AB42-23FD-40D5-8309-A774C2C0FC41}"
+          DTS:ValueIndex="2"
+          DTS:VariableName="User::ParamValue2" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{5EFD342E-0EF2-48E1-98E1-8B8D703590C4}"
+          DTS:ObjectName="{5EFD342E-0EF2-48E1-98E1-8B8D703590C4}"
+          DTS:ValueIndex="3"
+          DTS:VariableName="User::ParamValue3" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{2155DD93-B86F-4794-B5E5-441244F4781D}"
+          DTS:ObjectName="{2155DD93-B86F-4794-B5E5-441244F4781D}"
+          DTS:ValueIndex="4"
+          DTS:VariableName="User::ParamValue4" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{301DD6E9-D56A-47C3-ADDA-0E619983DEE1}"
+          DTS:ObjectName="{301DD6E9-D56A-47C3-ADDA-0E619983DEE1}"
+          DTS:ValueIndex="5"
+          DTS:VariableName="User::ParamValue5" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Insert Temporal Table Productos"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{B7946D37-DEA0-48B8-9310-C2103F8CACF7}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Insert Temporal Table Productos">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachADOEnumerator"
+        DTS:DTSID="{5E205829-D7FB-4764-B016-15CDB43E1790}"
+        DTS:ObjectName="{5E205829-D7FB-4764-B016-15CDB43E1790}">
+        <DTS:ObjectData>
+          <FEEADO
+            EnumType="EnumerateRowsInFirstTable"
+            VarName="User::ObjTableOldDbProductos" />
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Insert Temporal Table Productos\Insert Row Data Productos"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{367C2755-4E2F-4039-AF6B-EEDD9578B6A2}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Insert Row Data Productos"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+              SQLTask:SqlStatementSource="EXECUTE [dbo].[ETLInsertCatalogsProductos] ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_PRODUCTOS"
+                SQLTask:DtsVariableName="User::ParamValue0"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULO"
+                SQLTask:DtsVariableName="User::ParamValue1"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@CREADOR"
+                SQLTask:DtsVariableName="User::ParamValue2"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@FECHA_CREACION"
+                SQLTask:DtsVariableName="User::ParamValue3"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="7"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_CODBAR"
+                SQLTask:DtsVariableName="User::ParamValue4"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_NOMBRE"
+                SQLTask:DtsVariableName="User::ParamValue5"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_MODELO"
+                SQLTask:DtsVariableName="User::ParamValue6"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_OBSERVACIONES"
+                SQLTask:DtsVariableName="User::ParamValue7"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_HAYSERIES"
+                SQLTask:DtsVariableName="User::ParamValue8"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_REPARABLE"
+                SQLTask:DtsVariableName="User::ParamValue9"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_MARCAS"
+                SQLTask:DtsVariableName="User::ParamValue10"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_DIVISIONES"
+                SQLTask:DtsVariableName="User::ParamValue11"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@ID_FAMILIAS"
+                SQLTask:DtsVariableName="User::ParamValue12"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@TITULODETALLE"
+                SQLTask:DtsVariableName="User::ParamValue13"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_VALSERIE"
+                SQLTask:DtsVariableName="User::ParamValue14"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="@PR_FECVENTA"
+                SQLTask:DtsVariableName="User::ParamValue15"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{E8F10B49-BFC1-4EDA-88A7-74FCAB1A3CAF}"
+          DTS:ObjectName="{E8F10B49-BFC1-4EDA-88A7-74FCAB1A3CAF}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::ParamValue0" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{F7C302C3-C2D6-4BCC-8DBF-640024D35F53}"
+          DTS:ObjectName="{F7C302C3-C2D6-4BCC-8DBF-640024D35F53}"
+          DTS:ValueIndex="1"
+          DTS:VariableName="User::ParamValue1" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{114A6BEE-10A7-48C1-A107-93A856E03A90}"
+          DTS:ObjectName="{114A6BEE-10A7-48C1-A107-93A856E03A90}"
+          DTS:ValueIndex="2"
+          DTS:VariableName="User::ParamValue2" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{07612D95-0576-4FCF-9072-9AEEE7C86273}"
+          DTS:ObjectName="{07612D95-0576-4FCF-9072-9AEEE7C86273}"
+          DTS:ValueIndex="3"
+          DTS:VariableName="User::ParamValue3" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{0D9E2012-9BB6-4139-8DE8-6716AFBB1CEE}"
+          DTS:ObjectName="{0D9E2012-9BB6-4139-8DE8-6716AFBB1CEE}"
+          DTS:ValueIndex="4"
+          DTS:VariableName="User::ParamValue4" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{72B04F48-CF53-432C-8BC8-6010EA57AA27}"
+          DTS:ObjectName="{72B04F48-CF53-432C-8BC8-6010EA57AA27}"
+          DTS:ValueIndex="5"
+          DTS:VariableName="User::ParamValue5" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{755A4D89-224D-4789-AB2A-D5B4B05A9D00}"
+          DTS:ObjectName="{755A4D89-224D-4789-AB2A-D5B4B05A9D00}"
+          DTS:ValueIndex="6"
+          DTS:VariableName="User::ParamValue6" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{F6B2DD74-4FFA-4B32-B369-9776258FAC53}"
+          DTS:ObjectName="{F6B2DD74-4FFA-4B32-B369-9776258FAC53}"
+          DTS:ValueIndex="7"
+          DTS:VariableName="User::ParamValue7" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{0A90D280-3082-4B3B-90EC-A63DF93A97E0}"
+          DTS:ObjectName="{0A90D280-3082-4B3B-90EC-A63DF93A97E0}"
+          DTS:ValueIndex="8"
+          DTS:VariableName="User::ParamValue8" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{CB3ED5BF-DFFD-4547-A84D-F31EA8F52971}"
+          DTS:ObjectName="{CB3ED5BF-DFFD-4547-A84D-F31EA8F52971}"
+          DTS:ValueIndex="9"
+          DTS:VariableName="User::ParamValue9" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{ECA8A97D-DAC4-446D-BE10-B9D301D15465}"
+          DTS:ObjectName="{ECA8A97D-DAC4-446D-BE10-B9D301D15465}"
+          DTS:ValueIndex="10"
+          DTS:VariableName="User::ParamValue10" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{A974EFDD-5EDE-4ECB-8164-1DAD678AC06C}"
+          DTS:ObjectName="{A974EFDD-5EDE-4ECB-8164-1DAD678AC06C}"
+          DTS:ValueIndex="11"
+          DTS:VariableName="User::ParamValue11" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{E0B465C4-B6F3-4888-99A3-6085676000C4}"
+          DTS:ObjectName="{E0B465C4-B6F3-4888-99A3-6085676000C4}"
+          DTS:ValueIndex="12"
+          DTS:VariableName="User::ParamValue12" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{FBC2AE53-5C69-4BA8-B228-8EF6A98E3CA2}"
+          DTS:ObjectName="{FBC2AE53-5C69-4BA8-B228-8EF6A98E3CA2}"
+          DTS:ValueIndex="13"
+          DTS:VariableName="User::ParamValue13" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{834583D8-7BE4-44D5-8C7E-DC2FE86C5319}"
+          DTS:ObjectName="{834583D8-7BE4-44D5-8C7E-DC2FE86C5319}"
+          DTS:ValueIndex="14"
+          DTS:VariableName="User::ParamValue14" />
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{714883C2-BDA7-4133-A306-518142B4FBB5}"
+          DTS:ObjectName="{714883C2-BDA7-4133-A306-518142B4FBB5}"
+          DTS:ValueIndex="15"
+          DTS:VariableName="User::ParamValue15" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load and Sort Tables"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EBC3B710-F0FF-451A-B32B-52402CB1B1BF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load and Sort Tables"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6656E5CB-A1E6-43D0-A6E2-C85CCDCD1729}"
+          SQLTask:SqlStatementSource="EXEC Usp_ETLLoadTableCatalogsProduct" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtain Table Diviciones"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1921EDA5-33FD-4A37-95E8-B8C8AB6E74DC}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtain Table Diviciones"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6EBF7F53-65A6-4826-B70D-E04841B2EFD1}"
+          SQLTask:SqlStatementSource="SELECT * FROM DIVISIONES"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::ObjTableOldDbDiviciones" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtain Table Familias"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DF850058-3D14-4A30-8501-7C45A16F88E1}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtain Table Familias"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6EBF7F53-65A6-4826-B70D-E04841B2EFD1}"
+          SQLTask:SqlStatementSource="SELECT * FROM FAMILIAS"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::ObjTableOldDbFamilias" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtain Table Marcas"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D1617AE4-8842-4CC5-8439-C4A4A373B483}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtain Table Marcas"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6EBF7F53-65A6-4826-B70D-E04841B2EFD1}"
+          SQLTask:SqlStatementSource="SELECT * FROM MARCAS"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::ObjTableOldDbMarcas" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Obtain Table Productos"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B28A24BF-AA8E-4CF2-B06C-F2F578D2FFC6}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Obtain Table Productos"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{6EBF7F53-65A6-4826-B70D-E04841B2EFD1}"
+          SQLTask:SqlStatementSource="SELECT &#xA;ID_PRODUCTOS,&#xA;CASE WHEN (TITULO IS NULL) OR (TITULO = '') THEN 'NULL' ELSE TITULO END AS TITULO,&#xA;CASE WHEN (CREADOR IS NULL) OR (CREADOR = '') THEN 'NULL' ELSE CREADOR END AS CREADOR,&#xA;CASE WHEN (FECHA_CREACION IS NULL) OR (FECHA_CREACION = '') THEN 'NULL' ELSE FECHA_CREACION END AS FECHA_CREACION,&#xA;CASE WHEN (PR_CODBAR IS NULL) OR (PR_CODBAR = '') THEN 'NULL' ELSE PR_CODBAR END AS PR_CODBAR,&#xA;CASE WHEN (PR_NOMBRE IS NULL) OR (PR_NOMBRE = '') THEN 'NULL' ELSE PR_NOMBRE END AS PR_NOMBRE,&#xA;CASE WHEN (PR_MODELO IS NULL) OR (PR_MODELO = '') THEN 'NULL' ELSE PR_MODELO END AS PR_MODELO,&#xA;CASE WHEN (PR_OBSERVACIONES IS NULL) OR (PR_OBSERVACIONES = '') THEN 'NULL' ELSE PR_OBSERVACIONES END AS PR_OBSERVACIONES,&#xA;CASE WHEN (PR_HAYSERIES IS NULL) OR (PR_HAYSERIES = '') THEN 'NULL' ELSE PR_HAYSERIES END AS PR_HAYSERIES,&#xA;CASE WHEN (PR_REPARABLE IS NULL) OR (PR_REPARABLE = '') THEN 'NULL' ELSE PR_REPARABLE END AS PR_REPARABLE,&#xA;CASE WHEN (ID_MARCAS IS NULL) OR (ID_MARCAS = 0) THEN 'NULL' ELSE ID_MARCAS END AS ID_MARCAS,&#xA;CASE WHEN (ID_DIVISIONES IS NULL) OR (ID_DIVISIONES = 0) THEN 'NULL' ELSE ID_DIVISIONES END AS ID_DIVISIONES,&#xA;CASE WHEN (ID_FAMILIAS IS NULL) OR (ID_FAMILIAS = 0) THEN 'NULL' ELSE ID_FAMILIAS END AS ID_FAMILIAS,&#xA;CASE WHEN (TITULODETALLE IS NULL) OR (TITULODETALLE = '') THEN 'NULL' ELSE TITULODETALLE END AS TITULODETALLE,&#xA;CASE WHEN (PR_VALSERIE IS NULL) OR (PR_VALSERIE = '') THEN 'NULL' ELSE PR_VALSERIE END AS PR_VALSERIE,&#xA;CASE WHEN (PR_FECVENTA IS NULL) OR (PR_FECVENTA = '') THEN '1900/01/01' ELSE PR_FECVENTA END AS PR_FECVENTA&#xA;FROM PRODUCTOS"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::ObjTableOldDbProductos" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{9483B694-2071-4483-A4AA-AC59FCC46A80}"
+      DTS:From="Package\Obtain Table Familias"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Obtain Table Diviciones" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{FE1DB046-75C3-4161-A7E8-18883A13AE62}"
+      DTS:From="Package\Obtain Table Diviciones"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Obtain Table Marcas" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 10]"
+      DTS:CreationName=""
+      DTS:DTSID="{25EB531D-BA1A-4FE6-9144-4FBAD1AD2681}"
+      DTS:From="Package\Insert Temporal Table Productos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 10"
+      DTS:To="Package\Load and Sort Tables" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{86D8E43A-27CA-4E98-BFBE-E4CBDE30C1E6}"
+      DTS:From="Package\Obtain Table Marcas"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Obtain Table Productos" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{FAEFA7E7-3965-4D32-BB10-97B86AFD4120}"
+      DTS:From="Package\Obtain Table Productos"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\Create Temporal Tables" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 4]"
+      DTS:CreationName=""
+      DTS:DTSID="{302ECE50-8F08-4EB9-9AF9-94FE61F83217}"
+      DTS:From="Package\Insert Temporal Table Familias"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 4"
+      DTS:To="Package\Insert Temporal Table Marcas" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{C8B4D116-92C6-46AE-B9F3-50F29901A37D}"
+      DTS:From="Package\Create Stored Procedures"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Insert Temporal Table Familias" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 6]"
+      DTS:CreationName=""
+      DTS:DTSID="{4FC14B9C-C447-4219-8D86-EE323673F957}"
+      DTS:From="Package\Insert Temporal Table Marcas"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 6"
+      DTS:To="Package\Insert Temporal Table Diviciones" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 7]"
+      DTS:CreationName=""
+      DTS:DTSID="{25582E3C-FF88-4194-8CF6-ABB02A4779AC}"
+      DTS:From="Package\Insert Temporal Table Diviciones"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 7"
+      DTS:To="Package\Insert Temporal Table Productos" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{758C2658-744A-4464-851B-BCD9F1080B2B}"
+      DTS:From="Package\Create Temporal Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Create Stored Procedures" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{7CC205B1-6AC0-4D13-94B0-458743F620A8}"
+      DTS:From="Package\Load and Sort Tables"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Delete Temporal Tables" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Create Stored Procedures"
+          TopLeft="151,722" />
+        <NodeLayout
+          Size="191,42"
+          Id="Package\Create Temporal Tables"
+          TopLeft="159,616" />
+        <NodeLayout
+          Size="191,42"
+          Id="Package\Delete Temporal Tables"
+          TopLeft="975,283" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Insert Temporal Table Diviciones\Insert Row data Diviciones"
+          TopLeft="28,21" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="257,89"
+          Size="257,132"
+          Id="Package\Insert Temporal Table Diviciones"
+          TopLeft="530,255" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\Insert Temporal Table Familias\Insert row data Familias"
+          TopLeft="35,18" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="252,85"
+          Size="252,128"
+          Id="Package\Insert Temporal Table Familias"
+          TopLeft="539,673" />
+        <NodeLayout
+          Size="188,42"
+          Id="Package\Insert Temporal Table Marcas\Insert row data Marcas"
+          TopLeft="28,20" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="243,81"
+          Size="243,124"
+          Id="Package\Insert Temporal Table Marcas"
+          TopLeft="540,472" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\Insert Temporal Table Productos\Insert Row Data Productos"
+          TopLeft="31,24" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="262,99"
+          Size="262,142"
+          Id="Package\Insert Temporal Table Productos"
+          TopLeft="524,44" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Load and Sort Tables"
+          TopLeft="985,94" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Obtain Table Diviciones"
+          TopLeft="157,211" />
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Obtain Table Familias"
+          TopLeft="164,69" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Obtain Table Marcas"
+          TopLeft="165,341" />
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Obtain Table Productos"
+          TopLeft="160,485" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="252.75,111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,100"
+              Start="0,0"
+              End="0,92.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,92.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="252,253">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,88"
+              Start="0,0"
+              End="0,80.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,80.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 10]"
+          TopLeft="786,115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="199,0"
+              Start="0,0"
+              End="191.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="191.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="253.5,383">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,102"
+              Start="0,0"
+              End="0,94.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,94.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="254.5,527">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,89"
+              Start="0,0"
+              End="0,81.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,81.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 4]"
+          TopLeft="663.25,673">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-77"
+              Start="0,0"
+              End="0,-69.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-69.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="350,740">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="189,0"
+              Start="0,0"
+              End="181.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="181.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 6]"
+          TopLeft="660,472">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-85"
+              Start="0,0"
+              End="0,-77.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-77.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 7]"
+          TopLeft="656.75,255">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-69"
+              Start="0,0"
+              End="0,-61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="252.5,658">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="1072.5,136">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,147"
+              Start="0,0"
+              End="0,139.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,139.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
