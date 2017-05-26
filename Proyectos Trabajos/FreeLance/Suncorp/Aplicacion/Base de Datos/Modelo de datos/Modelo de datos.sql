@@ -2,14 +2,6 @@ IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('FK_DirCatColonias_
 ALTER TABLE DirCatColonias DROP CONSTRAINT FK_DirCatColonias_DirCatEstados
 ;
 
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('FK_DirCatColonias_DirCatMunicipios') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1)
-ALTER TABLE DirCatColonias DROP CONSTRAINT FK_DirCatColonias_DirCatMunicipios
-;
-
-IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('FK_DirCatMunicipios_DirCatEstados') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1)
-ALTER TABLE DirCatMunicipios DROP CONSTRAINT FK_DirCatMunicipios_DirCatEstados
-;
-
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('FK_DirDirecciones_DirCatEstados') AND OBJECTPROPERTY(id, 'IsForeignKey') = 1)
 ALTER TABLE DirDirecciones DROP CONSTRAINT FK_DirDirecciones_DirCatEstados
 ;
@@ -122,6 +114,7 @@ CREATE TABLE DirCatEstados (
 ;
 
 CREATE TABLE DirCatMunicipios ( 
+	IdCatMunicipio smallint NOT NULL,
 	IdMunicipio smallint NOT NULL,
 	IdEstado smallint NOT NULL,
 	NombreOficial varchar(50) NOT NULL,
@@ -236,6 +229,10 @@ CREATE TABLE UsUsuarios (
 ;
 
 
+ALTER TABLE DirCatMunicipios
+	ADD CONSTRAINT UQ_DirCatMunicipios_IdMunicipio UNIQUE (IdMunicipio)
+;
+
 ALTER TABLE DirCatColonias ADD CONSTRAINT PK_DirCatColonias 
 	PRIMARY KEY CLUSTERED (IdColonia)
 ;
@@ -245,7 +242,7 @@ ALTER TABLE DirCatEstados ADD CONSTRAINT PK_DirCatEstados
 ;
 
 ALTER TABLE DirCatMunicipios ADD CONSTRAINT PK_DirCatMunicipios 
-	PRIMARY KEY CLUSTERED (IdMunicipio)
+	PRIMARY KEY CLUSTERED (IdCatMunicipio)
 ;
 
 ALTER TABLE DirDirecciones ADD CONSTRAINT PK_DirDirecciones 
@@ -295,14 +292,6 @@ ALTER TABLE UsUsuarios ADD CONSTRAINT PK_UsUsuarios
 
 
 ALTER TABLE DirCatColonias ADD CONSTRAINT FK_DirCatColonias_DirCatEstados 
-	FOREIGN KEY (IdEstado) REFERENCES DirCatEstados (IdEstado)
-;
-
-ALTER TABLE DirCatColonias ADD CONSTRAINT FK_DirCatColonias_DirCatMunicipios 
-	FOREIGN KEY (IdMunicipio) REFERENCES DirCatMunicipios (IdMunicipio)
-;
-
-ALTER TABLE DirCatMunicipios ADD CONSTRAINT FK_DirCatMunicipios_DirCatEstados 
 	FOREIGN KEY (IdEstado) REFERENCES DirCatEstados (IdEstado)
 ;
 
