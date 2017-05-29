@@ -1,0 +1,654 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.apache.org/ns/synapse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://ws.apache.org/ns/synapse" name="CASA_SRTMX_TarjetaEstado" targetNamespace="http://ws.apache.org/ns/synapse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:tns="http://ws.apache.org/ns/synapse" targetNamespace="http://ws.apache.org/ns/synapse">
+      <xsd:complexType name="Autenticacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: usuario WS y pass para autenticar en la operacion del servicio . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Usuario" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion del usuario otorgado para Webservice .
+                        Tipo alfanumerico , Largo 03 .. 24 .
+                        Ejemplo: Empresa01 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Password" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Password otorgado para dicho usuario: valor que el sistema Cliente
+                        debe cifrar con el  algoritmo RSA, haciendo uso de la llave publica
+                        otorgada para datos sensibles de solicitudes, y que posteriomrmente
+                        debe encodear a base 64 para su envio .
+                        Tipo base64 , Largo variable .
+                        Ejemplo: YW55IGNhcm5hbCBwbGVhcw== .
+                        Referencia : MIME base 64 en http://es.wikipedia.org/wiki/Base64 </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Originador">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: persona solicitante y zona horaria deseada </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Solicitante" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Cadena de uso libre con datos respecto a la persona que, desde
+                        el equipo originador perteneciente al sistema Cliente, realiza
+                        la operacion. Puede ser una identificacion de usuario en dicho
+                        Sistema, o bien puede ser un apellido y nombre, etc. , para asi
+                        dejar registro respecto a la persona que solicita la operacion
+                        y en los mismos terminos de identificacion del sistema Cliente .
+                        Tipo frase_ext , Largo 03..24 .
+                        Ejemplo: x1Z .
+                        Ejemplo: juanCruz .
+                        Ejemplo: Centro 48, PC 15 .
+                        Ejemplo: Ana Rosaura 481 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ZonaHoraria" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                         Zona horaria valida americana del originador de la operacion, la
+                         cual sera utilizada para expresar informaciones de fecha/hora en
+                         la respuesta del requerimiento .
+                         Tipo zona_horaria_am , Largo 12..50 .
+                         Ejemplo : America/Managua .
+                         Referencia : http://www.php.net/manual/es/timezones.america.php . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseWS">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Codigo, Descripcion de Respuesta y Ticket de servicio . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo de respuesta devuelto por el servicio .
+                        Tipo cadena , Valores posbibles y Largo segun rangos :
+                          -999 .. -001 : Rechazos del servicio   , largo 04..04 .
+                            00         : Aprobada                , largo 02..02 .
+                            01 ..  999 : Rechazos de autorizador , largo 02..03 .
+                        Ejemplo : -014 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo de respuesta .
+                        Tipo cadena , largo variable .
+                        Ejemplo : Operacion no permitida para este servicio . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TicketWS" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de ticket de atencion de servicio .
+                        Tipo digito , Largo 09..09 o bien valor fijo 'N/D' .
+                        Ejemplo : 682044868 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Atencion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Momento de inicio, fin y tiempo de proceso . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Inicio" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Momento de inicio, expresado en terminos de la zona horaria requerida .
+                        Tipo fecha_hora, Largo 19 o bien valor fijo 'N/D' .
+                        Ejemplo: 2013-11-29 15:00:51 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Fin" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Momento de fin, expresado en terminos de la zona horaria requerida .
+                        Tipo fecha_hora, Largo 19 o bien valor fijo 'N/D' .
+                        Ejemplo: 2013-11-29 15:00:52 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Tiempo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tiempo de procesamiento de operacion, expresado en segundos .
+                        Tipo decimal , largo variable .
+                        Ejemplo: 0.21 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Especificacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Aperturas de codigo y descripcion en datos devueltos . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo asociado al item al cual se refiere .
+                        El tipo de dato y su largo es variable segun el item al cual se refiere .
+                        En caso no se haya podido obtener, se impone valor fijo N/D.
+                        Ejemplo : 484 , para item de moneda .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo .
+                        Tipo cadena , largo variable .
+                        En caso no se haya podido obtener, se impone valor fijo N/D.
+                        Ejemplo : Peso mexicano .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EstadoPortal">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Detalles de un estado de Tarjeta para Portal . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion de estado de tarjeta. .
+                        Tipo alfanumerico , largo 02..02 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo .
+                        Tipo cadena , largo variable .
+                        Ejemplo : Bol. x cuenta - Falta de pago .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EBPT" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si el estado Es Boletin Por Tarjeta.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EBPC" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si el estado Es Boletin Por Cuenta.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ABPT" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si el estado es Asignable como Boletin Por Tarjeta, esto es
+                        que sea EBPT y exista almenos una transicion de estado de tarjeta
+                        en la cual este estado sea destino.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ABPC" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si el estado es Asignable como Boletin Por Cuenta, esto es
+                        que sea EBPC y exista almenos una transicion de estado de tarjeta
+                        en la cual este estado sea destino.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EEPM" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si Es un Estado Posteriormente Modificable, esto es, si el
+                        estado es tal que existe como origen de alguna transicion
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EEGD" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si Es un Estado que Genera Denuncia, esto es, si por 
+                        cambiar una tarjeta al Estado ocurre que el sistema asignara
+                        un numero de denuncia a dicho cambio de estado de Tarjeta.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaEstadoPortal">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Lista con detalles de uno o mas estados de tarjeta para Portal. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Estado" type="ns:EstadoPortal">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene todos los detalles de c/u de los estados
+                        de tarjeta, especificamente para Portal.
+                        Mas detalles, ver Tipo complejo EstadoPortal . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Estado">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Datos de un estado de Tarjeta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion de estado de tarjeta. .
+                        Tipo alfanumerico , largo 02..02 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo .
+                        Tipo cadena , largo variable .
+                        Ejemplo : Bol. x cuenta - Falta de pago .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EUEA" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si Es Un Estado Asignable, esto es, si existe almenos una
+                        transicion en la cual este estado esta como origen.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EEPM" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si Es un Estado Posteriormente Modificable, esto es, si el
+                        estado es tal que existe como origen de alguna transicion
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EEGD" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si Es un Estado que Genera Denuncia, esto es, si por 
+                        cambiar una tarjeta al Estado ocurre que el sistema asignara
+                        un numero de denuncia a dicho cambio de estado de Tarjeta.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaEstado">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Lista con datos de uno o mas estados de tarjeta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Estado" type="ns:Estado">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene datos de c/u de los estados de tarjeta.
+                        Mas detalles, ver Tipo complejo Estado . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Transicion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Datos de una transicion de estados de Tarjeta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="EstadoDesde" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de Estado de tarjeta que se encuentra
+                        como originario de la transicion o cambio de estado posible
+                         Codigo      : Tipo alfanumerico, largo 02..02
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EstadoHacia" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de Estado de tarjeta que se encuentra
+                        como destinatario de la transicion o cambio de estado posible
+                         Codigo      : Tipo alfanumerico, largo 02..02
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="EEPM" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si Es un Estado Posteriormente Modificable, esto es, si el
+                        estado es tal que existe como origen de alguna transicion
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaTransicion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Lista con datos transiciones de estados de tarjeta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Transicion" type="ns:Transicion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene datos de c/u de las transiciones de estados de tarjeta,
+                        halladas segun filtros utilizados, o todas si no los hay.
+                        Mas detalles, ver Tipo complejo Transicion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Filtros">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.:
+                    Para especificar opcionalmente estados en busqueda de transiciones
+                    de estados de tarjeta, mediante EstadoDesde y/o un EstadoHacia.
+                    Debe tener contener por lo menos EstadoDesde y/o EstadoHacia.
+                    Uso de Filtros:
+                    - Si no se especifica Filtros, se devuelven todas las transiciones posibles.
+                    - Si se especifica solo EstadoDesde, se devuelve los posibles cambios de estado
+                      para tarjetas cuyo estado sea EstadoDesde sin importar el EstadoHacia.
+                    - Si se especifica solo EstadoHacia, se devuelve los posibles cambios de estado
+                      para tarjetas cuyo estado sea tal que puedan cambiar a EstadoHacia.
+                    - Si se especifica ambos, se devuelve solo la transicion. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="EstadoDesde" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Para indicar el EstadoDesde a usar en la busqueda.
+                        Es opcional, esto es: si no llega se asume transiciones
+                        desde cualquier estado de tarjeta.
+                        Tipo alfanumerico , Largo 02..02 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="EstadoHacia" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Para indicar el EstadoDesde a usar en la busqueda.
+                        Es opcional, esto es: si no llega se asume transiciones
+                        desde cualquier estado de tarjeta.
+                        Tipo alfanumerico , Largo 02..02 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ConsultarCodigosPortalRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion ConsultarCodigosPortal . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarCodigosPortalResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion ConsultarCodigosPortal . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Estados" type="ns:ListaEstadoPortal">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para devolver los Estados de Estado de tarjeta y sus detalles .
+                          Ya descripto en el tipo complejo ListaEstadoPortal .
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente y dentro de
+                             este habra una lista de 1 o + Estados . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarCodigosRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion ConsultarCodigos. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarCodigosResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion ConsultarCodigos. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Estados" type="ns:ListaEstado">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para devolver los Estados de Estado de tarjeta y sus datos .
+                          Ya descripto en el tipo complejo ListaEstado .
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente y dentro de
+                             este habra una lista de 1 o + Estados . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarTransicionesRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion ConsultarTransiciones de estados de tarjeta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Filtros" type="ns:Filtros">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para poder especificar un EstadoDesde y/o un EstadoHacia para
+                          filtrar las transiciones de estado de tarjeta.
+                          Es opcional, esto es: si no llega se asume todas las transiciones,
+                          pero si llega debe tener contener por lo menos un codigo de estado
+                          existente, ya sea EstadoDesde y/o EstadoHacia.
+                          Mas detalles, ver Tipo complejo Filtros . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarTransicionesResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion ConsultarTransiciones de estados de tarjeta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Transiciones" type="ns:ListaTransicion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para devolver las transiciones para estados de tarjeta, segun filtros
+                          Ya descripto en el tipo complejo ListaTransicion .
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente y dentro de
+                             este habra una lista de 1 o + Estados . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultarCodigosPortalRequest">
+    <wsdl:part name="ConsultarCodigosPortalRequest" element="ns:ConsultarCodigosPortalRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCodigosPortalResponse">
+    <wsdl:part name="ConsultarCodigosPortalResponse" element="ns:ConsultarCodigosPortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCodigosRequest">
+    <wsdl:part name="ConsultarCodigosRequest" element="ns:ConsultarCodigosRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarCodigosResponse">
+    <wsdl:part name="ConsultarCodigosResponse" element="ns:ConsultarCodigosResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarTransicionesRequest">
+    <wsdl:part name="ConsultarTransicionesRequest" element="ns:ConsultarTransicionesRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarTransicionesResponse">
+    <wsdl:part name="ConsultarTransicionesResponse" element="ns:ConsultarTransicionesResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CASA_SRTMX_TarjetaEstadoPortType">
+    <wsdl:operation name="ConsultarCodigosPortal">
+      <wsdl:input name="input1" message="ns:ConsultarCodigosPortalRequest" />
+      <wsdl:output name="output1" message="ns:ConsultarCodigosPortalResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCodigos">
+      <wsdl:input name="input2" message="ns:ConsultarCodigosRequest" />
+      <wsdl:output name="output2" message="ns:ConsultarCodigosResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTransiciones">
+      <wsdl:input name="input3" message="ns:ConsultarTransicionesRequest" />
+      <wsdl:output name="output3" message="ns:ConsultarTransicionesResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CASA_SRTMX_TarjetaEstadoBinding" type="ns:CASA_SRTMX_TarjetaEstadoPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarCodigosPortal">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input1">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output1">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarCodigos">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input2">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output2">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTransiciones">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input3">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output3">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CASA_SRTMX_TarjetaEstadoService">
+    <wsdl:port name="CASA_SRTMX_TarjetaEstadoPort" binding="ns:CASA_SRTMX_TarjetaEstadoBinding">
+      <soap:address location="https://10.16.20.80:8000/CASA_SRTMX_TarjetaEstadoService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

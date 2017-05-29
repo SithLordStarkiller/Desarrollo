@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BroxelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CargosDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSolicitud" Type="int" Nullable="false" />
+          <Property Name="Cuenta" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Producto" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="ClaveCliente" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Tarjeta" Type="nvarchar" MaxLength="20" />
+          <Property Name="Importe" Type="money" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="IdMovimiento" Type="int" />
+          <Property Name="CodigoRespuesta" Type="int" />
+          <Property Name="NumeroAutorizacion" Type="nvarchar" MaxLength="8" />
+          <Property Name="SaldoAntes" Type="money" />
+          <Property Name="SaldoDespues" Type="money" />
+          <Property Name="FechaCargo" Type="datetime" />
+          <Property Name="IdAnulacion" Type="int" />
+          <Property Name="CodigoRespuestaAnul" Type="int" />
+          <Property Name="NumeroAutorizacionAnul" Type="int" />
+          <Property Name="SaldoAntesAnul" Type="money" />
+          <Property Name="SaldoDespuesAnul" Type="money" />
+          <Property Name="FechaCargoAnul" Type="datetime" />
+          <Property Name="Referencia" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="CargosSolicitudes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Folio" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ClaveCliente" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Producto" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IdComercio" Type="int" Nullable="false" />
+          <Property Name="NombreComercio" Type="nvarchar" MaxLength="255" />
+          <Property Name="ImporteIndividual" Type="money" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailNotificacion" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioVerificacion" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaVerificacion" Type="datetime" />
+          <Property Name="UsuarioAprobacion" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaAprobacion" Type="datetime" />
+          <Property Name="UsuarioEjecucion" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaEjecucion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="nvarchar" MaxLength="255" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="TotalCuentas" Type="int" />
+          <Property Name="CuentasRepetidas" Type="int" />
+          <Property Name="ImporteTotal" Type="money" />
+          <Property Name="CargoPorRemanente" Type="bit" Nullable="false" />
+          <Property Name="ActivaCuentas" Type="bit" Nullable="false" />
+          <Property Name="CuentasMultiples" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CargosDetalle_CargosSolicitudes">
+          <End Role="CargosSolicitudes" Type="Self.CargosSolicitudes" Multiplicity="1" />
+          <End Role="CargosDetalle" Type="Self.CargosDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CargosSolicitudes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CargosDetalle">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ftnGenerarFolio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar" />
+        <Function Name="SpInsertarCargoSinDetalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClaveCliente" Type="nvarchar" Mode="In" />
+          <Parameter Name="Producto" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdComercio" Type="int" Mode="In" />
+          <Parameter Name="NombreComercio" Type="nvarchar" Mode="In" />
+          <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailNotificacion" Type="nvarchar" Mode="In" />
+          <Parameter Name="UsuarioCreacion" Type="nvarchar" Mode="In" />
+          <Parameter Name="CargoRemanente" Type="tinyint" Mode="In" />
+          <Parameter Name="ActivaCuentas" Type="bit" Mode="In" />
+          <Parameter Name="Folio" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="CuentasMultiples" Type="bit" Mode="In" />
+          <Parameter Name="IdSolicitud" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="SpInsertarCargoSolicitud" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClaveCliente" Type="nvarchar" Mode="In" />
+          <Parameter Name="NumCuenta" Type="nvarchar" Mode="In" />
+          <Parameter Name="Producto" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdComercio" Type="int" Mode="In" />
+          <Parameter Name="NombreComercio" Type="nvarchar" Mode="In" />
+          <Parameter Name="Estado" Type="nvarchar" Mode="In" />
+          <Parameter Name="Tipo" Type="nvarchar" Mode="In" />
+          <Parameter Name="EmailNotificacion" Type="nvarchar" Mode="In" />
+          <Parameter Name="UsuarioCreacion" Type="nvarchar" Mode="In" />
+          <Parameter Name="CargoRemanente" Type="tinyint" Mode="In" />
+          <Parameter Name="Importe" Type="money" Mode="In" />
+          <Parameter Name="ActivaCuentas" Type="bit" Mode="In" />
+          <Parameter Name="Folio" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="SpInsertarDetalleCargo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdSolicitudCargo" Type="int" Mode="In" />
+          <Parameter Name="ClaveCliente" Type="varchar" Mode="In" />
+          <Parameter Name="NumCuenta" Type="varchar" Mode="In" />
+          <Parameter Name="Producto" Type="varchar" Mode="In" />
+          <Parameter Name="Referencia" Type="varchar" Mode="In" />
+          <Parameter Name="Importe" Type="money" Mode="In" />
+        </Function>
+        <EntityContainer Name="BroxelModelStoreContainer">
+          <EntitySet Name="CargosDetalle" EntityType="Self.CargosDetalle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CargosSolicitudes" EntityType="Self.CargosSolicitudes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CargosDetalle_CargosSolicitudes" Association="Self.FK_CargosDetalle_CargosSolicitudes">
+            <End Role="CargosSolicitudes" EntitySet="CargosSolicitudes" />
+            <End Role="CargosDetalle" EntitySet="CargosDetalle" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BroxelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CargosDetalle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSolicitud" Type="Int32" Nullable="false" />
+          <Property Name="Cuenta" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Producto" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaveCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tarjeta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Importe" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdMovimiento" Type="Int32" />
+          <Property Name="CodigoRespuesta" Type="Int32" />
+          <Property Name="NumeroAutorizacion" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="SaldoAntes" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SaldoDespues" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FechaCargo" Type="DateTime" Precision="3" />
+          <Property Name="IdAnulacion" Type="Int32" />
+          <Property Name="CodigoRespuestaAnul" Type="Int32" />
+          <Property Name="NumeroAutorizacionAnul" Type="Int32" />
+          <Property Name="SaldoAntesAnul" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="SaldoDespuesAnul" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="FechaCargoAnul" Type="DateTime" Precision="3" />
+          <Property Name="Referencia" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CargosSolicitudes" Relationship="Self.FK_CargosDetalle_CargosSolicitudes" FromRole="CargosDetalle" ToRole="CargosSolicitudes" />
+        </EntityType>
+        <EntityType Name="CargosSolicitudes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Folio" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaveCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Producto" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdComercio" Type="Int32" Nullable="false" />
+          <Property Name="NombreComercio" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ImporteIndividual" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Estado" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailNotificacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioVerificacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaVerificacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioAprobacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaAprobacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioEjecucion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaEjecucion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="TotalCuentas" Type="Int32" />
+          <Property Name="CuentasRepetidas" Type="Int32" />
+          <Property Name="ImporteTotal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="CargoPorRemanente" Type="Boolean" Nullable="false" />
+          <Property Name="ActivaCuentas" Type="Boolean" Nullable="false" />
+          <Property Name="CuentasMultiples" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CargosDetalle" Relationship="Self.FK_CargosDetalle_CargosSolicitudes" FromRole="CargosSolicitudes" ToRole="CargosDetalle" />
+        </EntityType>
+        <Association Name="FK_CargosDetalle_CargosSolicitudes">
+          <End Role="CargosSolicitudes" Type="Self.CargosSolicitudes" Multiplicity="1" />
+          <End Role="CargosDetalle" Type="Self.CargosDetalle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CargosSolicitudes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CargosDetalle">
+              <PropertyRef Name="IdSolicitud" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BroxelSQLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CargosDetalle" EntityType="Self.CargosDetalle" />
+          <EntitySet Name="CargosSolicitudes" EntityType="Self.CargosSolicitudes" />
+          <AssociationSet Name="FK_CargosDetalle_CargosSolicitudes" Association="Self.FK_CargosDetalle_CargosSolicitudes">
+            <End Role="CargosSolicitudes" EntitySet="CargosSolicitudes" />
+            <End Role="CargosDetalle" EntitySet="CargosDetalle" />
+          </AssociationSet>
+          <FunctionImport Name="SpInsertarCargoSinDetalle">
+            <Parameter Name="ClaveCliente" Mode="In" Type="String" />
+            <Parameter Name="Producto" Mode="In" Type="String" />
+            <Parameter Name="IdComercio" Mode="In" Type="Int32" />
+            <Parameter Name="NombreComercio" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+            <Parameter Name="EmailNotificacion" Mode="In" Type="String" />
+            <Parameter Name="UsuarioCreacion" Mode="In" Type="String" />
+            <Parameter Name="CargoRemanente" Mode="In" Type="Byte" />
+            <Parameter Name="ActivaCuentas" Mode="In" Type="Boolean" />
+            <Parameter Name="Folio" Mode="InOut" Type="String" />
+            <Parameter Name="CuentasMultiples" Mode="In" Type="Boolean" />
+            <Parameter Name="IdSolicitud" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SpInsertarCargoSolicitud">
+            <Parameter Name="ClaveCliente" Mode="In" Type="String" />
+            <Parameter Name="NumCuenta" Mode="In" Type="String" />
+            <Parameter Name="Producto" Mode="In" Type="String" />
+            <Parameter Name="IdComercio" Mode="In" Type="Int32" />
+            <Parameter Name="NombreComercio" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="String" />
+            <Parameter Name="EmailNotificacion" Mode="In" Type="String" />
+            <Parameter Name="UsuarioCreacion" Mode="In" Type="String" />
+            <Parameter Name="CargoRemanente" Mode="In" Type="Byte" />
+            <Parameter Name="Importe" Mode="In" Type="Decimal" />
+            <Parameter Name="ActivaCuentas" Mode="In" Type="Boolean" />
+            <Parameter Name="Folio" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SpInsertarDetalleCargo">
+            <Parameter Name="IdSolicitudCargo" Mode="In" Type="Int32" />
+            <Parameter Name="ClaveCliente" Mode="In" Type="String" />
+            <Parameter Name="NumCuenta" Mode="In" Type="String" />
+            <Parameter Name="Producto" Mode="In" Type="String" />
+            <Parameter Name="Referencia" Mode="In" Type="String" />
+            <Parameter Name="Importe" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BroxelModelStoreContainer" CdmEntityContainer="BroxelSQLEntities">
+          <EntitySetMapping Name="CargosDetalle">
+            <EntityTypeMapping TypeName="BroxelModel.CargosDetalle">
+              <MappingFragment StoreEntitySet="CargosDetalle">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdSolicitud" ColumnName="IdSolicitud" />
+                <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="Tarjeta" ColumnName="Tarjeta" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdMovimiento" ColumnName="IdMovimiento" />
+                <ScalarProperty Name="CodigoRespuesta" ColumnName="CodigoRespuesta" />
+                <ScalarProperty Name="NumeroAutorizacion" ColumnName="NumeroAutorizacion" />
+                <ScalarProperty Name="SaldoAntes" ColumnName="SaldoAntes" />
+                <ScalarProperty Name="SaldoDespues" ColumnName="SaldoDespues" />
+                <ScalarProperty Name="FechaCargo" ColumnName="FechaCargo" />
+                <ScalarProperty Name="IdAnulacion" ColumnName="IdAnulacion" />
+                <ScalarProperty Name="CodigoRespuestaAnul" ColumnName="CodigoRespuestaAnul" />
+                <ScalarProperty Name="NumeroAutorizacionAnul" ColumnName="NumeroAutorizacionAnul" />
+                <ScalarProperty Name="SaldoAntesAnul" ColumnName="SaldoAntesAnul" />
+                <ScalarProperty Name="SaldoDespuesAnul" ColumnName="SaldoDespuesAnul" />
+                <ScalarProperty Name="FechaCargoAnul" ColumnName="FechaCargoAnul" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CargosSolicitudes">
+            <EntityTypeMapping TypeName="BroxelModel.CargosSolicitudes">
+              <MappingFragment StoreEntitySet="CargosSolicitudes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="IdComercio" ColumnName="IdComercio" />
+                <ScalarProperty Name="NombreComercio" ColumnName="NombreComercio" />
+                <ScalarProperty Name="ImporteIndividual" ColumnName="ImporteIndividual" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="EmailNotificacion" ColumnName="EmailNotificacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioVerificacion" ColumnName="UsuarioVerificacion" />
+                <ScalarProperty Name="FechaVerificacion" ColumnName="FechaVerificacion" />
+                <ScalarProperty Name="UsuarioAprobacion" ColumnName="UsuarioAprobacion" />
+                <ScalarProperty Name="FechaAprobacion" ColumnName="FechaAprobacion" />
+                <ScalarProperty Name="UsuarioEjecucion" ColumnName="UsuarioEjecucion" />
+                <ScalarProperty Name="FechaEjecucion" ColumnName="FechaEjecucion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="TotalCuentas" ColumnName="TotalCuentas" />
+                <ScalarProperty Name="CuentasRepetidas" ColumnName="CuentasRepetidas" />
+                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
+                <ScalarProperty Name="CargoPorRemanente" ColumnName="CargoPorRemanente" />
+                <ScalarProperty Name="ActivaCuentas" ColumnName="ActivaCuentas" />
+                <ScalarProperty Name="CuentasMultiples" ColumnName="CuentasMultiples" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SpInsertarCargoSinDetalle" FunctionName="BroxelModel.Store.SpInsertarCargoSinDetalle" />
+          <FunctionImportMapping FunctionImportName="SpInsertarCargoSolicitud" FunctionName="BroxelModel.Store.SpInsertarCargoSolicitud" />
+          <FunctionImportMapping FunctionImportName="SpInsertarDetalleCargo" FunctionName="BroxelModel.Store.SpInsertarDetalleCargo" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.apache.org/ns/synapse" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://ws.apache.org/ns/synapse" name="CASA_SRTMX_Cuenta" targetNamespace="http://ws.apache.org/ns/synapse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:tns="http://ws.apache.org/ns/synapse" targetNamespace="http://ws.apache.org/ns/synapse">
+      <xsd:complexType name="Autenticacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: usuario WS y pass para autenticar en la operacion del servicio . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Usuario" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion del usuario otorgado para Webservice .
+                        Tipo alfanumerico , Largo 03 .. 24 .
+                        Ejemplo: Empresa01 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Password" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Password otorgado para dicho usuario: valor que el sistema Cliente
+                        debe cifrar con el  algoritmo RSA, haciendo uso de la llave publica
+                        otorgada para datos sensibles de solicitudes, y que posteriomrmente
+                        debe encodear a base 64 para su envio .
+                        Tipo base64 , Largo variable .
+                        Ejemplo: YW55IGNhcm5hbCBwbGVhcw== .
+                        Referencia : MIME base 64 en http://es.wikipedia.org/wiki/Base64 </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Originador">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: persona solicitante y zona horaria deseada </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Solicitante" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Cadena de uso libre con datos respecto a la persona que, desde
+                        el equipo originador perteneciente al sistema Cliente, realiza
+                        la operacion. Puede ser una identificacion de usuario en dicho
+                        Sistema, o bien puede ser un apellido y nombre, etc. , para asi
+                        dejar registro respecto a la persona que solicita la operacion
+                        y en los mismos terminos de identificacion del sistema Cliente .
+                        Tipo frase_ext , Largo 03..24 .
+                        Ejemplo: x1Z .
+                        Ejemplo: juanCruz .
+                        Ejemplo: Centro 48, PC 15 .
+                        Ejemplo: Ana Rosaura 481 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ZonaHoraria" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                         Zona horaria valida americana del originador de la operacion, la
+                         cual sera utilizada para expresar informaciones de fecha/hora en
+                         la respuesta del requerimiento .
+                         Tipo zona_horaria_am , Largo 12..50 .
+                         Ejemplo : America/Managua .
+                         Referencia : http://www.php.net/manual/es/timezones.america.php . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseWS">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Codigo, Descripcion de Respuesta y Ticket de servicio . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo de respuesta devuelto por el servicio .
+                        Tipo cadena , Valores posbibles y Largo segun rangos :
+                          -999 .. -001 : Rechazos del servicio   , largo 04..04 .
+                            00         : Aprobada                , largo 02..02 .
+                            01 ..  999 : Rechazos de autorizador , largo 02..03 .
+                        Ejemplo : -030 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo de respuesta .
+                        Tipo cadena , largo variable .
+                        Ejemplo : Cuenta inexistente . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TicketWS" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de ticket de atencion de servicio .
+                        Tipo digito , Largo 09..09 o bien valor fijo 'N/D' .
+                        Ejemplo : 682044868 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Atencion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Momento de inicio, fin y tiempo de proceso . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Inicio" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Momento de inicio, expresado en terminos de la zona horaria requerida .
+                        Tipo fecha_hora, Largo 19 o bien valor fijo 'N/D' .
+                        Ejemplo: 2013-11-29 15:00:51 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Fin" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Momento de fin, expresado en terminos de la zona horaria requerida .
+                        Tipo fecha_hora, Largo 19 o bien valor fijo 'N/D' .
+                        Ejemplo: 2013-11-29 15:00:52 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Tiempo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tiempo de procesamiento de operacion, expresado en segundos .
+                        Tipo decimal , largo variable .
+                        Ejemplo: 0.21 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Especificacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Aperturas de codigo y descripcion en datos devueltos . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo asociado al item al cual se refiere .
+                        El tipo de dato y su largo es variable segun el item al cual se refiere .
+                        En caso no se haya podido obtener, se impone valor fijo N/D.
+                        Ejemplo : 484 , para item de moneda .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo .
+                        Tipo cadena , largo variable .
+                        En caso no se haya podido obtener, se impone valor fijo N/D.
+                        Ejemplo : Peso mexicano .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Indicadores">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Indicadores de comportamiento de la cuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="VIP" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si la cuenta es VIP, salteando validaciones de RAMP .
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="HCC" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si la cuenta es Habilitable por Call Center de Credencial,
+                        esto es : si la puede desbloquear o no, habilitar o no.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ULC" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica si en operaciones de autorizacion, ademas de validar los importes
+                        disponibles, tambien se debe Usar el Limite de Compra como factor de
+                        verificacion de fondos suficientes.
+                        Tipo alfabetico , largo 01..01, valores S o N .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MCC" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Maxima cantidad de cuotas para operaciones.
+                        Tipo digito, largo 02..02 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Actividad">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Resumen de momentos relevantes de la cuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="MomentoRenewal" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora usada como punto de partida para recomponer disponibles
+                        en el proceso de actualizacion desde Sistema Central SPC, en terminos
+                        de la zona horaria solicitada en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene renewal : 2013-12-10 01:35:05 .
+                        Ejemplo, si no la tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaActualizacion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultima modificacion de los datos de la cuenta,
+                        en terminos de la zona horaria solicitada en el requerimiento
+                        Tipo fecha_hora , Largo 19..19
+                        Ejemplo: 2013-12-10 15:35:42 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaOperacionAprobada" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultima operacion aprobada, en terminos de la
+                        zona horaria solicitada en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene operacion aprobada : 2013-12-10 15:35:42 .
+                        Ejemplo, si no la tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaOperacionDenegada" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultima operacion denegada, en terminos de la
+                        zona horaria solicitada en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene operacion denegada : 2013-12-10 15:35:40 .
+                        Ejemplo, si no la tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimoBloqueo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultimo cambio de estado de la cuenta por el cual
+                        la misma haya quedado inhabilitada: O sea Bloqueada, en terminos
+                        de la zona horaria pedida en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene bloqueo : 2013-12-10 10:01:01 .
+                        Ejemplo, si no lo tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimoDesbloqueo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultimo cambio de estado de la cuenta por el cual
+                        la misma haya quedado habilitada: O sea desbloqueada, en terminos
+                        de la zona horaria pedida en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene bloqueo : 2013-12-10 15:35:41 .
+                        Ejemplo, si no lo tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Importes">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Para modularizacion de disponibles y limites . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Compras" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Disponible o Limite de compras, segun corresponda, expresado en
+                        terminos de la Moneda asociada a la cuenta.
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cuotas" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Disponible o Limite de cuotas, segun corresponda, expresado en
+                        terminos de la Moneda asociada a la cuenta.
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Adelantos" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Disponible o Limite de adelantos, segun corresponda, expresado en
+                        terminos de la Moneda asociada a la cuenta.
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Prestamos" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Disponible o Limite de prestamos, segun corresponda, expresado en
+                        terminos de la Moneda asociada a la cuenta.
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Liquidacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Informaciones sobre ultima liquidacion de la cuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="FechaVencimiento" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha de liquidacion, o valor fijo N/D si no la tuviese.
+                        Tipo fecha , Largo 10..10 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene : 2014-01-06 .
+                        Ejemplo, si no lo tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Saldo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Saldo de liquidacion, en terminos de la Moneda de la cuenta.
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PagoMinimo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Pago minimo de liquidacion, en terminos de la Moneda de la cuenta.
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="SaldoDolar" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Saldo de liquidacion, en Dolar, de operaciones exterior
+                        Tipo decimal, largo 04..10 : puede tener valor negativo
+                        Ejemplos, -15.44 , -0.05 , -1234.56, 0.00, 0.01, 1234.56 .</xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DetalleCuenta">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Datos detalle de una Cuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Numero" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de cuenta involucrada.
+                        Tipo digito, largo 09..09 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Estado" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de estado, o N/D si no
+                        se cuenta con alguno o ambos datos, segun
+                         Codigo      : Tipo digito , largo 02..02
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Entidad" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de entidad de pertenencia,
+                        o N/D si no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo digito , largo 03..03
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Sucursal" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Sucursal asociada a la entidad de pertencia o N/D si
+                        no se cuenta con la informacion, segun:
+                        Tipo digito, largo 03..03 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Producto" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de producto asociado, o
+                        N/D si no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo alfanumerico , largo 04..04
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Pais" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de pais de pertenencia, basado
+                        en norma ISO 3166, o valor fijo N/D si no se cuenta con alguno
+                        o ambos datos, segun:
+                         Codigo      : Tipo digito , largo 03..03
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Moneda" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de moneda en la cual se expresan
+                        los importes de la cuenta, basado en norma ISO 4217, o N/D si
+                        no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo digito , largo 03..03
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Indicadores" type="ns:Indicadores">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Flags de comportamiento de la cuenta, en cuanto a su
+                        habilitacion o evaluaciones en intentos de operaciones.
+                        Detalles en tipo Indicadores . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Actividad" type="ns:Actividad">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Informaciones de momentos de actividad de la cuenta, en
+                        cuanto a actualizacion, operaciones aprobadas/rechazadas
+                        y cambios de estado por bloqueo o desbloqueo
+                        Detalles en tipo Actividad . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Disponibles" type="ns:Importes">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Especificacion de importes asociados a disponibles de la
+                        cuenta, expresados en terminos de la moneda asociada.
+                        Detalles en tipo Disponibles . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Limites" type="ns:Importes">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Especificacion de importes asociados a limites de la
+                        cuenta, expresados en terminos de la moneda asociada.
+                        Detalles en tipo Disponibles . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Liquidacion" type="ns:Liquidacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Especificacion de importes asociados a limites de la
+                        cuenta, expresados en terminos de la moneda asociada.
+                        Detalles en tipo Disponibles . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Pedido">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: Para indicar Cuenta y Accion a realizar . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Cuenta" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de Cuenta a la cual se desea Bloquear o Desbloquear
+                        Tipo digito , Largo 09..09 .
+                        Ejemplo : 701234567 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Accion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Accion para indicar si se desea Bloquear o Desbloquear
+                        Tipo alfabetico , largo 01..01, valores B o D
+                        Ejemplo : B para pedir Bloquear , D para Desbloquear . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaPedido">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: Para pedir 1 o mas cambios de estado de cuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Pedido" type="ns:Pedido">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Uno o mas elementos Pedido, en los cuales se debe indicar: Cuenta a
+                        afectar y Accion a realizar, con la restriccion que NO puede haber
+                        cuentas repetidas.
+                        Detalles en tipo Pedido . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaProducto">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: Para especificar uno o mas Codigos de Producto . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Producto" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion de producto por su codigo .
+                        Tipo alfanumerico , Largo 04 .. 04 .
+                        Ejemplo: A001 ... Z999 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResumenRespuesta">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Totalizador de una Respuesta del proceso masivo realizado. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Respuesta" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo y Descripcion de la respuesta totalizada.
+                        El codigo de respuesta, puede ser:
+                          -999 .. -001 : Rechazos del servicio   , largo 04..04 .
+                            00         : Aprobada                , largo 02..02 .
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cantidad" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Cantidad de apariciones de la respuesta totalizada.
+                        Tipo digito, largo 01..03 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaResumenRespuesta">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Lista con totales por Respuesta del proceso masivo realizado. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Resumen" type="ns:ResumenRespuesta">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Uno o mas elementos Resumen, conteniendo para cada respuesta
+                        producida en el proceso: Su codigo, descripcion y cantidad .
+                        No hay respuestas con cantidad cero, esto es, solo se emiten
+                        los casos ocurridos: NO estan los NO ocurridos.
+                        Mas detalles, ver Tipo complejo ResumenRespuesta . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResultadoPedido">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Detalle del resultado de un pedido. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Cuenta" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                          Numero de Cuenta a involucrada en el pedido .
+                          Tipo digito , Largo 09..09 .
+                          Ejemplo : 701234567 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Respuesta" type="ns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo y Descripcion de la respuesta indicativa y resultante
+                        del intento de cambiar el estado de la cuenta del tag Cuenta
+                        El codigo de respuesta, puede ser:
+                          -999 .. -001 : Rechazos del servicio   , largo 04..04 .
+                            00         : Aprobada                , largo 02..02 .
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaResultadoPedido">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Lista con resultados de cada pedido. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Pedido" type="ns:ResultadoPedido">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Uno o mas elementos Pedido, conteniendo para cada Cuenta
+                        procesada : Su numero de Cuenta y la respuesta del intento
+                        de cambio de estado, respuesta especificada por Codigo y descripcion
+                        Mas detalles, ver Tipo complejo ResultadoCuenta . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResultadosProceso">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Resumenes y Detalles de proceso masivo realizado . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Resumenes" type="ns:ListaResumenRespuesta">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Lista que totaliza cantidad por cada respuesta diferente ocurrida en el
+                        proceso de analisis y cambio de estado de cuentas , de  manera de saber
+                        cuantas Cuentas han sido  Desbloqueadas si es que se alguna  se hubiere
+                        desbloqueado , cuantas han sido  Bloqueadas  si se hubiere desbloqueado
+                        alguna, si no se aplico el cambio su motivo y total de apariciones.
+                        El proceso solo resume por las respuestas de los casos producidos, esto
+                        es, si el usuario solicita Desbloquear algunas cuentas pero  ninguna se
+                        desbloquea ( por ejemplo por no existir, por ya estar desbloqueada, por
+                        no pertenecer a la cartera ) entonces  no se va a emitir  un total para
+                        Desbloqueadas ya que no las hubo, en todo caso habra resumen para casos
+                        de No existentes, ya desbloqueadas o cartera no permitida.
+                        Detalles en tipo ListaResumenRespuesta . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Detalles" type="ns:ListaResultadoPedido">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Lista que indica, para cada Cuenta procesada, el resultado del
+                        intento de aplicacion del Pedido realizado de cambio de estado
+                        Es la apertura que justifica el contenido de Resumenes.
+                        Detalles en tipo ListaResultadoPedido . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="DesbloquearRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion Desbloquear . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Cuenta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Numero de Cuenta a Desbloquear .
+                          Tipo digito , Largo 09..09 .
+                          Ejemplo : 701234567 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="DesbloquearResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion Desbloquear . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BloquearRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion Bloquear . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Cuenta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Numero de Cuenta a Bloquear .
+                          Tipo digito , Largo 09..09 .
+                          Ejemplo : 701234567 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BloquearResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion Bloquear . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion Consultar . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Cuenta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Numero de Cuenta a Consultar .
+                          Tipo digito , Largo 09..09 .
+                          Ejemplo : 701234567 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion Consultar . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Cuenta" type="ns:DetalleCuenta">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con los detalles de la cuenta
+                          Ya descripto en el tipo complejo DetalleCuenta
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BloqDesbloqMasivoRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion BloqDesbloqMasivo . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="ns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="ns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Pedidos" type="ns:ListaPedido">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para especificar cada uno de los pedidos en los cuales se debe
+                          indicar: Cuenta a afectar y Accion a realizar, con la restriccion
+                          que NO puede haber cuentas repetidas
+                          Detalles en complejo ListaPedido . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Productos" type="ns:ListaProducto">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Lista de uno o mas codigos de producto para acotar el alcance de los
+                          cambios de estado a las cuentas que sea de alguno de esos productos.
+                          Es opcional, esto es: si no llega se asume los productos asociados a
+                          la/s entidades sobre la/s cual/es el Usuario tiene permiso de acceso.
+                          Mas detalles, ver Tipo complejo ListaProducto . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BloqDesbloqMasivoResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion BloqDesbloqMasivo . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="ns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="ns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Resultados" type="ns:ResultadosProceso">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con los resultados del proceso realizado.
+                          Ya descripto en el tipo complejo ResultadosProceso.
+                          -&gt; Si la respuesta en Response es rechazo, NO ESTARA PRESENTE
+                          -&gt; Se la respuesta en Response es aprobación, estara presente
+                          La aprobacion NO implica que se hayan aplicado los cambios de estado
+                          solicitados, solo indica que se ha realizado el proceso de analisis y
+                          cambio de estado a cada una de las cuentas que sean accesibles por el
+                          usuario que lo solicita y que su estado anterior pueda ser modificado.
+                          En resultado se encuentran informaciones de resumen de proceso y detalle
+                          de resultado para cada una de las cuentas solicitadas.  </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="DesbloquearRequest">
+    <wsdl:part name="DesbloquearRequest" element="ns:DesbloquearRequest" />
+  </wsdl:message>
+  <wsdl:message name="DesbloquearResponse">
+    <wsdl:part name="DesbloquearResponse" element="ns:DesbloquearResponse" />
+  </wsdl:message>
+  <wsdl:message name="BloquearRequest">
+    <wsdl:part name="BloquearRequest" element="ns:BloquearRequest" />
+  </wsdl:message>
+  <wsdl:message name="BloquearResponse">
+    <wsdl:part name="BloquearResponse" element="ns:BloquearResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarRequest">
+    <wsdl:part name="ConsultarRequest" element="ns:ConsultarRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarResponse">
+    <wsdl:part name="ConsultarResponse" element="ns:ConsultarResponse" />
+  </wsdl:message>
+  <wsdl:message name="BloqDesbloqMasivoRequest">
+    <wsdl:part name="BloqDesbloqMasivoRequest" element="ns:BloqDesbloqMasivoRequest" />
+  </wsdl:message>
+  <wsdl:message name="BloqDesbloqMasivoResponse">
+    <wsdl:part name="BloqDesbloqMasivoResponse" element="ns:BloqDesbloqMasivoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CASA_SRTMX_CuentaPortType">
+    <wsdl:operation name="Desbloquear">
+      <wsdl:input name="input1" message="ns:DesbloquearRequest" />
+      <wsdl:output name="output1" message="ns:DesbloquearResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Bloquear">
+      <wsdl:input name="input2" message="ns:BloquearRequest" />
+      <wsdl:output name="output2" message="ns:BloquearResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <wsdl:input name="input3" message="ns:ConsultarRequest" />
+      <wsdl:output name="output3" message="ns:ConsultarResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="BloqDesbloqMasivo">
+      <wsdl:input name="input4" message="ns:BloqDesbloqMasivoRequest" />
+      <wsdl:output name="output4" message="ns:BloqDesbloqMasivoResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CASA_SRTMX_CuentaBinding" type="ns:CASA_SRTMX_CuentaPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Desbloquear">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input1">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output1">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Bloquear">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input2">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output2">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input3">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output3">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BloqDesbloqMasivo">
+      <soap:operation soapAction="" />
+      <wsdl:input name="input4">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:input>
+      <wsdl:output name="output4">
+        <soap:body use="literal" namespace="http://ws.apache.org/ns/synapse" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CASA_SRTMX_CuentaService">
+    <wsdl:port name="CASA_SRTMX_CuentaPort" binding="ns:CASA_SRTMX_CuentaBinding">
+      <soap:address location="http://127.0.0.1:8000/CASA_SRTMX_CuentaService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
