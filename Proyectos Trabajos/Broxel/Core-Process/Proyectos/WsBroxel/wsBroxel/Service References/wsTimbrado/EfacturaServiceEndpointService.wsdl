@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.broker.fact.praxis.com/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="EfacturaServiceEndpointService" targetNamespace="http://ws.broker.fact.praxis.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://ws.broker.fact.praxis.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="cancelarCFDIv32" type="tns:cancelarCFDIv32" />
+      <xs:element name="cancelarCFDIv32Response" type="tns:cancelarCFDIv32Response" />
+      <xs:element name="emitirCFDIv32" type="tns:emitirCFDIv32" />
+      <xs:element name="emitirCFDIv32Response" type="tns:emitirCFDIv32Response" />
+      <xs:complexType name="cancelarCFDIv32">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="uuid" type="tns:uuid" />
+          <xs:element minOccurs="0" name="credenciales" type="tns:credenciales" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="uuid">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="uuid" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="credenciales">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="password" type="xs:string" />
+          <xs:element minOccurs="0" name="rfc" type="xs:string" />
+          <xs:element minOccurs="0" name="usuario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="cancelarCFDIv32Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="emitirCFDIv32">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="comprobanteCFDI" type="tns:comprobanteCFDIv32" />
+          <xs:element minOccurs="0" name="credenciales" type="tns:credenciales" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="comprobanteCFDIv32">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cantidadDescuento" type="xs:string" />
+          <xs:element minOccurs="0" name="claveCFDI" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="conceptos" nillable="true" type="tns:concepto" />
+          <xs:element minOccurs="0" name="condicionesDePago" type="xs:string" />
+          <xs:element minOccurs="0" name="descuento" type="xs:string" />
+          <xs:element minOccurs="0" name="etiquetaPersonalizada" type="tns:etiquetaPersonalizada" />
+          <xs:element minOccurs="0" name="fechaFolioFiscalOrig" type="xs:string" />
+          <xs:element minOccurs="0" name="folio" type="xs:string" />
+          <xs:element minOccurs="0" name="folioFiscalOrig" type="xs:string" />
+          <xs:element minOccurs="0" name="formaDePago" type="xs:string" />
+          <xs:element minOccurs="0" name="impuesto" type="tns:impuesto" />
+          <xs:element minOccurs="0" name="lugarExpedicion" type="xs:string" />
+          <xs:element minOccurs="0" name="metodoDePago" type="xs:string" />
+          <xs:element minOccurs="0" name="moneda" type="xs:string" />
+          <xs:element minOccurs="0" name="montoFolioFiscalOrig" type="xs:string" />
+          <xs:element minOccurs="0" name="motivoDescuento" type="xs:string" />
+          <xs:element minOccurs="0" name="numCtaPago" type="xs:string" />
+          <xs:element minOccurs="0" name="receptor" type="tns:receptor" />
+          <xs:element minOccurs="0" name="regimenFiscal" type="tns:regimenFiscal" />
+          <xs:element minOccurs="0" name="serie" type="xs:string" />
+          <xs:element minOccurs="0" name="serieFolioFiscalOrig" type="xs:string" />
+          <xs:element minOccurs="0" name="subTotal" type="xs:string" />
+          <xs:element minOccurs="0" name="tipoDeCambio" type="xs:string" />
+          <xs:element minOccurs="0" name="total" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="concepto">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="cantidad" type="xs:string" />
+          <xs:element minOccurs="0" name="descripcion" type="xs:string" />
+          <xs:element minOccurs="0" name="importe" type="xs:string" />
+          <xs:element minOccurs="0" name="noIdentificacion" type="xs:string" />
+          <xs:element minOccurs="0" name="unidad" type="xs:string" />
+          <xs:element minOccurs="0" name="valorUnitario" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="etiquetaPersonalizada">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="nombre" type="xs:string" />
+          <xs:element minOccurs="0" name="valor" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="impuesto">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="retenciones" nillable="true" type="tns:retencion" />
+          <xs:element minOccurs="0" name="totalImpuestosRetenidos" type="xs:string" />
+          <xs:element minOccurs="0" name="totalImpuestosTrasladados" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="traslados" nillable="true" type="tns:traslado" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="retencion">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="importe" type="xs:string" />
+          <xs:element minOccurs="0" name="impuesto" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="traslado">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="importe" type="xs:string" />
+          <xs:element minOccurs="0" name="impuesto" type="xs:string" />
+          <xs:element minOccurs="0" name="tasa" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="receptor">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="calle" type="xs:string" />
+          <xs:element minOccurs="0" name="codigoPostal" type="xs:string" />
+          <xs:element minOccurs="0" name="colonia" type="xs:string" />
+          <xs:element minOccurs="0" name="emailContacto" type="xs:string" />
+          <xs:element minOccurs="0" name="envioPDF" type="xs:string" />
+          <xs:element minOccurs="0" name="envioXML" type="xs:string" />
+          <xs:element minOccurs="0" name="estado" type="xs:string" />
+          <xs:element minOccurs="0" name="localidad" type="xs:string" />
+          <xs:element minOccurs="0" name="municipio" type="xs:string" />
+          <xs:element minOccurs="0" name="noExterior" type="xs:string" />
+          <xs:element minOccurs="0" name="noInterior" type="xs:string" />
+          <xs:element minOccurs="0" name="nombre" type="xs:string" />
+          <xs:element minOccurs="0" name="nombreCliente" type="xs:string" />
+          <xs:element minOccurs="0" name="pais" type="xs:string" />
+          <xs:element minOccurs="0" name="referencia" type="xs:string" />
+          <xs:element minOccurs="0" name="rfc" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="regimenFiscal">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="regimen" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="emitirCFDIv32Response">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="cancelarCFDIv32Response">
+    <wsdl:part name="parameters" element="tns:cancelarCFDIv32Response" />
+  </wsdl:message>
+  <wsdl:message name="cancelarCFDIv32">
+    <wsdl:part name="parameters" element="tns:cancelarCFDIv32" />
+  </wsdl:message>
+  <wsdl:message name="emitirCFDIv32">
+    <wsdl:part name="parameters" element="tns:emitirCFDIv32" />
+  </wsdl:message>
+  <wsdl:message name="emitirCFDIv32Response">
+    <wsdl:part name="parameters" element="tns:emitirCFDIv32Response" />
+  </wsdl:message>
+  <wsdl:portType name="EfacturaService">
+    <wsdl:operation name="cancelarCFDIv32">
+      <wsdl:input name="cancelarCFDIv32" message="tns:cancelarCFDIv32" />
+      <wsdl:output name="cancelarCFDIv32Response" message="tns:cancelarCFDIv32Response" />
+    </wsdl:operation>
+    <wsdl:operation name="emitirCFDIv32">
+      <wsdl:input name="emitirCFDIv32" message="tns:emitirCFDIv32" />
+      <wsdl:output name="emitirCFDIv32Response" message="tns:emitirCFDIv32Response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EfacturaServiceEndpointServiceSoapBinding" type="tns:EfacturaService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="cancelarCFDIv32">
+      <soap:operation soapAction="cancelar-comprobante" style="document" />
+      <wsdl:input name="cancelarCFDIv32">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="cancelarCFDIv32Response">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="emitirCFDIv32">
+      <soap:operation soapAction="generar-comprobante" style="document" />
+      <wsdl:input name="emitirCFDIv32">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="emitirCFDIv32Response">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EfacturaServiceEndpointService">
+    <wsdl:port name="EfacturaServiceEndpointPort" binding="tns:EfacturaServiceEndpointServiceSoapBinding">
+      <soap:address location="https://efactura.bisnet.com.mx:8441/efacturaws/EfacturaService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

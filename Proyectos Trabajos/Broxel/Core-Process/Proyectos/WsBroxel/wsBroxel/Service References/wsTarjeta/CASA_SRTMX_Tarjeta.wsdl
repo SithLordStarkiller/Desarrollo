@@ -1,0 +1,1492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://ws.apache.org/ns/synapse" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://ws.apache.org/ns/synapse" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.apache.org/ns/synapse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.apache.org/ns/synapse">
+      <xsd:complexType name="Autenticacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: usuario WS y pass para autenticar en la operacion del servicio . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Usuario" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion del usuario otorgado para Webservice .
+                        Tipo alfanumerico , Largo 03 .. 24 .
+                        Ejemplo: Empresa01 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Password" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Password otorgado para dicho usuario: valor que el sistema Cliente
+                        debe cifrar con el  algoritmo RSA, haciendo uso de la llave publica
+                        otorgada para datos sensibles de solicitudes, y que posteriomrmente
+                        debe encodear a base 64 para su envio .
+                        Tipo base64 , Largo variable .
+                        Ejemplo: YW55IGNhcm5hbCBwbGVhcw== .
+                        Referencia : MIME base 64 en http://es.wikipedia.org/wiki/Base64 </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Originador">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: persona solicitante y zona horaria deseada </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Solicitante" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Cadena de uso libre con datos respecto a la persona que, desde
+                        el equipo originador perteneciente al sistema Cliente, realiza
+                        la operacion. Puede ser una identificacion de usuario en dicho
+                        Sistema, o bien puede ser un apellido y nombre, etc. , para asi
+                        dejar registro respecto a la persona que solicita la operacion
+                        y en los mismos terminos de identificacion del sistema Cliente .
+                        Tipo frase_ext , Largo 03..24 .
+                        Ejemplo: x1Z .
+                        Ejemplo: juanCruz .
+                        Ejemplo: Centro 48, PC 15 .
+                        Ejemplo: Ana Rosaura 481 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ZonaHoraria" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                         Zona horaria valida americana del originador de la operacion, la
+                         cual sera utilizada para expresar informaciones de fecha/hora en
+                         la respuesta del requerimiento .
+                         Tipo zona_horaria_am , Largo 12..50 .
+                         Ejemplo : America/Managua .
+                         Referencia : http://www.php.net/manual/es/timezones.america.php . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseWS">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Codigo, Descripcion de Respuesta y Ticket de servicio . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo de respuesta devuelto por el servicio .
+                        Tipo cadena , Valores posbibles y Largo segun rangos :
+                          -999 .. -001 : Rechazos del servicio   , largo 04..04 .
+                            00         : Aprobada                , largo 02..02 .
+                            01 ..  999 : Rechazos de autorizador , largo 02..03 .
+                        Ejemplo : -020 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo de respuesta .
+                        Tipo cadena , largo variable .
+                        Ejemplo : Tarjeta inexistente . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="TicketWS" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de ticket de atencion de servicio .
+                        Tipo digito , Largo 09..09 o bien valor fijo 'N/D' .
+                        Ejemplo : 682044868 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Atencion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Momento de inicio, fin y tiempo de proceso . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Inicio" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Momento de inicio, expresado en terminos de la zona horaria requerida .
+                        Tipo fecha_hora, Largo 19 o bien valor fijo 'N/D' .
+                        Ejemplo: 2013-11-29 15:00:51 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Fin" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Momento de fin, expresado en terminos de la zona horaria requerida .
+                        Tipo fecha_hora, Largo 19 o bien valor fijo 'N/D' .
+                        Ejemplo: 2013-11-29 15:00:52 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Tiempo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tiempo de procesamiento de operacion, expresado en segundos .
+                        Tipo decimal , largo variable .
+                        Ejemplo: 0.21 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Especificacion">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Aperturas de codigo y descripcion en datos devueltos . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Codigo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo asociado al item al cual se refiere .
+                        El tipo de dato y su largo es variable segun el item al cual se refiere .
+                        En caso no se haya podido obtener, se impone valor fijo N/D.
+                        Ejemplo : 484 , para item de moneda .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Descripcion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Descripcion asociada al Codigo .
+                        Tipo cadena , largo variable .
+                        En caso no se haya podido obtener, se impone valor fijo N/D.
+                        Ejemplo : Peso mexicano .  </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RefPaginas">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Informaciones sobre paginas de una coleccion devuelta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Actual" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de pagina devuelta en esta Respuesta
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Total" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero total de paginas disponibles para consultas futuras
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RefRegistros">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Informaciones sobre registros de una coleccion devuelta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Actual" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de registros en la pagina devuelta en esta Respuesta
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Total" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero total de registros de la coleccion, para consultas futuras
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="PorPagina" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Configuracion de registros por pagina.
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Referencia">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Informaciones sobre coleccion devuelta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Paginas" type="tns:RefPaginas">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Estructura con datos de referencia de las paginas.
+                        Mas detalles, ver Tipo RefPaginas . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Registros" type="tns:RefRegistros">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Estructura con datos de referencia de los registros.
+                        Mas detalles, ver RefRegistros . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Actividad">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Resumen de momentos relevantes de la tarjeta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="MomentoUltimaActualizacion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultima modificacion de los datos de tarjeta,
+                        en terminos de la zona horaria solicitada en el requerimiento
+                        Tipo fecha_hora , Largo 19..19
+                        Ejemplo: 2013-12-10 15:35:42 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaOperacionAprobada" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultima operacion aprobada, en terminos de la
+                        zona horaria solicitada en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene operacion aprobada : 2013-12-10 15:35:42 .
+                        Ejemplo, si no la tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaOperacionDenegada" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultima operacion denegada, en terminos de la
+                        zona horaria solicitada en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene operacion denegada : 2013-12-10 15:35:40 .
+                        Ejemplo, si no la tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaAltaBoletin" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultimo cambio de estado de la tarjeta por el cual
+                        la misma haya quedado inhabilitada, expresado en terminos de la
+                        zona horaria pedida en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene bloqueo : 2013-12-10 10:01:01 .
+                        Ejemplo, si no lo tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="MomentoUltimaBajaBoletin" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha y hora de ultimo cambio de estado de la tarjeta por el cual
+                        la misma haya quedado habilitada, esto es Operativa, en terminos
+                        de la zona horaria pedida en el requerimiento, o valor fijo N/D
+                        Tipo fecha_hora , Largo 19..19 , o valor fijo N/D si no tiene.
+                        Ejemplo, si tiene bloqueo : 2013-12-10 15:35:41 .
+                        Ejemplo, si no lo tiene : N/D . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Vigencias">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Fechas de vencimiento de la tarjeta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Actual" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha de vencimiento actual de la tarjeta, o
+                        valor fijo N/D si no la tuviese.
+                        Tipo fecha , Largo 10..10, formato aaaa-mm-dd . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Anterior" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fecha de vencimiento anterior de la tarjeta, o
+                        valor fijo N/D si no la tuviese.
+                        Tipo fecha , Largo 10..10, formato aaaa-mm-dd . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Persona">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Datos filiatorios del poseedor de la tarjeta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Denominacion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Nombres, apellidos de la persona, o valor fijo N/D si no se tiene.
+                        Tipo cadena , largo variable . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Documento" type="tns:Documento">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tipo e identificacion del documento de la persona, o valor
+                        fijo N/D si no se cuenta con alguno o ambos datos, segun:
+                         Tipo : Tipo cadena , largo variable
+                         Iden : Tipo cadena , largo variable
+                        Detalles en tipo Documento . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Telefono" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Telefono de la persona, o valor fijo N/D si no se tiene.
+                        Tipo cadena , largo variable. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Direccion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Calle y numero de persona, o valor fijo N/D si no se tiene.
+                        Tipo cadena , largo variable. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="CodigoPostal" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Codigo postal de persona, o valor fijo N/D si no se tiene.
+                        Tipo cadena , largo variable. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Localidad" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Localidad de persona, o valor fijo N/D si no se tiene.
+                        Tipo cadena , largo variable. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Pais" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de pais de pertenencia, basado
+                        en norma ISO 3166, o valor fijo N/D si no se cuenta con alguno
+                        o ambos datos, segun:
+                         Codigo      : Tipo digito , largo 03..03
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TarjetaDetalle">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Datos detalle de una Tarjeta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Numero" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de tarjeta:
+                        Valor que este Servicio devuelve cifrado con el algoritmo RSA ,
+                        haciendo uso de la llave publica asociada a datos sensibles de
+                        respuestas, y que es encodeado a base 64 responder.
+                        El Cliente del Servicio debe descodear de base 64 este campo y
+                        posteriomente descifrar con el algoritmo RSA, haciendo uso de la
+                        llave privada otorgada para respuestas, de manera de poder obtener
+                        el Numero de Tarjeta en claro.
+                        Tipo base64 , Largo variable
+                        El numero de tarjeta contenido es de Tipo digito, Largo 16..16. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cuenta" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de cuenta a la cual pertenece la tarjeta.
+                        Tipo digito, largo 09..09 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Entidad" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de entidad de pertenencia,
+                        o N/D si no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo digito , largo 03..03
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Sucursal" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Sucursal asociada a la entidad de pertencia o N/D si
+                        no se cuenta con la informacion, segun:
+                        Tipo digito, largo 03..03 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Producto" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de producto asociado, o
+                        N/D si no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo alfanumerico , largo 04..04
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Estado" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de estado, o N/D si no
+                        se cuenta con alguno o ambos datos, segun
+                         Codigo      : Tipo digito , largo 02..02
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Vigencias" type="tns:Vigencias">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Fechas de vencimiento de la tarjeta
+                        Detalles en tipo Vigencias . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Persona" type="tns:Persona">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Datos filiatorios de la persona poseedora de la tarjeta
+                        Detalles en tipo Persona . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Actividad" type="tns:Actividad">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Informaciones de momentos de actividad de la tarjeta, en
+                        cuanto a actualizacion, operaciones aprobadas/rechazadas
+                        y cambios de estado por bloqueo o desbloqueo
+                        Detalles en tipo Actividad . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="ContadorPinERR" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Cantidad de intentos acumulados de PIN erroneo que tenga
+                        la tarjeta al momento de la consulta.
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Documento">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ./RTA.: Para especificar documento en filtro o en respuesta. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Tipo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Para especificar Tipo de documento a usar en filtro Documento
+                        Tipo alfabetico , Largo 02..03 .
+                        Ejemplos: IFE , CI . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Iden" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Para especificar Identificacion de documento a usar en filtro Documento
+                        Tipo frase_ext , Largo 04..11 .
+                        Ejemplo: AB0125 , 00012345684 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListaProducto">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: Para especificar uno o mas Codigos de Producto . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Producto" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion de producto por su codigo .
+                        Tipo alfanumerico , Largo 04 .. 04 .
+                        Ejemplo: A001 ... Z999 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Filtros">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/REQ.: Para especificar filtros para buscar tarjetas. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="Documento" type="tns:Documento">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Para especificar Tipo e Identificacion de documento, con
+                        el cual debe realizar la busqueda de personas x documento
+                        Es opcional si se especifica Denominacion, de manera que
+                        si este tag no llega se asume Documento indistinto.
+                        Ya descripto en el tipo complejo Documento
+                        Recordar que se debe especificar al menos Documento o Denominacion. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Denominacion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Para especificar valor con el cual debe realizar la busqueda de
+                        personas por denominacion a izquierda del poseedor.
+                        Es opcional si se especifica Documento, de manera que
+                        si este tag no llega se asume Denominacion indistinta.
+                        Tipo frase_ext , Largo 05..30 .
+                        Ejemplo: Bolaños
+                        Recordar que se debe especificar al menos Documento o Denominacion. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Productos" type="tns:ListaProducto">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Lista de uno o mas codigos de producto por los cuales filtrar.
+                        Es opcional, esto es: si no llega se asume indistinto .
+                        Mas detalles, ver Tipo complejo ListaProducto . 
+                        Recordar que se debe especificar al menos Documento o Denominacion. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReportePolitica">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Politicas de Reporte. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Cantidad" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Cantidad de consultas que deben realizarse con PideGZ para
+                        obtener los comprimidos que en conjunto conforman el contenido
+                        de todas las paginas de la consulta.
+                        Dicho de otra forma, la cantidad de comprimidos GZ que son
+                        necesarios para conformar la coleccion completa segun los
+                        argumentos de busqueda.
+                        Tipo numerico , Largo 01..02 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Salto" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        El salto entre paginas que se debe realizar a partir de la
+                        pagina 1 para saber en que pagina se puede usar tag PideGZ
+                        en el requerimiento y asi obtener el reporte comprimido que
+                        tiene los registros de esa pagina y las consecutivas que en
+                        conjunto forman PPR paginas.
+                        Por ejemplo: Si este valor fuese 50 entonces indica que se
+                        puede usar PideGZ en las paginas 1, 51, 101, ... (N*PPR)+1
+                        , pues no se aceptara en otras y se devolvera rechazo.
+                        Si se pide en la pagina 1, se devolvera comprimido GZ con
+                        los registros de las paginas 1 a 50, si se pidisese en la
+                        51 entonces se devolvera los de las paginas 51 a 100, y asi
+                        sucesivamente
+                        Tipo numerico , Largo 02..02 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="RefReporte">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Informaciones sobre desde/hasta de paginas
+                    y registros incluidos en comprimido GZ de reporte. </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Desde" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero inicial de pagina o registro contenido en el
+                        comprimido GZ del reporte.
+                        Que sea de pagina o de registro, depende donde se lo use.
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Hasta" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero final de pagina o registro contenido en el
+                        comprimido GZ del reporte.
+                        Que sea de pagina o de registro, depende donde se lo use.
+                        Tipo numerico . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReporteReferencia">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Informaciones sobre la coleccion devuelta
+                    en el comprimido GZ, asi como su orden respecto a todos los GZ . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Fragmento" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Indica la posicion de este GZ respecto a todos los necesarios 
+                        para obtener la coleccion completa en todas las paginas.
+                        Esto es: si hay en total 96 paginas, se puede PideGZ en las
+                        paginas 1 y 51, y se solicita la 1 entonces su valor es 1, si
+                        se solicita la pagina 51 su valor es 2: indica que numero de
+                        GZ es respecto del total necesario.
+                        Tipo numerico , Largo 01..02 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Paginas" type="tns:RefReporte">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Estructura con datos de referencia sobre las paginas que
+                        estan involucradas en los registros del Comprimido GZ.
+                        Mas detalles, ver Tipo RefReporte . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Registros" type="tns:RefReporte">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Estructura con datos de referencia sobre los registros que
+                        estan involucradas en las coleccion del Comprimido GZ.
+                        Mas detalles, ver RefReporte . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReporteContenido">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Contenido comprimido GZ con los registros
+                    de la pagina pedida y de las consecutivas, conformando una gran
+                    coleccion de registros, en conjunto con Referencias </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Referencia" type="tns:ReporteReferencia">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene informaciones sobre el comprimido GZ, como ser el
+                        orden respecto de los demas GZ, paginas y registros incluidos.
+                        Mas detalles, ver Tipo ReporteReferencia . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Token" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Se corresponde con los 19 bytes de la izquierda del comprimido
+                        GZ origen , posteriormente cifrados con RSA y pasado a Base64.
+                        El Cliente debe pasarlo de Base64 a Binario y posteriormente
+                        descifrar con RSA usando la llave privada de respuestas, para
+                        obtener la parte izquierda de los bytes que, en conjunto con
+                        el Cuerpo, conforman el contenido del GZ original.
+                        Tipo base64 , Largo variable . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cuerpo" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tiene los bytes remanentes del comprimido GZ original, al que
+                        se le extrajo los 19 de la izquierda que estan en el Token ,
+                        posteriormente encodeados en Base64 para su transporte.
+                        El Cliente debe pasarlo de Base64 a Binario, para obtener la
+                        parte derecha de los bytes que, en conjunto con el Token a la
+                        izquierda, conforman el contenido del GZ original.
+                        Tipo base64 , Largo variable . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ReporteTarjetas">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Politicas de Reporte, y adicionalmente contenido
+                    comprimido GZ con los registros de varias paginas consulta en conjunto . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Politica" type="tns:ReportePolitica">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Informa cuantos reportes tiene que solicitarse con PideGZ
+                        para obtener los comprimidos con todos los registros que
+                        conforman todas las paginas, e informa el Salto que se debe
+                        realizar a partir de la pagina 1 para saber en que paginas
+                        solicitarlos.
+                        Mas detalles, ver Tipo ReportePolitica . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Contenido" type="tns:ReporteContenido">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tiene el comprimido GZ e informacion referencial adicional
+                        sobre los datos de las paginas y registros contenidos.
+                        El comprimido GZ responde a la norma RFC1952 identificada como
+                        GZ file format specification ver.4.3.
+                        Internamente tiene un XML con la misma estructura que la que se
+                        encuentra dentro del tag ListadoTarjetas: un tag .
+                        Por razones de seguridad, el comprimido GZ se encuentra partido
+                        en 2 trozos, uno llamado Token y el otro Cuerpo.
+                        El Token tiene los 19 bytes de la izquierda del comprimido GZ
+                        original , posteriormente cifrados con RSA usando la llave de
+                        respuestas y finalmente encodeado a Base64 p/transportarlo.
+                        El Cuerpo corresponde a los bytes restantes del comprimido, y
+                        tambien pasado desde Binario a Base 64 para transportarlo.
+                        Los datos sensibles dentro del comprimdo NO se cifran RSA , ya
+                        que justamente se parte el comprimido y se cifra Token con RSA
+                        para evitar cifrar los numeros de tarjeta , pues si se hiciera
+                        el comprimido es mucho mas voluminoso y lento de transportar.
+                        Por lo tanto el comprimido GZ se transporta partido en 2 partes 
+                        disjuntas, por lo cual para poder acceder al contenido se debe:
+                         1) descrifrar al Token con la llave privada RSA /Respuestas
+                         2) traducir al Token desde Base 64 a Binario  : 19 bytes
+                         3) traducir al Cuerpo desde Base 64 a Binario : resto de bytes
+                         4) unir los contenidos con 2) a izquierda y 3) a derecha, para
+                            tener el contenido binario del GZ.
+                         5) descomprimir el GZ, para acceder al XML interno.   
+                        De esa forma, el contenido esta sujeto a medidas de seguridad de
+                        igual indole a las aplicadas a los datos sensibles devueltos.
+                        No se puede descomprimir el contenido, sin el token descifrado,
+                        solo se puede acceder al contenido con llave otorgada para descifrar
+                        los datos  sensibles en las respuestas. 
+                        Solo presente si el Cliente lo solicita, puede no estar. 
+                        Mas detalles, ver Tipo ReporteContenido . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="TarjetaResumen">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Datos resumen de una Tarjeta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Numero" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de tarjeta:
+                        Valor que este Servicio devuelve cifrado con el algoritmo RSA ,
+                        haciendo uso de la llave publica asociada a datos sensibles de
+                        respuestas, y que es encodeado a base 64 responder.
+                        El Cliente del Servicio debe descodear de base 64 este campo y
+                        posteriomente descifrar con el algoritmo RSA, haciendo uso de la
+                        llave privada otorgada para respuestas, de manera de poder obtener
+                        el Numero de Tarjeta en claro.
+                        Tipo base64 , Largo variable
+                        El numero de tarjeta contenido es de Tipo digito, Largo 16..16. </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Cuenta" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Numero de cuenta a la cual pertenece la tarjeta.
+                        Tipo digito, largo 09..09 . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Entidad" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de entidad de pertenencia,
+                        o N/D si no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo digito , largo 03..03
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Producto" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de producto asociado, o
+                        N/D si no se cuenta con alguno o ambos datos, segun:
+                         Codigo      : Tipo alfanumerico , largo 04..04
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Estado" type="tns:Especificacion">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Identificacion y Descripcion de estado, o N/D si no
+                        se cuenta con alguno o ambos datos, segun
+                         Codigo      : Tipo digito , largo 02..02
+                         Descripcion : Tipo cadena , largo variable
+                        Detalles en tipo Especificacion . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Denominacion" type="xsd:string">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Nombres, apellidos de la persona, o valor fijo N/D si no se tiene.
+                        Tipo cadena , largo variable . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Documento" type="tns:Documento">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Tipo e identificacion del documento de la persona, o valor
+                        fijo N/D si no se cuenta con alguno o ambos datos, segun:
+                         Tipo : Tipo cadena , largo variable
+                         Iden : Tipo cadena , largo variable
+                        Detalles en tipo Documento . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Tarjetas">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Composicion de lista de Tarjetas . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" name="Tarjeta" type="tns:TarjetaResumen">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene uno o mas elementos Tarjeta, con datos minimos
+                        Mas detalles, ver Tipo TarjetaResumen . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ListadoTarjetas">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Tipo complejo p/RTA.: Referencias y Coleccion de Tarjetas . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="Referencia" type="tns:Referencia">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene informaciones sobre la coleccion devuelta
+                        Mas detalles, ver Tipo Referencia . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="Tarjetas" type="tns:Tarjetas">
+            <xsd:annotation>
+              <xsd:documentation>
+                        Contiene la coleccion devuelta, en este caso 1 o mas
+                        elementos de tipo TarjetaResumen
+                        Mas detalles, ver Tipo Tarjetas . </xsd:documentation>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="ConsultarRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion Consultar . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="tns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Tarjeta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Numero de Tarjeta a Consultar .
+                          Valor que el sistema Cliente debe cifrar con algoritmo RSA, haciendo
+                          uso de la llave publica otorgada para datos sensibles de solicitudes,
+                          y que posteriormente debe encodear a base 64 para su envio .
+                          Tipo base64 , Largo variable .
+                          El numero de tarjeta contenido es de Tipo digito, Largo 16..16 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion Consultar . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="tns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Tarjeta" type="tns:TarjetaDetalle">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con los detalles de la tarjeta
+                          Ya descripto en el tipo complejo TarjetaDetalle
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarPorCuentaRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion ConsultarPorCuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="tns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Cuenta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Identificacion de cuenta para la cual se buscan tarjetas .
+                          Tipo numerico , Largo 09..09 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Pagina" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                        Para indicar el numero de pagina deseado en la respuesta,
+                        ya que las consultas de tarjetas paginan los resultados .
+                        Es opcional, esto es: si no llega se asume Pagina 1 .
+                        Tipo numerico , Largo 01..04 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="PideGZ" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                        Para indicar que en el tag Reporte de la Respuesta se desea
+                        recibir el contenido comprimido que engloba a los registros
+                        de esta respuesta y de las paginas consecutivas que en con-
+                        -junto forman PPR paginas.
+                        La opcion S solo es viable en solicitudes de pagina 1 y de
+                        las posteriores sumando PPR ( 1 , 1+PPR , 1+PPR+PPR, ...) ,
+                        donde PPR es la cantidad de Paginas Por Reporte , valor que 
+                        se informa en TODA respuesta aprobada ( independientemente
+                        a que se haya solicitado PideGZ o no ) en el tag Salto que
+                        se encuentra dentro del tag Politica dentro del tag Reporte.
+                        De esta manera , el Cliente sabe en que paginas puede pedir
+                        el comprimidoGZ, y elegir pedirlo o no, con lo cual en las
+                        paginas 1, 1+PPR, 1+PPR+PPR, ..., el comprimido se devolvera
+                        solo si el Cliente lo pide. </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarPorCuentaResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion ConsultarPorCuenta . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="tns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Listado" type="tns:ListadoTarjetas">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con el resultado de salida
+                          Ya descripto en el tipo complejo ListadoTarjetas
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Reporte" type="tns:ReporteTarjetas">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con informacion de Politica de Reporte
+                          y, si se indica PideGZ en el requerimiento, adicionalmente
+                          con un Contenido comprimido que engloba a los registros de 
+                          la pagina pedida y de consecutivas que en conjunto forman
+                          una cierta cantidad de Paginas Por Reporte.
+                          Ya descripto en el tipo complejo ReporteTarjetas:
+                          -&gt; Si se responde rechazo, no estara presente
+                          -&gt; Si es aprobaciÃ³n, siempre estara presente aunque no se
+                            haya solicitado PideGZ, informando siempre la Politica . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarPorFiltrosRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion ConsultarPorFiltros . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="tns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Filtros" type="tns:Filtros">
+              <xsd:annotation>
+                <xsd:documentation>
+                        Para indicar valores de filtros de busqueda de tarjetas, los
+                        cuales se deben referir a Denominacion y/o Documento .
+                        Es obligatorio, pues se requiere al menos un filtro .
+                        Ya descripto en el tipo complejo Filtros . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Pagina" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                        Para indicar el numero de pagina deseado en la respuesta,
+                        ya que las consultas de tarjetas paginan los resultados .
+                        Es opcional, esto es: si no llega se asume Pagina 1 .
+                        Tipo numerico , Largo 01..04 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="PideGZ" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                        Para indicar que en el tag Reporte de la Respuesta se desea
+                        recibir el contenido comprimido que engloba a los registros
+                        de esta respuesta y de las paginas consecutivas que en con-
+                        -junto forman PPR paginas.
+                        La opcion S solo es viable en solicitudes de pagina 1 y de
+                        las posteriores sumando PPR ( 1 , 1+PPR , 1+PPR+PPR, ...) ,
+                        donde PPR es la cantidad de Paginas Por Reporte , valor que 
+                        se informa en TODA respuesta aprobada ( independientemente
+                        a que se haya solicitado PideGZ o no ) en el tag Salto que
+                        se encuentra dentro del tag Politica dentro del tag Reporte.
+                        De esta manera , el Cliente sabe en que paginas puede pedir
+                        el comprimidoGZ, y elegir pedirlo o no, con lo cual en las
+                        paginas 1, 1+PPR, 1+PPR+PPR, ..., el comprimido se devolvera
+                        solo si el Cliente lo pide. </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultarPorFiltrosResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion ConsultarPorFiltros . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="tns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Listado" type="tns:ListadoTarjetas">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con el resultado de salida
+                          Ya descripto en el tipo complejo ListadoTarjetas
+                          -&gt; Si la respuesta es rechazo, no estara presente
+                          -&gt; Se la respuesta es aprobación, estara presente . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="Reporte" type="tns:ReporteTarjetas">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Contiene estructura con informacion de Politica de Reporte
+                          y, si se indica PideGZ en el requerimiento, adicionalmente
+                          con un Contenido comprimido que engloba a los registros de 
+                          la pagina pedida y de consecutivas que en conjunto forman
+                          una cierta cantidad de Paginas Por Reporte.
+                          Ya descripto en el tipo complejo ReporteTarjetas:
+                          -&gt; Si se responde rechazo, no estara presente
+                          -&gt; Si es aprobaciÃ³n, siempre estara presente aunque no se
+                            haya solicitado PideGZ, informando siempre la Politica . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CambiarEstadoRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion CambiarEstado . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="tns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Tarjeta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Numero de Tarjeta .
+                          Valor que el sistema Cliente debe cifrar con algoritmo RSA, haciendo
+                          uso de la llave publica otorgada para datos sensibles de solicitudes,
+                          y que posteriormente debe encodear a base 64 para su envio .
+                          Tipo base64 , Largo variable .
+                          El numero de tarjeta contenido es de Tipo digito, Largo 16..16 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="NuevoEstado" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Codigo de estado de tarjeta hacia el cual se desea cambiar .
+                          Tipo alfanumerico , Largo 02..02 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="CambiarEstadoResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion CambiarEstado . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="tns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ResetContadorPinERRRequest">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para REQUERIMIENTO de operacion ResetContadorPinERR . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para autenticacion de usuario de WS .
+                          Ya descripto en el tipo complejo Autenticacion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Originador" type="tns:Originador">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para identificacion del originador .
+                          Ya descripto en el tipo complejo Originador . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Tarjeta" type="xsd:string">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Numero de Tarjeta a la cual cerearle el contador de pines erroneos.
+                          Valor que el sistema Cliente debe cifrar con algoritmo RSA, haciendo
+                          uso de la llave publica otorgada para datos sensibles de solicitudes,
+                          y que posteriormente debe encodear a base 64 para su envio .
+                          Tipo base64 , Largo variable .
+                          El numero de tarjeta contenido es de Tipo digito, Largo 16..16 . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ResetContadorPinERRResponse">
+        <xsd:annotation>
+          <xsd:documentation>
+                    Elemento para RESPUESTA de operacion ResetContadorPinERR . </xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para Codigo y Descripcion de respuesta .
+                          Ya descripto en el tipo complejo ResponseWS . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Atencion" type="tns:Atencion">
+              <xsd:annotation>
+                <xsd:documentation>
+                          Para datos de atencion de operacion .
+                          Ya descripto en el tipo complejo Atencion . </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultarPorCuentaRequest">
+    <wsdl:part name="ConsultarPorCuentaRequest" element="tns:ConsultarPorCuentaRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorCuentaResponse">
+    <wsdl:part name="ConsultarPorCuentaResponse" element="tns:ConsultarPorCuentaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarRequest">
+    <wsdl:part name="ConsultarRequest" element="tns:ConsultarRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarResponse">
+    <wsdl:part name="ConsultarResponse" element="tns:ConsultarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResetContadorPinERRRequest">
+    <wsdl:part name="ResetContadorPinERRRequest" element="tns:ResetContadorPinERRRequest" />
+  </wsdl:message>
+  <wsdl:message name="ResetContadorPinERRResponse">
+    <wsdl:part name="ResetContadorPinERRResponse" element="tns:ResetContadorPinERRResponse" />
+  </wsdl:message>
+  <wsdl:message name="CambiarEstadoRequest">
+    <wsdl:part name="CambiarEstadoRequest" element="tns:CambiarEstadoRequest" />
+  </wsdl:message>
+  <wsdl:message name="CambiarEstadoResponse">
+    <wsdl:part name="CambiarEstadoResponse" element="tns:CambiarEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorFiltrosRequest">
+    <wsdl:part name="ConsultarPorFiltrosRequest" element="tns:ConsultarPorFiltrosRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarPorFiltrosResponse">
+    <wsdl:part name="ConsultarPorFiltrosResponse" element="tns:ConsultarPorFiltrosResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CASA_SRTMX_TarjetaPortType">
+    <wsdl:operation name="ConsultarPorCuenta">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/input2" message="tns:ConsultarPorCuentaRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/output2" message="tns:ConsultarPorCuentaResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/input1" message="tns:ConsultarRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/output1" message="tns:ConsultarResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetContadorPinERR">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/input5" message="tns:ResetContadorPinERRRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/output5" message="tns:ResetContadorPinERRResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="CambiarEstado">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/input4" message="tns:CambiarEstadoRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/output4" message="tns:CambiarEstadoResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorFiltros">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/input3" message="tns:ConsultarPorFiltrosRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_TarjetaPortType/output3" message="tns:ConsultarPorFiltrosResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CASA_SRTMX_TarjetaSoap11Binding" type="tns:CASA_SRTMX_TarjetaPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarPorCuenta">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetContadorPinERR">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarEstado">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorFiltros">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CASA_SRTMX_TarjetaSoap12Binding" type="tns:CASA_SRTMX_TarjetaPortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultarPorCuenta">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetContadorPinERR">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarEstado">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorFiltros">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CASA_SRTMX_TarjetaHttpBinding" type="tns:CASA_SRTMX_TarjetaPortType">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ConsultarPorCuenta">
+      <http:operation location="ConsultarPorCuenta" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <http:operation location="Consultar" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetContadorPinERR">
+      <http:operation location="ResetContadorPinERR" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarEstado">
+      <http:operation location="CambiarEstado" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarPorFiltros">
+      <http:operation location="ConsultarPorFiltros" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CASA_SRTMX_Tarjeta">
+    <wsdl:port name="CASA_SRTMX_TarjetaHttpsSoap11Endpoint" binding="tns:CASA_SRTMX_TarjetaSoap11Binding">
+      <soap:address location="https://10.16.20.80:8243/services/CASA_SRTMX_Tarjeta.CASA_SRTMX_TarjetaHttpsSoap11Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_TarjetaHttpsSoap12Endpoint" binding="tns:CASA_SRTMX_TarjetaSoap12Binding">
+      <soap12:address location="https://10.16.20.80:8243/services/CASA_SRTMX_Tarjeta.CASA_SRTMX_TarjetaHttpsSoap12Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_TarjetaHttpsEndpoint" binding="tns:CASA_SRTMX_TarjetaHttpBinding">
+      <http:address location="https://10.16.20.80:8243/services/CASA_SRTMX_Tarjeta.CASA_SRTMX_TarjetaHttpsEndpoint" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

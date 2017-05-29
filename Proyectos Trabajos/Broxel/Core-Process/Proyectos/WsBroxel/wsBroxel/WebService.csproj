@@ -1,0 +1,1314 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DACD8EED-51B3-4DF2-A972-200939A186AB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>wsBroxel</RootNamespace>
+    <AssemblyName>wsBroxel</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <TargetFrameworkProfile />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
+    <ApplicationInsightsResourceId />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\wsBroxel.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PrecompileBeforePublish>false</PrecompileBeforePublish>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.7.4137.9688, Culture=neutral, PublicKeyToken=a4292a325f69b123, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\WinServices\ConfermaService\packages\BouncyCastle.1.7.0\lib\Net40-Client\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="BroxelEncryptCom, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\BroxelEncryptCom.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="IdSecure, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\IdSecure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.8.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MySql.Data.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BroxelCommon.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelCommon.edmx</DependentUpon>
+      <LastGenOutput>BroxelCommon.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BroxelCommon.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelCommon.edmx</DependentUpon>
+      <LastGenOutput>BroxelCommon.cs</LastGenOutput>
+    </Content>
+    <Content Include="BroxelMYO.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelMYO.edmx</DependentUpon>
+      <LastGenOutput>BroxelMYO.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BroxelMYO.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelMYO.edmx</DependentUpon>
+      <LastGenOutput>BroxelMYO.cs</LastGenOutput>
+    </Content>
+    <Content Include="client-certMyoTD.der" />
+    <Content Include="cert-pck12MyoTD.p12" />
+    <EntityDeploy Include="BroxelMejoravit.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BroxelMejoravit.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BroxelMejoravit.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelMejoravit.edmx</DependentUpon>
+      <LastGenOutput>BroxelMejoravit.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BroxelMejoravit.edmx.diagram">
+      <DependentUpon>BroxelMejoravit.edmx</DependentUpon>
+    </Content>
+    <Content Include="BroxelMejoravit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelMejoravit.edmx</DependentUpon>
+      <LastGenOutput>BroxelMejoravit.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="BroxelCommon.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BroxelCommon.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BroxelCommon.edmx.diagram">
+      <DependentUpon>BroxelCommon.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="BroxelMYO.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BroxelMYO.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BroxelMYO.edmx.diagram">
+      <DependentUpon>BroxelMYO.edmx</DependentUpon>
+    </Content>
+    <None Include="Properties\PublishProfiles\220.pubxml" />
+    <None Include="Properties\PublishProfiles\Localhost.pubxml" />
+    <None Include="Service References\CardStatusService\CardStatusService.wsdl" />
+    <Content Include="Service References\CardStatusService\wsBroxel.CardStatusService.UpdateCardStatusDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\GeneralAccountService\GeneralAccountService.wsdl" />
+    <None Include="Service References\CardStatusService\configuration91.svcinfo" />
+    <None Include="Service References\CardStatusService\configuration.svcinfo" />
+    <None Include="Service References\CardStatusService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\GeneralAccountService\wsBroxel.GeneralAccountService.AccountMaintenanceResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\GeneralAccountService\wsBroxel.GeneralAccountService.AddAccountResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\GeneralAccountService\wsBroxel.GeneralAccountService.GetBalanceResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\GeneralAccountService\wsBroxel.GeneralAccountService.GetCardAccountResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\newWSAutorizacion\configuration91.svcinfo" />
+    <None Include="Service References\newWSAutorizacion\configuration.svcinfo" />
+    <None Include="Service References\newWSAutorizacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PaymentService\PaymentService.wsdl" />
+    <Content Include="Service References\PaymentService\wsBroxel.PaymentService.PaymentResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\svrOdt\SrvBroxel.wsdl" />
+    <None Include="Service References\GeneralAccountService\configuration91.svcinfo" />
+    <None Include="Service References\GeneralAccountService\configuration.svcinfo" />
+    <None Include="Service References\GeneralAccountService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PaymentService\configuration91.svcinfo" />
+    <None Include="Service References\PaymentService\configuration.svcinfo" />
+    <None Include="Service References\PaymentService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\svrOdt\wsBroxel.svrOdt.CompositeType.datasource" />
+    <Content Include="Service References\svrOdt\wsBroxel.svrOdt.EstatusOdtResponse.datasource" />
+    <Content Include="Service References\wsMigraUsuarioToMyo\wsBroxel.wsMigraUsuarioToMyo.CompositeType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsMigraUsuarioToMyo\wsBroxel.wsMigraUsuarioToMyo.ResponseMigracion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsMigraUsuarioToMyo\wsMigraUsuarioToMyo.disco" />
+    <None Include="Service References\wsMigraUsuarioToMyo\configuration91.svcinfo" />
+    <None Include="Service References\wsMigraUsuarioToMyo\configuration.svcinfo" />
+    <None Include="Service References\wsMigraUsuarioToMyo\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\wsMovementsService\configuration91.svcinfo" />
+    <None Include="Service References\wsMovementsService\configuration.svcinfo" />
+    <None Include="Service References\wsMovementsService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\wsSPEI\wsBroxel.wsSPEI.RespuestaOrden.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="..\..\..\..\..\Escritorio\wsMigraUsuarioToMyo.wsdl">
+      <Link>Service References\wsMigraUsuarioToMyo\wsMigraUsuarioToMyo.wsdl</Link>
+    </None>
+    <None Include="Service References\wsMigraUsuarioToMyo\wsMigraUsuarioToMyo.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsMigraUsuarioToMyo\wsMigraUsuarioToMyo1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsMigraUsuarioToMyo\wsMigraUsuarioToMyo2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsMigraUsuarioToMyo\wsMigraUsuarioToMyo3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsMovementsService\MovementsService.wsdl" />
+    <Content Include="Service References\wsMovementsService\wsBroxel.wsMovementsService.GetMovementsResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsMovementsService\wsBroxel.wsMovementsService.ResponseDTO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsSPEI\wsSPEI2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsTarjeta\configuration91.svcinfo" />
+    <None Include="Service References\wsTarjeta\configuration.svcinfo" />
+    <None Include="Service References\wsTarjeta\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\svrOdt\configuration.svcinfo" />
+    <None Include="Service References\svrOdt\configuration91.svcinfo" />
+    <None Include="Service References\svrOdt\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </None>
+    <Content Include="Solicitud.svc" />
+    <Content Include="TokenService.svc" />
+    <Content Include="wsIVR.asmx" />
+    <Content Include="wsPrivateHelper.asmx" />
+    <EntityDeploy Include="Embosado.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Embosado.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Embosado.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Embosado.edmx</DependentUpon>
+      <LastGenOutput>Embosado.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Embosado.edmx.diagram">
+      <DependentUpon>Embosado.edmx</DependentUpon>
+    </Content>
+    <Content Include="Embosado.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Embosado.edmx</DependentUpon>
+      <LastGenOutput>Embosado.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="BroxelSQL.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BroxelSQL.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="BroxelSQL.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelSQL.edmx</DependentUpon>
+      <LastGenOutput>BroxelSQL.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BroxelSQL.edmx.diagram">
+      <DependentUpon>BroxelSQL.edmx</DependentUpon>
+    </Content>
+    <Content Include="BroxelSQL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BroxelSQL.edmx</DependentUpon>
+      <LastGenOutput>BroxelSQL.cs</LastGenOutput>
+    </Content>
+    <None Include="Properties\PublishProfiles\betoLocal.pubxml" />
+    <None Include="Properties\PublishProfiles\Desarrollo.pubxml" />
+    <None Include="Service References\newWSAutorizacion\Autorizacion.wsdl" />
+    <Content Include="Service References\newWSAutorizacion\wsBroxel.newWSAutorizacion.RespuestaAutorizacionMovimientos.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsOperaciones\configuration91.svcinfo" />
+    <None Include="Service References\wsOperaciones\configuration.svcinfo" />
+    <None Include="Service References\wsOperaciones\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\wsSMS\ServicioSMS.disco" />
+    <None Include="Service References\wsSMS\configuration91.svcinfo" />
+    <None Include="Service References\wsSMS\configuration.svcinfo" />
+    <None Include="Service References\wsSMS\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="WebForm1.aspx" />
+    <Content Include="wsCuentasTarjetas.asmx" />
+    <Content Include="wsDisposiciones.asmx" />
+    <Content Include="Service References\wsAutorizacion\Autorizacion.wsdl" />
+    <Content Include="nodo.php">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\92-Web.pubxml" />
+    <None Include="Service References\wsComercios\configuration91.svcinfo" />
+    <None Include="Service References\wsComercios\configuration.svcinfo" />
+    <None Include="Service References\wsComercios\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\wsSPEI\wsBroxel.wsSPEI.Respuesta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsSPEI\wsBroxel.wsSPEI.RespuestaTransferencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsConsultas\Consultas.wsdl" />
+    <Content Include="Service References\wsCuenta\CASA_SRTMX_Cuenta.wsdl" />
+    <None Include="Service References\wsOperaciones\CASA_SRTMX_Operacion.wsdl" />
+    <Content Include="Service References\wsOperaciones\wsBroxel.wsOperaciones.ConsultarCodigosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsOperaciones\wsBroxel.wsOperaciones.ConsultarPorCuentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsOperaciones\wsBroxel.wsOperaciones.ConsultarPorFiltrosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsOperaciones\wsBroxel.wsOperaciones.ConsultarPorTarjetaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsOperaciones\wsBroxel.wsOperaciones.ConsultarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsSMS\ServicioSMS.wsdl" />
+    <None Include="Service References\wsSMS\ServicioSMS.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSMS\ServicioSMS1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSMS\ServicioSMS2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Service References\wsSMS\wsBroxel.wsSMS.Respuesta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsSPEI\wsSPEI.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsSPEI\wsSPEI1.wsdl" />
+    <None Include="Service References\wsSPEI\wsSPEI1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsTarjeta\CASA_SRTMX_Tarjeta.wsdl" />
+    <Content Include="Service References\wsTarjeta\wsBroxel.wsTarjeta.CambiarEstadoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsTarjeta\wsBroxel.wsTarjeta.ConsultarPorCuentaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsTarjeta\wsBroxel.wsTarjeta.ConsultarPorFiltrosResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsTarjeta\wsBroxel.wsTarjeta.ConsultarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsTarjeta\wsBroxel.wsTarjeta.ResetContadorPinERRResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsTimbrado\configuration91.svcinfo" />
+    <None Include="Service References\wsTimbrado\configuration.svcinfo" />
+    <None Include="Service References\wsTimbrado\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="HealthCheck.aspx" />
+    <None Include="Service References\wsSPEI\configuration91.svcinfo" />
+    <None Include="Service References\wsSPEI\configuration.svcinfo" />
+    <None Include="Service References\wsSPEI\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="wsAdmonComercios.asmx" />
+    <Content Include="wsAdmonUsuarios.asmx" />
+    <EntityDeploy Include="Broxel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Broxel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Broxel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Broxel.Context.cs</LastGenOutput>
+      <DependentUpon>Broxel.edmx</DependentUpon>
+    </Content>
+    <Content Include="packages.config" />
+    <Content Include="Broxel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Broxel.cs</LastGenOutput>
+      <DependentUpon>Broxel.edmx</DependentUpon>
+    </Content>
+    <None Include="pines.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="clave_rsa_rta_priv.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="clave_rsa_sol_publ.key">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <EntityDeploy Include="broxelMY.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>broxelMY.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="broxelMY.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>broxelMY.edmx</DependentUpon>
+      <LastGenOutput>broxelMY.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="broxelMY.edmx.diagram">
+      <DependentUpon>broxelMY.edmx</DependentUpon>
+    </Content>
+    <Content Include="broxelMY.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>broxelMY.edmx</DependentUpon>
+      <LastGenOutput>broxelMY.cs</LastGenOutput>
+    </Content>
+    <None Include="Properties\PublishProfiles\91-Web.pubxml" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\aldoLocal.pubxml" />
+    <Content Include="BroxelService.asmx" />
+    <None Include="Service References\wsAutorizacion\configuration91.svcinfo" />
+    <None Include="Service References\wsAutorizacion\configuration.svcinfo" />
+    <None Include="Service References\wsAutorizacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\wsConsultas\configuration91.svcinfo" />
+    <None Include="Service References\wsConsultas\configuration.svcinfo" />
+    <None Include="Service References\wsConsultas\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\wsCuenta\configuration91.svcinfo" />
+    <None Include="Service References\wsCuenta\configuration.svcinfo" />
+    <None Include="Service References\wsCuenta\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\wsCuenta\wsBroxel.wsCuenta.BloquearResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsCuenta\wsBroxel.wsCuenta.ConsultarResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsConsultas\wsBroxel.wsConsultas.Cuenta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsConsultas\wsBroxel.wsConsultas.CuentaDisponible.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsConsultas\wsBroxel.wsConsultas.Tarjeta.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsCuenta\wsBroxel.wsCuenta.DesbloquearResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsComercios\CASA_SRTMX_Comercios.wsdl" />
+    <Content Include="Service References\wsComercios\wsBroxel.wsComercios.AltaComercioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsComercios\wsBroxel.wsComercios.BajaComercioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsComercios\wsBroxel.wsComercios.ConsultaComercioNroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsComercios\wsBroxel.wsComercios.ConsultaComercioProdResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsComercios\wsBroxel.wsComercios.ModificacionComercioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\wsTimbrado\EfacturaServiceEndpointService.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="accessos_clientes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccionesTarjetaAsociada.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\ComunicacionesBL\TransferenciaBL.cs" />
+    <Compile Include="App_Code\Family\CreacionArchivoRequest.cs" />
+    <Compile Include="App_Code\Family\DatosAdicionales.cs" />
+    <Compile Include="App_Code\Family\ParametrosFamily.cs" />
+    <Compile Include="App_Code\GenericBL\Model\CuentaRecompensaInterna.cs" />
+    <Compile Include="App_Code\GenericBL\Model\CuentasRecompensa.cs" />
+    <Compile Include="App_Code\GenericBL\PagoServiciosBL.cs" />
+    <Compile Include="App_Code\GenericBL\ReversoBL.cs" />
+    <Compile Include="App_Code\Online\UpdateOnlineBroxel.cs" />
+    <Compile Include="App_Code\PreAutorizador\Acciones.cs" />
+    <Compile Include="AgrupacionClientes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AnulacionN.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\AesEcbPKCS5Encrypter.cs" />
+    <Compile Include="App_Code\AsignacionLineaBL\AsignaLineaBL.cs" />
+    <Compile Include="App_Code\CargosBL\CargoBL.cs" />
+    <Compile Include="App_Code\CargoWSResponse.cs" />
+    <Compile Include="App_Code\Comprobante.cs" />
+    <Compile Include="App_Code\DispResponse.cs" />
+    <Compile Include="App_Code\ExtEntities\UsuariosOnlineCLABE.cs" />
+    <Content Include="App_Code\MaxTextWriteTraceListener.cs" />
+    <Compile Include="App_Code\GenericBL\GenericBL.cs" />
+    <Compile Include="App_Code\GenericBL\InspectorBehavior.cs" />
+    <Compile Include="App_Code\GenericBL\MailReplacer.cs" />
+    <Compile Include="App_Code\GenericBL\MailSelector.cs" />
+    <Compile Include="App_Code\GenericBL\MyMessageInspector.cs" />
+    <Compile Include="App_Code\InfoCard.cs" />
+    <Compile Include="App_Code\Online\ComisionRedPagos.cs" />
+    <Compile Include="App_Code\PreAutorizador\PreAutorizadorBL.cs" />
+    <Compile Include="App_Code\RenominacionBL\Model\OriginacionData.cs" />
+    <Compile Include="App_Code\RenominacionBL\Model\RenominacionExternaData.cs" />
+    <Compile Include="App_Code\RenominacionBL\RenominaBL.cs" />
+    <Compile Include="App_Code\RequestResponses\DetalleMonto.cs" />
+    <Compile Include="App_Code\RequestResponses\GruposPreAut.cs" />
+    <Compile Include="App_Code\RequestResponses\OnlineBroxelResponse.cs" />
+    <Compile Include="App_Code\RequestResponses\PagoServicioResp.cs" />
+    <Compile Include="App_Code\RequestResponses\PreAutApiResponse.cs" />
+    <Compile Include="App_Code\RequestResponses\PreAutResponse.cs" />
+    <Compile Include="App_Code\RequestResponses\RealizarCargoMontosResp.cs" />
+    <Compile Include="App_Code\RequestResponses\RenominacionExternaResponse.cs" />
+    <Compile Include="App_Code\SessionDashMyo.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\CargosDisposiciones.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\CuarentenaNivelesData.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\DetalleComisionAsignacion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\CambiaContrasenaRequest.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\Favorito.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\InfoCuentaSolicitud.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\NivelDeCuentaAvisos.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\ProductoValInfo.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\RegistraClienteSinTarjetaModel.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\TiposOperacion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\AfectaLcCliente.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\DispWsValModel.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\CargoArguments.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\EjecutaDevolucion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\InsertaDevolucion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\RetornaDummy.cs" />
+    <Compile Include="App_Code\RequestResponses\ComercioTPV.cs" />
+    <Compile Include="App_Code\ComisionTransferencia.cs" />
+    <Compile Include="App_Code\RequestResponses\Disposicion.cs" />
+    <Compile Include="App_Code\ErroresDispersion.cs" />
+    <Compile Include="App_Code\Concepto.cs" />
+    <Compile Include="App_Code\Mailing.cs" />
+    <Compile Include="App_Code\ManualMapping.cs" />
+    <Compile Include="App_Code\Online\LoginComercio.cs" />
+    <Compile Include="App_Code\Online\MovimientoOnline.cs" />
+    <Compile Include="App_Code\Online\CuentaOnline.cs" />
+    <Compile Include="App_Code\Online\OnlineHelper.cs" />
+    <Compile Include="App_Code\Online\Request.cs" />
+    <Compile Include="App_Code\Online\Response.cs" />
+    <Compile Include="App_Code\Online\SaldoOnlineResponse.cs" />
+    <Compile Include="App_Code\Online\UsuarioOnline.cs" />
+    <Compile Include="App_Code\RequestResponses\Cuenta.cs" />
+    <Compile Include="App_Code\RequestResponses\Movimientos.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\EjecutaDispersion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\InsertaDispersion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\IOperacion.cs" />
+    <Compile Include="App_Code\SolicitudBL\MySqlDataAccess.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\OperArguments.cs" />
+    <Compile Include="App_Code\SolicitudBL\MainSolicitudBL.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\OperDB.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\CobrarComisionRedPagos.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\ValidaCuenta.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\ValidaCuentas.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\ValidaCuentasDev.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\ValidaDispersion.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\validaEstadoOperativoCuenta.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\ValidaHecho.cs" />
+    <Compile Include="App_Code\SolicitudBL\Operaciones\ValidaOperEnlínea.cs" />
+    <Compile Include="App_Code\SolicitudBL\Model\WsInvokeData.cs" />
+    <Compile Include="App_Code\SolicitudBL\SQLDataAccess.cs" />
+    <Compile Include="App_Code\TCControlVL\Model\EstadosTarjetas.cs" />
+    <Compile Include="App_Code\TCControlVL\TcControlBL.cs" />
+    <Compile Include="App_Code\TokenBL\AesEncrypterToken.cs" />
+    <Compile Include="App_Code\TokenBL\TokenBroxel.cs" />
+    <Compile Include="App_Code\TokenBL\TokenServiceBL.cs" />
+    <Compile Include="App_Code\TokenBL\TokenUsuario.cs" />
+    <Compile Include="App_Code\Utils\AesEncrypter.cs" />
+    <Compile Include="App_Code\Utils\RegexUtilities.cs" />
+    <Compile Include="App_Code\Utils\SerializeToXML.cs" />
+    <Compile Include="App_Code\VCBL\Models\JVCData.cs" />
+    <Compile Include="App_Code\VCBL\Models\MaquilaVcInfo.cs" />
+    <Compile Include="App_Code\VCBL\Models\VcSeedData.cs" />
+    <Compile Include="App_Code\VCBL\Models\VcTokenData.cs" />
+    <Compile Include="App_Code\VCBL\VCardBL.cs" />
+    <Compile Include="App_Code\VCBL\Models\VCardData.cs" />
+    <Compile Include="BroxelCommon.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelCommon.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelCommon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelCommon.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelCommon.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelMejoravit.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelMejoravit.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelMejoravit.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelMejoravit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelMejoravit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelMejoravit.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelMYO.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelMYO.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelMYO.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelMYO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelMYO.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelMYO.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelSQL.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelSQL.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelSQL.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BroxelSQL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BroxelSQL.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="BussinessLogic\BroxelCards.cs" />
+    <Compile Include="BussinessLogic\BroxelFamily.cs" />
+    <Compile Include="CargosDetalle.cs">
+      <DependentUpon>BroxelSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CargosSolicitudes.cs">
+      <DependentUpon>BroxelSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatCLienteLayout.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatFuncionalidades.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatFuncionalidadesXInfoClientes.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="cat_incremento.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ciudadesCredencial.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clienteBroxelLayout.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clientesBrxLayout.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodigosTransaccionWebService.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comercio11.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigTarjetaAsociada.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCuentas.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlCuentasDetalle.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ControlsCuentaAsociada.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CPSepomex.cs">
+      <DependentUpon>BroxelMejoravit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CreaClienteSinTarjetaLog.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuentaAsociadaFamily.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuentaPadreFamily.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuentasCobrables.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\DatosEmailTransferencias.cs" />
+    <Compile Include="DetalleClientesBroxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DireccionEnvioTarjetaFisica.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\PreAutorizador\Ejemplo.cs" />
+    <Compile Include="Dispatcher\Cuenta.cs" />
+    <Compile Include="Dispatcher\Dispatcher.cs" />
+    <Compile Include="Dispatcher\ErrorCodes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorCodes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Dispatcher\PetrusCancellationRequest.cs" />
+    <Compile Include="Dispatcher\PetrusCancellationResponse.cs" />
+    <Compile Include="Dispatcher\PetrusChargeRequest.cs" />
+    <Compile Include="Dispatcher\PetrusChargeResponse.cs" />
+    <Compile Include="Dispatcher\PetrusPin.cs" />
+    <Compile Include="Dispatcher\ResponseCodes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResponseCodes.resx</DependentUpon>
+    </Compile>
+    <Compile Include="EstatusCuentaAsociada.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="gruposComercios.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InfoClientes.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ISolicitud.cs" />
+    <Compile Include="ITokenService.cs" />
+    <Compile Include="LogActividadesOperaciones.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="logAltaBajaCuentaGrupo.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="logCorreoDispersion.cs">
+      <DependentUpon>BroxelSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogMensajes.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailConfig.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MaquilaReplica.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="mobile_session.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Monedas.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MovimientosClientes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OnLineFavoritos.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrdenDeTrabajo.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PagoServiciosCtrl.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ParametrosServicio.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\PreAutorizador\Principal.cs" />
+    <Compile Include="App_Code\Utils\PgpEncryptMyCard.cs" />
+    <Compile Include="Producto.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="App_Code\PreAutorizador\Reglas.cs" />
+    <Compile Include="RelacionIDsReplicado.cs">
+      <DependentUpon>BroxelCommon.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Renominacion.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RenominacionesInternas.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RenominacionSolicitudes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\PreAutorizador\RequestObject.cs" />
+    <Compile Include="Service References\CardStatusService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\GeneralAccountService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\newWSAutorizacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\PaymentService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\svrOdt\Reference.cs" />
+    <Compile Include="Service References\svrOdt\Reference1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsMigraUsuarioToMyo\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsMovementsService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsTarjeta\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Solicitud.svc.cs">
+      <DependentUpon>Solicitud.svc</DependentUpon>
+    </Compile>
+    <Compile Include="TarjetasBroxelLayout.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TarjetasFisicasAdicionales.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\TipoCorreo.cs" />
+    <Compile Include="TokenService.svc.cs">
+      <DependentUpon>TokenService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Transferencias.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\TransferenciasC2C\TransferenciasDeTerceros.cs" />
+    <Compile Include="App_Code\TransferenciasC2C\TransferenciasATerceros.cs" />
+    <Compile Include="App_Code\TransferenciasC2C\TransferenciasDisposicion.cs" />
+    <Compile Include="App_Code\TransferenciasC2C\TransferenciasAbonosACuenta.cs" />
+    <Compile Include="Users.cs">
+      <DependentUpon>BroxelMYO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosInfonavit.cs">
+      <DependentUpon>BroxelMejoravit.tt</DependentUpon>
+    </Compile>
+    <Compile Include="wsIVR.asmx.cs">
+      <DependentUpon>wsIVR.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="wsPrivateHelper.asmx.cs">
+      <DependentUpon>wsPrivateHelper.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Content Include="App_Code\RollingXmlWriterTraceListener.cs" />
+    <Compile Include="App_Code\Tarjeta.cs" />
+    <Compile Include="App_Code\RequestResponses\LimiteCredito.cs" />
+    <Compile Include="App_Code\TarjetaEmbosado.cs" />
+    <Compile Include="App_Code\RequestResponses\TarjetaHabiente.cs" />
+    <Compile Include="bancos_stp.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Broxel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Broxel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Broxel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Broxel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Broxel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="broxelMY.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>broxelMY.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="broxelMY.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="broxelMY.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>broxelMY.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="CargosDisposicionesEfectivo.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="catalogo_acceso_comercios.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="clientesBroxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="App_Code\RequestResponses\Saldo.cs" />
+    <Compile Include="App_Code\Bitacora.cs" />
+    <Compile Include="App_Code\RequestResponses\Cargo.cs" />
+    <Compile Include="App_Code\RequestResponses\Comercio.cs" />
+    <Compile Include="App_Code\RequestResponses\Request.cs" />
+    <Compile Include="App_Code\RequestResponses\Response.cs" />
+    <Compile Include="App_Code\RequestResponses\Usuario.cs" />
+    <Compile Include="App_Code\Helper.cs" />
+    <Compile Include="ClientesComisiones.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodigosRespuesta.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodigosRespuestaSQL.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="colaEmbosado.cs">
+      <DependentUpon>Embosado.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Comercio.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ComisionesB1010.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="correr_disponibles.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="devolucionesInternas.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="devolucionesSolicitudes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dispersionesInternas.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dispersionesSolicitudes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dispersionesWE.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="disponibles.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Embosado.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Embosado.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Embosado.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Embosado.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Embosado.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Embosado.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="HistoricoComisionesPublidea.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogTransaccionesSQL.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogUsuariosOnlineBroxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="log_registro_de_cuenta.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MailingThemesOnline.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="medidasEmbosado.cs">
+      <DependentUpon>Embosado.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pagosInternos.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="pagosSolicitudes.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Parametros.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="productos_broxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="registro_tc.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="reversos.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsOperaciones\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsSMS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="session_dash.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransferenciasDetalle.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransferenciasEntreCuentas.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransferenciasSolicitud.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosOnlineCLABE.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_registri.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebHelper.cs" />
+    <Compile Include="wsCuentasTarjetas.asmx.cs">
+      <DependentUpon>wsCuentasTarjetas.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="wsDisposiciones.asmx.cs">
+      <DependentUpon>wsDisposiciones.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DisposicionesEfectivo.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dispositivos.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="estadosCredencial.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="fechas_corte_x_grupos.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ind_movimientos.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="maquila.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Movimiento.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="phpSession.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="registri_broxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="registro_de_cuenta.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsComercios\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsSPEI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsTimbrado\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosOnlineBroxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_EdoCuenta.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_maquila.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_registri_broxel.cs">
+      <DependentUpon>broxelMY.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HealthCheck.aspx.cs">
+      <DependentUpon>HealthCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HealthCheck.aspx.designer.cs">
+      <DependentUpon>HealthCheck.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="wsAdmonComercios.asmx.cs">
+      <DependentUpon>wsAdmonComercios.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="wsAdmonUsuarios.asmx.cs">
+      <DependentUpon>wsAdmonUsuarios.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <None Include="Others\wsConsultas.txt" />
+    <Compile Include="BroxelService.asmx.cs">
+      <DependentUpon>BroxelService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\wsAutorizacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsConsultas\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsCuenta\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario.cs">
+      <DependentUpon>Broxel.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CardStatusService\" />
+    <WCFMetadataStorage Include="Service References\GeneralAccountService\" />
+    <WCFMetadataStorage Include="Service References\newWSAutorizacion\" />
+    <WCFMetadataStorage Include="Service References\PaymentService\" />
+    <WCFMetadataStorage Include="Service References\wsAutorizacion\" />
+    <WCFMetadataStorage Include="Service References\wsComercios\" />
+    <WCFMetadataStorage Include="Service References\wsConsultas\" />
+    <WCFMetadataStorage Include="Service References\wsCuenta\" />
+    <WCFMetadataStorage Include="Service References\wsMigraUsuarioToMyo\" />
+    <WCFMetadataStorage Include="Service References\wsMovementsService\" />
+    <WCFMetadataStorage Include="Service References\wsOperaciones\" />
+    <WCFMetadataStorage Include="Service References\wsSMS\" />
+    <WCFMetadataStorage Include="Service References\wsSPEI\" />
+    <WCFMetadataStorage Include="Service References\wsTarjeta\" />
+    <WCFMetadataStorage Include="Service References\wsTimbrado\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Dispatcher\ErrorCodes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorCodes.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dispatcher\ResponseCodes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResponseCodes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

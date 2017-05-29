@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PaymentService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="AcceptPayment">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="issuerCode" nillable="true" type="xs:string" />
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes" minOccurs="0" name="payment" nillable="true" type="q1:AcceptPaymentDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AcceptPaymentResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes" minOccurs="0" name="AcceptPaymentResult" nillable="true" type="q2:PaymentResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UndoPayment">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes" minOccurs="0" name="payment" nillable="true" type="q3:UndoPaymentDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UndoPaymentResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes" minOccurs="0" name="UndoPaymentResult" nillable="true" type="q4:PaymentResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="AcceptPaymentDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalInformation" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CurrencyCode" type="xs:short" />
+          <xs:element minOccurs="0" name="ExternalPaymentCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GeneralAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsConfirmation" type="xs:boolean" />
+          <xs:element minOccurs="0" name="PaymentChannel" type="xs:short" />
+          <xs:element minOccurs="0" name="PaymentDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PaymentMethod" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AcceptPaymentDTO" nillable="true" type="tns:AcceptPaymentDTO" />
+      <xs:complexType name="PaymentResponseDTO">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" base="q1:ResponseDTO">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="paymentInfo" nillable="true" type="tns:PaymentInfoDTO" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="PaymentResponseDTO" nillable="true" type="tns:PaymentResponseDTO" />
+      <xs:complexType name="PaymentInfoDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PaymentCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PaymentInfoDTO" nillable="true" type="tns:PaymentInfoDTO" />
+      <xs:complexType name="UndoPaymentDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Amount" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CurrencyCode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="GeneralAccountNumber" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="PaymentCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PaymentDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UndoReason" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="UndoPaymentDTO" nillable="true" type="tns:UndoPaymentDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfErrorDTO" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" name="ReturnExecution" type="q1:ReturnExecution" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ResponseDTO" nillable="true" type="tns:ResponseDTO" />
+      <xs:complexType name="ArrayOfErrorDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorDTO" nillable="true" type="tns:ErrorDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfErrorDTO" nillable="true" type="tns:ArrayOfErrorDTO" />
+      <xs:complexType name="ErrorDTO">
+        <xs:sequence>
+          <xs:element name="ErrorCode" nillable="true" type="xs:string" />
+          <xs:element name="ErrorText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ErrorDTO" nillable="true" type="tns:ErrorDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:simpleType name="ReturnExecution">
+        <xs:annotation>
+          <xs:appinfo>
+            <ActualType Name="short" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SUCCESS" />
+          <xs:enumeration value="WITH_ERROR" />
+          <xs:enumeration value="WITH_WARNING" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ReturnExecution" nillable="true" type="tns:ReturnExecution" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IPaymentService_AcceptPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptPayment" />
+  </wsdl:message>
+  <wsdl:message name="IPaymentService_AcceptPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPaymentService_UndoPayment_InputMessage">
+    <wsdl:part name="parameters" element="tns:UndoPayment" />
+  </wsdl:message>
+  <wsdl:message name="IPaymentService_UndoPayment_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UndoPaymentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IPaymentService">
+    <wsdl:operation name="AcceptPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPaymentService/AcceptPayment" message="tns:IPaymentService_AcceptPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPaymentService/AcceptPaymentResponse" message="tns:IPaymentService_AcceptPayment_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UndoPayment">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPaymentService/UndoPayment" message="tns:IPaymentService_UndoPayment_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPaymentService/UndoPaymentResponse" message="tns:IPaymentService_UndoPayment_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IPaymentService" type="tns:IPaymentService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AcceptPayment">
+      <soap:operation soapAction="http://tempuri.org/IPaymentService/AcceptPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UndoPayment">
+      <soap:operation soapAction="http://tempuri.org/IPaymentService/UndoPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentService">
+    <wsdl:port name="BasicHttpBinding_IPaymentService" binding="tns:BasicHttpBinding_IPaymentService">
+      <soap:address location="http://760290-net:8080/PayStudioBOWS/IssuerCommercial.ClientWS.ServiceHost/Services/PaymentService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

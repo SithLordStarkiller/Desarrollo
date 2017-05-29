@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EmbosadoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="colaEmbosado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NumeroTarjeta" Type="varchar" MaxLength="255" />
+          <Property Name="FechaExpiracion" Type="varchar" MaxLength="255" />
+          <Property Name="Nombre" Type="varchar" MaxLength="255" />
+          <Property Name="CVC" Type="varchar" MaxLength="255" />
+          <Property Name="Track1" Type="varchar" MaxLength="255" />
+          <Property Name="Track2" Type="varchar" MaxLength="255" />
+          <Property Name="Track3" Type="varchar" MaxLength="255" />
+          <Property Name="CuartaLinea" Type="varchar" MaxLength="255" />
+          <Property Name="EntranteId" Type="int" />
+          <Property Name="Exitoso" Type="smallint" />
+        </EntityType>
+        <EntityType Name="medidasEmbosado">
+          <Key>
+            <PropertyRef Name="perfilID" />
+          </Key>
+          <Property Name="perfilID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombrePefil" Type="varchar" MaxLength="100" />
+          <Property Name="numeroX" Type="int" />
+          <Property Name="numeroY" Type="int" />
+          <Property Name="nombreX" Type="int" />
+          <Property Name="nombreY" Type="int" />
+          <Property Name="fechaX" Type="int" />
+          <Property Name="fechaY" Type="int" />
+          <Property Name="cvcX" Type="int" />
+          <Property Name="cvcY" Type="int" />
+          <Property Name="cuartaLineaX" Type="int" />
+          <Property Name="cuartaLineaY" Type="int" />
+        </EntityType>
+        <EntityContainer Name="EmbosadoModelStoreContainer">
+          <EntitySet Name="colaEmbosado" EntityType="Self.colaEmbosado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="medidasEmbosado" EntityType="Self.medidasEmbosado" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmbosadoModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="colaEmbosado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NumeroTarjeta" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaExpiracion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CVC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Track1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Track2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Track3" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CuartaLinea" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EntranteId" Type="Int32" />
+          <Property Name="Exitoso" Type="Int16" />
+        </EntityType>
+        <EntityContainer Name="EmbosadoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="colaEmbosado" EntityType="Self.colaEmbosado" />
+          <EntitySet Name="medidasEmbosado" EntityType="EmbosadoModel.medidasEmbosado" />
+        </EntityContainer>
+        <EntityType Name="medidasEmbosado">
+          <Key>
+            <PropertyRef Name="perfilID" />
+          </Key>
+          <Property Name="perfilID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombrePefil" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numeroX" Type="Int32" />
+          <Property Name="numeroY" Type="Int32" />
+          <Property Name="nombreX" Type="Int32" />
+          <Property Name="nombreY" Type="Int32" />
+          <Property Name="fechaX" Type="Int32" />
+          <Property Name="fechaY" Type="Int32" />
+          <Property Name="cvcX" Type="Int32" />
+          <Property Name="cvcY" Type="Int32" />
+          <Property Name="cuartaLineaX" Type="Int32" />
+          <Property Name="cuartaLineaY" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmbosadoModelStoreContainer" CdmEntityContainer="EmbosadoEntities">
+          <EntitySetMapping Name="colaEmbosado">
+            <EntityTypeMapping TypeName="EmbosadoModel.colaEmbosado">
+              <MappingFragment StoreEntitySet="colaEmbosado">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NumeroTarjeta" ColumnName="NumeroTarjeta" />
+                <ScalarProperty Name="FechaExpiracion" ColumnName="FechaExpiracion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="CVC" ColumnName="CVC" />
+                <ScalarProperty Name="Track1" ColumnName="Track1" />
+                <ScalarProperty Name="Track2" ColumnName="Track2" />
+                <ScalarProperty Name="Track3" ColumnName="Track3" />
+                <ScalarProperty Name="CuartaLinea" ColumnName="CuartaLinea" />
+                <ScalarProperty Name="EntranteId" ColumnName="EntranteId" />
+                <ScalarProperty Name="Exitoso" ColumnName="Exitoso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medidasEmbosado">
+            <EntityTypeMapping TypeName="EmbosadoModel.medidasEmbosado">
+              <MappingFragment StoreEntitySet="medidasEmbosado">
+                <ScalarProperty Name="cuartaLineaY" ColumnName="cuartaLineaY" />
+                <ScalarProperty Name="cuartaLineaX" ColumnName="cuartaLineaX" />
+                <ScalarProperty Name="cvcY" ColumnName="cvcY" />
+                <ScalarProperty Name="cvcX" ColumnName="cvcX" />
+                <ScalarProperty Name="fechaY" ColumnName="fechaY" />
+                <ScalarProperty Name="fechaX" ColumnName="fechaX" />
+                <ScalarProperty Name="nombreY" ColumnName="nombreY" />
+                <ScalarProperty Name="nombreX" ColumnName="nombreX" />
+                <ScalarProperty Name="numeroY" ColumnName="numeroY" />
+                <ScalarProperty Name="numeroX" ColumnName="numeroX" />
+                <ScalarProperty Name="nombrePefil" ColumnName="nombrePefil" />
+                <ScalarProperty Name="perfilID" ColumnName="perfilID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

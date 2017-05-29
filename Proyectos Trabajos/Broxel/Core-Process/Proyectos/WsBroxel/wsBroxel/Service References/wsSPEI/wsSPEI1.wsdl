@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="https://www.broxel.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="wsSPEI" targetNamespace="https://www.broxel.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="https://www.broxel.com/Imports">
+      <xsd:import schemaLocation="http://localhost:9030/wsSPEI.svc?xsd=xsd0" namespace="https://www.broxel.com" />
+      <xsd:import schemaLocation="http://localhost:9030/wsSPEI.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:9030/wsSPEI.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IwsSPEI_registraOrden_InputMessage">
+    <wsdl:part name="parameters" element="tns:registraOrden" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_registraOrden_OutputMessage">
+    <wsdl:part name="parameters" element="tns:registraOrdenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraOrdenesLista_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraOrdenesLista" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraOrdenesLista_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraOrdenesListaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraOrdenesFecha_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraOrdenesFecha" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraOrdenesFecha_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraOrdenesFechaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraOrdenesComercio_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraOrdenesComercio" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraOrdenesComercio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraOrdenesComercioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_registraTranferencia_InputMessage">
+    <wsdl:part name="parameters" element="tns:registraTranferencia" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_registraTranferencia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:registraTranferenciaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraTranferenciaConcepto_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraTranferenciaConcepto" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_RegistraTranferenciaConcepto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistraTranferenciaConceptoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_PagosRecibidosParaTerceros_InputMessage">
+    <wsdl:part name="parameters" element="tns:PagosRecibidosParaTerceros" />
+  </wsdl:message>
+  <wsdl:message name="IwsSPEI_PagosRecibidosParaTerceros_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PagosRecibidosParaTercerosResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IwsSPEI">
+    <wsdl:operation name="registraOrden">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/registraOrden" message="tns:IwsSPEI_registraOrden_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/registraOrdenResponse" message="tns:IwsSPEI_registraOrden_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraOrdenesLista">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraOrdenesLista" message="tns:IwsSPEI_RegistraOrdenesLista_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraOrdenesListaResponse" message="tns:IwsSPEI_RegistraOrdenesLista_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraOrdenesFecha">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraOrdenesFecha" message="tns:IwsSPEI_RegistraOrdenesFecha_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraOrdenesFechaResponse" message="tns:IwsSPEI_RegistraOrdenesFecha_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraOrdenesComercio">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraOrdenesComercio" message="tns:IwsSPEI_RegistraOrdenesComercio_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraOrdenesComercioResponse" message="tns:IwsSPEI_RegistraOrdenesComercio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="registraTranferencia">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/registraTranferencia" message="tns:IwsSPEI_registraTranferencia_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/registraTranferenciaResponse" message="tns:IwsSPEI_registraTranferencia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistraTranferenciaConcepto">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraTranferenciaConcepto" message="tns:IwsSPEI_RegistraTranferenciaConcepto_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/RegistraTranferenciaConceptoResponse" message="tns:IwsSPEI_RegistraTranferenciaConcepto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PagosRecibidosParaTerceros">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IwsSPEI/PagosRecibidosParaTerceros" message="tns:IwsSPEI_PagosRecibidosParaTerceros_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IwsSPEI/PagosRecibidosParaTercerosResponse" message="tns:IwsSPEI_PagosRecibidosParaTerceros_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IwsSPEI" type="tns:IwsSPEI">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="registraOrden">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/registraOrden" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraOrdenesLista">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/RegistraOrdenesLista" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraOrdenesFecha">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/RegistraOrdenesFecha" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraOrdenesComercio">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/RegistraOrdenesComercio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="registraTranferencia">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/registraTranferencia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistraTranferenciaConcepto">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/RegistraTranferenciaConcepto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PagosRecibidosParaTerceros">
+      <soap:operation soapAction="https://www.broxel.com/IwsSPEI/PagosRecibidosParaTerceros" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="wsSPEI">
+    <wsdl:port name="BasicHttpBinding_IwsSPEI" binding="tns:BasicHttpBinding_IwsSPEI">
+      <soap:address location="http://localhost:9030/wsSPEI.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

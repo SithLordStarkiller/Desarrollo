@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="https://www.broxel.com" elementFormDefault="qualified" targetNamespace="https://www.broxel.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:9008/ServicioSMS.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="EnviarSMS">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sms" nillable="true" type="tns:SMS" />
+        <xs:element minOccurs="0" name="credenciales" nillable="true" type="tns:Credenciales" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="SMS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SMS" nillable="true" type="tns:SMS" />
+  <xs:complexType name="Credenciales">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Host" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Credenciales" nillable="true" type="tns:Credenciales" />
+  <xs:element name="EnviarSMSResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EnviarSMSResult" nillable="true" type="tns:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Respuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Enviado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LogId" type="xs:int" />
+      <xs:element minOccurs="0" name="Resultado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Respuesta" nillable="true" type="tns:Respuesta" />
+  <xs:element name="EnviarSMSC3ntro">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="sms" nillable="true" type="tns:SMS" />
+        <xs:element minOccurs="0" name="credenciales" nillable="true" type="tns:Credenciales" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarSMSC3ntroResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EnviarSMSC3ntroResult" nillable="true" type="tns:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MultiSMSMismoMensaje">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="telefonos" nillable="true" type="q1:ArrayOfstring" />
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MultiSMSMismoMensajeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MultiSMSMismoMensajeResult" nillable="true" type="tns:ArrayOfRespuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfRespuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Respuesta" nillable="true" type="tns:Respuesta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRespuesta" nillable="true" type="tns:ArrayOfRespuesta" />
+  <xs:element name="MultiSMSMensajePersonalizado">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="smsPersonalizados" nillable="true" type="tns:ArrayOfServicioSMS" />
+        <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfServicioSMS">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServicioSMS" nillable="true" type="tns:ServicioSMS" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfServicioSMS" nillable="true" type="tns:ArrayOfServicioSMS" />
+  <xs:complexType name="ServicioSMS">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor0" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor4" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServicioSMS" nillable="true" type="tns:ServicioSMS" />
+  <xs:element name="MultiSMSMensajePersonalizadoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="MultiSMSMensajePersonalizadoResult" nillable="true" type="tns:ArrayOfRespuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

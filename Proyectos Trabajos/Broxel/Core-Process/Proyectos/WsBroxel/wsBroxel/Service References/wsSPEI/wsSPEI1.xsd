@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="https://www.broxel.com" elementFormDefault="qualified" targetNamespace="https://www.broxel.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:9030/wsSPEI.svc?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="registraOrden">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="IdDetalleDiario" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="registraOrdenResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="registraOrdenResult" nillable="true" type="tns:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Respuesta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Respuesta" nillable="true" type="tns:Respuesta" />
+  <xs:element name="RegistraOrdenesLista">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="lista" nillable="true" type="q1:ArrayOfint" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistraOrdenesListaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistraOrdenesListaResult" nillable="true" type="tns:ArrayOfRespuestaOrden" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfRespuestaOrden">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RespuestaOrden" nillable="true" type="tns:RespuestaOrden" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRespuestaOrden" nillable="true" type="tns:ArrayOfRespuestaOrden" />
+  <xs:complexType name="RespuestaOrden">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Respuesta">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RespuestaOrden" nillable="true" type="tns:RespuestaOrden" />
+  <xs:element name="RegistraOrdenesFecha">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fecha" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistraOrdenesFechaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistraOrdenesFechaResult" nillable="true" type="tns:ArrayOfRespuestaOrden" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistraOrdenesComercio">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="comercio" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="fechaInicio" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="fechaFin" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegistraOrdenesComercioResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistraOrdenesComercioResult" nillable="true" type="tns:ArrayOfRespuestaOrden" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="registraTranferencia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="transferencia" nillable="true" type="tns:Transferencia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="Transferencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Clabe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdDisposicion" type="xs:int" />
+      <xs:element minOccurs="0" name="Monto" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NombreBeneficiario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumCuentaBroxel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RFC" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Transferencia" nillable="true" type="tns:Transferencia" />
+  <xs:element name="registraTranferenciaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="registraTranferenciaResult" nillable="true" type="tns:RespuestaTransferencia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="RespuestaTransferencia">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClaveRastreo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuentaSTP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnvioPago" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaPago" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdTransferencia" type="xs:int" />
+      <xs:element minOccurs="0" name="ReferenciaPago" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RespuestaTransferencia" nillable="true" type="tns:RespuestaTransferencia" />
+  <xs:element name="RegistraTranferenciaConcepto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="transferencia" nillable="true" type="tns:TransferenciaConcepto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="TransferenciaConcepto">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Transferencia">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ConceptoPago" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ReferenciaNumerica" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="TransferenciaConcepto" nillable="true" type="tns:TransferenciaConcepto" />
+  <xs:element name="RegistraTranferenciaConceptoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RegistraTranferenciaConceptoResult" nillable="true" type="tns:RespuestaTransferencia" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PagosRecibidosParaTerceros">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="fecha" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PagosRecibidosParaTercerosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PagosRecibidosParaTercerosResult" nillable="true" type="tns:Respuesta" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
