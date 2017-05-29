@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="WebServiceClabe" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://192.168.82.188:9045/WebServiceClabe.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.82.188:9045/WebServiceClabe.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.82.188:9045/WebServiceClabe.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/wsClabe" />
+      <xsd:import schemaLocation="http://192.168.82.188:9045/WebServiceClabe.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IWebServiceClabe_ValidarClabe_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarClabe" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_ValidarClabe_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarClabeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_GenerarClabeBroxel_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarClabeBroxel" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_GenerarClabeBroxel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarClabeBroxelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_GenerarClabesMaquila_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarClabesMaquila" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_GenerarClabesMaquila_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarClabesMaquilaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_GenerarClabesMaquilaCompleto_InputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarClabesMaquilaCompleto" />
+  </wsdl:message>
+  <wsdl:message name="IWebServiceClabe_GenerarClabesMaquilaCompleto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GenerarClabesMaquilaCompletoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IWebServiceClabe">
+    <wsdl:operation name="ValidarClabe">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebServiceClabe/ValidarClabe" message="tns:IWebServiceClabe_ValidarClabe_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebServiceClabe/ValidarClabeResponse" message="tns:IWebServiceClabe_ValidarClabe_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarClabeBroxel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebServiceClabe/GenerarClabeBroxel" message="tns:IWebServiceClabe_GenerarClabeBroxel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebServiceClabe/GenerarClabeBroxelResponse" message="tns:IWebServiceClabe_GenerarClabeBroxel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarClabesMaquila">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebServiceClabe/GenerarClabesMaquila" message="tns:IWebServiceClabe_GenerarClabesMaquila_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebServiceClabe/GenerarClabesMaquilaResponse" message="tns:IWebServiceClabe_GenerarClabesMaquila_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerarClabesMaquilaCompleto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IWebServiceClabe/GenerarClabesMaquilaCompleto" message="tns:IWebServiceClabe_GenerarClabesMaquilaCompleto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IWebServiceClabe/GenerarClabesMaquilaCompletoResponse" message="tns:IWebServiceClabe_GenerarClabesMaquilaCompleto_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IWebServiceClabe" type="tns:IWebServiceClabe">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ValidarClabe">
+      <soap:operation soapAction="http://tempuri.org/IWebServiceClabe/ValidarClabe" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarClabeBroxel">
+      <soap:operation soapAction="http://tempuri.org/IWebServiceClabe/GenerarClabeBroxel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarClabesMaquila">
+      <soap:operation soapAction="http://tempuri.org/IWebServiceClabe/GenerarClabesMaquila" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerarClabesMaquilaCompleto">
+      <soap:operation soapAction="http://tempuri.org/IWebServiceClabe/GenerarClabesMaquilaCompleto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebServiceClabe">
+    <wsdl:port name="BasicHttpBinding_IWebServiceClabe" binding="tns:BasicHttpBinding_IWebServiceClabe">
+      <soap:address location="http://192.168.82.188:9045/WebServiceClabe.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
