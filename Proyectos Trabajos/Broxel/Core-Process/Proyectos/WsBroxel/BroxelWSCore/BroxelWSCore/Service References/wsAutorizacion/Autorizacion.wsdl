@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="http://127.0.0.1:8280/services/Autorizacion/Autorizacion.wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns="http://org.apache.synapse/xsd" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/" xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://127.0.0.1:8280/services/Autorizacion/Autorizacion.wsdl">
+  <WSDL:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://org.apache.synapse/xsd">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:element name="Autorizar">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" name="DatosPrivados" nillable="true" type="xsd:string" />
+            <xsd:element name="Canal" type="xsd:string" />
+            <xsd:element name="TipoTransaccion" type="xsd:string" />
+            <xsd:element name="SecuenciaTransaccion" type="xsd:string" />
+            <xsd:element name="FechaTransaccion" type="xsd:string" />
+            <xsd:element name="HoraTransaccion" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Comercio" nillable="true" type="xsd:string" />
+            <xsd:element name="Terminal" type="xsd:string" />
+            <xsd:element name="ModoIngreso" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Tarjeta" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FechaExpiracion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoSeguridad" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TrackI" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TrackII" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="PIN" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TipoCuenta" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoMoneda" nillable="true" type="xsd:string" />
+            <xsd:element name="Importe" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Plan" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Cuotas" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Ticket" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FechaDiferimiento" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="ImporteAdicional" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoAutorizacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoAutorizacionOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FechaTransaccionOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="HoraTransaccionOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TicketOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="SecuenciaOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="IDTransaccionOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="IDTransaccionExterno" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="IDTransaccionExternoOriginal" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="NuevoPIN" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TarjetaDestino" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TipoCodificacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DatosAdicionales" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="SubTipoTransaccion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FeeTransaccion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FeeCompensacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FeeProcesamientoTransaccion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FeeProcesamientoCompensacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="InstitucionAdquirente" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="InstitucionReenvio" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TipoComercio" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="NombreComercio" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Retrieval" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="ImporteMonedaCompensacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="ImporteMonedaLiquidacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoMonedaCompensacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoMonedaLiquidacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoPaisAdquirente" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoSeguridadBanda" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="RespuestaAutorizacion">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="CodigoError" type="xsd:int" />
+            <xsd:element minOccurs="0" name="MensajeError" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DatosPrivados" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CategoriaRespuesta" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="AccionRespuesta" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="CodigoAutorizacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="IDTransaccion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="IDTransaccionExterno" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DisponibleConsumos" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DisponibleCuotas" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DisponibleAdelantos" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DisponiblePrestamos" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Saldo" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="SaldoEnDolares" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="PagoMinimo" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DeudaAlDia" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="FechaVencimientoUltimaLiquidacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="Movimientos" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="TipoCodificacion" nillable="true" type="xsd:string" />
+            <xsd:element minOccurs="0" name="DatosAdicionales" nillable="true" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </WSDL:types>
+  <WSDL:message name="Autorizar">
+    <WSDL:part name="parameters" element="ns:Autorizar" />
+  </WSDL:message>
+  <WSDL:message name="RespuestaAutorizacion">
+    <WSDL:part name="parameters" element="ns:RespuestaAutorizacion" />
+  </WSDL:message>
+  <WSDL:portType name="AutorizacionPortType">
+    <WSDL:operation name="Autorizar">
+      <wsdl:documentation>Service definition of function ns__Autorizar</wsdl:documentation>
+      <WSDL:input wsaw:Action="http://127.0.0.1:8280/services/Autorizacion/Autorizacion.wsdl/AutorizacionPortType/AutorizarRequest" message="tns:Autorizar" />
+      <WSDL:output wsaw:Action="http://127.0.0.1:8280/services/Autorizacion/Autorizacion.wsdl/AutorizacionPortType/AutorizarResponse" message="tns:RespuestaAutorizacion" />
+    </WSDL:operation>
+  </WSDL:portType>
+  <WSDL:binding name="AutorizacionSoap11Binding" type="tns:AutorizacionPortType">
+    <SOAP:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <WSDL:operation name="Autorizar">
+      <SOAP:operation soapAction="" style="document" />
+      <WSDL:input>
+        <SOAP:body use="literal" />
+      </WSDL:input>
+      <WSDL:output>
+        <SOAP:body use="literal" />
+      </WSDL:output>
+    </WSDL:operation>
+  </WSDL:binding>
+  <WSDL:binding name="AutorizacionSoap12Binding" type="tns:AutorizacionPortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <WSDL:operation name="Autorizar">
+      <soap12:operation soapAction="" style="document" />
+      <WSDL:input>
+        <soap12:body use="literal" />
+      </WSDL:input>
+      <WSDL:output>
+        <soap12:body use="literal" />
+      </WSDL:output>
+    </WSDL:operation>
+  </WSDL:binding>
+  <WSDL:binding name="AutorizacionHttpBinding" type="tns:AutorizacionPortType">
+    <http:binding verb="POST" />
+    <WSDL:operation name="Autorizar">
+      <http:operation location="Autorizar" />
+      <WSDL:input>
+        <MIME:content part="parameters" type="text/xml" />
+      </WSDL:input>
+      <WSDL:output>
+        <MIME:content part="parameters" type="text/xml" />
+      </WSDL:output>
+    </WSDL:operation>
+  </WSDL:binding>
+  <WSDL:service name="Autorizacion">
+    <WSDL:port name="AutorizacionHttpSoap11Endpoint" binding="tns:AutorizacionSoap11Binding">
+      <SOAP:address location="http://10.16.20.70:8280/services/Autorizacion.AutorizacionHttpSoap11Endpoint" />
+    </WSDL:port>
+    <WSDL:port name="AutorizacionHttpsSoap11Endpoint" binding="tns:AutorizacionSoap11Binding">
+      <SOAP:address location="https://10.16.20.70:8243/services/Autorizacion.AutorizacionHttpsSoap11Endpoint" />
+    </WSDL:port>
+    <WSDL:port name="AutorizacionHttpsSoap12Endpoint" binding="tns:AutorizacionSoap12Binding">
+      <soap12:address location="https://10.16.20.70:8243/services/Autorizacion.AutorizacionHttpsSoap12Endpoint" />
+    </WSDL:port>
+    <WSDL:port name="AutorizacionHttpSoap12Endpoint" binding="tns:AutorizacionSoap12Binding">
+      <soap12:address location="http://10.16.20.70:8280/services/Autorizacion.AutorizacionHttpSoap12Endpoint" />
+    </WSDL:port>
+    <WSDL:port name="AutorizacionHttpsEndpoint" binding="tns:AutorizacionHttpBinding">
+      <http:address location="https://10.16.20.70:8243/services/Autorizacion.AutorizacionHttpsEndpoint" />
+    </WSDL:port>
+    <WSDL:port name="AutorizacionHttpEndpoint" binding="tns:AutorizacionHttpBinding">
+      <http:address location="http://10.16.20.70:8280/services/Autorizacion.AutorizacionHttpEndpoint" />
+    </WSDL:port>
+  </WSDL:service>
+</wsdl:definitions>

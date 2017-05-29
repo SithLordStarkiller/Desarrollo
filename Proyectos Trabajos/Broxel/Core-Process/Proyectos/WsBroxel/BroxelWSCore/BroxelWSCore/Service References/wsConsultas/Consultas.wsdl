@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:ns0="http://ws.apache.org/ns/synapse" xmlns:ns1="http://ws.wso2.org/dataservice" targetNamespace="http://ws.apache.org/ns/synapse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.apache.org/ns/synapse">
+      <xs:element name="CuentaDisponibles">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Sistema" nillable="true" type="xs:string" />
+            <xs:element name="Cuenta" nillable="true" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CuentasDisponible" type="ns0:CuentasDisponible" />
+      <xs:complexType name="CuentasDisponible">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CuentaDisponible" type="ns0:CuentaDisponible" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CuentaDisponible">
+        <xs:sequence>
+          <xs:element name="DisponibleCompra" nillable="true" type="xs:float" />
+          <xs:element name="DisponibleCuotas" nillable="true" type="xs:float" />
+          <xs:element name="DisponibleAdelantos" nillable="true" type="xs:float" />
+          <xs:element name="DisponiblePrestamos" nillable="true" type="xs:float" />
+          <xs:element name="Saldo" nillable="true" type="xs:float" />
+          <xs:element name="SaldoEnDolares" nillable="true" type="xs:float" />
+          <xs:element name="PagoMinimo" nillable="true" type="xs:float" />
+          <xs:element name="MomentoUltimaActualizacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoUltimaTransaccion" nillable="true" type="xs:dateTime" />
+          <xs:element name="Estado" nillable="true" type="xs:string" />
+          <xs:element name="FechaVencimientoUltimaLiquidacion" nillable="true" type="xs:date" />
+          <xs:element name="LimiteCompra" nillable="true" type="xs:float" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CuentaPorNumero">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Sistema" nillable="true" type="xs:string" />
+            <xs:element name="Cuenta" nillable="true" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Cuentas" type="ns0:Cuentas" />
+      <xs:complexType name="Cuentas">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Cuenta" type="ns0:Cuenta" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Cuenta">
+        <xs:sequence>
+          <xs:element name="SISTEMA" nillable="true" type="xs:string" />
+          <xs:element name="NRO_CUENTA" nillable="true" type="xs:integer" />
+          <xs:element name="FEC_RENEWAL" nillable="true" type="xs:date" />
+          <xs:element name="COD_PRODUCTO_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="NRO_BCO_SUC" nillable="true" type="xs:string" />
+          <xs:element name="IMP_LIM_COMPRA" nillable="true" type="xs:decimal" />
+          <xs:element name="IMP_DISP_CONSUMOS" nillable="true" type="xs:decimal" />
+          <xs:element name="IMP_DISP_CUOTAS" nillable="true" type="xs:decimal" />
+          <xs:element name="IMP_DISP_ADELANTOS" nillable="true" type="xs:decimal" />
+          <xs:element name="IMP_DISP_PRESTAMOS" nillable="true" type="xs:decimal" />
+          <xs:element name="COD_MON" nillable="true" type="xs:integer" />
+          <xs:element name="IMP_SALDO_P" nillable="true" type="xs:decimal" />
+          <xs:element name="IMP_SALDO_D" nillable="true" type="xs:decimal" />
+          <xs:element name="IMP_PAG_MIN" nillable="true" type="xs:decimal" />
+          <xs:element name="FEC_VTO_ULT_LIQ" nillable="true" type="xs:date" />
+          <xs:element name="CANT_MAX_CUO_CPRAS_P" nillable="true" type="xs:integer" />
+          <xs:element name="CANT_MAX_CUO_CPRAS_D" nillable="true" type="xs:integer" />
+          <xs:element name="TASA_PREST_P" nillable="true" type="xs:decimal" />
+          <xs:element name="TASA_PREST_D" nillable="true" type="xs:decimal" />
+          <xs:element name="CANT_MAX_CUO_PREST_P" nillable="true" type="xs:integer" />
+          <xs:element name="CANT_MAX_CUO_PREST_D" nillable="true" type="xs:integer" />
+          <xs:element name="MAR_OPERA_EXTERIOR" nillable="true" type="xs:string" />
+          <xs:element name="PAIS_ISO" nillable="true" type="xs:integer" />
+          <xs:element name="IMP_EXCESO_DA" nillable="true" type="xs:decimal" />
+          <xs:element name="CTA_EMPRESA_REL" nillable="true" type="xs:integer" />
+          <xs:element name="MARCA_VIP" nillable="true" type="xs:string" />
+          <xs:element name="HABIL_CC" nillable="true" type="xs:string" />
+          <xs:element name="MomentoUltimaActualizacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoCreacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoUltimaTransaccion" nillable="true" type="xs:dateTime" />
+          <xs:element name="SecuenciaTransaccion" nillable="true" type="xs:integer" />
+          <xs:element name="SecuenciaAuxiliar" nillable="true" type="xs:integer" />
+          <xs:element name="ESTADO" nillable="true" type="xs:string" />
+          <xs:element name="MomentoUltimaNovedadBoletin" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoUltimaNovedadNominacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoSyncWebEntidades" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoSyncSPC" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoSyncDA" nillable="true" type="xs:dateTime" />
+          <xs:element name="ESSO_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="GRUPO" nillable="true" type="xs:string" />
+          <xs:element name="MomentoSyncSPCNominacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="IMP_GARANTIA" nillable="true" type="xs:decimal" />
+          <xs:element name="SecuenciaSyncSPCNominacion" nillable="true" type="xs:integer" />
+          <xs:element name="MomentoUltimaRecomposicionSaldo" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoUltimaNovedadBloqueo" nillable="true" type="xs:dateTime" />
+          <xs:element name="COD_POSTAL_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="CALLE_Y_NRO_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="LOCALIDAD_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="NRO_TEL_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="Barrio" nillable="true" type="xs:string" />
+          <xs:element name="Zona" nillable="true" type="xs:string" />
+          <xs:element name="Provincia" nillable="true" type="xs:string" />
+          <xs:element name="TipoDireccion" nillable="true" type="xs:string" />
+          <xs:element name="FechaNacimiento" nillable="true" type="xs:date" />
+          <xs:element name="Sexo" nillable="true" type="xs:string" />
+          <xs:element name="Hijos" nillable="true" type="xs:string" />
+          <xs:element name="EstadoCivil" nillable="true" type="xs:string" />
+          <xs:element name="Ocupacion" nillable="true" type="xs:string" />
+          <xs:element name="Relacion" nillable="true" type="xs:string" />
+          <xs:element name="NumeroDocumento" nillable="true" type="xs:string" />
+          <xs:element name="email" nillable="true" type="xs:string" />
+          <xs:element name="Nombre" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TarjetaPorNumero">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Tarjeta" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Tarjetas" type="ns0:Tarjetas" />
+      <xs:complexType name="Tarjetas">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Tarjeta" type="ns0:Tarjeta" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Tarjeta">
+        <xs:sequence>
+          <xs:element name="SISTEMA" nillable="true" type="xs:string" />
+          <xs:element name="Nro_TARJETA" nillable="true" type="xs:string" />
+          <xs:element name="TIP_DOC_TARJETA" nillable="true" type="xs:string" />
+          <xs:element name="NRO_DOC_TARJETA" nillable="true" type="xs:string" />
+          <xs:element name="DENOMINACION_TARJETA" nillable="true" type="xs:string" />
+          <xs:element name="COD_POSTAL_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="CALLE_Y_NRO_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="LOCALIDAD_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="NRO_TEL_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="VENCIMIENTO_TARJETA" nillable="true" type="xs:date" />
+          <xs:element name="OFFSET_TARJETA" nillable="true" type="xs:integer" />
+          <xs:element name="COD_PRODUCTO_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="MARCA_PRODUCTIVA" nillable="true" type="xs:string" />
+          <xs:element name="NRO_CUENTA" nillable="true" type="xs:integer" />
+          <xs:element name="NRO_CELULAR_COMPRA" nillable="true" type="xs:string" />
+          <xs:element name="FHASTA_TARJETA_ANT" nillable="true" type="xs:date" />
+          <xs:element name="NRO_CTA_BCO" nillable="true" type="xs:integer" />
+          <xs:element name="ESSO_NOMBRE_EMPRESA" nillable="true" type="xs:string" />
+          <xs:element name="PAIS_ISO" nillable="true" type="xs:integer" />
+          <xs:element name="ESSO_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_CUIT_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_IIBB_CUENTA" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_MARCA_IVA" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_TIPO_TARJETA" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_COD_AFINIDAD" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_PREG_SEG1" nillable="true" type="xs:integer" />
+          <xs:element name="ESSO_PREG_SEG2" nillable="true" type="xs:integer" />
+          <xs:element name="ESSO_PREG_SEG3" nillable="true" type="xs:integer" />
+          <xs:element name="ESSO_PREG_SEG4" nillable="true" type="xs:integer" />
+          <xs:element name="ESSO_CUSTOMER_NUMBER" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_DIVISION_NUMBER" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_SUB_DIVISION_NUMBER" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_COST_CENTER_NUMBER" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_TIPO_PREPAGO" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_STAT_SORT_LABEL_1" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_CTA_TARJETA_99" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_CENTRO_FACTURADOR" nillable="true" type="xs:string" />
+          <xs:element name="ESSO_CENTRO_PAGADOR" nillable="true" type="xs:string" />
+          <xs:element name="PAIS_ESSO" nillable="true" type="xs:integer" />
+          <xs:element name="PAIS_ISO_Alfa" nillable="true" type="xs:string" />
+          <xs:element name="MomentoUltimaActualizacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoCreacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoUltimaTransaccion" nillable="true" type="xs:dateTime" />
+          <xs:element name="ESTADO" nillable="true" type="xs:string" />
+          <xs:element name="MomentoUltimaNovedadBoletin" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoSyncDA" nillable="true" type="xs:dateTime" />
+          <xs:element name="TipoTarjeta" nillable="true" type="xs:string" />
+          <xs:element name="NRO_TARJETA_ANTERIOR" nillable="true" type="xs:string" />
+          <xs:element name="ContadorPINError" nillable="true" type="xs:integer" />
+          <xs:element name="Offset" nillable="true" type="xs:integer" />
+          <xs:element name="CodigoSeguridad1" nillable="true" type="xs:integer" />
+          <xs:element name="CodigoSeguridad2" nillable="true" type="xs:integer" />
+          <xs:element name="MomentoSyncWebEntidades" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoSyncSPC" nillable="true" type="xs:dateTime" />
+          <xs:element name="MomentoUltimaNovedadNominacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="Barrio" nillable="true" type="xs:string" />
+          <xs:element name="Zona" nillable="true" type="xs:string" />
+          <xs:element name="Provincia" nillable="true" type="xs:string" />
+          <xs:element name="TipoDireccion" nillable="true" type="xs:string" />
+          <xs:element name="FechaNacimiento" nillable="true" type="xs:date" />
+          <xs:element name="Sexo" nillable="true" type="xs:string" />
+          <xs:element name="Hijos" nillable="true" type="xs:string" />
+          <xs:element name="EstadoCivil" nillable="true" type="xs:string" />
+          <xs:element name="Ocupacion" nillable="true" type="xs:string" />
+          <xs:element name="Relacion" nillable="true" type="xs:string" />
+          <xs:element name="NumeroDocumento" nillable="true" type="xs:string" />
+          <xs:element name="MomentoSyncSPCNominacion" nillable="true" type="xs:dateTime" />
+          <xs:element name="email" nillable="true" type="xs:string" />
+          <xs:element name="Nombre" nillable="true" type="xs:string" />
+          <xs:element name="SecuenciaSyncSPCNominacion" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CuentaDisponiblesPorTarjeta">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Sistema" nillable="true" type="xs:string" />
+            <xs:element name="Tarjeta" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TarjetaPorDocumento">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Tipo" nillable="true" type="xs:string" />
+            <xs:element name="Numero" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TarjetasPorCuenta">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Sistema" nillable="true" type="xs:string" />
+            <xs:element name="Cuenta" nillable="true" type="xs:int" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://ws.wso2.org/dataservice">
+      <xs:element name="DataServiceFault" type="xs:string" />
+      <xs:element name="REQUEST_STATUS" type="xs:string" />
+      <xs:element name="DATA_SERVICE_RESPONSE">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="CuentaPorNumeroRequest">
+    <wsdl:part name="parameters" element="ns0:CuentaPorNumero" />
+  </wsdl:message>
+  <wsdl:message name="CuentaPorNumeroResponse">
+    <wsdl:part name="parameters" element="ns0:Cuentas" />
+  </wsdl:message>
+  <wsdl:message name="DataServiceFault">
+    <wsdl:part name="parameters" element="ns1:DataServiceFault" />
+  </wsdl:message>
+  <wsdl:message name="TarjetasPorCuentaRequest">
+    <wsdl:part name="parameters" element="ns0:TarjetasPorCuenta" />
+  </wsdl:message>
+  <wsdl:message name="TarjetasPorCuentaResponse">
+    <wsdl:part name="parameters" element="ns0:Tarjetas" />
+  </wsdl:message>
+  <wsdl:message name="TarjetaPorDocumentoRequest">
+    <wsdl:part name="parameters" element="ns0:TarjetaPorDocumento" />
+  </wsdl:message>
+  <wsdl:message name="TarjetaPorDocumentoResponse">
+    <wsdl:part name="parameters" element="ns0:Tarjetas" />
+  </wsdl:message>
+  <wsdl:message name="CuentaDisponiblesPorTarjetaRequest">
+    <wsdl:part name="parameters" element="ns0:CuentaDisponiblesPorTarjeta" />
+  </wsdl:message>
+  <wsdl:message name="CuentaDisponiblesPorTarjetaResponse">
+    <wsdl:part name="parameters" element="ns0:CuentasDisponible" />
+  </wsdl:message>
+  <wsdl:message name="TarjetaPorNumeroRequest">
+    <wsdl:part name="parameters" element="ns0:TarjetaPorNumero" />
+  </wsdl:message>
+  <wsdl:message name="TarjetaPorNumeroResponse">
+    <wsdl:part name="parameters" element="ns0:Tarjetas" />
+  </wsdl:message>
+  <wsdl:message name="CuentaDisponiblesRequest">
+    <wsdl:part name="parameters" element="ns0:CuentaDisponibles" />
+  </wsdl:message>
+  <wsdl:message name="CuentaDisponiblesResponse">
+    <wsdl:part name="parameters" element="ns0:CuentasDisponible" />
+  </wsdl:message>
+  <wsdl:portType name="ConsultasPortType">
+    <wsdl:operation name="CuentaPorNumero">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="urn:CuentaPorNumero" message="ns0:CuentaPorNumeroRequest" />
+      <wsdl:output wsaw:Action="urn:CuentaPorNumeroResponse" message="ns0:CuentaPorNumeroResponse" />
+      <wsdl:fault wsaw:Action="urn:CuentaPorNumeroDataServiceFault" name="DataServiceFault" message="ns0:DataServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="TarjetasPorCuenta">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="urn:TarjetasPorCuenta" message="ns0:TarjetasPorCuentaRequest" />
+      <wsdl:output wsaw:Action="urn:TarjetasPorCuentaResponse" message="ns0:TarjetasPorCuentaResponse" />
+      <wsdl:fault wsaw:Action="urn:TarjetasPorCuentaDataServiceFault" name="DataServiceFault" message="ns0:DataServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorDocumento">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="urn:TarjetaPorDocumento" message="ns0:TarjetaPorDocumentoRequest" />
+      <wsdl:output wsaw:Action="urn:TarjetaPorDocumentoResponse" message="ns0:TarjetaPorDocumentoResponse" />
+      <wsdl:fault wsaw:Action="urn:TarjetaPorDocumentoDataServiceFault" name="DataServiceFault" message="ns0:DataServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponiblesPorTarjeta">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="urn:CuentaDisponiblesPorTarjeta" message="ns0:CuentaDisponiblesPorTarjetaRequest" />
+      <wsdl:output wsaw:Action="urn:CuentaDisponiblesPorTarjetaResponse" message="ns0:CuentaDisponiblesPorTarjetaResponse" />
+      <wsdl:fault wsaw:Action="urn:CuentaDisponiblesPorTarjetaDataServiceFault" name="DataServiceFault" message="ns0:DataServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorNumero">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="urn:TarjetaPorNumero" message="ns0:TarjetaPorNumeroRequest" />
+      <wsdl:output wsaw:Action="urn:TarjetaPorNumeroResponse" message="ns0:TarjetaPorNumeroResponse" />
+      <wsdl:fault wsaw:Action="urn:TarjetaPorNumeroDataServiceFault" name="DataServiceFault" message="ns0:DataServiceFault" />
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponibles">
+      <wsdl:documentation />
+      <wsdl:input wsaw:Action="urn:CuentaDisponibles" message="ns0:CuentaDisponiblesRequest" />
+      <wsdl:output wsaw:Action="urn:CuentaDisponiblesResponse" message="ns0:CuentaDisponiblesResponse" />
+      <wsdl:fault wsaw:Action="urn:CuentaDisponiblesDataServiceFault" name="DataServiceFault" message="ns0:DataServiceFault" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ConsultasSOAP11Binding" type="ns0:ConsultasPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CuentaPorNumero">
+      <soap:operation soapAction="urn:CuentaPorNumero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetasPorCuenta">
+      <soap:operation soapAction="urn:TarjetasPorCuenta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorDocumento">
+      <soap:operation soapAction="urn:TarjetaPorDocumento" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponiblesPorTarjeta">
+      <soap:operation soapAction="urn:CuentaDisponiblesPorTarjeta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorNumero">
+      <soap:operation soapAction="urn:TarjetaPorNumero" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponibles">
+      <soap:operation soapAction="urn:CuentaDisponibles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConsultasSOAP12Binding" type="ns0:ConsultasPortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CuentaPorNumero">
+      <soap12:operation soapAction="urn:CuentaPorNumero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetasPorCuenta">
+      <soap12:operation soapAction="urn:TarjetasPorCuenta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorDocumento">
+      <soap12:operation soapAction="urn:TarjetaPorDocumento" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponiblesPorTarjeta">
+      <soap12:operation soapAction="urn:CuentaDisponiblesPorTarjeta" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorNumero">
+      <soap12:operation soapAction="urn:TarjetaPorNumero" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponibles">
+      <soap12:operation soapAction="urn:CuentaDisponibles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="DataServiceFault">
+        <soap12:fault use="literal" name="DataServiceFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ConsultasHttpBinding" type="ns0:ConsultasPortType">
+    <http:binding verb="POST" />
+    <wsdl:operation name="CuentaPorNumero">
+      <http:operation location="CuentaPorNumero" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetasPorCuenta">
+      <http:operation location="TarjetasPorCuenta" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorDocumento">
+      <http:operation location="TarjetaPorDocumento" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponiblesPorTarjeta">
+      <http:operation location="CuentaDisponiblesPorTarjeta" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TarjetaPorNumero">
+      <http:operation location="TarjetaPorNumero" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CuentaDisponibles">
+      <http:operation location="CuentaDisponibles" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Consultas">
+    <wsdl:port name="SOAP11Endpoint" binding="ns0:ConsultasSOAP11Binding">
+      <soap:address location="http://10.16.20.70:8280/services/Consultas.SOAP11Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="LOCALSOAP11Endpoint" binding="ns0:ConsultasSOAP11Binding">
+      <soap:address location="local:///services/Consultas.LOCALSOAP11Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="SecureSOAP11Endpoint" binding="ns0:ConsultasSOAP11Binding">
+      <soap:address location="https://10.16.20.70:8243/services/Consultas.SecureSOAP11Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="LOCALSOAP12Endpoint" binding="ns0:ConsultasSOAP12Binding">
+      <soap12:address location="local:///services/Consultas.LOCALSOAP12Endpoint/" />
+    </wsdl:port>
+    <wsdl:port name="SecureSOAP12Endpoint" binding="ns0:ConsultasSOAP12Binding">
+      <soap12:address location="https://10.16.20.70:8243/services/Consultas.SecureSOAP12Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="SOAP12Endpoint" binding="ns0:ConsultasSOAP12Binding">
+      <soap12:address location="http://10.16.20.70:8280/services/Consultas.SOAP12Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="HTTPEndpoint" binding="ns0:ConsultasHttpBinding">
+      <http:address location="http://10.16.20.70:8280/services/Consultas.HTTPEndpoint" />
+    </wsdl:port>
+    <wsdl:port name="SecureHTTPEndpoint" binding="ns0:ConsultasHttpBinding">
+      <http:address location="https://10.16.20.70:8243/services/Consultas.SecureHTTPEndpoint" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
