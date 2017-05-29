@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="https://www.broxel.com" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ServicioSMS" targetNamespace="https://www.broxel.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="https://www.broxel.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xs:element name="EnviarSMS">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sms" nillable="true" type="tns:SMS" />
+            <xs:element minOccurs="0" name="credenciales" nillable="true" type="tns:Credenciales" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="SMS">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="SMS" nillable="true" type="tns:SMS" />
+      <xs:complexType name="Credenciales">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Host" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Credenciales" nillable="true" type="tns:Credenciales" />
+      <xs:element name="EnviarSMSResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="EnviarSMSResult" nillable="true" type="tns:Respuesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="Respuesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Enviado" type="xs:boolean" />
+          <xs:element minOccurs="0" name="LogId" type="xs:int" />
+          <xs:element minOccurs="0" name="Resultado" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="Respuesta" nillable="true" type="tns:Respuesta" />
+      <xs:element name="EnviarSMSC3ntro">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="sms" nillable="true" type="tns:SMS" />
+            <xs:element minOccurs="0" name="credenciales" nillable="true" type="tns:Credenciales" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="EnviarSMSC3ntroResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="EnviarSMSC3ntroResult" nillable="true" type="tns:Respuesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MultiSMSMismoMensaje">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="telefonos" nillable="true" type="q1:ArrayOfstring" />
+            <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="MultiSMSMismoMensajeResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="MultiSMSMismoMensajeResult" nillable="true" type="tns:ArrayOfRespuesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfRespuesta">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Respuesta" nillable="true" type="tns:Respuesta" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfRespuesta" nillable="true" type="tns:ArrayOfRespuesta" />
+      <xs:element name="MultiSMSMensajePersonalizado">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="smsPersonalizados" nillable="true" type="tns:ArrayOfServicioSMS" />
+            <xs:element minOccurs="0" name="mensaje" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ArrayOfServicioSMS">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ServicioSMS" nillable="true" type="tns:ServicioSMS" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfServicioSMS" nillable="true" type="tns:ArrayOfServicioSMS" />
+      <xs:complexType name="ServicioSMS">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor0" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Valor4" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ServicioSMS" nillable="true" type="tns:ServicioSMS" />
+      <xs:element name="MultiSMSMensajePersonalizadoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="MultiSMSMensajePersonalizadoResult" nillable="true" type="tns:ArrayOfRespuesta" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfstring">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicioSMS_EnviarSMS_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSMS" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_EnviarSMS_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_EnviarSMSC3ntro_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSMSC3ntro" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_EnviarSMSC3ntro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSMSC3ntroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_MultiSMSMismoMensaje_InputMessage">
+    <wsdl:part name="parameters" element="tns:MultiSMSMismoMensaje" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_MultiSMSMismoMensaje_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MultiSMSMismoMensajeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_MultiSMSMensajePersonalizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:MultiSMSMensajePersonalizado" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSMS_MultiSMSMensajePersonalizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MultiSMSMensajePersonalizadoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicioSMS">
+    <wsdl:operation name="EnviarSMS">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IServicioSMS/EnviarSMS" message="tns:IServicioSMS_EnviarSMS_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IServicioSMS/EnviarSMSResponse" message="tns:IServicioSMS_EnviarSMS_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSMSC3ntro">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IServicioSMS/EnviarSMSC3ntro" message="tns:IServicioSMS_EnviarSMSC3ntro_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IServicioSMS/EnviarSMSC3ntroResponse" message="tns:IServicioSMS_EnviarSMSC3ntro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MultiSMSMismoMensaje">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IServicioSMS/MultiSMSMismoMensaje" message="tns:IServicioSMS_MultiSMSMismoMensaje_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IServicioSMS/MultiSMSMismoMensajeResponse" message="tns:IServicioSMS_MultiSMSMismoMensaje_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MultiSMSMensajePersonalizado">
+      <wsdl:input wsaw:Action="https://www.broxel.com/IServicioSMS/MultiSMSMensajePersonalizado" message="tns:IServicioSMS_MultiSMSMensajePersonalizado_InputMessage" />
+      <wsdl:output wsaw:Action="https://www.broxel.com/IServicioSMS/MultiSMSMensajePersonalizadoResponse" message="tns:IServicioSMS_MultiSMSMensajePersonalizado_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpEndpoint" type="tns:IServicioSMS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarSMS">
+      <soap:operation soapAction="https://www.broxel.com/IServicioSMS/EnviarSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarSMSC3ntro">
+      <soap:operation soapAction="https://www.broxel.com/IServicioSMS/EnviarSMSC3ntro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MultiSMSMismoMensaje">
+      <soap:operation soapAction="https://www.broxel.com/IServicioSMS/MultiSMSMismoMensaje" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MultiSMSMensajePersonalizado">
+      <soap:operation soapAction="https://www.broxel.com/IServicioSMS/MultiSMSMensajePersonalizado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServicioSMS">
+    <wsdl:port name="BasicHttpEndpoint" binding="tns:BasicHttpEndpoint">
+      <soap:address location="http://localhost:9008/ServicioSMS.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
