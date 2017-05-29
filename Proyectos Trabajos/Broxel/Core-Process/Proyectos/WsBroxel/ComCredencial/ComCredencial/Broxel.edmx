@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BroxelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AnulacionN">
+          <Key>
+            <PropertyRef Name="idAnulacion" />
+          </Key>
+          <Property Name="idAnulacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idTransaccion" Type="int" Nullable="false" />
+          <Property Name="TipoTransaccion" Type="int" />
+          <Property Name="SubTipoTransaccion" Type="int" />
+          <Property Name="Autorizado" Type="bit" />
+          <Property Name="NumAutorizacion" Type="int" />
+          <Property Name="CodigoRespuesta" Type="int" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="MensajeRespuesta" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CodigosRespuesta">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CausaComun" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Comercio">
+          <Key>
+            <PropertyRef Name="idComercio" />
+          </Key>
+          <Property Name="idComercio" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Comercio" Type="varchar" MaxLength="50" />
+          <Property Name="CodigoComercio" Type="varchar" MaxLength="50" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="procedencia" Type="nvarchar" MaxLength="50" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraCreacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraModificacion" Type="datetime" />
+          <Property Name="NombreProcedencia" Type="nvarchar" MaxLength="50" />
+          <Property Name="amonestaciones" Type="decimal" Precision="32" Scale="0" />
+          <Property Name="fecha_amonestacion" Type="date" />
+          <Property Name="sanciones" Type="decimal" Precision="32" Scale="0" />
+          <Property Name="fecha_sancion" Type="date" />
+          <Property Name="razon_social" Type="varchar" MaxLength="300" />
+          <Property Name="rfc" Type="varchar" MaxLength="15" />
+          <Property Name="calle" Type="varchar" MaxLength="350" />
+          <Property Name="delegacion" Type="varchar" MaxLength="50" />
+          <Property Name="colonia" Type="varchar" MaxLength="150" />
+          <Property Name="estado" Type="varchar" MaxLength="4" />
+          <Property Name="codigo_postal" Type="varchar" MaxLength="5" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" />
+          <Property Name="email_contacto" Type="varchar" MaxLength="150" />
+          <Property Name="fecha_alta" Type="datetime" />
+          <Property Name="fecha_baja" Type="datetime" />
+          <Property Name="estatus" Type="varchar" MaxLength="10" />
+          <Property Name="docs_completos" Type="varchar" MaxLength="1" />
+          <Property Name="banco" Type="varchar" MaxLength="100" />
+          <Property Name="num_sucursal" Type="varchar" MaxLength="50" />
+          <Property Name="num_cuenta" Type="varchar" MaxLength="50" />
+          <Property Name="num_cuenta_clabe" Type="varchar" MaxLength="18" />
+          <Property Name="email_avisos" Type="varchar" MaxLength="150" />
+          <Property Name="acepto_terminos" Type="varchar" MaxLength="50" />
+          <Property Name="fecha_acepto_terminos" Type="datetime" />
+          <Property Name="usuario_acepta_terminos" Type="varchar" MaxLength="150" />
+          <Property Name="ImporteDefault" Type="money" />
+        </EntityType>
+        <EntityType Name="LogMensajes">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMovimiento" Type="int" />
+          <Property Name="IdAnulacion" Type="int" />
+          <Property Name="numCuenta" Type="varchar" MaxLength="9" />
+          <Property Name="IdMetodo" Type="int" Nullable="false" />
+          <Property Name="IdServicio" Type="int" Nullable="false" />
+          <Property Name="FechaInicio" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="FechaFin" Type="datetime2" Precision="7" />
+          <Property Name="request" Type="varchar(max)" />
+          <Property Name="response" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="LogTransacciones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumCuenta" Type="nvarchar" MaxLength="10" />
+          <Property Name="NumTarjeta" Type="nvarchar" MaxLength="20" />
+          <Property Name="Accion" Type="nvarchar" MaxLength="255" />
+          <Property Name="Resultado" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Mensaje" Type="nvarchar" MaxLength="255" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="MetodoEjecucion" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="WS" Type="nvarchar" MaxLength="255" />
+          <Property Name="NumAutorizacion" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="idMovimiento" />
+          </Key>
+          <Property Name="idMovimiento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tarjeta" Type="varchar" MaxLength="17" />
+          <Property Name="NombreTarjeta" Type="varchar" MaxLength="100" />
+          <Property Name="FechaExpira" Type="varchar" MaxLength="6" />
+          <Property Name="TipoTransaccion" Type="int" />
+          <Property Name="SubTipoTransaccion" Type="int" />
+          <Property Name="Monto" Type="numeric" Precision="12" Scale="2" />
+          <Property Name="NoReferencia" Type="varchar" MaxLength="20" />
+          <Property Name="NombreReferencia" Type="varchar" MaxLength="100" />
+          <Property Name="idLote" Type="int" />
+          <Property Name="Autorizado" Type="bit" />
+          <Property Name="NoAutorizacion" Type="varchar" MaxLength="20" />
+          <Property Name="MensajeError" Type="varchar" MaxLength="100" />
+          <Property Name="MensajeRespuesta" Type="varchar" MaxLength="100" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="idComercio" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraCreacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraModificacion" Type="datetime" />
+          <Property Name="ActivoLote" Type="bit" />
+          <Property Name="CVC" Type="varchar" MaxLength="3" />
+          <Property Name="RegControl" Type="bit" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="15" />
+          <Property Name="tipo_telefono" Type="varchar" MaxLength="15" />
+          <Property Name="exp_01" Type="varchar" MaxLength="2" />
+          <Property Name="exp_02" Type="varchar" MaxLength="2" />
+          <Property Name="email" Type="varchar" MaxLength="150" />
+          <Property Name="NumCuenta" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Parametro" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descripcion" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Renominacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Request" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Response" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Cuenta" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Success" Type="bit" Nullable="false" />
+          <Property Name="CodigoRespuesta" Type="nvarchar" MaxLength="4" Nullable="false" />
+          <Property Name="MensajeRespuesta" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="IdentificadorTransaccion" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransferenciasEntreCuentas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMovimiento" Type="int" Nullable="false" />
+          <Property Name="IdComercio" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="NumCuentaOrigen" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="NumCuentaDestino" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="SaldoOrigenAntes" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="SaldoOrigenDespues" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="SaldoDestinoAntes" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="SaldoDestinoDespues" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+          <Property Name="Comision" Type="decimal" Precision="14" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="varchar" MaxLength="100" />
+          <Property Name="idComercio" Type="int" />
+          <Property Name="Password" Type="varchar" MaxLength="100" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="NoCuenta" Type="varchar" MaxLength="16" />
+          <Property Name="idTipo" Type="int" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraCreacion" Type="datetime" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraModificacion" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_LogMensajes_AnulacionN">
+          <End Role="AnulacionN" Type="Self.AnulacionN" Multiplicity="0..1" />
+          <End Role="LogMensajes" Type="Self.LogMensajes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnulacionN">
+              <PropertyRef Name="idAnulacion" />
+            </Principal>
+            <Dependent Role="LogMensajes">
+              <PropertyRef Name="IdAnulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogMensajes_Movimiento">
+          <End Role="Movimiento" Type="Self.Movimiento" Multiplicity="0..1" />
+          <End Role="LogMensajes" Type="Self.LogMensajes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movimiento">
+              <PropertyRef Name="idMovimiento" />
+            </Principal>
+            <Dependent Role="LogMensajes">
+              <PropertyRef Name="IdMovimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BroxelModelStoreContainer">
+          <EntitySet Name="AnulacionN" EntityType="Self.AnulacionN" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="CodigosRespuesta" EntityType="Self.CodigosRespuesta" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Comercio" EntityType="Self.Comercio" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="LogMensajes" EntityType="Self.LogMensajes" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="LogTransacciones" EntityType="Self.LogTransacciones" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Movimiento" EntityType="Self.Movimiento" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Parametros" EntityType="Self.Parametros" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Renominacion" EntityType="Self.Renominacion" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="TransferenciasEntreCuentas" EntityType="Self.TransferenciasEntreCuentas" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_LogMensajes_AnulacionN" Association="Self.FK_LogMensajes_AnulacionN">
+            <End Role="AnulacionN" EntitySet="AnulacionN" />
+            <End Role="LogMensajes" EntitySet="LogMensajes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogMensajes_Movimiento" Association="Self.FK_LogMensajes_Movimiento">
+            <End Role="Movimiento" EntitySet="Movimiento" />
+            <End Role="LogMensajes" EntitySet="LogMensajes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BroxelModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="BroxelEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+          <EntitySet Name="Comercio" EntityType="BroxelModel.Comercio" />
+          <EntitySet Name="Movimiento" EntityType="BroxelModel.Movimiento" />
+          <EntitySet Name="Usuario" EntityType="BroxelModel.Usuario" />
+          <AssociationSet Name="fk_movimiento_id_comercio" Association="BroxelModel.fk_movimiento_id_comercio">
+            <End Role="Comercio" EntitySet="Comercio" />
+            <End Role="Movimiento" EntitySet="Movimiento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_usuario_id_comercio" Association="BroxelModel.fk_usuario_id_comercio">
+            <End Role="Comercio" EntitySet="Comercio" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <EntitySet Name="AnulacionN" EntityType="BroxelModel.AnulacionN" />
+          <EntitySet Name="Parametros" EntityType="BroxelModel.Parametros" />
+          <EntitySet Name="LogTransaccionesSQL" EntityType="BroxelModel.LogTransaccionesSQL" />
+          <EntitySet Name="TransferenciasEntreCuentas" EntityType="BroxelModel.TransferenciasEntreCuentas" />
+          <EntitySet Name="CodigosRespuestaSQL" EntityType="BroxelModel.CodigosRespuestaSQL" />
+          <EntitySet Name="Renominacion" EntityType="BroxelModel.Renominacion" />
+          <EntitySet Name="LogMensajes" EntityType="BroxelModel.LogMensajes" />
+          <AssociationSet Name="FK_LogMensajes_AnulacionN" Association="BroxelModel.FK_LogMensajes_AnulacionN">
+            <End Role="AnulacionN" EntitySet="AnulacionN" />
+            <End Role="LogMensajes" EntitySet="LogMensajes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogMensajes_Movimiento" Association="BroxelModel.FK_LogMensajes_Movimiento">
+            <End Role="Movimiento" EntitySet="Movimiento" />
+            <End Role="LogMensajes" EntitySet="LogMensajes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Comercio">
+          <Key>
+            <PropertyRef Name="idComercio" />
+          </Key>
+          <Property Name="idComercio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Comercio1" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="CodigoComercio" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Movimiento" Relationship="BroxelModel.fk_movimiento_id_comercio" FromRole="Comercio" ToRole="Movimiento" />
+          <NavigationProperty Name="Usuario" Relationship="BroxelModel.fk_usuario_id_comercio" FromRole="Comercio" ToRole="Usuario" />
+          <Property Name="amonestaciones" Type="Decimal" Precision="32" Scale="0" />
+          <Property Name="fecha_amonestacion" Type="DateTime" Precision="0" />
+          <Property Name="sanciones" Type="Decimal" Precision="32" Scale="0" />
+          <Property Name="fecha_sancion" Type="DateTime" Precision="0" />
+          <Property Name="razon_social" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="rfc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="calle" Type="String" MaxLength="350" FixedLength="false" Unicode="false" />
+          <Property Name="delegacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="colonia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_postal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="email_contacto" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" Precision="3" />
+          <Property Name="fecha_baja" Type="DateTime" Precision="3" />
+          <Property Name="estatus" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="docs_completos" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="banco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="num_sucursal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="num_cuenta" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="num_cuenta_clabe" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="email_avisos" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="acepto_terminos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_acepto_terminos" Type="DateTime" Precision="3" />
+          <Property Name="usuario_acepta_terminos" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="procedencia" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NombreProcedencia" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ImporteDefault" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="Movimiento">
+          <Key>
+            <PropertyRef Name="idMovimiento" />
+          </Key>
+          <Property Name="idMovimiento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Tarjeta" Type="String" MaxLength="17" Unicode="false" FixedLength="false" />
+          <Property Name="NombreTarjeta" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaExpira" Type="String" MaxLength="6" Unicode="false" FixedLength="false" />
+          <Property Name="Monto" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="NoReferencia" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="NombreReferencia" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="idLote" Type="Int32" />
+          <Property Name="Autorizado" Type="Boolean" />
+          <Property Name="NoAutorizacion" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="MensajeError" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="MensajeRespuesta" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="idUsuario" Type="Int32" />
+          <Property Name="idComercio" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Precision="3" />
+          <Property Name="ActivoLote" Type="Boolean" />
+          <Property Name="CVC" Type="String" MaxLength="3" Unicode="false" FixedLength="false" />
+          <Property Name="RegControl" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Comercio" Relationship="BroxelModel.fk_movimiento_id_comercio" FromRole="Movimiento" ToRole="Comercio" />
+          <Property Name="telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="exp_01" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="exp_02" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TipoTransaccion" Type="Int32" />
+          <Property Name="SubTipoTransaccion" Type="Int32" />
+          <Property Type="String" Name="NumCuenta" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="LogMensajes" Relationship="BroxelModel.FK_LogMensajes_Movimiento" FromRole="Movimiento" ToRole="LogMensajes" />
+          </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Usuario1" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="NoCuenta" Type="String" MaxLength="16" Unicode="false" FixedLength="false" />
+          <Property Name="idComercio" Type="Int32" />
+          <Property Name="idTipo" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Comercio" Relationship="BroxelModel.fk_usuario_id_comercio" FromRole="Usuario" ToRole="Comercio" />
+        </EntityType>
+        <Association Name="fk_movimiento_id_comercio">
+          <End Role="Comercio" Type="BroxelModel.Comercio" Multiplicity="0..1" />
+          <End Role="Movimiento" Type="BroxelModel.Movimiento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comercio">
+              <PropertyRef Name="idComercio" />
+            </Principal>
+            <Dependent Role="Movimiento">
+              <PropertyRef Name="idComercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_usuario_id_comercio">
+          <End Role="Comercio" Type="BroxelModel.Comercio" Multiplicity="0..1" />
+          <End Role="Usuario" Type="BroxelModel.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Comercio">
+              <PropertyRef Name="idComercio" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="idComercio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AnulacionN">
+          <Key>
+            <PropertyRef Name="idAnulacion" />
+          </Key>
+          <Property Type="Int32" Name="idAnulacion" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="Int32" Name="idTransaccion" Nullable="false" />
+          <Property Type="Int32" Name="TipoTransaccion" />
+          <Property Type="Int32" Name="SubTipoTransaccion" />
+          <Property Type="Boolean" Name="Autorizado" />
+          <Property Type="Int32" Name="NumAutorizacion" />
+          <Property Type="Int32" Name="CodigoRespuesta" />
+          <Property Type="Int32" Name="idUsuario" />
+          <Property Type="DateTime" Name="Fecha" Precision="3" />
+          <Property Type="String" Name="MensajeRespuesta" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LogMensajes" Relationship="BroxelModel.FK_LogMensajes_AnulacionN" FromRole="AnulacionN" ToRole="LogMensajes" />
+        </EntityType>
+        <EntityType Name="Parametros">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="Parametro" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Valor" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Descripcion" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="LogTransaccionesSQL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Type="String" Name="NumCuenta" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NumTarjeta" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Accion" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Resultado" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mensaje" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Usuario" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="FechaHora" Nullable="false" Precision="3" />
+          <Property Type="String" Name="MetodoEjecucion" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="WS" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="NumAutorizacion" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TransferenciasEntreCuentas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="IdMovimiento" Type="Int32" Nullable="false" />
+          <Property Name="IdComercio" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="NumCuentaOrigen" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="NumCuentaDestino" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="SaldoOrigenAntes" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+          <Property Name="SaldoOrigenDespues" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+          <Property Name="SaldoDestinoAntes" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+          <Property Name="SaldoDestinoDespues" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+          <Property Name="Comision" Type="Decimal" Nullable="false" Precision="14" Scale="2" />
+        </EntityType>
+        <EntityType Name="CodigosRespuestaSQL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CausaComun" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Renominacion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="Request" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Response" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Cuenta" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="true" />
+          <Property Name="Success" Type="Boolean" Nullable="false" />
+          <Property Name="CodigoRespuesta" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="MensajeRespuesta" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IdentificadorTransaccion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="LogMensajes">
+          <Key>
+            <PropertyRef Name="IdLog" />
+          </Key>
+          <Property Name="IdLog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+          <Property Name="IdMovimiento" Type="Int32" />
+          <Property Name="IdAnulacion" Type="Int32" />
+          <Property Name="numCuenta" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="IdMetodo" Type="Int32" Nullable="false" />
+          <Property Name="IdServicio" Type="Int32" Nullable="false" />
+          <Property Name="FechaInicio" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="FechaFin" Type="DateTime" Precision="7" />
+          <Property Name="request" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="response" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AnulacionN" Relationship="BroxelModel.FK_LogMensajes_AnulacionN" FromRole="LogMensajes" ToRole="AnulacionN" />
+          <NavigationProperty Name="Movimiento" Relationship="BroxelModel.FK_LogMensajes_Movimiento" FromRole="LogMensajes" ToRole="Movimiento" />
+        </EntityType>
+        <Association Name="FK_LogMensajes_AnulacionN">
+          <End Type="BroxelModel.AnulacionN" Role="AnulacionN" Multiplicity="0..1" />
+          <End Type="BroxelModel.LogMensajes" Role="LogMensajes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnulacionN">
+              <PropertyRef Name="idAnulacion" />
+            </Principal>
+            <Dependent Role="LogMensajes">
+              <PropertyRef Name="IdAnulacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogMensajes_Movimiento">
+          <End Type="BroxelModel.Movimiento" Role="Movimiento" Multiplicity="0..1" />
+          <End Type="BroxelModel.LogMensajes" Role="LogMensajes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Movimiento">
+              <PropertyRef Name="idMovimiento" />
+            </Principal>
+            <Dependent Role="LogMensajes">
+              <PropertyRef Name="IdMovimiento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BroxelModelStoreContainer" CdmEntityContainer="BroxelEntities">
+          <EntitySetMapping Name="Comercio"><EntityTypeMapping TypeName="BroxelModel.Comercio"><MappingFragment StoreEntitySet="Comercio">
+                <ScalarProperty Name="ImporteDefault" ColumnName="ImporteDefault" />
+                <ScalarProperty Name="NombreProcedencia" ColumnName="NombreProcedencia" />
+                <ScalarProperty Name="procedencia" ColumnName="procedencia" />
+                <ScalarProperty Name="usuario_acepta_terminos" ColumnName="usuario_acepta_terminos" />
+                <ScalarProperty Name="fecha_acepto_terminos" ColumnName="fecha_acepto_terminos" />
+                <ScalarProperty Name="acepto_terminos" ColumnName="acepto_terminos" />
+                <ScalarProperty Name="email_avisos" ColumnName="email_avisos" />
+                <ScalarProperty Name="num_cuenta_clabe" ColumnName="num_cuenta_clabe" />
+                <ScalarProperty Name="num_cuenta" ColumnName="num_cuenta" />
+                <ScalarProperty Name="num_sucursal" ColumnName="num_sucursal" />
+                <ScalarProperty Name="banco" ColumnName="banco" />
+                <ScalarProperty Name="docs_completos" ColumnName="docs_completos" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="email_contacto" ColumnName="email_contacto" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="delegacion" ColumnName="delegacion" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="razon_social" ColumnName="razon_social" />
+                <ScalarProperty Name="fecha_sancion" ColumnName="fecha_sancion" />
+                <ScalarProperty Name="sanciones" ColumnName="sanciones" />
+                <ScalarProperty Name="fecha_amonestacion" ColumnName="fecha_amonestacion" />
+                <ScalarProperty Name="amonestaciones" ColumnName="amonestaciones" />
+                <ScalarProperty Name="idComercio" ColumnName="idComercio" />
+            <ScalarProperty Name="Comercio1" ColumnName="Comercio" />
+            <ScalarProperty Name="CodigoComercio" ColumnName="CodigoComercio" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+            <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+            <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+            <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Movimiento"><EntityTypeMapping TypeName="BroxelModel.Movimiento"><MappingFragment StoreEntitySet="Movimiento">
+                <ScalarProperty Name="NumCuenta" ColumnName="NumCuenta" />
+                <ScalarProperty Name="SubTipoTransaccion" ColumnName="SubTipoTransaccion" />
+                <ScalarProperty Name="TipoTransaccion" ColumnName="TipoTransaccion" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="exp_02" ColumnName="exp_02" />
+                <ScalarProperty Name="exp_01" ColumnName="exp_01" />
+                <ScalarProperty Name="tipo_telefono" ColumnName="tipo_telefono" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="idMovimiento" ColumnName="idMovimiento" />
+            <ScalarProperty Name="Tarjeta" ColumnName="Tarjeta" />
+            <ScalarProperty Name="NombreTarjeta" ColumnName="NombreTarjeta" />
+            <ScalarProperty Name="FechaExpira" ColumnName="FechaExpira" />
+            <ScalarProperty Name="Monto" ColumnName="Monto" />
+            <ScalarProperty Name="NoReferencia" ColumnName="NoReferencia" />
+            <ScalarProperty Name="NombreReferencia" ColumnName="NombreReferencia" />
+            <ScalarProperty Name="idLote" ColumnName="idLote" />
+            <ScalarProperty Name="Autorizado" ColumnName="Autorizado" />
+            <ScalarProperty Name="NoAutorizacion" ColumnName="NoAutorizacion" />
+            <ScalarProperty Name="MensajeError" ColumnName="MensajeError" />
+            <ScalarProperty Name="MensajeRespuesta" ColumnName="MensajeRespuesta" />
+            <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+            <ScalarProperty Name="idComercio" ColumnName="idComercio" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+            <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+            <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+            <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+            <ScalarProperty Name="ActivoLote" ColumnName="ActivoLote" />
+            <ScalarProperty Name="CVC" ColumnName="CVC" />
+            <ScalarProperty Name="RegControl" ColumnName="RegControl" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Usuario"><EntityTypeMapping TypeName="BroxelModel.Usuario"><MappingFragment StoreEntitySet="Usuario">
+            <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+            <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+            <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+            <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+            <ScalarProperty Name="NoCuenta" ColumnName="NoCuenta" />
+            <ScalarProperty Name="idComercio" ColumnName="idComercio" />
+            <ScalarProperty Name="idTipo" ColumnName="idTipo" />
+            <ScalarProperty Name="Status" ColumnName="Status" />
+            <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+            <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+            <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+            <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="AnulacionN">
+            <EntityTypeMapping TypeName="BroxelModel.AnulacionN">
+              <MappingFragment StoreEntitySet="AnulacionN">
+                <ScalarProperty Name="MensajeRespuesta" ColumnName="MensajeRespuesta" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="CodigoRespuesta" ColumnName="CodigoRespuesta" />
+                <ScalarProperty Name="NumAutorizacion" ColumnName="NumAutorizacion" />
+                <ScalarProperty Name="Autorizado" ColumnName="Autorizado" />
+                <ScalarProperty Name="SubTipoTransaccion" ColumnName="SubTipoTransaccion" />
+                <ScalarProperty Name="TipoTransaccion" ColumnName="TipoTransaccion" />
+                <ScalarProperty Name="idTransaccion" ColumnName="idTransaccion" />
+                <ScalarProperty Name="idAnulacion" ColumnName="idAnulacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametros">
+            <EntityTypeMapping TypeName="BroxelModel.Parametros">
+              <MappingFragment StoreEntitySet="Parametros">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Parametro" ColumnName="Parametro" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogTransaccionesSQL">
+            <EntityTypeMapping TypeName="BroxelModel.LogTransaccionesSQL">
+              <MappingFragment StoreEntitySet="LogTransacciones">
+                <ScalarProperty Name="NumAutorizacion" ColumnName="NumAutorizacion" />
+                <ScalarProperty Name="WS" ColumnName="WS" />
+                <ScalarProperty Name="MetodoEjecucion" ColumnName="MetodoEjecucion" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+                <ScalarProperty Name="Resultado" ColumnName="Resultado" />
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="NumTarjeta" ColumnName="NumTarjeta" />
+                <ScalarProperty Name="NumCuenta" ColumnName="NumCuenta" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransferenciasEntreCuentas">
+            <EntityTypeMapping TypeName="BroxelModel.TransferenciasEntreCuentas">
+              <MappingFragment StoreEntitySet="TransferenciasEntreCuentas">
+                <ScalarProperty Name="Comision" ColumnName="Comision" />
+                <ScalarProperty Name="SaldoDestinoDespues" ColumnName="SaldoDestinoDespues" />
+                <ScalarProperty Name="SaldoDestinoAntes" ColumnName="SaldoDestinoAntes" />
+                <ScalarProperty Name="SaldoOrigenDespues" ColumnName="SaldoOrigenDespues" />
+                <ScalarProperty Name="SaldoOrigenAntes" ColumnName="SaldoOrigenAntes" />
+                <ScalarProperty Name="NumCuentaDestino" ColumnName="NumCuentaDestino" />
+                <ScalarProperty Name="NumCuentaOrigen" ColumnName="NumCuentaOrigen" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdComercio" ColumnName="IdComercio" />
+                <ScalarProperty Name="IdMovimiento" ColumnName="IdMovimiento" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodigosRespuestaSQL">
+            <EntityTypeMapping TypeName="BroxelModel.CodigosRespuestaSQL">
+              <MappingFragment StoreEntitySet="CodigosRespuesta">
+                <ScalarProperty Name="CausaComun" ColumnName="CausaComun" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Renominacion">
+            <EntityTypeMapping TypeName="BroxelModel.Renominacion">
+              <MappingFragment StoreEntitySet="Renominacion">
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="IdentificadorTransaccion" ColumnName="IdentificadorTransaccion" />
+                <ScalarProperty Name="MensajeRespuesta" ColumnName="MensajeRespuesta" />
+                <ScalarProperty Name="CodigoRespuesta" ColumnName="CodigoRespuesta" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="Request" ColumnName="Request" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogMensajes">
+            <EntityTypeMapping TypeName="BroxelModel.LogMensajes">
+              <MappingFragment StoreEntitySet="LogMensajes">
+                <ScalarProperty Name="response" ColumnName="response" />
+                <ScalarProperty Name="request" ColumnName="request" />
+                <ScalarProperty Name="FechaFin" ColumnName="FechaFin" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="IdServicio" ColumnName="IdServicio" />
+                <ScalarProperty Name="IdMetodo" ColumnName="IdMetodo" />
+                <ScalarProperty Name="numCuenta" ColumnName="numCuenta" />
+                <ScalarProperty Name="IdAnulacion" ColumnName="IdAnulacion" />
+                <ScalarProperty Name="IdMovimiento" ColumnName="IdMovimiento" />
+                <ScalarProperty Name="IdLog" ColumnName="IdLog" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="False" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <edmx:Diagram Name="Broxel" ZoomLevel="62">
+        <edmx:EntityTypeShape EntityType="BroxelModel.Comercio" Width="1.5" PointX="0.75" PointY="3.125" Height="2.9417936197916665" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.Movimiento" Width="1.5" PointX="3" PointY="6" Height="5.6340136718749969" IsExpanded="true" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.Usuario" Width="1.5" PointX="3" PointY="1.375" Height="4.2879036458333353" IsExpanded="true" />
+        <edmx:AssociationConnector Association="BroxelModel.fk_movimiento_id_comercio" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="2.25" PointY="6.7208968098958337" />
+          <edmx:ConnectorPoint PointX="3" PointY="6.7208968098958337" />
+        </edmx:AssociationConnector>
+        <edmx:AssociationConnector Association="BroxelModel.fk_usuario_id_comercio" ManuallyRouted="false">
+          <edmx:ConnectorPoint PointX="2.25" PointY="5.9541964049479166" />
+          <edmx:ConnectorPoint PointX="2.75" PointY="5.9541964049479166" />
+          <edmx:ConnectorPoint PointX="2.75" PointY="3.625" />
+          <edmx:ConnectorPoint PointX="4.822916666666667" PointY="3.6249999999999996" />
+          <edmx:ConnectorPoint PointX="4.989583333333333" PointY="3.625" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="3.625" />
+          <edmx:ConnectorPoint PointX="6.75" PointY="4.5" />
+        </edmx:AssociationConnector>
+        <edmx:EntityTypeShape EntityType="BroxelModel.AnulacionN" Width="1.5" PointX="5.75" PointY="3.75" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.Parametros" Width="1.5" PointX="7.75" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.LogTransaccionesSQL" Width="1.5" PointX="5.75" PointY="8.75" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.TransferenciasEntreCuentas" Width="1.5" PointX="8.375" PointY="3.75" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.CodigosRespuestaSQL" Width="1.5" PointX="10.375" PointY="0.75" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.Renominacion" Width="1.5" PointX="8.375" PointY="7.75" />
+        <edmx:EntityTypeShape EntityType="BroxelModel.LogMensajes" Width="1.5" PointX="11" PointY="6.75" />
+        <edmx:AssociationConnector Association="BroxelModel.FK_LogMensajes_AnulacionN" />
+        <edmx:AssociationConnector Association="BroxelModel.FK_LogMensajes_Movimiento" />
+      </edmx:Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
