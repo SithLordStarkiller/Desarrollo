@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://10.210.0.142:9052/wsBitacora.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/wsBitacora" />
+  <xs:import schemaLocation="http://10.210.0.142:9052/wsBitacora.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/wsBitacoras" />
+  <xs:element name="InsertaBitacora">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pSistema" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pBaseDatos" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTabla" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pTransaccion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pDescripcion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIpUsuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertaBitacoraResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/wsBitacora" minOccurs="0" name="InsertaBitacoraResult" nillable="true" type="q1:Response" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="value" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetDataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataUsingDataContract">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/wsBitacoras" minOccurs="0" name="composite" nillable="true" type="q2:CompositeType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataUsingDataContractResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/wsBitacoras" minOccurs="0" name="GetDataUsingDataContractResult" nillable="true" type="q3:CompositeType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

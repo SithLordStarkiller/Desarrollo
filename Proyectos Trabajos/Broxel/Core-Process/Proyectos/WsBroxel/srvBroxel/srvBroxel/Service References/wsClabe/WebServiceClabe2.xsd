@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/wsClabe" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/wsClabe" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.82.188:9045/WebServiceClabe.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ResultadoClabe">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Banco" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Clabe" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DigitoVerificador" type="xs:int" />
+      <xs:element minOccurs="0" name="ErrorValidacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsBroxel" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsValida" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IdBanco" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlaza" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Plaza" nillable="true" type="q1:ArrayOfstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ResultadoClabe" nillable="true" type="tns:ResultadoClabe" />
+</xs:schema>

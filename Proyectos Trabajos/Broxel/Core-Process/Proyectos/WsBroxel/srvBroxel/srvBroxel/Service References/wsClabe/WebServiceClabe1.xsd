@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://192.168.82.188:9045/WebServiceClabe.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/wsClabe" />
+  <xs:element name="ValidarClabe">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="clabe" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarClabeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/wsClabe" minOccurs="0" name="ValidarClabeResult" nillable="true" type="q1:ResultadoClabe" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarClabeBroxel">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarClabeBroxelResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/wsClabe" minOccurs="0" name="GenerarClabeBroxelResult" nillable="true" type="q2:ResultadoClabe" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarClabesMaquila">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="cliente" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="producto" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarClabesMaquilaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GenerarClabesMaquilaResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarClabesMaquilaCompleto">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GenerarClabesMaquilaCompletoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GenerarClabesMaquilaCompletoResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

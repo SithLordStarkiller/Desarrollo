@@ -1,0 +1,1434 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="broxelco_rdgModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.1" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="accessos_clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre_completo" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="cuenta" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="celular" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="ActivoCuenta" Type="bool" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="IdUsuarioOnlineBroxel" Type="uint" Nullable="false" />
+          <Property Name="IdMaquila" Type="uint" Nullable="false" />
+          <Property Name="Alias" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="AgrupacionClientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrupoFiscal" Type="bool" Nullable="false" />
+          <Property Name="ClaveAgrupacion" Type="varchar" MaxLength="200" />
+          <Property Name="NombreCorto" Type="varchar" MaxLength="200" />
+          <Property Name="razonSocial" Type="varchar" MaxLength="255" />
+          <Property Name="fechaConstitucion" Type="date" />
+          <Property Name="rfc" Type="varchar" MaxLength="255" />
+          <Property Name="clavePais" Type="varchar" MaxLength="4" />
+          <Property Name="actividadEconomica" Type="int" />
+          <Property Name="nombreRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="aPaternoRegLegal" Type="varchar" MaxLength="255" />
+          <Property Name="aMaternoRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="fechaNacimientoRepLegal" Type="date" />
+          <Property Name="rfcRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="curpRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="tipoIdRepLegal" Type="varchar" MaxLength="3" />
+          <Property Name="tipoIdOtroRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="autoridadEmiteRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="numIdentificacionRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="colonia" Type="varchar" MaxLength="255" />
+          <Property Name="calle" Type="varchar" MaxLength="255" />
+          <Property Name="numExt" Type="varchar" MaxLength="50" />
+          <Property Name="numInt" Type="varchar" MaxLength="50" />
+          <Property Name="codigoPostal" Type="varchar" MaxLength="6" />
+          <Property Name="paisTel" Type="varchar" MaxLength="4" />
+          <Property Name="tel" Type="varchar" MaxLength="13" />
+          <Property Name="CLABEDestino" Type="varchar" MaxLength="18" />
+          <Property Name="CorreoContacto" Type="varchar" MaxLength="50" />
+          <Property Name="Localidad" Type="varchar" MaxLength="150" />
+          <Property Name="Referencia" Type="varchar" MaxLength="150" />
+          <Property Name="MunicipioDelegacion" Type="varchar" MaxLength="150" />
+          <Property Name="Estado" Type="varchar" MaxLength="150" />
+          <Property Name="ReportaPLD" Type="bool" Nullable="false" />
+          <Property Name="EmiteFactura" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ciudadesCredencial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="CodigoCiudad" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="Ciudad" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CodigoEstado" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="clientesBroxel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="claveCliente" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="GrupoCliente" Type="varchar" MaxLength="200" />
+          <Property Name="NombreCorto" Type="varchar" MaxLength="200" />
+          <Property Name="razonSocial" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fechaConstitucion" Type="date" Nullable="false" />
+          <Property Name="rfc" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="clavePais" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="actividadEconomica" Type="int" Nullable="false" />
+          <Property Name="nombreRepLegal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="aPaternoRegLegal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="aMaternoRepLegal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fechaNacimientoRepLegal" Type="date" Nullable="false" />
+          <Property Name="rfcRepLegal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="curpRepLegal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tipoIdRepLegal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="tipoIdOtroRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="autoridadEmiteRepLegal" Type="varchar" MaxLength="255" />
+          <Property Name="numIdentificacionRepLegal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="colonia" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="numExt" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numInt" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="codigoPostal" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="paisTel" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Activo" Type="bool" Nullable="false" />
+          <Property Name="ClaveClienteWeb" Type="varchar" MaxLength="30" />
+          <Property Name="CLABEDestino" Type="varchar" MaxLength="18" />
+          <Property Name="CorreoContacto" Type="varchar" MaxLength="50" />
+          <Property Name="Localidad" Type="varchar" MaxLength="150" />
+          <Property Name="Referencia" Type="varchar" MaxLength="150" />
+          <Property Name="MunicipioDelegacion" Type="varchar" MaxLength="150" />
+          <Property Name="Estado" Type="varchar" MaxLength="150" />
+          <Property Name="ReportaPLD" Type="bool" Nullable="false" />
+          <Property Name="EmiteFactura" Type="bool" Nullable="false" />
+          <Property Name="ClienteIndividual" Type="bool" Nullable="false" />
+          <Property Name="FechaCreacion" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="ClientesComisiones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodigoComision" Type="varchar" MaxLength="255" />
+          <Property Name="ClaveCliente" Type="varchar" MaxLength="255" />
+          <Property Name="Producto" Type="varchar" MaxLength="255" />
+          <Property Name="Porcentaje" Type="varchar" MaxLength="255" />
+          <Property Name="Monto" Type="varchar" MaxLength="255" />
+          <Property Name="Concepto" Type="varchar" MaxLength="255" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="255" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="255" />
+          <Property Name="FechaHoraModificacion" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleClientesBroxel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="ClaveCliente" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Producto" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="LineaCreditoOriginal" Type="double" Nullable="false" />
+          <Property Name="Dispersado" Type="double" Nullable="false" />
+          <Property Name="Abonos" Type="double" Nullable="false" />
+          <Property Name="CargosB1010" Type="double" Nullable="false" />
+          <Property Name="TransferenciasB1010" Type="double" Nullable="false" />
+          <Property Name="DevolucionesDeCuentas" Type="double" Nullable="false" />
+          <Property Name="PagosCredito" Type="decimal" Precision="17" Scale="2" Nullable="false" />
+          <Property Name="LineaCreditoActual" Type="double" Nullable="false" />
+          <Property Name="TopeMaximo" Type="int" Nullable="false" />
+          <Property Name="TipoRiesgo" Type="int" Nullable="false" />
+          <Property Name="CLABE" Type="varchar" MaxLength="30" />
+          <Property Name="TipoComisionDisposicion" Type="int" Nullable="false" />
+          <Property Name="ComisionDisposicion" Type="double" Nullable="false" />
+          <Property Name="ATM" Type="double" Nullable="false" />
+          <Property Name="EnviaPagos" Type="bool" Nullable="false" />
+          <Property Name="SmartData" Type="bool" Nullable="false" />
+          <Property Name="Conferma" Type="bool" Nullable="false" />
+          <Property Name="Activo" Type="bool" Nullable="false" />
+          <Property Name="EnviaSMSs" Type="bool" Nullable="false" />
+          <Property Name="EncolaDispersiones" Type="bool" Nullable="false" />
+          <Property Name="TipoComisionTransferencia" Type="int" Nullable="false" />
+          <Property Name="ComisionTransferencia" Type="double" Nullable="false" />
+          <Property Name="TipoConceptoComisionTransferencia" Type="int" Nullable="false" />
+          <Property Name="RecibeTransferencia" Type="int" Nullable="false" />
+          <Property Name="Activa_Bloquea" Type="tinyint" />
+          <Property Name="HoraActivacion" Type="time" Precision="0" />
+          <Property Name="HoraBloqueo" Type="time" Precision="0" />
+          <Property Name="CuentaConcentradora" Type="varchar" MaxLength="9" />
+          <Property Name="EjecutivoComercial" Type="varchar" MaxLength="200" />
+          <Property Name="FactorDeposito" Type="decimal" Precision="11" Scale="10" Nullable="false" />
+          <Property Name="CambioDeNip" Type="int" Nullable="false" />
+          <Property Name="CorreoNotificaciones" Type="varchar" MaxLength="200" />
+          <Property Name="SMSNotificacion" Type="varchar" MaxLength="12" />
+          <Property Name="DisposicionesSinCobro" Type="int" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="255" />
+          <Property Name="FechaUsuarioCreacion" Type="datetime" Precision="0" />
+          <Property Name="AplicaSPEI" Type="bool" Nullable="false" />
+          <Property Name="DesglosaIEPS" Type="bool" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleCuentasOrdenDeTrabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrdenTrabajo" Type="int" />
+          <Property Name="FolioOrdenTrabajo" Type="varchar" MaxLength="13" />
+          <Property Name="IdDetalleTarjetasOrdenImport" Type="int" />
+          <Property Name="CodigoDeProducto" Type="varchar" MaxLength="4" />
+          <Property Name="CodigoServicio" Type="varchar" MaxLength="3" />
+          <Property Name="NombreTarjetahabiente" Type="varchar" MaxLength="35" />
+          <Property Name="CalleYNumPuerta" Type="varchar" MaxLength="30" />
+          <Property Name="Interior" Type="varchar" MaxLength="10" />
+          <Property Name="Localidad" Type="varchar" MaxLength="25" />
+          <Property Name="Colonia" Type="varchar" MaxLength="15" />
+          <Property Name="Telefono" Type="varchar" MaxLength="11" />
+          <Property Name="CodigoEstado" Type="int" />
+          <Property Name="CodigoProvincia" Type="int" />
+          <Property Name="CodigoPostal" Type="varchar" MaxLength="5" />
+          <Property Name="TipoDeDocumento" Type="varchar" MaxLength="3" />
+          <Property Name="NumeroDeDocumento" Type="varchar" MaxLength="9" />
+          <Property Name="GrupoDeLiquidacion" Type="varchar" MaxLength="1" />
+          <Property Name="HabilitaCompra" Type="varchar" MaxLength="1" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="IdMaquila" Type="int" />
+        </EntityType>
+        <EntityType Name="DetalleTarjetasOrdenDeTrabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrdenTrabajo" Type="int" />
+          <Property Name="IdCuentaOrdenDeTrabajo" Type="int" />
+          <Property Name="FolioOrdenTrabajo" Type="varchar" MaxLength="13" />
+          <Property Name="IdDetalleTarjetasOrdenImport" Type="int" />
+          <Property Name="Cuenta" Type="varchar" MaxLength="9" />
+          <Property Name="Tipo" Type="varchar" MaxLength="20" />
+          <Property Name="DenominacionTarjeta" Type="varchar" MaxLength="21" />
+          <Property Name="FechaDeNacimiento" Type="date" />
+          <Property Name="Sexo" Type="varchar" MaxLength="1" />
+          <Property Name="PorcentajeBonificacion" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CodigoPeriodoBonificacion" Type="varchar" MaxLength="1" />
+          <Property Name="CantidadCuotasBonificacion" Type="varchar" MaxLength="2" />
+          <Property Name="FechaDesde" Type="date" />
+          <Property Name="4ta_linea" Type="varchar" MaxLength="20" />
+          <Property Name="MarcaTPP" Type="varchar" MaxLength="1" />
+          <Property Name="NumeroDeDocumento" Type="varchar" MaxLength="30" />
+          <Property Name="CodigoDeProducto" Type="varchar" MaxLength="4" />
+          <Property Name="RFCEmpleado" Type="varchar" MaxLength="15" />
+          <Property Name="CURP" Type="varchar" MaxLength="20" />
+          <Property Name="IMSS" Type="varchar" MaxLength="20" />
+          <Property Name="IdRegistroTc" Type="int" />
+          <Property Name="IdTarjetaCliente" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="estadosCredencial">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LetraEstado" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Estado" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogDetalleClientesBroxel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDetalleClientesBroxel" Type="int" />
+          <Property Name="Monto" Type="double" />
+          <Property Name="Motivo" Type="mediumtext" />
+          <Property Name="CampoAfectado" Type="varchar" MaxLength="100" />
+          <Property Name="FechaHoraCreacion" Type="timestamp" Precision="0" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="maquila">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nro-corr" Type="varchar" MaxLength="6" />
+          <Property Name="nro-tarjeta" Type="varchar" MaxLength="17" />
+          <Property Name="nombre_titular" Type="varchar" MaxLength="50" />
+          <Property Name="num_cuenta" Type="varchar" MaxLength="9" />
+          <Property Name="domicilio" Type="varchar" MaxLength="50" />
+          <Property Name="NumeroCalle" Type="varchar" MaxLength="20" />
+          <Property Name="piso" Type="varchar" MaxLength="50" />
+          <Property Name="localidad" Type="varchar" MaxLength="50" />
+          <Property Name="Colonia" Type="varchar" MaxLength="255" />
+          <Property Name="codigo_postal" Type="varchar" MaxLength="5" />
+          <Property Name="provincia" Type="varchar" MaxLength="50" />
+          <Property Name="TipoDomicilio" Type="varchar" MaxLength="50" />
+          <Property Name="NumDocumento" Type="varchar" MaxLength="30" />
+          <Property Name="TipoDocumento" Type="varchar" MaxLength="200" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" />
+          <Property Name="Sexo" Type="varchar" MaxLength="1" />
+          <Property Name="FechaDeNacimiento" Type="date" />
+          <Property Name="EstadoCivil" Type="varchar" MaxLength="20" />
+          <Property Name="Hijos" Type="varchar" MaxLength="1" />
+          <Property Name="Ocupacion" Type="varchar" MaxLength="30" />
+          <Property Name="nombre_tarjethabiente" Type="varchar" MaxLength="50" />
+          <Property Name="limite_compras" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="limite_credito" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="imp_adelantos" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="grupo_cuenta" Type="varchar" MaxLength="3" />
+          <Property Name="producto" Type="varchar" MaxLength="4" />
+          <Property Name="import" Type="date" />
+          <Property Name="maquila" Type="varchar" MaxLength="50" />
+          <Property Name="saldo_restante" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="total_movimientos" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="fecha_ultimo_movimiento" Type="date" />
+          <Property Name="disponible" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="estado_operativo" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_disponible" Type="date" />
+          <Property Name="fecha_ultima_modificacion" Type="date" />
+          <Property Name="cliente_bx" Type="varchar" MaxLength="15" />
+          <Property Name="cuenta_madre" Type="varchar" MaxLength="10" />
+          <Property Name="programa" Type="varchar" MaxLength="50" />
+          <Property Name="clave_cliente" Type="varchar" MaxLength="50" />
+          <Property Name="4ta_linea" Type="varchar" MaxLength="26" />
+          <Property Name="usuario_web" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="200" />
+          <Property Name="referenciaCliente" Type="varchar" MaxLength="200" />
+          <Property Name="MesesInactiva" Type="int" Nullable="false" />
+          <Property Name="Fondeo" Type="varchar" MaxLength="20" />
+          <Property Name="CodigoPostalFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="Calle" Type="varchar" MaxLength="255" />
+          <Property Name="ColoniaFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="EstadoFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="LocalidadFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="MunicipioFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="NumExterior" Type="varchar" MaxLength="10" />
+          <Property Name="Estado" Type="varchar" MaxLength="20" />
+          <Property Name="NumInterior" Type="varchar" MaxLength="50" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="255" />
+          <Property Name="Pais" Type="varchar" MaxLength="3" />
+          <Property Name="RFC" Type="varchar" MaxLength="255" />
+          <Property Name="CLABE" Type="varchar" MaxLength="18" />
+          <Property Name="CURP" Type="varchar" MaxLength="18" />
+          <Property Name="IMSS" Type="varchar" MaxLength="50" />
+          <Property Name="DCClaveCliente" Type="varchar" MaxLength="15" />
+          <Property Name="DCConsecCliente" Type="varchar" MaxLength="15" />
+          <Property Name="CodigoPostalFiscat" Type="varchar" MaxLength="50" />
+          <Property Name="IdODTTarj" Type="int" />
+          <Property Name="IdTipoNotificacionSMS" Type="int" Nullable="false" />
+          <Property Name="IdNivelDeCuenta" Type="int" />
+        </EntityType>
+        <EntityType Name="OrdenDeTrabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Folio" Type="varchar" MaxLength="13" />
+          <Property Name="ClaveCliente" Type="varchar" MaxLength="15" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="200" />
+          <Property Name="FechaCreacion" Type="datetime" Precision="0" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" />
+          <Property Name="FechaEnvio" Type="datetime" Precision="0" />
+          <Property Name="UsuarioEnvio" Type="varchar" MaxLength="200" />
+          <Property Name="NombreSolicitante" Type="varchar" MaxLength="200" />
+          <Property Name="EmailNotificacion" Type="varchar" MaxLength="200" />
+          <Property Name="CodigoDeProducto" Type="varchar" MaxLength="4" />
+          <Property Name="CodigoServicio" Type="varchar" MaxLength="3" />
+          <Property Name="PorcentajeBonificacion" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="CodigoPeriodoBonificacion" Type="varchar" MaxLength="1" />
+          <Property Name="CantidadCuotasBonificacion" Type="varchar" MaxLength="2" />
+          <Property Name="FechaDesde" Type="date" />
+          <Property Name="MarcaTPP" Type="varchar" MaxLength="1" />
+          <Property Name="GrupoDeLiquidacion" Type="varchar" MaxLength="1" />
+          <Property Name="HabilitaCompra" Type="varchar" MaxLength="1" />
+          <Property Name="File" Type="varchar" MaxLength="300" />
+          <Property Name="UsuarioGenera" Type="varchar" MaxLength="200" />
+          <Property Name="FechaGenera" Type="datetime" Precision="0" />
+        </EntityType>
+        <EntityType Name="productos_broxel">
+          <Key>
+            <PropertyRef Name="ID0" />
+          </Key>
+          <Property Name="ID0" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" />
+          <Property Name="codigo" Type="varchar" MaxLength="10" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+          <Property Name="tipodaldo" Type="decimal" Precision="1" Scale="0" />
+          <Property Name="mensaje1" Type="varchar" MaxLength="80" />
+          <Property Name="mensaje2" Type="varchar" MaxLength="20" />
+          <Property Name="branding" Type="varchar" MaxLength="30" />
+          <Property Name="mensaje3" Type="varchar" MaxLength="50" />
+          <Property Name="tipo" Type="varchar" MaxLength="30" />
+          <Property Name="dispersa" Type="tinyint" />
+          <Property Name="PagoEnLinea" Type="bool" Nullable="false" />
+          <Property Name="DisposicionEfectivo" Type="int" Nullable="false" />
+          <Property Name="ComisionDisposicion" Type="double" Nullable="false" />
+          <Property Name="PorcentajeDisposicion" Type="float" />
+          <Property Name="Bin" Type="int" />
+          <Property Name="Programa" Type="varchar" MaxLength="50" />
+          <Property Name="DescripcionProducto" Type="varchar" MaxLength="70" />
+          <Property Name="SegurosAsistencia" Type="text" />
+          <Property Name="Caracteristicas" Type="text" />
+          <Property Name="CodigoAfinidad" Type="varchar" MaxLength="4" />
+          <Property Name="SmartData" Type="bool" />
+          <Property Name="TipoComisionTransferencia" Type="int" Nullable="false" />
+          <Property Name="ComisionTransferencia" Type="double" Nullable="false" />
+          <Property Name="TipoConceptoComisionTransferencia" Type="int" Nullable="false" />
+          <Property Name="RecibeTransferencia" Type="int" Nullable="false" />
+          <Property Name="TipoMedidasMaquila" Type="int" />
+          <Property Name="CambioDeNip" Type="int" Nullable="false" />
+          <Property Name="IncluirRedDePagos" Type="bool" Nullable="false" />
+          <Property Name="GenerarClabe" Type="bit" Nullable="false" />
+          <Property Name="EsGasoline" Type="bool" Nullable="false" />
+          <Property Name="ConsecCLABE" Type="varchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="registro_tc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idmaquila" Type="int" />
+          <Property Name="IdODTTarj" Type="int" />
+          <Property Name="tipo_de_registro" Type="varchar" MaxLength="1" />
+          <Property Name="numero_de_cuenta" Type="varchar" MaxLength="9" />
+          <Property Name="numero_tc" Type="varchar" MaxLength="17" />
+          <Property Name="nombre" Type="varchar" MaxLength="26" />
+          <Property Name="NumDocumento" Type="varchar" MaxLength="30" />
+          <Property Name="estado_operativo" Type="varchar" MaxLength="30" />
+          <Property Name="fecha_alta" Type="date" />
+          <Property Name="fecha_baja" Type="date" />
+          <Property Name="num_anterior" Type="varchar" MaxLength="17" />
+          <Property Name="num_nuevo" Type="varchar" MaxLength="17" />
+          <Property Name="fecha_proceso_alta" Type="date" />
+          <Property Name="fecha_proceso_baja" Type="date" />
+          <Property Name="marca_alta_renov_inh" Type="varchar" MaxLength="1" />
+          <Property Name="importe_der_emis_renov" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="cant_cuotas_emis_renov" Type="varchar" MaxLength="2" />
+          <Property Name="codigo_afinidad" Type="varchar" MaxLength="4" />
+          <Property Name="grupo" Type="varchar" MaxLength="1" />
+          <Property Name="codigo_limite_compra" Type="varchar" MaxLength="1" />
+          <Property Name="importe_limite_de_credito" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="codigo_de_producto" Type="varchar" MaxLength="4" />
+          <Property Name="codigo_bco_sucursal" Type="varchar" MaxLength="6" />
+          <Property Name="num_referencia_ABM" Type="varchar" MaxLength="4" />
+          <Property Name="cant_cuotas_pend_emis_renov" Type="varchar" MaxLength="2" />
+          <Property Name="fecha_ultima_actualizacion" Type="date" />
+          <Property Name="filler" Type="varchar" MaxLength="50" />
+          <Property Name="registroBroxel" Type="varchar" MaxLength="100" />
+          <Property Name="embozada" Type="int" Nullable="false" />
+          <Property Name="tipo" Type="varchar" MaxLength="5" />
+          <Property Name="codigoServicio" Type="varchar" MaxLength="5" />
+          <Property Name="broxelEntrega" Type="varchar" MaxLength="10" />
+          <Property Name="idRegTcOLD" Type="int" />
+          <Property Name="codigoModificacion" Type="varchar" MaxLength="2" />
+          <Property Name="modoImpresion" Type="varchar" MaxLength="2" />
+          <Property Name="versionPlastico" Type="varchar" MaxLength="2" />
+          <Property Name="TransaRech" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="UsuariosOnlineBroxel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Usuario" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="255" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="255" />
+          <Property Name="Sexo" Type="varchar" MaxLength="255" />
+          <Property Name="CorreoElectronico" Type="varchar" MaxLength="255" />
+          <Property Name="FechaCreacion" Type="datetime" Precision="0" />
+          <Property Name="FechaNacimiento" Type="datetime" Precision="0" />
+          <Property Name="RFC" Type="varchar" MaxLength="255" />
+          <Property Name="Telefono" Type="varchar" MaxLength="255" />
+          <Property Name="CP" Type="varchar" MaxLength="255" />
+          <Property Name="Celular" Type="varchar" MaxLength="255" />
+          <Property Name="Activo" Type="bool" Nullable="false" />
+          <Property Name="palabraClave" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <Function Name="spAfectaB1010" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="broxelco_rdg" />
+        <Function Name="spInsIdSecureUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="broxelco_rdg" />
+        <Function Name="spValidaIdUserSecure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="broxelco_rdg" />
+        <EntityContainer Name="broxelco_rdgModelStoreContainer">
+          <EntitySet Name="accessos_clientes" EntityType="Self.accessos_clientes" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="AgrupacionClientes" EntityType="Self.AgrupacionClientes" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="ciudadesCredencial" EntityType="Self.ciudadesCredencial" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="clientesBroxel" EntityType="Self.clientesBroxel" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="ClientesComisiones" EntityType="Self.ClientesComisiones" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="DetalleClientesBroxel" EntityType="Self.DetalleClientesBroxel" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="DetalleCuentasOrdenDeTrabajo" EntityType="Self.DetalleCuentasOrdenDeTrabajo" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="DetalleTarjetasOrdenDeTrabajo" EntityType="Self.DetalleTarjetasOrdenDeTrabajo" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="estadosCredencial" EntityType="Self.estadosCredencial" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="LogDetalleClientesBroxel" EntityType="Self.LogDetalleClientesBroxel" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="maquila" EntityType="Self.maquila" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="OrdenDeTrabajo" EntityType="Self.OrdenDeTrabajo" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="productos_broxel" EntityType="Self.productos_broxel" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="registro_tc" EntityType="Self.registro_tc" Schema="broxelco_rdg" store:Type="Tables" />
+          <EntitySet Name="UsuariosOnlineBroxel" EntityType="Self.UsuariosOnlineBroxel" Schema="broxelco_rdg" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="broxelco_rdgModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AgrupacionClientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrupoFiscal" Type="Boolean" Nullable="false" />
+          <Property Name="ClaveAgrupacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCorto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="razonSocial" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fechaConstitucion" Type="DateTime" />
+          <Property Name="rfc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="clavePais" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="actividadEconomica" Type="Int32" />
+          <Property Name="nombreRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="aPaternoRegLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="aMaternoRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fechaNacimientoRepLegal" Type="DateTime" />
+          <Property Name="rfcRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="curpRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="tipoIdRepLegal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="tipoIdOtroRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="autoridadEmiteRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="numIdentificacionRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="colonia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="calle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="numExt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numInt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="codigoPostal" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="paisTel" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="tel" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="CLABEDestino" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoContacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Localidad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Referencia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MunicipioDelegacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ReportaPLD" Type="Boolean" Nullable="false" />
+          <Property Name="EmiteFactura" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ciudadesCredencial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="CodigoCiudad" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ciudad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CodigoEstado" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="clientesBroxel">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="claveCliente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GrupoCliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCorto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="razonSocial" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaConstitucion" Type="DateTime" Nullable="false" />
+          <Property Name="rfc" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clavePais" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="actividadEconomica" Type="Int32" Nullable="false" />
+          <Property Name="nombreRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aPaternoRegLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aMaternoRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaNacimientoRepLegal" Type="DateTime" Nullable="false" />
+          <Property Name="rfcRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="curpRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoIdRepLegal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoIdOtroRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="autoridadEmiteRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="numIdentificacionRepLegal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colonia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numExt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numInt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigoPostal" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="paisTel" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="ClaveClienteWeb" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CLABEDestino" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoContacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Localidad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Referencia" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="MunicipioDelegacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="ReportaPLD" Type="Boolean" Nullable="false" />
+          <Property Name="EmiteFactura" Type="Boolean" Nullable="false" />
+          <Property Name="ClienteIndividual" Type="Boolean" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DetalleClientesBroxel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="ClaveCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Producto" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LineaCreditoOriginal" Type="Double" Nullable="false" />
+          <Property Name="Dispersado" Type="Double" Nullable="false" />
+          <Property Name="Abonos" Type="Double" Nullable="false" />
+          <Property Name="CargosB1010" Type="Double" Nullable="false" />
+          <Property Name="TransferenciasB1010" Type="Double" Nullable="false" />
+          <Property Name="DevolucionesDeCuentas" Type="Double" Nullable="false" />
+          <Property Name="PagosCredito" Type="Decimal" Nullable="false" />
+          <Property Name="LineaCreditoActual" Type="Double" Nullable="false" />
+          <Property Name="TopeMaximo" Type="Int32" Nullable="false" />
+          <Property Name="TipoRiesgo" Type="Int32" Nullable="false" />
+          <Property Name="CLABE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TipoComisionDisposicion" Type="Int32" Nullable="false" />
+          <Property Name="ComisionDisposicion" Type="Double" Nullable="false" />
+          <Property Name="ATM" Type="Double" Nullable="false" />
+          <Property Name="EnviaPagos" Type="Boolean" Nullable="false" />
+          <Property Name="SmartData" Type="Boolean" Nullable="false" />
+          <Property Name="Conferma" Type="Boolean" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="EnviaSMSs" Type="Boolean" Nullable="false" />
+          <Property Name="EncolaDispersiones" Type="Boolean" Nullable="false" />
+          <Property Name="TipoComisionTransferencia" Type="Int32" Nullable="false" />
+          <Property Name="ComisionTransferencia" Type="Double" Nullable="false" />
+          <Property Name="TipoConceptoComisionTransferencia" Type="Int32" Nullable="false" />
+          <Property Name="RecibeTransferencia" Type="Int32" Nullable="false" />
+          <Property Name="Activa_Bloquea" Type="SByte" />
+          <Property Name="HoraActivacion" Type="Time" />
+          <Property Name="HoraBloqueo" Type="Time" />
+          <Property Name="CuentaConcentradora" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="EjecutivoComercial" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FactorDeposito" Type="Decimal" Nullable="false" />
+          <Property Name="CambioDeNip" Type="Int32" Nullable="false" />
+          <Property Name="CorreoNotificaciones" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SMSNotificacion" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="DisposicionesSinCobro" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaUsuarioCreacion" Type="DateTime" />
+          <Property Name="AplicaSPEI" Type="Boolean" Nullable="false" />
+          <Property Name="DesglosaIEPS" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DetalleCuentasOrdenDeTrabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrdenTrabajo" Type="Int32" />
+          <Property Name="FolioOrdenTrabajo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="IdDetalleTarjetasOrdenImport" Type="Int32" />
+          <Property Name="CodigoDeProducto" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoServicio" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="NombreTarjetahabiente" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="CalleYNumPuerta" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Interior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Localidad" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Colonia" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoEstado" Type="Int32" />
+          <Property Name="CodigoProvincia" Type="Int32" />
+          <Property Name="CodigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDeDocumento" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDeDocumento" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="GrupoDeLiquidacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="HabilitaCompra" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="IdMaquila" Type="Int32" />
+        </EntityType>
+        <EntityType Name="DetalleTarjetasOrdenDeTrabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrdenTrabajo" Type="Int32" />
+          <Property Name="IdCuentaOrdenDeTrabajo" Type="Int32" />
+          <Property Name="FolioOrdenTrabajo" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="IdDetalleTarjetasOrdenImport" Type="Int32" />
+          <Property Name="Cuenta" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DenominacionTarjeta" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDeNacimiento" Type="DateTime" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="PorcentajeBonificacion" Type="Decimal" />
+          <Property Name="CodigoPeriodoBonificacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CantidadCuotasBonificacion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDesde" Type="DateTime" />
+          <Property Name="C4ta_linea" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MarcaTPP" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDeDocumento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoDeProducto" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="RFCEmpleado" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IMSS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdRegistroTc" Type="Int32" />
+          <Property Name="IdTarjetaCliente" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="estadosCredencial">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LetraEstado" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="maquila">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_corr" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="nro_tarjeta" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_titular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="num_cuenta" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroCalle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="piso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Colonia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_postal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDomicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumDocumento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDocumento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDeNacimiento" Type="DateTime" />
+          <Property Name="EstadoCivil" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Hijos" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Ocupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_tarjethabiente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="limite_compras" Type="Decimal" />
+          <Property Name="limite_credito" Type="Decimal" />
+          <Property Name="imp_adelantos" Type="Decimal" />
+          <Property Name="grupo_cuenta" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="producto" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="import" Type="DateTime" />
+          <Property Name="maquila1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="saldo_restante" Type="Decimal" />
+          <Property Name="total_movimientos" Type="Decimal" />
+          <Property Name="fecha_ultimo_movimiento" Type="DateTime" />
+          <Property Name="disponible" Type="Decimal" />
+          <Property Name="estado_operativo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_disponible" Type="DateTime" />
+          <Property Name="fecha_ultima_modificacion" Type="DateTime" />
+          <Property Name="cliente_bx" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cuenta_madre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="programa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="clave_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="C4ta_linea" Type="String" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_web" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="referenciaCliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MesesInactiva" Type="Int32" Nullable="false" />
+          <Property Name="Fondeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostalFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Calle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ColoniaFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EstadoFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MunicipioFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NumExterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NumInterior" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pais" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="IMSS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DCClaveCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DCConsecCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostalFiscat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdODTTarj" Type="Int32" />
+          <Property Name="IdTipoNotificacionSMS" Type="Int32" Nullable="false" />
+          <Property Name="IdNivelDeCuenta" Type="Int32" />
+        </EntityType>
+        <EntityType Name="OrdenDeTrabajo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Folio" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="ClaveCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaEnvio" Type="DateTime" />
+          <Property Name="UsuarioEnvio" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NombreSolicitante" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EmailNotificacion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoDeProducto" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoServicio" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="PorcentajeBonificacion" Type="Decimal" />
+          <Property Name="CodigoPeriodoBonificacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CantidadCuotasBonificacion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDesde" Type="DateTime" />
+          <Property Name="MarcaTPP" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="GrupoDeLiquidacion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="HabilitaCompra" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="File" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioGenera" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="FechaGenera" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="registro_tc">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idmaquila" Type="Int32" />
+          <Property Name="IdODTTarj" Type="Int32" />
+          <Property Name="tipo_de_registro" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="numero_de_cuenta" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="numero_tc" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="NumDocumento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="estado_operativo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_alta" Type="DateTime" />
+          <Property Name="fecha_baja" Type="DateTime" />
+          <Property Name="num_anterior" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="num_nuevo" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_proceso_alta" Type="DateTime" />
+          <Property Name="fecha_proceso_baja" Type="DateTime" />
+          <Property Name="marca_alta_renov_inh" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="importe_der_emis_renov" Type="Decimal" />
+          <Property Name="cant_cuotas_emis_renov" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_afinidad" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="grupo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_limite_compra" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="importe_limite_de_credito" Type="Decimal" />
+          <Property Name="codigo_de_producto" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_bco_sucursal" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="num_referencia_ABM" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="cant_cuotas_pend_emis_renov" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_ultima_actualizacion" Type="DateTime" />
+          <Property Name="filler" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="registroBroxel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="embozada" Type="Int32" Nullable="false" />
+          <Property Name="tipo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="codigoServicio" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="broxelEntrega" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idRegTcOLD" Type="Int32" />
+          <Property Name="codigoModificacion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="modoImpresion" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="versionPlastico" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="TransaRech" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="broxelco_rdgEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AgrupacionClientes" EntityType="Self.AgrupacionClientes" />
+          <EntitySet Name="ciudadesCredencial" EntityType="Self.ciudadesCredencial" />
+          <EntitySet Name="clientesBroxel" EntityType="Self.clientesBroxel" />
+          <EntitySet Name="DetalleClientesBroxel" EntityType="Self.DetalleClientesBroxel" />
+          <EntitySet Name="DetalleCuentasOrdenDeTrabajo" EntityType="Self.DetalleCuentasOrdenDeTrabajo" />
+          <EntitySet Name="DetalleTarjetasOrdenDeTrabajo" EntityType="Self.DetalleTarjetasOrdenDeTrabajo" />
+          <EntitySet Name="estadosCredencial" EntityType="Self.estadosCredencial" />
+          <EntitySet Name="maquila" EntityType="Self.maquila" />
+          <EntitySet Name="OrdenDeTrabajo" EntityType="Self.OrdenDeTrabajo" />
+          <EntitySet Name="registro_tc" EntityType="Self.registro_tc" />
+          <EntitySet Name="productos_broxel" EntityType="broxelco_rdgModel.productos_broxel" />
+          <EntitySet Name="ClientesComisiones" EntityType="broxelco_rdgModel.ClientesComisiones" />
+          <FunctionImport Name="spAfectaB1010" />
+          <EntitySet Name="LogDetalleClientesBroxel" EntityType="broxelco_rdgModel.LogDetalleClientesBroxel" />
+          <FunctionImport Name="spInsIdSecureUser" />
+          <FunctionImport Name="spValidaIdUserSecure" />
+          <EntitySet Name="accessos_clientes" EntityType="broxelco_rdgModel.accessos_clientes" />
+          <EntitySet Name="UsuariosOnlineBroxel" EntityType="broxelco_rdgModel.UsuariosOnlineBroxel" />
+        </EntityContainer>
+        <EntityType Name="productos_broxel">
+          <Key>
+            <PropertyRef Name="ID0" />
+          </Key>
+          <Property Name="ID0" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" />
+          <Property Name="codigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipodaldo" Type="Decimal" />
+          <Property Name="mensaje1" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="mensaje2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="branding" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="mensaje3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="dispersa" Type="SByte" />
+          <Property Name="DisposicionEfectivo" Type="Int32" Nullable="false" />
+          <Property Name="ComisionDisposicion" Type="Double" Nullable="false" />
+          <Property Name="PagoEnLinea" Type="Boolean" Nullable="false" />
+          <Property Name="PorcentajeDisposicion" Type="Single" />
+          <Property Name="Bin" Type="Int32" />
+          <Property Name="Programa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionProducto" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="SegurosAsistencia" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="Caracteristicas" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoAfinidad" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="SmartData" Type="Boolean" />
+          <Property Name="TipoComisionTransferencia" Type="Int32" Nullable="false" />
+          <Property Name="ComisionTransferencia" Type="Double" Nullable="false" />
+          <Property Name="TipoConceptoComisionTransferencia" Type="Int32" Nullable="false" />
+          <Property Name="RecibeTransferencia" Type="Int32" Nullable="false" />
+          <Property Name="TipoMedidasMaquila" Type="Int32" />
+          <Property Name="CambioDeNip" Type="Int32" Nullable="false" />
+          <Property Name="IncluirRedDePagos" Type="Boolean" Nullable="false" />
+          <Property Name="GenerarClabe" Type="Boolean" Nullable="false" />
+          <Property Name="EsGasoline" Type="Boolean" Nullable="false" />
+          <Property Name="ConsecCLABE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ClientesComisiones">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodigoComision" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ClaveCliente" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Producto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Porcentaje" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Monto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Concepto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaHoraModificacion" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogDetalleClientesBroxel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDetalleClientesBroxel" Type="Int32" />
+          <Property Name="Monto" Type="Double" />
+          <Property Name="Motivo" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
+          <Property Name="CampoAfectado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="accessos_clientes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_completo" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cuenta" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="celular" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="ActivoCuenta" Type="Boolean" Nullable="false" />
+          <Property Name="FechaHoraCreacion" Type="DateTime" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioOnlineBroxel" Type="Int64" Nullable="false" />
+          <Property Name="IdMaquila" Type="Int64" Nullable="false" />
+          <Property Name="Alias" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="UsuariosOnlineBroxel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Usuario" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Sexo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CorreoElectronico" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" />
+          <Property Name="FechaNacimiento" Type="DateTime" />
+          <Property Name="RFC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="palabraClave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="broxelco_rdgModelStoreContainer" CdmEntityContainer="broxelco_rdgEntities">
+          <EntitySetMapping Name="AgrupacionClientes">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.AgrupacionClientes">
+              <MappingFragment StoreEntitySet="AgrupacionClientes">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="GrupoFiscal" ColumnName="GrupoFiscal" />
+                <ScalarProperty Name="ClaveAgrupacion" ColumnName="ClaveAgrupacion" />
+                <ScalarProperty Name="NombreCorto" ColumnName="NombreCorto" />
+                <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
+                <ScalarProperty Name="fechaConstitucion" ColumnName="fechaConstitucion" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="clavePais" ColumnName="clavePais" />
+                <ScalarProperty Name="actividadEconomica" ColumnName="actividadEconomica" />
+                <ScalarProperty Name="nombreRepLegal" ColumnName="nombreRepLegal" />
+                <ScalarProperty Name="aPaternoRegLegal" ColumnName="aPaternoRegLegal" />
+                <ScalarProperty Name="aMaternoRepLegal" ColumnName="aMaternoRepLegal" />
+                <ScalarProperty Name="fechaNacimientoRepLegal" ColumnName="fechaNacimientoRepLegal" />
+                <ScalarProperty Name="rfcRepLegal" ColumnName="rfcRepLegal" />
+                <ScalarProperty Name="curpRepLegal" ColumnName="curpRepLegal" />
+                <ScalarProperty Name="tipoIdRepLegal" ColumnName="tipoIdRepLegal" />
+                <ScalarProperty Name="tipoIdOtroRepLegal" ColumnName="tipoIdOtroRepLegal" />
+                <ScalarProperty Name="autoridadEmiteRepLegal" ColumnName="autoridadEmiteRepLegal" />
+                <ScalarProperty Name="numIdentificacionRepLegal" ColumnName="numIdentificacionRepLegal" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numExt" ColumnName="numExt" />
+                <ScalarProperty Name="numInt" ColumnName="numInt" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="paisTel" ColumnName="paisTel" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="CLABEDestino" ColumnName="CLABEDestino" />
+                <ScalarProperty Name="CorreoContacto" ColumnName="CorreoContacto" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+                <ScalarProperty Name="MunicipioDelegacion" ColumnName="MunicipioDelegacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ReportaPLD" ColumnName="ReportaPLD" />
+                <ScalarProperty Name="EmiteFactura" ColumnName="EmiteFactura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ciudadesCredencial">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.ciudadesCredencial">
+              <MappingFragment StoreEntitySet="ciudadesCredencial">
+                <ScalarProperty Name="CodigoEstado" ColumnName="CodigoEstado" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="CodigoCiudad" ColumnName="CodigoCiudad" />
+                <ScalarProperty Name="Ciudad" ColumnName="Ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clientesBroxel">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.clientesBroxel">
+              <MappingFragment StoreEntitySet="clientesBroxel">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="claveCliente" ColumnName="claveCliente" />
+                <ScalarProperty Name="GrupoCliente" ColumnName="GrupoCliente" />
+                <ScalarProperty Name="NombreCorto" ColumnName="NombreCorto" />
+                <ScalarProperty Name="razonSocial" ColumnName="razonSocial" />
+                <ScalarProperty Name="fechaConstitucion" ColumnName="fechaConstitucion" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="clavePais" ColumnName="clavePais" />
+                <ScalarProperty Name="actividadEconomica" ColumnName="actividadEconomica" />
+                <ScalarProperty Name="nombreRepLegal" ColumnName="nombreRepLegal" />
+                <ScalarProperty Name="aPaternoRegLegal" ColumnName="aPaternoRegLegal" />
+                <ScalarProperty Name="aMaternoRepLegal" ColumnName="aMaternoRepLegal" />
+                <ScalarProperty Name="fechaNacimientoRepLegal" ColumnName="fechaNacimientoRepLegal" />
+                <ScalarProperty Name="rfcRepLegal" ColumnName="rfcRepLegal" />
+                <ScalarProperty Name="curpRepLegal" ColumnName="curpRepLegal" />
+                <ScalarProperty Name="tipoIdRepLegal" ColumnName="tipoIdRepLegal" />
+                <ScalarProperty Name="tipoIdOtroRepLegal" ColumnName="tipoIdOtroRepLegal" />
+                <ScalarProperty Name="autoridadEmiteRepLegal" ColumnName="autoridadEmiteRepLegal" />
+                <ScalarProperty Name="numIdentificacionRepLegal" ColumnName="numIdentificacionRepLegal" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numExt" ColumnName="numExt" />
+                <ScalarProperty Name="numInt" ColumnName="numInt" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="paisTel" ColumnName="paisTel" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="ClaveClienteWeb" ColumnName="ClaveClienteWeb" />
+                <ScalarProperty Name="CLABEDestino" ColumnName="CLABEDestino" />
+                <ScalarProperty Name="CorreoContacto" ColumnName="CorreoContacto" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Referencia" ColumnName="Referencia" />
+                <ScalarProperty Name="MunicipioDelegacion" ColumnName="MunicipioDelegacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="ReportaPLD" ColumnName="ReportaPLD" />
+                <ScalarProperty Name="EmiteFactura" ColumnName="EmiteFactura" />
+                <ScalarProperty Name="ClienteIndividual" ColumnName="ClienteIndividual" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleClientesBroxel">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.DetalleClientesBroxel">
+              <MappingFragment StoreEntitySet="DetalleClientesBroxel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="LineaCreditoOriginal" ColumnName="LineaCreditoOriginal" />
+                <ScalarProperty Name="Dispersado" ColumnName="Dispersado" />
+                <ScalarProperty Name="Abonos" ColumnName="Abonos" />
+                <ScalarProperty Name="CargosB1010" ColumnName="CargosB1010" />
+                <ScalarProperty Name="TransferenciasB1010" ColumnName="TransferenciasB1010" />
+                <ScalarProperty Name="DevolucionesDeCuentas" ColumnName="DevolucionesDeCuentas" />
+                <ScalarProperty Name="PagosCredito" ColumnName="PagosCredito" />
+                <ScalarProperty Name="LineaCreditoActual" ColumnName="LineaCreditoActual" />
+                <ScalarProperty Name="TopeMaximo" ColumnName="TopeMaximo" />
+                <ScalarProperty Name="TipoRiesgo" ColumnName="TipoRiesgo" />
+                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
+                <ScalarProperty Name="TipoComisionDisposicion" ColumnName="TipoComisionDisposicion" />
+                <ScalarProperty Name="ComisionDisposicion" ColumnName="ComisionDisposicion" />
+                <ScalarProperty Name="ATM" ColumnName="ATM" />
+                <ScalarProperty Name="EnviaPagos" ColumnName="EnviaPagos" />
+                <ScalarProperty Name="SmartData" ColumnName="SmartData" />
+                <ScalarProperty Name="Conferma" ColumnName="Conferma" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="EnviaSMSs" ColumnName="EnviaSMSs" />
+                <ScalarProperty Name="EncolaDispersiones" ColumnName="EncolaDispersiones" />
+                <ScalarProperty Name="TipoComisionTransferencia" ColumnName="TipoComisionTransferencia" />
+                <ScalarProperty Name="ComisionTransferencia" ColumnName="ComisionTransferencia" />
+                <ScalarProperty Name="TipoConceptoComisionTransferencia" ColumnName="TipoConceptoComisionTransferencia" />
+                <ScalarProperty Name="RecibeTransferencia" ColumnName="RecibeTransferencia" />
+                <ScalarProperty Name="Activa_Bloquea" ColumnName="Activa_Bloquea" />
+                <ScalarProperty Name="HoraActivacion" ColumnName="HoraActivacion" />
+                <ScalarProperty Name="HoraBloqueo" ColumnName="HoraBloqueo" />
+                <ScalarProperty Name="CuentaConcentradora" ColumnName="CuentaConcentradora" />
+                <ScalarProperty Name="EjecutivoComercial" ColumnName="EjecutivoComercial" />
+                <ScalarProperty Name="FactorDeposito" ColumnName="FactorDeposito" />
+                <ScalarProperty Name="CambioDeNip" ColumnName="CambioDeNip" />
+                <ScalarProperty Name="CorreoNotificaciones" ColumnName="CorreoNotificaciones" />
+                <ScalarProperty Name="SMSNotificacion" ColumnName="SMSNotificacion" />
+                <ScalarProperty Name="DisposicionesSinCobro" ColumnName="DisposicionesSinCobro" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaUsuarioCreacion" ColumnName="FechaUsuarioCreacion" />
+                <ScalarProperty Name="AplicaSPEI" ColumnName="AplicaSPEI" />
+                <ScalarProperty Name="DesglosaIEPS" ColumnName="DesglosaIEPS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleCuentasOrdenDeTrabajo">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.DetalleCuentasOrdenDeTrabajo">
+              <MappingFragment StoreEntitySet="DetalleCuentasOrdenDeTrabajo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdOrdenTrabajo" ColumnName="IdOrdenTrabajo" />
+                <ScalarProperty Name="FolioOrdenTrabajo" ColumnName="FolioOrdenTrabajo" />
+                <ScalarProperty Name="IdDetalleTarjetasOrdenImport" ColumnName="IdDetalleTarjetasOrdenImport" />
+                <ScalarProperty Name="CodigoDeProducto" ColumnName="CodigoDeProducto" />
+                <ScalarProperty Name="CodigoServicio" ColumnName="CodigoServicio" />
+                <ScalarProperty Name="NombreTarjetahabiente" ColumnName="NombreTarjetahabiente" />
+                <ScalarProperty Name="CalleYNumPuerta" ColumnName="CalleYNumPuerta" />
+                <ScalarProperty Name="Interior" ColumnName="Interior" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="CodigoEstado" ColumnName="CodigoEstado" />
+                <ScalarProperty Name="CodigoProvincia" ColumnName="CodigoProvincia" />
+                <ScalarProperty Name="CodigoPostal" ColumnName="CodigoPostal" />
+                <ScalarProperty Name="TipoDeDocumento" ColumnName="TipoDeDocumento" />
+                <ScalarProperty Name="NumeroDeDocumento" ColumnName="NumeroDeDocumento" />
+                <ScalarProperty Name="GrupoDeLiquidacion" ColumnName="GrupoDeLiquidacion" />
+                <ScalarProperty Name="HabilitaCompra" ColumnName="HabilitaCompra" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IdMaquila" ColumnName="IdMaquila" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleTarjetasOrdenDeTrabajo">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.DetalleTarjetasOrdenDeTrabajo">
+              <MappingFragment StoreEntitySet="DetalleTarjetasOrdenDeTrabajo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdOrdenTrabajo" ColumnName="IdOrdenTrabajo" />
+                <ScalarProperty Name="IdCuentaOrdenDeTrabajo" ColumnName="IdCuentaOrdenDeTrabajo" />
+                <ScalarProperty Name="FolioOrdenTrabajo" ColumnName="FolioOrdenTrabajo" />
+                <ScalarProperty Name="IdDetalleTarjetasOrdenImport" ColumnName="IdDetalleTarjetasOrdenImport" />
+                <ScalarProperty Name="Cuenta" ColumnName="Cuenta" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="DenominacionTarjeta" ColumnName="DenominacionTarjeta" />
+                <ScalarProperty Name="FechaDeNacimiento" ColumnName="FechaDeNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="PorcentajeBonificacion" ColumnName="PorcentajeBonificacion" />
+                <ScalarProperty Name="CodigoPeriodoBonificacion" ColumnName="CodigoPeriodoBonificacion" />
+                <ScalarProperty Name="CantidadCuotasBonificacion" ColumnName="CantidadCuotasBonificacion" />
+                <ScalarProperty Name="FechaDesde" ColumnName="FechaDesde" />
+                <ScalarProperty Name="C4ta_linea" ColumnName="4ta_linea" />
+                <ScalarProperty Name="MarcaTPP" ColumnName="MarcaTPP" />
+                <ScalarProperty Name="NumeroDeDocumento" ColumnName="NumeroDeDocumento" />
+                <ScalarProperty Name="CodigoDeProducto" ColumnName="CodigoDeProducto" />
+                <ScalarProperty Name="RFCEmpleado" ColumnName="RFCEmpleado" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IMSS" ColumnName="IMSS" />
+                <ScalarProperty Name="IdRegistroTc" ColumnName="IdRegistroTc" />
+                <ScalarProperty Name="IdTarjetaCliente" ColumnName="IdTarjetaCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estadosCredencial">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.estadosCredencial">
+              <MappingFragment StoreEntitySet="estadosCredencial">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="LetraEstado" ColumnName="LetraEstado" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="maquila">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.maquila">
+              <MappingFragment StoreEntitySet="maquila">
+                <ScalarProperty Name="IdNivelDeCuenta" ColumnName="IdNivelDeCuenta" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nro_corr" ColumnName="nro-corr" />
+                <ScalarProperty Name="nro_tarjeta" ColumnName="nro-tarjeta" />
+                <ScalarProperty Name="nombre_titular" ColumnName="nombre_titular" />
+                <ScalarProperty Name="num_cuenta" ColumnName="num_cuenta" />
+                <ScalarProperty Name="domicilio" ColumnName="domicilio" />
+                <ScalarProperty Name="NumeroCalle" ColumnName="NumeroCalle" />
+                <ScalarProperty Name="piso" ColumnName="piso" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="TipoDomicilio" ColumnName="TipoDomicilio" />
+                <ScalarProperty Name="NumDocumento" ColumnName="NumDocumento" />
+                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="FechaDeNacimiento" ColumnName="FechaDeNacimiento" />
+                <ScalarProperty Name="EstadoCivil" ColumnName="EstadoCivil" />
+                <ScalarProperty Name="Hijos" ColumnName="Hijos" />
+                <ScalarProperty Name="Ocupacion" ColumnName="Ocupacion" />
+                <ScalarProperty Name="nombre_tarjethabiente" ColumnName="nombre_tarjethabiente" />
+                <ScalarProperty Name="limite_compras" ColumnName="limite_compras" />
+                <ScalarProperty Name="limite_credito" ColumnName="limite_credito" />
+                <ScalarProperty Name="imp_adelantos" ColumnName="imp_adelantos" />
+                <ScalarProperty Name="grupo_cuenta" ColumnName="grupo_cuenta" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="import" ColumnName="import" />
+                <ScalarProperty Name="maquila1" ColumnName="maquila" />
+                <ScalarProperty Name="saldo_restante" ColumnName="saldo_restante" />
+                <ScalarProperty Name="total_movimientos" ColumnName="total_movimientos" />
+                <ScalarProperty Name="fecha_ultimo_movimiento" ColumnName="fecha_ultimo_movimiento" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+                <ScalarProperty Name="estado_operativo" ColumnName="estado_operativo" />
+                <ScalarProperty Name="fecha_disponible" ColumnName="fecha_disponible" />
+                <ScalarProperty Name="fecha_ultima_modificacion" ColumnName="fecha_ultima_modificacion" />
+                <ScalarProperty Name="cliente_bx" ColumnName="cliente_bx" />
+                <ScalarProperty Name="cuenta_madre" ColumnName="cuenta_madre" />
+                <ScalarProperty Name="programa" ColumnName="programa" />
+                <ScalarProperty Name="clave_cliente" ColumnName="clave_cliente" />
+                <ScalarProperty Name="C4ta_linea" ColumnName="4ta_linea" />
+                <ScalarProperty Name="usuario_web" ColumnName="usuario_web" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="referenciaCliente" ColumnName="referenciaCliente" />
+                <ScalarProperty Name="MesesInactiva" ColumnName="MesesInactiva" />
+                <ScalarProperty Name="Fondeo" ColumnName="Fondeo" />
+                <ScalarProperty Name="CodigoPostalFiscal" ColumnName="CodigoPostalFiscal" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="ColoniaFiscal" ColumnName="ColoniaFiscal" />
+                <ScalarProperty Name="EstadoFiscal" ColumnName="EstadoFiscal" />
+                <ScalarProperty Name="LocalidadFiscal" ColumnName="LocalidadFiscal" />
+                <ScalarProperty Name="MunicipioFiscal" ColumnName="MunicipioFiscal" />
+                <ScalarProperty Name="NumExterior" ColumnName="NumExterior" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="NumInterior" ColumnName="NumInterior" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="IMSS" ColumnName="IMSS" />
+                <ScalarProperty Name="DCClaveCliente" ColumnName="DCClaveCliente" />
+                <ScalarProperty Name="DCConsecCliente" ColumnName="DCConsecCliente" />
+                <ScalarProperty Name="CodigoPostalFiscat" ColumnName="CodigoPostalFiscat" />
+                <ScalarProperty Name="IdODTTarj" ColumnName="IdODTTarj" />
+                <ScalarProperty Name="IdTipoNotificacionSMS" ColumnName="IdTipoNotificacionSMS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenDeTrabajo">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.OrdenDeTrabajo">
+              <MappingFragment StoreEntitySet="OrdenDeTrabajo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Folio" ColumnName="Folio" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaEnvio" ColumnName="FechaEnvio" />
+                <ScalarProperty Name="UsuarioEnvio" ColumnName="UsuarioEnvio" />
+                <ScalarProperty Name="NombreSolicitante" ColumnName="NombreSolicitante" />
+                <ScalarProperty Name="EmailNotificacion" ColumnName="EmailNotificacion" />
+                <ScalarProperty Name="CodigoDeProducto" ColumnName="CodigoDeProducto" />
+                <ScalarProperty Name="CodigoServicio" ColumnName="CodigoServicio" />
+                <ScalarProperty Name="PorcentajeBonificacion" ColumnName="PorcentajeBonificacion" />
+                <ScalarProperty Name="CodigoPeriodoBonificacion" ColumnName="CodigoPeriodoBonificacion" />
+                <ScalarProperty Name="CantidadCuotasBonificacion" ColumnName="CantidadCuotasBonificacion" />
+                <ScalarProperty Name="FechaDesde" ColumnName="FechaDesde" />
+                <ScalarProperty Name="MarcaTPP" ColumnName="MarcaTPP" />
+                <ScalarProperty Name="GrupoDeLiquidacion" ColumnName="GrupoDeLiquidacion" />
+                <ScalarProperty Name="HabilitaCompra" ColumnName="HabilitaCompra" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="UsuarioGenera" ColumnName="UsuarioGenera" />
+                <ScalarProperty Name="FechaGenera" ColumnName="FechaGenera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="registro_tc">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.registro_tc">
+              <MappingFragment StoreEntitySet="registro_tc">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="idmaquila" ColumnName="idmaquila" />
+                <ScalarProperty Name="IdODTTarj" ColumnName="IdODTTarj" />
+                <ScalarProperty Name="tipo_de_registro" ColumnName="tipo_de_registro" />
+                <ScalarProperty Name="numero_de_cuenta" ColumnName="numero_de_cuenta" />
+                <ScalarProperty Name="numero_tc" ColumnName="numero_tc" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="NumDocumento" ColumnName="NumDocumento" />
+                <ScalarProperty Name="estado_operativo" ColumnName="estado_operativo" />
+                <ScalarProperty Name="fecha_alta" ColumnName="fecha_alta" />
+                <ScalarProperty Name="fecha_baja" ColumnName="fecha_baja" />
+                <ScalarProperty Name="num_anterior" ColumnName="num_anterior" />
+                <ScalarProperty Name="num_nuevo" ColumnName="num_nuevo" />
+                <ScalarProperty Name="fecha_proceso_alta" ColumnName="fecha_proceso_alta" />
+                <ScalarProperty Name="fecha_proceso_baja" ColumnName="fecha_proceso_baja" />
+                <ScalarProperty Name="marca_alta_renov_inh" ColumnName="marca_alta_renov_inh" />
+                <ScalarProperty Name="importe_der_emis_renov" ColumnName="importe_der_emis_renov" />
+                <ScalarProperty Name="cant_cuotas_emis_renov" ColumnName="cant_cuotas_emis_renov" />
+                <ScalarProperty Name="codigo_afinidad" ColumnName="codigo_afinidad" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="codigo_limite_compra" ColumnName="codigo_limite_compra" />
+                <ScalarProperty Name="importe_limite_de_credito" ColumnName="importe_limite_de_credito" />
+                <ScalarProperty Name="codigo_de_producto" ColumnName="codigo_de_producto" />
+                <ScalarProperty Name="codigo_bco_sucursal" ColumnName="codigo_bco_sucursal" />
+                <ScalarProperty Name="num_referencia_ABM" ColumnName="num_referencia_ABM" />
+                <ScalarProperty Name="cant_cuotas_pend_emis_renov" ColumnName="cant_cuotas_pend_emis_renov" />
+                <ScalarProperty Name="fecha_ultima_actualizacion" ColumnName="fecha_ultima_actualizacion" />
+                <ScalarProperty Name="filler" ColumnName="filler" />
+                <ScalarProperty Name="registroBroxel" ColumnName="registroBroxel" />
+                <ScalarProperty Name="embozada" ColumnName="embozada" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="codigoServicio" ColumnName="codigoServicio" />
+                <ScalarProperty Name="broxelEntrega" ColumnName="broxelEntrega" />
+                <ScalarProperty Name="idRegTcOLD" ColumnName="idRegTcOLD" />
+                <ScalarProperty Name="codigoModificacion" ColumnName="codigoModificacion" />
+                <ScalarProperty Name="modoImpresion" ColumnName="modoImpresion" />
+                <ScalarProperty Name="versionPlastico" ColumnName="versionPlastico" />
+                <ScalarProperty Name="TransaRech" ColumnName="TransaRech" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos_broxel">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.productos_broxel">
+              <MappingFragment StoreEntitySet="productos_broxel">
+                <ScalarProperty Name="ConsecCLABE" ColumnName="ConsecCLABE" />
+                <ScalarProperty Name="EsGasoline" ColumnName="EsGasoline" />
+                <ScalarProperty Name="GenerarClabe" ColumnName="GenerarClabe" />
+                <ScalarProperty Name="IncluirRedDePagos" ColumnName="IncluirRedDePagos" />
+                <ScalarProperty Name="CambioDeNip" ColumnName="CambioDeNip" />
+                <ScalarProperty Name="TipoMedidasMaquila" ColumnName="TipoMedidasMaquila" />
+                <ScalarProperty Name="RecibeTransferencia" ColumnName="RecibeTransferencia" />
+                <ScalarProperty Name="TipoConceptoComisionTransferencia" ColumnName="TipoConceptoComisionTransferencia" />
+                <ScalarProperty Name="ComisionTransferencia" ColumnName="ComisionTransferencia" />
+                <ScalarProperty Name="TipoComisionTransferencia" ColumnName="TipoComisionTransferencia" />
+                <ScalarProperty Name="SmartData" ColumnName="SmartData" />
+                <ScalarProperty Name="CodigoAfinidad" ColumnName="CodigoAfinidad" />
+                <ScalarProperty Name="Caracteristicas" ColumnName="Caracteristicas" />
+                <ScalarProperty Name="SegurosAsistencia" ColumnName="SegurosAsistencia" />
+                <ScalarProperty Name="DescripcionProducto" ColumnName="DescripcionProducto" />
+                <ScalarProperty Name="Programa" ColumnName="Programa" />
+                <ScalarProperty Name="Bin" ColumnName="Bin" />
+                <ScalarProperty Name="PorcentajeDisposicion" ColumnName="PorcentajeDisposicion" />
+                <ScalarProperty Name="PagoEnLinea" ColumnName="PagoEnLinea" />
+                <ScalarProperty Name="ComisionDisposicion" ColumnName="ComisionDisposicion" />
+                <ScalarProperty Name="DisposicionEfectivo" ColumnName="DisposicionEfectivo" />
+                <ScalarProperty Name="dispersa" ColumnName="dispersa" />
+                <ScalarProperty Name="tipo" ColumnName="tipo" />
+                <ScalarProperty Name="mensaje3" ColumnName="mensaje3" />
+                <ScalarProperty Name="branding" ColumnName="branding" />
+                <ScalarProperty Name="mensaje2" ColumnName="mensaje2" />
+                <ScalarProperty Name="mensaje1" ColumnName="mensaje1" />
+                <ScalarProperty Name="tipodaldo" ColumnName="tipodaldo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ID0" ColumnName="ID0" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientesComisiones">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.ClientesComisiones">
+              <MappingFragment StoreEntitySet="ClientesComisiones">
+                <ScalarProperty Name="FechaHoraModificacion" ColumnName="FechaHoraModificacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="CodigoComision" ColumnName="CodigoComision" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAfectaB1010" FunctionName="broxelco_rdgModel.Store.spAfectaB1010" />
+          <EntitySetMapping Name="LogDetalleClientesBroxel">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.LogDetalleClientesBroxel">
+              <MappingFragment StoreEntitySet="LogDetalleClientesBroxel">
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="CampoAfectado" ColumnName="CampoAfectado" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="IdDetalleClientesBroxel" ColumnName="IdDetalleClientesBroxel" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spInsIdSecureUser" FunctionName="broxelco_rdgModel.Store.spInsIdSecureUser" />
+          <FunctionImportMapping FunctionImportName="spValidaIdUserSecure" FunctionName="broxelco_rdgModel.Store.spValidaIdUserSecure" />
+          <EntitySetMapping Name="accessos_clientes">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.accessos_clientes">
+              <MappingFragment StoreEntitySet="accessos_clientes">
+                <ScalarProperty Name="Alias" ColumnName="Alias" />
+                <ScalarProperty Name="IdMaquila" ColumnName="IdMaquila" />
+                <ScalarProperty Name="IdUsuarioOnlineBroxel" ColumnName="IdUsuarioOnlineBroxel" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FechaHoraCreacion" ColumnName="FechaHoraCreacion" />
+                <ScalarProperty Name="ActivoCuenta" ColumnName="ActivoCuenta" />
+                <ScalarProperty Name="celular" ColumnName="celular" />
+                <ScalarProperty Name="cuenta" ColumnName="cuenta" />
+                <ScalarProperty Name="nombre_completo" ColumnName="nombre_completo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuariosOnlineBroxel">
+            <EntityTypeMapping TypeName="broxelco_rdgModel.UsuariosOnlineBroxel">
+              <MappingFragment StoreEntitySet="UsuariosOnlineBroxel">
+                <ScalarProperty Name="palabraClave" ColumnName="palabraClave" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CorreoElectronico" ColumnName="CorreoElectronico" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
