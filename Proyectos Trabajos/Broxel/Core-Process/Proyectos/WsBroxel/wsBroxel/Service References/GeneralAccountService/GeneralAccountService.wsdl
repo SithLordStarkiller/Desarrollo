@@ -1,0 +1,765 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GeneralAccountService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="CreateGeneralAccount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="generalAccountAdd" nillable="true" type="q1:GeneralAccountAddDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CreateGeneralAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="CreateGeneralAccountResult" nillable="true" type="q2:AddAccountResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateAccount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="filter" nillable="true" type="q3:GeneralAccountSearchDTO" />
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="data" nillable="true" type="q4:GeneralAccountMaintenanceDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="UpdateAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="UpdateAccountResult" nillable="true" type="q5:AccountMaintenanceResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CancelAccount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="input" nillable="true" type="q6:GeneralAccountSearchDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CancelAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="CancelAccountResult" nillable="true" type="q7:AccountMaintenanceResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCardAccount">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="issuerCode" nillable="true" type="xs:string" />
+            <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetCardAccount" minOccurs="0" name="input" nillable="true" type="q8:GetCardAccountDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetCardAccountResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetCardAccount" minOccurs="0" name="GetCardAccountResult" nillable="true" type="q9:GetCardAccountResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetBalance">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="IssuerCode" nillable="true" type="xs:string" />
+            <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetBalance" minOccurs="0" name="input" nillable="true" type="q10:GetBalanceDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetBalanceResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetBalance" minOccurs="0" name="GetBalanceResult" nillable="true" type="q11:GetBalanceResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="GeneralAccountAddDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AcceptEmailAccountStatement" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AccountDebit" nillable="true" type="tns:ArrayOfDebitAccount2DTO" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.AddAccountDTO" minOccurs="0" name="Additionals" nillable="true" type="q1:ArrayOfCustomerDTO" />
+          <xs:element minOccurs="0" name="CreditCommercialConditions" nillable="true" type="tns:CreditCommercialConditionsDTO" />
+          <xs:element minOccurs="0" name="DeliveryType" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GeneratePrintedAccountStatement" type="xs:boolean" />
+          <xs:element minOccurs="0" name="HasFraudAndProtectionInsurance" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IssuerBranchCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IssuerBranchGeoState" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IssuerCode" nillable="true" type="xs:string" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.AddAccountDTO" minOccurs="0" name="MainResponsible" nillable="true" type="q2:CustomerDTO" />
+          <xs:element minOccurs="0" name="PackageFeeCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ParentAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProductGroupCode" type="xs:int" />
+          <xs:element minOccurs="0" name="ProductType" type="xs:short" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.AddAccountDTO" minOccurs="0" name="SecondaryResponsible" nillable="true" type="q3:CustomerDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GeneralAccountAddDTO" nillable="true" type="tns:GeneralAccountAddDTO" />
+      <xs:complexType name="ArrayOfDebitAccount2DTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="DebitAccount2DTO" nillable="true" type="tns:DebitAccount2DTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfDebitAccount2DTO" nillable="true" type="tns:ArrayOfDebitAccount2DTO" />
+      <xs:complexType name="DebitAccount2DTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BankAccountCurrencyCode" type="xs:short" />
+          <xs:element minOccurs="0" name="BankAccountHolder" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BankAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BankAccountType" type="xs:short" />
+          <xs:element minOccurs="0" name="BankAgencyCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BankCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="DebitAccount2DTO" nillable="true" type="tns:DebitAccount2DTO" />
+      <xs:complexType name="LegalPersonDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActivityCountry" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="ActivityScope" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="AnualBillingCurrency" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="AnualBillingValue" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="BusinessEntityTypeCode" nillable="true" type="xs:string" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.AddAccountDTO" minOccurs="0" name="CustomerProducts" nillable="true" type="q4:ArrayOfProductDTO" />
+          <xs:element minOccurs="0" name="EconomicGroupCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmbossingName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmployeesNumber" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="FantasyName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FoundationCountry" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="FoundationDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LegalName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MerchantCategoryCode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="NetWorthCurrency" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="NetWorthValue" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="StartActivityDate" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="LegalPersonDTO" nillable="true" type="tns:LegalPersonDTO" />
+      <xs:complexType name="ArrayOfCreditLineDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CreditLineDTO" nillable="true" type="tns:CreditLineDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCreditLineDTO" nillable="true" type="tns:ArrayOfCreditLineDTO" />
+      <xs:complexType name="CreditLineDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreditLineCode" type="xs:long" />
+          <xs:element minOccurs="0" name="CreditLineValue" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CreditLineValueType" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CreditLineDTO" nillable="true" type="tns:CreditLineDTO" />
+      <xs:complexType name="EmploymentInfoDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ByContract" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ContractDueDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Employer" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmployerDocument" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmployerDocumentTypeCode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="EmploymentOccupationCode" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="EmploymentSectorCode" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="HasExternalIncomes" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="HasOwnIncomes" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsPoliticallyExposed" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Position" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RegistrationDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TotalIncomes" nillable="true" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="EmploymentInfoDTO" nillable="true" type="tns:EmploymentInfoDTO" />
+      <xs:complexType name="CreditCommercialConditionsDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CloseDateCode" type="xs:short" />
+          <xs:element minOccurs="0" name="CreditLimit" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DebitType" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="PaymentMethod" type="xs:short" />
+          <xs:element minOccurs="0" name="SettlementModelCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CreditCommercialConditionsDTO" nillable="true" type="tns:CreditCommercialConditionsDTO" />
+      <xs:complexType name="AddAccountResponseDTO">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q5="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" base="q5:ResponseDTO">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="GeneralAccountResponse" nillable="true" type="tns:GeneralAccountResponseDTO" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="AddAccountResponseDTO" nillable="true" type="tns:AddAccountResponseDTO" />
+      <xs:complexType name="GeneralAccountResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GeneralAccountNumber" type="xs:long" />
+          <xs:element minOccurs="0" name="PaymentMedias" nillable="true" type="tns:ArrayOfPaymentMediaResponseDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GeneralAccountResponseDTO" nillable="true" type="tns:GeneralAccountResponseDTO" />
+      <xs:complexType name="ArrayOfPaymentMediaResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PaymentMediaResponseDTO" nillable="true" type="tns:PaymentMediaResponseDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfPaymentMediaResponseDTO" nillable="true" type="tns:ArrayOfPaymentMediaResponseDTO" />
+      <xs:complexType name="PaymentMediaResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CardDueDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardSequenceNumber" type="xs:short" />
+          <xs:element minOccurs="0" name="CustomerDocument" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerDocumentType" type="xs:short" />
+          <xs:element minOccurs="0" name="ProductCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PaymentMediaResponseDTO" nillable="true" type="tns:PaymentMediaResponseDTO" />
+      <xs:complexType name="GeneralAccountSearchDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="GeneralAccountNumber" type="xs:long" />
+          <xs:element minOccurs="0" name="IssuerCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GeneralAccountSearchDTO" nillable="true" type="tns:GeneralAccountSearchDTO" />
+      <xs:complexType name="GeneralAccountMaintenanceDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AcceptEmailAccountStatement" type="xs:boolean" />
+          <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.UpdateAccountDTO" minOccurs="0" name="CreditCommercialConditions" nillable="true" type="q6:CreditCommercialConditionsDTO" />
+          <xs:element minOccurs="0" name="DebitAccounts" nillable="true" type="tns:ArrayOfDebitAccount2DTO" />
+          <xs:element minOccurs="0" name="DeliveryType" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GeneratePrintedAccountStatement" type="xs:boolean" />
+          <xs:element minOccurs="0" name="HasFraudAndProtectionInsurance" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IssuerBranchCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IssuerBranchGeoState" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PackageFeeCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GeneralAccountMaintenanceDTO" nillable="true" type="tns:GeneralAccountMaintenanceDTO" />
+      <xs:complexType name="AccountMaintenanceResponseDTO">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q7="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" base="q7:ResponseDTO">
+            <xs:sequence />
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="AccountMaintenanceResponseDTO" nillable="true" type="tns:AccountMaintenanceResponseDTO" />
+      <xs:complexType name="CustomerDTO2">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddressDTO" />
+          <xs:element minOccurs="0" name="CustomerType" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="Document" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DocumentTypeCode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="FinancialRelationType" type="xs:short" />
+          <xs:element minOccurs="0" name="LegalPerson" nillable="true" type="tns:LegalPersonDTO" />
+          <xs:element minOccurs="0" name="PhysicalPerson" nillable="true" type="tns:PhysicalPersonDTO" />
+          <xs:element minOccurs="0" name="SameAddressForMailing" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UseParentAddress" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CustomerDTO2" nillable="true" type="tns:CustomerDTO2" />
+      <xs:complexType name="ArrayOfAddressDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AddressDTO" nillable="true" type="tns:AddressDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAddressDTO" nillable="true" type="tns:ArrayOfAddressDTO" />
+      <xs:complexType name="AddressDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalInfo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AddressCode" type="xs:int" />
+          <xs:element minOccurs="0" name="AddressType" type="xs:short" />
+          <xs:element minOccurs="0" name="AreaCodePhoneNumber" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="CelNumber" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="CityCode" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="CountryCode" type="xs:short" />
+          <xs:element minOccurs="0" name="CountryCodeCelNumber" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="CountryCodePhoneNumber" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="DoorNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExtensionPhoneNumber" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="GeographicCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Neighbourhood" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StreetType" nillable="true" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AddressDTO" nillable="true" type="tns:AddressDTO" />
+      <xs:complexType name="PhysicalPersonDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalDocument" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AdditionalDocumentTypeCode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BirthPlace" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerProducts" nillable="true" type="tns:ArrayOfPaymentMediaDTO" />
+          <xs:element minOccurs="0" name="CustomerSurname" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmbossingName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmploymentInfo" nillable="true" type="tns:EmploymentInfoDTO" />
+          <xs:element minOccurs="0" name="ExternalCustomerId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Gender" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="MaritalStatus" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="Nationality" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="NumberOfChildren" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="SamePhysicalAsMainResponsible" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PhysicalPersonDTO" nillable="true" type="tns:PhysicalPersonDTO" />
+      <xs:complexType name="ArrayOfPaymentMediaDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PaymentMediaDTO" nillable="true" type="tns:PaymentMediaDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfPaymentMediaDTO" nillable="true" type="tns:ArrayOfPaymentMediaDTO" />
+      <xs:complexType name="PaymentMediaDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DueDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MaskedPan" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PaymentMediaCode" type="xs:int" />
+          <xs:element minOccurs="0" name="PaymentMediaProduct" nillable="true" type="tns:ProductDTO" />
+          <xs:element minOccurs="0" name="PaymentStatusCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PaymentMediaDTO" nillable="true" type="tns:PaymentMediaDTO" />
+      <xs:complexType name="ProductDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AffinityGroupCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalCardNumber" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="ExternalDueDate" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="ProductCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProductCreditLines" nillable="true" type="tns:ArrayOfCreditLineDTO" />
+          <xs:element minOccurs="0" name="ProductName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ProductDTO" nillable="true" type="tns:ProductDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.AddAccountDTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.AddAccountDTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfCustomerDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomerDTO" nillable="true" type="tns:CustomerDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCustomerDTO" nillable="true" type="tns:ArrayOfCustomerDTO" />
+      <xs:complexType name="CustomerDTO">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.UpdateAccountCustomer" minOccurs="0" name="Addresses" nillable="true" type="q1:ArrayOfAddressDTO" />
+          <xs:element minOccurs="0" name="CustomerCode" type="xs:int" />
+          <xs:element minOccurs="0" name="CustomerType" type="xs:short" />
+          <xs:element minOccurs="0" name="Document" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DocumentTypeCode" type="xs:short" />
+          <xs:element minOccurs="0" name="FinantialRelationType" type="xs:short" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="LegalPerson" nillable="true" type="q2:LegalPersonDTO" />
+          <xs:element minOccurs="0" name="PhysicalPerson" nillable="true" type="tns:PhysicalPersonDTO" />
+          <xs:element minOccurs="0" name="SameAddressForMailing" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UseParentAddress" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CustomerDTO" nillable="true" type="tns:CustomerDTO" />
+      <xs:complexType name="ArrayOfProductDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductDTO" nillable="true" type="tns:ProductDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfProductDTO" nillable="true" type="tns:ArrayOfProductDTO" />
+      <xs:complexType name="ProductDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AffinityGroupCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalCardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalDueDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalTransactionBin" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalTransactionMaskedPan" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="HasFraudAndProtectionInsurance" type="xs:boolean" />
+          <xs:element minOccurs="0" name="ProductCode" nillable="true" type="xs:string" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="ProductCreditLines" nillable="true" type="q3:ArrayOfCreditLineDTO" />
+          <xs:element minOccurs="0" name="Urgent" nillable="true" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ProductDTO" nillable="true" type="tns:ProductDTO" />
+      <xs:complexType name="PhysicalPersonDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalDocument" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AdditionalDocumentTypeCode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BirthPlace" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CustomerProducts" nillable="true" type="tns:ArrayOfProductDTO" />
+          <xs:element minOccurs="0" name="CustomerSurname" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmbossingName" nillable="true" type="xs:string" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="EmploymentInfo" nillable="true" type="q4:EmploymentInfoDTO" />
+          <xs:element minOccurs="0" name="ExternalCustomerId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="Gender" type="xs:short" />
+          <xs:element minOccurs="0" name="MaritalStatus" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="Nationality" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="NumberOfChildren" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="SamePhysicalAsMainResponsible" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PhysicalPersonDTO" nillable="true" type="tns:PhysicalPersonDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.UpdateAccountCustomer" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.UpdateAccountCustomer" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ArrayOfAddressDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AddressDTO" nillable="true" type="tns:AddressDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfAddressDTO" nillable="true" type="tns:ArrayOfAddressDTO" />
+      <xs:complexType name="AddressDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdditionalInfo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AddressType" type="xs:short" />
+          <xs:element minOccurs="0" name="AreaCodePhoneNumber" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="CelNumber" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="CityCode" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="CountryCode" type="xs:short" />
+          <xs:element minOccurs="0" name="CountryCodeCelNumber" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="CountryCodePhoneNumber" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="DoorNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExtensionPhoneNumber" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="GeographicCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Neighbourhood" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Street" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StreetType" nillable="true" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="AddressDTO" nillable="true" type="tns:AddressDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfErrorDTO" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" name="ReturnExecution" type="q1:ReturnExecution" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ResponseDTO" nillable="true" type="tns:ResponseDTO" />
+      <xs:complexType name="ArrayOfErrorDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorDTO" nillable="true" type="tns:ErrorDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfErrorDTO" nillable="true" type="tns:ArrayOfErrorDTO" />
+      <xs:complexType name="ErrorDTO">
+        <xs:sequence>
+          <xs:element name="ErrorCode" nillable="true" type="xs:string" />
+          <xs:element name="ErrorText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ErrorDTO" nillable="true" type="tns:ErrorDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:simpleType name="ReturnExecution">
+        <xs:annotation>
+          <xs:appinfo>
+            <ActualType Name="short" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SUCCESS" />
+          <xs:enumeration value="WITH_ERROR" />
+          <xs:enumeration value="WITH_WARNING" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ReturnExecution" nillable="true" type="tns:ReturnExecution" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.UpdateAccountDTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.UpdateAccountDTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="CreditCommercialConditionsDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreditLimit" type="xs:decimal" />
+          <xs:element minOccurs="0" name="DebitType" type="xs:short" />
+          <xs:element minOccurs="0" name="PaymentMethod" type="xs:short" />
+          <xs:element minOccurs="0" name="SettlementModelCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CreditCommercialConditionsDTO" nillable="true" type="tns:CreditCommercialConditionsDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetCardAccount" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetCardAccount" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="GetCardAccountDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Document" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DocumentTypeCode" type="xs:short" />
+          <xs:element minOccurs="0" name="EconomicGroupCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IncludePrepayDependents" type="xs:boolean" />
+          <xs:element minOccurs="0" name="InternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="OnlyPrimaryResponsible" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetCardAccountDTO" nillable="true" type="tns:GetCardAccountDTO" />
+      <xs:complexType name="GetCardAccountResponseDTO">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" base="q1:ResponseDTO">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="GetCardAccounts" nillable="true" type="tns:ArrayOfGetCardAccountInfoDTO" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetCardAccountResponseDTO" nillable="true" type="tns:GetCardAccountResponseDTO" />
+      <xs:complexType name="ArrayOfGetCardAccountInfoDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="GetCardAccountInfoDTO" nillable="true" type="tns:GetCardAccountInfoDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfGetCardAccountInfoDTO" nillable="true" type="tns:ArrayOfGetCardAccountInfoDTO" />
+      <xs:complexType name="GetCardAccountInfoDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AccountBalance" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AccountCreditLimit" nillable="true" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AccountStatus" type="xs:short" />
+          <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="CreditCommercialConditions" nillable="true" type="q2:CreditCommercialConditionsDTO" />
+          <xs:element minOccurs="0" name="CustomersData" nillable="true" type="tns:ArrayOfCustomerDataDTO" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="DebitAccount" nillable="true" type="q3:DebitAccount2DTO" />
+          <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IssuerBranchCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IssuerCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PackageFeeCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ParentAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProductGroupCode" type="xs:int" />
+          <xs:element minOccurs="0" name="ProductType" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetCardAccountInfoDTO" nillable="true" type="tns:GetCardAccountInfoDTO" />
+      <xs:complexType name="ArrayOfCustomerDataDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CustomerDataDTO" nillable="true" type="tns:CustomerDataDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCustomerDataDTO" nillable="true" type="tns:ArrayOfCustomerDataDTO" />
+      <xs:complexType name="CustomerDataDTO">
+        <xs:sequence>
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes" minOccurs="0" name="Customer" nillable="true" type="q4:CustomerDTO2" />
+          <xs:element minOccurs="0" name="PaymentMediaList" nillable="true" type="tns:ArrayOfPaymentMediaDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CustomerDataDTO" nillable="true" type="tns:CustomerDataDTO" />
+      <xs:complexType name="ArrayOfPaymentMediaDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="PaymentMediaDTO" nillable="true" type="tns:PaymentMediaDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfPaymentMediaDTO" nillable="true" type="tns:ArrayOfPaymentMediaDTO" />
+      <xs:complexType name="PaymentMediaDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AffinityGroupCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardDueDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardSequenceNumber" type="xs:short" />
+          <xs:element minOccurs="0" name="CreationDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EmbossingName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LotNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LotStatus" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProductCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ProductDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StatusCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StatusDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="StatusType" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PaymentMediaDTO" nillable="true" type="tns:PaymentMediaDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetBalance" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCustomer.ClientWS.Contract.DataTypes.GetBalance" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="GetBalanceDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InternalAccountNumber" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetBalanceDTO" nillable="true" type="tns:GetBalanceDTO" />
+      <xs:complexType name="GetBalanceResponseDTO">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" base="q1:ResponseDTO">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="AccountBalance" type="xs:decimal" />
+              <xs:element minOccurs="0" name="CreditLimit" type="xs:decimal" />
+              <xs:element minOccurs="0" name="CreditLine" nillable="true" type="tns:ArrayOfCreditLineDTO" />
+              <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="InternalAccountNumber" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Overlimit" type="xs:decimal" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetBalanceResponseDTO" nillable="true" type="tns:GetBalanceResponseDTO" />
+      <xs:complexType name="ArrayOfCreditLineDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CreditLineDTO" nillable="true" type="tns:CreditLineDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfCreditLineDTO" nillable="true" type="tns:ArrayOfCreditLineDTO" />
+      <xs:complexType name="CreditLineDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CreditLineBalance" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CreditLineCode" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CreditLineDTO" nillable="true" type="tns:CreditLineDTO" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IGeneralAccountService_CreateGeneralAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGeneralAccount" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_CreateGeneralAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateGeneralAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_UpdateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_UpdateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_CancelAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelAccount" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_CancelAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_GetCardAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardAccount" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_GetCardAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCardAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_GetBalance_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBalance" />
+  </wsdl:message>
+  <wsdl:message name="IGeneralAccountService_GetBalance_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBalanceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IGeneralAccountService">
+    <wsdl:operation name="CreateGeneralAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGeneralAccountService/CreateGeneralAccount" message="tns:IGeneralAccountService_CreateGeneralAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGeneralAccountService/CreateGeneralAccountResponse" message="tns:IGeneralAccountService_CreateGeneralAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGeneralAccountService/UpdateAccount" message="tns:IGeneralAccountService_UpdateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGeneralAccountService/UpdateAccountResponse" message="tns:IGeneralAccountService_UpdateAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGeneralAccountService/CancelAccount" message="tns:IGeneralAccountService_CancelAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGeneralAccountService/CancelAccountResponse" message="tns:IGeneralAccountService_CancelAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCardAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGeneralAccountService/GetCardAccount" message="tns:IGeneralAccountService_GetCardAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGeneralAccountService/GetCardAccountResponse" message="tns:IGeneralAccountService_GetCardAccount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGeneralAccountService/GetBalance" message="tns:IGeneralAccountService_GetBalance_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IGeneralAccountService/GetBalanceResponse" message="tns:IGeneralAccountService_GetBalance_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IGeneralAccountService" type="tns:IGeneralAccountService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateGeneralAccount">
+      <soap:operation soapAction="http://tempuri.org/IGeneralAccountService/CreateGeneralAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <soap:operation soapAction="http://tempuri.org/IGeneralAccountService/UpdateAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelAccount">
+      <soap:operation soapAction="http://tempuri.org/IGeneralAccountService/CancelAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCardAccount">
+      <soap:operation soapAction="http://tempuri.org/IGeneralAccountService/GetCardAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <soap:operation soapAction="http://tempuri.org/IGeneralAccountService/GetBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GeneralAccountService">
+    <wsdl:port name="BasicHttpBinding_IGeneralAccountService" binding="tns:BasicHttpBinding_IGeneralAccountService">
+      <soap:address location="http://760290-net:8080/PayStudioBOWS/IssuerCustomer.ClientWS.ServiceHost/Services/GeneralAccountService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

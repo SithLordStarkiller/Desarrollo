@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MovementsService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="GetMovements">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="issuerCode" nillable="true" type="xs:string" />
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.DataTypes.GetMovements" minOccurs="0" name="input" nillable="true" type="q1:GetMovementsDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="GetMovementsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.DataTypes.GetMovements" minOccurs="0" name="GetMovementsResult" nillable="true" type="q2:ArrayOfGetMovementsResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Transfer">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="IssuerCode" nillable="true" type="xs:string" />
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes.TransfersDTO" minOccurs="0" name="Input" nillable="true" type="q3:TransferDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="TransferResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" minOccurs="0" name="TransferResult" nillable="true" type="q4:ResponseDTO" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.DataTypes.GetMovements" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.DataTypes.GetMovements" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="GetMovementsDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="AuthorizationCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="BeginDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Currency" type="xs:short" />
+          <xs:element minOccurs="0" name="DocumentNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DocumentType" type="xs:short" />
+          <xs:element minOccurs="0" name="EndDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IdOriginalMovement" type="xs:long" />
+          <xs:element minOccurs="0" name="InternalAccountNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsFather" nillable="true" type="xs:boolean" />
+          <xs:element minOccurs="0" name="MovementType" type="xs:short" />
+          <xs:element minOccurs="0" name="OperationCode" type="xs:short" />
+          <xs:element minOccurs="0" name="PagingDTO" nillable="true" type="tns:PagingDTO" />
+          <xs:element minOccurs="0" name="ProductCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Status" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="GetMovementsDTO" nillable="true" type="tns:GetMovementsDTO" />
+      <xs:complexType name="PagingDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PageIndex" type="xs:short" />
+          <xs:element minOccurs="0" name="PageSize" type="xs:short" />
+          <xs:element minOccurs="0" name="SortField" type="xs:short" />
+          <xs:element minOccurs="0" name="SortType" type="xs:short" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="PagingDTO" nillable="true" type="tns:PagingDTO" />
+      <xs:complexType name="ArrayOfGetMovementsResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="GetMovementsResponseDTO" nillable="true" type="tns:GetMovementsResponseDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfGetMovementsResponseDTO" nillable="true" type="tns:ArrayOfGetMovementsResponseDTO" />
+      <xs:complexType name="GetMovementsResponseDTO">
+        <xs:complexContent mixed="false">
+          <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" base="q1:ResponseDTO">
+            <xs:sequence>
+              <xs:element minOccurs="0" name="AccountingCategoryCode" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="AccountingCategoryDescription" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+              <xs:element minOccurs="0" name="BalanceCategoryCode" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="BalanceCategoryDescription" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="CardNumber" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Currency" type="xs:short" />
+              <xs:element minOccurs="0" name="EntryDate" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="ExternalAccountNumber" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="FinancialCategoryCode" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="FinancialCategoryDescription" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="IdMovement" type="xs:long" />
+              <xs:element minOccurs="0" name="InstallmentNumber" type="xs:short" />
+              <xs:element minOccurs="0" name="InstallmentQuantity" type="xs:short" />
+              <xs:element minOccurs="0" name="InternalAccountNumber" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="IsFather" type="xs:boolean" />
+              <xs:element minOccurs="0" name="MovementDate" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="MovementType" type="xs:short" />
+              <xs:element minOccurs="0" name="OperationCode" type="xs:short" />
+              <xs:element minOccurs="0" name="ProductCode" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="ProductDescription" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Reason" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="SettlementDate" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="StatementCategoryCode" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="StatementCategoryDescription" nillable="true" type="xs:string" />
+              <xs:element minOccurs="0" name="Status" type="xs:short" />
+              <xs:element minOccurs="0" name="TransactionDetailsDTO" nillable="true" type="tns:ArrayOfTransactionDetailsDTO" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:element name="GetMovementsResponseDTO" nillable="true" type="tns:GetMovementsResponseDTO" />
+      <xs:complexType name="ArrayOfTransactionDetailsDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="TransactionDetailsDTO" nillable="true" type="tns:TransactionDetailsDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfTransactionDetailsDTO" nillable="true" type="tns:ArrayOfTransactionDetailsDTO" />
+      <xs:complexType name="TransactionDetailsDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AuthorizationCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardAcceptorCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardAcceptorName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EntryMode" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="MCC" nillable="true" type="xs:short" />
+          <xs:element minOccurs="0" name="PresentationDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SaleAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="SaleCurrency" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SalePlan" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionAmount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="TransactionCityName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionCountryCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionCurrency" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionDate" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TransactionGeoStateName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TransactionDetailsDTO" nillable="true" type="tns:TransactionDetailsDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="ResponseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Errors" nillable="true" type="tns:ArrayOfErrorDTO" />
+          <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" name="ReturnExecution" type="q1:ReturnExecution" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ResponseDTO" nillable="true" type="tns:ResponseDTO" />
+      <xs:complexType name="ArrayOfErrorDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorDTO" nillable="true" type="tns:ErrorDTO" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOfErrorDTO" nillable="true" type="tns:ArrayOfErrorDTO" />
+      <xs:complexType name="ErrorDTO">
+        <xs:sequence>
+          <xs:element name="ErrorCode" nillable="true" type="xs:string" />
+          <xs:element name="ErrorText" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ErrorDTO" nillable="true" type="tns:ErrorDTO" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.CommonCredit.ClientWS.Contract.Enumerations" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:simpleType name="ReturnExecution">
+        <xs:annotation>
+          <xs:appinfo>
+            <ActualType Name="short" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SUCCESS" />
+          <xs:enumeration value="WITH_ERROR" />
+          <xs:enumeration value="WITH_WARNING" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="ReturnExecution" nillable="true" type="tns:ReturnExecution" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes.TransfersDTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/PS.IssuerCommercial.ClientWS.Contract.Datatypes.TransfersDTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="TransferDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Amount" type="xs:decimal" />
+          <xs:element minOccurs="0" name="CardNumberFrom" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CardNumberTo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Currency" type="xs:short" />
+          <xs:element minOccurs="0" name="ExternalAccountNumberFrom" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ExternalAccountNumberTo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InternalAccountNumberFrom" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="InternalAccountNumberTo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="TransferDTO" nillable="true" type="tns:TransferDTO" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IMovementsService_GetMovements_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMovements" />
+  </wsdl:message>
+  <wsdl:message name="IMovementsService_GetMovements_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMovementsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMovementsService_Transfer_InputMessage">
+    <wsdl:part name="parameters" element="tns:Transfer" />
+  </wsdl:message>
+  <wsdl:message name="IMovementsService_Transfer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TransferResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMovementsService">
+    <wsdl:operation name="GetMovements">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovementsService/GetMovements" message="tns:IMovementsService_GetMovements_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovementsService/GetMovementsResponse" message="tns:IMovementsService_GetMovements_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Transfer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovementsService/Transfer" message="tns:IMovementsService_Transfer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovementsService/TransferResponse" message="tns:IMovementsService_Transfer_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMovementsService" type="tns:IMovementsService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetMovements">
+      <soap:operation soapAction="http://tempuri.org/IMovementsService/GetMovements" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Transfer">
+      <soap:operation soapAction="http://tempuri.org/IMovementsService/Transfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MovementsService">
+    <wsdl:port name="BasicHttpBinding_IMovementsService" binding="tns:BasicHttpBinding_IMovementsService">
+      <soap:address location="http://bx-paytrue-back:8080/PayStudioWS/IssuerCommercial.ClientWS.ServiceHost/Services/MovementsService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

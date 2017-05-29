@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MYOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="32" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="1" />
+          <Property Name="LastNameFather" Type="nvarchar" MaxLength="32" />
+          <Property Name="LastNameMother" Type="nvarchar" MaxLength="32" />
+          <Property Name="UniversalId" Type="nvarchar" MaxLength="15" />
+          <Property Name="ClienteBroxel" Type="nvarchar" MaxLength="15" />
+          <Property Name="MYOSFicoComponent" Type="float" Nullable="false" />
+          <Property Name="MYOSReferencesComponent" Type="float" Nullable="false" />
+          <Property Name="MYOSHistoryComponent" Type="float" Nullable="false" />
+          <Property Name="MYOSSocialComponent" Type="float" Nullable="false" />
+          <Property Name="MYOScore" Type="float" Nullable="false" />
+          <Property Name="BroxelUserId" Type="int" Nullable="false" />
+          <Property Name="PasswordResetHash" Type="nvarchar" MaxLength="42" />
+          <Property Name="BirthDate" Type="datetime" Nullable="false" />
+          <Property Name="PhoneConfirmationCode" Type="nvarchar(max)" />
+          <Property Name="RegisterStatus" Type="int" Nullable="false" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FolderHash" Type="nvarchar(max)" />
+          <Property Name="HasFacebook" Type="bit" />
+          <Property Name="HasTwitter" Type="bit" />
+          <Property Name="HasLinkedIn" Type="bit" />
+          <Property Name="HasLive" Type="bit" />
+          <Property Name="HasGoogle" Type="bit" />
+          <Property Name="HasYahoo" Type="bit" />
+          <Property Name="SAFId" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShareHash" Type="nvarchar(max)" />
+          <Property Name="IsRecommended" Type="bit" />
+          <Property Name="PicProfile" Type="nvarchar(max)" />
+          <Property Name="Domicile" Type="varchar" MaxLength="200" />
+          <Property Name="NumExt" Type="varchar" MaxLength="40" />
+          <Property Name="NumInt" Type="varchar" MaxLength="40" />
+          <Property Name="Colony" Type="varchar" MaxLength="50" />
+          <Property Name="IdColony" Type="varchar" MaxLength="50" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="5" />
+          <Property Name="DelTown" Type="varchar" MaxLength="70" />
+          <Property Name="IdDelTown" Type="varchar" MaxLength="70" />
+          <Property Name="City" Type="varchar" MaxLength="70" />
+          <Property Name="IdCity" Type="varchar" MaxLength="70" />
+          <Property Name="Estate" Type="varchar" MaxLength="70" />
+          <Property Name="IdEstate" Type="varchar" MaxLength="70" />
+          <Property Name="PicConfirm" Type="bit" />
+          <Property Name="SecondName" Type="nvarchar" MaxLength="64" />
+          <Property Name="CodeEmployee" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserImage" Type="nvarchar(max)" />
+          <Property Name="EsPersonaFisica" Type="bit" />
+          <Property Name="AceptaTerminos" Type="bit" />
+          <Property Name="FechaAceptaTerminos" Type="datetime" />
+          <Property Name="ProcesoCompleto" Type="bit" />
+        </EntityType>
+        <EntityContainer Name="MYOModelStoreContainer">
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MYOModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="LastNameFather" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="LastNameMother" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Name="UniversalId" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="ClienteBroxel" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="MYOSFicoComponent" Type="Double" Nullable="false" />
+          <Property Name="MYOSReferencesComponent" Type="Double" Nullable="false" />
+          <Property Name="MYOSHistoryComponent" Type="Double" Nullable="false" />
+          <Property Name="MYOSSocialComponent" Type="Double" Nullable="false" />
+          <Property Name="MYOScore" Type="Double" Nullable="false" />
+          <Property Name="BroxelUserId" Type="Int32" Nullable="false" />
+          <Property Name="PasswordResetHash" Type="String" MaxLength="42" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PhoneConfirmationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RegisterStatus" Type="Int32" Nullable="false" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FolderHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HasFacebook" Type="Boolean" />
+          <Property Name="HasTwitter" Type="Boolean" />
+          <Property Name="HasLinkedIn" Type="Boolean" />
+          <Property Name="HasLive" Type="Boolean" />
+          <Property Name="HasGoogle" Type="Boolean" />
+          <Property Name="HasYahoo" Type="Boolean" />
+          <Property Name="SAFId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ShareHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsRecommended" Type="Boolean" />
+          <Property Name="PicProfile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Domicile" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NumExt" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="NumInt" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Colony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdColony" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="DelTown" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="IdDelTown" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="IdCity" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Estate" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstate" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="PicConfirm" Type="Boolean" />
+          <Property Name="SecondName" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="CodeEmployee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EsPersonaFisica" Type="Boolean" />
+          <Property Name="AceptaTerminos" Type="Boolean" />
+          <Property Name="FechaAceptaTerminos" Type="DateTime" Precision="3" />
+          <Property Name="ProcesoCompleto" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="MYOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.Users" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MYOModelStoreContainer" CdmEntityContainer="MYOEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MYOModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ProcesoCompleto" ColumnName="ProcesoCompleto" />
+                <ScalarProperty Name="FechaAceptaTerminos" ColumnName="FechaAceptaTerminos" />
+                <ScalarProperty Name="AceptaTerminos" ColumnName="AceptaTerminos" />
+                <ScalarProperty Name="EsPersonaFisica" ColumnName="EsPersonaFisica" />
+                <ScalarProperty Name="UserImage" ColumnName="UserImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastNameFather" ColumnName="LastNameFather" />
+                <ScalarProperty Name="LastNameMother" ColumnName="LastNameMother" />
+                <ScalarProperty Name="UniversalId" ColumnName="UniversalId" />
+                <ScalarProperty Name="ClienteBroxel" ColumnName="ClienteBroxel" />
+                <ScalarProperty Name="MYOSFicoComponent" ColumnName="MYOSFicoComponent" />
+                <ScalarProperty Name="MYOSReferencesComponent" ColumnName="MYOSReferencesComponent" />
+                <ScalarProperty Name="MYOSHistoryComponent" ColumnName="MYOSHistoryComponent" />
+                <ScalarProperty Name="MYOSSocialComponent" ColumnName="MYOSSocialComponent" />
+                <ScalarProperty Name="MYOScore" ColumnName="MYOScore" />
+                <ScalarProperty Name="BroxelUserId" ColumnName="BroxelUserId" />
+                <ScalarProperty Name="PasswordResetHash" ColumnName="PasswordResetHash" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PhoneConfirmationCode" ColumnName="PhoneConfirmationCode" />
+                <ScalarProperty Name="RegisterStatus" ColumnName="RegisterStatus" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FolderHash" ColumnName="FolderHash" />
+                <ScalarProperty Name="HasFacebook" ColumnName="HasFacebook" />
+                <ScalarProperty Name="HasTwitter" ColumnName="HasTwitter" />
+                <ScalarProperty Name="HasLinkedIn" ColumnName="HasLinkedIn" />
+                <ScalarProperty Name="HasLive" ColumnName="HasLive" />
+                <ScalarProperty Name="HasGoogle" ColumnName="HasGoogle" />
+                <ScalarProperty Name="HasYahoo" ColumnName="HasYahoo" />
+                <ScalarProperty Name="SAFId" ColumnName="SAFId" />
+                <ScalarProperty Name="ShareHash" ColumnName="ShareHash" />
+                <ScalarProperty Name="IsRecommended" ColumnName="IsRecommended" />
+                <ScalarProperty Name="PicProfile" ColumnName="PicProfile" />
+                <ScalarProperty Name="Domicile" ColumnName="Domicile" />
+                <ScalarProperty Name="NumExt" ColumnName="NumExt" />
+                <ScalarProperty Name="NumInt" ColumnName="NumInt" />
+                <ScalarProperty Name="Colony" ColumnName="Colony" />
+                <ScalarProperty Name="IdColony" ColumnName="IdColony" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="DelTown" ColumnName="DelTown" />
+                <ScalarProperty Name="IdDelTown" ColumnName="IdDelTown" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="IdCity" ColumnName="IdCity" />
+                <ScalarProperty Name="Estate" ColumnName="Estate" />
+                <ScalarProperty Name="IdEstate" ColumnName="IdEstate" />
+                <ScalarProperty Name="PicConfirm" ColumnName="PicConfirm" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="CodeEmployee" ColumnName="CodeEmployee" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

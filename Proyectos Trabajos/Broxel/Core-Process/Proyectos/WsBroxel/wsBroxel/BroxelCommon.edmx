@@ -1,0 +1,854 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BroxelCommonModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="AccionesTarjetaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Accion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatFuncionalidades">
+          <Key>
+            <PropertyRef Name="IdCatFuncionalidades" />
+          </Key>
+          <Property Name="IdCatFuncionalidades" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreFuncionalidad" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatFuncionalidadesXInfoClientes">
+          <Key>
+            <PropertyRef Name="IdCatFuncionalidades" />
+          </Key>
+          <Property Name="IdCatFuncionalidades" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdInfoCuentaCliente" Type="int" Nullable="false" />
+          <Property Name="IdFuncionalidad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConfigTarjetaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCuentaAsociada" Type="int" Nullable="false" />
+          <Property Name="IdAccionTarjeta" Type="int" Nullable="false" />
+          <Property Name="Estatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ControlsCuentaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRegla" Type="int" Nullable="false" />
+          <Property Name="IdCuentaAsociada" Type="int" Nullable="false" />
+          <Property Name="EstatusControl" Type="bit" Nullable="false" />
+          <Property Name="EstatusPadre" Type="bit" Nullable="false" />
+          <Property Name="IdProducto" Type="int" Nullable="false" />
+          <Property Name="Metodo" Type="int" />
+        </EntityType>
+        <EntityType Name="CuentaAsociadaFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroCuenta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCuentaPadre" Type="int" Nullable="false" />
+          <Property Name="IdEstatusCuenta" Type="int" Nullable="false" />
+          <Property Name="EstaConfirmada" Type="bit" />
+        </EntityType>
+        <EntityType Name="CuentaPadreFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaveCliente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumeroCuenta" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdUsuarioOnlineBroxel" Type="int" />
+        </EntityType>
+        <EntityType Name="EstatusCuentaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InfoClientes">
+          <Key>
+            <PropertyRef Name="IdInfoClientes" />
+          </Key>
+          <Property Name="IdInfoClientes" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClaveCliente" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Producto" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Maquila">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nro_corr" Type="varchar" MaxLength="6" />
+          <Property Name="nro_tarjeta" Type="varchar" MaxLength="17" />
+          <Property Name="nombre_titular" Type="varchar" MaxLength="50" />
+          <Property Name="num_cuenta" Type="varchar" MaxLength="9" />
+          <Property Name="domicilio" Type="varchar" MaxLength="50" />
+          <Property Name="NumeroCalle" Type="varchar" MaxLength="20" />
+          <Property Name="piso" Type="varchar" MaxLength="50" />
+          <Property Name="localidad" Type="varchar" MaxLength="50" />
+          <Property Name="Colonia" Type="varchar" MaxLength="255" />
+          <Property Name="codigo_postal" Type="varchar" MaxLength="5" />
+          <Property Name="provincia" Type="varchar" MaxLength="50" />
+          <Property Name="TipoDomicilio" Type="varchar" MaxLength="50" />
+          <Property Name="NumDocumento" Type="varchar" MaxLength="30" />
+          <Property Name="TipoDocumento" Type="varchar" MaxLength="200" />
+          <Property Name="Telefono" Type="varchar" MaxLength="20" />
+          <Property Name="Sexo" Type="varchar" MaxLength="1" />
+          <Property Name="FechaDeNacimiento" Type="date" />
+          <Property Name="EstadoCivil" Type="varchar" MaxLength="20" />
+          <Property Name="Hijos" Type="varchar" MaxLength="1" />
+          <Property Name="Ocupacion" Type="varchar" MaxLength="30" />
+          <Property Name="nombre_tarjethabiente" Type="varchar" MaxLength="50" />
+          <Property Name="limite_compras" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="limite_credito" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="imp_adelantos" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="grupo_cuenta" Type="varchar" MaxLength="3" />
+          <Property Name="producto" Type="varchar" MaxLength="4" />
+          <Property Name="import" Type="date" />
+          <Property Name="maquila" Type="varchar" MaxLength="50" />
+          <Property Name="saldo_restante" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="total_movimientos" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="fecha_ultimo_movimiento" Type="date" />
+          <Property Name="disponible" Type="decimal" Precision="32" Scale="2" />
+          <Property Name="estado_operativo" Type="varchar" MaxLength="20" />
+          <Property Name="fecha_disponible" Type="date" />
+          <Property Name="fecha_ultima_modificacion" Type="date" />
+          <Property Name="cliente_bx" Type="varchar" MaxLength="15" />
+          <Property Name="cuenta_madre" Type="varchar" MaxLength="10" />
+          <Property Name="programa" Type="varchar" MaxLength="50" />
+          <Property Name="clave_cliente" Type="varchar" MaxLength="50" />
+          <Property Name="Cuarta_linea" Type="varchar" MaxLength="26" />
+          <Property Name="usuario_web" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="200" />
+          <Property Name="referenciaCliente" Type="varchar" MaxLength="200" />
+          <Property Name="MesesInactiva" Type="int" Nullable="false" />
+          <Property Name="Fondeo" Type="varchar" MaxLength="20" />
+          <Property Name="CodigoPostalFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="Calle" Type="varchar" MaxLength="255" />
+          <Property Name="ColoniaFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="EstadoFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="LocalidadFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="MunicipioFiscal" Type="varchar" MaxLength="255" />
+          <Property Name="NumExterior" Type="varchar" MaxLength="10" />
+          <Property Name="Estado" Type="varchar" MaxLength="20" />
+          <Property Name="NumInterior" Type="varchar" MaxLength="50" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="255" />
+          <Property Name="Pais" Type="varchar" MaxLength="3" />
+          <Property Name="RFC" Type="varchar" MaxLength="255" />
+          <Property Name="CLABE" Type="varchar" MaxLength="18" />
+          <Property Name="CURP" Type="varchar" MaxLength="18" />
+          <Property Name="IMSS" Type="varchar" MaxLength="50" />
+          <Property Name="DCClaveCliente" Type="varchar" MaxLength="15" />
+          <Property Name="DCConsecCliente" Type="varchar" MaxLength="15" />
+          <Property Name="CodigoPostalFiscat" Type="varchar" MaxLength="50" />
+          <Property Name="IdODTTarj" Type="int" />
+          <Property Name="IdTipoNotificacionSMS" Type="int" Nullable="false" />
+          <Property Name="IdNivelDeCuenta" Type="int" />
+          <Property Name="nominada" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreComercio" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="RelacionIDsReplicado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTablaOrigen" Type="bigint" Nullable="false" />
+          <Property Name="IdOrigen" Type="bigint" Nullable="false" />
+          <Property Name="TablaDestino" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdDestino" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades">
+          <End Role="CatFuncionalidades" Type="Self.CatFuncionalidades" Multiplicity="1" />
+          <End Role="CatFuncionalidadesXInfoClientes" Type="Self.CatFuncionalidadesXInfoClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatFuncionalidades">
+              <PropertyRef Name="IdCatFuncionalidades" />
+            </Principal>
+            <Dependent Role="CatFuncionalidadesXInfoClientes">
+              <PropertyRef Name="IdFuncionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatFuncionalidadesXInfoClientes_InfoClientes">
+          <End Role="InfoClientes" Type="Self.InfoClientes" Multiplicity="1" />
+          <End Role="CatFuncionalidadesXInfoClientes" Type="Self.CatFuncionalidadesXInfoClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoClientes">
+              <PropertyRef Name="IdInfoClientes" />
+            </Principal>
+            <Dependent Role="CatFuncionalidadesXInfoClientes">
+              <PropertyRef Name="IdInfoCuentaCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada">
+          <End Role="AccionesTarjetaAsociada" Type="Self.AccionesTarjetaAsociada" Multiplicity="1" />
+          <End Role="ConfigTarjetaAsociada" Type="Self.ConfigTarjetaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccionesTarjetaAsociada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConfigTarjetaAsociada">
+              <PropertyRef Name="IdAccionTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConfigTarjetaAsociada_CuentaAsociadaFamily">
+          <End Role="CuentaAsociadaFamily" Type="Self.CuentaAsociadaFamily" Multiplicity="1" />
+          <End Role="ConfigTarjetaAsociada" Type="Self.ConfigTarjetaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuentaAsociadaFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConfigTarjetaAsociada">
+              <PropertyRef Name="IdCuentaAsociada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlsCuentaAsociada_CuentaAsociadaFamily">
+          <End Role="CuentaAsociadaFamily" Type="Self.CuentaAsociadaFamily" Multiplicity="1" />
+          <End Role="ControlsCuentaAsociada" Type="Self.ControlsCuentaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuentaAsociadaFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlsCuentaAsociada">
+              <PropertyRef Name="IdCuentaAsociada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlsCuentaAsociada_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ControlsCuentaAsociada" Type="Self.ControlsCuentaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlsCuentaAsociada">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaAsociadaFamily_CuentaPadreFamily">
+          <End Role="CuentaPadreFamily" Type="Self.CuentaPadreFamily" Multiplicity="1" />
+          <End Role="CuentaAsociadaFamily" Type="Self.CuentaAsociadaFamily" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuentaPadreFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CuentaAsociadaFamily">
+              <PropertyRef Name="IdCuentaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaAsociadaFamily_EstatusCuentaAsociada">
+          <End Role="EstatusCuentaAsociada" Type="Self.EstatusCuentaAsociada" Multiplicity="1" />
+          <End Role="CuentaAsociadaFamily" Type="Self.CuentaAsociadaFamily" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusCuentaAsociada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CuentaAsociadaFamily">
+              <PropertyRef Name="IdEstatusCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BroxelCommonModelStoreContainer">
+          <EntitySet Name="AccionesTarjetaAsociada" EntityType="Self.AccionesTarjetaAsociada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatFuncionalidades" EntityType="Self.CatFuncionalidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatFuncionalidadesXInfoClientes" EntityType="Self.CatFuncionalidadesXInfoClientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConfigTarjetaAsociada" EntityType="Self.ConfigTarjetaAsociada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ControlsCuentaAsociada" EntityType="Self.ControlsCuentaAsociada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CuentaAsociadaFamily" EntityType="Self.CuentaAsociadaFamily" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CuentaPadreFamily" EntityType="Self.CuentaPadreFamily" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstatusCuentaAsociada" EntityType="Self.EstatusCuentaAsociada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InfoClientes" EntityType="Self.InfoClientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Maquila" EntityType="Self.Maquila" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RelacionIDsReplicado" EntityType="Self.RelacionIDsReplicado" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades" Association="Self.FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades">
+            <End Role="CatFuncionalidades" EntitySet="CatFuncionalidades" />
+            <End Role="CatFuncionalidadesXInfoClientes" EntitySet="CatFuncionalidadesXInfoClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatFuncionalidadesXInfoClientes_InfoClientes" Association="Self.FK_CatFuncionalidadesXInfoClientes_InfoClientes">
+            <End Role="InfoClientes" EntitySet="InfoClientes" />
+            <End Role="CatFuncionalidadesXInfoClientes" EntitySet="CatFuncionalidadesXInfoClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada" Association="Self.FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada">
+            <End Role="AccionesTarjetaAsociada" EntitySet="AccionesTarjetaAsociada" />
+            <End Role="ConfigTarjetaAsociada" EntitySet="ConfigTarjetaAsociada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConfigTarjetaAsociada_CuentaAsociadaFamily" Association="Self.FK_ConfigTarjetaAsociada_CuentaAsociadaFamily">
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+            <End Role="ConfigTarjetaAsociada" EntitySet="ConfigTarjetaAsociada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlsCuentaAsociada_CuentaAsociadaFamily" Association="Self.FK_ControlsCuentaAsociada_CuentaAsociadaFamily">
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+            <End Role="ControlsCuentaAsociada" EntitySet="ControlsCuentaAsociada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlsCuentaAsociada_Producto" Association="Self.FK_ControlsCuentaAsociada_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ControlsCuentaAsociada" EntitySet="ControlsCuentaAsociada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaAsociadaFamily_CuentaPadreFamily" Association="Self.FK_CuentaAsociadaFamily_CuentaPadreFamily">
+            <End Role="CuentaPadreFamily" EntitySet="CuentaPadreFamily" />
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaAsociadaFamily_EstatusCuentaAsociada" Association="Self.FK_CuentaAsociadaFamily_EstatusCuentaAsociada">
+            <End Role="EstatusCuentaAsociada" EntitySet="EstatusCuentaAsociada" />
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BroxelCommonModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="BroxelCommonEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CatFuncionalidades" EntityType="BroxelCommonModel.CatFuncionalidades" />
+          <EntitySet Name="CatFuncionalidadesXInfoClientes" EntityType="BroxelCommonModel.CatFuncionalidadesXInfoClientes" />
+          <EntitySet Name="InfoClientes" EntityType="BroxelCommonModel.InfoClientes" />
+          <AssociationSet Name="FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades" Association="BroxelCommonModel.FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades">
+            <End Role="CatFuncionalidades" EntitySet="CatFuncionalidades" />
+            <End Role="CatFuncionalidadesXInfoClientes" EntitySet="CatFuncionalidadesXInfoClientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatFuncionalidadesXInfoClientes_InfoClientes" Association="BroxelCommonModel.FK_CatFuncionalidadesXInfoClientes_InfoClientes">
+            <End Role="InfoClientes" EntitySet="InfoClientes" />
+            <End Role="CatFuncionalidadesXInfoClientes" EntitySet="CatFuncionalidadesXInfoClientes" />
+          </AssociationSet>
+          <EntitySet Name="RelacionIDsReplicado" EntityType="BroxelCommonModel.RelacionIDsReplicado" />
+          <EntitySet Name="AccionesTarjetaAsociada" EntityType="BroxelCommonModel.AccionesTarjetaAsociada" />
+          <EntitySet Name="ConfigTarjetaAsociada" EntityType="BroxelCommonModel.ConfigTarjetaAsociada" />
+          <EntitySet Name="ControlsCuentaAsociada" EntityType="BroxelCommonModel.ControlsCuentaAsociada" />
+          <EntitySet Name="EstatusCuentaAsociada" EntityType="BroxelCommonModel.EstatusCuentaAsociada" />
+          <AssociationSet Name="FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada" Association="BroxelCommonModel.FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada">
+            <End Role="AccionesTarjetaAsociada" EntitySet="AccionesTarjetaAsociada" />
+            <End Role="ConfigTarjetaAsociada" EntitySet="ConfigTarjetaAsociada" />
+          </AssociationSet>
+          <EntitySet Name="Producto" EntityType="BroxelCommonModel.Producto" />
+          <AssociationSet Name="FK_ControlsCuentaAsociada_Producto" Association="BroxelCommonModel.FK_ControlsCuentaAsociada_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ControlsCuentaAsociada" EntitySet="ControlsCuentaAsociada" />
+          </AssociationSet>
+          <EntitySet Name="CuentaAsociadaFamily" EntityType="BroxelCommonModel.CuentaAsociadaFamily" />
+          <EntitySet Name="CuentaPadreFamily" EntityType="BroxelCommonModel.CuentaPadreFamily" />
+          <AssociationSet Name="FK_ConfigTarjetaAsociada_CuentaAsociadaFamily" Association="BroxelCommonModel.FK_ConfigTarjetaAsociada_CuentaAsociadaFamily">
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+            <End Role="ConfigTarjetaAsociada" EntitySet="ConfigTarjetaAsociada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ControlsCuentaAsociada_CuentaAsociadaFamily" Association="BroxelCommonModel.FK_ControlsCuentaAsociada_CuentaAsociadaFamily">
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+            <End Role="ControlsCuentaAsociada" EntitySet="ControlsCuentaAsociada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaAsociadaFamily_CuentaPadreFamily" Association="BroxelCommonModel.FK_CuentaAsociadaFamily_CuentaPadreFamily">
+            <End Role="CuentaPadreFamily" EntitySet="CuentaPadreFamily" />
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CuentaAsociadaFamily_EstatusCuentaAsociada" Association="BroxelCommonModel.FK_CuentaAsociadaFamily_EstatusCuentaAsociada">
+            <End Role="EstatusCuentaAsociada" EntitySet="EstatusCuentaAsociada" />
+            <End Role="CuentaAsociadaFamily" EntitySet="CuentaAsociadaFamily" />
+          </AssociationSet>
+          <EntitySet Name="Maquila" EntityType="BroxelCommonModel.MaquilaReplica" />
+        </EntityContainer>
+        <EntityType Name="CatFuncionalidades">
+          <Key>
+            <PropertyRef Name="IdCatFuncionalidades" />
+          </Key>
+          <Property Name="IdCatFuncionalidades" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreFuncionalidad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CatFuncionalidadesXInfoClientes" Relationship="BroxelCommonModel.FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades" FromRole="CatFuncionalidades" ToRole="CatFuncionalidadesXInfoClientes" />
+        </EntityType>
+        <EntityType Name="CatFuncionalidadesXInfoClientes">
+          <Key>
+            <PropertyRef Name="IdCatFuncionalidades" />
+          </Key>
+          <Property Name="IdCatFuncionalidades" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdInfoCuentaCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdFuncionalidad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CatFuncionalidades" Relationship="BroxelCommonModel.FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades" FromRole="CatFuncionalidadesXInfoClientes" ToRole="CatFuncionalidades" />
+          <NavigationProperty Name="InfoClientes" Relationship="BroxelCommonModel.FK_CatFuncionalidadesXInfoClientes_InfoClientes" FromRole="CatFuncionalidadesXInfoClientes" ToRole="InfoClientes" />
+        </EntityType>
+        <EntityType Name="InfoClientes">
+          <Key>
+            <PropertyRef Name="IdInfoClientes" />
+          </Key>
+          <Property Name="IdInfoClientes" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaveCliente" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Producto" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CatFuncionalidadesXInfoClientes" Relationship="BroxelCommonModel.FK_CatFuncionalidadesXInfoClientes_InfoClientes" FromRole="InfoClientes" ToRole="CatFuncionalidadesXInfoClientes" />
+        </EntityType>
+        <Association Name="FK_CatFuncionalidadesXInfoClientes_CatFuncionalidades">
+          <End Type="BroxelCommonModel.CatFuncionalidades" Role="CatFuncionalidades" Multiplicity="1" />
+          <End Type="BroxelCommonModel.CatFuncionalidadesXInfoClientes" Role="CatFuncionalidadesXInfoClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatFuncionalidades">
+              <PropertyRef Name="IdCatFuncionalidades" />
+            </Principal>
+            <Dependent Role="CatFuncionalidadesXInfoClientes">
+              <PropertyRef Name="IdFuncionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatFuncionalidadesXInfoClientes_InfoClientes">
+          <End Type="BroxelCommonModel.InfoClientes" Role="InfoClientes" Multiplicity="1" />
+          <End Type="BroxelCommonModel.CatFuncionalidadesXInfoClientes" Role="CatFuncionalidadesXInfoClientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InfoClientes">
+              <PropertyRef Name="IdInfoClientes" />
+            </Principal>
+            <Dependent Role="CatFuncionalidadesXInfoClientes">
+              <PropertyRef Name="IdInfoCuentaCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="RelacionIDsReplicado">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTablaOrigen" Type="Int64" Nullable="false" />
+          <Property Name="IdOrigen" Type="Int64" Nullable="false" />
+          <Property Name="TablaDestino" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdDestino" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AccionesTarjetaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Accion" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ConfigTarjetaAsociada" Relationship="BroxelCommonModel.FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada" FromRole="AccionesTarjetaAsociada" ToRole="ConfigTarjetaAsociada" />
+        </EntityType>
+        <EntityType Name="ConfigTarjetaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCuentaAsociada" Type="Int32" Nullable="false" />
+          <Property Name="IdAccionTarjeta" Type="Int32" Nullable="false" />
+          <Property Name="Estatus" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AccionesTarjetaAsociada" Relationship="BroxelCommonModel.FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada" FromRole="ConfigTarjetaAsociada" ToRole="AccionesTarjetaAsociada" />
+          <NavigationProperty Name="CuentaAsociadaFamily" Relationship="BroxelCommonModel.FK_ConfigTarjetaAsociada_CuentaAsociadaFamily" FromRole="ConfigTarjetaAsociada" ToRole="CuentaAsociadaFamily" />
+        </EntityType>
+        <EntityType Name="ControlsCuentaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRegla" Type="Int32" Nullable="false" />
+          <Property Name="IdCuentaAsociada" Type="Int32" Nullable="false" />
+          <Property Name="EstatusControl" Type="Boolean" Nullable="false" />
+          <Property Name="EstatusPadre" Type="Boolean" Nullable="false" />
+          <Property Name="IdProducto" Type="Int32" Nullable="false" />
+          <Property Name="Metodo" Type="Int32" />
+          <NavigationProperty Name="Producto" Relationship="BroxelCommonModel.FK_ControlsCuentaAsociada_Producto" FromRole="ControlsCuentaAsociada" ToRole="Producto" />
+          <NavigationProperty Name="CuentaAsociadaFamily" Relationship="BroxelCommonModel.FK_ControlsCuentaAsociada_CuentaAsociadaFamily" FromRole="ControlsCuentaAsociada" ToRole="CuentaAsociadaFamily" />
+        </EntityType>
+        <EntityType Name="EstatusCuentaAsociada">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CuentaAsociadaFamily" Relationship="BroxelCommonModel.FK_CuentaAsociadaFamily_EstatusCuentaAsociada" FromRole="EstatusCuentaAsociada" ToRole="CuentaAsociadaFamily" />
+        </EntityType>
+        <Association Name="FK_ConfigTarjetaAsociada_AccionesTarjetaAsociada">
+          <End Type="BroxelCommonModel.AccionesTarjetaAsociada" Role="AccionesTarjetaAsociada" Multiplicity="1" />
+          <End Type="BroxelCommonModel.ConfigTarjetaAsociada" Role="ConfigTarjetaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccionesTarjetaAsociada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConfigTarjetaAsociada">
+              <PropertyRef Name="IdAccionTarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreComercio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ControlsCuentaAsociada" Relationship="BroxelCommonModel.FK_ControlsCuentaAsociada_Producto" FromRole="Producto" ToRole="ControlsCuentaAsociada" />
+        </EntityType>
+        <Association Name="FK_ControlsCuentaAsociada_Producto">
+          <End Type="BroxelCommonModel.Producto" Role="Producto" Multiplicity="1" />
+          <End Type="BroxelCommonModel.ControlsCuentaAsociada" Role="ControlsCuentaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlsCuentaAsociada">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CuentaAsociadaFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroCuenta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdCuentaPadre" Type="Int32" Nullable="false" />
+          <Property Name="IdEstatusCuenta" Type="Int32" Nullable="false" />
+          <Property Name="EstaConfirmada" Type="Boolean" />
+          <NavigationProperty Name="ConfigTarjetaAsociada" Relationship="BroxelCommonModel.FK_ConfigTarjetaAsociada_CuentaAsociadaFamily" FromRole="CuentaAsociadaFamily" ToRole="ConfigTarjetaAsociada" />
+          <NavigationProperty Name="ControlsCuentaAsociada" Relationship="BroxelCommonModel.FK_ControlsCuentaAsociada_CuentaAsociadaFamily" FromRole="CuentaAsociadaFamily" ToRole="ControlsCuentaAsociada" />
+          <NavigationProperty Name="CuentaPadreFamily" Relationship="BroxelCommonModel.FK_CuentaAsociadaFamily_CuentaPadreFamily" FromRole="CuentaAsociadaFamily" ToRole="CuentaPadreFamily" />
+          <NavigationProperty Name="EstatusCuentaAsociada" Relationship="BroxelCommonModel.FK_CuentaAsociadaFamily_EstatusCuentaAsociada" FromRole="CuentaAsociadaFamily" ToRole="EstatusCuentaAsociada" />
+        </EntityType>
+        <EntityType Name="CuentaPadreFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClaveCliente" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroCuenta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuarioOnlineBroxel" Type="Int32" />
+          <NavigationProperty Name="CuentaAsociadaFamily" Relationship="BroxelCommonModel.FK_CuentaAsociadaFamily_CuentaPadreFamily" FromRole="CuentaPadreFamily" ToRole="CuentaAsociadaFamily" />
+        </EntityType>
+        <Association Name="FK_ConfigTarjetaAsociada_CuentaAsociadaFamily">
+          <End Type="BroxelCommonModel.CuentaAsociadaFamily" Role="CuentaAsociadaFamily" Multiplicity="1" />
+          <End Type="BroxelCommonModel.ConfigTarjetaAsociada" Role="ConfigTarjetaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuentaAsociadaFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConfigTarjetaAsociada">
+              <PropertyRef Name="IdCuentaAsociada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ControlsCuentaAsociada_CuentaAsociadaFamily">
+          <End Type="BroxelCommonModel.CuentaAsociadaFamily" Role="CuentaAsociadaFamily" Multiplicity="1" />
+          <End Type="BroxelCommonModel.ControlsCuentaAsociada" Role="ControlsCuentaAsociada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuentaAsociadaFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ControlsCuentaAsociada">
+              <PropertyRef Name="IdCuentaAsociada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaAsociadaFamily_CuentaPadreFamily">
+          <End Type="BroxelCommonModel.CuentaPadreFamily" Role="CuentaPadreFamily" Multiplicity="1" />
+          <End Type="BroxelCommonModel.CuentaAsociadaFamily" Role="CuentaAsociadaFamily" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CuentaPadreFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CuentaAsociadaFamily">
+              <PropertyRef Name="IdCuentaPadre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CuentaAsociadaFamily_EstatusCuentaAsociada">
+          <End Type="BroxelCommonModel.EstatusCuentaAsociada" Role="EstatusCuentaAsociada" Multiplicity="1" />
+          <End Type="BroxelCommonModel.CuentaAsociadaFamily" Role="CuentaAsociadaFamily" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusCuentaAsociada">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CuentaAsociadaFamily">
+              <PropertyRef Name="IdEstatusCuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MaquilaReplica">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nro_corr" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="nro_tarjeta" Type="String" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_titular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="num_cuenta" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="domicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroCalle" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="piso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Colonia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="codigo_postal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDomicilio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumDocumento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="TipoDocumento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Sexo" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="FechaDeNacimiento" Type="DateTime" Precision="0" />
+          <Property Name="EstadoCivil" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Hijos" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="Ocupacion" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_tarjethabiente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="limite_compras" Type="Decimal" Precision="32" Scale="2" />
+          <Property Name="limite_credito" Type="Decimal" Precision="32" Scale="2" />
+          <Property Name="imp_adelantos" Type="Decimal" Precision="32" Scale="2" />
+          <Property Name="grupo_cuenta" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="producto" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="import" Type="DateTime" Precision="0" />
+          <Property Name="maquila1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="saldo_restante" Type="Decimal" Precision="32" Scale="2" />
+          <Property Name="total_movimientos" Type="Decimal" Precision="32" Scale="2" />
+          <Property Name="fecha_ultimo_movimiento" Type="DateTime" Precision="0" />
+          <Property Name="disponible" Type="Decimal" Precision="32" Scale="2" />
+          <Property Name="estado_operativo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_disponible" Type="DateTime" Precision="0" />
+          <Property Name="fecha_ultima_modificacion" Type="DateTime" Precision="0" />
+          <Property Name="cliente_bx" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cuenta_madre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="programa" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="clave_cliente" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cuarta_linea" Type="String" MaxLength="26" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_web" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="referenciaCliente" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="MesesInactiva" Type="Int32" Nullable="false" />
+          <Property Name="Fondeo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostalFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Calle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ColoniaFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EstadoFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LocalidadFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MunicipioFiscal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NumExterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NumInterior" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pais" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CLABE" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Name="IMSS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DCClaveCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="DCConsecCliente" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CodigoPostalFiscat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdODTTarj" Type="Int32" />
+          <Property Name="IdTipoNotificacionSMS" Type="Int32" Nullable="false" />
+          <Property Name="IdNivelDeCuenta" Type="Int32" />
+          <Property Name="nominada" Type="Byte" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BroxelCommonModelStoreContainer" CdmEntityContainer="BroxelCommonEntities">
+          <EntitySetMapping Name="CatFuncionalidades">
+            <EntityTypeMapping TypeName="BroxelCommonModel.CatFuncionalidades">
+              <MappingFragment StoreEntitySet="CatFuncionalidades">
+                <ScalarProperty Name="NombreFuncionalidad" ColumnName="NombreFuncionalidad" />
+                <ScalarProperty Name="IdCatFuncionalidades" ColumnName="IdCatFuncionalidades" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatFuncionalidadesXInfoClientes">
+            <EntityTypeMapping TypeName="BroxelCommonModel.CatFuncionalidadesXInfoClientes">
+              <MappingFragment StoreEntitySet="CatFuncionalidadesXInfoClientes">
+                <ScalarProperty Name="IdFuncionalidad" ColumnName="IdFuncionalidad" />
+                <ScalarProperty Name="IdInfoCuentaCliente" ColumnName="IdInfoCuentaCliente" />
+                <ScalarProperty Name="IdCatFuncionalidades" ColumnName="IdCatFuncionalidades" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InfoClientes">
+            <EntityTypeMapping TypeName="BroxelCommonModel.InfoClientes">
+              <MappingFragment StoreEntitySet="InfoClientes">
+                <ScalarProperty Name="Producto" ColumnName="Producto" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="IdInfoClientes" ColumnName="IdInfoClientes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelacionIDsReplicado">
+            <EntityTypeMapping TypeName="BroxelCommonModel.RelacionIDsReplicado">
+              <MappingFragment StoreEntitySet="RelacionIDsReplicado">
+                <ScalarProperty Name="IdDestino" ColumnName="IdDestino" />
+                <ScalarProperty Name="TablaDestino" ColumnName="TablaDestino" />
+                <ScalarProperty Name="IdOrigen" ColumnName="IdOrigen" />
+                <ScalarProperty Name="IdTablaOrigen" ColumnName="IdTablaOrigen" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccionesTarjetaAsociada">
+            <EntityTypeMapping TypeName="BroxelCommonModel.AccionesTarjetaAsociada">
+              <MappingFragment StoreEntitySet="AccionesTarjetaAsociada">
+                <ScalarProperty Name="Accion" ColumnName="Accion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConfigTarjetaAsociada">
+            <EntityTypeMapping TypeName="BroxelCommonModel.ConfigTarjetaAsociada">
+              <MappingFragment StoreEntitySet="ConfigTarjetaAsociada">
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="IdAccionTarjeta" ColumnName="IdAccionTarjeta" />
+                <ScalarProperty Name="IdCuentaAsociada" ColumnName="IdCuentaAsociada" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlsCuentaAsociada">
+            <EntityTypeMapping TypeName="BroxelCommonModel.ControlsCuentaAsociada">
+              <MappingFragment StoreEntitySet="ControlsCuentaAsociada">
+                <ScalarProperty Name="Metodo" ColumnName="Metodo" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="EstatusPadre" ColumnName="EstatusPadre" />
+                <ScalarProperty Name="EstatusControl" ColumnName="EstatusControl" />
+                <ScalarProperty Name="IdCuentaAsociada" ColumnName="IdCuentaAsociada" />
+                <ScalarProperty Name="IdRegla" ColumnName="IdRegla" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstatusCuentaAsociada">
+            <EntityTypeMapping TypeName="BroxelCommonModel.EstatusCuentaAsociada">
+              <MappingFragment StoreEntitySet="EstatusCuentaAsociada">
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="BroxelCommonModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="NombreComercio" ColumnName="NombreComercio" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CuentaAsociadaFamily">
+            <EntityTypeMapping TypeName="BroxelCommonModel.CuentaAsociadaFamily">
+              <MappingFragment StoreEntitySet="CuentaAsociadaFamily">
+                <ScalarProperty Name="EstaConfirmada" ColumnName="EstaConfirmada" />
+                <ScalarProperty Name="IdEstatusCuenta" ColumnName="IdEstatusCuenta" />
+                <ScalarProperty Name="IdCuentaPadre" ColumnName="IdCuentaPadre" />
+                <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CuentaPadreFamily">
+            <EntityTypeMapping TypeName="BroxelCommonModel.CuentaPadreFamily">
+              <MappingFragment StoreEntitySet="CuentaPadreFamily">
+                <ScalarProperty Name="IdUsuarioOnlineBroxel" ColumnName="IdUsuarioOnlineBroxel" />
+                <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
+                <ScalarProperty Name="ClaveCliente" ColumnName="ClaveCliente" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Maquila">
+            <EntityTypeMapping TypeName="BroxelCommonModel.MaquilaReplica">
+              <MappingFragment StoreEntitySet="Maquila">
+                <ScalarProperty Name="nominada" ColumnName="nominada" />
+                <ScalarProperty Name="IdNivelDeCuenta" ColumnName="IdNivelDeCuenta" />
+                <ScalarProperty Name="IdTipoNotificacionSMS" ColumnName="IdTipoNotificacionSMS" />
+                <ScalarProperty Name="IdODTTarj" ColumnName="IdODTTarj" />
+                <ScalarProperty Name="CodigoPostalFiscat" ColumnName="CodigoPostalFiscat" />
+                <ScalarProperty Name="DCConsecCliente" ColumnName="DCConsecCliente" />
+                <ScalarProperty Name="DCClaveCliente" ColumnName="DCClaveCliente" />
+                <ScalarProperty Name="IMSS" ColumnName="IMSS" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Pais" ColumnName="Pais" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="NumInterior" ColumnName="NumInterior" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="NumExterior" ColumnName="NumExterior" />
+                <ScalarProperty Name="MunicipioFiscal" ColumnName="MunicipioFiscal" />
+                <ScalarProperty Name="LocalidadFiscal" ColumnName="LocalidadFiscal" />
+                <ScalarProperty Name="EstadoFiscal" ColumnName="EstadoFiscal" />
+                <ScalarProperty Name="ColoniaFiscal" ColumnName="ColoniaFiscal" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="CodigoPostalFiscal" ColumnName="CodigoPostalFiscal" />
+                <ScalarProperty Name="Fondeo" ColumnName="Fondeo" />
+                <ScalarProperty Name="MesesInactiva" ColumnName="MesesInactiva" />
+                <ScalarProperty Name="referenciaCliente" ColumnName="referenciaCliente" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="usuario_web" ColumnName="usuario_web" />
+                <ScalarProperty Name="Cuarta_linea" ColumnName="Cuarta_linea" />
+                <ScalarProperty Name="clave_cliente" ColumnName="clave_cliente" />
+                <ScalarProperty Name="programa" ColumnName="programa" />
+                <ScalarProperty Name="cuenta_madre" ColumnName="cuenta_madre" />
+                <ScalarProperty Name="cliente_bx" ColumnName="cliente_bx" />
+                <ScalarProperty Name="fecha_ultima_modificacion" ColumnName="fecha_ultima_modificacion" />
+                <ScalarProperty Name="fecha_disponible" ColumnName="fecha_disponible" />
+                <ScalarProperty Name="estado_operativo" ColumnName="estado_operativo" />
+                <ScalarProperty Name="disponible" ColumnName="disponible" />
+                <ScalarProperty Name="fecha_ultimo_movimiento" ColumnName="fecha_ultimo_movimiento" />
+                <ScalarProperty Name="total_movimientos" ColumnName="total_movimientos" />
+                <ScalarProperty Name="saldo_restante" ColumnName="saldo_restante" />
+                <ScalarProperty Name="maquila1" ColumnName="maquila" />
+                <ScalarProperty Name="import" ColumnName="import" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="grupo_cuenta" ColumnName="grupo_cuenta" />
+                <ScalarProperty Name="imp_adelantos" ColumnName="imp_adelantos" />
+                <ScalarProperty Name="limite_credito" ColumnName="limite_credito" />
+                <ScalarProperty Name="limite_compras" ColumnName="limite_compras" />
+                <ScalarProperty Name="nombre_tarjethabiente" ColumnName="nombre_tarjethabiente" />
+                <ScalarProperty Name="Ocupacion" ColumnName="Ocupacion" />
+                <ScalarProperty Name="Hijos" ColumnName="Hijos" />
+                <ScalarProperty Name="EstadoCivil" ColumnName="EstadoCivil" />
+                <ScalarProperty Name="FechaDeNacimiento" ColumnName="FechaDeNacimiento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+                <ScalarProperty Name="NumDocumento" ColumnName="NumDocumento" />
+                <ScalarProperty Name="TipoDomicilio" ColumnName="TipoDomicilio" />
+                <ScalarProperty Name="provincia" ColumnName="provincia" />
+                <ScalarProperty Name="codigo_postal" ColumnName="codigo_postal" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="piso" ColumnName="piso" />
+                <ScalarProperty Name="NumeroCalle" ColumnName="NumeroCalle" />
+                <ScalarProperty Name="domicilio" ColumnName="domicilio" />
+                <ScalarProperty Name="num_cuenta" ColumnName="num_cuenta" />
+                <ScalarProperty Name="nombre_titular" ColumnName="nombre_titular" />
+                <ScalarProperty Name="nro_tarjeta" ColumnName="nro_tarjeta" />
+                <ScalarProperty Name="nro_corr" ColumnName="nro_corr" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

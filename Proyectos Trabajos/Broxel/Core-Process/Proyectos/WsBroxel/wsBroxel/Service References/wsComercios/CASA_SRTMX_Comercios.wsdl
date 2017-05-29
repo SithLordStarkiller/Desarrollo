@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns="http://ws.apache.org/ns/synapse" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tns="http://ws.apache.org/ns/synapse" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://ws.apache.org/ns/synapse" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.apache.org/ns/synapse">
+      <xsd:complexType name="Autenticacion">
+        <xsd:sequence>
+          <xsd:element name="Usuario" type="xsd:string" />
+          <xsd:element name="Password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ResponseWS">
+        <xsd:sequence>
+          <xsd:element name="CodigoRespuesta" type="xsd:string" />
+          <xsd:element name="Descripcion" type="xsd:string" />
+          <xsd:element name="TicketWS" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="AltaComercioRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion" />
+            <xsd:element name="DatosComercio">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="NroCom" type="tns:NroCom" />
+                  <xsd:element name="Denominacion" type="tns:Denominacion" />
+                  <xsd:element name="Entidad" type="tns:Entidad" />
+                  <xsd:element name="Producto" type="tns:Producto" />
+                  <xsd:element name="Usuario" type="tns:Usuario" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AltaComercioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BajaComercioRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion" />
+            <xsd:element name="DatosComercio">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="NroCom" type="tns:NroCom" />
+                  <xsd:element name="Entidad" type="tns:Entidad" />
+                  <xsd:element name="Producto" type="tns:Producto" />
+                  <xsd:element name="Usuario" type="tns:Usuario" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="BajaComercioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ModificacionComercioRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion" />
+            <xsd:element name="DatosComercio">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="NroCom" type="tns:NroCom" />
+                  <xsd:element name="Entidad" type="tns:Entidad" />
+                  <xsd:element name="Producto" type="tns:Producto" />
+                  <xsd:element name="Usuario" type="tns:Usuario" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DatosModificacion">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element minOccurs="0" name="Denominacion" type="tns:Denominacion" />
+                  <xsd:element minOccurs="0" name="Producto" type="tns:Producto" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ModificacionComercioResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultaComercioProdRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion" />
+            <xsd:element name="DatosProducto">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="Producto" type="tns:Producto" />
+                  <xsd:element name="Entidad" type="tns:Entidad" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZonaHoraria" type="tns:ZonaHoraria" />
+            <xsd:element name="Pagina" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultaComercioProdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS" />
+            <xsd:element minOccurs="0" name="Comercios">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element maxOccurs="unbounded" name="Comercio">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="NroCom" type="tns:NroCom" />
+                        <xsd:element name="Denominacion" type="tns:Denominacion" />
+                        <xsd:element name="FechaAlta" type="tns:FechaAlta" />
+                        <xsd:element minOccurs="0" name="FechaModificacion" type="tns:FechaModificacion" />
+                        <xsd:element name="Usuario" type="tns:Usuario" />
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element minOccurs="0" name="TotalPaginas" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultaComercioNroRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Autenticacion" type="tns:Autenticacion" />
+            <xsd:element name="DatosComercio">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element name="NroCom" type="tns:NroCom" />
+                  <xsd:element name="Entidad" type="tns:Entidad" />
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZonaHoraria" type="tns:ZonaHoraria" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ConsultaComercioNroResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Response" type="tns:ResponseWS" />
+            <xsd:element minOccurs="0" name="Comercios">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element maxOccurs="unbounded" name="Comercio">
+                    <xsd:complexType>
+                      <xsd:sequence>
+                        <xsd:element name="Denominacion" type="tns:Denominacion" />
+                        <xsd:element name="Producto" type="tns:Producto" />
+                        <xsd:element name="FechaAlta" type="tns:FechaAlta" />
+                        <xsd:element minOccurs="0" name="FechaModificacion" type="tns:FechaModificacion" />
+                        <xsd:element name="Usuario" type="tns:Usuario" />
+                      </xsd:sequence>
+                    </xsd:complexType>
+                  </xsd:element>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:simpleType name="NroCom">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="Denominacion">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="Entidad">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="Producto">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="Usuario">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="FechaAlta">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="FechaModificacion">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+      <xsd:simpleType name="ZonaHoraria">
+        <xsd:restriction base="xsd:string" />
+      </xsd:simpleType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultaComercioProdRequest">
+    <wsdl:part name="ConsultaComercioProdRequest" element="tns:ConsultaComercioProdRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaComercioProdResponse">
+    <wsdl:part name="ConsultaComercioProdResponse" element="tns:ConsultaComercioProdResponse" />
+  </wsdl:message>
+  <wsdl:message name="ModificacionComercioRequest">
+    <wsdl:part name="ModificacionComercioRequest" element="tns:ModificacionComercioRequest" />
+  </wsdl:message>
+  <wsdl:message name="ModificacionComercioResponse">
+    <wsdl:part name="ModificacionComercioResponse" element="tns:ModificacionComercioResponse" />
+  </wsdl:message>
+  <wsdl:message name="BajaComercioRequest">
+    <wsdl:part name="BajaComercioRequest" element="tns:BajaComercioRequest" />
+  </wsdl:message>
+  <wsdl:message name="BajaComercioResponse">
+    <wsdl:part name="BajaComercioResponse" element="tns:BajaComercioResponse" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaComercioNroRequest">
+    <wsdl:part name="ConsultaComercioNroRequest" element="tns:ConsultaComercioNroRequest" />
+  </wsdl:message>
+  <wsdl:message name="ConsultaComercioNroResponse">
+    <wsdl:part name="ConsultaComercioNroResponse" element="tns:ConsultaComercioNroResponse" />
+  </wsdl:message>
+  <wsdl:message name="AltaComercioRequest">
+    <wsdl:part name="AltaComercioRequest" element="tns:AltaComercioRequest" />
+  </wsdl:message>
+  <wsdl:message name="AltaComercioResponse">
+    <wsdl:part name="AltaComercioResponse" element="tns:AltaComercioResponse" />
+  </wsdl:message>
+  <wsdl:portType name="CASA_SRTMX_ComerciosPortType">
+    <wsdl:operation name="ConsultaComercioProd">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/input4" message="tns:ConsultaComercioProdRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/output4" message="tns:ConsultaComercioProdResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ModificacionComercio">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/input3" message="tns:ModificacionComercioRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/output3" message="tns:ModificacionComercioResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="BajaComercio">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/input2" message="tns:BajaComercioRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/output2" message="tns:BajaComercioResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaComercioNro">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/input5" message="tns:ConsultaComercioNroRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/output5" message="tns:ConsultaComercioNroResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="AltaComercio">
+      <wsdl:input wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/input1" message="tns:AltaComercioRequest" />
+      <wsdl:output wsaw:Action="http://ws.apache.org/ns/synapse/CASA_SRTMX_ComercioPortType/output1" message="tns:AltaComercioResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CASA_SRTMX_ComerciosSoap11Binding" type="tns:CASA_SRTMX_ComerciosPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaComercioProd">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificacionComercio">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaComercio">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaComercioNro">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaComercio">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CASA_SRTMX_ComerciosSoap12Binding" type="tns:CASA_SRTMX_ComerciosPortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConsultaComercioProd">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificacionComercio">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaComercio">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaComercioNro">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaComercio">
+      <soap12:operation soapAction="" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CASA_SRTMX_ComerciosHttpBinding" type="tns:CASA_SRTMX_ComerciosPortType">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ConsultaComercioProd">
+      <http:operation location="ConsultaComercioProd" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModificacionComercio">
+      <http:operation location="ModificacionComercio" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BajaComercio">
+      <http:operation location="BajaComercio" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultaComercioNro">
+      <http:operation location="ConsultaComercioNro" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AltaComercio">
+      <http:operation location="AltaComercio" />
+      <wsdl:input>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CASA_SRTMX_Comercios">
+    <wsdl:port name="CASA_SRTMX_ComerciosHttpsSoap11Endpoint" binding="tns:CASA_SRTMX_ComerciosSoap11Binding">
+      <soap:address location="https://10.16.20.70:8243/services/CASA_SRTMX_Comercios.CASA_SRTMX_ComerciosHttpsSoap11Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_ComerciosHttpSoap11Endpoint" binding="tns:CASA_SRTMX_ComerciosSoap11Binding">
+      <soap:address location="http://10.16.20.70:8280/services/CASA_SRTMX_Comercios.CASA_SRTMX_ComerciosHttpSoap11Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_ComerciosHttpsSoap12Endpoint" binding="tns:CASA_SRTMX_ComerciosSoap12Binding">
+      <soap12:address location="https://10.16.20.70:8243/services/CASA_SRTMX_Comercios.CASA_SRTMX_ComerciosHttpsSoap12Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_ComerciosHttpSoap12Endpoint" binding="tns:CASA_SRTMX_ComerciosSoap12Binding">
+      <soap12:address location="http://10.16.20.70:8280/services/CASA_SRTMX_Comercios.CASA_SRTMX_ComerciosHttpSoap12Endpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_ComerciosHttpsEndpoint" binding="tns:CASA_SRTMX_ComerciosHttpBinding">
+      <http:address location="https://10.16.20.70:8243/services/CASA_SRTMX_Comercios.CASA_SRTMX_ComerciosHttpsEndpoint" />
+    </wsdl:port>
+    <wsdl:port name="CASA_SRTMX_ComerciosHttpEndpoint" binding="tns:CASA_SRTMX_ComerciosHttpBinding">
+      <http:address location="http://10.16.20.70:8280/services/CASA_SRTMX_Comercios.CASA_SRTMX_ComerciosHttpEndpoint" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
