@@ -15,7 +15,7 @@ namespace AsyncTaskOperations.Consola
 
             var cToken = cTokenSource.Token;
 
-            var t1 = Task.Factory.StartNew(() => GenerateNumbers(cToken), cToken);            
+            var t1 = Task.Factory.StartNew(() =>  GenerateNumbers);            
 
             Console.WriteLine("Press 1 to cancel task");
 
@@ -29,27 +29,22 @@ namespace AsyncTaskOperations.Consola
             Console.ReadLine();
         }
 
-        void Proceso()
+         void Proceso()
         {
 
         }
 
-        void GenerateNumbers(CancellationToken ct)
+        void GenerateNumbers()
         {
             int i;
             for (i = 0; i < 10; i++)
             {
                 Console.WriteLine("Method - Number: {0} \n", i);
                 Thread.Sleep(1000);
-
-                if (ct.IsCancellationRequested)
-                {
-                    break;
-                }
             }
         }
 
-        static void cancelNotification()
+        void cancelNotification()
         {
             Console.WriteLine("\n\nCancellation request made!!");
         }
