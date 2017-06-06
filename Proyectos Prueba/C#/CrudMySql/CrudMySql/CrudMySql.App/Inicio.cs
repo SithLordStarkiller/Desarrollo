@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CrudMySql.LogicaNegocios.Usuarios;
+using CrudMySql.LogicaNegocios;
 
 namespace CrudMySql.App
 {
@@ -20,7 +20,10 @@ namespace CrudMySql.App
 
         private void btnCargaGrid_Click(object sender, EventArgs e)
         {
-            var lista = new GestionUsuarios().ObtenTodosUsuarios();
+            var cadena = "ñ56651ibijnoípóioijnij";
+
+            var boolean = cadena.All(Char.IsLetterOrDigit);
+            var lista = new Clientes().ObtenerTabla();
             dataGridView1.DataSource = lista;
         }
     }
