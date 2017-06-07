@@ -20,7 +20,7 @@ namespace CrudMySql.App
 
         private void btnCargaGrid_Click(object sender, EventArgs e)
         {
-            var cadena = "ñ56651ibijnoípóioijnij";
+            var cadena = "56651ibijnoípóioijnij";
 
             var boolean = cadena.All(Char.IsLetterOrDigit);
             var lista = new Clientes().ObtenerTabla();
