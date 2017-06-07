@@ -21,9 +21,13 @@ namespace CrudMySql.App
         private void btnCargaGrid_Click(object sender, EventArgs e)
         {
             var cadena = "56651ibijnoípóioijnij";
+            String cadena2 = null;
 
-            var boolean = cadena.All(Char.IsLetterOrDigit);
+            var boolean = (!string.IsNullOrEmpty(cadena) && cadena.All(Char.IsLetterOrDigit));
+            var boolean2 = (!string.IsNullOrEmpty(cadena2) && cadena2.All(Char.IsLetterOrDigit));
+
             var lista = new Clientes().ObtenerTabla();
+
             dataGridView1.DataSource = lista;
         }
     }

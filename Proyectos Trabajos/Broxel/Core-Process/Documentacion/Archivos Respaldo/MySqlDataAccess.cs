@@ -45,7 +45,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 
 
-                var sql = "insert into PscDatosAd(IdPsc,strAd) values('@id','@js')";
+                var sql = "insert into PscDatosAd(IdPsc,strAd) values(@id,@js)";
 
 				var cmd = new MySqlCommand
 				{
@@ -86,12 +86,20 @@ namespace wsBroxel.App_Code.SolicitudBL
 				_conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLBroxel_RDG"].ToString());
 				_conn.Open();
 
-				var cmd = new MySqlCommand
+                var parameters = new MySqlParameter[]
+                {
+                    new MySqlParameter("@idPsc", MySqlDbType.Int32) { Value = idPsc }
+                };
+
+                var cmd = new MySqlCommand
 				{
-					CommandText = " select IdPsc,strAd from  PscDatosAd  where IdPsc = '" + idPsc + "';",
+					CommandText = " select IdPsc,strAd from  PscDatosAd  where IdPsc = @idPsc;",
 					Connection = _conn,
 					CommandType = CommandType.Text
 				};
+
+                cmd.Parameters.Add(parameters);
+
 				var dr = cmd.ExecuteReader();
 				var dataTable = new DataTable();
 				dataTable.Load(dr);
@@ -127,12 +135,21 @@ namespace wsBroxel.App_Code.SolicitudBL
             {
                 _conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLBroxel_RDG"].ToString());
                 _conn.Open();
+
+                var parameters = new MySqlParameter[]
+                {
+                    new MySqlParameter("@idComercio", MySqlDbType.Int32) { Value = idComercio }
+                };
+
                 var cmd = new MySqlCommand
                 {
-                    CommandText = " select  idComercio, Comercio from Comercio where idComercio =" + idComercio + ";",
+                    CommandText = " select  idComercio, Comercio from Comercio where idComercio = @idComercio;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
+
+                cmd.Parameters.AddRange(parameters);
+
                 var dr = cmd.ExecuteReader();
                 var dataTable = new DataTable();
                 dataTable.Load(dr);
@@ -179,7 +196,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand
                 {
-                    CommandText = " select clave_cliente from  maquila  where num_cuenta = '@numCuenta';",
+                    CommandText = " select clave_cliente from  maquila  where num_cuenta = @numCuenta;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -273,7 +290,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand
                 {
-                    CommandText = "select  idUser, Canal, TipoObtencionCanal from usuarios_dispersiones_ws where  idUser = '@idUsuario'",
+                    CommandText = "select  idUser, Canal, TipoObtencionCanal from usuarios_dispersiones_ws where  idUser = @idUsuario",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -382,8 +399,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                             FROM ComisionesCargoRedPagos crp 
                             INNER JOIN usuarios_dispersiones_ws u  ON u.consecutivo = crp.ConsecutivoUsuario
                             INNER JOIN DetalleComisionesRedDePagos dcr on crp.id = dcr.idComisionCargo
-                            WHERE crp.Estatus = 1 AND u.idUser = '@idUsuario' and crp.Canal = '@canal' " +
-                           "AND '@claveCliente' like concat('%',dcr.claveCliente, '%') and dcr.producto = '@producto'";
+                            WHERE crp.Estatus = 1 AND u.idUser = @idUsuario and crp.Canal = @canal " +
+                           "AND @claveCliente like concat('%',dcr.claveCliente, '%') and dcr.producto = @producto";
 
                 var cmd = new MySqlCommand
                 {
@@ -441,7 +458,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@fechaFin", MySqlDbType.Date) { Value = fechaFin.ToString("yyyy-MM-dd") }
                };
 
-                var query = @"select numcuenta, idDisposicion, numautorizacion, monto from CargosDisposicionesEfectivo where NumCuenta = '@numCuenta' and date(fechaHoraCreacion) between '@fechaInicio' and '@fechaFin';";
+                var query = @"select numcuenta, idDisposicion, numautorizacion, monto from CargosDisposicionesEfectivo where NumCuenta = @numCuenta and date(fechaHoraCreacion) between @fechaInicio and @fechaFin;";
 
                 var cmd = new MySqlCommand
                 {
@@ -501,7 +518,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var query = @"select a.fechaHoraCreacion as FechaCreacion,b.codigoAutorizacion as CodigoAutorizacion, m1.nombre_titular Remitente, m2.nombre_titular Destinatario, b.MontoComision Comision, a.ConceptoTransferencia
                              from TransferenciasSolicitud a join TransferenciasDetalle b on a.folio = b.folioSolicitud, maquila m1, maquila m2
-                             where cuentadestino = '@numCuenta' and date(fechaHoraCreacion) between '@fechaInicio' and '@fechaFin' and m1.num_cuenta = b.CuentaOrigen and m2.num_cuenta = b.CuentaDestino;";
+                             where cuentadestino = @numCuenta and date(fechaHoraCreacion) between @fechaInicio and @fechaFin and m1.num_cuenta = b.CuentaOrigen and m2.num_cuenta = b.CuentaDestino;";
 
                 var cmd = new MySqlCommand
                 {
@@ -571,7 +588,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var query = @"select a.fechaHoraCreacion as FechaCreacion,b.codigoAutorizacion as CodigoAutorizacion, m1.nombre_titular Remitente, m2.nombre_titular Destinatario,b.MontoComision Comision, a.ConceptoTransferencia
                               from TransferenciasSolicitud a join TransferenciasDetalle b on a.folio = b.folioSolicitud, maquila m1, maquila m2
-                              where cuentaorigen = '@numCuenta' and date(fechaHoraCreacion) between '@fechaInicio' and '@fechaFin' and m1.num_cuenta = b.CuentaOrigen and m2.num_cuenta = b.CuentaDestino;";
+                              where cuentaorigen = @numCuenta and date(fechaHoraCreacion) between @fechaInicio and @fechaFin and m1.num_cuenta = b.CuentaOrigen and m2.num_cuenta = b.CuentaDestino;";
 
                 var cmd = new MySqlCommand
                 {
@@ -639,7 +656,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                                join DisposicionesEfectivo b on a.IdDisposicion = b.Id
                                join UsuariosOnlineCLABE c on b.clabeDestino = c.id
                                join bancos_stp d on c.IdBanco = d.Id
-                               where a.numCuenta = '@numCuenta' and date(a.fechaHoraCreacion) between '@fechaInicio' and '@fechaFin' and a.IdMovimiento > 0 and a.Autorizado = 1;";
+                               where a.numCuenta = @numCuenta and date(a.fechaHoraCreacion) between @fechaInicio and @fechaFin and a.IdMovimiento > 0 and a.Autorizado = 1;";
 
                  var cmd = new MySqlCommand
                 {
@@ -710,7 +727,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                               join dispersionesInternas b on a.idSolicitud = b.idSolicitud
                               join RecepcionTransferencias c on a.idTransacFrom = c.idStp
                               join bancos_stp d on c.InstitucionOrdenante = d.clave
-                              where a.cuenta = '@numCuenta' and date(a.fechaCreacion) between '@fechaInicio' and '@fechaFin';";
+                              where a.cuenta = @numCuenta and date(a.fechaCreacion) between @fechaInicio and @fechaFin;";
 
                 var cmd = new MySqlCommand
                 {
@@ -784,7 +801,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 			                DetalleComisionTarjeta dt
                             inner join ComisionesTarjeta ct
                             on dt.IdComisionesTarjeta = ct.Id
-                            where dt.Estatus = 1 and ct.Estatus = 1 and dt.Producto ='@producto' and dt.ClaveCliente ='@claveCliente'";
+                            where dt.Estatus = 1 and ct.Estatus = 1 and dt.Producto = @producto and dt.ClaveCliente = @claveCliente";
 
                 var cmd = new MySqlCommand
                 {
@@ -842,11 +859,15 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@lastDigits", MySqlDbType.VarChar) { Value = lastDigits },
                     new MySqlParameter("@amount", MySqlDbType.Decimal) { Value = amount },
                     new MySqlParameter("@token", MySqlDbType.VarChar) { Value = token },
-                    new MySqlParameter("@ipFrom", MySqlDbType.VarChar) { Value = ipFrom }
+                    new MySqlParameter("@ipFrom", MySqlDbType.VarChar) { Value = ipFrom },
+                    new MySqlParameter("@cuenta", MySqlDbType.VarChar) { Value = cuenta },
+                    new MySqlParameter("@idTransacFrom", MySqlDbType.VarChar) { Value = idTransacFrom },
+                    new MySqlParameter("@referencia", MySqlDbType.VarChar) { Value = referencia }
                 };
 
                 var sql = "insert into dispersiones_ws_solicitudes (idUser,lastDigits,amount,token,fechaCreacion, ipFrom, idTransacFrom, cuenta, referencia) " +
-                          "values ('@idUser', '@lastDigits',@amount, '@token',now(), '@ipFrom', " + idTransacFrom.ToString(CultureInfo.InvariantCulture) + (cuenta == null ? ",null" : ", '" + cuenta + "'") + (referencia == null ? ",null" : ", '" + referencia + "'") + ");";
+                          "values (@idUser, @lastDigits,@amount, @token,now(), @ipFrom,@idTransacFrom,@cuenta,@referencia);";
+                
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -938,7 +959,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@desc", MySqlDbType.MediumText) { Value = desc }
                 };
 
-                var sql = "insert into dispersiones_ws_errores(folio,descripcion) values (@folio,'@desc')";
+                var sql = "insert into dispersiones_ws_errores(folio,descripcion) values (@folio,@desc)";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -976,7 +997,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select d.CLABE, d.claveCliente, d.producto " +
                                   "from DetalleClientesBroxel d join maquila m on d.ClaveCliente = m.clave_cliente and d.Producto = m.producto " +
-                                  "where num_cuenta = '@numCuenta';",
+                                  "where num_cuenta = @numCuenta;",
                     Connection = _conn,
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200
@@ -1034,7 +1055,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select d.CLABE, m.num_cuenta " +
                                   "from DetalleClientesBroxel d join maquila m on d.ClaveCliente = m.clave_cliente and d.Producto = m.producto  " +
-                                  "where claveCliente = '@claveCliente' and d.producto = 'D152';",
+                                  "where claveCliente = @claveCliente and d.producto = 'D152';",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -1095,7 +1116,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                                   "join maquila m on r.numero_de_cuenta = m.num_cuenta " +
                         //"join usuarios_dispersiones_ws u on m.clave_cliente = u.claveCliente and m.producto = u.producto " +
                                   "where rb.tipo='00' " +
-                                  "and m.num_cuenta = '@numCuenta' ",
+                                  "and m.num_cuenta = @numCuenta ",
                     //"and u.idUser = '" + idUser + "'",
                     Connection = _conn,
                     CommandType = CommandType.Text
@@ -1141,7 +1162,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select d.AplicaSPEI " +
                                   "from DetalleClientesBroxel d join maquila m on d.ClaveCliente = m.clave_cliente and d.Producto = m.producto " +
-                                  "where num_cuenta = '@numCuenta';",
+                                  "where num_cuenta = @numCuenta;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -1185,7 +1206,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select dispersa, PagoEnLinea, m.producto  " +
                                   "from productos_broxel p join maquila m on p.codigo = m.producto  " +
-                                  "where num_cuenta = '@numCuenta';",
+                                  "where num_cuenta = @numCuenta;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -1232,7 +1253,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@cuenta", MySqlDbType.VarChar) { Value = cuenta }
                 };
 
-                var sql = "update dispersiones_ws_solicitudes set cuenta = '@cuenta' where folio = @folio;";
+                var sql = "update dispersiones_ws_solicitudes set cuenta = @cuenta where folio = @folio;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -1272,7 +1293,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@referencia", MySqlDbType.VarChar) { Value = referencia }
                 };
 
-                var sql = "update dispersiones_ws_solicitudes set referencia = '@referencia' where folio = @folio;";
+                var sql = "update dispersiones_ws_solicitudes set referencia = @referencia where folio = @folio;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -1313,7 +1334,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@status", MySqlDbType.Int16) { Value = status }
                 };
 
-                var sql = "update dispersiones_ws_solicitudes set status = '@status', fechaUltAct = now() where folio = @folio;";
+                var sql = "update dispersiones_ws_solicitudes set status = @status, fechaUltAct = now() where folio = @folio;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -1456,7 +1477,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@updLc", MySqlDbType.Int32) { Value = updLc }
                 };
 
-                var sql = "update dispersiones_ws_solicitudes set idUpdLC = '@updLc', fechaUltAct = now() where folio = @folio;";
+                var sql = "update dispersiones_ws_solicitudes set idUpdLC = @updLc, fechaUltAct = now() where folio = @folio;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -1696,7 +1717,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select folio, status " +
                                   "from dispersiones_ws_solicitudes " +
-                                  "where idTransacFrom = @idTransac and cuenta = '@numCuenta' and idUser = '@idUser' and status <> 100;",
+                                  "where idTransacFrom = @idTransac and cuenta = @numCuenta and idUser = @idUser and status <> 100;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -1752,7 +1773,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     CommandText = "select l.id, d.CLABE  " +
                                   "from LogDetalleClientesBroxel l join DetalleClientesBroxel d on l.IdDetalleClientesBroxel = d.Id " +
                                   "where l.Monto = @monto and l.Motivo = 'RecepcionTransferenciawsSPEI' " +
-                                  "and l.campoAfectado = 'Abonos' and d.CLABE = '@clabe' " +
+                                  "and l.campoAfectado = 'Abonos' and d.CLABE = @clabe " +
                                   "and date(l.fechaHoraCreacion) = date(now()) " +
                                   "group by d.CLABE;",
                     Connection = _conn,
@@ -1802,7 +1823,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@saldo", MySqlDbType.Decimal) { Value = saldo }
                 };
 
-                var sql = "insert into dispersiones_ws_detalles (folio, cuenta, saldo) values (folio,'@cuenta', @saldo);";
+                var sql = "insert into dispersiones_ws_detalles (folio, cuenta, saldo) values (folio,@cuenta, @saldo);";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -1858,8 +1879,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                     {
                         CommandText = "select ifnull(atm,0)/100.00 perc " +
                                       "from DetalleClientesBroxel " +
-                                      "where claveCliente = '@claveCliente' " +
-                                      "and producto = '@producto'",
+                                      "where claveCliente = @claveCliente " +
+                                      "and producto = @producto",
                         CommandType = CommandType.Text,
                         CommandTimeout = 1200,
                         Connection = _conn
@@ -1890,7 +1911,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 var cmd2 = new MySqlCommand
                 {
                     CommandText = "insert into dispersionesInternas (idSolicitud, cuenta, incrementoPOS, incrementoATM, producto, claveCliente) " +
-                                  "values ('@folio', '@cuenta', @montoPos, @incrementoATM, '@producto', '@claveCliente')",
+                                  "values (@folio, @cuenta, @montoPos, @incrementoATM, @producto, @claveCliente)",
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200,
                     Connection = _conn
@@ -1960,26 +1981,26 @@ namespace wsBroxel.App_Code.SolicitudBL
                 cmd = new MySqlCommand
                 {
                     CommandText = "insert into dispersionesSolicitudes (folio, cliente,claveCliente,rfc,solicitante, areaSolicitante,email, montoPrincipal, producto, usuarioCreacion, fechaCreacion, usuarioEjecucion, fechaEjecucion, estado, tipo, usuarioAprobacion, fechaAprobacion, total_cuentas, valor_estimado) " +
-                                  "select '@res', " +
+                                  "select @res, " +
                                   "nombreCorto, " +
-                                  "'@claveCliente', " +
+                                  "@claveCliente, " +
                                   "rfc, " +
                                   "'webService', " +
                                   "'WEBSERVICE', " +
                                   "case when CorreoContacto = '' then 'asignaciondelinea@broxel.com' else ifnull(CorreoContacto, 'asignaciondelinea@broxel.com') end as Correo, " +
                                   "0, " +
-                                  "'@producto', " +
+                                  "@producto, " +
                                   "'webService', " +
                                   "now(), " +
                                   "'webService', " +
                                   "now(), " +
-                                  "'@estado', " +
+                                  "@estado, " +
                                   "'INCREMENTO', " +
                                   "'webService', " +
                                   "now(), " +
                                   "0, " +
                                   "0 " +
-                                  "from clientesBroxel where claveCliente = '@claveCliente' ",
+                                  "from clientesBroxel where claveCliente = @claveCliente ",
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200,
                     Connection = _conn
@@ -2030,11 +2051,11 @@ namespace wsBroxel.App_Code.SolicitudBL
                     CommandText = "update dispersionesSolicitudes a join (" +
                                   "select count(id) cuentas, sum(incrementoPOS) total, idSolicitud " +
                                   "from dispersionesInternas " +
-                                  "where idSolicitud = '@folio' " +
+                                  "where idSolicitud = @folio " +
                                   "group by idSolicitud" +
                                   ") b on a.folio = b.idSolicitud " +
                                   "set total_cuentas = b.cuentas, valor_estimado = b.total, montoPrincipal = b.total " +
-                                  "where a.folio = '@folio'",
+                                  "where a.folio = @folio",
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200,
                     Connection = _conn
@@ -2082,7 +2103,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string query = " SELECT m.id FROM maquila m INNER JOIN Comercio c " +
                                            "ON m.num_cuenta = c.numCuentaBroxel INNER JOIN comerciosBlacklist b " +
-                                           "ON b.Comercio = c.Comercio WHERE m.num_cuenta = '@numeroCuenta';";
+                                           "ON b.Comercio = c.Comercio WHERE m.num_cuenta = @numeroCuenta;";
 
                 var cmd = new MySqlCommand
                 {
@@ -2129,7 +2150,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string sql = "select pwd " +
                              "from TokenAppUsers " +
-                             "where idApp = '@idApp' and status = 1 ";
+                             "where idApp = @idApp and status = 1 ";
 
                 var cmd = new MySqlCommand
                 {
@@ -2183,7 +2204,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string sql = "select tolerance " +
                              "from TokenAppUsers " +
-                             "where idApp = '@idApp' and status = 1 ";
+                             "where idApp = @idApp and status = 1 ";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2236,7 +2257,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@idDevice", MySqlDbType.VarChar) { Value = idDevice }
                 };
 
-                var sql = "insert into TokenBroxel (usuario,token,idApp, idDevice) values ('@idUser','@token', '@idApp', '@idDevice' )";
+                var sql = "insert into TokenBroxel (usuario,token,idApp, idDevice) values (@idUser,@token, @idApp, @idDevice )";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2278,7 +2299,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string sql = "select token, offset " +
                              "from TokenBroxel " +
-                             "where usuario = '@usuario'";
+                             "where usuario = @usuario";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2330,7 +2351,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string sql = "select token, offset " +
                              "from TokenBroxel " +
-                             "where usuario = '@usuario' and idApp = '@idApp';";
+                             "where usuario = @usuario and idApp = @idApp;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2382,7 +2403,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@offset", MySqlDbType.VarChar) { Value = offset }
                 };
 
-                var sql = "update TokenBroxel set offset = '@offset' where usuario = '@user' and token = '@tokenSeed'";
+                var sql = "update TokenBroxel set offset = @offset where usuario = @user and token = @tokenSeed";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2432,7 +2453,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@device", MySqlDbType.VarChar) { Value = device }
                 };
 
-                var sql = "update TokenBroxel set idDevice = '@device' where usuario = '@user' and idApp = '@idApp'";
+                var sql = "update TokenBroxel set idDevice = @device where usuario = @user and idApp = @idApp";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2482,7 +2503,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@idApp", MySqlDbType.VarChar) { Value = idApp }
                 };
 
-                var sql = "update TokenBroxel set otpTemp = '@otp', fechaUltOtp = now() where usuario = '@user' and idApp = '@idApp'";
+                var sql = "update TokenBroxel set otpTemp = @otp, fechaUltOtp = now() where usuario = @user and idApp = @idApp";
 
                 var cmd = new MySqlCommand
                 {
@@ -2528,8 +2549,8 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var sql = "select a.otpTemp " +
                              "from TokenBroxel a join TokenAppUsers b on a.idApp = b.idApp " +
-                             "where a.usuario = '@usuario' and a.idAPp = '@idApp' " +
-                             "and a.otpTemp = '@otp' " +
+                             "where a.usuario = @usuario and a.idAPp = @idApp " +
+                             "and a.otpTemp = @otp " +
                              "and timediff(now(),fechaUltOtp) < str_to_date(cast(b.tolerance as char), '%i');";
                 var cmd = new MySqlCommand
                 {
@@ -2608,10 +2629,10 @@ namespace wsBroxel.App_Code.SolicitudBL
                 cmd = new MySqlCommand
                 {
                     CommandText = "insert into RenominacionSolicitudes (folio, claveCliente, producto, cliente, rfc, solicitante, Areasolicitante, email, usuariocreacion, fechaCreacion, usuarioEjecucion, FechaEjecucion, estado, tipo) " +
-                                  "select '@res' ,'@claveCliente', '@producto', NombreCorto, rfc, 'webService', 'WEBSERVICE', " +
+                                  "select @res ,@claveCliente, @producto, NombreCorto, rfc, 'webService', 'WEBSERVICE', " +
                                   (emailDefault?"'asignaciondelinea@broxel.com' as Correo, ": "case when CorreoContacto = '' then 'asignaciondelinea@broxel.com' else ifnull(CorreoContacto, 'asignaciondelinea@broxel.com') end as Correo, ") +
                                   "'webService', now(), 'webService', now(),'WebService','RENOMINACION' " +
-                                  "from clientesBroxel where claveCliente = '@claveCliente' ",
+                                  "from clientesBroxel where claveCliente = @claveCliente ",
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200,
                     Connection = _conn
@@ -2712,12 +2733,12 @@ namespace wsBroxel.App_Code.SolicitudBL
                                   "TipoDireccion, CodigoEstado, CodigoMunicipio, Pais, NumeroDeDocumento, TipoDocumento, " +
                                   "GrupoLiquidacion, Telefono, FechaNacimiento, EstadoCivil, Hijos, Sexo, Ocupacion, " +
                                   "DenominacionTarjeta, NombreCompletoTitular) " +
-                                  "select id, '@folio', '@cuenta', '@tarjeta',  '@producto', '@claveCliente', '@calle', '@numeroCalle', " +
-                                  "'@colonia', '@codigoPostal', '@nombreMunicipio', '@tipoDireccion', '@codigoEstado', '@codigoMunicipio', " +
-                                  "'484', '@numeroDocumento', '@tipoDocumento', '9', '@telefono', '@fechaNacimiento', " +
-                                  "'@estadoCivil', '@hijos', '@sexo', '@ocupacion', '@denominacionTarjeta', '@nombreTitular' " +
+                                  "select id, @folio, @cuenta, @tarjeta, @producto, @claveCliente, @calle, @numeroCalle, " +
+                                  "@colonia, @codigoPostal, @nombreMunicipio, @tipoDireccion, @codigoEstado, @codigoMunicipio, " +
+                                  "'484', @numeroDocumento, @tipoDocumento, '9', @telefono, @fechaNacimiento, " +
+                                  "@estadoCivil, @hijos, @sexo, @ocupacion, @denominacionTarjeta, @nombreTitular " +
                                   "from RenominacionSolicitudes " +
-                                  "where folio = '@folio'",
+                                  "where folio = @folio",
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200,
                     Connection = _conn
@@ -2909,7 +2930,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select id " +
                                   "from CuarentenaCuentas " +
-                                  "where numCuenta = '@numCuenta' and fechaSalida is null",
+                                  "where numCuenta = @numCuenta and fechaSalida is null",
                     CommandType = CommandType.Text,
                     Connection = _conn,
                     CommandTimeout = 1200
@@ -3000,7 +3021,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 };
 
                 var sql = "insert into CuarentenaCuentas (numCuenta, nivelIngreso, fechaIngreso, usuarioIngreso) " +
-                          "values ('@NumCuenta', @NivelIngreso, now(), '@UsuarioIngreso');";
+                          "values (@NumCuenta, @NivelIngreso, now(), @UsuarioIngreso);";
 
                 var cmd = new MySqlCommand
                 {
@@ -3047,11 +3068,11 @@ namespace wsBroxel.App_Code.SolicitudBL
                 };
 
                 var sql = "update CuarentenaCuentas " +
-                          "set fechaSalida = now(), usuarioSalida = '@usuario' " +
-                          "where numCuenta = '@numCuenta'; " +
+                          "set fechaSalida = now(), usuarioSalida = @usuario " +
+                          "where numCuenta = @numCuenta; " +
                           "update maquila m " +
                           "set m.IdNivelDeCuenta = ifnull((select min(id) from CatNivelDeCuenta where id > m.IdNivelDeCuenta and activo = 1),m.IdNivelDeCuenta) " +
-                          "where m.num_cuenta = '@numCuenta';";
+                          "where m.num_cuenta = @numCuenta;";
 
                 var cmd = new MySqlCommand
                 {
@@ -3105,7 +3126,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select c.monto, m.IdNivelDeCuenta " +
                                   "from maquila m join CatNivelDeCuenta c on m.IdNivelDeCuenta = c.id " +
-                                  "where (@clientes) and c.activo = 1 and m.num_cuenta = '@numCuenta'",
+                                  "where (@clientes) and c.activo = 1 and m.num_cuenta = @numCuenta",
                     Connection = _conn,
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200
@@ -3170,7 +3191,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select id " +
                                   "from maquila m " +
-                                  "where (@clientes) and m.IdNivelDeCuenta = 1 and m.num_cuenta = '@numCuenta'",
+                                  "where (@clientes) and m.IdNivelDeCuenta = 1 and m.num_cuenta = @numCuenta",
                     Connection = _conn,
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200
@@ -3223,7 +3244,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select id " +
                                   "from maquila m " +
-                                  "where (@clientes) and m.num_cuenta = '@numCuenta'",
+                                  "where (@clientes) and m.num_cuenta = @numCuenta",
                     Connection = _conn,
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200
@@ -3276,7 +3297,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select a.id IdAviso, a.IdCatNivel,a.Porcentaje,c.monto,a.SMSBody,a.DeMail,a.Asunto,a.DePwd,a.DeAlias,a.MailBody " +
                     "from CatNivelDeCuentaAvisos a join CatNivelDeCuenta c on a.IdCatNivel = c.id " +
-                    "where IdCatNivel = @idNivel and not exists(select * from LogMensagesAvisosNivelDeCuenta l where l.IdCatNivelAviso = a.Id and l.NumCuenta = '@numCuenta') " +
+                    "where IdCatNivel = @idNivel and not exists(select * from LogMensagesAvisosNivelDeCuenta l where l.IdCatNivelAviso = a.Id and l.NumCuenta = @numCuenta) " +
                     "order by Porcentaje asc; ",
                     Connection = _conn,
                     CommandType = CommandType.Text,
@@ -3349,7 +3370,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 };
 
                 var sql = "insert into LogMensagesAvisosNivelDeCuenta (Date, Celular, NumCuenta, Mensaje, Monto,IdCatNivelAviso ) " +
-                          "values (now(), '@celular', '@numCuenta', '@msg', '@monto', @idAviso);";
+                          "values (now(), @celular, @numCuenta, @msg, @monto, @idAviso);";
 
                 var cmd = new MySqlCommand
                 {
@@ -3458,7 +3479,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand
                 {
-                    CommandText = "select b.tipo from maquila a join productos_broxel b on a.producto = b.codigo where a.num_cuenta = '@cuenta';",
+                    CommandText = "select b.tipo from maquila a join productos_broxel b on a.producto = b.codigo where a.num_cuenta = @cuenta;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -3558,7 +3579,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 };
 
                 var sql = "insert into CambiaContrasenaLog (idUser, original, new) " +
-                          "values (@idUser,'@original', '@nueva');";
+                          "values (@idUser,@original, @nueva);";
 
                 var cmd = new MySqlCommand
                 {
@@ -3609,7 +3630,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string sql = "select m.id " +
                              "from maquila m join ParametrosServicio p on m.clave_cliente = p.valor " +
-                             "where p.descripcion = 'Cliente UBER' and m.num_cuenta = '@numCuenta';";
+                             "where p.descripcion = 'Cliente UBER' and m.num_cuenta = @numCuenta;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -3653,7 +3674,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@numCuenta", MySqlDbType.VarChar) { Value = numCuenta }
                 };
 
-                string sql = "select date_format(min(a.fecha_vto),'%Y/%m/%d') fechaLimite from fechas_corte_x_grupos a join registro_de_cuenta b on a.grupo = b.grupo_de_liquidacion where b.numero_de_cuenta = '@numCuenta' and a.fecha > date(now())";
+                string sql = "select date_format(min(a.fecha_vto),'%Y/%m/%d') fechaLimite from fechas_corte_x_grupos a join registro_de_cuenta b on a.grupo = b.grupo_de_liquidacion where b.numero_de_cuenta = @numCuenta and a.fecha > date(now())";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -3714,7 +3735,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand
                 {
-                    CommandText = "call spObtenPagosTransferencias('@numCuenta', '@fechaIni', '@fechaFin', tipo);",
+                    CommandText = "call spObtenPagosTransferencias(@numCuenta, @fechaIni, @fechaFin, tipo);",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -3824,7 +3845,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@token", MySqlDbType.VarChar) { Value = token }
                 };
 
-                var sql = "insert into LogConsultasVC (idApp, usuario, token) values ( @idApp, '@usuario','@token');";
+                var sql = "insert into LogConsultasVC (idApp, usuario, token) values ( @idApp, @usuario,@token);";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -3871,7 +3892,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@cuenta", MySqlDbType.VarChar) { Value = cuenta }
                 };
 
-                var sql = "update LogConsultasVC set cuentaResult = '@cuenta', fechaRespuesta = now() where id = @id;";
+                var sql = "update LogConsultasVC set cuentaResult = @cuenta, fechaRespuesta = now() where id = @id;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -3925,7 +3946,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     CommandText = "select m.id, m.num_cuenta " +
                                   "from maquila m join clienteBroxelLayout cbl on m.clave_cliente = cbl.pull and m.producto = cbl.producto " +
                                   "left join accessos_clientes ac on m.id = ac.idMaquila " +
-                                  "where cbl.idApp = @idApp and cbl.producto = '@producto' and length(num_cuenta)=9 and ac.id is null order by maquila desc; ",
+                                  "where cbl.idApp = @idApp and cbl.producto = @producto and length(num_cuenta)=9 and ac.id is null order by maquila desc; ",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -3988,7 +4009,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select c.id, c.num_cuenta from (select m.id, m.num_cuenta, m.clave_cliente from maquila m " +
                    "join clienteBroxelLayout cbl on m.clave_cliente = cbl.pull and m.producto = cbl.producto " +
-                   "left join accessos_clientes ac on m.id = ac.idMaquila where cbl.idApp = @idApp and cbl.producto ='@producto' and length(num_cuenta)=9 and ac.id is null ) as c" +
+                   "left join accessos_clientes ac on m.id = ac.idMaquila where cbl.idApp = @idApp and cbl.producto =@producto and length(num_cuenta)=9 and ac.id is null ) as c" +
                    " left join CreaClienteSinTarjetaLog cst on c.num_cuenta = cst.cuenta where cst.id is null order by c.id desc",
                     Connection = _conn,
                     CommandType = CommandType.Text
@@ -4052,7 +4073,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand();
                 cmd.Connection = _conn;
-                cmd.CommandText = "call spCreaClienteBroxel(@idClienteLog, '@producto', @idMaquila, @esFisica);";
+                cmd.CommandText = "call spCreaClienteBroxel(@idClienteLog, @producto, @idMaquila, @esFisica);";
                 cmd.CommandType = CommandType.Text;
 
                 cmd.Parameters.AddRange(parameters);
@@ -4143,24 +4164,24 @@ namespace wsBroxel.App_Code.SolicitudBL
                 var cmd = new MySqlCommand();
                 cmd.Connection = _conn;
                 cmd.CommandText = "call spCreaClienteBroxelTarFisica(" +
-                                  "'@producto',"+
+                                  "@producto,"+
                                   " @idMaquila," +
-                                  "'@pNombre'," +
-                                  "'@sNombre'," +
-                                  "'@aPaterno'," +
-                                  "'@aMaterno'," +
-                                  "'@fechaNacimiento'," +
-                                  "'@rfc'," +
-                                  "'@colonia'," +
-                                  "'@calle'," +
-                                  "'@numeroExt'," +
-                                  "'@numeroInt'," +
-                                  "'@telefono'," +
-                                  "'@usuario'," +
-                                  "'@noEmpleado'," +
-                                  "'@delegacionMunicipio'," +
-                                  "'@estado'," +
-                                  "'@codigoPostal')";
+                                  "@pNombre," +
+                                  "@sNombre," +
+                                  "@aPaterno," +
+                                  "@aMaterno," +
+                                  "@fechaNacimiento," +
+                                  "@rfc," +
+                                  "@colonia," +
+                                  "@calle," +
+                                  "@numeroExt," +
+                                  "@numeroInt," +
+                                  "@telefono," +
+                                  "@usuario," +
+                                  "@noEmpleado," +
+                                  "@delegacionMunicipio," +
+                                  "@estado," +
+                                  "@codigoPostal)";
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandTimeout = 1200;
 
@@ -4210,7 +4231,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 var cmd = new MySqlCommand
                 {
                     Connection = _conn,
-                    CommandText = "call spCreaClienteComercio(@idComercio,@idLayout,'@producto',@idMaquila);",
+                    CommandText = "call spCreaClienteComercio(@idComercio,@idLayout,@producto,@idMaquila);",
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200
                 };
@@ -4256,7 +4277,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 };
 
                 var sql = "update maquila m join " +
-                          "(select '@producto' as producto, claveCliente, @idMaquila as idMaquila from CreaClienteSinTarjetaLog where id = @idCreaLog) b " +
+                          "(select @producto as producto, claveCliente, @idMaquila as idMaquila from CreaClienteSinTarjetaLog where id = @idCreaLog) b " +
                           "on m.producto = b.producto and m.id = b.idMaquila " +
                           "set m.clave_cliente = b.claveCliente;";
                 var cmd = new MySqlCommand
@@ -4399,8 +4420,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 };
 
                 var sql = "insert into CreaClienteSinTarjetaLogBk " +
-                          "select * from CreaClienteSinTarjetaLog where usuario = '@user';" +
-                          "delete from CreaClienteSinTarjetaLog where usuario = '@user';";
+                          "select * from CreaClienteSinTarjetaLog where usuario = @user;" +
+                          "delete from CreaClienteSinTarjetaLog where usuario = @user;";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -4443,7 +4464,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var sql = "select PorcentajeDisposicion " +
                           "from Programas pg join maquila m on pg.idCliente = m.clave_Cliente and pg.idProducto = m.Producto " +
-                          "where idProgramas in (1,5) and m.num_cuenta = '@numCuenta'";
+                          "where idProgramas in (1,5) and m.num_cuenta = @numCuenta";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -4492,7 +4513,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@numCuenta", MySqlDbType.VarChar) { Value = numCuenta }
                 };
 
-                var sql = "select id from DisposicionesEfectivo where numCuenta = '@numCuenta' and statusPago in (1,2)";
+                var sql = "select id from DisposicionesEfectivo where numCuenta = @numCuenta and statusPago in (1,2)";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -4547,7 +4568,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 string query = " select m.id from " +
                                            " maquila m join Programas p on m.producto = p.idProducto and m.clave_cliente = p.idCliente " +
-                                           " where p.idProgramas = '5' and m.num_cuenta in('@numeroCuenta','@numeroCuentaDestino');";
+                                           " where p.idProgramas = '5' and m.num_cuenta in(@numeroCuenta,@numeroCuentaDestino);";
 
                 var cmd = new MySqlCommand
                 {
@@ -4599,7 +4620,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@folio", MySqlDbType.VarChar) { Value = folio }
                 };
 
-                string query = "select id from ind_Originacion where folioDispersion = '@folio';";
+                string query = "select id from ind_Originacion where folioDispersion = @folio;";
 
                 var cmd = new MySqlCommand
                 {
@@ -4649,7 +4670,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var sql = "update ind_Originacion i join dispersionesInternas di on i.folioDispersion = di.idSolicitud and i.numeroCarrier = di.cuenta " +
                           "set i.status = case di.codigoRespuestaPOS when '-1' then 3 when '' then i.status when '983' then i.status else 93 end " +
-                          "where di.idSolicitud = '@folio'";
+                          "where di.idSolicitud = @folio";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -4700,7 +4721,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 string query = "select ac.usuario,m.num_cuenta, m.producto from maquila m" +
                                         " join accessos_clientes ac on m.num_cuenta = ac.cuenta" +
                                         " where m.producto in(@productos)" +
-                                        " AND ac.cuenta = '@numeroCuenta';";
+                                        " AND ac.cuenta = @numeroCuenta;";
 
                 var cmd = new MySqlCommand
                 {
@@ -4846,7 +4867,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = " select b.NombreCompleto from accessos_clientes a " +
                     "join UsuariosOnlineBroxel b on a.IdUsuarioOnlineBroxel = b.Id " +
-                    "where a.cuenta = '@numCuenta' and b.Id = @idUsuarioOnline;",
+                    "where a.cuenta = @numCuenta and b.Id = @idUsuarioOnline;",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
