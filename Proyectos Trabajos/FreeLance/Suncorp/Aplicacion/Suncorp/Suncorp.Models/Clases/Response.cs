@@ -1,6 +1,7 @@
 ﻿namespace Suncorp.Models
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Clase encargada del manejo de la comunicacion con los servicios
@@ -11,10 +12,16 @@
         public DateTime FechaEjecucion { get; set; }
         public string Mensage { get; set; }
     }
-
-    public class ServiceResponse : Response
+    
+    [Serializable]
+    public class UsUsuarioResponse : Response
     {
-        public object Entidad { get; set; }
-        public Exception Excepcions { get; set; }
+        public UsUsuarios Entidad { get; set; }
+    }
+    
+    [Serializable]
+    public class ListUsUsuarioResponse : Response
+    {
+        public List<UsUsuarios> ListaEntidades { get; set; }
     }
 }

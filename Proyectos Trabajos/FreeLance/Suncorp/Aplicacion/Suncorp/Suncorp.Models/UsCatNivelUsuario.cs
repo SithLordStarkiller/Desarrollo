@@ -21,13 +21,13 @@ namespace Suncorp.Models
             this.UsUsuarios = new HashSet<UsUsuarios>();
         }
     
-    	[DataMember]
+    	[DataMember]	
         public int IdNivelUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NivelUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Descripcion { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public bool Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

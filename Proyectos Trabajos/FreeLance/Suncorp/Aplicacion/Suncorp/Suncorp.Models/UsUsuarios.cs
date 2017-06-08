@@ -15,19 +15,19 @@ namespace Suncorp.Models
     
     [DataContract]
     public partial class UsUsuarios{
-    	[DataMember]
+    	[DataMember]	
         public int idUsuarios { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<int> IdTipoUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<int> IdNivelUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<int> IdEstatusUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Usuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Contrasena { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public bool Borrado { get; set; }
     
         public virtual UsCatNivelUsuario UsCatNivelUsuario { get; set; }

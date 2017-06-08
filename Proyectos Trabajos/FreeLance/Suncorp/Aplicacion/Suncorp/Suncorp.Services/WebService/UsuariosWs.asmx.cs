@@ -2,13 +2,13 @@
 {
     using BusinessLogic.Usuarios;
     using Helpers;
-    using Helpers.CustomExcepciones;
     using Models;
     using System;
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
     using System.Web.Services;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Descripción breve de UsuariosWs
@@ -30,17 +30,22 @@
         /// </summary>
         /// <returns>Retorna el modelo con el IdUsuario actualizado</returns>
         [WebMethod]
-        public ServiceResponse ObtenerTablaUsuario()
+        //[XmlInclude(typeof(ListUsUsuarioResponse))]
+        public ListUsUsuarioResponse ObtenerTablaUsuario()
         {
             try
             {
-                return new ServiceResponse
+                return new ListUsUsuarioResponse
                 {
                     ProcesoCorrecto = true,
-                    Mensage = "Correcto",
-                    FechaEjecucion = DateTime.Now,
-                    Entidad = new LogicUsuarios().ObtenerTablaUsuario()
+                    Mensage = "Correcto"
+                    ,
+                    FechaEjecucion = DateTime.Now
+                    //,
+                    //ListaEntidades = new LogicUsuarios().ObtenerTablaUsuario()
                 };
+
+                return null;
             }
             catch (Exception e)
             {
@@ -50,13 +55,15 @@
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al obtener registro usuario", e.Message, e, ""));
 
-                return new ServiceResponse
+                return new ListUsUsuarioResponse
                 {
                     ProcesoCorrecto = false,
-                    Mensage = "Error",
-                    FechaEjecucion = DateTime.Now,
-                    Excepcions = e
+                    Mensage = "Error: " + e.Message
+                    ,
+                    FechaEjecucion = DateTime.Now
                 };
+
+                return null;
             }
         }
 

@@ -15,25 +15,25 @@ namespace Suncorp.Models
     
     [DataContract]
     public partial class LogLogger{
-    	[DataMember]
+    	[DataMember]	
         public long IdLog { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<int> IdTipoLog { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Proyecto { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Clase { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Metodo { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Mensage { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Log { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Excepcion { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Auxiliar { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public System.DateTime FechaCreacion { get; set; }
     
         public virtual LogCatTipoLog LogCatTipoLog { get; set; }

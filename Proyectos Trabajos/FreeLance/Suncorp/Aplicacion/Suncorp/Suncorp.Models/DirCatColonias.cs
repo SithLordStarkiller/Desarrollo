@@ -15,19 +15,19 @@ namespace Suncorp.Models
     
     [DataContract]
     public partial class DirCatColonias{
-    	[DataMember]
+    	[DataMember]	
         public short IdColonia { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public short IdEstado { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public short IdMunicipio { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NombreColonia { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string CodigoPostal { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string ClaveCepomexColonia { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public bool Borrado { get; set; }
     
         public virtual DirCatEstados DirCatEstados { get; set; }

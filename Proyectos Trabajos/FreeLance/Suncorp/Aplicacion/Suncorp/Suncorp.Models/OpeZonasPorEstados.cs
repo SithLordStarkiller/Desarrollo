@@ -15,13 +15,13 @@ namespace Suncorp.Models
     
     [DataContract]
     public partial class OpeZonasPorEstados{
-    	[DataMember]
+    	[DataMember]	
         public int IdZonasEstados { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<short> IdEstado { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<short> IdZona { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<bool> Borrado { get; set; }
     
         public virtual DirCatEstados DirCatEstados { get; set; }

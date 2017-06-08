@@ -21,13 +21,13 @@ namespace Suncorp.Models
             this.LogLogger = new HashSet<LogLogger>();
         }
     
-    	[DataMember]
+    	[DataMember]	
         public int IdTipoLog { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string TipoLog { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Descripcion { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<bool> Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
