@@ -15,25 +15,25 @@ namespace Suncorp.Models
     
     [DataContract]
     public partial class DirDirecciones{
-    	[DataMember]
+    	[DataMember]	
         public int IdDireccion { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public short IdEstado { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public short IdMunicipio { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NombreColonia { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string CodigoPostal { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Calle { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NumeroExterio { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NumeroInterior { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Referencias { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public Nullable<bool> Borrado { get; set; }
     
         public virtual DirCatEstados DirCatEstados { get; set; }

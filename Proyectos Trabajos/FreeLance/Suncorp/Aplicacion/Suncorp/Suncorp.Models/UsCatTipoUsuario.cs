@@ -15,13 +15,13 @@ namespace Suncorp.Models
     
     [DataContract]
     public partial class UsCatTipoUsuario{
-    	[DataMember]
+    	[DataMember]	
         public int IdTipoUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string TipoUsuario { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Descripcion { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public bool Borrado { get; set; }
     }
 }

@@ -21,13 +21,13 @@ namespace Suncorp.Models
             this.OpeZonasPorEstados = new HashSet<OpeZonasPorEstados>();
         }
     
-    	[DataMember]
+    	[DataMember]	
         public short IdZona { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NombreZona { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string Descripcion { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public bool Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

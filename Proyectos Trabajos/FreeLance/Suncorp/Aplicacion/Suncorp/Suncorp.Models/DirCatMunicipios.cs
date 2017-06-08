@@ -22,17 +22,17 @@ namespace Suncorp.Models
             this.DirDirecciones = new HashSet<DirDirecciones>();
         }
     
-    	[DataMember]
+    	[DataMember]	
         public short IdMunicipio { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public short IdEstado { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NombreOficial { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string NombreNoOficial { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public string ClaveMunicipioSepomex { get; set; }
-    	[DataMember]
+    	[DataMember]	
         public bool Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
