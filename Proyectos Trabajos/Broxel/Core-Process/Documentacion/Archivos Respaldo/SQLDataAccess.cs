@@ -83,6 +83,7 @@
             try
             {
                 conn.Open();
+
                 var cmd = new SqlCommand
                 {
                     CommandText = command,

@@ -28,13 +28,9 @@ using wsBroxel.Dispatcher;
 
 namespace wsBroxel
 {
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper'
     public static class Helper
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper'
     {
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.tablaDispersion'
         public static object tablaDispersion = new object();
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.tablaDispersion'
         const string key = "ALT*0123+";
 
         #region CipherDecipher
@@ -94,18 +90,14 @@ namespace wsBroxel
             return pemstr;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.CipherNIP(string)'
         public static string CipherNIP(string nip)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.CipherNIP(string)'
         {
             var cert = new X509Certificate2(LoadPEMFile(AppDomain.CurrentDomain.RelativeSearchPath + "/pines.pem"));
             var rsa = (RSACryptoServiceProvider)cert.PublicKey.Key;
             return Convert.ToBase64String(rsa.Encrypt(Encoding.UTF8.GetBytes(nip), false));
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.CipherPassCREA(string)'
         public static string CipherPassCREA(string stringToCipher)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.CipherPassCREA(string)'
         {
             var rsa = DecodeX509PublicKey(LoadPublicKey(AppDomain.CurrentDomain.RelativeSearchPath + "/clave_rsa_sol_publ.key"));
 
@@ -114,9 +106,7 @@ namespace wsBroxel
             //  return (Convert.ToBase64String(rsa.Encrypt(Encoding.ASCII.GetBytes(stringToCipher), false)));
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.DechiperCREA(string)'
         public static string DechiperCREA(string stringToDecipher)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.DechiperCREA(string)'
         {
             var rsa = DecodeRSAPrivateKey(DecodeOpenSSLPrivateKey(LoadOpenSSLPrivateKey(AppDomain.CurrentDomain.RelativeSearchPath + "/clave_rsa_rta_priv.key")));
             return (Encoding.UTF8.GetString(rsa.Decrypt(Convert.FromBase64String(stringToDecipher), false)));
@@ -504,9 +494,7 @@ namespace wsBroxel
             return true;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.CalculateMD5Hash(string)'
         public static string CalculateMD5Hash(string input)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.CalculateMD5Hash(string)'
         {
             // step 1, calculate MD5 hash from input
             MD5 md5 = System.Security.Cryptography.MD5.Create();
@@ -526,9 +514,7 @@ namespace wsBroxel
 
         #region broxelProcessing
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetPetrusStatusCodeByCredentialStatusCode(string)'
         public static string GetPetrusStatusCodeByCredentialStatusCode(string estado)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetPetrusStatusCodeByCredentialStatusCode(string)'
         {
             string returnValue = "1";
             switch (estado)
@@ -556,9 +542,7 @@ namespace wsBroxel
             }
             return returnValue;
         }
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetStatusTypeByStatusCode(string)'
         public static int GetStatusTypeByStatusCode(string estado)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetStatusTypeByStatusCode(string)'
         {
             int returnValue = 1;
             switch (estado)
@@ -587,9 +571,7 @@ namespace wsBroxel
             return returnValue;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetProcesadorFromCuenta(string)'
 		public static int GetProcesadorFromCuenta(string cuenta)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetProcesadorFromCuenta(string)'
 		{
 			int returnValue = 1;
 			broxelco_rdgEntities dbHelper = new broxelco_rdgEntities();
@@ -602,9 +584,7 @@ namespace wsBroxel
 			return returnValue;
 		}
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetProcesadorFromTarjeta(string)'
 		public static int GetProcesadorFromTarjeta(string tarjea)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetProcesadorFromTarjeta(string)'
 		{
 			int returnValue = 1;
 			broxelco_rdgEntities dbHelper = new broxelco_rdgEntities();
@@ -637,9 +617,7 @@ namespace wsBroxel
             return cuenta;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromCuenta(string)'
         public static Tarjeta GetTarjetaFromCuenta(string NumCuenta)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromCuenta(string)'
         {
             Boolean flag;
             do
@@ -663,15 +641,11 @@ namespace wsBroxel
                     }
                     return t;
                 }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 catch (System.Data.EntityCommandExecutionException e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 {
                     flag = true;
                 }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 catch (MySqlException e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 {
                     flag = true;
                 }
@@ -684,9 +658,7 @@ namespace wsBroxel
             return null;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromTarjeta(string)'
         public static Tarjeta GetTarjetaFromTarjeta(string tarjeta)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromTarjeta(string)'
         {
             Boolean flag;
             do
@@ -716,15 +688,11 @@ namespace wsBroxel
                     }
                     return t;
                 }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 catch (System.Data.EntityCommandExecutionException e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 {
                     flag = true;
                 }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 catch (MySqlException e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 {
                     flag = true;
                 }
@@ -738,9 +706,7 @@ namespace wsBroxel
         }
 
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromCuentaAdicional(string)'
         public static Tarjeta GetTarjetaFromCuentaAdicional(string NumCuenta)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromCuentaAdicional(string)'
         {
             Boolean flag;
             do
@@ -764,15 +730,11 @@ namespace wsBroxel
                     }
                     return t;
                 }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 catch (System.Data.EntityCommandExecutionException e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 {
                     flag = true;
                 }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 catch (MySqlException e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
                 {
                     flag = true;
                 }
@@ -785,9 +747,7 @@ namespace wsBroxel
             return null;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromCuentaYTerm(string, string)'
         public static Tarjeta GetTarjetaFromCuentaYTerm(string numCuenta, string tarjetaEnmascarada)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetTarjetaFromCuentaYTerm(string, string)'
         {
             var dbHelper = new broxelco_rdgEntities();
             Tarjeta t = null;
@@ -817,14 +777,10 @@ namespace wsBroxel
             return t;
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetCuentaFromTarjeta(string)'
         public static string GetCuentaFromTarjeta(string Tarjeta)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetCuentaFromTarjeta(string)'
         {
             broxelco_rdgEntities dbHelper = new broxelco_rdgEntities();
-#pragma warning disable CS0219 // La variable 't' está asignada pero su valor nunca se usa
             Tarjeta t = null;
-#pragma warning restore CS0219 // La variable 't' está asignada pero su valor nunca se usa
             try
             {
                 String qry =
@@ -836,17 +792,13 @@ namespace wsBroxel
                     return maq[0].num_cuenta;
                 return String.Empty;
             }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
             catch (Exception e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
             {
                 return String.Empty;
             }
         }
 		
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetCuentaFromTarjetaAdicional(string)'
 		public static string GetCuentaFromTarjetaAdicional(string Tarjeta)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.GetCuentaFromTarjetaAdicional(string)'
         {
             broxelco_rdgEntities dbHelper = new broxelco_rdgEntities();
             string respuesta = String.Empty;
@@ -861,9 +813,7 @@ namespace wsBroxel
                     respuesta = regTc[0].numero_de_cuenta;
 
             }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
             catch (Exception e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
             {
                 respuesta = String.Empty;
             }
@@ -933,9 +883,7 @@ namespace wsBroxel
                                         BloqueaCuentasRedDePagos(dispersion.cuenta, folio);
                                 }
                             }
-#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             catch (Exception ex)
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             {
                                 dispersion.codigoRespuesta = "990";
                             }
@@ -1045,9 +993,7 @@ namespace wsBroxel
                                     }
                                 }
                             }
-#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             catch (Exception ex)
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             {
                                 dispersion.codigoRespuestaATM = "989";
                             }
@@ -1084,9 +1030,7 @@ namespace wsBroxel
                                         }
                                     }
                                 }
-#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                                 catch (Exception ex)
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                                 {
                                     dispersion.codigoRespuestaPOS = "990";
                                 }
@@ -1124,9 +1068,7 @@ namespace wsBroxel
             var broxelSqlHelper = new BroxelSQLEntities();
             var mysqlHelper = new broxelco_rdgEntities();
             Tarjeta t;
-#pragma warning disable CS0219 // La variable 'Cargos' está asignada pero su valor nunca se usa
             int Cargos = 0;
-#pragma warning restore CS0219 // La variable 'Cargos' está asignada pero su valor nunca se usa
             var webService = new BroxelService();
             var count = 0;
 
@@ -1218,9 +1160,7 @@ namespace wsBroxel
                                     //cargo.SaldoDespues = webService.GetSaldosPorCuenta(cargo.Cuenta).Saldos.DisponibleCompras;
                                 }
                             }
-#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             catch (Exception ex)
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             {
                                 cargo.CodigoRespuesta = 990;
                             }
@@ -1336,8 +1276,11 @@ namespace wsBroxel
             sb.Append(htmlIni);
             if (estado != "COMPLETA")
             {
+                var listaDescripcionError = mysqlHelper.CodigosRespuesta.ToList();
+
                 foreach (var error in erroresCargos)
                 {
+                    var descripcionError = listaDescripcionError.FirstOrDefault(x => x.Id == error.CodigoRespuesta).Descripcion;
                     sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"><br><br>Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas por código </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, error.CodigoRespuesta);
                     foreach (var cuenta in error.CuentasConError)
                     {
@@ -1358,9 +1301,7 @@ namespace wsBroxel
         {
             var dbHelper = new broxelco_rdgEntities();
             Tarjeta t;
-#pragma warning disable CS0219 // La variable 'POS' está asignada pero su valor nunca se usa
             int POS = 0;
-#pragma warning restore CS0219 // La variable 'POS' está asignada pero su valor nunca se usa
             var webService = new BroxelService();
             var count = 0;
             List<maquila> cuentas = new List<maquila>();
@@ -1533,9 +1474,13 @@ namespace wsBroxel
             sb.Append(htmlIni);
             if (estado != "COMPLETA")
             {
+                var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
+
                 foreach (var error in erroresDispersion)
                 {
-                    sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas por código </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, error.CodigoRespuesta);
+                    var descripcionError = listaDescripcionError.FirstOrDefault(x => x.Id == error.CodigoRespuesta).Descripcion;
+
+                    sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas por código </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, descripcionError);
                     foreach (var cuenta in error.CuentasConError)
                     {
                         sb.AppendFormat("<br/>{0}", cuenta);
@@ -1553,14 +1498,10 @@ namespace wsBroxel
         {
             var dbHelper = new broxelco_rdgEntities();
             Tarjeta t;
-#pragma warning disable CS0219 // La variable 'ATM' está asignada pero su valor nunca se usa
             int POS = 0, ATM = 0;
-#pragma warning restore CS0219 // La variable 'ATM' está asignada pero su valor nunca se usa
             var webService = new BroxelService();
             var count = 0;
-#pragma warning disable CS0168 // La variable 'comision' se ha declarado pero nunca se usa
             bool comision;
-#pragma warning restore CS0168 // La variable 'comision' se ha declarado pero nunca se usa
 
             var devolucionSolicitud = dbHelper.devolucionesSolicitudes.Where(x => x.folio == folio && x.estado == "Validando").ToList();
             if (devolucionSolicitud.Count == 1 && devolucionSolicitud[0].estado == "Validando")
@@ -1599,9 +1540,7 @@ namespace wsBroxel
                                     POS++;
                                 }
                             }
-#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             catch (Exception ex)
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             {
                                 devolucion.codigoRespuesta = "990";
                             }
@@ -1864,9 +1803,7 @@ namespace wsBroxel
             {
                 var dbHelper = new broxelco_rdgEntities();
                 decimal antesPOS = 0, despuesPOS = 0, posSolicitado = 0;
-#pragma warning disable CS0219 // La variable 'correctasATM' está asignada pero su valor nunca se usa
                 int correctasPOS = 0, correctasATM = 0;
-#pragma warning restore CS0219 // La variable 'correctasATM' está asignada pero su valor nunca se usa
                 var errores = new List<ErroresDispersion>();
 
                 var pagosInternos = dbHelper.pagosInternos.Where(x => x.idSolicitud == folio && x.pago > 0).ToList();
@@ -1925,9 +1862,7 @@ namespace wsBroxel
                 broxelco_rdgEntities _broxelcoRdgEntities = new broxelco_rdgEntities();
                 var dbHelper = new broxelco_rdgEntities();
                 decimal antesPOS = 0, despuesPOS = 0, posSolicitado = 0;
-#pragma warning disable CS0219 // La variable 'correctasATM' está asignada pero su valor nunca se usa
                 int correctasPOS = 0, correctasATM = 0;
-#pragma warning restore CS0219 // La variable 'correctasATM' está asignada pero su valor nunca se usa
                 var errores = new List<ErroresDispersion>();
 
                 var devolucionesInternas =
@@ -2477,9 +2412,7 @@ namespace wsBroxel
 
         #region Mailing
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.EnviarMailDispersion(string, string, string, decimal, decimal, string, int, string, List<ErroresDispersion>, decimal, decimal)'
         public static void EnviarMailDispersion(string emailNotificar, string folio, string tipo, decimal totalPOS, decimal totalATM, string estado, int cuantas, string cliente, List<ErroresDispersion> erroresDispersion, decimal posSolicitado, decimal atmSolicitado)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.EnviarMailDispersion(string, string, string, decimal, decimal, string, int, string, List<ErroresDispersion>, decimal, decimal)'
         {
             var dbHelper = new broxelco_rdgEntities();
             int cuentasConError = 0;
@@ -2498,7 +2431,6 @@ namespace wsBroxel
             htmlIni = htmlIni.Replace("[ATMREAL]", PrintCurrency(totalATM));
 
             sb.Append(htmlIni);
-
             if (estado != "COMPLETA")
             {
                 var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
@@ -2537,16 +2469,15 @@ namespace wsBroxel
             htmlIni = htmlIni.Replace("[POSREAL]", PrintCurrency(totalPOS));
 
             sb.Append(htmlIni);
-
-            var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
-
             if (estado != "COMPLETA")
             {
+                var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
+
                 foreach (var error in erroresDispersion)
                 {
                     var descripcionError = listaDescripcionError.FirstOrDefault(x => x.Id == error.CodigoRespuesta).Descripcion;
 
-                    sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas:</a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, descripcionError);
+                    sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas: </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, descripcionError);
                     foreach (var cuenta in error.CuentasConError)
                     {
                         sb.AppendFormat("<br/>{0}", cuenta);
@@ -2577,11 +2508,10 @@ namespace wsBroxel
             htmlIni = htmlIni.Replace("[POSREAL]", PrintCurrency(totalPOS));
 
             sb.Append(htmlIni);
-
-            var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
-
             if (estado != "COMPLETA")
             {
+                var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
+
                 foreach (var error in erroresDispersion)
                 {
                     var descripcionError = listaDescripcionError.FirstOrDefault(x => x.Id == error.CodigoRespuesta).Descripcion;
@@ -2600,9 +2530,7 @@ namespace wsBroxel
             //SendMail(From, "aldogarcia@broxel.com" + emailNotificar!=String.Empty?", "+emailNotificar:"", Subject, sb.ToString(), "yMQ3E3ert6", "Broxel : Aplicación de pago");
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.SendMail(string, string, string, string, string, string)'
         public static void SendMail(string from, string to, string subject, string body, string fromPassword, string fromName = "")
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.SendMail(string, string, string, string, string, string)'
         {
             try
             {
@@ -2672,9 +2600,7 @@ namespace wsBroxel
             }
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.SendMailMyCard(string, string, string, string, string, string, string, string[])'
         public static void SendMailMyCard(string from, string to, string cc, string subject, string body, string fromPassword, string fromName = "", string[] attachment = null)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.SendMailMyCard(string, string, string, string, string, string, string, string[])'
         {
             try
             {
@@ -2757,14 +2683,12 @@ namespace wsBroxel
             htmlIni = htmlIni.Replace("[POSREAL]", PrintCurrency(totalPOS));
 
             sb.Append(htmlIni);
-
-            var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
-
             if (estado != "COMPLETA")
             {
+                var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
+
                 foreach (var error in erroresDispersion)
                 {
-
                     var descripcionError = listaDescripcionError.FirstOrDefault(x => x.Id == error.CodigoRespuesta).Descripcion;
 
                     sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas: </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, descripcionError);
@@ -2818,9 +2742,7 @@ namespace wsBroxel
 
         #region CifradoWeb
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.Cifrar(string)'
         public static string Cifrar(string texto)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.Cifrar(string)'
         {
             var Arreglo_a_Cifrar = UTF8Encoding.UTF8.GetBytes(texto);
             var hashmd5 = new MD5CryptoServiceProvider();
@@ -2838,16 +2760,12 @@ namespace wsBroxel
             return Convert.ToBase64String(ArrayResultado, 0, ArrayResultado.Length);
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.ToBase64(string)'
         public static string ToBase64(string toConvert)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.ToBase64(string)'
         {
             return Convert.ToBase64String(Encoding.UTF8.GetBytes(toConvert));
         }
 
-#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.DesCifrar(string)'
         public static string DesCifrar(string textoEncriptado)
-#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible de forma pública 'Helper.DesCifrar(string)'
         {
             byte[] keyArray;
             var Array_a_Descifrar = Convert.FromBase64String(textoEncriptado);
@@ -3045,15 +2963,15 @@ namespace wsBroxel
             htmlIni = htmlIni.Replace("[ATMREAL]", PrintCurrency(totalATM));
 
             sb.Append(htmlIni);
-
-            var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
-
             if (estado != "COMPLETA")
             {
+                var listaDescripcionError = dbHelper.CodigosRespuesta.ToList();
+
                 foreach (var error in erroresDispersion)
                 {
                     var descripcionError = listaDescripcionError.FirstOrDefault(x => x.Id == error.CodigoRespuesta).Descripcion;
-                    sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas: </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count,descripcionError);
+
+                    sb.AppendFormat("<a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\">Las siguientes </a></strong><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{0}</a></strong><a style=\"text-decoration: none; color:#a3a2a2; font-weight: normal;\"> cuentas no pudieron ser procesadas por código </a><a style=\"text-decoration: none; color: #555555; font-weight: bold;\">{1}.</a></strong></strong><br/>", error.CuentasConError.Count, descripcionError);
                     foreach (var cuenta in error.CuentasConError)
                     {
                         sb.AppendFormat("<br/>{0}", cuenta);
@@ -3191,9 +3109,7 @@ namespace wsBroxel
                                     POS++;
                                 }
                             }
-#pragma warning disable CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             catch (Exception ex)
-#pragma warning restore CS0168 // La variable 'ex' se ha declarado pero nunca se usa
                             {
                                 dispersion.CodigoRespuesta = "990";
                             }
@@ -3319,9 +3235,7 @@ namespace wsBroxel
                     return localIp;
                 }
             }
-#pragma warning disable CS0168 // La variable 'e' se ha declarado pero nunca se usa
             catch (Exception e)
-#pragma warning restore CS0168 // La variable 'e' se ha declarado pero nunca se usa
             {
                 return "Unkown";
             }
