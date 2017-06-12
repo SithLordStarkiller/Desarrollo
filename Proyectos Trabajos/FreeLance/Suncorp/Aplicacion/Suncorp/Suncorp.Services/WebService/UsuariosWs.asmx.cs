@@ -1,6 +1,8 @@
 ﻿namespace Suncorp.Services.WebService
 {
     using BusinessLogic.Usuarios;
+    using Models;
+    using Models.Models;
     using Helpers;
     using Models;
     using System;
@@ -38,11 +40,9 @@
                 return new ListUsUsuarioResponse
                 {
                     ProcesoCorrecto = true,
-                    Mensage = "Correcto"
-                    ,
+                    Mensage = "Correcto",
                     FechaEjecucion = DateTime.Now
-                    //,
-                    //ListaEntidades = new LogicUsuarios().ObtenerTablaUsuario()
+                    //ListaEntidades = new LogicUsuarios().ObtenerTablaUsuario().ToListModel(UsUsuariosModel)
                 };
 
                 return null;
