@@ -36,6 +36,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,6 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\DireccionesWcf\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\UsuariosWcf\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +63,71 @@
       <Project>{39b03b4b-5e78-41f6-b6d3-d5a4e564d34b}</Project>
       <Name>Suncorp.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\DireccionesWcf\DireccionesWcf.wsdl" />
+    <None Include="Connected Services\DireccionesWcf\DireccionesWcf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DireccionesWcf\DireccionesWcf1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\DireccionesWcf\DireccionesWcf2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UsuariosWcf\UsuariosWcf.wsdl" />
+    <None Include="Connected Services\UsuariosWcf\UsuariosWcf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UsuariosWcf\UsuariosWcf1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\UsuariosWcf\UsuariosWcf2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\Suncorp.Models.DirCatColonias.datasource" />
+    <None Include="Properties\DataSources\Suncorp.Models.DirCatEstados.datasource" />
+    <None Include="Properties\DataSources\Suncorp.Models.DirCatMunicipios.datasource" />
+    <None Include="Properties\DataSources\Suncorp.Models.DirDirecciones.datasource" />
+    <None Include="Properties\DataSources\Suncorp.Models.UsUsuarios.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\DireccionesWcf\" />
+    <WCFMetadataStorage Include="Connected Services\UsuariosWcf\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UsuariosWcf\UsuariosWcf.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UsuariosWcf\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UsuariosWcf\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\UsuariosWcf\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DireccionesWcf\DireccionesWcf.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DireccionesWcf\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DireccionesWcf\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\DireccionesWcf\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

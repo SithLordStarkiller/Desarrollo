@@ -1823,7 +1823,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                     new MySqlParameter("@saldo", MySqlDbType.Decimal) { Value = saldo }
                 };
 
-                var sql = "insert into dispersiones_ws_detalles (folio, cuenta, saldo) values (folio,@cuenta, @saldo);";
+                var sql = "insert into dispersiones_ws_detalles (folio, cuenta, saldo) values (@folio,@cuenta, @saldo);";
                 var cmd = new MySqlCommand
                 {
                     CommandText = sql,
@@ -2623,7 +2623,7 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     new MySqlParameter("@claveCliente", MySqlDbType.VarChar) { Value = claveCliente },
                     new MySqlParameter("@producto", MySqlDbType.VarChar) { Value = producto },
-                    new MySqlParameter("@folio", MySqlDbType.VarChar) { Value = res }
+                    new MySqlParameter("@res", MySqlDbType.VarChar) { Value = res }
                 };
 
                 cmd = new MySqlCommand
@@ -2779,15 +2779,23 @@ namespace wsBroxel.App_Code.SolicitudBL
             _conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLBroxel_RDG"].ToString());
             try
             {
-
                 _conn.Open();
+
+                var parameters = new MySqlParameter[]
+                {
+                    new MySqlParameter("@idSolicitud", MySqlDbType.VarChar) { Value = idSolicitud.ToString(CultureInfo.InvariantCulture) }
+                };
+
                 var cmd = new MySqlCommand
                 {
-                    CommandText = "call spPreRenominacion(" + idSolicitud.ToString(CultureInfo.InvariantCulture) + ");",
+                    CommandText = "call spPreRenominacion(@idSolicitud);",
                     Connection = _conn,
                     CommandType = CommandType.Text,
                     CommandTimeout = 1200
                 };
+
+                cmd.Parameters.AddRange(parameters);
+
                 cmd.ExecuteNonQuery();
                 result = true;
             }
@@ -3735,7 +3743,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand
                 {
-                    CommandText = "call spObtenPagosTransferencias(@numCuenta, @fechaIni, @fechaFin, tipo);",
+                    CommandText = "call spObtenPagosTransferencias(@numCuenta, @fechaIni, @fechaFin, @tipo);",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
@@ -4815,7 +4823,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 
                 var cmd = new MySqlCommand
                 {
-                    CommandText = " select IdFolio from DireccionEnvioTarjetaFisica where IdFolio like '%@pref%' order by IdFolio desc limit 1; ",
+                    CommandText = " select IdFolio from DireccionEnvioTarjetaFisica where IdFolio like '%"+ pref + "%' order by IdFolio desc limit 1; ",
                     Connection = _conn,
                     CommandType = CommandType.Text
                 };
