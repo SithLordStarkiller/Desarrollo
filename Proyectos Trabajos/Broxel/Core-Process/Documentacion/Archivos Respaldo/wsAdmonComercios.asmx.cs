@@ -61,86 +61,58 @@ namespace wsBroxel
 
         private AltaComercioTPVResponse AgregarComercio(String nombreComercio, String codigoComercio, String producto, String usuario)
         {
-            if ((!string.IsNullOrEmpty(nombreComercio) && nombreComercio.All(Char.IsLetterOrDigit)) &&
-                (!string.IsNullOrEmpty(codigoComercio) && codigoComercio.All(Char.IsLetterOrDigit)) &&
-                (!string.IsNullOrEmpty(producto) && producto.All(Char.IsLetterOrDigit)) &&
-                (!string.IsNullOrEmpty(usuario) && usuario.All(Char.IsLetterOrDigit)))
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            var resp = _comercios.AltaComercio(new AltaComercioRequest1
             {
-
-                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-                var resp = _comercios.AltaComercio(new AltaComercioRequest1
+                AltaComercioRequest = new AltaComercioRequest
                 {
-                    AltaComercioRequest = new AltaComercioRequest
+                    Autenticacion = aut(),
+                    DatosComercio = new AltaComercioRequestDatosComercio
                     {
-                        Autenticacion = aut(),
-                        DatosComercio = new AltaComercioRequestDatosComercio
-                        {
-                            Denominacion = nombreComercio,
-                            Entidad = Entidad,
-                            NroCom = codigoComercio,
-                            Producto = producto,
-                            Usuario = ConvierteUsuario(usuario)
-                        }
+                        Denominacion = nombreComercio,
+                        Entidad = Entidad,
+                        NroCom = codigoComercio,
+                        Producto = producto,
+                        Usuario = ConvierteUsuario(usuario)
                     }
-                }).AltaComercioResponse;
-                return new AltaComercioTPVResponse
-                {
-                    CodigoRespuesta = Convert.ToInt32(resp.Response.CodigoRespuesta),
-                    Success = resp.Response.CodigoRespuesta == "00" ? 1 : 0,
-                    FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    UserResponse = resp.Response.Descripcion,
-                    NumeroAutorizacion = resp.Response.TicketWS
-                };
-            }
-            else
+                }
+            }).AltaComercioResponse;
+            return new AltaComercioTPVResponse
             {
-                return null;
-            }
+                CodigoRespuesta = Convert.ToInt32(resp.Response.CodigoRespuesta),
+                Success = resp.Response.CodigoRespuesta == "00" ? 1 : 0,
+                FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                UserResponse = resp.Response.Descripcion,
+                NumeroAutorizacion = resp.Response.TicketWS
+            };
         }
 
         private BajaComercioTPVResponse EliminarComercio(String numeroComercio, String producto, String usuario)
         {
-            if ((!string.IsNullOrEmpty(numeroComercio) && numeroComercio.All(Char.IsLetterOrDigit)) &&
-                (!string.IsNullOrEmpty(producto) && producto.All(Char.IsLetterOrDigit)) &&
-                (!string.IsNullOrEmpty(usuario) && usuario.All(Char.IsLetterOrDigit)))
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+            var resp = _comercios.BajaComercio(new BajaComercioRequest1
             {
-
-                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-
-                var resp = _comercios.BajaComercio(new BajaComercioRequest1
+                BajaComercioRequest = new BajaComercioRequest
                 {
-                    BajaComercioRequest = new BajaComercioRequest
+                    Autenticacion = aut(),
+                    DatosComercio = new BajaComercioRequestDatosComercio
                     {
-                        Autenticacion = aut(),
-                        DatosComercio = new BajaComercioRequestDatosComercio
-                        {
-                            Entidad = Entidad,
-                            NroCom = numeroComercio,
-                            Producto = producto,
-                            Usuario = ConvierteUsuario(usuario)
-                        }
+                        Entidad = Entidad,
+                        NroCom = numeroComercio,
+                        Producto = producto,
+                        Usuario = ConvierteUsuario(usuario)
                     }
-                }).BajaComercioResponse;
-                return new BajaComercioTPVResponse
-                {
-                    CodigoRespuesta = Convert.ToInt32(resp.Response.CodigoRespuesta),
-                    Success = resp.Response.CodigoRespuesta == "00" ? 1 : 0,
-                    FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    UserResponse = resp.Response.Descripcion,
-                    NumeroAutorizacion = resp.Response.TicketWS,
-                };
-            }
-            else
+                }
+            }).BajaComercioResponse;
+            return new BajaComercioTPVResponse
             {
-                return new BajaComercioTPVResponse
-                {
-                    CodigoRespuesta = Convert.ToInt32(resp.Response.CodigoRespuesta),
-                    Success = resp.Response.CodigoRespuesta == "00" ? 1 : 0,
-                    FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    UserResponse = resp.Response.Descripcion,
-                    NumeroAutorizacion = resp.Response.TicketWS,
-                };
-            }
+                CodigoRespuesta = Convert.ToInt32(resp.Response.CodigoRespuesta),
+                Success = resp.Response.CodigoRespuesta == "00" ? 1 : 0,
+                FechaCreacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+                UserResponse = resp.Response.Descripcion,
+                NumeroAutorizacion = resp.Response.TicketWS,
+            };
         }
 
         private ModificacionComercioTPVResponse ModificarComercio(String numeroComercio, String nombreComercio, String producto, String usuario)
@@ -218,27 +190,13 @@ namespace wsBroxel
         #endregion
 
         #region PublicAndExposedMethods
-        /// <summary>
-        /// Creacion de un cliente de tipo comercio
-        /// </summary>
-        /// <param name="idComercio"></param>
-        /// <param name="email"></param>
-        /// <param name="celular"></param>
-        /// <param name="clabe"></param>
-        /// <returns></returns>
+
         [WebMethod]
         public string CrearClienteComercio(int idComercio, string email, string celular, string clabe)
         {
             return new VCardBL().CrearClienteComercio(idComercio, email, celular, clabe);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nombreComercio"></param>
-        /// <param name="numeroComercio"></param>
-        /// <param name="producto"></param>
-        /// <param name="usuario"></param>
-        /// <returns></returns>
+        
         [WebMethod]
         public AltaComercioTPVResponse AltaComercio(String nombreComercio, String numeroComercio, String producto, String usuario)
         {
@@ -273,31 +231,38 @@ namespace wsBroxel
         {
             //String[] whatever = { "4540563" };
             //var flista = whatever.ToList();
-            
-            string path = @"c:\temp\Aldo.csv";
-            if (!File.Exists(path))
-            {
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine("Numero, Denominacion, FechaAlta, Producto");
-                    System.Diagnostics.Debug.WriteLine("Numero, Denominacion, FechaAlta, Producto");
-                }
-            }
 
-            using (StreamWriter sw = File.AppendText(path))
+            if (totalPaginas > -1)
             {
-                for (int i = 1; i <= totalPaginas; i++)
+                string path = @"c:\temp\Aldo.csv";
+                if (!File.Exists(path))
                 {
-                    var respuesta = ConsultarComercioPorProducto(i + "", producto);
-                    foreach (var comercio in respuesta.Comercios)
+                    using (StreamWriter sw = File.CreateText(path))
                     {
-                        sw.WriteLine(comercio.NroCom + "," + comercio.Denominacion.Replace(',', ' ') + "," + comercio.FechaAlta + "," + producto);
-                        System.Diagnostics.Debug.WriteLine(comercio.NroCom + "," + comercio.Denominacion + "," + comercio.FechaAlta + "," + producto);
+                        sw.WriteLine("Numero, Denominacion, FechaAlta, Producto");
+                        System.Diagnostics.Debug.WriteLine("Numero, Denominacion, FechaAlta, Producto");
                     }
                 }
-            }
 
-            return true;
+                using (StreamWriter sw = File.AppendText(path))
+                {
+                    for (int i = 1; i <= totalPaginas; i++)
+                    {
+                        var respuesta = ConsultarComercioPorProducto(i + "", producto);
+                        foreach (var comercio in respuesta.Comercios)
+                        {
+                            sw.WriteLine(comercio.NroCom + "," + comercio.Denominacion.Replace(',', ' ') + "," + comercio.FechaAlta + "," + producto);
+                            System.Diagnostics.Debug.WriteLine(comercio.NroCom + "," + comercio.Denominacion + "," + comercio.FechaAlta + "," + producto);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
          [WebMethod]

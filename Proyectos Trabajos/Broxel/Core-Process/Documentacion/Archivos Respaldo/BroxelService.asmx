@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="BroxelService.asmx.cs" Class="wsBroxel.BroxelService" %>
