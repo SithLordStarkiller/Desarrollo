@@ -130,6 +130,7 @@ namespace wsBroxel.App_Code.SolicitudBL
 		/// <returns>nombre</returns>
 		public string ObtenerNombreComercio(int idComercio)
         {
+
             string res = "";
             try
             {
@@ -198,7 +199,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = " select clave_cliente from  maquila  where num_cuenta = @numCuenta;",
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -292,7 +294,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = "select  idUser, Canal, TipoObtencionCanal from usuarios_dispersiones_ws where  idUser = @idUsuario",
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -406,7 +409,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = sql,
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -807,7 +811,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = sql,
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -841,7 +846,32 @@ namespace wsBroxel.App_Code.SolicitudBL
             }
             return comisiones;
         }
-
+        public void InsertDispersionWsCargos(long folio, string folioCargo)
+        {
+            try
+            {
+                _conn = new MySqlConnection(ConfigurationManager.ConnectionStrings["MySQLBroxel_RDG"].ToString());
+                _conn.Open();
+                var sql = "insert into dispersiones_ws_cargos (folio, folioCargo) " +
+                          "values (" + folio.ToString(CultureInfo.InvariantCulture) + ", '" + folioCargo + "');";
+                var cmd = new MySqlCommand
+                {
+                    CommandText = sql,
+                    Connection = _conn,
+                    CommandType = CommandType.Text
+                };
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(DateTime.Now.ToString("O") + "- Error al insertar en dispersiones_ws_cargos: " + e);
+            }
+            finally
+            {
+                _conn.Close();
+                _conn = null;
+            }
+        }
         #endregion
         #region Dispersiones
 
@@ -964,7 +994,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = sql,
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -1339,7 +1370,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = sql,
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -1482,7 +1514,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = sql,
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);
@@ -1657,7 +1690,8 @@ namespace wsBroxel.App_Code.SolicitudBL
                 {
                     CommandText = sql,
                     Connection = _conn,
-                    CommandType = CommandType.Text
+                    CommandType = CommandType.Text,
+                    CommandTimeout = 300
                 };
 
                 cmd.Parameters.AddRange(parameters);

@@ -670,9 +670,9 @@ namespace wsBroxel
                     Tarjeta t = null;
                     String qry = @"select Concat(left(r.`numero_tc`,6),right(rb.folio_de_registro,6),right(r.`numero_tc`,4)) as NumeroTarjeta, m.nombre_titular as NombreTarjetaHabiente, r.id as Id, replace(right(rb.fecha_de_registro,5),'-','') as FechaExpira, Concat(right(right(left(rb.transacciones,5),3),1),left(right(left(rb.transacciones,5),3),1), right(left(right(left(rb.transacciones,5),3),2),1)) as CVC, m.procesador as Procesador, m.num_cuenta NumCuenta " +
                         "from registro_tc r join registri_broxel rb on r.id = rb.id_de_registro join maquila m on r.numero_de_cuenta = m.num_cuenta " +
-                        "where left(m.`nro-tarjeta`,6)='"+ tarjeta.Substring(0,6) +"' " +
+                        "where left(r.numero_tc,6)='"+ tarjeta.Substring(0,6) +"' " +
                         "and right(rb.`folio_de_registro`,6)='"+ tarjeta.Substring(6,6) +"' " +
-                        "and right(m.`nro-tarjeta`,4)= '"+tarjeta.Substring(12,4) +"' " +
+                        "and right(r.numero_tc,4)= '"+tarjeta.Substring(12,4) +"' " +
                         "order by r.id limit 1";
 
                     var maq = dbHelper.Database.SqlQuery<MaquilaResumen>(qry).ToList();
