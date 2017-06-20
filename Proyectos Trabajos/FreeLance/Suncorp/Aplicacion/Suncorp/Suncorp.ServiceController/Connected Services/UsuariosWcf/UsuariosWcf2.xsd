@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Suncorp.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Suncorp.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8328/ServiciosWcf/UsuariosWcf.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfUsUsuarios">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UsUsuarios" nillable="true" type="tns:UsUsuarios" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsUsuarios" nillable="true" type="tns:ArrayOfUsUsuarios" />
+  <xs:complexType name="UsUsuarios">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Contrasena" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEstatusUsuario" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IdNivelUsuario" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="IdTipoUsuario" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Usuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idUsuarios" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UsUsuarios" nillable="true" type="tns:UsUsuarios" />
+  <xs:complexType name="WcfResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstatusProceso" type="tns:EstatusProceso" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ObjetoRespuesta" nillable="true" type="xs:anyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="WcfResponse" nillable="true" type="tns:WcfResponse" />
+  <xs:simpleType name="EstatusProceso">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Exitoso">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CompletadoConAdvetencias">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Error">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ErrorCritico">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="EstatusProceso" nillable="true" type="tns:EstatusProceso" />
+</xs:schema>
