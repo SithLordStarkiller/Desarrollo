@@ -166,23 +166,13 @@
             {
                 return new EntUsuarios().ObtenerUsuarioLogin(usuario, contrasena).Result;
             }
-            catch (UserNotFindException e)
+            catch (UserNotFindException eUnf)
             {
-                Task.Factory.StartNew(
-                   () =>
-                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
-                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
-                throw;
+                throw eUnf;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Task.Factory.StartNew(
-                   () =>
-                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
-                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, ""));
-                throw;
+                throw ex;
             }
         }
 

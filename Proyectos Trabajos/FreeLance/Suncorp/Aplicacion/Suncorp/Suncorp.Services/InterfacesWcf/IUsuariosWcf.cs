@@ -3,8 +3,6 @@
     using System.ServiceModel;
     using Models;
     using System.Collections.Generic;
-    using System.Linq.Expressions;
-    using System;
 
     [ServiceContract]
     public interface IUsuariosWcf
@@ -63,7 +61,7 @@
         #region Operaciones
 
         [OperationContract]
-        UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena);
+        WcfResponse ObtenerUsuarioLogin(string usuario, string contrasena);
         
         #endregion
     }
