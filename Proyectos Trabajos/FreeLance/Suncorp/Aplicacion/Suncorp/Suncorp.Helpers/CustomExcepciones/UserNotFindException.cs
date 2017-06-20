@@ -17,10 +17,22 @@
         /// </summary>
         public string Contrasena { get; }
 
+        /// <summary>
+        /// Codigo asignado a este error o excepcion
+        /// </summary>
+        public string CodigoError { get; set; }
+
         public UserNotFindException(string usuario, string contrasena) : base("No se encontro al usuario o fallo contraseña")
         {
             Usuario = usuario;
             Contrasena = contrasena;
+        }
+
+        public UserNotFindException(string usuario, string contrasena, string codigoError) : base("No se encontro al usuario o fallo contraseña")
+        {
+            Usuario = usuario;
+            Contrasena = contrasena;
+            CodigoError = codigoError;
         }
 
     }

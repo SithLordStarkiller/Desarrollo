@@ -159,26 +159,40 @@
         /// </summary>
         /// <param name="usuario">usuaio que decea realizar un log in</param>
         /// <param name="contrasena">Contraseña que corresponde al usuario</param>
-        /// <returns>Retorna un modelo con la el registro del usuario</returns>
-        public UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena)
+        /// <returns>Retorna un WcfResponse estandar con el tipo de Objeto UsUsuarios</returns>
+        public WcfResponse ObtenerUsuarioLogin(string usuario, string contrasena)
         {
+            var response = new WcfResponse();
+
             try
             {
-                return new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
+                var objeto = new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
+
+                response = new WcfResponse
+                {
+                    EstatusProceso = EstatusProceso.Exitoso,
+                    ObjetoRespuesta = objeto,
+                    Mensaje = "Completado",
+                    CodigoError = "0"
+                    
+                };
+
+                return response;
             }
-            catch (UserNotFindException e)
+            catch (UserNotFindException eUnf)
             {
-                Task.Factory.StartNew(
-                   () =>
-                       _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
-                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
-                throw;
+                response.EstatusProceso = EstatusProceso.CompletadoConAdvetencias;
+                response.Mensaje = "No se encontro al usuario: {0}" + eUnf.Usuario;
+                response.CodigoError = eUnf.CodigoError;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                response.EstatusProceso = EstatusProceso.Error;
+                response.Mensaje = "Error: " + ex.InnerException.Message;
+                response.CodigoError = "-1";
             }
+
+            return response;
         }
 
         #endregion

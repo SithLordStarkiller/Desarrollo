@@ -200,7 +200,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, "Usuario: " + e.Usuario + " Contrasena: " + e.Contrasena));
-                throw;
+                throw e;
             }
             catch (Exception e)
             {
@@ -209,7 +209,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.Error,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, ""));
-                throw;
+                throw e;
             }
 
         }
