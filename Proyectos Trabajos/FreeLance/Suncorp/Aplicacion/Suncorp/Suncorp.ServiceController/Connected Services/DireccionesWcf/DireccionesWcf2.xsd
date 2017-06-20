@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Suncorp.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Suncorp.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfDirCatEstados">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DirCatEstados" nillable="true" type="tns:DirCatEstados" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDirCatEstados" nillable="true" type="tns:ArrayOfDirCatEstados" />
+  <xs:complexType name="DirCatEstados">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ClaveEstadoSepomex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEstado" type="xs:short" />
+      <xs:element minOccurs="0" name="NombreNoOficial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreOficial" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DirCatEstados" nillable="true" type="tns:DirCatEstados" />
+  <xs:complexType name="ArrayOfDirCatMunicipios">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DirCatMunicipios" nillable="true" type="tns:DirCatMunicipios" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDirCatMunicipios" nillable="true" type="tns:ArrayOfDirCatMunicipios" />
+  <xs:complexType name="DirCatMunicipios">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ClaveMunicipioSepomex" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEstado" type="xs:short" />
+      <xs:element minOccurs="0" name="IdMunicipio" type="xs:short" />
+      <xs:element minOccurs="0" name="NombreNoOficial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreOficial" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DirCatMunicipios" nillable="true" type="tns:DirCatMunicipios" />
+  <xs:complexType name="ArrayOfDirCatColonias">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DirCatColonias" nillable="true" type="tns:DirCatColonias" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDirCatColonias" nillable="true" type="tns:ArrayOfDirCatColonias" />
+  <xs:complexType name="DirCatColonias">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ClaveCepomexColonia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdColonia" type="xs:short" />
+      <xs:element minOccurs="0" name="IdEstado" type="xs:short" />
+      <xs:element minOccurs="0" name="IdMunicipio" type="xs:short" />
+      <xs:element minOccurs="0" name="NombreColonia" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DirCatColonias" nillable="true" type="tns:DirCatColonias" />
+  <xs:complexType name="ArrayOfDirDirecciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DirDirecciones" nillable="true" type="tns:DirDirecciones" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDirDirecciones" nillable="true" type="tns:ArrayOfDirDirecciones" />
+  <xs:complexType name="DirDirecciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Borrado" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Calle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPostal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdDireccion" type="xs:int" />
+      <xs:element minOccurs="0" name="IdEstado" type="xs:short" />
+      <xs:element minOccurs="0" name="IdMunicipio" type="xs:short" />
+      <xs:element minOccurs="0" name="NombreColonia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroExterio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroInterior" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Referencias" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DirDirecciones" nillable="true" type="tns:DirDirecciones" />
+</xs:schema>
