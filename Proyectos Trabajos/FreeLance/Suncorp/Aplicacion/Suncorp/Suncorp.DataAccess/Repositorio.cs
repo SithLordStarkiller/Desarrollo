@@ -20,9 +20,21 @@
 
         public Repositorio()
         {
-            _contexto = new SuncorpEntities();
-            _contexto.Configuration.ProxyCreationEnabled = false;
-        }
+            try
+            {
+                _contexto = new SuncorpEntities();
+                _contexto.Configuration.ProxyCreationEnabled = false;
+            }
+            catch (Exception ex)
+            {
+                Task.Factory.StartNew(
+                   () =>
+                       _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
+                           Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
+                           MethodBase.GetCurrentMethod().Name, "Error al insertar en entityFramework", "", ex, _contexto.ToString()));
+                throw ex;
+            }
+}
 
         public async Task<TEntity> Insertar(TEntity agregar)
         {
@@ -150,7 +162,7 @@
             {
                 await Task.Factory.StartNew(
                       () =>
-                          _logLogger.EscribeLog(Logger.TipoLog.Preventivo,
+                          _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                               Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                               MethodBase.GetCurrentMethod().Name, "Error al consultar lista en entityFramework", "", ex, ""));
                 throw ex;

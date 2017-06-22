@@ -179,7 +179,7 @@
 
                 return response;
             }
-            catch (UserNotFindException eUnf)
+            catch (UserNotFoundException eUnf)
             {
                 response.EstatusProceso = EstatusProceso.CompletadoConAdvetencias;
                 response.Mensaje = "No se encontro al usuario: {0}" + eUnf.Usuario;
