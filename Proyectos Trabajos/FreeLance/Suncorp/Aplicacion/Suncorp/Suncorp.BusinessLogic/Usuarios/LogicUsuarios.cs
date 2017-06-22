@@ -166,7 +166,7 @@
             {
                 return new EntUsuarios().ObtenerUsuarioLogin(usuario, contrasena).Result;
             }
-            catch (UserNotFindException eUnf)
+            catch (UserNotFoundException eUnf)
             {
                 throw eUnf;
             }
