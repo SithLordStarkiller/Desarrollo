@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
-namespace GenerarReferencias
+﻿namespace GenerarReferencias
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     class Program
     {
         static void Main(string[] args)
         {
             var lista = ObtenerRererecias();
-            
+
             GenerarArchivoReferencia(lista);
+
+            Console.WriteLine("Completo!");
 
             Console.ReadLine();
         }
@@ -22,28 +24,49 @@ namespace GenerarReferencias
             string line;
             var bandera = false;
 
-            var counter = 0;
+            var counter = 1;
 
             var listaReferenciaFinal = new List<string>();
+            var listaReferencia2 = new List<string>();
+            var listaComparacion = new List<string>();
 
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Archivos\ReferenciasDiestel.txt");
+            var file = new StreamReader(@"C:\Archivos\ReferenciasDiestel.txt");
 
             while (!bandera)
             {
-                line =  file.ReadLine();
+                line = file.ReadLine();
                 var bin = line.Substring(0, 6);
                 var cuenta = line.Substring(6, 9);
 
                 var referencia = GenerarReferencia(bin, cuenta, 2);
+                var referencia2 = GenerarReferencia(bin, cuenta, 1);
 
+                listaReferencia2.Add(referencia2);
                 listaReferenciaFinal.Add(referencia);
 
-                counter++;
-                Console.WriteLine("Contador: " + counter + "\t Referencia3: " + line + "\t Referencia4:" + referencia);
+                var comparacion = "Contador: " + string.Format("{0:00000}", counter) + "\t Referencia2: " + referencia2  + "\t Referencia3: " + line + "\t Referencia4: " + referencia + "\t( Cuenta: " + cuenta + ", Bin: " + bin + " )";
+
+                listaComparacion.Add(comparacion);
 
                 if (counter == 90000)
                     break;
 
+                counter++;
+            }
+
+            var urlFile = @"C:\Archivos\Comparacion.txt";
+
+            if (File.Exists(urlFile))
+                File.Delete(urlFile);
+
+            using (var sw = File.AppendText(urlFile))
+            {
+                foreach (var item in listaComparacion)
+                {
+                    sw.WriteLine(item);
+                }
+
+                sw.Close();
             }
 
             file.Close();
@@ -53,7 +76,12 @@ namespace GenerarReferencias
 
         public static void GenerarArchivoReferencia(List<string> lista)
         {
-            using (var sw = File.AppendText(@"C:\Archivos\Referencias4.txt"))
+            var urlFile = @"C:\Archivos\Referencias4.txt";
+
+            if (File.Exists(urlFile))
+                File.Delete(urlFile);
+
+            using (var sw = File.AppendText(urlFile))
             {
                 foreach (var item in lista)
                 {
@@ -157,9 +185,4 @@ namespace GenerarReferencias
             return cantidadTotal;
         }
     }
-
-    //public class ReferenciasReferencia
-    //{
-    //    public string Referencia
-    //}
 }
