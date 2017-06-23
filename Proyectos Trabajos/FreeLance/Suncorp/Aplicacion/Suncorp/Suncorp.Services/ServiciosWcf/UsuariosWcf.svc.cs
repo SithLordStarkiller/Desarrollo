@@ -9,6 +9,8 @@
     using System.Reflection;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.ServiceModel;
+    using Suncorp.Models.WebServicesResponse;
 
     /// <summary>
     /// Clase con los servicios WCF de los usuarios
@@ -160,41 +162,35 @@
         /// <param name="usuario">usuaio que decea realizar un log in</param>
         /// <param name="contrasena">Contraseña que corresponde al usuario</param>
         /// <returns>Retorna un WcfResponse estandar con el tipo de Objeto UsUsuarios</returns>
-        public WcfResponse ObtenerUsuarioLogin(string usuario, string contrasena)
+        public UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena)
         {
-            var response = new WcfResponse();
-
             try
             {
-                var objeto = new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
-
-                response = new WcfResponse
-                {
-                    EstatusProceso = EstatusProceso.Exitoso,
-                    ObjetoRespuesta = objeto,
-                    Mensaje = "Completado",
-                    CodigoError = "0"
-                    
-                };
-
-                return response;
+                return new LogicUsuarios().ObtenerUsuarioLogin(usuario, contrasena);
             }
             catch (UserNotFoundException eUnf)
             {
-                response.EstatusProceso = EstatusProceso.CompletadoConAdvetencias;
-                response.Mensaje = "No se encontro al usuario: {0}" + eUnf.Usuario;
-                response.CodigoError = eUnf.CodigoError;
+                var fault = new FaulsExceptionsResponse();
+                
+                fault.CodigoError = eUnf.CodigoError;
+                fault.Mensaje = "No se encontro al usuario: " + eUnf.Usuario + " o la contraseña es errones";
+                fault.Descripcion = eUnf.InnerException.ToString();
+                fault.TipoError = TipoError.CompletadoConAdvetencias;
+
+                throw new FaultException<FaulsExceptionsResponse>(fault);
             }
             catch (Exception ex)
             {
-                response.EstatusProceso = EstatusProceso.Error;
-                response.Mensaje = "Error: " + ex.InnerException.Message;
-                response.CodigoError = "-1";
+                var fault = new FaulsExceptionsResponse();
+
+                //fault.CodigoError = eUnf.CodigoError;
+                //fault.Mensaje = eUnf.Message;
+                //fault.Descripcion = eUnf.InnerException.ToString();
+                //fault.TipoError = TipoError.CompletadoConAdvetencias;
+
+                throw new FaultException<FaulsExceptionsResponse>(fault);
             }
-
-            return response;
         }
-
         #endregion
     }
 }

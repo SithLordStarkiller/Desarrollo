@@ -3,6 +3,7 @@
     using System.ServiceModel;
     using Models;
     using System.Collections.Generic;
+    using Suncorp.Models.WebServicesResponse;
 
     [ServiceContract]
     public interface IUsuariosWcf
@@ -61,8 +62,9 @@
         #region Operaciones
 
         [OperationContract]
-        WcfResponse ObtenerUsuarioLogin(string usuario, string contrasena);
-        
+        [FaultContract(typeof(FaulsExceptionsResponse))]
+        UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena);
+
         #endregion
     }
 }

@@ -2,6 +2,11 @@
 {
     using Models;
     using ServiceController.UsuariosWcf;
+    using Suncorp.Helpers.CustomExcepciones;
+    using Suncorp.Models.WebServicesResponse;
+    using System.ServiceModel;
+    using System.Threading.Tasks;
+
     //using Helpers.CustomExcepciones;
     //using System.Threading.Tasks;
 
@@ -31,21 +36,17 @@
         /// <param name="usuario">usuaio que decea realizar un log in</param>
         /// <param name="contrasena">Contraseña que corresponde al usuario</param>
         /// <returns>Retorna un WcfResponse estandar con el tipo de Objeto UsUsuarios</returns>
-        public UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena)
+        public Task<UsUsuarios> ObtenerUsuarioLogin(string usuario, string contrasena)
         {
-            var request = _servicio.ObtenerUsuarioLogin(usuario, contrasena);           
-
-            switch (request.EstatusProceso)
-                {
-                    case EstatusProceso.Exitoso:
-                        return (UsUsuarios)request.ObjetoRespuesta;
-
-                    default:
-                        return null;
-                }
-
-           
-        }
+            try
+            {
+                return Task.Run(()=> _servicio.ObtenerUsuarioLoginAsync(usuario, contrasena));
+            }
+            catch (UserNotFoundException eUnf)
+            {
+                return null;
+            }
+        }       
 
         #endregion 
     }
