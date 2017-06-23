@@ -12,7 +12,7 @@ namespace Suncorp.WebSiteCorporativo
 {
     using Models;
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -21,11 +21,6 @@ namespace Suncorp.WebSiteCorporativo
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             var session = new SessionSecurityWcf { UrlServer = Properties.Settings.Default.Url };
-        
-            var clientUsuarios = new UsuariosClient(session);
-            var a = clientUsuarios.ObtenerUsuarioLogin("", "");
-            
-
         }
     }
 }

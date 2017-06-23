@@ -6,7 +6,7 @@
     /// <summary>
     /// Clase encargada del manejo de la comunicacion con los servicios
     /// </summary>
-    public abstract class Response
+    public abstract class WebServiceResponse
     {
         public bool ProcesoCorrecto { get; set; }
         public DateTime FechaEjecucion { get; set; }
@@ -14,13 +14,13 @@
     }
     
     [Serializable]
-    public class UsUsuarioResponse : Response
+    public class UsUsuarioResponse : WebServiceResponse
     {
         public UsUsuarios Entidad { get; set; }
     }
     
     [Serializable]
-    public class ListUsUsuarioResponse : Response
+    public class ListUsUsuarioResponse : WebServiceResponse
     {
         public List<UsUsuarios> ListaEntidades { get; set; }
     }

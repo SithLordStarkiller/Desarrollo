@@ -21,19 +21,18 @@
         /// Codigo asignado a este error o excepcion
         /// </summary>
         public string CodigoError { get; set; }
+        
+        /// <summary>
+        /// para almacenar la fecha en que ocuerrio el error
+        /// </summary>
+        public DateTime Fecha { get; }
 
         public UserNotFoundException(string usuario, string contrasena) : base("No se encontro al usuario o fallo contraseña")
         {
             Usuario = usuario;
             Contrasena = contrasena;
+            CodigoError = "ADVNORSERV00001";
+            Fecha = DateTime.Now;
         }
-
-        public UserNotFoundException(string usuario, string contrasena, string codigoError) : base("No se encontro al usuario o fallo contraseña")
-        {
-            Usuario = usuario;
-            Contrasena = contrasena;
-            CodigoError = codigoError;
-        }
-
     }
 }

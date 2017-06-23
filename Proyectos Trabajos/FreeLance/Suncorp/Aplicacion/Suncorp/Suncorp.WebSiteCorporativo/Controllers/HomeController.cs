@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace Suncorp.WebSiteCorporativo.Controllers
+﻿namespace Suncorp.WebSiteCorporativo.Controllers
 {
+    using Suncorp.Models;
+    using Suncorp.ServiceController;
+    using System.Web.Mvc;
+
     public class HomeController : Controller
     {
+        SessionSecurityWcf session = new SessionSecurityWcf { UrlServer = Properties.Settings.Default.Url };
+
         public ActionResult Index()
         {
+            var clientUsuarios = new UsuariosClient(session);
+            var a = clientUsuarios.ObtenerUsuarioLogin("", "").Result;
             return View();
         }
 

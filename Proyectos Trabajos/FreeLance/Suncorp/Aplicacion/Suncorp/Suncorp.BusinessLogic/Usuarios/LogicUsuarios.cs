@@ -71,7 +71,7 @@
         {
             try
             {
-                return  new EntUsuarios().ObteneRegistrosUsuarios(criterio).Result;
+                return new EntUsuarios().ObteneRegistrosUsuarios(criterio).Result;
             }
             catch (Exception e)
             {
@@ -162,18 +162,7 @@
         /// <returns>Retorna un modelo con la informacion del usuario en caso de ser correcto</returns>
         public UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena)
         {
-            try
-            {
-                return new EntUsuarios().ObtenerUsuarioLogin(usuario, contrasena).Result;
-            }
-            catch (UserNotFoundException eUnf)
-            {
-                throw eUnf;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            return new EntUsuarios().ObtenerUsuarioLogin(usuario, contrasena).Result;
         }
 
         #endregion
