@@ -3,7 +3,6 @@
     using Models;
     using ServiceController.UsuariosWcf;
     using Suncorp.Helpers.CustomExcepciones;
-    using Suncorp.Models.WebServicesResponse;
     using System.ServiceModel;
     using System.Threading.Tasks;
 

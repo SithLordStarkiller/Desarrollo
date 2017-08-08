@@ -40,7 +40,6 @@ namespace Suncorp.ServiceController.UsuariosWcf {
         System.Threading.Tasks.Task<bool> EliminarUsuarioAsync(Suncorp.Models.UsUsuarios model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuariosWcf/ObtenerUsuarioLogin", ReplyAction="http://tempuri.org/IUsuariosWcf/ObtenerUsuarioLoginResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Suncorp.Models.WebServicesResponse.FaulsExceptionsResponse), Action="http://tempuri.org/IUsuariosWcf/ObtenerUsuarioLoginFaulsExceptionsResponseFault", Name="FaulsExceptionsResponse", Namespace="http://schemas.datacontract.org/2004/07/Suncorp.Models.WebServicesResponse")]
         Suncorp.Models.UsUsuarios ObtenerUsuarioLogin(string usuario, string contrasena);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuariosWcf/ObtenerUsuarioLogin", ReplyAction="http://tempuri.org/IUsuariosWcf/ObtenerUsuarioLoginResponse")]

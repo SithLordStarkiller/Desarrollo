@@ -15,13 +15,13 @@
     /// </summary>
     public class EntUsuarios
     {
-        private readonly SuncorpEntities _contexto;
+        //private readonly SuncorpEntities _contexto;
         private readonly Logger _logLogger = new Logger(Constantes.UrlLog, Constantes.ConnectionStringTrabajo);
 
-        public EntUsuarios()
-        {
-
-        }
+        //public EntUsuarios(SuncorpEntities contexto)
+        //{
+        //    _contexto = contexto;
+        //}
 
         #region Operaciones CRUD
 
@@ -119,7 +119,7 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.Error,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Error al actualizar usuario", e.Message, e, "Error al insertar: " + model.ToString()));
+                           MethodBase.GetCurrentMethod().Name, "Error al actualizar usuario", e.Message, e, "Error al insertar: " + model));
                 throw;
             }
         }
@@ -144,7 +144,7 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.Error,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Error al actualizar usuario", e.Message, e, "Modelo al actualizar: " + model.ToString()));
+                           MethodBase.GetCurrentMethod().Name, "Error al actualizar usuario", e.Message, e, "Modelo al actualizar: " + model));
                 throw;
             }
         }
@@ -169,7 +169,7 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.Error,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Error al actualizar usuario", e.Message, e, "Modelo al actualizar: " + model.ToString()));
+                           MethodBase.GetCurrentMethod().Name, "Error al actualizar usuario", e.Message, e, "Modelo al actualizar: " + model));
                 throw;
             }
         }
@@ -182,7 +182,7 @@
         /// Este metodo se encargara de obtener un usuario atra vez del usuario y contraseña
         /// </summary>
         /// <param name="usuario">Usuario que se guarda en la base de datos</param>
-        /// <param name="Contrasena">Contraseña sin encriptar </param>
+        /// <param name="contrasena">Contraseña sin encriptar</param>
         /// <returns></returns>
         public async Task<UsUsuarios> ObtenerUsuarioLogin(string usuario, string contrasena)
         {
@@ -190,7 +190,7 @@
             {
                 using (var aux = new Repositorio<UsUsuarios>())
                 {
-                    return await aux.Consulta(r => r.Usuario == usuario && r.Contrasena == contrasena) ?? throw new UserNotFoundException(usuario, contrasena);
+                    return await aux.Consulta(r => r.Usuario == usuario && r.Contrasena == contrasena);
                 }
             }
             catch (UserNotFoundException e)
@@ -210,7 +210,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.Error,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Login error", e.Message, e, ""));
-                throw e;
+                throw;
             }
 
         }

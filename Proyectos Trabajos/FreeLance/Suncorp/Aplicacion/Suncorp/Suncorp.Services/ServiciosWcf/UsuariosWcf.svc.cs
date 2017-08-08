@@ -10,7 +10,6 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.ServiceModel;
-    using Suncorp.Models.WebServicesResponse;
 
     /// <summary>
     /// Clase con los servicios WCF de los usuarios
@@ -170,26 +169,27 @@
             }
             catch (UserNotFoundException eUnf)
             {
-                var fault = new FaulsExceptionsResponse();
+                //var fault = new FaulsExceptionsResponse();
                 
-                fault.CodigoError = eUnf.CodigoError;
-                fault.Mensaje = "No se encontro al usuario: " + eUnf.Usuario + " o la contraseña es errones";
-                fault.Descripcion = eUnf.InnerException.ToString();
-                fault.TipoError = TipoError.CompletadoConAdvetencias;
+                //fault.CodigoError = eUnf.CodigoError;
+                //fault.Mensaje = "No se encontro al usuario: " + eUnf.Usuario + " o la contraseña es errones";
+                //fault.Descripcion = eUnf.InnerException.ToString();
+                //fault.TipoError = TipoError.CompletadoConAdvetencias;
 
-                throw new FaultException<FaulsExceptionsResponse>(fault);
+                //throw new FaultException<FaulsExceptionsResponse>(fault);
             }
             catch (Exception ex)
             {
-                var fault = new FaulsExceptionsResponse();
+                //var fault = new FaulsExceptionsResponse();
 
                 //fault.CodigoError = eUnf.CodigoError;
                 //fault.Mensaje = eUnf.Message;
                 //fault.Descripcion = eUnf.InnerException.ToString();
                 //fault.TipoError = TipoError.CompletadoConAdvetencias;
 
-                throw new FaultException<FaulsExceptionsResponse>(fault);
+                //throw new FaultException<FaulsExceptionsResponse>(fault);
             }
+            return null;
         }
         #endregion
     }
