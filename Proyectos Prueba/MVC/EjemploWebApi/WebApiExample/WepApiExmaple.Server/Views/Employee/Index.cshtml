@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-md-12">
+    <input id="btnGetAll" value="Get all employees" type="button" />
+    <input id="btnClear" value="Clear" type="button" />
+</div>
+<div>
+    <lu id="luEmployees">
+
+    </lu>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var ulEmployees = $('#luEmployees');
+
+        $('#btnGetAll').click(function () {
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                url: '../api/Employees',
+                success: function (data) {
+                    if (data !== "null") {
+
+                        ulEmployees.empty();
+
+                        $.each(data, function (index, val) {
+                            var fullname = val.FirstName + ' ' + val.LastName;
+
+                            ulEmployees.append('<li>' + fullname + '</li>');
+
+                        });
+
+                    } else {
+                        alert("No se guardo el registro es posible que ya exista un registro con el mismo id");
+                    }
+                },
+                error:
+                    function () {
+                        alert("Error en el envio de la informacion hacia el servidor");
+                    }
+            });
+        });
+
+        $('#btnClear').click(function () {
+
+            ulEmployees.empty();
+        });
+
+    });
+</script>

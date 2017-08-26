@@ -28,5 +28,6 @@ namespace WebApiExample.DataAccess
         }
     
         public virtual DbSet<Employees> Employees { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }
