@@ -1,0 +1,69 @@
+﻿@using Certificacion.Sitio.Models;
+@model List<EmpleadosModel>
+
+@{
+    ViewBag.Title = "Lista de empleados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Empleados</h2>
+
+<p>
+    @Html.ActionLink("Crear a un nuevo empleado", "CrearEmpleado", new { idDepartamento = ViewData["IdDepartamento"] })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().IdEmpleado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Apellido)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Genero)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().FechaIngreso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstOrDefault().Salario)
+        </th>
+        <th>Operaciones</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdEmpleado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Apellido)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genero)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaIngreso)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salario)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { empleado = item }) |
+            @Html.ActionLink("Delete", "Delete", new { empleado = item })
+        </td>
+    </tr>
+}
+
+
+</table>
+
+
+
+@Html.ActionLink("Regresar", "ListaDepartamentos")

@@ -1,0 +1,18 @@
+﻿@using Certificacion.Sitio.Models;
+@model List<Certificacion.Modelos.Departamentos>
+
+@{
+    ViewBag.Title = "Departamentos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<lu class="list-group">
+   
+@foreach (var item in Model)
+{
+    <li>
+        @Html.ActionLink(item.Deparatamento,"ListaEmpleados",new {idDepartamento = item.IdDepartamento})
+    </li>
+}
+
+</lu>
