@@ -1,0 +1,67 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiFactorMunicipio
+@using (Html.BeginForm("FactorMunicipio", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "factorMunicipioForm" }))
+{
+@Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <fieldset>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(m => m.IdClasificacion)
+                    @Html.DropDownListFor(m => m.IdClasificacion, (IEnumerable<SelectListItem>)ViewBag.Clasificaciones, "Seleccione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdClasificacion)
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(m => m.IdFactor)
+                    @Html.DropDownListFor(m => m.IdFactor, (IEnumerable<SelectListItem>)ViewBag.Factores, "Seleccione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdFactor)
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(m => m.IdEstado)
+                    @Html.DropDownListFor(m => m.IdEstado, (IEnumerable<SelectListItem>)ViewBag.Estados, "Seleccione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdEstado)
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.DropDownList("municipios", (IEnumerable<SelectListItem>)ViewBag.Municipios, new { multiple = "", @class = "form-control" })
+                </div>
+                <div class="col-sm-4 btn-group-vertical">
+                        <button class="btn btn-default btn-margin" type="button" id="btnAddAll">Agregar Todos</button>
+                        <button class="btn btn-primary btn-margin" type="button" id="btnAddItems">Agregar Selección</button>
+
+                        <button class="btn btn-primary btn-margin" type="button" id="btnDeleteItems">Restar Selección</button>
+                        <button class="btn btn-default btn-margin" type="button" id="btnDeleteAll">Restar Todos</button>
+                </div>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(m => m.Municipios, (IEnumerable<SelectListItem>)ViewBag.Municipios, new { multiple = "", @class = "form-control" })
+                </div>
+            </div>
+        </fieldset>
+    }
+            <p class="pull-left">*Campos obligatorios</p>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBack">
+                    <span class="glyphicon glyphicon-backward"></span>Cancelar
+                </button>
+
+                @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+                {
+                    <button type="button" class="btn btn-default" id="btnSave">
+                        <span class="glyphicon glyphicon-save"></span>Guardar
+                    </button>
+                }
+            </div>
+            }

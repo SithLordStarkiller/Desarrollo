@@ -1,0 +1,210 @@
+﻿@model GOB.SPF.ConecII.Entities.Plantilla.FormatoPlantilla
+
+@Html.HiddenFor(model => model.PartesDocumento.IdParteDocumento)
+@Html.HiddenFor(model => model.PartesDocumento.IdTipoDocumento)
+@Html.HiddenFor(model => model.PartesDocumento.FechaInicial)
+@Html.HiddenFor(model => model.PartesDocumento.FechaFinal)
+@Html.HiddenFor(model => model.PartesDocumento.Activo)
+
+@{
+    ViewBag.Title = "Administrar Partes del Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>    
+    thead{
+        display:table-header-group;
+    }
+    tbody{
+        display:table-row-group;
+    }
+    tr{
+        display:table-row;
+    }
+    td{
+        display:table-cell;
+    }
+    th {
+        display:table-row;
+    }
+</style>
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Plantillas</a></li>
+    <li><a href="~/Catalogo/Fracciones" class="active">Formato</a></li>
+</ol>
+
+@using (Ajax.BeginForm("Find", "PartesDocumentoUI",
+                new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResultsInstituciones" },
+                new { id = "Buscar", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="flip">
+        <div class="front">
+            <div class="top-buffer">
+                <h3>@ViewBag.Title @Model.PartesDocumento.TiposDocumento.Nombre</h3>
+                <hr class="red">
+            </div>
+
+            <div id="divPartesDocumento">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        @Html.ValidationSummary(true)
+                        <div class="panel-heading">Encabezado</div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    @Html.LabelFor(model => model.PartesDocumento.RutaLogo, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.RutaLogo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.RutaLogo)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Paginado, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Paginado, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Paginado)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <label class="control-label">Instituciones</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div id="searchResultsInstituciones" class="content-table">
+                                        @{ Html.RenderPartial("ListaInstituciones", Model.ListaInstituciones);}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Folio, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Folio, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Folio)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Asunto, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Asunto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Asunto)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.LugarFecha, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.LugarFecha, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.LugarFecha)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Parrafos</div>
+                        <div class="panel-body">
+                            <div id="searchResultsParrafos" class="content-table">
+                                @{ Html.RenderPartial("ListaParrafos", Model.ListaParrafos);}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Firma</div>
+                        <div class="panel-body">
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Puesto, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Puesto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Puesto)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Nombre, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Nombre)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Direccion, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Direccion)
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.PartesDocumento.Ccp, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.PartesDocumento.Ccp, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PartesDocumento.Ccp)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+                                    }
+
+@using (Ajax.BeginForm("SavePartesDocumento", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResultsPartesDocumento", OnSuccess = "hideModal('PartesDocumento')" }, new { id = "EditarPartesDocumento" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal  fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div id="AddEditPartesDocumento">
+
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("SaveInstituciones", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResultsInstituciones", OnSuccess = "hideModal('Instituciones')" }, new { id = "EditarInstituciones" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal  fade col-xs-offset-1 col-xs-10" id="addEditInstitucionesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div id="AddEditInstituciones">
+
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("SaveParrafos", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResultsParrafos", OnSuccess = "hideModal('Parrafos')" }, new { id = "EditarParrafos" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal  fade" id="addEditParrafosModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div id="AddEditParrafos">
+
+            </div>
+
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("SaveEtiquetasParrafo", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResultsParrafos", OnSuccess = "hideModal('EtiquetasParrafo')" }, new { id = "EditarEtiquetasParrafo" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal  fade" id="addEditEtiquetasParrafoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:1000px;">
+
+            <div id="AddEditEtiquetasParrafo">
+
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/ajax")
+}

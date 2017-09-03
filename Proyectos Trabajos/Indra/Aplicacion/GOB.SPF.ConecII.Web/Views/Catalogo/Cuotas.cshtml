@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Consulta Cuota";
+}
+
+<style>
+    .top-buffer, .vertical-buffer {
+        margin: 0;
+    }
+
+    hr.red {
+        margin: 10px 0 10px;
+    }
+
+    .table-fixed {
+        width: 100%;
+    }
+
+    tbody {
+        height: 300px;
+        overflow-y: auto;
+        width: 100%;
+    }
+
+    thead, tbody, tr, td, th {
+        display: block;
+    }
+
+        tbody td {
+            float: left;
+        }
+
+        thead tr th {
+            float: left;
+            background-color: #9dcbef;
+            border-color: #e67e22;
+        }
+</style>
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Cuotas" class="active">Cuota</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-4 form-group">
+            <label class="control-label">Estatus:</label>
+            <div class="col-sm-12">
+                <label class="radio-inline" for="activo">
+                    <input type="radio" name="estatus" value="true" checked="checked">Activo
+                </label>
+                <label class="radio-inline" for="inactivo">
+                    <input type="radio" name="estatus" value="false">Inactivo
+                </label>
+            </div>
+        </div>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <div id="divCuota"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+
+@section Scripts{
+<link href="~/Content/bootstrap/datepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/controls/gobGrid.js"></script>
+    <script src="~/Scripts/conec/catalogo/cuota.js"></script>
+    <script src="~/Scripts/bootstrap/datepicker/Moment.js"></script>
+    <script src="~/Scripts/bootstrap/datepicker/bootstrap-datetimepicker.js"></script>
+}
+

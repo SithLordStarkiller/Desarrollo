@@ -1,0 +1,73 @@
+﻿namespace GOB.SPF.ConecII.Business
+{
+    using AccessData;
+    using Entities;
+    using System.Collections.Generic;
+
+    public class DependenciasBusiness
+    {
+
+        private int pages { get; set; }
+
+        private readonly UnitOfWorkFactory unitOfWork = new UnitOfWorkFactory();
+
+        public int Pages { get { return pages; } }
+        
+        public bool Guardar(Dependencia entity)
+        {
+            bool result = false;
+            using (var uow = UnitOfWorkFactory.Create())
+            {
+                var repositoryCoutas = new RepositoryDependencias(uow);
+
+                if (entity.Identificador > 0)
+                    result = repositoryCoutas.Actualizar(entity)>0;
+                else
+                    result = repositoryCoutas.Insertar(entity)>0;
+
+                uow.SaveChanges();
+            }
+            return result;
+        }
+
+        public IEnumerable<Dependencia> ObtenerTodos(Paging paging)
+        {
+            using (var uow = UnitOfWorkFactory.Create())
+            {
+                var repositoryCoutas = new RepositoryDependencias(uow);
+                return repositoryCoutas.Obtener(paging);
+            }
+        }
+
+        public IEnumerable<Dependencia> ObtenerPorCriterio(Paging paging, Dependencia entity)
+        {
+            using (var uow = UnitOfWorkFactory.Create())
+            {
+                var repositoryCoutas = new RepositoryDependencias(uow);
+                return repositoryCoutas.ObtenerPorCriterio(paging, entity);
+            }
+        }
+
+        public Dependencia ObtenerPorId(long id)
+        {
+            using (var uow = UnitOfWorkFactory.Create())
+            {
+                var repositoryCoutas = new RepositoryDependencias(uow);
+                return repositoryCoutas.ObtenerPorId(id);
+            }
+        }
+
+        public bool CambiarEstatus(Dependencia coutas)
+        {
+            bool result = false;
+            using (var uow = UnitOfWorkFactory.Create())
+            {
+                var repositoryCoutas = new RepositoryDependencias(uow);
+                result = repositoryCoutas.CambiarEstatus(coutas) > 0;
+
+                uow.SaveChanges();
+            }
+            return result;
+        }
+    }
+}

@@ -1,0 +1,64 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiTiposServicio
+@using (Html.BeginForm("TiposServicio", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "tipoServicioForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Name, "Nombre*:")
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Ingresa Nombre", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion, "Descripción*:")
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Clave, "Clave*:")
+                @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", placeholder = "Ingresa Clave", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Clave)
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Name, "Nombre*:")
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Ingresa Nombre" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion, "Descripción*:")
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción" })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Clave, "Clave*:")
+                @Html.TextBoxFor(m => m.Clave, new { @class = "form-control", placeholder = "Ingresa Clave" })
+                @Html.ValidationMessageFor(m => m.Clave)
+            </div>
+        </div>
+    }
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}

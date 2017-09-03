@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Consulta Plantillas";
+}
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Division" class="active">Divisi&oacute;n</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="row">
+            <div class="form-group col-sm-4">
+                @Html.Label("Nombre de Plantilla")
+                @Html.TextBox("Nombre de plantilla: ", string.Empty, new { @class = "form-control", @placeholder = "Nombre" })
+            </div>           
+        </div>
+        <div class="row">
+            <div class="col-md-8 pull-right">
+                <button type="button" class="btn btn-default" id="btnBuscar">
+                    <span class="glyphicon glyphicon-search"></span>Buscar
+                </button>
+            </div>
+        </div>
+            
+        
+        <div id="divPlantilla"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/conec/configuracion/Plantillas.js"></script>
+}
+
+
+

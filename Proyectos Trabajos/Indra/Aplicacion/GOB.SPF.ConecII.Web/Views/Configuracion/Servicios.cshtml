@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Servicios";
+}
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Division" class="active">Divisi&oacute;n</a></li>
+</ol>
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-4 form-group">
+        Tipo Servicio:
+        <select id="selTipoServicio" class="dropdown" style="width:200px;">
+            <option>    </option>
+        </select>
+    </div>
+    <div class="col-sm-4 form-group">
+        Area:
+        <select id="selArea" class="dropdown" style="width:200px;">
+            <option>    </option>
+        </select>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+<div class="row">
+    <div class="panel-group" id="pnlRegimen">
+        <div class="panel panel-default" data-region="default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#pnlRegimen" data-region="title"></a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse" data-region="content">
+                <div class="panel-body">
+                    <div class="col-sm-12" style="padding-bottom:10px;">
+                        <div class="col-sm-3">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title">
+                                        Tipos de pago
+                                    </h1>
+                                </div>
+                                <div class="panel-body" data-region="tipoPago">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title">
+                                        Actividades Configurables
+                                    </h1>
+                                </div>
+                                <div class="panel-body" style="font-size:14px;" data-region="actividades">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="padding-bottom:10px;">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h1 class="panel-title">
+                                        Fijar plazo por actividad
+                                    </h1>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-sm-8" data-region="tiempo">
+                                    </div>
+                                    <div class="col-sm-4 panel panel-default" style="font-size:15px;" data-region="documentos">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="text-align:right;">
+                        <input type="button" class="btn btn-default" value="Guardar" data-region="boton" onclick="Ui.prototype.guardar(this)" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/conec/configuracion/Servicios.js"></script>
+}

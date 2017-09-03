@@ -1,0 +1,112 @@
+﻿@model GOB.SPF.ConecII.Entities.IPagedView
+
+@{
+    ViewBag.Title = "Administrar PartesDocumento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Administrar PartesDocumento</h2>
+
+@using (Ajax.BeginForm("Find", "PartesDocumentoUI",
+    new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults" }, 
+    new { id = "Buscar", @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row form-group">
+                @Html.Label("RutaLogo", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("RutaLogoBuscar", null, new { id = "RutaLogoBuscar", @class = "form-control" })
+                </div>
+                @Html.Label("Folio", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("FolioBuscar", null, new { id = "FolioBuscar", @class = "form-control" })
+                </div>
+                @Html.Label("Asunto", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("AsuntoBuscar", null, new { id = "AsuntoBuscar", @class = "form-control" })
+                </div>
+            </div>
+            <div class="row form-group">
+                @Html.Label("LugarFecha", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("LugarFechaBuscar", null, new { id = "LugarFechaBuscar", @class = "form-control" })
+                </div>
+                @Html.Label("Paginado", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <select id="PaginadoBuscar" name="PaginadoBuscar" class="form-control">
+                        <option value="" selected="selected">Todos</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+                @Html.Label("Ccp", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("CcpBuscar", null, new { id = "CcpBuscar", @class = "form-control" })
+                </div>
+                @Html.Label("Puesto", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("PuestoBuscar", null, new { id = "PuestoBuscar", @class = "form-control" })
+                </div>
+            </div>
+            <div class="row form-group">
+                @Html.Label("Nombre", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("NombreBuscar", null, new { id = "NombreBuscar", @class = "form-control" })
+                </div>
+                @Html.Label("Direccion", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.TextBox("DireccionBuscar", null, new { id = "DireccionBuscar", @class = "form-control" })
+                </div>
+            </div>
+            <div class="row form-group">
+                @Html.Label("Activo", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <select id="ActivoBuscar" name="ActivoBuscar" class="form-control">
+                        <option value="" selected="selected">Todos</option>
+                        <option value="true">Activo</option>
+                        <option value="false">Inactivo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row form-group">
+                @Html.Label("TiposDocumento", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    @Html.DropDownList("IdTipoDocumentoBuscar", new SelectList(ViewBag.lstTiposDocumento, "Id", "Valor"), "Seleccione...", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-xs-offset-11 col-sm-offset-11 col-md-offset-11 col-lg-offset-11 col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                    <button type="submit" class="btn btn-info glyphicon glyphicon-search pull-right">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+            @*Invocamos la vist parcial para visualizar los registros que hay de los PartesDocumento *@
+            <div class="row">
+                <div id="searchResults" class="content-table">
+                    @{ Html.RenderPartial("_Busqueda", Model);}
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Ajax.BeginForm(null, null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "searchResults", OnSuccess = "closeModal" }, new { id = "Editar" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="modal  fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width:1000px;">
+            <div id="AddEditPartesDocumento">
+
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ajax")
+}

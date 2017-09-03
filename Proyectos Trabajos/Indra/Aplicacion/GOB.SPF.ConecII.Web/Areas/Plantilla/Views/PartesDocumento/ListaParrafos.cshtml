@@ -1,0 +1,124 @@
+﻿@model IEnumerable<GOB.SPF.ConecII.Entities.Plantilla.Parrafos>
+
+@{
+    GOB.SPF.ConecII.Entities.Plantilla.ParrafosDtoBuscar buscar = new GOB.SPF.ConecII.Entities.Plantilla.ParrafosDtoBuscar();
+    GOB.SPF.ConecII.Entities.Plantilla.EtiquetasParrafoDtoBuscar buscarEtiquetasParrafo = new GOB.SPF.ConecII.Entities.Plantilla.EtiquetasParrafoDtoBuscar();
+    buscar.ItemId = 0;
+    buscar.IdTipoDocumentoBuscar = ViewBag.IdTipoDocumento;    
+    int contador = 0;
+}
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+            @if (@ViewBag.msj != null)
+            {
+                <div class="alert alert-success alert-Dismissible" role="alert" style="padding:6px;margin-bottom:0px">
+                    <button type="button" class="close" data-dismiss="alert">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    @ViewBag.msj
+                </div>
+            }
+        </div>
+
+        <div class="col-xs- col-sm-1 col-md-1 col-lg-1">
+            <div class="pull-right">
+                @Ajax.ActionLink(" Agregar", "ModifyItem", "ParrafosUI", buscar,
+                                    new AjaxOptions
+                                    {
+                                        HttpMethod = "POST",
+                                        InsertionMode = InsertionMode.Replace,
+                                        UpdateTargetId = "AddEditParrafos",
+                                        OnSuccess = "rendererValidator"
+                                    }, new { @class = "btn btn-primary  glyphicon glyphicon-plus-sign", data_toggle = "modal", data_target = "#addEditParrafosModal" })
+            </div>
+        </div>
+    </div>
+    <table class="table table-responsive">
+        <thead>
+            <tr>                
+                <th class="col-xs-4">
+                    @Html.DisplayNameFor(model => model.Nombre)
+                </th>
+                <th class="col-xs-4">
+                    @Html.DisplayNameFor(model => model.Texto)
+                </th>                
+                <th class="col-xs-4">Etiquetas</th>
+                
+                <th class="col-xs-1"><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus New "></span></button></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                contador++;
+                <tr>
+                    <td class="col-xs-4">
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td class="col-xs-4">
+                        @Html.DisplayFor(modelItem => item.Texto)
+                    </td>
+                    <td class="col-xs-4">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th class="col-xs-4">
+                                            Etiqueta
+                                        </th>
+                                        <th class="col-xs-12">
+                                            Contenido
+                                        </th>                                        
+                                        <th class="col-xs-1"><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-plus New "></span></button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var etiqueta in item.ListaEtiquetasParrafo)
+                                    {
+                                        <tr>
+                                            <td class="col-xs-4">
+                                                @etiqueta.Etiqueta
+                                            </td>
+                                            <td class="col-xs-12">
+                                                @etiqueta.Contenido
+                                            </td>
+                                            <td class="col-xs-1">
+                                                @Ajax.ActionLink(" ", "ModifyItem", "EtiquetasParrafoUI",
+                                            new { IdTipoDocumentoBuscar = buscar.IdTipoDocumentoBuscar, IdParrafoBuscar = item.IdParrafo, ItemId = etiqueta.IdEtiquetaParrafo },
+                                            new AjaxOptions
+                                            {
+                                                HttpMethod = "POST",
+                                                InsertionMode = InsertionMode.Replace,
+                                                UpdateTargetId = "AddEditEtiquetasParrafo"
+                                            }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-pencil edit", data_toggle = "modal", data_target = "#addEditEtiquetasParrafoModal" })
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                    </td>
+                    <td class="col-xs-1">
+                        @{
+                            buscar.ItemId = item.IdParrafo;
+                        }
+                        @Ajax.ActionLink(" ", "ModifyItem", "ParrafosUI",
+                        buscar,
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "AddEditParrafos"
+                        }, new { @class = "btn btn-default btn-xs glyphicon glyphicon-pencil edit", data_toggle = "modal", data_target = "#addEditParrafosModal" })
+                    </td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+</div>
+@{
+    buscar.ItemId = null;
+}
