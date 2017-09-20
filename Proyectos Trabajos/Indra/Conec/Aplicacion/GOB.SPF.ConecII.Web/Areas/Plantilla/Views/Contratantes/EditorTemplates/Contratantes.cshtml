@@ -1,0 +1,57 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiContratantes
+@{
+    bool actionView = Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View);
+}
+@using (Html.BeginForm("Factor", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "contratantesForm" }))
+{   
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Identificador)
+    @Html.Hidden("IdParteDocumento", Model.IdParteDocumento)
+
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    @if (actionView)
+    {
+    <div class="row form-group">
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.LabelFor(model => model.Nombre, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa nombre" } })
+            @Html.ValidationMessageFor(model => model.Nombre)
+        </div>    
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.LabelFor(model => model.Cargo, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            @Html.EditorFor(model => model.Cargo, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa el cargo" } })
+            @Html.ValidationMessageFor(model => model.Cargo)
+        </div>        
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.LabelFor(model => model.Domicilio, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            @Html.EditorFor(model => model.Domicilio, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa el domicilio" } })
+            @Html.ValidationMessageFor(model => model.Domicilio)
+        </div>
+    </div>
+    <div class="row form-group">        
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.LabelFor(model => model.Activo, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            @Html.CheckBoxFor(model => model.EsActivo, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EsActivo)
+        </div>
+    </div>
+    
+
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (!actionView)
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}

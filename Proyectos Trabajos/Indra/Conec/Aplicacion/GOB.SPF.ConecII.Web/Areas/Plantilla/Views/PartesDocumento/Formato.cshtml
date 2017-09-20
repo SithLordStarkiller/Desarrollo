@@ -1,0 +1,202 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiPartesDocumento
+@{
+    ViewBag.Title = "Administrar Partes del Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/bootstrap/fileinput.min.css" rel="stylesheet" />
+
+@*<style>    
+    thead{
+        display:table-header-group;
+    }
+    tbody{
+        display:table-row-group;
+    }
+    tr{
+        display:table-row;
+    }
+    td{
+        display:table-cell;
+    }
+    th {
+        display:table-row;
+    }
+</style>*@
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Plantillas</a></li>
+    <li><a href="~/Catalogo/Fracciones" class="active">Formato</a></li>
+</ol>
+
+
+    @Html.HiddenFor(model => model.Identificador)
+    @Html.Hidden("IdParteDocumentoBusqueda", Model.Identificador)
+    @Html.HiddenFor(model => model.IdTipoDocumento)
+    @Html.Hidden("Activo", Model.Activo)
+    <div class="flip">
+        <div class="front">
+            
+            <div class="top-buffer">
+                <h3>@ViewBag.Title </h3>
+                <hr class="red">
+            </div>
+
+            <div id="divPartesDocumento">
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Encabezado</div>
+                        <div class="panel-body">
+                            <div class="form-group row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    @Html.LabelFor(model => model.RutaLogo, new { @class = "control-label" })
+                                    <input id="logotipo" name="logotipo" type="file" />
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Paginado, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Paginado, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Paginado)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <label class="control-label">Instituciones</label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div id="divInstituciones" class="content-table">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Folio, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Folio, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Folio)
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Asunto, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Asunto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Asunto)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.LugarFecha, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.LugarFecha, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LugarFecha)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Contratantes</div>
+                        <div class="panel-body">
+                            <div id="divContratantes" class="content-table">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Parrafos</div>
+                        <div class="panel-body">
+                            <div id="divParrafos" class="content-table">
+
+                            </div>
+                            <div id="divEtiquetasParrafo" class="content-table">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Etiquetas</div>
+                        <div class="panel-body">
+                            <div id="divEtiquetas" class="content-table">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Firma</div>
+                        <div class="panel-body">
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Puesto, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Puesto, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Puesto)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Nombre, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nombre)
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Direccion, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Direccion)
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    @Html.LabelFor(model => model.Ccp, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Ccp, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Ccp)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBackFormato">
+                    <span class="glyphicon glyphicon-backward"></span>Cancelar
+                </button>
+
+                @*@if (!actionView)
+            {*@
+                <button type="button" class="btn btn-default" id="btnSaveFormato">
+                    <span class="glyphicon glyphicon-save"></span>Guardar
+                </button>
+                @*}*@
+            </div>
+        </div>
+        <div class="back">
+        </div>
+
+        
+
+    </div>
+
+@section Scripts{
+    <script src="~/Scripts/conec/Plantilla/formato.js"></script>
+    <script src="~/Scripts/conec/Plantilla/formatoCompleto.js"></script>
+
+    <script src="~/Scripts/conec/Plantilla/instituciones.js"></script>
+    <script src="~/Scripts/conec/Plantilla/contratantes.js"></script>
+
+    <script src="~/Scripts/conec/Plantilla/parrafos.js"></script>
+    <script src="~/Scripts/conec/Plantilla/etiquetasParrafo.js"></script>
+
+    <script src="~/Scripts/conec/Plantilla/etiquetas.js"></script>
+
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="~/Scripts/bootstrap/fileinput.min.js"></script>
+}
+

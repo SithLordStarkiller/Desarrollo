@@ -1,0 +1,74 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiSolicitante
+
+@using (Html.BeginForm("Solicitante", "Solicitud", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "formSolicitante" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Nuevo solicitante
+        </div>
+        <div class="panel-body" style="height: 500px; overflow-x: hidden; overflow-y: scroll;">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        @Html.LabelFor(model => model.Nombre, "Nombre*:", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.ApellidoPaterno, "Apellido paterno*:", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ApellidoPaterno, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.LabelFor(model => model.ApellidoMaterno, "Apellido materno:", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ApellidoMaterno, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Cargo, "Cargo*:", htmlAttributes: new { @class = "control-label" })
+                        @Html.EditorFor(model => model.Cargo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Cargo, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(model => model.Activo, "Activo*:", htmlAttributes: new { @class = "control-label" })
+                        <div class="checkbox">
+                            @Html.EditorFor(model => model.Activo)
+                            @Html.ValidationMessageFor(model => model.Activo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <p class="pull-left">*Campos obligatorios</p>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" id="btnBackSolicitante">
+                        <span class="glyphicon glyphicon-backward"></span>
+                        Cancelar
+                    </button>
+
+                    @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+                    {
+                        <button type="button" class="btn btn-default" id="btnSaveSolicitante">
+                            <span class="glyphicon glyphicon-save"></span>
+                            Guardar
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Identificador)
+        @Html.HiddenFor(model => model.IdCliente)
+        @Html.HiddenFor(model => model.IdTipoPersona)
+        @Html.HiddenFor(model => model.DbSaved)
+        @Html.HiddenFor(model => model.Numero)
+        @Html.HiddenFor(model => model.Action)
+    </div>
+}
