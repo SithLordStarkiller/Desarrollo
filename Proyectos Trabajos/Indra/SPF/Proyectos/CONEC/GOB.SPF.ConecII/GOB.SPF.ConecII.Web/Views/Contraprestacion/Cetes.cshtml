@@ -1,0 +1,80 @@
+﻿
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Contraprestasión</a></li>
+    <li><a href="~/Contraprestacion/Cetes" class="active">Cetes</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label class="control-label">Tipo de búsqueda:</label>
+                <label class="radio-inline">
+                    <input type="radio" name="tipoBusqueda" value="true" checked="checked">
+                    Año y/o mes
+                </label>
+                <label class="radio-inline" for="inactivo">
+                    <input type="radio" name="tipoBusqueda" value="false">
+                    Rango de Fechas
+                </label>
+            </div>
+            <div class="form-group" id="busquedaAnioMes">
+                <div class="col-sm-3">
+                    <label class="control-label" for="Anio">Año:</label>
+                    @Html.DropDownList("Anio", (IEnumerable<SelectListItem>) ViewBag.Anios, "Seleccione un año", new {@class = "form-control"})
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">Mes:</label>
+                    @Html.DropDownList("Mes", (IEnumerable<SelectListItem>) ViewBag.Meses, "Seleccione un mes", new {@class = "form-control"})
+                </div>
+            </div>
+            <div class="form-group" id="busquedaRango" style="display: none;">
+                <div class="col-sm-3">
+                    <label class="control-label">Fecha inicial:</label>
+                    <input type="text" id="fechaInicial" name="fechaInicial" class="form-control" placeholder="dd/mm/yyyy" />
+                </div>
+                <div class="col-sm-3">
+                    <label class="control-label">Fecha Final:</label>
+                    <input type="text" id="fechaFinal" name="fechaFinal" class="form-control" placeholder="dd/mm/yyyy" />
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group col-sm-1 col-sm-offset-11">
+                <button type="button" class="btn btn-default" id="btnBuscar">
+                    <span class="glyphicon glyphicon-search"></span>
+                    Buscar
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-12 form-group">
+            <div class="form-group">
+                <div class="col-sm-1 col-sm-offset-11">
+                    <button type="button" class="btn btn-default" id="btnCreate">
+                        <span class="glyphicon glyphicon-upload"></span>
+                        Cargar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="divCetes"></div>
+    </div>
+    <div class="back"></div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="~/Scripts/conec/contraprestacion/cete.js"></script>
+
+    <link href="~/Content/jquery.fileupload.css" rel="stylesheet" />
+
+    <script src="~/Scripts/Controls/jquery.fileupload-ui.js"></script>
+    <script src="~/Scripts/Controls/jquery.fileupload.js"></script>
+    <script src="~/Scripts/Controls/jquery.iframe-transport.js"></script>
+
+}

@@ -1,0 +1,31 @@
+﻿@model  GOB.SPF.ConecII.Web.Models.UiTelefono
+
+<form id="formTelefono">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.IdTipoTelefono, "Tipo:")
+                @Html.DropDownListFor(model => model.IdTipoTelefono, (IEnumerable<SelectListItem>)ViewBag.TiposTelefono, "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdTipoTelefono, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-5">
+                @Html.LabelFor(model => model.Numero, "Número:")
+                @Html.TextBoxFor(model => model.Numero, new { @class = "form-control", placeholder = "Número",style="z-index: 0" })
+                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Extension, "Extensión:")
+                <div class="input-group">
+                    @Html.TextBoxFor(model => model.Extension, new { @class = "form-control", placeholder = "Extensión", style = "z-index: 0" })
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary btn-sm" id="btnTelefono" style="z-index: 0">
+                            <span class="glyphicon glyphicon-plus">
+                            </span>
+                        </button>
+                    </span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Extension, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+</form>

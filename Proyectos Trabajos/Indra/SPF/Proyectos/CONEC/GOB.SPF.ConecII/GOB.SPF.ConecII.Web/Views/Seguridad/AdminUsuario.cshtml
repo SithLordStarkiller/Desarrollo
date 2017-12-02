@@ -1,0 +1,75 @@
+﻿@using GOB.SPF.ConecII.Web.Models
+@model UiUsuario
+@{
+    var listaAreas = (IEnumerable<SelectListItem>)ViewBag.ListaAreas;
+}
+<div>
+    @using (Html.BeginForm("AreasValidadora", "Configuracion", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "referenciaForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div>
+            <div id="divInterno">
+                <div class="panel-body">
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>No empleado*:</label>
+                            @Html.TextBox("txbNoEmpleado", new { @class = "form-control" })
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Area*:</label>
+                            <div class="">
+                                @Html.DropDownList("ddlAreasIntegrante", listaAreas, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Jerarquía*:</label>
+                            <div class="">
+                                @Html.TextBox("txbJerarquia", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <label>Apellido paterno*:</label>
+                            <div class="">
+                                @Html.TextBox("txbApPaterno", new {@class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Apellido materno*:</label>
+                            <div class="">
+                                @Html.TextBox("txbApMaterno", new {@class = "form-control"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Nombre(s)*:</label>
+                            <div class="">
+                                @Html.TextBox("txbNombre", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divIntegranates"></div>
+            </div>
+            <br />
+            <p class="pull-left">*Campos obligatorios</p>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBack">
+                    <span class="glyphicon glyphicon-backward"></span>Cancelar
+                </button>
+                @if (Model.Action.Equals(UiEnumEntity.New) || Model.Action.Equals(UiEnumEntity.Edit))
+                {
+                    <button type="button" class="btn btn-default" id="btnSave">
+                        <span class="glyphicon glyphicon-save"></span>Guardar
+                    </button>
+                }
+            </div>
+        </div>
+    }
+</div>

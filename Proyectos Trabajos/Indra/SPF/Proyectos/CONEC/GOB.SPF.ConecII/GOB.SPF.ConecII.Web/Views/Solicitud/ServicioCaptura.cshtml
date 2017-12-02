@@ -1,0 +1,166 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiSolicitudServicio
+@{
+    var rules = Model.ConfiguracionCampos;
+}
+<div class="top-buffer">
+    <h3>@ViewBag.Title</h3>
+    <hr class="red">
+</div>
+<form id="formCaptura">
+    @Html.HiddenFor(m => m.Identificador)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Datos del Servicio
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @if (rules.Cuota)
+                {
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.IdCuota)
+                        @Html.DropDownListFor(m => m.IdCuota, ViewBag.Concepto != null ? (IEnumerable<SelectListItem>)ViewBag.Concepto : new List<SelectListItem>(), "Seleccione", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.IdCuota, null, new { @class = "text-danger" })
+                    </div>
+                }
+                @if (rules.FechaInicial)
+                {
+                    if (rules.FechaFinal)
+                    {
+                        <div class="col-md-3">
+                            @Html.LabelFor(m => m.FechaInicio)
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.FechaInicio, null, new { @class = "form-control", @readonly = "true" })
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.FechaInicio, null, new { @class = "text-danger" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3">
+                            @Html.LabelFor(m => m.FechaExamen)
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.FechaExamen, null, new { @class = "form-control", @readonly = "true" })
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.FechaExamen, null, new { @class = "text-danger" })
+                        </div>
+                    }
+                }
+                @if (rules.FechaFinal)
+                {
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.FechaFinal)
+                        <div class="input-group">
+                            @Html.TextBoxFor(m => m.FechaFinal, null, new { @class = "form-control", @readonly = "true" })
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.FechaFinal, null, new { @class = "text-danger" })
+                    </div>
+                }
+                @if (rules.TipoInstalacion)
+                {
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.IdTipoInstalacion)
+                        @Html.DropDownListFor(m => m.IdTipoInstalacion, ViewBag.TipoInstalacion != null ? (IEnumerable<SelectListItem>)ViewBag.TipoInstalacion : new List<SelectListItem>(), "Seleccione", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.IdTipoInstalacion, null, new { @class = "text-danger" })
+                    </div>
+                }
+                @if (rules.NumeroPersonas)
+                {
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.NumeroPersonas)
+                        @Html.TextBoxFor(m => m.NumeroPersonas, null, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(m => m.NumeroPersonas, null, new { @class = "text-danger" })
+                    </div>
+                }
+                @if (rules.HorasCurso)
+                {
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.HorasCurso)
+                        @Html.TextBoxFor(m => m.HorasCurso, null, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(m => m.HorasCurso, null, new { @class = "text-danger" })
+                    </div>
+                }
+                @if (rules.BienCustodia)
+                {
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.TipoBienCustodiar)
+                        @Html.TextBoxFor(m => m.TipoBienCustodiar, null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.TipoBienCustodiar, null, new { @class = "text-danger" })
+                    </div>
+                }
+
+                @if (rules.Observaciones)
+                {
+                    <div class="col-md-12">
+                        @Html.LabelFor(m => m.Observaciones)
+                        @Html.TextAreaFor(m => m.Observaciones, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Observaciones, null, new { @class = "text-danger" })
+                    </div>
+                }
+                @if (rules.TieneComite && rules.ObservacionesComite)
+                {
+                    <div class="col-md-12">
+                        <label class="control-label">
+                            <input id="ActiveComite" type="checkbox" checked /> Comité:
+                        </label>
+                        @Html.TextAreaFor(m => m.Comite, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @if (rules.InstalacionesCliente)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">Instalaciones</div>
+            <div class="panel-body">
+                <div id="instalacionesCliente"></div>
+            </div>
+        </div>
+    }
+    @if (rules.Documentos)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">Documentos</div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <label id="LblDocumento" class="input-group-btn">
+                        <span class="btn btn-primary" id="BtnDocumentoServicio" style="box-shadow: 0 0px 0 0 #1b5dab; padding: 7px 33px; width:300px;">
+                            Browse&hellip; @Html.TextBoxFor(m => m.Document, null, new { type="file", name="documentoServicio", style = "width: 0; height: 0" })
+                        </span>
+                    </label>
+                    @Html.TextBoxFor(m => m.fileUrls, null, new { @readonly = "readonly", @disabled = "disabled", @type = "text", @class = "form-control" })
+                </div>
+                <div id="servicioDocumentos"></div>
+            </div>
+        </div>
+                                      }
+
+    <div class="panel">
+        <div class="panel-body">
+            <p class="pull-left">*Campos obligatorios</p>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="CancelService">
+                    <span class="glyphicon glyphicon-backward"></span>
+                    Cancelar
+                </button>
+
+                @if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.New))
+                {
+                    <button type="button" class="btn btn-default" id="SaveService">
+                        <span class="glyphicon glyphicon-save"></span>
+                        Guardar
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</form>

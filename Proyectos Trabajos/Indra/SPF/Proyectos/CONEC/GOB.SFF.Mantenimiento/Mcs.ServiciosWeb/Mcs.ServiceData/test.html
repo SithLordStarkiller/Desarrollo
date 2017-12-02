@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+
+<div id="divresult"></div>
+<script>
+    var path = 'http://localhost:54757/api/Asentamientos/GetAsentamientos';
+    var datax = {
+        IdEstado:8,
+        IdMunicipio: null,
+        CodigoPostal: null
+    };
+
+    $(document).ready(function() {
+
+        $.ajax({
+            url: path,
+            type: "POST",
+            data: JSON.stringify(datax),
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            success: function(result) {
+                $("#divresult").html(result);
+                console.log("Result: ", result);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("jqXHR: ", jqXHR, "textStatus:", textStatus, "errorThrown: ", errorThrown);
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

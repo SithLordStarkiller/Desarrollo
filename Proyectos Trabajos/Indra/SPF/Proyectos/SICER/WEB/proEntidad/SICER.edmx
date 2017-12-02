@@ -1,0 +1,2571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="sicerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="sicerModelStoreContainer">
+          <EntitySet Name="pregunta" EntityType="sicerModel.Store.pregunta" store:Type="Tables" Schema="catalogo" />
+          <EntitySet Name="respuesta" EntityType="sicerModel.Store.respuesta" store:Type="Tables" Schema="catalogo" />
+          <EntitySet Name="tema" EntityType="sicerModel.Store.tema" store:Type="Tables" Schema="catalogo" />
+          <EntitySet Name="certificacion" EntityType="sicerModel.Store.certificacion" store:Type="Tables" Schema="certificacion" />
+          <EntitySet Name="certificacionTema" EntityType="sicerModel.Store.certificacionTema" store:Type="Tables" Schema="certificacion" />
+          <EntitySet Name="funcion" EntityType="sicerModel.Store.funcion" store:Type="Tables" Schema="certificacion" />
+          <EntitySet Name="temaFuncion" EntityType="sicerModel.Store.temaFuncion" store:Type="Tables" Schema="certificacion" />
+          <EntitySet Name="participanteExterno" EntityType="sicerModel.Store.participanteExterno" store:Type="Tables" Schema="registro" />
+          <EntitySet Name="participanteInterno" EntityType="sicerModel.Store.participanteInterno" store:Type="Tables" Schema="registro" />
+          <EntitySet Name="registro" EntityType="sicerModel.Store.registro" store:Type="Tables" Schema="registro" />
+          <AssociationSet Name="rel_cerTem_cert" Association="sicerModel.Store.rel_cerTem_cert">
+            <End Role="certificacion" EntitySet="certificacion" />
+            <End Role="certificacionTema" EntitySet="certificacionTema" />
+          </AssociationSet>
+          <AssociationSet Name="rel_cerTem_tem" Association="sicerModel.Store.rel_cerTem_tem">
+            <End Role="tema" EntitySet="tema" />
+            <End Role="certificacionTema" EntitySet="certificacionTema" />
+          </AssociationSet>
+          <AssociationSet Name="rel_parInt_reg" Association="sicerModel.Store.rel_parInt_reg">
+            <End Role="registro" EntitySet="registro" />
+            <End Role="participanteInterno" EntitySet="participanteInterno" />
+          </AssociationSet>
+          <AssociationSet Name="rel_partExt_reg" Association="sicerModel.Store.rel_partExt_reg">
+            <End Role="registro" EntitySet="registro" />
+            <End Role="participanteExterno" EntitySet="participanteExterno" />
+          </AssociationSet>
+          <AssociationSet Name="rel_pre_fun" Association="sicerModel.Store.rel_pre_fun">
+            <End Role="funcion" EntitySet="funcion" />
+            <End Role="pregunta" EntitySet="pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="rel_res_pre" Association="sicerModel.Store.rel_res_pre">
+            <End Role="pregunta" EntitySet="pregunta" />
+            <End Role="respuesta" EntitySet="respuesta" />
+          </AssociationSet>
+          <AssociationSet Name="rel_temFun_fun" Association="sicerModel.Store.rel_temFun_fun">
+            <End Role="funcion" EntitySet="funcion" />
+            <End Role="temaFuncion" EntitySet="temaFuncion" />
+          </AssociationSet>
+          <AssociationSet Name="rel_temFun_tem" Association="sicerModel.Store.rel_temFun_tem">
+            <End Role="tema" EntitySet="tema" />
+            <End Role="temaFuncion" EntitySet="temaFuncion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="pregunta">
+          <Key>
+            <PropertyRef Name="idPregunta" />
+          </Key>
+          <Property Name="idPregunta" Type="int" Nullable="false" />
+          <Property Name="idFuncion" Type="int" Nullable="false" />
+          <Property Name="preDescripcion" Type="varchar(max)" />
+          <Property Name="preObligatoria" Type="bit" />
+          <Property Name="preTipoArchivo" Type="char" MaxLength="1" />
+          <Property Name="preNombreArchivo" Type="varchar" MaxLength="50" />
+          <Property Name="preVigente" Type="bit" />
+          <Property Name="preFechaModificacion" Type="datetime" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="preActiva" Type="bit" />
+          <Property Name="preCodigo" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="respuesta">
+          <Key>
+            <PropertyRef Name="idRespuesta" />
+          </Key>
+          <Property Name="idPregunta" Type="int" Nullable="false" />
+          <Property Name="idRespuesta" Type="int" Nullable="false" />
+          <Property Name="resDescripcion" Type="varchar(max)" />
+          <Property Name="resTipoArchivo" Type="char" MaxLength="1" />
+          <Property Name="resNombreArchivo" Type="varchar" MaxLength="50" />
+          <Property Name="resCorrecta" Type="bit" />
+          <Property Name="resVigente" Type="bit" />
+          <Property Name="resFechaModificacion" Type="datetime" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="resActiva" Type="bit" />
+          <Property Name="resExplicacion" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="tema">
+          <Key>
+            <PropertyRef Name="idTema" />
+          </Key>
+          <Property Name="idTema" Type="int" Nullable="false" />
+          <Property Name="temDescripcion" Type="varchar" MaxLength="500" />
+          <Property Name="temCodigo" Type="varchar" MaxLength="30" />
+          <Property Name="temVigente" Type="bit" />
+          <Property Name="temFechaModificacion" Type="datetime" />
+          <Property Name="idUsuario" Type="int" />
+        </EntityType>
+        <EntityType Name="certificacion">
+          <Key>
+            <PropertyRef Name="idCertificacion" />
+          </Key>
+          <Property Name="idCertificacion" Type="int" Nullable="false" />
+          <Property Name="cerNombre" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="cerDescripcion" Type="varchar" MaxLength="500" />
+          <Property Name="cerSiglas" Type="varchar" MaxLength="30" />
+          <Property Name="cerFechaAlta" Type="datetime" Nullable="false" />
+          <Property Name="cerFechaBaja" Type="datetime" />
+          <Property Name="cerPrimeraValidez" Type="tinyint" />
+          <Property Name="cerRenovacionValidez" Type="tinyint" />
+          <Property Name="cerPreguntas" Type="smallint" />
+          <Property Name="cerPreguntasCorrectas" Type="smallint" />
+          <Property Name="cerTiempoIntento" Type="tinyint" />
+          <Property Name="idEntidadEvaluadora" Type="smallint" />
+          <Property Name="idEntidadCertificadora" Type="smallint" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="cerFechaModificacion" Type="datetime" />
+          <Property Name="cerVigente" Type="bit" />
+          <Property Name="cerActiva" Type="bit" />
+        </EntityType>
+        <EntityType Name="certificacionTema">
+          <Key>
+            <PropertyRef Name="idCertificacionTema" />
+            <PropertyRef Name="idCertificacion" />
+            <PropertyRef Name="idTema" />
+          </Key>
+          <Property Name="idCertificacionTema" Type="int" Nullable="false" />
+          <Property Name="idCertificacion" Type="int" Nullable="false" />
+          <Property Name="idTema" Type="int" Nullable="false" />
+          <Property Name="ctOrden" Type="tinyint" Nullable="false" />
+          <Property Name="ctAleatorias" Type="smallint" Nullable="false" />
+          <Property Name="ctCorrectas" Type="smallint" Nullable="false" />
+          <Property Name="ctTiempo" Type="smallint" Nullable="false" />
+          <Property Name="ctActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="funcion">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+          </Key>
+          <Property Name="idFuncion" Type="int" Nullable="false" />
+          <Property Name="funNombre" Type="varchar" MaxLength="500" />
+          <Property Name="funAleatorias" Type="smallint" />
+          <Property Name="funCorrectas" Type="smallint" />
+          <Property Name="funTiempo" Type="smallint" />
+          <Property Name="funOrden" Type="tinyint" />
+          <Property Name="funFechaModificacion" Type="datetime" />
+          <Property Name="funVigente" Type="bit" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="funCodigo" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="temaFuncion">
+          <Key>
+            <PropertyRef Name="idTemaFuncion" />
+          </Key>
+          <Property Name="idTemaFuncion" Type="int" Nullable="false" />
+          <Property Name="idFuncion" Type="int" Nullable="false" />
+          <Property Name="idTema" Type="int" />
+          <Property Name="tfActivo" Type="bit" />
+        </EntityType>
+        <EntityType Name="participanteExterno">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Name="idRegistro" Type="int" Nullable="false" />
+          <Property Name="pePaterno" Type="varchar" MaxLength="30" />
+          <Property Name="peMaterno" Type="varchar" MaxLength="30" />
+          <Property Name="peNombre" Type="varchar" Nullable="false" MaxLength="30" />
+          <Property Name="peNumEmpleado" Type="varchar" MaxLength="10" />
+          <Property Name="peCURP" Type="varchar" MaxLength="18" />
+          <Property Name="peRFC" Type="varchar" MaxLength="13" />
+          <Property Name="peCUIP" Type="varchar" MaxLength="21" />
+          <Property Name="peLOC" Type="varchar" MaxLength="18" />
+          <Property Name="peCargo" Type="varchar" MaxLength="60" />
+          <Property Name="peGrado" Type="varchar" MaxLength="60" />
+          <Property Name="peEdad" Type="tinyint" />
+          <Property Name="idEstado" Type="tinyint" />
+          <Property Name="idMunicipio" Type="smallint" />
+          <Property Name="peFechaNacimiento" Type="date" />
+        </EntityType>
+        <EntityType Name="participanteInterno">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Name="idRegistro" Type="int" Nullable="false" />
+          <Property Name="idEmpleado" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="registro">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Name="idRegistro" Type="int" Nullable="false" />
+          <Property Name="regEscolaridad" Type="varchar" MaxLength="150" />
+          <Property Name="regCelular" Type="varchar" MaxLength="15" />
+          <Property Name="regTelefono" Type="varchar" MaxLength="10" />
+          <Property Name="regTelTrabajo" Type="varchar" MaxLength="20" />
+          <Property Name="regCalle" Type="varchar" MaxLength="300" />
+          <Property Name="regNumExterior" Type="varchar" MaxLength="30" />
+          <Property Name="regNumInterior" Type="varchar" MaxLength="30" />
+          <Property Name="regColonia" Type="varchar" MaxLength="70" />
+          <Property Name="regCP" Type="varchar" MaxLength="5" />
+          <Property Name="regEmailPersonal" Type="varchar" MaxLength="60" />
+          <Property Name="regEmailLaboral" Type="varchar" MaxLength="60" />
+          <Property Name="regContrasenia" Type="varbinary" />
+          <Property Name="regFechaEnvio" Type="datetime" />
+          <Property Name="regFechaRecuperacion" Type="datetime" />
+          <Property Name="regFechaRegistro" Type="datetime" />
+          <Property Name="regFechaModificacion" Type="datetime" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="regVigente" Type="bit" />
+          <Property Name="regFoto" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="rel_cerTem_cert">
+          <End Role="certificacion" Type="sicerModel.Store.certificacion" Multiplicity="1" />
+          <End Role="certificacionTema" Type="sicerModel.Store.certificacionTema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="certificacion">
+              <PropertyRef Name="idCertificacion" />
+            </Principal>
+            <Dependent Role="certificacionTema">
+              <PropertyRef Name="idCertificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_cerTem_tem">
+          <End Role="tema" Type="sicerModel.Store.tema" Multiplicity="1" />
+          <End Role="certificacionTema" Type="sicerModel.Store.certificacionTema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tema">
+              <PropertyRef Name="idTema" />
+            </Principal>
+            <Dependent Role="certificacionTema">
+              <PropertyRef Name="idTema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_parInt_reg">
+          <End Role="registro" Type="sicerModel.Store.registro" Multiplicity="1" />
+          <End Role="participanteInterno" Type="sicerModel.Store.participanteInterno" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="registro">
+              <PropertyRef Name="idRegistro" />
+            </Principal>
+            <Dependent Role="participanteInterno">
+              <PropertyRef Name="idRegistro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_partExt_reg">
+          <End Role="registro" Type="sicerModel.Store.registro" Multiplicity="1" />
+          <End Role="participanteExterno" Type="sicerModel.Store.participanteExterno" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="registro">
+              <PropertyRef Name="idRegistro" />
+            </Principal>
+            <Dependent Role="participanteExterno">
+              <PropertyRef Name="idRegistro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_pre_fun">
+          <End Role="funcion" Type="sicerModel.Store.funcion" Multiplicity="1" />
+          <End Role="pregunta" Type="sicerModel.Store.pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funcion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="pregunta">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_res_pre">
+          <End Role="pregunta" Type="sicerModel.Store.pregunta" Multiplicity="1" />
+          <End Role="respuesta" Type="sicerModel.Store.respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pregunta">
+              <PropertyRef Name="idPregunta" />
+            </Principal>
+            <Dependent Role="respuesta">
+              <PropertyRef Name="idPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_temFun_fun">
+          <End Role="funcion" Type="sicerModel.Store.funcion" Multiplicity="1" />
+          <End Role="temaFuncion" Type="sicerModel.Store.temaFuncion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funcion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="temaFuncion">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_temFun_tem">
+          <End Role="tema" Type="sicerModel.Store.tema" Multiplicity="0..1" />
+          <End Role="temaFuncion" Type="sicerModel.Store.temaFuncion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tema">
+              <PropertyRef Name="idTema" />
+            </Principal>
+            <Dependent Role="temaFuncion">
+              <PropertyRef Name="idTema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spuConsultarCertificaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarComboCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarContenidoCertificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="contenido" Type="text" Mode="InOut" />
+        </Function>
+        <Function Name="spuConsultarDatosCorreo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarDependenciaExterna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idNivelSeguridad" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarEntidadCertificadora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarEntidadEvaluadora" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarEstado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarEvaluador" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarFirmasCertificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarInstitucionAplicaExamen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarInstitucionExterna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idDependenciaExterna" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarIntegrantes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="empPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="empMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="empNombre" Type="varchar" Mode="In" />
+          <Parameter Name="empCURP" Type="varchar" Mode="In" />
+          <Parameter Name="empRFC" Type="varchar" Mode="In" />
+          <Parameter Name="empActivo" Type="varchar" Mode="In" />
+          <Parameter Name="empNumero" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarLugarAplicacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarMunicipio" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idEstado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarNivelSeguridad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarRespuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idPregunta" Type="int" Mode="In" />
+          <Parameter Name="idFuncion" Type="int" Mode="In" />
+          <Parameter Name="idTemaFuncion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarRutaServidor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuConsultarServicios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idZona" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarZonas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo" />
+        <Function Name="spuInsertarActualizarPreguntas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idPregunta" Type="int" Mode="InOut" />
+          <Parameter Name="idFuncion" Type="int" Mode="In" />
+          <Parameter Name="preDescripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="preObligatoria" Type="bit" Mode="In" />
+          <Parameter Name="preTipoArchivo" Type="char" Mode="In" />
+          <Parameter Name="preNombreArchivo" Type="varchar" Mode="InOut" />
+          <Parameter Name="preVigente" Type="bit" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="preActiva" Type="bit" Mode="In" />
+          <Parameter Name="preCodigo" Type="varchar" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuInsertarActualizarRespuestas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idPregunta" Type="int" Mode="In" />
+          <Parameter Name="idRespuesta" Type="int" Mode="In" />
+          <Parameter Name="resDescripcion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="resTipoArchivo" Type="char" Mode="In" />
+          <Parameter Name="resNombreArchivo" Type="varchar" Mode="InOut" />
+          <Parameter Name="resCorrecta" Type="bit" Mode="In" />
+          <Parameter Name="resVigente" Type="bit" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="resActiva" Type="bit" Mode="In" />
+          <Parameter Name="resExplicacion" Type="varchar(max)" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuInsertarTema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="catalogo">
+          <Parameter Name="idTema" Type="int" Mode="InOut" />
+          <Parameter Name="temDescripcion" Type="varchar" Mode="In" />
+          <Parameter Name="temCodigo" Type="varchar" Mode="In" />
+          <Parameter Name="temVigente" Type="bit" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="idCertificacionTema" Type="int" Mode="In" />
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="ctOrden" Type="tinyint" Mode="In" />
+          <Parameter Name="ctAleatorias" Type="smallint" Mode="In" />
+          <Parameter Name="ctCorrectas" Type="smallint" Mode="In" />
+          <Parameter Name="ctTiempo" Type="smallint" Mode="In" />
+          <Parameter Name="ctActivo" Type="bit" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuCertificacionG" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarCertificacionesRegistro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarFuncionesCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarFuncionesTema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idTema" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarPreguntasCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarPreguntasTema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idTema" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarRespuestasCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarRespuestasTema" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idTema" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarTemasCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarTemasCertificacionExamen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuEliminarCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuInsertarActualizarCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="InOut" />
+          <Parameter Name="cerNombre" Type="varchar" Mode="In" />
+          <Parameter Name="cerDescripcion" Type="varchar" Mode="In" />
+          <Parameter Name="cerSiglas" Type="varchar" Mode="In" />
+          <Parameter Name="cerFechaAlta" Type="datetime" Mode="In" />
+          <Parameter Name="cerFechaBaja" Type="datetime" Mode="In" />
+          <Parameter Name="cerPrimeraValidez" Type="tinyint" Mode="In" />
+          <Parameter Name="cerRenovacionValidez" Type="tinyint" Mode="In" />
+          <Parameter Name="cerPreguntas" Type="smallint" Mode="In" />
+          <Parameter Name="cerPreguntasCorrectas" Type="smallint" Mode="In" />
+          <Parameter Name="cerTiempoIntento" Type="tinyint" Mode="In" />
+          <Parameter Name="idEntidadEvaluadora" Type="smallint" Mode="In" />
+          <Parameter Name="idEntidadCertificadora" Type="smallint" Mode="In" />
+          <Parameter Name="idUusario" Type="int" Mode="In" />
+          <Parameter Name="cerActiva" Type="bit" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuInsertarActualizarCertificacionRegistroUIUE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="participante" Type="char" Mode="In" />
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="crFechaExamen" Type="date" Mode="In" />
+          <Parameter Name="crHora" Type="time" Mode="In" />
+          <Parameter Name="idEvaluador" Type="smallint" Mode="In" />
+          <Parameter Name="crFechaModificacion" Type="datetime" Mode="In" />
+          <Parameter Name="crvigente" Type="bit" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="idInstitucionAplicaExamen" Type="smallint" Mode="In" />
+          <Parameter Name="idLugarAplica" Type="tinyint" Mode="In" />
+          <Parameter Name="idNivelSeguridad" Type="smallint" Mode="In" />
+          <Parameter Name="idDependenciaExterna" Type="smallint" Mode="In" />
+          <Parameter Name="idInstitucionExterna" Type="smallint" Mode="In" />
+          <Parameter Name="idZona" Type="smallint" Mode="In" />
+          <Parameter Name="idServicio" Type="int" Mode="In" />
+          <Parameter Name="idInstalacion" Type="int" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spuInsertarActualizarFuncion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idFuncion" Type="int" Mode="InOut" />
+          <Parameter Name="funNombre" Type="varchar" Mode="In" />
+          <Parameter Name="funAleatorias" Type="smallint" Mode="In" />
+          <Parameter Name="funCorrectas" Type="smallint" Mode="In" />
+          <Parameter Name="funTiempo" Type="smallint" Mode="In" />
+          <Parameter Name="funOrden" Type="tinyint" Mode="In" />
+          <Parameter Name="funVigente" Type="bit" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="funCodigo" Type="varchar" Mode="In" />
+          <Parameter Name="tfActivo" Type="bit" Mode="In" />
+          <Parameter Name="idTema" Type="int" Mode="In" />
+          <Parameter Name="idTemaFuncion" Type="int" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuValidaIngresoCertificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="certificacion">
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="idValidacion" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="spuConsultarCalificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="evaluacion">
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="existeCalificacion" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuInsertaEvaluacionRespuesta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="evaluacion">
+          <Parameter Name="idEvaluacion" Type="tinyint" Mode="In" />
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="idPregunta" Type="int" Mode="In" />
+          <Parameter Name="idRespuesta" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuInsertaNombreArchivoPDF" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="evaluacion">
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuInsertarEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="evaluacion">
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="calificacion" Type="float" Mode="In" />
+          <Parameter Name="idEvaluacion" Type="tinyint" Mode="InOut" />
+        </Function>
+        <Function Name="spuConsultarCertificacionIE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarDatosIntegranteInternoExterno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="empPaterno" Type="varchar" Mode="In" />
+          <Parameter Name="empMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="empNombre" Type="varchar" Mode="In" />
+          <Parameter Name="empCURP" Type="varchar" Mode="In" />
+          <Parameter Name="empRFC" Type="varchar" Mode="In" />
+          <Parameter Name="empNumero" Type="varchar" Mode="In" />
+          <Parameter Name="participante" Type="char" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarRegistro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="idEmpleado" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarRegistroPersonaIE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="participante" Type="char" Mode="In" />
+        </Function>
+        <Function Name="spuConsultaUbicacionInterno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="idEmpleado" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="spuInsertarActualizarContrasena" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="regCURP" Type="varchar" Mode="In" />
+          <Parameter Name="inserta" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuInsertarActualizarRegistro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="idRegistro" Type="int" Mode="InOut" />
+          <Parameter Name="idEmpleado" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ePaterno" Type="varchar" Mode="In" />
+          <Parameter Name="eMaterno" Type="varchar" Mode="In" />
+          <Parameter Name="eNombre" Type="varchar" Mode="In" />
+          <Parameter Name="eNumEmpleado" Type="varchar" Mode="In" />
+          <Parameter Name="eCURP" Type="varchar" Mode="In" />
+          <Parameter Name="eRFC" Type="varchar" Mode="In" />
+          <Parameter Name="eCUIP" Type="varchar" Mode="In" />
+          <Parameter Name="eLOC" Type="varchar" Mode="In" />
+          <Parameter Name="eCargo" Type="varchar" Mode="In" />
+          <Parameter Name="eGrado" Type="varchar" Mode="In" />
+          <Parameter Name="eEdad" Type="tinyint" Mode="In" />
+          <Parameter Name="fechaNacimiento" Type="datetime" Mode="In" />
+          <Parameter Name="idEstado" Type="tinyint" Mode="In" />
+          <Parameter Name="idMunicipio" Type="smallint" Mode="In" />
+          <Parameter Name="regEscolaridad" Type="varchar" Mode="In" />
+          <Parameter Name="regCelular" Type="varchar" Mode="In" />
+          <Parameter Name="regTelefono" Type="varchar" Mode="In" />
+          <Parameter Name="regTelTrabajo" Type="varchar" Mode="In" />
+          <Parameter Name="regCalle" Type="varchar" Mode="In" />
+          <Parameter Name="regNumExterior" Type="varchar" Mode="In" />
+          <Parameter Name="regNumInterior" Type="varchar" Mode="In" />
+          <Parameter Name="regColonia" Type="varchar" Mode="In" />
+          <Parameter Name="regCP" Type="varchar" Mode="In" />
+          <Parameter Name="regEmailPersonal" Type="varchar" Mode="In" />
+          <Parameter Name="regEmailLaboral" Type="varchar" Mode="In" />
+          <Parameter Name="regContrasenia" Type="varbinary" Mode="In" />
+          <Parameter Name="regFechaEnvio" Type="datetime" Mode="In" />
+          <Parameter Name="regFechaRecuperacion" Type="datetime" Mode="In" />
+          <Parameter Name="regFechaRegistro" Type="datetime" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="regVigente" Type="bit" Mode="In" />
+          <Parameter Name="participante" Type="char" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+          <Parameter Name="regFoto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spuValidarCURP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="CURP" Type="varchar" Mode="In" />
+          <Parameter Name="resultado" Type="tinyint" Mode="InOut" />
+          <Parameter Name="nombreParticipante" Type="varchar" Mode="InOut" />
+        </Function>
+        <Function Name="spuValidarDatosEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="registro">
+          <Parameter Name="user" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+          <Parameter Name="idRegistro" Type="int" Mode="InOut" />
+          <Parameter Name="resultado" Type="tinyint" Mode="InOut" />
+        </Function>
+        <Function Name="spuConsultarReportesCertificaciones" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="reporte">
+          <Parameter Name="fechaInicio" Type="datetime" Mode="In" />
+          <Parameter Name="fechaFin" Type="datetime" Mode="In" />
+          <Parameter Name="cerActivaDesactivada" Type="int" Mode="In" />
+          <Parameter Name="idEntidadCertificadora" Type="int" Mode="In" />
+          <Parameter Name="idEntidadEvaluadora" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarCredenciales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad" />
+        <Function Name="spuConsultarMenuContextual" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad">
+          <Parameter Name="menTipoOperacion" Type="varchar" Mode="In" />
+          <Parameter Name="idRol" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="spuConsultarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad">
+          <Parameter Name="usuLogin" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spuFinalizarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad">
+          <Parameter Name="seSessionID" Type="varchar" Mode="In" />
+          <Parameter Name="idUsuario" Type="varchar" Mode="In" />
+          <Parameter Name="seEstatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuIniciarSesion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad">
+          <Parameter Name="seSessionID" Type="varchar" Mode="In" />
+          <Parameter Name="idUsuario" Type="int" Mode="In" />
+          <Parameter Name="seIP" Type="varchar" Mode="In" />
+          <Parameter Name="seIntentos" Type="int" Mode="In" />
+          <Parameter Name="seEstatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spuInsertarSesionEvaluacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad">
+          <Parameter Name="idSesionEvaluacion" Type="int" Mode="InOut" />
+          <Parameter Name="idRegistro" Type="int" Mode="In" />
+          <Parameter Name="idCertificacion" Type="int" Mode="In" />
+          <Parameter Name="idCertificacionRegistro" Type="int" Mode="In" />
+          <Parameter Name="inserto" Type="bit" Mode="InOut" />
+        </Function>
+        <Function Name="spuPermisoRol" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="seguridad">
+          <Parameter Name="idRol" Type="tinyint" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="sicerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="sicerEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="spuConsultarUsuario" ReturnType="Collection(sicerModel.spuConsultarUsuario_Result)">
+          <Parameter Name="usuLogin" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spuIniciarSesion" ReturnType="Collection(sicerModel.spuIniciarSesion_Result)">
+            <Parameter Name="seSessionID" Mode="In" Type="String" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="seIP" Mode="In" Type="String" />
+            <Parameter Name="seIntentos" Mode="In" Type="Int32" />
+            <Parameter Name="seEstatus" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuFinalizarSesion">
+            <Parameter Name="seSessionID" Mode="In" Type="String" />
+            <Parameter Name="idUsuario" Mode="In" Type="String" />
+            <Parameter Name="seEstatus" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarEstado" ReturnType="Collection(sicerModel.spuConsultarEstado_Result)" />
+          <FunctionImport Name="spuConsultarMunicipio" ReturnType="Collection(sicerModel.spuConsultarMunicipio_Result)">
+          <Parameter Name="idEstado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarEntidadCertificadora" ReturnType="Collection(sicerModel.spuConsultarEntidadCertificadora_Result)" />
+          <FunctionImport Name="spuConsultarEvaluador" ReturnType="Collection(sicerModel.spuConsultarEvaluador_Result)" />
+          <FunctionImport Name="spuConsultarComboCertificacion" ReturnType="Collection(sicerModel.spuConsultarComboCertificacion_Result)" />
+          <FunctionImport Name="spuConsultarDependenciaExterna" ReturnType="Collection(sicerModel.spuConsultarDependenciaExterna_Result)">
+          <Parameter Name="idNivelSeguridad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarNivelSeguridad" ReturnType="Collection(sicerModel.spuConsultarNivelSeguridad_Result)" />
+          <FunctionImport Name="spuConsultarInstitucionExterna" ReturnType="Collection(sicerModel.spuConsultarInstitucionExterna_Result)">
+          <Parameter Name="idDependenciaExterna" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarInstitucionAplicaExamen" ReturnType="Collection(sicerModel.spuConsultarInstitucionAplicaExamen_Result)" />
+          <FunctionImport Name="spuConsultarLugarAplicacion" ReturnType="Collection(sicerModel.spuConsultarLugarAplicacion_Result)" />
+          <EntitySet Name="participanteExterno" EntityType="sicerModel.participanteExterno" />
+          <FunctionImport Name="spuConsultarEntidadEvaluadora" ReturnType="Collection(sicerModel.spuConsultarEntidadEvaluadora_Result)" />
+          <FunctionImport Name="spuConsultarRutaServidor" ReturnType="Collection(sicerModel.spuConsultarRutaServidor_Result)" />
+          <EntitySet Name="certificacion" EntityType="sicerModel.certificacion" />
+          <EntitySet Name="registro" EntityType="sicerModel.registro" />
+          <AssociationSet Name="rel_partExt_reg" Association="sicerModel.rel_partExt_reg">
+            <End Role="registro" EntitySet="registro" />
+            <End Role="participanteExterno" EntitySet="participanteExterno" />
+          </AssociationSet>
+          <EntitySet Name="participanteInterno" EntityType="sicerModel.participanteInterno" />
+          <AssociationSet Name="rel_parInt_reg" Association="sicerModel.rel_parInt_reg">
+            <End Role="registro" EntitySet="registro" />
+            <End Role="participanteInterno" EntitySet="participanteInterno" />
+          </AssociationSet>
+          <EntitySet Name="tema" EntityType="sicerModel.tema" />
+          <EntitySet Name="funcion" EntityType="sicerModel.funcion" />
+          <EntitySet Name="pregunta" EntityType="sicerModel.pregunta" />
+          <EntitySet Name="respuesta" EntityType="sicerModel.respuesta" />
+          <EntitySet Name="temaFuncion" EntityType="sicerModel.temaFuncion" />
+          <AssociationSet Name="rel_pre_fun" Association="sicerModel.rel_pre_fun">
+            <End Role="funcion" EntitySet="funcion" />
+            <End Role="pregunta" EntitySet="pregunta" />
+          </AssociationSet>
+          <AssociationSet Name="rel_res_pre" Association="sicerModel.rel_res_pre">
+            <End Role="pregunta" EntitySet="pregunta" />
+            <End Role="respuesta" EntitySet="respuesta" />
+          </AssociationSet>
+          <AssociationSet Name="rel_temFun_tem" Association="sicerModel.rel_temFun_tem">
+            <End Role="tema" EntitySet="tema" />
+            <End Role="temaFuncion" EntitySet="temaFuncion" />
+          </AssociationSet>
+          <AssociationSet Name="rel_temFun_fun" Association="sicerModel.rel_temFun_fun">
+            <End Role="funcion" EntitySet="funcion" />
+            <End Role="temaFuncion" EntitySet="temaFuncion" />
+          </AssociationSet>
+          <EntitySet Name="certificacionTema" EntityType="sicerModel.certificacionTema" />
+          <AssociationSet Name="rel_cerTem_tem" Association="sicerModel.rel_cerTem_tem">
+            <End Role="tema" EntitySet="tema" />
+            <End Role="certificacionTema" EntitySet="certificacionTema" />
+          </AssociationSet>
+          <AssociationSet Name="rel_cerTem_cert" Association="sicerModel.rel_cerTem_cert">
+            <End Role="certificacion" EntitySet="certificacion" />
+            <End Role="certificacionTema" EntitySet="certificacionTema" />
+          </AssociationSet>
+          <FunctionImport Name="spuConsultarFuncionesTema" ReturnType="Collection(sicerModel.spuConsultarFuncionesTema_Result)">
+          <Parameter Name="idTema" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuValidaIngresoCertificacion">
+            <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idValidacion" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarCertificacionesRegistro" ReturnType="Collection(sicerModel.spuConsultarCertificacionesRegistro_Result)">
+          <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarTema">
+            <Parameter Name="idTema" Mode="InOut" Type="Int32" />
+            <Parameter Name="temDescripcion" Mode="In" Type="String" />
+            <Parameter Name="temCodigo" Mode="In" Type="String" />
+            <Parameter Name="temVigente" Mode="In" Type="Boolean" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacionTema" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="ctOrden" Mode="In" Type="Byte" />
+            <Parameter Name="ctAleatorias" Mode="In" Type="Int16" />
+            <Parameter Name="ctCorrectas" Mode="In" Type="Int16" />
+            <Parameter Name="ctTiempo" Mode="In" Type="Int16" />
+            <Parameter Name="ctActivo" Mode="In" Type="Boolean" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarFuncionesCertificacion" ReturnType="Collection(sicerModel.spuConsultarFuncionesCertificacion_Result)">
+          <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarTemasCertificacion" ReturnType="Collection(sicerModel.spuConsultarTemasCertificacion_Result)">
+          <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarPreguntasCertificacion" ReturnType="Collection(sicerModel.spuConsultarPreguntasCertificacion_Result)">
+          <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarFuncion">
+            <Parameter Name="idFuncion" Mode="InOut" Type="Int32" />
+            <Parameter Name="funNombre" Mode="In" Type="String" />
+            <Parameter Name="funAleatorias" Mode="In" Type="Int16" />
+            <Parameter Name="funCorrectas" Mode="In" Type="Int16" />
+            <Parameter Name="funTiempo" Mode="In" Type="Int16" />
+            <Parameter Name="funOrden" Mode="In" Type="Byte" />
+            <Parameter Name="funVigente" Mode="In" Type="Boolean" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="funCodigo" Mode="In" Type="String" />
+            <Parameter Name="tfActivo" Mode="In" Type="Boolean" />
+            <Parameter Name="idTema" Mode="In" Type="Int32" />
+            <Parameter Name="idTemaFuncion" Mode="In" Type="Int32" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarRespuestasTema" ReturnType="Collection(sicerModel.spuConsultarRespuestasTema_Result)">
+          <Parameter Name="idTema" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarEvaluacion">
+            <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="calificacion" Mode="In" Type="Double" />
+            <Parameter Name="idEvaluacion" Mode="InOut" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertaEvaluacionRespuesta">
+            <Parameter Name="idEvaluacion" Mode="In" Type="Byte" />
+            <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idPregunta" Mode="In" Type="Int32" />
+            <Parameter Name="idRespuesta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarPreguntasTema" ReturnType="Collection(sicerModel.spuConsultarPreguntasTema_Result)">
+          <Parameter Name="idTema" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuValidarDatosEvaluacion">
+            <Parameter Name="user" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+            <Parameter Name="idRegistro" Mode="InOut" Type="Int32" />
+            <Parameter Name="resultado" Mode="InOut" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarSesionEvaluacion">
+            <Parameter Name="idSesionEvaluacion" Mode="InOut" Type="Int32" />
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarIntegrantes" ReturnType="Collection(sicerModel.spuConsultarIntegrantes_Result)">
+            <Parameter Name="empPaterno" Mode="In" Type="String" />
+            <Parameter Name="empMaterno" Mode="In" Type="String" />
+            <Parameter Name="empNombre" Mode="In" Type="String" />
+            <Parameter Name="empCURP" Mode="In" Type="String" />
+            <Parameter Name="empRFC" Mode="In" Type="String" />
+            <Parameter Name="empActivo" Mode="In" Type="String" />
+            <Parameter Name="empNumero" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarDatosIntegrante" ReturnType="Collection(sicerModel.spuConsultarDatosIntegrante_Result)">
+          <Parameter Name="idEmpleado" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarContrasena">
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="regCURP" Mode="In" Type="String" />
+            <Parameter Name="inserta" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarPreguntas">
+            <Parameter Name="idPregunta" Mode="InOut" Type="Int32" />
+            <Parameter Name="idFuncion" Mode="In" Type="Int32" />
+            <Parameter Name="preDescripcion" Mode="In" Type="String" />
+            <Parameter Name="preObligatoria" Mode="In" Type="Boolean" />
+            <Parameter Name="preTipoArchivo" Mode="In" Type="String" />
+            <Parameter Name="preNombreArchivo" Mode="InOut" Type="String" />
+            <Parameter Name="preVigente" Mode="In" Type="Boolean" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="preActiva" Mode="In" Type="Boolean" />
+            <Parameter Name="preCodigo" Mode="In" Type="String" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarRespuestas">
+            <Parameter Name="idPregunta" Mode="In" Type="Int32" />
+            <Parameter Name="idRespuesta" Mode="In" Type="Int32" />
+            <Parameter Name="resDescripcion" Mode="In" Type="String" />
+            <Parameter Name="resTipoArchivo" Mode="In" Type="String" />
+            <Parameter Name="resNombreArchivo" Mode="InOut" Type="String" />
+            <Parameter Name="resCorrecta" Mode="In" Type="Boolean" />
+            <Parameter Name="resVigente" Mode="In" Type="Boolean" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="resActiva" Mode="In" Type="Boolean" />
+            <Parameter Name="resExplicacion" Mode="In" Type="String" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarRegistroPersonaIE" ReturnType="Collection(sicerModel.spuConsultarRegistroPersonaIE_Result)">
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="participante" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarTemasCertificacionExamen" ReturnType="Collection(sicerModel.spuConsultarTemasCertificacionExamen_Result)">
+          <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarCertificaciones" ReturnType="Collection(sicerModel.spuConsultarCertificaciones_Result)" />
+          <FunctionImport Name="spuConsultarCertificacion" ReturnType="Collection(sicerModel.spuConsultarCertificacion_Result)">
+          <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarCertificacion">
+            <Parameter Name="idCertificacion" Mode="InOut" Type="Int32" />
+            <Parameter Name="cerNombre" Mode="In" Type="String" />
+            <Parameter Name="cerDescripcion" Mode="In" Type="String" />
+            <Parameter Name="cerSiglas" Mode="In" Type="String" />
+            <Parameter Name="cerFechaAlta" Mode="In" Type="DateTime" />
+            <Parameter Name="cerFechaBaja" Mode="In" Type="DateTime" />
+            <Parameter Name="cerPrimeraValidez" Mode="In" Type="Byte" />
+            <Parameter Name="cerRenovacionValidez" Mode="In" Type="Byte" />
+            <Parameter Name="cerPreguntas" Mode="In" Type="Int16" />
+            <Parameter Name="cerPreguntasCorrectas" Mode="In" Type="Int16" />
+            <Parameter Name="cerTiempoIntento" Mode="In" Type="Byte" />
+            <Parameter Name="idEntidadEvaluadora" Mode="In" Type="Int16" />
+            <Parameter Name="idEntidadCertificadora" Mode="In" Type="Int16" />
+            <Parameter Name="idUusario" Mode="In" Type="Int32" />
+            <Parameter Name="cerActiva" Mode="In" Type="Boolean" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarCertificacionRegistroUIUE">
+            <Parameter Name="participante" Mode="In" Type="String" />
+            <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="crFechaExamen" Mode="In" Type="DateTime" />
+            <Parameter Name="crHora" Mode="In" Type="Time" />
+            <Parameter Name="idEvaluador" Mode="In" Type="Int16" />
+            <Parameter Name="crFechaModificacion" Mode="In" Type="DateTime" />
+            <Parameter Name="crvigente" Mode="In" Type="Boolean" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="idInstitucionAplicaExamen" Mode="In" Type="Int16" />
+            <Parameter Name="idLugarAplica" Mode="In" Type="Byte" />
+            <Parameter Name="idNivelSeguridad" Mode="In" Type="Int16" />
+            <Parameter Name="idDependenciaExterna" Mode="In" Type="Int16" />
+            <Parameter Name="idInstitucionExterna" Mode="In" Type="Int16" />
+            <Parameter Name="idZona" Mode="In" Type="Int16" />
+            <Parameter Name="idServicio" Mode="In" Type="Int32" />
+            <Parameter Name="idInstalacion" Mode="In" Type="Int32" />
+            <Parameter Name="inserto" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarRespuestasCertificacion" ReturnType="Collection(sicerModel.spuConsultarRespuestasCertificacion_Result)">
+          <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarDatosIntegranteInternoExterno" ReturnType="Collection(sicerModel.spuConsultarDatosIntegranteInternoExterno_Result)">
+            <Parameter Name="empPaterno" Mode="In" Type="String" />
+            <Parameter Name="empMaterno" Mode="In" Type="String" />
+            <Parameter Name="empNombre" Mode="In" Type="String" />
+            <Parameter Name="empCURP" Mode="In" Type="String" />
+            <Parameter Name="empRFC" Mode="In" Type="String" />
+            <Parameter Name="empNumero" Mode="In" Type="String" />
+            <Parameter Name="participante" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spuCertificacionG" ReturnType="Collection(sicerModel.spuCertificacionG_Result)">
+          <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarFirmasCertificado" ReturnType="Collection(sicerModel.spuConsultarFirmasCertificado_Result)" />
+          <FunctionImport Name="spuConsultarContenidoCertificado">
+          <Parameter Name="contenido" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultaUbicacionInterno" ReturnType="Collection(sicerModel.spuConsultaUbicacionInterno_Result)">
+          <Parameter Name="idEmpleado" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarZonas" ReturnType="Collection(sicerModel.spuConsultarZonas_Result)" />
+          <FunctionImport Name="spuConsultarServicios" ReturnType="Collection(sicerModel.spuConsultarServicios_Result)">
+          <Parameter Name="idZona" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertarActualizarRegistro">
+            <Parameter Name="idRegistro" Mode="InOut" Type="Int32" />
+            <Parameter Name="idEmpleado" Mode="In" Type="Guid" />
+            <Parameter Name="ePaterno" Mode="In" Type="String" />
+            <Parameter Name="eMaterno" Mode="In" Type="String" />
+            <Parameter Name="eNombre" Mode="In" Type="String" />
+            <Parameter Name="eNumEmpleado" Mode="In" Type="String" />
+            <Parameter Name="eCURP" Mode="In" Type="String" />
+            <Parameter Name="eRFC" Mode="In" Type="String" />
+            <Parameter Name="eCUIP" Mode="In" Type="String" />
+            <Parameter Name="eLOC" Mode="In" Type="String" />
+            <Parameter Name="eCargo" Mode="In" Type="String" />
+            <Parameter Name="eGrado" Mode="In" Type="String" />
+            <Parameter Name="eEdad" Mode="In" Type="Byte" />
+            <Parameter Name="fechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="idEstado" Mode="In" Type="Byte" />
+            <Parameter Name="idMunicipio" Mode="In" Type="Int16" />
+            <Parameter Name="regEscolaridad" Mode="In" Type="String" />
+            <Parameter Name="regCelular" Mode="In" Type="String" />
+            <Parameter Name="regTelefono" Mode="In" Type="String" />
+            <Parameter Name="regTelTrabajo" Mode="In" Type="String" />
+            <Parameter Name="regCalle" Mode="In" Type="String" />
+            <Parameter Name="regNumExterior" Mode="In" Type="String" />
+            <Parameter Name="regNumInterior" Mode="In" Type="String" />
+            <Parameter Name="regColonia" Mode="In" Type="String" />
+            <Parameter Name="regCP" Mode="In" Type="String" />
+            <Parameter Name="regEmailPersonal" Mode="In" Type="String" />
+            <Parameter Name="regEmailLaboral" Mode="In" Type="String" />
+            <Parameter Name="regContrasenia" Mode="In" Type="Binary" />
+            <Parameter Name="regFechaEnvio" Mode="In" Type="DateTime" />
+            <Parameter Name="regFechaRecuperacion" Mode="In" Type="DateTime" />
+            <Parameter Name="regFechaRegistro" Mode="In" Type="DateTime" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="regVigente" Mode="In" Type="Boolean" />
+            <Parameter Name="participante" Mode="In" Type="String" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+            <Parameter Name="regFoto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spuEliminarCertificacion">
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="idUsuario" Mode="In" Type="Int32" />
+            <Parameter Name="inserto" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spuValidarCURP">
+            <Parameter Name="CURP" Mode="In" Type="String" />
+            <Parameter Name="resultado" Mode="InOut" Type="Byte" />
+            <Parameter Name="nombreParticipante" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarRegistro" ReturnType="Collection(sicerModel.spuConsultarRegistro_Result)">
+            <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+            <Parameter Name="idEmpleado" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarCertificacionIE" ReturnType="Collection(sicerModel.spuConsultarCertificacionIE_Result)">
+          <Parameter Name="idRegistro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuInsertaNombreArchivoPDF" ReturnType="Collection(sicerModel.spuInsertaNombreArchivoPDF_Result)">
+          <Parameter Name="idCertificacionRegistro" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarDatosCorreo" ReturnType="Collection(sicerModel.spuConsultarDatosCorreo_Result)" />
+          <FunctionImport Name="spuConsultarCredenciales" ReturnType="Collection(sicerModel.spuConsultarCredenciales_Result)" />
+          <FunctionImport Name="spuConsultarReportesCertificaciones" ReturnType="Collection(sicerModel.spuConsultarReportesCertificaciones_Result)">
+            <Parameter Name="fechaInicio" Mode="In" Type="DateTime" />
+            <Parameter Name="fechaFin" Mode="In" Type="DateTime" />
+            <Parameter Name="cerActivaDesactivada" Mode="In" Type="Int32" />
+            <Parameter Name="idEntidadCertificadora" Mode="In" Type="Int32" />
+            <Parameter Name="idEntidadEvaluadora" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarMenuContextual" ReturnType="Collection(sicerModel.spuConsultarMenuContextual_Result)">
+            <Parameter Name="menTipoOperacion" Mode="In" Type="String" />
+            <Parameter Name="idRol" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spuPermisoRol" ReturnType="Collection(sicerModel.spuPermisoRol_Result)">
+          <Parameter Name="idRol" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spuConsultarCalificacion">
+            <Parameter Name="idCertificacion" Mode="In" Type="Int32" />
+            <Parameter Name="existeCalificacion" Mode="InOut" Type="Boolean" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spuConsultarUsuario_Result">
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="92" />
+          <Property Type="Byte" Name="idRol" Nullable="false" />
+          <Property Type="Int32" Name="idUsuario" Nullable="false" />
+          <Property Type="String" Name="rol" Nullable="true" MaxLength="100" />
+          <Property Type="Guid" Name="idempleado" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spuIniciarSesion_Result">
+          <Property Type="Int32" Name="valido" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarEstado_Result">
+          <Property Type="Int16" Name="idPais" Nullable="false" />
+          <Property Type="Int16" Name="idEstado" Nullable="false" />
+          <Property Type="String" Name="estDescripcion" Nullable="false" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarMunicipio_Result">
+          <Property Type="Int16" Name="idPais" Nullable="false" />
+          <Property Type="Int16" Name="idEstado" Nullable="false" />
+          <Property Type="Int16" Name="idMunicipio" Nullable="false" />
+          <Property Type="String" Name="munDescripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarEntidadCertificadora_Result">
+          <Property Type="Int16" Name="idEntidadCertificadora" Nullable="false" />
+          <Property Type="String" Name="ecDescripcion" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarEvaluador_Result">
+          <Property Type="Int16" Name="idEvaluador" Nullable="false" />
+          <Property Type="String" Name="evaDescripcion" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="evaTipo" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarComboCertificacion_Result">
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="String" Name="cerNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cerDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="cerSiglas" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="certificacion" Nullable="true" MaxLength="133" />
+          <Property Type="DateTime" Name="cerFechaAlta" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="cerFechaBaja" Nullable="true" Precision="23" />
+          <Property Type="Byte" Name="cerPrimeraValidez" Nullable="true" />
+          <Property Type="Byte" Name="cerRenovacionValidez" Nullable="true" />
+          <Property Type="Int16" Name="cerPreguntas" Nullable="true" />
+          <Property Type="Int16" Name="cerPreguntasCorrectas" Nullable="true" />
+          <Property Type="Byte" Name="cerTiempoIntento" Nullable="true" />
+          <Property Type="Int16" Name="idEntidadEvaluadora" Nullable="true" />
+          <Property Type="Int16" Name="idEntidadCertificadora" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="DateTime" Name="cerFechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="cerVigente" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarDependenciaExterna_Result">
+          <Property Type="Int16" Name="idDependenciaExterna" Nullable="false" />
+          <Property Type="String" Name="deDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="deFechaModificacion" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="Boolean" Name="deVigente" Nullable="true" />
+          <Property Type="Int16" Name="idNivelSeguridad" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarNivelSeguridad_Result">
+          <Property Type="Int16" Name="idNivelSeguridad" Nullable="false" />
+          <Property Type="String" Name="nsDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="nsFechaModificacion" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="Boolean" Name="nsVigente" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarInstitucionExterna_Result">
+          <Property Type="Int16" Name="idInstitucionExterna" Nullable="false" />
+          <Property Type="String" Name="ieDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="ieFechaModificacion" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="Boolean" Name="ieVigente" Nullable="true" />
+          <Property Type="Int16" Name="idDependenciaExterna" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarInstitucionAplicaExamen_Result">
+          <Property Type="Int16" Name="idInstitucionAplicaExamen" Nullable="false" />
+          <Property Type="String" Name="iaeDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="iaeFechaModificacion" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="Boolean" Name="iaeVigente" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarLugarAplicacion_Result">
+          <Property Type="Byte" Name="idLugarAplica" Nullable="false" />
+          <Property Type="String" Name="laDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="laDomicilio" Nullable="true" MaxLength="300" />
+          <Property Type="DateTime" Name="laFechaModificacion" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="Boolean" Name="laVigente" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="participanteExterno">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Type="Int32" Name="idRegistro" Nullable="false" />
+          <Property Type="String" Name="pePaterno" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peMaterno" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peNombre" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peNumEmpleado" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peCURP" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peRFC" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peCUIP" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peLOC" MaxLength="18" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peCargo" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="peGrado" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="registro" Relationship="sicerModel.rel_partExt_reg" FromRole="participanteExterno" ToRole="registro" />
+          <Property Type="Byte" Name="peEdad" />
+          <Property Type="Byte" Name="idEstado" />
+          <Property Type="Int16" Name="idMunicipio" />
+          <Property Type="DateTime" Name="peFechaNacimiento" />
+        </EntityType>
+        <ComplexType Name="spuConsultarEntidadEvaluadora_Result">
+          <Property Type="Int16" Name="idEntidadEvaluadora" Nullable="false" />
+          <Property Type="String" Name="eeDescripcion" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarRutaServidor_Result">
+          <Property Type="Byte" Name="idRutaServidor" Nullable="false" />
+          <Property Type="String" Name="rsDescripcion" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="rsFechaModificación" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="rsVigente" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="certificacion">
+          <Key>
+            <PropertyRef Name="idCertificacion" />
+          </Key>
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="String" Name="cerNombre" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cerDescripcion" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cerSiglas" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="cerFechaAlta" Nullable="false" />
+          <Property Type="DateTime" Name="cerFechaBaja" />
+          <Property Type="Byte" Name="cerPrimeraValidez" />
+          <Property Type="Byte" Name="cerRenovacionValidez" />
+          <Property Type="Int16" Name="cerPreguntas" />
+          <Property Type="Int16" Name="cerPreguntasCorrectas" />
+          <Property Type="Byte" Name="cerTiempoIntento" />
+          <Property Type="Int16" Name="idEntidadEvaluadora" />
+          <Property Type="Int16" Name="idEntidadCertificadora" />
+          <Property Type="Int32" Name="idUsuario" />
+          <Property Type="DateTime" Name="cerFechaModificacion" />
+          <Property Type="Boolean" Name="cerVigente" />
+          <NavigationProperty Name="certificacionTema" Relationship="sicerModel.rel_cerTem_cert" FromRole="certificacion" ToRole="certificacionTema" />
+          <Property Type="Boolean" Name="cerActiva" />
+        </EntityType>
+        <EntityType Name="registro">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Type="Int32" Name="idRegistro" Nullable="false" />
+          <Property Type="String" Name="regEscolaridad" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regCelular" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regTelefono" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regTelTrabajo" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regCalle" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regNumExterior" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regNumInterior" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regCP" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regEmailPersonal" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regEmailLaboral" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="regContrasenia" MaxLength="8000" FixedLength="false" />
+          <Property Type="DateTime" Name="regFechaEnvio" />
+          <Property Type="DateTime" Name="regFechaRecuperacion" />
+          <Property Type="DateTime" Name="regFechaRegistro" />
+          <Property Type="DateTime" Name="regFechaModificacion" />
+          <Property Type="Int32" Name="idUsuario" />
+          <Property Type="Boolean" Name="regVigente" />
+          <NavigationProperty Name="participanteExterno" Relationship="sicerModel.rel_partExt_reg" FromRole="registro" ToRole="participanteExterno" />
+          <NavigationProperty Name="participanteInterno" Relationship="sicerModel.rel_parInt_reg" FromRole="registro" ToRole="participanteInterno" />
+          <Property Type="String" Name="regColonia" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="regFoto" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="rel_partExt_reg">
+          <End Type="sicerModel.registro" Role="registro" Multiplicity="1" />
+          <End Type="sicerModel.participanteExterno" Role="participanteExterno" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="registro">
+              <PropertyRef Name="idRegistro" />
+            </Principal>
+            <Dependent Role="participanteExterno">
+              <PropertyRef Name="idRegistro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="participanteInterno">
+          <Key>
+            <PropertyRef Name="idRegistro" />
+          </Key>
+          <Property Type="Int32" Name="idRegistro" Nullable="false" />
+          <Property Type="Guid" Name="idEmpleado" Nullable="false" />
+          <NavigationProperty Name="registro" Relationship="sicerModel.rel_parInt_reg" FromRole="participanteInterno" ToRole="registro" />
+        </EntityType>
+        <Association Name="rel_parInt_reg">
+          <End Type="sicerModel.registro" Role="registro" Multiplicity="1" />
+          <End Type="sicerModel.participanteInterno" Role="participanteInterno" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="registro">
+              <PropertyRef Name="idRegistro" />
+            </Principal>
+            <Dependent Role="participanteInterno">
+              <PropertyRef Name="idRegistro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tema">
+          <Key>
+            <PropertyRef Name="idTema" />
+          </Key>
+          <Property Type="Int32" Name="idTema" Nullable="false" />
+          <Property Type="String" Name="temDescripcion" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="temCodigo" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="temVigente" />
+          <Property Type="DateTime" Name="temFechaModificacion" />
+          <Property Type="Int32" Name="idUsuario" />
+          <NavigationProperty Name="temaFuncion" Relationship="sicerModel.rel_temFun_tem" FromRole="tema" ToRole="temaFuncion" />
+          <NavigationProperty Name="certificacionTema" Relationship="sicerModel.rel_cerTem_tem" FromRole="tema" ToRole="certificacionTema" />
+        </EntityType>
+        <EntityType Name="funcion">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+          </Key>
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="String" Name="funNombre" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Type="Int16" Name="funAleatorias" />
+          <Property Type="Int16" Name="funCorrectas" />
+          <Property Type="Int16" Name="funTiempo" />
+          <Property Type="Byte" Name="funOrden" />
+          <Property Type="DateTime" Name="funFechaModificacion" />
+          <Property Type="Boolean" Name="funVigente" />
+          <Property Type="Int32" Name="idUsuario" />
+          <Property Type="String" Name="funCodigo" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="pregunta" Relationship="sicerModel.rel_pre_fun" FromRole="funcion" ToRole="pregunta" />
+          <NavigationProperty Name="temaFuncion" Relationship="sicerModel.rel_temFun_fun" FromRole="funcion" ToRole="temaFuncion" />
+        </EntityType>
+        <EntityType Name="pregunta">
+          <Key>
+            <PropertyRef Name="idPregunta" />
+          </Key>
+          <Property Type="Int32" Name="idPregunta" Nullable="false" />
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="String" Name="preDescripcion" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="preObligatoria" />
+          <Property Type="String" Name="preTipoArchivo" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="preNombreArchivo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="preVigente" />
+          <Property Type="DateTime" Name="preFechaModificacion" />
+          <Property Type="Int32" Name="idUsuario" />
+          <NavigationProperty Name="funcion" Relationship="sicerModel.rel_pre_fun" FromRole="pregunta" ToRole="funcion" />
+          <NavigationProperty Name="respuesta" Relationship="sicerModel.rel_res_pre" FromRole="pregunta" ToRole="respuesta" />
+          <Property Type="Boolean" Name="preActiva" />
+          <Property Type="String" Name="preCodigo" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="respuesta">
+          <Key>
+            <PropertyRef Name="idRespuesta" />
+          </Key>
+          <Property Type="Int32" Name="idPregunta" Nullable="false" />
+          <Property Type="Int32" Name="idRespuesta" Nullable="false" />
+          <Property Type="String" Name="resDescripcion" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="resTipoArchivo" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="resNombreArchivo" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="resCorrecta" />
+          <Property Type="Boolean" Name="resVigente" />
+          <Property Type="DateTime" Name="resFechaModificacion" />
+          <Property Type="Int32" Name="idUsuario" />
+          <NavigationProperty Name="pregunta" Relationship="sicerModel.rel_res_pre" FromRole="respuesta" ToRole="pregunta" />
+          <Property Type="Boolean" Name="resActiva" />
+          <Property Type="String" Name="resExplicacion" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="temaFuncion">
+          <Key>
+            <PropertyRef Name="idTemaFuncion" />
+          </Key>
+          <Property Type="Int32" Name="idTemaFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" />
+          <NavigationProperty Name="tema" Relationship="sicerModel.rel_temFun_tem" FromRole="temaFuncion" ToRole="tema" />
+          <NavigationProperty Name="funcion" Relationship="sicerModel.rel_temFun_fun" FromRole="temaFuncion" ToRole="funcion" />
+          <Property Type="Boolean" Name="tfActivo" />
+        </EntityType>
+        <Association Name="rel_pre_fun">
+          <End Type="sicerModel.funcion" Role="funcion" Multiplicity="1" />
+          <End Type="sicerModel.pregunta" Role="pregunta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funcion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="pregunta">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_res_pre">
+          <End Type="sicerModel.pregunta" Role="pregunta" Multiplicity="1" />
+          <End Type="sicerModel.respuesta" Role="respuesta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="pregunta">
+              <PropertyRef Name="idPregunta" />
+            </Principal>
+            <Dependent Role="respuesta">
+              <PropertyRef Name="idPregunta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_temFun_tem">
+          <End Type="sicerModel.tema" Role="tema" Multiplicity="0..1" />
+          <End Type="sicerModel.temaFuncion" Role="temaFuncion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tema">
+              <PropertyRef Name="idTema" />
+            </Principal>
+            <Dependent Role="temaFuncion">
+              <PropertyRef Name="idTema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_temFun_fun">
+          <End Type="sicerModel.funcion" Role="funcion" Multiplicity="1" />
+          <End Type="sicerModel.temaFuncion" Role="temaFuncion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funcion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="temaFuncion">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="certificacionTema">
+          <Key>
+            <PropertyRef Name="idCertificacionTema" />
+            <PropertyRef Name="idCertificacion" />
+            <PropertyRef Name="idTema" />
+          </Key>
+          <Property Type="Int32" Name="idCertificacionTema" Nullable="false" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="false" />
+          <Property Type="Byte" Name="ctOrden" Nullable="false" />
+          <Property Type="Int16" Name="ctAleatorias" Nullable="false" />
+          <Property Type="Int16" Name="ctCorrectas" Nullable="false" />
+          <Property Type="Int16" Name="ctTiempo" Nullable="false" />
+          <Property Type="Boolean" Name="ctActivo" Nullable="false" />
+          <NavigationProperty Name="tema" Relationship="sicerModel.rel_cerTem_tem" FromRole="certificacionTema" ToRole="tema" />
+          <NavigationProperty Name="certificacion" Relationship="sicerModel.rel_cerTem_cert" FromRole="certificacionTema" ToRole="certificacion" />
+        </EntityType>
+        <Association Name="rel_cerTem_tem">
+          <End Type="sicerModel.tema" Role="tema" Multiplicity="1" />
+          <End Type="sicerModel.certificacionTema" Role="certificacionTema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tema">
+              <PropertyRef Name="idTema" />
+            </Principal>
+            <Dependent Role="certificacionTema">
+              <PropertyRef Name="idTema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="rel_cerTem_cert">
+          <End Type="sicerModel.certificacion" Role="certificacion" Multiplicity="1" />
+          <End Type="sicerModel.certificacionTema" Role="certificacionTema" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="certificacion">
+              <PropertyRef Name="idCertificacion" />
+            </Principal>
+            <Dependent Role="certificacionTema">
+              <PropertyRef Name="idCertificacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spuConsultarFuncionesTema_Result">
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTemaFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="true" />
+          <Property Type="String" Name="funNombre" Nullable="true" MaxLength="500" />
+          <Property Type="Int16" Name="funAleatorias" Nullable="true" />
+          <Property Type="Int16" Name="funCorrectas" Nullable="true" />
+          <Property Type="Int16" Name="funTiempo" Nullable="true" />
+          <Property Type="Byte" Name="funOrden" Nullable="true" />
+          <Property Type="String" Name="funCodigo" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarCertificacionesRegistro_Result">
+          <Property Type="Int32" Name="idCertificacionRegistro" Nullable="false" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="String" Name="cerNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cerDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="cerSiglas" Nullable="true" MaxLength="30" />
+          <Property Type="Byte" Name="cerTiempoIntento" Nullable="true" />
+          <Property Type="Int32" Name="idRegistro" Nullable="false" />
+          <Property Type="String" Name="crFechaExamen" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="crHora" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="eeDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Byte" Name="idLugarAplica" Nullable="true" />
+          <Property Type="String" Name="laDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Int16" Name="idEvaluador" Nullable="true" />
+          <Property Type="String" Name="evaDescripcion" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarFuncionesCertificacion_Result">
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTemaFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="true" />
+          <Property Type="String" Name="funNombre" Nullable="true" MaxLength="500" />
+          <Property Type="Int16" Name="funAleatorias" Nullable="true" />
+          <Property Type="Int16" Name="funCorrectas" Nullable="true" />
+          <Property Type="Int16" Name="funTiempo" Nullable="true" />
+          <Property Type="Byte" Name="funOrden" Nullable="true" />
+          <Property Type="String" Name="funCodigo" Nullable="true" MaxLength="30" />
+          <Property Type="Boolean" Name="tfActivo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarTemasCertificacion_Result">
+          <Property Type="Int32" Name="idCertificacionTema" Nullable="false" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="false" />
+          <Property Type="Byte" Name="ctOrden" Nullable="false" />
+          <Property Type="Int16" Name="ctAleatorias" Nullable="false" />
+          <Property Type="Int16" Name="ctCorrectas" Nullable="false" />
+          <Property Type="Int16" Name="ctTiempo" Nullable="false" />
+          <Property Type="String" Name="temDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="temCodigo" Nullable="true" MaxLength="30" />
+          <Property Type="Boolean" Name="ctActivo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarPreguntasCertificacion_Result">
+          <Property Type="Int32" Name="idPregunta" Nullable="false" />
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="true" />
+          <Property Type="String" Name="preDescripcion" Nullable="true" />
+          <Property Type="Boolean" Name="preObligatoria" Nullable="true" />
+          <Property Type="String" Name="preTipoArchivo" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="preNombreArchivo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="preCodigo" Nullable="true" MaxLength="30" />
+          <Property Type="Boolean" Name="preActiva" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarRespuestasTema_Result">
+          <Property Type="Int32" Name="idRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="idPregunta" Nullable="false" />
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="true" />
+          <Property Type="String" Name="resDescripcion" Nullable="true" />
+          <Property Type="String" Name="resTipoArchivo" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="resNombreArchivo" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="resCorrecta" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarPreguntasTema_Result">
+          <Property Type="Int32" Name="idPregunta" Nullable="false" />
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="true" />
+          <Property Type="String" Name="preDescripcion" Nullable="true" />
+          <Property Type="Boolean" Name="preObligatoria" Nullable="true" />
+          <Property Type="String" Name="preTipoArchivo" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="preNombreArchivo" Nullable="true" MaxLength="50" />
+          <Property Type="Int16" Name="funAleatorias" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarIntegrantes_Result">
+          <Property Type="Guid" Name="idEmpleado" Nullable="false" />
+          <Property Type="String" Name="empPaterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="empMaterno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="empNombre" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="empNumero" Nullable="true" />
+          <Property Type="String" Name="empCURP" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="jerDescripcion" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="cargo" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="empRFC" Nullable="true" MaxLength="13" />
+          <Property Type="DateTime" Name="empFechaBaja" Nullable="true" Precision="23" />
+          <Property Type="String" Name="empActivo" Nullable="false" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarDatosIntegrante_Result">
+          <Property Type="String" Name="perPaterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="perMaterno" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="perNombre" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="empNumero" Nullable="false" />
+          <Property Type="String" Name="perCurp" Nullable="false" MaxLength="18" />
+          <Property Type="String" Name="perRFC" Nullable="false" MaxLength="13" />
+          <Property Type="String" Name="EmpCuip" Nullable="false" MaxLength="35" />
+          <Property Type="Boolean" Name="EmpLoc" Nullable="false" />
+          <Property Type="Byte" Name="idJerarquia" Nullable="false" />
+          <Property Type="String" Name="jerDescripcion" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="idPuesto" Nullable="false" />
+          <Property Type="String" Name="pueDescripcion" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="edad" Nullable="false" />
+          <Property Type="String" Name="neDescripcion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="caNivelEstudiosEspecificos" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="tiDescripcion" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="caTituloEspecifico" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="perSexo" Nullable="false" MaxLength="1" />
+          <Property Type="String" Name="perEmail" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="telLada" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="telNumero" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="telefonoCelular" Nullable="false" MaxLength="13" />
+          <Property Type="String" Name="extension" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="domCalle" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="domNumeroInterior" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="domNumeroExterior" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="aseDescripcion" Nullable="false" MaxLength="70" />
+          <Property Type="String" Name="aseCodigoPostal" Nullable="false" MaxLength="5" />
+          <Property Type="Byte" Name="idEstado" Nullable="true" />
+          <Property Type="String" Name="estDescripcion" Nullable="false" MaxLength="60" />
+          <Property Type="Int16" Name="idMunicipio" Nullable="true" />
+          <Property Type="String" Name="munDescripcion" Nullable="false" MaxLength="40" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarRegistroPersonaIE_Result">
+          <Property Type="Int32" Name="idRegistro" Nullable="false" />
+          <Property Type="String" Name="pePaterno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="peMaterno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="peNombre" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="peNumEmpleado" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="peCURP" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="peRFC" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="peCUIP" Nullable="true" MaxLength="21" />
+          <Property Type="String" Name="peLOC" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="peCargo" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="peGrado" Nullable="true" MaxLength="60" />
+          <Property Type="Byte" Name="peEdad" Nullable="true" />
+          <Property Type="Byte" Name="idEstado" Nullable="true" />
+          <Property Type="Int16" Name="idMunicipio" Nullable="true" />
+          <Property Type="String" Name="regEscolaridad" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="regCelular" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="regTelefono" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="regTelTrabajo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="regCalle" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="regNumExterior" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="regNumInterior" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="regColonia" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="regCP" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="regEmailPersonal" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="regEmailLaboral" Nullable="true" MaxLength="60" />
+          <Property Type="DateTime" Name="regFechaRegistro" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="idCertificacionRegistro" Nullable="true" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="true" />
+          <Property Type="Int16" Name="idNivelSeguridad" Nullable="true" />
+          <Property Type="String" Name="nsDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="idDependenciaExterna" Nullable="true" />
+          <Property Type="String" Name="deDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="idInstitucionExterna" Nullable="true" />
+          <Property Type="String" Name="ieDescripcion" Nullable="true" MaxLength="300" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarTemasCertificacionExamen_Result">
+          <Property Type="Int32" Name="idCertificacionTema" Nullable="false" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="false" />
+          <Property Type="Byte" Name="ctOrden" Nullable="false" />
+          <Property Type="Int16" Name="ctAleatorias" Nullable="false" />
+          <Property Type="Int16" Name="ctCorrectas" Nullable="false" />
+          <Property Type="Int16" Name="ctTiempo" Nullable="false" />
+          <Property Type="String" Name="temDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="temCodigo" Nullable="true" MaxLength="30" />
+          <Property Type="Boolean" Name="ctActivo" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarCertificaciones_Result">
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="String" Name="cerNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cerDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="cerSiglas" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="certificacion" Nullable="true" MaxLength="133" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarCertificacion_Result">
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="String" Name="cerNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cerDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="cerSiglas" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="cerFechaAlta" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="cerFechaBaja" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="cerPrimeraValidez" Nullable="true" />
+          <Property Type="Byte" Name="cerRenovacionValidez" Nullable="true" />
+          <Property Type="Int16" Name="cerPreguntas" Nullable="true" />
+          <Property Type="Int16" Name="cerPreguntasCorrectas" Nullable="true" />
+          <Property Type="Byte" Name="cerTiempoIntento" Nullable="true" />
+          <Property Type="Int16" Name="idEntidadEvaluadora" Nullable="true" />
+          <Property Type="String" Name="eeDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Int16" Name="idEntidadCertificadora" Nullable="true" />
+          <Property Type="String" Name="ecDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="Boolean" Name="cerActiva" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarRespuestasCertificacion_Result">
+          <Property Type="Int32" Name="idRespuesta" Nullable="false" />
+          <Property Type="Int32" Name="idPregunta" Nullable="false" />
+          <Property Type="Int32" Name="idFuncion" Nullable="false" />
+          <Property Type="Int32" Name="idTema" Nullable="true" />
+          <Property Type="String" Name="resDescripcion" Nullable="true" />
+          <Property Type="String" Name="resExplicacion" Nullable="true" />
+          <Property Type="String" Name="resTipoArchivo" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="resNombreArchivo" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="resCorrecta" Nullable="true" />
+          <Property Type="Boolean" Name="resActiva" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarDatosIntegranteInternoExterno_Result">
+          <Property Type="Int32" Name="idRegistro" Nullable="true" />
+          <Property Type="Guid" Name="idEmpleado" Nullable="true" />
+          <Property Type="String" Name="paterno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="materno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="nombre" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CURP" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="empNumero" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="RFC" Nullable="true" MaxLength="14" />
+        </ComplexType>
+        <ComplexType Name="spuCertificacionG_Result">
+          <Property Type="Int32" Name="idCertificacionRegistro" Nullable="false" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="false" />
+          <Property Type="Int32" Name="idRegistro" Nullable="false" />
+          <Property Type="String" Name="certificacion" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarFirmasCertificado_Result">
+          <Property Type="String" Name="fcJerarquia" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="fcNombre" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="fcCargo" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="spuConsultaUbicacionInterno_Result">
+          <Property Type="Int16" Name="idZona" Nullable="false" />
+          <Property Type="String" Name="zonDescripcion" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="idServicio" Nullable="false" />
+          <Property Type="String" Name="serDescripcion" Nullable="false" MaxLength="65" />
+          <Property Type="Int32" Name="idInstalacion" Nullable="false" />
+          <Property Type="String" Name="insNombre" Nullable="false" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarZonas_Result">
+          <Property Type="Int16" Name="idZona" Nullable="false" />
+          <Property Type="String" Name="zondescripcion" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarServicios_Result">
+          <Property Type="Int32" Name="idServicio" Nullable="false" />
+          <Property Type="String" Name="serDescripcion" Nullable="false" MaxLength="65" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarRegistro_Result">
+          <Property Type="Int32" Name="idRegistro" Nullable="true" />
+          <Property Type="Guid" Name="idEmpleado" Nullable="true" />
+          <Property Type="String" Name="Paterno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Materno" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="numeroEmpleado" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="CURP" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="RFC" Nullable="true" MaxLength="13" />
+          <Property Type="String" Name="CUIP" Nullable="true" MaxLength="21" />
+          <Property Type="String" Name="LOC" Nullable="true" MaxLength="18" />
+          <Property Type="String" Name="Cargo" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Grado" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="fechaNacimiento" Nullable="true" MaxLength="10" />
+          <Property Type="Byte" Name="idEstado" Nullable="true" />
+          <Property Type="String" Name="nombreEstado" Nullable="true" MaxLength="30" />
+          <Property Type="Int16" Name="idMunicipio" Nullable="true" />
+          <Property Type="String" Name="munDescripcion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Escolaridad" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Celular" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="telTrabajo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Calle" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="numExterior" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="numInterior" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Colonia" Nullable="true" MaxLength="70" />
+          <Property Type="String" Name="CP" Nullable="true" MaxLength="5" />
+          <Property Type="String" Name="emailPersonal" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="emailLaboral" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="fechaRegistro" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="participante" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="regFoto" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarCertificacionIE_Result">
+          <Property Type="Int32" Name="idRegistro" Nullable="true" />
+          <Property Type="Int32" Name="idCertificacionRegistro" Nullable="true" />
+          <Property Type="Int32" Name="idCertificacion" Nullable="true" />
+          <Property Type="String" Name="certificacion" Nullable="true" MaxLength="100" />
+          <Property Type="Int16" Name="idNivelSeguridad" Nullable="true" />
+          <Property Type="String" Name="nsDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="idDependenciaExterna" Nullable="true" />
+          <Property Type="String" Name="deDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="idInstitucionExterna" Nullable="true" />
+          <Property Type="String" Name="ieDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="String" Name="crFechaExamen" Nullable="true" MaxLength="10" />
+          <Property Type="DateTime" Name="crFechaModificacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="crHora" Nullable="true" MaxLength="5" />
+          <Property Type="Byte" Name="idLugarAplica" Nullable="true" />
+          <Property Type="String" Name="laDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="dfDomicilioLugarExamen" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="idEvaluador" Nullable="true" />
+          <Property Type="String" Name="evaDescripcion" Nullable="true" MaxLength="100" />
+          <Property Type="Boolean" Name="vigente" Nullable="true" />
+          <Property Type="Int32" Name="idUsuario" Nullable="true" />
+          <Property Type="Int16" Name="idInstitucionAplicaExamen" Nullable="true" />
+          <Property Type="String" Name="iaeDescripcion" Nullable="true" MaxLength="300" />
+          <Property Type="Int16" Name="idZona" Nullable="true" />
+          <Property Type="String" Name="ZonDescripcion" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="idServicio" Nullable="true" />
+          <Property Type="String" Name="serDescripcion" Nullable="true" MaxLength="65" />
+          <Property Type="Int32" Name="idInstalacion" Nullable="true" />
+          <Property Type="String" Name="insNombre" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="idEvaluacion" Nullable="true" />
+          <Property Type="Double" Name="evalCalif" Nullable="true" />
+          <Property Type="String" Name="evaluacionDesc" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="folio" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="calificacionDesc" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="vigenciaDesc" Nullable="true" MaxLength="100" />
+          <Property Type="Byte" Name="idCalificacion" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuInsertaNombreArchivoPDF_Result">
+          <Property Type="String" Name="crNombreCertificado" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarDatosCorreo_Result">
+          <Property Type="String" Name="sender" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="asunto" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="texto" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarCredenciales_Result">
+          <Property Type="String" Name="creUsuario" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="crePassword" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="creDominio" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarReportesCertificaciones_Result">
+          <Property Type="Int64" Name="rowNumber" Nullable="true" />
+          <Property Type="Int16" Name="idEntidadCertificadora" Nullable="false" />
+          <Property Type="Int16" Name="idEntidadEvaluadora" Nullable="false" />
+          <Property Type="String" Name="cerNombre" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="cerDescripcion" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="cerSiglas" Nullable="true" MaxLength="30" />
+          <Property Type="DateTime" Name="cerFechaAlta" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="cerPrimeraValidez" Nullable="true" />
+          <Property Type="Int16" Name="cerPreguntas" Nullable="true" />
+          <Property Type="Int16" Name="cerPreguntasCorrectas" Nullable="true" />
+          <Property Type="Byte" Name="cerTiempoIntento" Nullable="true" />
+          <Property Type="Boolean" Name="cerActiva" Nullable="true" />
+          <Property Type="String" Name="ecDescripcion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="eeDescripcion" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="spuConsultarMenuContextual_Result">
+          <Property Type="Int16" Name="idMenu" Nullable="false" />
+          <Property Type="Boolean" Name="menActivo" Nullable="false" />
+          <Property Type="String" Name="menContenedor" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="menDescripcion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="menIcon" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="menIconContenedor" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="menLeaf" Nullable="true" />
+          <Property Type="Int16" Name="menOrdenamiento" Nullable="true" />
+          <Property Type="Boolean" Name="pmCaptura" Nullable="false" />
+          <Property Type="Boolean" Name="pmModifica" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spuPermisoRol_Result">
+          <Property Type="String" Name="menDescripcion" Nullable="false" MaxLength="100" />
+          <Property Type="Int32" Name="permiso" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="sicerModelStoreContainer" CdmEntityContainer="sicerEntities" >
+          <FunctionImportMapping FunctionImportName="spuConsultarUsuario" FunctionName="sicerModel.Store.spuConsultarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarUsuario_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idRol" ColumnName="idRol" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="idempleado" ColumnName="idempleado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuIniciarSesion" FunctionName="sicerModel.Store.spuIniciarSesion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuIniciarSesion_Result">
+                <ScalarProperty Name="valido" ColumnName="valido" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuFinalizarSesion" FunctionName="sicerModel.Store.spuFinalizarSesion" />
+          <FunctionImportMapping FunctionImportName="spuConsultarEstado" FunctionName="sicerModel.Store.spuConsultarEstado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarEstado_Result">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="estDescripcion" ColumnName="estDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarMunicipio" FunctionName="sicerModel.Store.spuConsultarMunicipio">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarMunicipio_Result">
+                <ScalarProperty Name="idPais" ColumnName="idPais" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
+                <ScalarProperty Name="munDescripcion" ColumnName="munDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarEntidadCertificadora" FunctionName="sicerModel.Store.spuConsultarEntidadCertificadora">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarEntidadCertificadora_Result">
+                <ScalarProperty Name="idEntidadCertificadora" ColumnName="idEntidadCertificadora" />
+                <ScalarProperty Name="ecDescripcion" ColumnName="ecDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarEvaluador" FunctionName="sicerModel.Store.spuConsultarEvaluador">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarEvaluador_Result">
+                <ScalarProperty Name="idEvaluador" ColumnName="idEvaluador" />
+                <ScalarProperty Name="evaDescripcion" ColumnName="evaDescripcion" />
+                <ScalarProperty Name="evaTipo" ColumnName="evaTipo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarComboCertificacion" FunctionName="sicerModel.Store.spuConsultarComboCertificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarComboCertificacion_Result">
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="cerNombre" ColumnName="cerNombre" />
+                <ScalarProperty Name="cerDescripcion" ColumnName="cerDescripcion" />
+                <ScalarProperty Name="cerSiglas" ColumnName="cerSiglas" />
+                <ScalarProperty Name="certificacion" ColumnName="certificacion" />
+                <ScalarProperty Name="cerFechaAlta" ColumnName="cerFechaAlta" />
+                <ScalarProperty Name="cerFechaBaja" ColumnName="cerFechaBaja" />
+                <ScalarProperty Name="cerPrimeraValidez" ColumnName="cerPrimeraValidez" />
+                <ScalarProperty Name="cerRenovacionValidez" ColumnName="cerRenovacionValidez" />
+                <ScalarProperty Name="cerPreguntas" ColumnName="cerPreguntas" />
+                <ScalarProperty Name="cerPreguntasCorrectas" ColumnName="cerPreguntasCorrectas" />
+                <ScalarProperty Name="cerTiempoIntento" ColumnName="cerTiempoIntento" />
+                <ScalarProperty Name="idEntidadEvaluadora" ColumnName="idEntidadEvaluadora" />
+                <ScalarProperty Name="idEntidadCertificadora" ColumnName="idEntidadCertificadora" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="cerFechaModificacion" ColumnName="cerFechaModificacion" />
+                <ScalarProperty Name="cerVigente" ColumnName="cerVigente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarDependenciaExterna" FunctionName="sicerModel.Store.spuConsultarDependenciaExterna">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarDependenciaExterna_Result">
+                <ScalarProperty Name="idDependenciaExterna" ColumnName="idDependenciaExterna" />
+                <ScalarProperty Name="deDescripcion" ColumnName="deDescripcion" />
+                <ScalarProperty Name="deFechaModificacion" ColumnName="deFechaModificacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="deVigente" ColumnName="deVigente" />
+                <ScalarProperty Name="idNivelSeguridad" ColumnName="idNivelSeguridad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarNivelSeguridad" FunctionName="sicerModel.Store.spuConsultarNivelSeguridad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarNivelSeguridad_Result">
+                <ScalarProperty Name="idNivelSeguridad" ColumnName="idNivelSeguridad" />
+                <ScalarProperty Name="nsDescripcion" ColumnName="nsDescripcion" />
+                <ScalarProperty Name="nsFechaModificacion" ColumnName="nsFechaModificacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nsVigente" ColumnName="nsVigente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarInstitucionExterna" FunctionName="sicerModel.Store.spuConsultarInstitucionExterna">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarInstitucionExterna_Result">
+                <ScalarProperty Name="idInstitucionExterna" ColumnName="idInstitucionExterna" />
+                <ScalarProperty Name="ieDescripcion" ColumnName="ieDescripcion" />
+                <ScalarProperty Name="ieFechaModificacion" ColumnName="ieFechaModificacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="ieVigente" ColumnName="ieVigente" />
+                <ScalarProperty Name="idDependenciaExterna" ColumnName="idDependenciaExterna" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarInstitucionAplicaExamen" FunctionName="sicerModel.Store.spuConsultarInstitucionAplicaExamen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarInstitucionAplicaExamen_Result">
+                <ScalarProperty Name="idInstitucionAplicaExamen" ColumnName="idInstitucionAplicaExamen" />
+                <ScalarProperty Name="iaeDescripcion" ColumnName="iaeDescripcion" />
+                <ScalarProperty Name="iaeFechaModificacion" ColumnName="iaeFechaModificacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="iaeVigente" ColumnName="iaeVigente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarLugarAplicacion" FunctionName="sicerModel.Store.spuConsultarLugarAplicacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarLugarAplicacion_Result">
+                <ScalarProperty Name="idLugarAplica" ColumnName="idLugarAplica" />
+                <ScalarProperty Name="laDescripcion" ColumnName="laDescripcion" />
+                <ScalarProperty Name="laDomicilio" ColumnName="laDomicilio" />
+                <ScalarProperty Name="laFechaModificacion" ColumnName="laFechaModificacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="laVigente" ColumnName="laVigente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="participanteExterno">
+            <EntityTypeMapping TypeName="sicerModel.participanteExterno">
+              <MappingFragment StoreEntitySet="participanteExterno">
+                <ScalarProperty Name="peFechaNacimiento" ColumnName="peFechaNacimiento" />
+                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="peEdad" ColumnName="peEdad" />
+                <ScalarProperty Name="peGrado" ColumnName="peGrado" />
+                <ScalarProperty Name="peCargo" ColumnName="peCargo" />
+                <ScalarProperty Name="peLOC" ColumnName="peLOC" />
+                <ScalarProperty Name="peCUIP" ColumnName="peCUIP" />
+                <ScalarProperty Name="peRFC" ColumnName="peRFC" />
+                <ScalarProperty Name="peCURP" ColumnName="peCURP" />
+                <ScalarProperty Name="peNumEmpleado" ColumnName="peNumEmpleado" />
+                <ScalarProperty Name="peNombre" ColumnName="peNombre" />
+                <ScalarProperty Name="peMaterno" ColumnName="peMaterno" />
+                <ScalarProperty Name="pePaterno" ColumnName="pePaterno" />
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarEntidadEvaluadora" FunctionName="sicerModel.Store.spuConsultarEntidadEvaluadora">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarEntidadEvaluadora_Result">
+                <ScalarProperty Name="idEntidadEvaluadora" ColumnName="idEntidadEvaluadora" />
+                <ScalarProperty Name="eeDescripcion" ColumnName="eeDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarRutaServidor" FunctionName="sicerModel.Store.spuConsultarRutaServidor">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarRutaServidor_Result">
+                <ScalarProperty Name="idRutaServidor" ColumnName="idRutaServidor" />
+                <ScalarProperty Name="rsDescripcion" ColumnName="rsDescripcion" />
+                <ScalarProperty Name="rsFechaModificación" ColumnName="rsFechaModificación" />
+                <ScalarProperty Name="rsVigente" ColumnName="rsVigente" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="certificacion">
+            <EntityTypeMapping TypeName="sicerModel.certificacion">
+              <MappingFragment StoreEntitySet="certificacion">
+                <ScalarProperty Name="cerActiva" ColumnName="cerActiva" />
+                <ScalarProperty Name="cerVigente" ColumnName="cerVigente" />
+                <ScalarProperty Name="cerFechaModificacion" ColumnName="cerFechaModificacion" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idEntidadCertificadora" ColumnName="idEntidadCertificadora" />
+                <ScalarProperty Name="idEntidadEvaluadora" ColumnName="idEntidadEvaluadora" />
+                <ScalarProperty Name="cerTiempoIntento" ColumnName="cerTiempoIntento" />
+                <ScalarProperty Name="cerPreguntasCorrectas" ColumnName="cerPreguntasCorrectas" />
+                <ScalarProperty Name="cerPreguntas" ColumnName="cerPreguntas" />
+                <ScalarProperty Name="cerRenovacionValidez" ColumnName="cerRenovacionValidez" />
+                <ScalarProperty Name="cerPrimeraValidez" ColumnName="cerPrimeraValidez" />
+                <ScalarProperty Name="cerFechaBaja" ColumnName="cerFechaBaja" />
+                <ScalarProperty Name="cerFechaAlta" ColumnName="cerFechaAlta" />
+                <ScalarProperty Name="cerSiglas" ColumnName="cerSiglas" />
+                <ScalarProperty Name="cerDescripcion" ColumnName="cerDescripcion" />
+                <ScalarProperty Name="cerNombre" ColumnName="cerNombre" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="registro">
+            <EntityTypeMapping TypeName="sicerModel.registro">
+              <MappingFragment StoreEntitySet="registro">
+                <ScalarProperty Name="regFoto" ColumnName="regFoto" />
+                <ScalarProperty Name="regColonia" ColumnName="regColonia" />
+                <ScalarProperty Name="regVigente" ColumnName="regVigente" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="regFechaModificacion" ColumnName="regFechaModificacion" />
+                <ScalarProperty Name="regFechaRegistro" ColumnName="regFechaRegistro" />
+                <ScalarProperty Name="regFechaRecuperacion" ColumnName="regFechaRecuperacion" />
+                <ScalarProperty Name="regFechaEnvio" ColumnName="regFechaEnvio" />
+                <ScalarProperty Name="regContrasenia" ColumnName="regContrasenia" />
+                <ScalarProperty Name="regEmailLaboral" ColumnName="regEmailLaboral" />
+                <ScalarProperty Name="regEmailPersonal" ColumnName="regEmailPersonal" />
+                <ScalarProperty Name="regCP" ColumnName="regCP" />
+                <ScalarProperty Name="regNumInterior" ColumnName="regNumInterior" />
+                <ScalarProperty Name="regNumExterior" ColumnName="regNumExterior" />
+                <ScalarProperty Name="regCalle" ColumnName="regCalle" />
+                <ScalarProperty Name="regTelTrabajo" ColumnName="regTelTrabajo" />
+                <ScalarProperty Name="regTelefono" ColumnName="regTelefono" />
+                <ScalarProperty Name="regCelular" ColumnName="regCelular" />
+                <ScalarProperty Name="regEscolaridad" ColumnName="regEscolaridad" />
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="participanteInterno">
+            <EntityTypeMapping TypeName="sicerModel.participanteInterno">
+              <MappingFragment StoreEntitySet="participanteInterno">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tema">
+            <EntityTypeMapping TypeName="sicerModel.tema">
+              <MappingFragment StoreEntitySet="tema">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="temFechaModificacion" ColumnName="temFechaModificacion" />
+                <ScalarProperty Name="temVigente" ColumnName="temVigente" />
+                <ScalarProperty Name="temCodigo" ColumnName="temCodigo" />
+                <ScalarProperty Name="temDescripcion" ColumnName="temDescripcion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="funcion">
+            <EntityTypeMapping TypeName="sicerModel.funcion">
+              <MappingFragment StoreEntitySet="funcion">
+                <ScalarProperty Name="funCodigo" ColumnName="funCodigo" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="funVigente" ColumnName="funVigente" />
+                <ScalarProperty Name="funFechaModificacion" ColumnName="funFechaModificacion" />
+                <ScalarProperty Name="funOrden" ColumnName="funOrden" />
+                <ScalarProperty Name="funTiempo" ColumnName="funTiempo" />
+                <ScalarProperty Name="funCorrectas" ColumnName="funCorrectas" />
+                <ScalarProperty Name="funAleatorias" ColumnName="funAleatorias" />
+                <ScalarProperty Name="funNombre" ColumnName="funNombre" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="pregunta">
+            <EntityTypeMapping TypeName="sicerModel.pregunta">
+              <MappingFragment StoreEntitySet="pregunta">
+                <ScalarProperty Name="preCodigo" ColumnName="preCodigo" />
+                <ScalarProperty Name="preActiva" ColumnName="preActiva" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="preFechaModificacion" ColumnName="preFechaModificacion" />
+                <ScalarProperty Name="preVigente" ColumnName="preVigente" />
+                <ScalarProperty Name="preNombreArchivo" ColumnName="preNombreArchivo" />
+                <ScalarProperty Name="preTipoArchivo" ColumnName="preTipoArchivo" />
+                <ScalarProperty Name="preObligatoria" ColumnName="preObligatoria" />
+                <ScalarProperty Name="preDescripcion" ColumnName="preDescripcion" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="respuesta">
+            <EntityTypeMapping TypeName="sicerModel.respuesta">
+              <MappingFragment StoreEntitySet="respuesta">
+                <ScalarProperty Name="resExplicacion" ColumnName="resExplicacion" />
+                <ScalarProperty Name="resActiva" ColumnName="resActiva" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="resFechaModificacion" ColumnName="resFechaModificacion" />
+                <ScalarProperty Name="resVigente" ColumnName="resVigente" />
+                <ScalarProperty Name="resCorrecta" ColumnName="resCorrecta" />
+                <ScalarProperty Name="resNombreArchivo" ColumnName="resNombreArchivo" />
+                <ScalarProperty Name="resTipoArchivo" ColumnName="resTipoArchivo" />
+                <ScalarProperty Name="resDescripcion" ColumnName="resDescripcion" />
+                <ScalarProperty Name="idRespuesta" ColumnName="idRespuesta" />
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temaFuncion">
+            <EntityTypeMapping TypeName="sicerModel.temaFuncion">
+              <MappingFragment StoreEntitySet="temaFuncion">
+                <ScalarProperty Name="tfActivo" ColumnName="tfActivo" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTemaFuncion" ColumnName="idTemaFuncion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="certificacionTema">
+            <EntityTypeMapping TypeName="sicerModel.certificacionTema">
+              <MappingFragment StoreEntitySet="certificacionTema">
+                <ScalarProperty Name="ctActivo" ColumnName="ctActivo" />
+                <ScalarProperty Name="ctTiempo" ColumnName="ctTiempo" />
+                <ScalarProperty Name="ctCorrectas" ColumnName="ctCorrectas" />
+                <ScalarProperty Name="ctAleatorias" ColumnName="ctAleatorias" />
+                <ScalarProperty Name="ctOrden" ColumnName="ctOrden" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="idCertificacionTema" ColumnName="idCertificacionTema" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarFuncionesTema" FunctionName="sicerModel.Store.spuConsultarFuncionesTema">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarFuncionesTema_Result">
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTemaFuncion" ColumnName="idTemaFuncion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="funNombre" ColumnName="funNombre" />
+                <ScalarProperty Name="funAleatorias" ColumnName="funAleatorias" />
+                <ScalarProperty Name="funCorrectas" ColumnName="funCorrectas" />
+                <ScalarProperty Name="funTiempo" ColumnName="funTiempo" />
+                <ScalarProperty Name="funOrden" ColumnName="funOrden" />
+                <ScalarProperty Name="funCodigo" ColumnName="funCodigo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuValidaIngresoCertificacion" FunctionName="sicerModel.Store.spuValidaIngresoCertificacion" />
+          <FunctionImportMapping FunctionImportName="spuConsultarCertificacionesRegistro" FunctionName="sicerModel.Store.spuConsultarCertificacionesRegistro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarCertificacionesRegistro_Result">
+                <ScalarProperty Name="idCertificacionRegistro" ColumnName="idCertificacionRegistro" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="cerNombre" ColumnName="cerNombre" />
+                <ScalarProperty Name="cerDescripcion" ColumnName="cerDescripcion" />
+                <ScalarProperty Name="cerSiglas" ColumnName="cerSiglas" />
+                <ScalarProperty Name="cerTiempoIntento" ColumnName="cerTiempoIntento" />
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+                <ScalarProperty Name="crFechaExamen" ColumnName="crFechaExamen" />
+                <ScalarProperty Name="crHora" ColumnName="crHora" />
+                <ScalarProperty Name="eeDescripcion" ColumnName="eeDescripcion" />
+                <ScalarProperty Name="idLugarAplica" ColumnName="idLugarAplica" />
+                <ScalarProperty Name="laDescripcion" ColumnName="laDescripcion" />
+                <ScalarProperty Name="idEvaluador" ColumnName="idEvaluador" />
+                <ScalarProperty Name="evaDescripcion" ColumnName="evaDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertarTema" FunctionName="sicerModel.Store.spuInsertarTema" />
+          <FunctionImportMapping FunctionImportName="spuConsultarFuncionesCertificacion" FunctionName="sicerModel.Store.spuConsultarFuncionesCertificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarFuncionesCertificacion_Result">
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTemaFuncion" ColumnName="idTemaFuncion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="funNombre" ColumnName="funNombre" />
+                <ScalarProperty Name="funAleatorias" ColumnName="funAleatorias" />
+                <ScalarProperty Name="funCorrectas" ColumnName="funCorrectas" />
+                <ScalarProperty Name="funTiempo" ColumnName="funTiempo" />
+                <ScalarProperty Name="funOrden" ColumnName="funOrden" />
+                <ScalarProperty Name="funCodigo" ColumnName="funCodigo" />
+                <ScalarProperty Name="tfActivo" ColumnName="tfActivo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarTemasCertificacion" FunctionName="sicerModel.Store.spuConsultarTemasCertificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarTemasCertificacion_Result">
+                <ScalarProperty Name="idCertificacionTema" ColumnName="idCertificacionTema" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="ctOrden" ColumnName="ctOrden" />
+                <ScalarProperty Name="ctAleatorias" ColumnName="ctAleatorias" />
+                <ScalarProperty Name="ctCorrectas" ColumnName="ctCorrectas" />
+                <ScalarProperty Name="ctTiempo" ColumnName="ctTiempo" />
+                <ScalarProperty Name="temDescripcion" ColumnName="temDescripcion" />
+                <ScalarProperty Name="temCodigo" ColumnName="temCodigo" />
+                <ScalarProperty Name="ctActivo" ColumnName="ctActivo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarPreguntasCertificacion" FunctionName="sicerModel.Store.spuConsultarPreguntasCertificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarPreguntasCertificacion_Result">
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="preDescripcion" ColumnName="preDescripcion" />
+                <ScalarProperty Name="preObligatoria" ColumnName="preObligatoria" />
+                <ScalarProperty Name="preTipoArchivo" ColumnName="preTipoArchivo" />
+                <ScalarProperty Name="preNombreArchivo" ColumnName="preNombreArchivo" />
+                <ScalarProperty Name="preCodigo" ColumnName="preCodigo" />
+                <ScalarProperty Name="preActiva" ColumnName="preActiva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarFuncion" FunctionName="sicerModel.Store.spuInsertarActualizarFuncion" />
+          <FunctionImportMapping FunctionImportName="spuConsultarRespuestasTema" FunctionName="sicerModel.Store.spuConsultarRespuestasTema">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarRespuestasTema_Result">
+                <ScalarProperty Name="idRespuesta" ColumnName="idRespuesta" />
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="resDescripcion" ColumnName="resDescripcion" />
+                <ScalarProperty Name="resTipoArchivo" ColumnName="resTipoArchivo" />
+                <ScalarProperty Name="resNombreArchivo" ColumnName="resNombreArchivo" />
+                <ScalarProperty Name="resCorrecta" ColumnName="resCorrecta" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertarEvaluacion" FunctionName="sicerModel.Store.spuInsertarEvaluacion" />
+          <FunctionImportMapping FunctionImportName="spuInsertaEvaluacionRespuesta" FunctionName="sicerModel.Store.spuInsertaEvaluacionRespuesta" />
+          <FunctionImportMapping FunctionImportName="spuConsultarPreguntasTema" FunctionName="sicerModel.Store.spuConsultarPreguntasTema">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarPreguntasTema_Result">
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="preDescripcion" ColumnName="preDescripcion" />
+                <ScalarProperty Name="preObligatoria" ColumnName="preObligatoria" />
+                <ScalarProperty Name="preTipoArchivo" ColumnName="preTipoArchivo" />
+                <ScalarProperty Name="preNombreArchivo" ColumnName="preNombreArchivo" />
+                <ScalarProperty Name="funAleatorias" ColumnName="funAleatorias" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuValidarDatosEvaluacion" FunctionName="sicerModel.Store.spuValidarDatosEvaluacion" />
+          <FunctionImportMapping FunctionImportName="spuInsertarSesionEvaluacion" FunctionName="sicerModel.Store.spuInsertarSesionEvaluacion" />
+          <FunctionImportMapping FunctionImportName="spuConsultarIntegrantes" FunctionName="sicerModel.Store.spuConsultarIntegrantes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarIntegrantes_Result">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="empPaterno" ColumnName="empPaterno" />
+                <ScalarProperty Name="empMaterno" ColumnName="empMaterno" />
+                <ScalarProperty Name="empNombre" ColumnName="empNombre" />
+                <ScalarProperty Name="empNumero" ColumnName="empNumero" />
+                <ScalarProperty Name="empCURP" ColumnName="empCURP" />
+                <ScalarProperty Name="jerDescripcion" ColumnName="jerDescripcion" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="empRFC" ColumnName="empRFC" />
+                <ScalarProperty Name="empFechaBaja" ColumnName="empFechaBaja" />
+                <ScalarProperty Name="empActivo" ColumnName="empActivo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarContrasena" FunctionName="sicerModel.Store.spuInsertarActualizarContrasena" />
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarPreguntas" FunctionName="sicerModel.Store.spuInsertarActualizarPreguntas" />
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarRespuestas" FunctionName="sicerModel.Store.spuInsertarActualizarRespuestas" />
+          <FunctionImportMapping FunctionImportName="spuConsultarRegistroPersonaIE" FunctionName="sicerModel.Store.spuConsultarRegistroPersonaIE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarRegistroPersonaIE_Result">
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+                <ScalarProperty Name="pePaterno" ColumnName="pePaterno" />
+                <ScalarProperty Name="peMaterno" ColumnName="peMaterno" />
+                <ScalarProperty Name="peNombre" ColumnName="peNombre" />
+                <ScalarProperty Name="peNumEmpleado" ColumnName="peNumEmpleado" />
+                <ScalarProperty Name="peCURP" ColumnName="peCURP" />
+                <ScalarProperty Name="peRFC" ColumnName="peRFC" />
+                <ScalarProperty Name="peCUIP" ColumnName="peCUIP" />
+                <ScalarProperty Name="peLOC" ColumnName="peLOC" />
+                <ScalarProperty Name="peCargo" ColumnName="peCargo" />
+                <ScalarProperty Name="peGrado" ColumnName="peGrado" />
+                <ScalarProperty Name="peEdad" ColumnName="peEdad" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
+                <ScalarProperty Name="regEscolaridad" ColumnName="regEscolaridad" />
+                <ScalarProperty Name="regCelular" ColumnName="regCelular" />
+                <ScalarProperty Name="regTelefono" ColumnName="regTelefono" />
+                <ScalarProperty Name="regTelTrabajo" ColumnName="regTelTrabajo" />
+                <ScalarProperty Name="regCalle" ColumnName="regCalle" />
+                <ScalarProperty Name="regNumExterior" ColumnName="regNumExterior" />
+                <ScalarProperty Name="regNumInterior" ColumnName="regNumInterior" />
+                <ScalarProperty Name="regColonia" ColumnName="regColonia" />
+                <ScalarProperty Name="regCP" ColumnName="regCP" />
+                <ScalarProperty Name="regEmailPersonal" ColumnName="regEmailPersonal" />
+                <ScalarProperty Name="regEmailLaboral" ColumnName="regEmailLaboral" />
+                <ScalarProperty Name="regFechaRegistro" ColumnName="regFechaRegistro" />
+                <ScalarProperty Name="idCertificacionRegistro" ColumnName="idCertificacionRegistro" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="idNivelSeguridad" ColumnName="idNivelSeguridad" />
+                <ScalarProperty Name="nsDescripcion" ColumnName="nsDescripcion" />
+                <ScalarProperty Name="idDependenciaExterna" ColumnName="idDependenciaExterna" />
+                <ScalarProperty Name="deDescripcion" ColumnName="deDescripcion" />
+                <ScalarProperty Name="idInstitucionExterna" ColumnName="idInstitucionExterna" />
+                <ScalarProperty Name="ieDescripcion" ColumnName="ieDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarTemasCertificacionExamen" FunctionName="sicerModel.Store.spuConsultarTemasCertificacionExamen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarTemasCertificacionExamen_Result">
+                <ScalarProperty Name="idCertificacionTema" ColumnName="idCertificacionTema" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="ctOrden" ColumnName="ctOrden" />
+                <ScalarProperty Name="ctAleatorias" ColumnName="ctAleatorias" />
+                <ScalarProperty Name="ctCorrectas" ColumnName="ctCorrectas" />
+                <ScalarProperty Name="ctTiempo" ColumnName="ctTiempo" />
+                <ScalarProperty Name="temDescripcion" ColumnName="temDescripcion" />
+                <ScalarProperty Name="temCodigo" ColumnName="temCodigo" />
+                <ScalarProperty Name="ctActivo" ColumnName="ctActivo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarCertificaciones" FunctionName="sicerModel.Store.spuConsultarCertificaciones">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarCertificaciones_Result">
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="cerNombre" ColumnName="cerNombre" />
+                <ScalarProperty Name="cerDescripcion" ColumnName="cerDescripcion" />
+                <ScalarProperty Name="cerSiglas" ColumnName="cerSiglas" />
+                <ScalarProperty Name="certificacion" ColumnName="certificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarCertificacion" FunctionName="sicerModel.Store.spuConsultarCertificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarCertificacion_Result">
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="cerNombre" ColumnName="cerNombre" />
+                <ScalarProperty Name="cerDescripcion" ColumnName="cerDescripcion" />
+                <ScalarProperty Name="cerSiglas" ColumnName="cerSiglas" />
+                <ScalarProperty Name="cerFechaAlta" ColumnName="cerFechaAlta" />
+                <ScalarProperty Name="cerFechaBaja" ColumnName="cerFechaBaja" />
+                <ScalarProperty Name="cerPrimeraValidez" ColumnName="cerPrimeraValidez" />
+                <ScalarProperty Name="cerRenovacionValidez" ColumnName="cerRenovacionValidez" />
+                <ScalarProperty Name="cerPreguntas" ColumnName="cerPreguntas" />
+                <ScalarProperty Name="cerPreguntasCorrectas" ColumnName="cerPreguntasCorrectas" />
+                <ScalarProperty Name="cerTiempoIntento" ColumnName="cerTiempoIntento" />
+                <ScalarProperty Name="idEntidadEvaluadora" ColumnName="idEntidadEvaluadora" />
+                <ScalarProperty Name="eeDescripcion" ColumnName="eeDescripcion" />
+                <ScalarProperty Name="idEntidadCertificadora" ColumnName="idEntidadCertificadora" />
+                <ScalarProperty Name="ecDescripcion" ColumnName="ecDescripcion" />
+                <ScalarProperty Name="cerActiva" ColumnName="cerActiva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarCertificacion" FunctionName="sicerModel.Store.spuInsertarActualizarCertificacion" />
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarCertificacionRegistroUIUE" FunctionName="sicerModel.Store.spuInsertarActualizarCertificacionRegistroUIUE" />
+          <FunctionImportMapping FunctionImportName="spuConsultarRespuestasCertificacion" FunctionName="sicerModel.Store.spuConsultarRespuestasCertificacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarRespuestasCertificacion_Result">
+                <ScalarProperty Name="idRespuesta" ColumnName="idRespuesta" />
+                <ScalarProperty Name="idPregunta" ColumnName="idPregunta" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="idTema" ColumnName="idTema" />
+                <ScalarProperty Name="resDescripcion" ColumnName="resDescripcion" />
+                <ScalarProperty Name="resExplicacion" ColumnName="resExplicacion" />
+                <ScalarProperty Name="resTipoArchivo" ColumnName="resTipoArchivo" />
+                <ScalarProperty Name="resNombreArchivo" ColumnName="resNombreArchivo" />
+                <ScalarProperty Name="resCorrecta" ColumnName="resCorrecta" />
+                <ScalarProperty Name="resActiva" ColumnName="resActiva" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarDatosIntegranteInternoExterno" FunctionName="sicerModel.Store.spuConsultarDatosIntegranteInternoExterno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarDatosIntegranteInternoExterno_Result">
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="paterno" ColumnName="paterno" />
+                <ScalarProperty Name="materno" ColumnName="materno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="empNumero" ColumnName="empNumero" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuCertificacionG" FunctionName="sicerModel.Store.spuCertificacionG">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuCertificacionG_Result">
+                <ScalarProperty Name="idCertificacionRegistro" ColumnName="idCertificacionRegistro" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+                <ScalarProperty Name="certificacion" ColumnName="certificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarFirmasCertificado" FunctionName="sicerModel.Store.spuConsultarFirmasCertificado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarFirmasCertificado_Result">
+                <ScalarProperty Name="fcJerarquia" ColumnName="fcJerarquia" />
+                <ScalarProperty Name="fcNombre" ColumnName="fcNombre" />
+                <ScalarProperty Name="fcCargo" ColumnName="fcCargo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarContenidoCertificado" FunctionName="sicerModel.Store.spuConsultarContenidoCertificado" />
+          <FunctionImportMapping FunctionImportName="spuConsultaUbicacionInterno" FunctionName="sicerModel.Store.spuConsultaUbicacionInterno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultaUbicacionInterno_Result">
+                <ScalarProperty Name="idZona" ColumnName="idZona" />
+                <ScalarProperty Name="zonDescripcion" ColumnName="zonDescripcion" />
+                <ScalarProperty Name="idServicio" ColumnName="idServicio" />
+                <ScalarProperty Name="serDescripcion" ColumnName="serDescripcion" />
+                <ScalarProperty Name="idInstalacion" ColumnName="idInstalacion" />
+                <ScalarProperty Name="insNombre" ColumnName="insNombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarZonas" FunctionName="sicerModel.Store.spuConsultarZonas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarZonas_Result">
+                <ScalarProperty Name="idZona" ColumnName="idZona" />
+                <ScalarProperty Name="zondescripcion" ColumnName="zondescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarServicios" FunctionName="sicerModel.Store.spuConsultarServicios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarServicios_Result">
+                <ScalarProperty Name="idServicio" ColumnName="idServicio" />
+                <ScalarProperty Name="serDescripcion" ColumnName="serDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertarActualizarRegistro" FunctionName="sicerModel.Store.spuInsertarActualizarRegistro" />
+          <FunctionImportMapping FunctionImportName="spuEliminarCertificacion" FunctionName="sicerModel.Store.spuEliminarCertificacion" />
+          <FunctionImportMapping FunctionImportName="spuValidarCURP" FunctionName="sicerModel.Store.spuValidarCURP" />
+          <FunctionImportMapping FunctionImportName="spuConsultarRegistro" FunctionName="sicerModel.Store.spuConsultarRegistro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarRegistro_Result">
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="Paterno" ColumnName="Paterno" />
+                <ScalarProperty Name="Materno" ColumnName="Materno" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="numeroEmpleado" ColumnName="numeroEmpleado" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="CUIP" ColumnName="CUIP" />
+                <ScalarProperty Name="LOC" ColumnName="LOC" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="Grado" ColumnName="Grado" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="nombreEstado" ColumnName="nombreEstado" />
+                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
+                <ScalarProperty Name="munDescripcion" ColumnName="munDescripcion" />
+                <ScalarProperty Name="Escolaridad" ColumnName="Escolaridad" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="telTrabajo" ColumnName="telTrabajo" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="numExterior" ColumnName="numExterior" />
+                <ScalarProperty Name="numInterior" ColumnName="numInterior" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="emailPersonal" ColumnName="emailPersonal" />
+                <ScalarProperty Name="emailLaboral" ColumnName="emailLaboral" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="participante" ColumnName="participante" />
+                <ScalarProperty Name="regFoto" ColumnName="regFoto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarCertificacionIE" FunctionName="sicerModel.Store.spuConsultarCertificacionIE">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarCertificacionIE_Result">
+                <ScalarProperty Name="idRegistro" ColumnName="idRegistro" />
+                <ScalarProperty Name="idCertificacionRegistro" ColumnName="idCertificacionRegistro" />
+                <ScalarProperty Name="idCertificacion" ColumnName="idCertificacion" />
+                <ScalarProperty Name="certificacion" ColumnName="certificacion" />
+                <ScalarProperty Name="idNivelSeguridad" ColumnName="idNivelSeguridad" />
+                <ScalarProperty Name="nsDescripcion" ColumnName="nsDescripcion" />
+                <ScalarProperty Name="idDependenciaExterna" ColumnName="idDependenciaExterna" />
+                <ScalarProperty Name="deDescripcion" ColumnName="deDescripcion" />
+                <ScalarProperty Name="idInstitucionExterna" ColumnName="idInstitucionExterna" />
+                <ScalarProperty Name="ieDescripcion" ColumnName="ieDescripcion" />
+                <ScalarProperty Name="crFechaExamen" ColumnName="crFechaExamen" />
+                <ScalarProperty Name="crFechaModificacion" ColumnName="crFechaModificacion" />
+                <ScalarProperty Name="crHora" ColumnName="crHora" />
+                <ScalarProperty Name="idLugarAplica" ColumnName="idLugarAplica" />
+                <ScalarProperty Name="laDescripcion" ColumnName="laDescripcion" />
+                <ScalarProperty Name="dfDomicilioLugarExamen" ColumnName="dfDomicilioLugarExamen" />
+                <ScalarProperty Name="idEvaluador" ColumnName="idEvaluador" />
+                <ScalarProperty Name="evaDescripcion" ColumnName="evaDescripcion" />
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idInstitucionAplicaExamen" ColumnName="idInstitucionAplicaExamen" />
+                <ScalarProperty Name="iaeDescripcion" ColumnName="iaeDescripcion" />
+                <ScalarProperty Name="idZona" ColumnName="idZona" />
+                <ScalarProperty Name="ZonDescripcion" ColumnName="ZonDescripcion" />
+                <ScalarProperty Name="idServicio" ColumnName="idServicio" />
+                <ScalarProperty Name="serDescripcion" ColumnName="serDescripcion" />
+                <ScalarProperty Name="idInstalacion" ColumnName="idInstalacion" />
+                <ScalarProperty Name="insNombre" ColumnName="insNombre" />
+                <ScalarProperty Name="idEvaluacion" ColumnName="idEvaluacion" />
+                <ScalarProperty Name="evalCalif" ColumnName="evalCalif" />
+                <ScalarProperty Name="evaluacionDesc" ColumnName="evaluacionDesc" />
+                <ScalarProperty Name="folio" ColumnName="folio" />
+                <ScalarProperty Name="calificacionDesc" ColumnName="calificacionDesc" />
+                <ScalarProperty Name="vigenciaDesc" ColumnName="vigenciaDesc" />
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuInsertaNombreArchivoPDF" FunctionName="sicerModel.Store.spuInsertaNombreArchivoPDF">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuInsertaNombreArchivoPDF_Result">
+                <ScalarProperty Name="crNombreCertificado" ColumnName="crNombreCertificado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarDatosCorreo" FunctionName="sicerModel.Store.spuConsultarDatosCorreo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarDatosCorreo_Result">
+                <ScalarProperty Name="sender" ColumnName="sender" />
+                <ScalarProperty Name="asunto" ColumnName="asunto" />
+                <ScalarProperty Name="texto" ColumnName="texto" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarCredenciales" FunctionName="sicerModel.Store.spuConsultarCredenciales">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarCredenciales_Result">
+                <ScalarProperty Name="creUsuario" ColumnName="creUsuario" />
+                <ScalarProperty Name="crePassword" ColumnName="crePassword" />
+                <ScalarProperty Name="creDominio" ColumnName="creDominio" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarReportesCertificaciones" FunctionName="sicerModel.Store.spuConsultarReportesCertificaciones">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarReportesCertificaciones_Result">
+                <ScalarProperty Name="rowNumber" ColumnName="rowNumber" />
+                <ScalarProperty Name="idEntidadCertificadora" ColumnName="idEntidadCertificadora" />
+                <ScalarProperty Name="idEntidadEvaluadora" ColumnName="idEntidadEvaluadora" />
+                <ScalarProperty Name="cerNombre" ColumnName="cerNombre" />
+                <ScalarProperty Name="cerDescripcion" ColumnName="cerDescripcion" />
+                <ScalarProperty Name="cerSiglas" ColumnName="cerSiglas" />
+                <ScalarProperty Name="cerFechaAlta" ColumnName="cerFechaAlta" />
+                <ScalarProperty Name="cerPrimeraValidez" ColumnName="cerPrimeraValidez" />
+                <ScalarProperty Name="cerPreguntas" ColumnName="cerPreguntas" />
+                <ScalarProperty Name="cerPreguntasCorrectas" ColumnName="cerPreguntasCorrectas" />
+                <ScalarProperty Name="cerTiempoIntento" ColumnName="cerTiempoIntento" />
+                <ScalarProperty Name="cerActiva" ColumnName="cerActiva" />
+                <ScalarProperty Name="ecDescripcion" ColumnName="ecDescripcion" />
+                <ScalarProperty Name="eeDescripcion" ColumnName="eeDescripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarMenuContextual" FunctionName="sicerModel.Store.spuConsultarMenuContextual">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuConsultarMenuContextual_Result">
+                <ScalarProperty Name="idMenu" ColumnName="idMenu" />
+                <ScalarProperty Name="menActivo" ColumnName="menActivo" />
+                <ScalarProperty Name="menContenedor" ColumnName="menContenedor" />
+                <ScalarProperty Name="menDescripcion" ColumnName="menDescripcion" />
+                <ScalarProperty Name="menIcon" ColumnName="menIcon" />
+                <ScalarProperty Name="menIconContenedor" ColumnName="menIconContenedor" />
+                <ScalarProperty Name="menLeaf" ColumnName="menLeaf" />
+                <ScalarProperty Name="menOrdenamiento" ColumnName="menOrdenamiento" />
+                <ScalarProperty Name="pmCaptura" ColumnName="pmCaptura" />
+                <ScalarProperty Name="pmModifica" ColumnName="pmModifica" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuPermisoRol" FunctionName="sicerModel.Store.spuPermisoRol">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="sicerModel.spuPermisoRol_Result">
+                <ScalarProperty Name="menDescripcion" ColumnName="menDescripcion" />
+                <ScalarProperty Name="permiso" ColumnName="permiso" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spuConsultarCalificacion" FunctionName="sicerModel.Store.spuConsultarCalificacion" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="SICER" ZoomLevel="75" >
+        <EntityTypeShape EntityType="sicerModel.participanteExterno" Width="1.5" PointX="3" PointY="1.75" Height="3.3263964843749991" />
+        <EntityTypeShape EntityType="sicerModel.certificacion" Width="1.5" PointX="5.375" PointY="0.75" Height="4.0956022135416665" />
+        <EntityTypeShape EntityType="sicerModel.registro" Width="1.5" PointX="0.75" PointY="1.125" Height="4.6725065104166656" />
+        <AssociationConnector Association="sicerModel.rel_partExt_reg" >
+          <ConnectorPoint PointX="2.25" PointY="3.701650390625" />
+          <ConnectorPoint PointX="3" PointY="3.701650390625" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="sicerModel.participanteInterno" Width="1.5" PointX="3" PointY="6.75" Height="1.5956835937500005" />
+        <AssociationConnector Association="sicerModel.rel_parInt_reg" >
+          <ConnectorPoint PointX="1.5" PointY="5.9898079427083326" />
+          <ConnectorPoint PointX="1.5" PointY="7.547841796875" />
+          <ConnectorPoint PointX="3" PointY="7.547841796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="sicerModel.tema" Width="1.5" PointX="5.375" PointY="6.5" Height="2.3648893229166683" />
+        <EntityTypeShape EntityType="sicerModel.funcion" Width="1.5" PointX="5.375" PointY="10.125" Height="3.1340950520833317" />
+        <EntityTypeShape EntityType="sicerModel.pregunta" Width="1.5" PointX="7.625" PointY="10.25" Height="3.1340950520833353" />
+        <EntityTypeShape EntityType="sicerModel.respuesta" Width="1.5" PointX="9.875" PointY="10.375" Height="2.9417936197916745" />
+        <EntityTypeShape EntityType="sicerModel.temaFuncion" Width="1.5" PointX="7.625" PointY="7" Height="1.9802864583333317" />
+        <AssociationConnector Association="sicerModel.rel_pre_fun" >
+          <ConnectorPoint PointX="6.875" PointY="11.817047526041668" />
+          <ConnectorPoint PointX="7.625" PointY="11.817047526041668" />
+        </AssociationConnector>
+        <AssociationConnector Association="sicerModel.rel_res_pre" >
+          <ConnectorPoint PointX="9.125" PointY="11.845896809895837" />
+          <ConnectorPoint PointX="9.875" PointY="11.845896809895837" />
+        </AssociationConnector>
+        <AssociationConnector Association="sicerModel.rel_temFun_tem" >
+          <ConnectorPoint PointX="6.875" PointY="7.4325716145833329" />
+          <ConnectorPoint PointX="7.625" PointY="7.4325716145833329" />
+        </AssociationConnector>
+        <AssociationConnector Association="sicerModel.rel_temFun_fun" >
+          <ConnectorPoint PointX="6.875" PointY="10.126152846153847" />
+          <ConnectorPoint PointX="7.25" PointY="9.7511528461538468" />
+          <ConnectorPoint PointX="7.25" PointY="8.487617559895833" />
+          <ConnectorPoint PointX="7.625" PointY="8.487617559895833" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="sicerModel.certificacionTema" Width="1.5" PointX="7.625" PointY="2.375" Height="2.9417936197916674" />
+        <AssociationConnector Association="sicerModel.rel_cerTem_tem" >
+          <ConnectorPoint PointX="6.875" PointY="6.5" />
+          <ConnectorPoint PointX="7.25" PointY="6.125" />
+          <ConnectorPoint PointX="7.25" PointY="3.8458968098958337" />
+          <ConnectorPoint PointX="7.625" PointY="3.8458968098958337" />
+        </AssociationConnector>
+        <AssociationConnector Association="sicerModel.rel_cerTem_cert" >
+          <ConnectorPoint PointX="6.875" PointY="3.0479484049479169" />
+          <ConnectorPoint PointX="7.625" PointY="3.0479484049479169" />
+        </AssociationConnector>
+        </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

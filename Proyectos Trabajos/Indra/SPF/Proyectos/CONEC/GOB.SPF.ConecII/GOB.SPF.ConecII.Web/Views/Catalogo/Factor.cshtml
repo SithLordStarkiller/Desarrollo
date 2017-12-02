@@ -1,0 +1,187 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiFactor
+
+@using (Html.BeginForm("Factor", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "factorForm" }))
+{
+ 
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdTipoServicio, "Tipo Servicio*:")
+                @Html.DropDownListFor(m => m.IdMedidaCobro, (IEnumerable<SelectListItem>)ViewBag.TipoServicio, "Selecciona Tipo Servicio", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.IdTipoServicio)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdClasificacionFactor, "Clasificación Factor*:")
+                @Html.DropDownListFor(m => m.IdMedidaCobro, (IEnumerable<SelectListItem>)ViewBag.Clasificacion, "Selecciona Clasificación", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.IdClasificacionFactor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdMedidaCobro, "Medida Cobro*:")
+                @Html.DropDownListFor(m => m.IdMedidaCobro, (IEnumerable<SelectListItem>)ViewBag.MedidaCobro, "Selecciona Medida Cobro", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.IdMedidaCobro)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Nombre, "Nombre*:")
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Ingresa Nombre", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Nombre)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion, "Descripción*:")
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Cuota)
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    @Html.TextBoxFor(m => m.CuotaTexto, new { type = "text", value = "", min = "0", step = "any", @class = "form-control currency", @readonly = true, @disabled = true })
+                </div>
+                @Html.ValidationMessageFor(m => m.CuotaTexto)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaAutorizacion, "Fecha Autorización*:")
+                @Html.TextBoxFor(m => m.FechaAutorizacion, "{dd/MM/yyyy}", new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Autorización", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaAutorizacion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaEntradaVigor, "Fecha Entrada Vigor*:")
+                @Html.TextBoxFor(m => m.FechaEntradaVigor, "{dd/MM/yyyy}", new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Entrada Vigor", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaEntradaVigor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaTermino, "Fecha Termino*:")
+                @Html.TextBoxFor(m => m.FechaTermino, "{dd/MM/yyyy}", new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Termino", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaTermino)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaPublicacionDof, "Fecha Publicación*:")
+                @Html.TextBoxFor(m => m.FechaPublicacionDof, "{dd/MM/yyyy}",  new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Publicación", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaPublicacionDof)
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdTipoServicio, "Tipo Servicio*:")
+                @Html.DropDownListFor(m => m.IdTipoServicio, (IEnumerable<SelectListItem>)ViewBag.TipoServicio, "Selecciona Tipo Servicio", htmlAttributes: new { @class = "form-control char10" })
+                @Html.ValidationMessageFor(m => m.IdTipoServicio)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdClasificacionFactor, "Clasificación Factor*:")
+                @Html.DropDownListFor(m => m.IdClasificacionFactor, (IEnumerable<SelectListItem>)ViewBag.Clasificacion, "Selecciona Clasificación", htmlAttributes: new { @class = "form-control char10" })
+                @Html.ValidationMessageFor(m => m.IdClasificacionFactor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdMedidaCobro, "Medida Cobro*:")
+                @Html.DropDownListFor(m => m.IdMedidaCobro, (IEnumerable<SelectListItem>)ViewBag.MedidaCobro, "Selecciona Medida Cobro", htmlAttributes: new { @class = "form-control char10" })
+                @Html.ValidationMessageFor(m => m.IdMedidaCobro)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Nombre, "Nombre*:")
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", placeholder = "Ingresa Nombre" })
+                @Html.ValidationMessageFor(m => m.Nombre)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion, "Descripción*:")
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción" })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Cuota)
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    @Html.TextBoxFor(m => m.CuotaTexto, new { type = "text", value = "", min = "0", step = "any", @class = "form-control currency" })
+                </div>
+                @Html.ValidationMessageFor(m => m.CuotaTexto)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaAutorizacion, "Fecha Autorización*:")
+                @Html.TextBoxFor(m => m.FechaAutorizacion, new { @Value = Model.FechaAutorizacion.ToString("dd/MM/yyyy"), @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Autorización" })
+                @Html.ValidationMessageFor(m => m.FechaAutorizacion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaEntradaVigor, "Fecha Entrada Vigor*:")
+                @Html.TextBoxFor(m => m.FechaEntradaVigor, new { @Value = Model.FechaEntradaVigor.ToString("dd/MM/yyyy") , @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Entrada Vigor" })
+                @Html.ValidationMessageFor(m => m.FechaEntradaVigor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaTermino, "Fecha Termino*:")
+                @Html.TextBoxFor(m => m.FechaTermino, new { @Value = Model.FechaTermino.ToString("dd/MM/yyyy") , @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Termino" })
+                @*@Html.ValidationMessageFor(m => m.FechaTermino)*@
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaPublicacionDof, "Fecha Publicación*:")
+                @Html.TextBoxFor(m => m.FechaPublicacionDof, new { @Value = Model.FechaPublicacionDof.ToString("dd/MM/yyyy") ,  @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Publicación" })
+                @*@Html.ValidationMessageFor(m => m.FechaPublicacionDof)*@
+            </div>
+        </div>
+
+        <p class="pull-left">*Campos obligatorios</p>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBack">
+                <span class="glyphicon glyphicon-backward"></span>Cancelar
+            </button>
+
+            @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+            {
+                <button type="button" class="btn btn-default" id="btnSave">
+                    <span class="glyphicon glyphicon-save"></span>Guardar
+                </button>
+            }
+        </div>
+    }
+}
+<script>
+    $(document).ready(function () {
+
+        $("#FechaAutorizacion").datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+        $("#FechaEntradaVigor").datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+        $("#FechaTermino").datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+        $("#FechaPublicacionDof").datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+
+        var fecha1 = $("#FechaAutorizacion").val();
+        fecha1 = fecha1.replace(" 0:00:00", "");
+        $("#FechaAutorizacion").val(fecha1);
+
+        var fecha2 = $("#FechaEntradaVigor").val();
+        fecha2 = fecha2.replace(" 0:00:00", "");
+        $("#FechaEntradaVigor").val(fecha2);
+
+        var fecha3 = $("#FechaTermino").val();
+        fecha3 = fecha3.replace(" 0:00:00", "");
+        $("#FechaTermino").val(fecha3);
+
+        var fecha4 = $("#FechaPublicacionDof").val();
+        fecha4 = fecha4.replace(" 0:00:00", "");
+        $("#FechaPublicacionDof").val(fecha4);
+
+    });
+
+    //$(function () {
+    //    $.validator.methods.date = function (value, element) {
+    //        return this.optional(element) || moment(value, 'DD/MM/YYYY').isValid();
+    //    };
+    //});
+   
+</script>

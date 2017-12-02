@@ -1,0 +1,390 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiNotificacion
+@{
+    ViewBag.Title = "NotifacionesAlertas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listaRoles = (IEnumerable<SelectListItem>)ViewBag.ListaRoles;
+    var listaAreas = (IEnumerable<SelectListItem>)ViewBag.ListaAreas;
+    var listaFases = (IEnumerable<SelectListItem>)ViewBag.ListaFaces;
+    var listaActividades = (IEnumerable<SelectListItem>)ViewBag.ListaActividades;
+    var listaTipoServicios = (IEnumerable<SelectListItem>)ViewBag.ListaTiposServicios;
+}
+
+@section scripts{
+    <script src="~/Scripts/Controls/gobControl.js"></script>
+    <script src="~/Scripts/Controls/gobGrid.js"></script>
+    <script src="~/Scripts/conec/configuracion/CreacionNotificacionesAlertas.js"></script>
+}
+
+<br />
+<ol class="breadcrumb">
+    <li>
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+    </li>
+    <li>
+        @Html.ActionLink("Notificaciones", "NotifacionesAlertas", "Configuracion")
+    </li>
+</ol>
+<div class="top-buffer">
+    <h3>Configuracion de notificaciones - RECEPTOR</h3>
+    <hr class="red">
+</div>
+
+@using (Html.BeginForm("GuardarNotificacion", "Configuracion", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "referenciaForm" }))
+{
+    <div id="divRol" class="col-md-12" style="margin-top: 10px;">
+        <div class="panel-group ficha-collapse" id="accRol">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-parent="#accRol" data-toggle="collapse" href="#pnlRol" aria-expanded="false" aria-controls="pnlRol">
+                            Rol
+                        </a>
+                    </h4>
+                    <button type="button" class="collpase-button collapsed" data-parent="#accRol" data-toggle="collapse" href="#pnlRol"></button>
+                </div>
+                <div class="panel-collapse collapse in" id="pnlRol">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="">
+                                <div class="form-group">
+                                    <div class="col-lg-4">
+                                        Área Receptora
+                                        <div class="">
+                                            @Html.DropDownList("Área Receptora: ", listaAreas, string.Empty, new { @id = "ddlAreas", @class = "form-control", @placeholder = "Nombre de plantilla" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        Rol
+                                        <div class="">
+                                            @Html.DropDownList("Rol: ", listaRoles, string.Empty, new { @id = "ddlRol", @class = "form-control", @placeholder = "Roll" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br />
+
+                        <div class="col-lg-12">
+                            <div id="divIntegrantesRol"></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group input-group-sm ">
+                                <div class="col-md-12">
+                                    <div class="checkbox col-lg-4 ">
+                                        <label>
+                                            @Html.CheckBox("Correo CC: ", false, new { @id = "ckbCorreoCcR", @class = " checkbox", @placeholder = "Correo CC" })
+                                            Correo CC
+                                        </label>
+                                    </div>
+                                    <div class="input-group pull-right">
+                                        <input type="button" value="Agregar rol" id="btnAgregarRol" class="btn btn-default btn-md">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divIntegrante" class="col-md-12">
+        <div class="panel-group ficha-collapse" id="accInte">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-parent="#accInte" data-toggle="collapse" href="#pnlInte" aria-expanded="False" aria-controls="pnlInte">
+                            Integrante
+                        </a>
+                    </h4>
+                    <button type="button" class="collpase-button collapsed" data-parent="#accInte" data-toggle="collapse" href="#pnlInte"></button>
+                </div>
+                <div class="panel-collapse collapse in" id="pnlInte">
+                    <div class="panel-body">
+                        <div class="" style="margin: 20px 0">
+                            <div class="col-md-8">
+                                @Html.TextBox("tbxBuscarIntegrante", null, new { @id = "tbxBuscarIntegrante", @class = "form-control", @placeholder = "Buscar un integrante por nombre,apellidos o area" })
+                            </div>
+                            <div class="col-md-4">
+                                <input type="button" value="Buscar integrante" id="btnBuscarIntegrante" class="btn btn-default pull-right btn-sm">
+                            </div>
+                            <div class="col-lg-4"></div>
+                        </div>
+
+                        <div class="col-lg-12" id="divIntegrantes"></div>
+
+                        <div class="row">
+                            <div class="form-group input-group-sm ">
+                                <div class="col-md-12">
+                                    <div class="checkbox col-lg-12">
+                                        <label>
+                                            @Html.CheckBox("Correo CC: ", false, new { @id = "ckbCorreoCcI", @class = "pull-right checkbox", @placeholder = "Correo CC" })
+                                            Correo CC
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divCliente" class="col-md-12">
+        <div class="panel-group ficha-collapse" id="accCli">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-parent="#accCli" data-toggle="collapse" href="#pnlCli" aria-expanded="False" aria-controls="pnlCli">
+                            Cliente
+                        </a>
+                    </h4>
+                    <button type="button" class="collpase-button collapsed" data-parent="#accCli" data-toggle="collapse" href="#pnlCli"></button>
+                </div>
+                <div class="panel-collapse collapse in" id="pnlCli">
+                    <div class="panel-body">
+                        <div class="form-group input-group-sm ">
+                            <div class="col-lg-12">
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBox("Representante Legal: ", false, new {@id = "ckbRepLeg", @class = " checkbox", @placeholder = "Correo CC"})
+                                            Representante Legal.
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBox("Contacto Jurídico: ", false, new {@id = "ckbConJur", @class = " checkbox", @placeholder = "Correo CC"})
+                                            Contacto Jurídico.
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBox("Contacto Operativo: ", false, new {@id = "ckbConOpe", @class = " checkbox", @placeholder = "Correo CC"})
+                                            Contacto Operativo.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBox("Contacto de Finanzas: ", false, new { @id = "ckbConFin", @class = " checkbox", @placeholder = "Correo CC" })
+                                            Contacto de Finanzas.
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBox("Recursos Humanos:", false, new { @id = "ckbRh", @class = " checkbox", @placeholder = "Correo CC" })
+                                            Contacto Recursos Humanos.
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="margin: 20px 0">
+                                <div class="col-md-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBox("Recursos humanos: ", false, new { @id = "ckbCorreoCcC", @class = " checkbox", @placeholder = "Correo CC" })
+                                            Correo CC
+                                        </label>
+                                    </div>
+                                </div><div class="col-md-8">
+                                    <div class="input-group pull-right">
+                                        <input type="button" value="Agregar Cliente" id="btnAgregarCliente" class="btn btn-default btn-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divCorreoAlternativo" class="col-md-12">
+        <div class="panel-group ficha-collapse" id="accPca">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-parent="#accPca" data-toggle="collapse" href="#pnlPca" aria-expanded="False" aria-controls="pnlPca">
+                            Por correo alternativo
+                        </a>
+                    </h4>
+                    <button type="button" class="collpase-button collapsed" data-parent="#accPca" data-toggle="collapse" href="#pnlPca"></button>
+                </div>
+                <div class="panel-collapse collapse in" id="pnlPca">
+                    <div class="panel-body">
+                        Correo alternativo
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    @Html.TextBox("tbxCorreo", null, new { @id = "tbxCorreo", @class = "form-control", @placeholder = "Correo alternativo" })
+                                </div>
+                                <div class="checkbox col-lg-4 ">
+                                    <label>
+                                        @Html.CheckBox("Correo CC: ", false, new { @id = "ckbCorreoCcA", @class = " checkbox", @placeholder = "Correo CC" })
+                                        Correo CC
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="button" value="Agregar Correo alternativo" id="btnAgregarAlternativo" class="btn btn-default pull-right btn-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top-buffer">
+        <h3>Receptor</h3>
+        <hr class="red">
+    </div>
+    <div id="Receptor">
+        <div class="col-lg-12" id="divReceptor">
+
+        </div>
+
+        @*<div class="col-lg-offset-8 col-md-4">
+            <input type="button" value="Quitar receptor" class="btn btn-default pull-right btn-sm">
+        </div>*@
+    </div>
+    <div class="top-buffer">
+        <h3>Configuracion de notificaciones</h3>
+        <hr class="red">
+    </div>
+    <div id="divNotificaciones">
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="col-lg-4 ">
+                <div class="">
+                    Tipo de Servicio
+                    @Html.DropDownListFor(x => x.IdTipoServicio, listaTipoServicios, string.Empty, new { @class = "form-control", @placeholder = "Tipo de servicio" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="">
+                    Fase
+                    @Html.DropDownListFor(x => x.IdFase, listaFases, string.Empty, new { @class = "form-control", @placeholder = "Fase" })
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="">
+                    Actividad
+                    @Html.DropDownListFor(x => x.IdActividad, listaActividades, string.Empty, new { @class = "form-control", @placeholder = "Actividad" })
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="col-lg-12">
+                Cuerpo de notificacion
+                @Html.TextAreaFor(x => x.CuerpoCorreo, new { @class = "form-control", @placeholder = "Cuerpo de notificaciones" })
+            </div>
+        </div>
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="form-group input-group-sm ">
+                <div class="col-md-8">
+                    <div class="col-lg-6">
+                        Método de envío
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(x => x.EsCorreo, new { @class = " checkbox", @placeholder = "Correo CC" })
+                                Correo Electronico
+                            </label>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(x => x.EsSistema, new { @class = " checkbox", @placeholder = "Correo CC" })
+                                Sistema
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        ¿Emitiá alerta?
+                        <div class="radio">
+                            <div>
+                                <label>
+                                    @Html.RadioButtonFor(x => x.EmitirAlerta, "true", new { @checked = "checked" })
+                                    @*<input type="radio" name="rdbEmitirAlerta" value="true" checked="checked">*@ Si
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    @Html.RadioButtonFor(x => x.EmitirAlerta, "false")
+                                    @*<input type="radio" name="rdbEmitirAlerta" value="false">*@ No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="top-buffer">
+            <h3>Configuracion de alertas</h3>
+            <hr class="red">
+        </div>
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="col-lg-4">
+                Tiempo Para Enviar Alertas
+                @Html.TextBoxFor(x => x.TiempoAlerta, null, new { @type = "numeric", @class = "form-control", @placeholder = "Tiempo de la alerta" })
+            </div>
+            <div class="col-md-4">
+                Frecuencia de Repetición
+                @Html.TextBoxFor(x => x.Frecuencia, null, new { @type = "numeric", @class = "form-control", @placeholder = "Frecuencia de repetición" })
+            </div>
+        </div>
+
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="col-lg-12">
+                Método de envío
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(x => x.AlertaEsCorreo, new { @class = " checkbox", @placeholder = "Correo CC" })
+                        Correo Electronico
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(x => x.AlertaEsSistema, new { @class = " checkbox", @placeholder = "Correo CC" })
+                        Sistema
+                    </label>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="col-lg-12">
+                Cuerpo de notificacion
+                @Html.TextAreaFor(x => x.CuerpoAlerta, new { @class = "form-control", @placeholder = "Cuerpo de notificaciones" })
+            </div>
+        </div>
+        <div class="col-lg-12" style="margin: 10px 0">
+            <div class="col-lg-12">
+                <div class="pull-right">
+                    <input id="btnCrearNotificacion" type="button" value="Crear notificacion" class="btn btn-default btn-sm">
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal fade" id="addEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="width: 1000px;">
+            <div class="col-lg-10 col-lg-offset-1">
+                <label id="modalMessage"></label>
+
+            </div>
+        </div>
+    </div>
+
+}

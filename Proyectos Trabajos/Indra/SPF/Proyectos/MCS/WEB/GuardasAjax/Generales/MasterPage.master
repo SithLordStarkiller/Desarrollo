@@ -1,0 +1,243 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="SICOGUA.Generales_MasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    <title>Módulo de Control de los Servicios</title>
+    <link href="StyleSheet.css" rel="stylesheet" type="text/css" />
+    <script language="javascript" type="text/javascript" src="JScript.js"></script>
+    <script language="javascript" type="text/javascript">
+        window.moveTo(0, 0);
+        if (document.all) {
+            top.window.resizeTo(screen.availWidth, screen.availHeight);
+        }
+        else if (document.layers || document.getElementById) {
+            if (top.window.outerHeight < screen.availHeight || top.window.outerWidth < screen.availWidth) {
+                top.window.outerHeight = screen.availHeight;
+                top.window.outerWidth = screen.availWidth;
+            }
+        }
+
+        var message = "Servicio de Protección Federal";
+        function clickIE4() {
+            if (event.button == 2) {
+                alert(message);
+                return false;
+            }
+        }
+
+        function clickNS4(e) {
+            if (document.layers || document.getElementById && !document.all) {
+                if (e.which == 2 || e.which == 3) {
+                    alert(message);
+                    return false;
+                }
+            }
+        }
+
+        if (document.layers) {
+            document.captureEvents(Event.MOUSEDOWN);
+            document.onmousedown = clickNS4;
+        }
+        else if (document.all && !document.getElementById) {
+            document.onmousedown = clickIE4;
+        }
+
+        document.oncontextmenu = new Function("alert(message);return false")
+    </script>
+    <style type="text/css">
+        #pieObj
+        {
+            width: 997px;
+            height: 111px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
+        AsyncPostBackTimeout="360000" EnableScriptLocalization="true">
+    </asp:ScriptManager>
+    <table style="margin: 0 auto 0 auto;">
+        <tr>
+            <td>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <div class="Header">
+                    <asp:Menu ID="mnPrincipal" runat="server" CssClass="Menu" Orientation="Horizontal"
+                        DynamicVerticalOffset="8">
+                        <Items>
+                            <asp:MenuItem NavigateUrl="~/frmInicio.aspx" Text="INICIO" Value="20"></asp:MenuItem>
+                            <asp:MenuItem Text="PERSONAL" Value="1" Selectable="False">
+                                <asp:MenuItem Text="Datos Personales" Value="2" NavigateUrl="~/Personal/frmDatosPersonales.aspx">
+                                </asp:MenuItem>
+                                <asp:MenuItem Text="Asignaciones" Value="3" NavigateUrl="~/Personal/frmDatosLaborales.aspx">
+                                </asp:MenuItem>
+                                <asp:MenuItem Text="Asignaciones Masivas" Value="54" NavigateUrl="~/Personal/frmAsignacionesMasivas.aspx">
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reemplazos/frmReemplazo.aspx" Text="Reemplazos" Value="63">
+                                </asp:MenuItem>
+                                <asp:MenuItem Text="Procedimiento" Value="56" NavigateUrl="~/Personal/frmRevision.aspx">
+                                </asp:MenuItem>
+                                <asp:MenuItem Text="Inmovilidad" Value="104" NavigateUrl="~/Personal/frmInmovilidad.aspx">
+                                </asp:MenuItem>
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="ASISTENCIA" Value="4" Selectable="False">
+                                <asp:MenuItem Text="Asistencia" Value="6" NavigateUrl="~/PaseLista/frmListaAsistencia.aspx">
+                                </asp:MenuItem>
+                                <asp:MenuItem Text="Pase de Lista" Value="90" NavigateUrl="~/PaseLista/frmListaGenerica.aspx">
+                                </asp:MenuItem>
+                                <%--<asp:MenuItem NavigateUrl="~/PaseLista/frmInconsistencias.aspx" Text="Inconsistencias"
+                                    Value="88"></asp:MenuItem>--%>
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="HECHOS" Value="7" Selectable="False">
+                                <asp:MenuItem NavigateUrl="~/Incidentes/frmIncidentes.aspx" Text="Captura de Hechos ocurridos"
+                                    Value="8"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Incidentes/frmBusquedaIncidentes.aspx" Text="B&#250;squeda de Hechos Ocurridos"
+                                    Value="9"></asp:MenuItem>
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="REPORTES" Value="10" Selectable="False">
+                                <%--<asp:MenuItem NavigateUrl="~/Reportes/frmReporteListado.aspx" Text="Pase de Lista"
+                                    Value="25"></asp:MenuItem>--%>
+                                <%-- <asp:MenuItem NavigateUrl="~/Reportes/frmReporteAsistencia.aspx" Text="Asistencia"
+                                    Value="45"></asp:MenuItem>--%>
+                                <%--<asp:MenuItem NavigateUrl="~/Reportes/frmReporteAsistenciaREA.aspx" Text="Asistencia - REA"
+                                    Value="70"></asp:MenuItem>--%>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmParteNovedad.aspx" Text="Parte de Novedades"
+                                    Value="21"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteIncidentes.aspx" Text="Hechos ocurridos"
+                                    Value="22"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteAsistenciaREA.aspx" Text="Asistencia"
+                                    Value="25"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmEstadoFuerzaHomologado.aspx" Text="Estado de Fuerza"
+                                    Value="65"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmEstadoFuerzaDetallado.aspx" Text="Estado de Fuerza Detallado"
+                                    Value="50"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmPersonalAsignado.aspx" Text="Personal Asignado"
+                                    Value="43"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmProcesoRevision.aspx" Text="Procedimiento"
+                                    Value="57"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteMasivo.aspx" Text="Movimientos de Asignación"
+                                    Value="59"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmRvEstado.aspx" Text="Asignados por Estado"
+                                    Value="69"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteHistoricoEstados.aspx" Text="Histórico Mensual por Estado"
+                                    Value="76"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmEstadisticoZona.aspx" Text="Estadístico Zona"
+                                    Value="80"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmEstadisticoServicio.aspx" Text="Estadístico Servicio"
+                                    Value="82"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmRvNOIndicadores.aspx " Text="Integrantes no Aparecen en Indicadores"
+                                    Value="84"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmPersonalAsignadoHistorico.aspx" Text="Programas Sustantivos"
+                                    Value="85"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmPaseListaGenerica.aspx" Text="Pase de lista"
+                                    Value="91"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteHistoricoEstados.aspx" Text="Histórico Mensual por Estado"
+                                    Value="76"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmCumplimiento.aspx" Text="% Cumplimiento"
+                                    Value="95"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmIncidenciasPaseLista.aspx" Text="Inicidencias Pase Lista"
+                                    Value="97"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmTotalAnexo.aspx" Text="Totales Anexo" Value="99">
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmTurnos.aspx" Text="Turnos Cumplidos" Value="101">
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteInmovilidad.aspx" Text="Reporte Inmovilidad"
+                                    Value="105"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteRotacion.aspx" Text="Reporte Rotación"
+                                    Value="107"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteDesplegado.aspx" Text="Personal Desplegado"
+                                    Value="109"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Reportes/frmReporteAntiguedad.aspx" Text="Reporte días asignación"
+                                    Value="111"></asp:MenuItem>
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="CAT&#193;LOGOS" Value="11">
+                                <asp:MenuItem NavigateUrl="~/Servicio/frmServicio.aspx" Text="Servicios" Value="37">
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Servicio/frmInstalacion.aspx" Text="Instalaciones" Value="42">
+                                </asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Servicio/frmInventario.aspx" Text="Inventario de Armamento y Equipo"
+                                    Value="64"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Servicio/frmBuscarInstalacion.aspx?pantalla=~/Catalogos/frmHorario.aspx"
+                                    Text="Horario" Value="74"></asp:MenuItem>
+                                <asp:MenuItem NavigateUrl="~/Servicio/frmBuscarInstalacion.aspx?pantalla=~/Catalogos/frmAnexoTecnico.aspx"
+                                    Text="Anexo Técnico" Value="103"></asp:MenuItem>
+                            </asp:MenuItem>
+                            <asp:MenuItem NavigateUrl="~/tipoAsignacion/frmTipoAsignacion.aspx" Text="TIPO ASIGNACIÓN"
+                                Value="87"></asp:MenuItem>
+                            <asp:MenuItem Text="USUARIOS" Value="12" NavigateUrl="~/Usuarios/frmUsuarios.aspx">
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="AYUDA" Value="31" Selectable="False">
+                                <asp:MenuItem Text="Manual" Value="61" NavigateUrl="MANUAL_DE_USUARIO MCS.pdf" Target="_blank">
+                                </asp:MenuItem>
+                                <asp:MenuItem Text="Politicas de Operación" Value="62" NavigateUrl="POLITICAS_DE_OPERACION MCS.pdf"
+                                    Target="_blank"></asp:MenuItem>
+                            </asp:MenuItem>
+                            <asp:MenuItem Text="SALIR" Value="13" NavigateUrl="~/Generales/frmSalir.aspx"></asp:MenuItem>
+                        </Items>
+                        <DynamicHoverStyle CssClass="Submenu" />
+                        <DynamicMenuItemStyle CssClass="Submenu" />
+                        <StaticHoverStyle BorderStyle="None" />
+                        <StaticMenuStyle HorizontalPadding="4px" />
+                    </asp:Menu>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="height: 36px">
+                <div id="Logon">
+                    <table width="100%">
+                        <tr>
+                            <td align="left">
+                                <asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label>
+                            </td>
+                            <td align="right">
+                                <asp:Label ID="lblFecha" runat="server" Text=""></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="Mensajes">
+                    <asp:ValidationSummary ID="vsuMensajes" runat="server" Font-Size="Smaller" HeaderText="Mensajes:"
+                        ShowMessageBox="True" Width="100%" ValidationGroup="SICOGUA" BackColor="#FFFF80"
+                        BorderColor="Red" BorderStyle="Solid" BorderWidth="1px" CssClass="divError" Style="display:none;" Enabled="false"/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </td>
+        </tr>
+        <tr>
+            <td class="piepagina_principal">
+                <div class="piepagina_principal">
+                    <object id="pieObj" class="pieObj" align="middle" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000"
+                        codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=10,0,0,0">
+                        <param name="allowScriptAccess" value="sameDomain" />
+                        <param name="allowFullScreen" value="false" />
+                        <param name="movie" value="imagenes\pie.swf" />
+                        <param name="quality" value="high" />
+                        <param name="bgcolor" value="#ffffff" />
+                        <param name="wmode" value="transparent" />
+                        <embed align="middle" allowfullscreen="false" allowscriptaccess="sameDomain" bgcolor="#ffffff"
+                            id="pieObj" name="encabezadoIntranet" pluginspage="http://www.adobe.com/go/getflashplayer"
+                            quality="high" src="imagenes/pie.swf" type="application/x-shockwave-flash" wmode="transparent"></embed>
+                    </object>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </form>
+</body>
+</html>

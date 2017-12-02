@@ -1,0 +1,19 @@
+﻿using GOB.SPF.ConecII.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace GOB.SPF.ConecII.Web.Models
+{
+    public class UiTipoControl : UiEntity, ITipoControl
+    {
+        public int Identificador { get; set; }
+        public string Nombre { get; set; }
+        public DateTime FechaInicial { get; set; }
+        public DateTime? FechaFinal { get; set; }
+        public bool Activo { get; set; }
+    }
+}

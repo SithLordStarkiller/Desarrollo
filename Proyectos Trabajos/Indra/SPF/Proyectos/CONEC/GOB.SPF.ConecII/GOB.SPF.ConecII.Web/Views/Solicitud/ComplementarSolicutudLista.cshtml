@@ -1,0 +1,134 @@
+﻿
+@{
+    ViewBag.Title = "Consulta de Solicitudes";
+}
+
+
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/select2.css" rel="stylesheet" />
+    <style type="text/css">
+        .ui-tabs-vertical {
+            width: 55em;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav {
+            padding: .2em .1em .2em .2em;
+            float: left;
+            width: 12em;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav li {
+            clear: left;
+            width: 100%;
+            border-bottom-width: 1px !important;
+            border-right-width: 0 !important;
+            margin: 0 -1px .2em 0;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav li a {
+            display: block;
+        }
+
+        .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
+            padding-bottom: 0;
+            padding-right: .1em;
+            border-right-width: 1px;
+        }
+
+        .ui-tabs-vertical .ui-tabs-panel {
+            padding: 1em;
+            float: right;
+            width: 40em;
+        }
+    </style>
+}
+<div id="SearchView">
+    <ol class="breadcrumb">
+        <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+        <li><a href="#">Completar Solicitudes</a></li>
+    </ol>
+    <div class="flip">
+        <div class="front">
+            <div class="top-buffer">
+                <h3>@ViewBag.Title</h3>
+                <hr class="red">
+            </div>
+            <div id="dvTitle" class="panel panel-default">
+                <!-- #region dvForm0 -->
+                <div id="dvForm0" class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <label for="IdSolicitud">No. Solicitud</label>
+                            <input type="number" id="IdSolicitud" placeholder="Buscar por No. Solicitud" class="form-control" />
+                        </div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-1"></div>
+                    </div>
+                </div><!-- #endregion -->
+            </div><!-- #endregion -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Busqueda del solicitudes
+                </div>
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label for="razonSocial" class="control-label">Razón Social:</label>
+                                <input type="text" name="razonSocial" id="razonSocial" placeholder="Buscar por razón social" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label" for="nombreCorto">Nombre corto:</label>
+                                <input type="text" name="nombreCorto" id="nombreCorto" placeholder="Buscar por nombre corto" class="form-control" />
+                            </div>
+
+                            <div class="col-md-4">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="control-label" for="rfc">RFC:</label>
+                                <input type="text" name="rfc" id="RFC" placeholder="Buscar por RFC" class="form-control" />
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">Estatus:</label>
+                                <div>
+                                    @Html.DropDownList("Estatus", new SelectList(ViewBag.Estatuses, "Value", "Text"), new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-offset-10 panel-body col-md-1">
+                                <button type="button" class="btn btn-default" id="btnBuscar">
+                                    <span class="glyphicon glyphicon-search"></span>Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divRegistros"></div>
+        </div>
+        <input type="hidden" id="IdDivision" />
+    </div>
+</div>
+<div>
+    <div id="partial1" class="hide-form"></div>
+</div>
+<input type="hidden" id="TipoRolUsuario" value="@ViewBag.TipoRolUsuario" />
+@section Scripts{
+    <script src="~/Scripts/controls/select2.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="~/Scripts/conec/solicitud/SolicitudCompletar.js"></script>
+}
+
+
+
+
+

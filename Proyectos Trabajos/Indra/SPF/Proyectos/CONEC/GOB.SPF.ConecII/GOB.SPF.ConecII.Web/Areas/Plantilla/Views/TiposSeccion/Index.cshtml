@@ -1,0 +1,50 @@
+﻿@*@model Nsft.Domain.Core.Entity.IPagedView*@
+@{
+    ViewBag.Title = "Consulta Tipos de Sección";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+}
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="row form-group">
+            @Html.Label("Numerado", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <select id="NumeradoBuscar" name="NumeradoBuscar" class="form-control">
+                    <option value="" selected="selected">Todos</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBuscar">
+                    <span class="glyphicon glyphicon-search"></span>Buscar
+                </button>
+            </div>
+            @*@Html.Label("Mensaje", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                @Html.TextBox("MensajeBuscar", null, new { id = "MensajeBuscar", @class = "form-control" })
+            </div>*@
+        </div>
+        
+        
+        <div id="divTiposSeccion"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+@*<input type="hidden" id="IdDivision" />*@
+
+@section Scripts{
+    <script src="~/Scripts/conec/Plantilla/formato.js"></script>
+    <script src="~/Scripts/conec/Plantilla/tiposSeccion.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+}
+

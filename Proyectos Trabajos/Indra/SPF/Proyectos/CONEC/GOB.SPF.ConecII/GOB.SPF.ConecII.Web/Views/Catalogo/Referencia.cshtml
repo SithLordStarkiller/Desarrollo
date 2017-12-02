@@ -1,0 +1,78 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiReferencia
+@using (Html.BeginForm("Referencia", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "referenciaForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.ClaveReferencia, "Clave Referencia*:")
+                @Html.TextBoxFor(m => m.ClaveReferencia, new { @class = "form-control", placeholder = "Ingresa Clave", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.ClaveReferencia)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion, "Descripción*:")
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+            <div class="col-md-4">
+
+                @Html.LabelFor(m => m.EsProducto, "Es Producto*:")
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.EsProducto, new {@class = "form-control", placeholder = "Ingresa Descripción", @readonly = true, @disabled = true})
+                        Es producto
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(m => m.EsProducto)
+                @*@Html.LabelFor(m => m.EsProducto, "Es Producto*:")
+                @Html.CheckBoxFor(m => m.EsProducto, new { @class = "form-control", placeholder = "Ingresa Descripción", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.EsProducto)*@
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.ClaveReferencia, "Clave Referencia*:")
+                @Html.TextBoxFor(m => m.ClaveReferencia, new { @class = "form-control", placeholder = "Ingresa Clave" })
+                @Html.ValidationMessageFor(m => m.ClaveReferencia)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion, "Descripción*:")
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción" })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.EsProducto, "Es Producto*:")
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.EsProducto, new { @class = "", placeholder = "Ingresa Descripción"})
+                        Es producto
+                    </label>
+                </div>
+                @Html.ValidationMessageFor(m => m.EsProducto)
+            </div>
+        </div>
+    }
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}

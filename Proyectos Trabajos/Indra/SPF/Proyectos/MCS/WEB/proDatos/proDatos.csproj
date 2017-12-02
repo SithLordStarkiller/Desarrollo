@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B03FF8C7-BC19-430E-B498-69043AAF7148}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>proDatos</RootNamespace>
+    <AssemblyName>proDatos</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="proUtilerias">
+      <HintPath>..\Bin\proUtilerias.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <HintPath>C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="clsDatAnexoTecnico.cs" />
+    <Compile Include="clsDatAsignacionLunes.cs" />
+    <Compile Include="clsDatConversiones.cs" />
+    <Compile Include="clsDatAsistencia.cs" />
+    <Compile Include="clsDatCatalogos.cs" />
+    <Compile Include="clsDatConexion.cs" />
+    <Compile Include="clsDatCredencial.cs" />
+    <Compile Include="clsDatEmpleado.cs" />
+    <Compile Include="clsDatEmpleadoAsignacion.cs" />
+    <Compile Include="clsDatEmpleadoAsignacionOS.cs" />
+    <Compile Include="clsDatEmpleadoHorario.cs" />
+    <Compile Include="clsDatEmpleadoHorarioREA.cs" />
+    <Compile Include="clsDatEmpleadoPuesto.cs" />
+    <Compile Include="clsDatEmpleadoTipoAsignacion.cs" />
+    <Compile Include="clsDatFotografia.cs" />
+    <Compile Include="clsDatHorario.cs" />
+    <Compile Include="clsDatHorarioComplemento.cs" />
+    <Compile Include="clsDatHorarioREA.cs" />
+    <Compile Include="clsDatIncidencias.cs" />
+    <Compile Include="clsDatInconsistencias.cs" />
+    <Compile Include="clsDatInstalacion.cs" />
+    <Compile Include="clsDatOficioAsignacion.cs" />
+    <Compile Include="clsDatPaseLista.cs" />
+    <Compile Include="clsDatPermiso.cs" />
+    <Compile Include="clsDatReemplazo.cs" />
+    <Compile Include="clsDatReporteIncidente.cs" />
+    <Compile Include="clsDatRevision.cs" />
+    <Compile Include="clsDatServicio.cs" />
+    <Compile Include="clsDatSesion.cs" />
+    <Compile Include="clsDatTipoHorario.cs" />
+    <Compile Include="clsDatTipoIncidencia.cs" />
+    <Compile Include="clsDatUsuario.cs" />
+    <Compile Include="dsGuardas.cs">
+      <DependentUpon>dsGuardas.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsGuardas.Designer.cs">
+      <DependentUpon>dsGuardas.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="sicoguaDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>sicoguaDataSet.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\proEntidades\proEntidades.csproj">
+      <Project>{822577E4-0A83-49D9-AB3C-C62116872E79}</Project>
+      <Name>proEntidades</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\proSeguridad\proSeguridad.csproj">
+      <Project>{8571715A-FD93-4DA4-991D-D0D70596940D}</Project>
+      <Name>proSeguridad</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="dsGuardas.xsc">
+      <DependentUpon>dsGuardas.xsd</DependentUpon>
+    </None>
+    <Content Include="dsGuardas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsGuardas.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>SICOGUA</CustomToolNamespace>
+    </Content>
+    <None Include="dsGuardas.xss">
+      <DependentUpon>dsGuardas.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="sicoguaDataSet.xsc">
+      <DependentUpon>sicoguaDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="sicoguaDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>sicoguaDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="sicoguaDataSet.xss">
+      <DependentUpon>sicoguaDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

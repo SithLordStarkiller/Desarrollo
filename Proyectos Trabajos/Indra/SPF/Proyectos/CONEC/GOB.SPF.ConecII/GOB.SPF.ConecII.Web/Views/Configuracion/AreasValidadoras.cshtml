@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Areas validadoras";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Configuracion</a></li>
+    <li><a href="AreasValidadoras.cshtml" class="active">Configuracion de areas validadoras</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>Configuracion de areas validadoras</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-3 form-group">
+            <label class="control-label">Estatus:</label>
+            <div class="col-sm-12">
+                <label class="radio-inline">
+                    <input type="radio" name="estatus" value="true" checked="checked">Activo
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="estatus" value="false">Inactivo
+                </label>
+            </div>
+        </div>
+        @*<div class="ui-widget col-sm-3 form-group">
+                <label class="control-label">Clave Referencia:</label>
+                <input id="Referencias" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+            </div>*@
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <div id="divAreasValidadoras"></div>
+    </div>
+    <div class="back">
+
+    </div>
+
+</div>
+@section Scripts{
+    <script src="~/Scripts/Controls/chosen.jquery.js"></script>
+    <script src="~/Scripts/conec/configuracion/AreasValidadoras.js"></script>
+    <script src="~/Scripts/conec/configuracion/AreaValidadora.js"></script>
+    <script src="~/Scripts/Controls/gobControl.js"></script>
+    <script src="~/Scripts/Controls/gobGrid.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="https://framework-gb.cdn.gob.mx/assets/scripts/jquery-ui-datepicker.js"></script>
+}
+
+

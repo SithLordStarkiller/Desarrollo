@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "No autorizado";
+}
+<main role="main">
+    <div class="container">
+        <div class="section section-error vertical-buffer">
+            <div class="row">
+                <div class="col-sm-7">
+                    <h2>Usted no esta autorizado para ingresar a esta página.</h2>
+                    <h3>Error 401</h3>
+                    <p>Usted no cuenta con autorización para ingresar a la página solicitada. Si cree que esto es un error ponganse en contacto con su administrador o con personal de soporte técnico.</p>
+                    <hr>
+                </div>
+                <div class="col-sm-4 col-sm-offset-1">
+                    <figure>
+                        <img src="~/Content/images/error.svg" alt="Error 404">
+                    </figure>
+                    <h3>Otras opciones:</h3>
+                    <ul>
+                        <li><a href="@Url.Action("Index", "Home")">Regresar al inicio</a></li>
+                        @*<li><a href="http://www.gob.mx/busqueda">Buscar en gob.mx</a></li>*@
+                        <li><a href="javascript:history.back();">Volver a la página anterior</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
