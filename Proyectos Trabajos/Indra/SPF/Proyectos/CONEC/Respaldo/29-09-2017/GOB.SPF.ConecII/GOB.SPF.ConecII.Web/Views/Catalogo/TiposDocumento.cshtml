@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewBag.Title = "Consulta TipoDocumento";
+}
+
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+}
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    $("#divOne").hide();
+    //});
+    window.onload = function () {
+        document.getElementById("divOne").style.display = 'none';
+    }
+</script>
+
+<div id="divOne">
+    Hello world!
+</div>
+
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="row">
+            <div class="col-sm-7 form-group">
+
+                <div class="col-sm-7">
+                    <label class="control-label">Estatus:</label>
+                    <label class="radio-inline" for="activo">
+                        <input type="radio" name="estatus" value="true">Activo
+                    </label>
+                    <label class="radio-inline" for="inactivo">
+                        <input type="radio" name="estatus" value="false">Inactivo
+                    </label>
+                </div>
+            </div>
+            <div class="form-group col-sm-5">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" class="btn btn-default" id="btnBuscar">
+                        <span class="glyphicon glyphicon-search"></span>Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div typeof="hidden" id="divTipoDocumento"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/Controls/chosen.jquery.js"></script>  
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="~/Scripts/conec/catalogo/tipodocumento.js"></script>
+}
+

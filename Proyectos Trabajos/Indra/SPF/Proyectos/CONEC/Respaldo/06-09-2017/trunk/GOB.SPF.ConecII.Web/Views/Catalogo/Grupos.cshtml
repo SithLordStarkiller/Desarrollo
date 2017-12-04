@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Consulta Grupos";
+}
+
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+}
+@*<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Grupos" class="active">Grupos</a></li>
+</ol>*@
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-3 form-group">
+            <label class="control-label">Estatus:</label>
+            <div class="col-sm-12">
+                <label class="radio-inline" for="activo">
+                    <input type="radio" name="estatus" value="true" checked="checked">Activo
+                </label>
+                <label class="radio-inline" for="inactivo">
+                    <input type="radio" name="estatus" value="false">Inactivo
+                </label>
+            </div>
+        </div>
+        <div class="ui-widget col-sm-3 form-group">
+            <label class="control-label">División:</label>
+            <input id="Division" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+        </div>
+        <div class="ui-widget col-sm-3 form-group">
+            <label class="control-label">Grupo:</label>
+            <input id="Grupo" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+        </div>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <div id="divGrupo"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+<input type="hidden" id="GrupoId" />
+<input type="hidden" id="DivisionId"/>
+
+@section Scripts{
+    <script src="~/Scripts/conec/catalogo/grupos.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(function () {
+                $("#Division").autocomplete({
+                    source: "@Url.Action("ObtenerDivision")",
+                    minLength: 1,
+                    scroll: true,
+                    select: function (event, ui) {
+                        console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+                        var id = ui.item.id;
+                        $("#DivisionId").val(id);
+                    }
+                });
+            });
+
+            $(function () {
+                $("#Grupo").autocomplete({
+                    source: "@Url.Action("ObtenerGrupo")",
+                    minLength: 1,
+                    scroll: true,
+                    select: function (event, ui) {
+                        console.log("Selected: " + ui.item.value + " aka " + ui.item.id);
+                        var id = ui.item.id;
+                        $("#GrupoId").val(id);
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

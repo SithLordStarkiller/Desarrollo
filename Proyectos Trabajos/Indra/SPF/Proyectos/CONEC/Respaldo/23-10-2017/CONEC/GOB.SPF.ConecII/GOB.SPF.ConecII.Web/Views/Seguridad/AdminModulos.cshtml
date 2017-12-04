@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var listaModulos = (IEnumerable<SelectListItem>)ViewBag.ListaModulos;
+    var listaSubModulos = (IEnumerable<SelectListItem>)ViewBag.ListaSubModulos;
+}
+
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Seguridad</a></li>
+    <li><a href="#" class="active">Administrar Menús y Submenús</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>Administrador de Menús y Submenús</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-12">
+            <div class="col-lg-12" style="margin-top: 25px;">
+                <div class="col-sm-4">
+                    <label class="">Modulo:</label>
+                    @Html.DropDownList("ddlModulo", listaModulos, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="">SubModulo:</label>
+                    @Html.DropDownList("ddlSubModulo", listaSubModulos, new { @class = "form-control" })
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">Estatus:</label>
+                    <div class="" style="margin-top: 10px;">
+                        <label class="radio-inline">
+                            <input type="radio" name="rdbActivo" value="true" checked="checked">Activo
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="rdbActivo" value="false">Inactivo
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right" style="margin-top: 20px">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <br />
+        <div id="divModulos" style="margin-top: 20px; margin-bottom: 20px;"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Controls/chosen.jquery.js"></script>
+    <script src="~/Scripts/conec/Seguridad/AdminModulo.js"></script>
+    <script src="~/Scripts/conec/Seguridad/AdminModulos.js"></script>
+}

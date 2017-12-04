@@ -1,0 +1,155 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiConfiguracionTipoServicioArea
+@{
+    ViewBag.Title = "Consulta Configuracion Tipo Servicio Area";
+}
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+}
+
+@*<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Division" class="active">Divisi&oacute;n</a></li>
+</ol>*@
+@*@model GOB.SPF.ConecII.Web.Models.UiSolicitudServicioFormulario*@
+<br />
+<br />
+<br />
+<br />
+@*@switch (Model.TipoServicio.Identificador)*@
+@switch (1)
+{
+    case 1:
+        <div id="ServicioTecnologias">
+            SERVICIO DE TECNOLOGÍAS
+            <hr />
+            <div id="Fechas" class="form-group">
+                <div class="col-md-6">
+                    <label>Fecha Inicio</label>
+                    <input type="datetime" id="FechaInicio" class="form-control" />
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha Fin</label>
+                    <input type="datetime" id="FechaInicio" class="form-control" />
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            @* Se queda en hardcode porque es la ejecución de un Javascript, de los grid en javascript *@
+            <label>INSTALACIONES</label>
+            <hr />
+            <div id="Grid" class="form-group">
+                <div class="col-md-12">
+                    <table class="table table-hover">
+                        <tr>
+                            <td>NO.</td>
+                            <td>ZONA</td>
+                            <td>ESTACIÓN</td>
+                            <td>NOMBRE INST.</td>
+                            <td>ENTIDAD FED.</td>
+                            <td>MUNICIPIO</td>
+                            <td>AN. DE RIESGO</td>
+                            <td>VIGENCIA</td>
+                            <td>--</td>
+                            <td>Acción</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>mun</td>
+                            <td><input type="checkbox" /></td>
+                            <td>--</td>
+                            <td><input type="checkbox" /></td>
+                            <td></td>
+                            <td></td>
+                            <td><a href="">Consulta</a></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        break;
+    case 2:
+        <label>Concepto:</label>
+        <select>
+            <option>opcion 1</option>
+        </select>
+        <br />
+        <br />
+        <br />
+        @* Se queda en hardcode porque es la ejecución de un Javascript, de los grid en javascript *@
+        <label>
+            INSTALACIONES
+        </label>
+        <div id="GridCase2" class="form-group">
+            <div class="col-md-12">
+                <table class="table table-hover">
+                    <tr>
+                        <td>NO.</td>
+                        <td>ZONA</td>
+                        <td>ESTACIÓN</td>
+                        <td>NOMBRE INST.</td>
+                        <td>ENTIDAD FED.</td>
+                        <td>MUNICIPIO</td>
+                        <td>AN. DE RIESGO</td>
+                        <td>VIGENCIA</td>
+                        <td>--</td>
+                        <td>Acción</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>mun</td>
+                        <td><input type="checkbox" /></td>
+                        <td>--</td>
+                        <td><input type="checkbox" /></td>
+                        <td></td>
+                        <td></td>
+                        <td><a href="">Consulta</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        break;
+
+    default:
+        break;
+}
+<div id="Footer" class="form-group">
+    <input type="file" id="DocumentoSoporte" class="form-control"/>
+    <table class="table table-hover">
+        <tr>
+            <td>Nombre Archivo</td>
+            <td>Eliminar</td>
+        </tr>
+        <tr>
+            <td>Lista de Participantes</td>
+            <td>X</td>
+        </tr>
+    </table>
+    <br />
+    <label>Observaciones</label>
+    <textarea id="Observaciones" class="form-control">
+    </textarea>
+    <br />
+    <label id="lblComite">
+        <input type="checkbox" id="chkComite" />Comité
+    </label>
+    <br />
+    <textarea id="txaComentarios" class="form-control"></textarea>
+
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/conec/solicitud/solicitudServicio.js"></script>
+    @*<script src="~/Scripts/conec/catalogo/solicitudServicio.js"></script>*@    
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+}

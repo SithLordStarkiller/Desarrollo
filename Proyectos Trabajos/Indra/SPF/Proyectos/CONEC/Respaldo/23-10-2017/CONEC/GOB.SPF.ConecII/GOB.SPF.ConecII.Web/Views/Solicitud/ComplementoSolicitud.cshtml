@@ -1,0 +1,676 @@
+﻿@model  GOB.SPF.ConecII.Web.Models.Solicitud.UiSolicitud
+
+@{
+    ViewBag.Title = "Complementar de Solicitud";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.TipoRolUsuario = 1;
+}
+<div id="Header">
+    <ol class="breadcrumb">
+        <li><a href="#" onclick="javascript: document.location.href='/';"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+        <li><a id="hRegresar" href="#" >Completar Solicitudes</a></li>
+        <li>@ViewBag.Title</li>
+    </ol>
+</div>
+
+@using (Html.BeginForm("ComplementoSolicitud", "Solicitud", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "clienteForm" }))
+    {
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red" />
+    </div>
+    <fieldset>
+        <!-- #region dvTitle -->
+        <div id="dvTitle" class="panel panel-default">
+            <!-- #region dvForm0 -->
+            <div id="dvForm0" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Identificador)
+                        @Html.TextBoxFor(m => m.Identificador, new { @class = "form-control IdSolicitud", @disabled = "disabled" })
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div><!-- #endregion -->
+        </div><!-- #endregion -->
+        <!-- #region dvDatosSolicutd -->
+        <div id="dvDatosSolicutd" class="panel panel-default">
+            <div class="panel-heading">
+                Datos de Solicitud
+            </div>
+
+            <!-- #region dvForm1 -->
+            <div id="dvForm1" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(m => m.Cliente.RazonSocial)
+                        @Html.TextBoxFor(m => m.Cliente.RazonSocial, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                    <div class="col-md-3">
+                        @Html.LabelFor(m => m.Cliente.RFC)
+                        @Html.TextBoxFor(m => m.Cliente.RFC, new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+
+
+                <!-- b) Análisis de Riesgo -->
+                <!-- Análisis de Riesgo Destinatario -->
+                <!-- d) Servicio General -->
+                <!-- c) Servicio de Seguridad -->
+                @if (ViewBag.TipoRolUsuario == 1 || ViewBag.TipoRolUsuario == 2 || ViewBag.TipoRolUsuario == 3 || ViewBag.TipoRolUsuario == 4)
+                {
+                    <div class="form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(m => m.Servicio.TipoServicio.Nombre)
+                            @Html.TextBoxFor(m => m.Servicio.TipoServicio.Nombre, new { @class = "form-control", @disabled = "disabled" })
+                        </div>
+                        <div class="col-md-3">
+                            @if (ViewBag.TipoRolUsuario == 1 || ViewBag.TipoRolUsuario == 2)
+                            {
+                                <label for="NumInstalaciones"> No Instalaciones:</label>
+                            }
+                            else
+                            {
+                                <label for="NumInstalaciones"> No Instalaciones / Personas a cuidar / Bien a custodiar:</label>
+                            }
+                            <input type="text" id="NumInstalaciones" value="@Model.Servicio.ServicioInstalaciones.Count" class = "form-control" disabled = "disabled" />
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+                }
+
+
+                <!-- #endregion -->
+            </div>
+            <!-- #endregion -->
+        </div>
+        <!-- #endregion -->
+
+        <div class="form-group">
+            <div class="col-md-1"></div>
+            <div class="col-md-2">Instalaciones</div>
+            <div class="col-md-8">
+                <select id="idInstalacion" class="js-example-basic-multiple js-states form-control" multiple="multiple">
+                    @for (int iIdx = 0; iIdx < Model.Servicio.ServicioInstalaciones.Count; iIdx++)
+                    {
+                        <option value="@Model.Servicio.ServicioInstalaciones[iIdx].Identificador">@Model.Servicio.ServicioInstalaciones[iIdx].Nombre</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+
+        <div id="tabContainer">
+            <ul>
+                <li><a href="#Instalaciones">Instalaci&oacute;n<br />&nbsp;</a></li>
+                <li><a href="#EstadoFuerza">Estado de Fuerza y<br />Factores Variables</a></li>
+                <li><a href="#Suministro">Suministros<br />&nbsp;</a></li>
+                <li><a href="#Documentos">Documentos del Servicio<br />&nbsp;</a></li>
+            </ul>
+            <div id="Instalaciones">
+                <div class="panel-body">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                                <div id="NombreInstalacion" class="col-md-10"></div>
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                                <div id="divDireccionInstalacion" class="col-md-10"></div>
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-5">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='text' id="FechaInicioInstalacion" class="form-control Fecha" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class='input-group date' id='datetimepicker1'>
+                                        <input type='text' id="FechaFinInstalacion" class="form-control Fecha" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="divDivisionInstalacion">Divisi&oacute;n</label>
+                                    <div id="divDivisionInstalacion"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="divGrupoInstalacion">Grupo</label>
+                                    <div id="divGrupoInstalacion"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="divFraccionInstalacion">Fracci&oacute;n</label>
+                                    <div id="divFraccionInstalacion"></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="divDescripcionInstalacion">Descripci&oacute;n</label>
+                                    <div id="divDescripcionInstalacion"></div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label for="divActividadInstalacion">Actividad</label>
+                                    <div id="divActividadInstalacion"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="divDistanciaInstalacion">Distancia</label>
+                                    <div id="divDistanciaInstalacion"></div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="divCriminalidadInstalacion">Criminalidad</label>
+                                    <div id="divCriminalidadInstalacion"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="EstadoFuerza">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="FactorLeyIngresosEstadoFuerza">¿Aplicar ley de ingresos?</label>
+                        <input type="checkbox" id="FactorLeyIngresosEstadoFuerza" />
+                    </div>
+                    <div class="col-md-7">
+                        <label for="ClienteGastosAlimentacionEstadoFuerza">¿El cliente proporciona gastos de alimentaci&oacute;n?</label>
+                        <input type="checkbox" id="ClienteGastosAlimentacionEstadoFuerza" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-7">
+                        <label for="ClienteGastosHospedajenEstadoFuerza">¿El cliente proporciona gastos de hospedaje?</label>
+                        <input type="checkbox" id="ClienteGastosHospedajenEstadoFuerza" />
+                    </div>
+                </div>
+                <!-- #region dvGastosInherentes -->
+                <div id="dvGastosInherentes" class="panel panel-default">
+                    <div class="form-group">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-3">
+                            <select id="IdGastos" class="form-control" multiple="multiple">
+                                @foreach (var itm in (List<GOB.SPF.ConecII.Web.Models.UiGastosInherente>)ViewBag.GastosInhe)
+                                {
+                                    <option value="@itm.Identificador">@itm.Descripcion</option>
+
+                                    @*foreach (var iii in Model.IdGasto)
+                                        {
+                                            if (Convert.ToInt32(itm.Key) != iii)
+                                            {
+                                                <option value="@itm.Key">@itm.Descripcion</option>
+                                            }
+                                        }*@
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div>&nbsp;</div>
+                            <button id="btnAddGasto" class="btn btn-default">
+                                Agregar Elemento
+                            </button>
+                            <div>&nbsp;</div>
+                            <button id="btnRemoveGasto" class="btn btn-default">
+                                Quitar Elemento&nbsp;&nbsp;&nbsp;
+                            </button>
+                            <div>&nbsp;</div>
+                        </div>
+                        <div class="col-md-4">
+                            <select id="IdGastosSelected" class="form-control" multiple="multiple">
+                                @*foreach (var itm in Model.Gastos)
+                                    {
+                                        foreach (var iii in Model.IdGasto)
+                                        {
+                                            if (Convert.ToInt32(itm.Key) == iii)
+                                            {
+                                                <option value="@itm.Key">@itm.Descripcion</option>
+                                            }
+                                        }
+                                    }*@
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- #endregion -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="ConceptoEstadoFuerza">Concepto</label>
+                        <select id="ConceptoEstadoFuerza" class="form-control">
+                            <option value="-1">Seleccione un elemento</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="TurnosEstadoFuerza">Turnos</label>
+                        <select id="TurnosEstadoFuerza" class="form-control">
+                            <option value="-1">Seleccione un elemento</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="CantidadEstadoFuerza">Cantidad</label>
+                        <input type="number" id="CantidadEstadoFuerza" class="form-control" maxlength="9" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        Servicio de protecci&oacute;n, seguridad y custodia a personas del sector privado prestado por un policia tercero
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="LunesEstadoFuerza">Lunes</label>
+                        <input type="checkbox" id="LunesEstadoFuerza" />&nbsp;
+                        <label for="MartesEstadoFuerza">Martes</label>
+                        <input type="checkbox" id="MartesEstadoFuerza" />&nbsp;
+                        <label for="MiercolesEstadoFuerza">Mi&eacute;rcoles</label>
+                        <input type="checkbox" id="MiercolesEstadoFuerza" />&nbsp;
+                        <label for="JuevesEstadoFuerza">Jueves</label>
+                        <input type="checkbox" id="JuevesEstadoFuerza" />&nbsp;
+                        <label for="ViernesEstadoFuerza">Viernes</label>
+                        <input type="checkbox" id="ViernesEstadoFuerza" />&nbsp;
+                        <label for="SabadoEstadoFuerza">S&aacute;bado</label>
+                        <input type="checkbox" id="SabadoEstadoFuerza" />&nbsp;
+                        <label for="DomingoEstadoFuerza">Domingo</label>
+                        <input type="checkbox" id="DomingoEstadoFuerza" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 right"><button type="button" id="AgregarFuerza" class="btn btn-default">Agregar</button></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">&nbsp;</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;width:30%;">
+                                        Concepto
+                                    </th>
+                                    <th style="text-align:center;width:30%;" nowrap>
+                                        Turnos
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        L
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        M
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        M
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        J
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        V
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        S
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+                                        D
+                                    </th>
+                                    <th style="text-align:center;width:5%;">
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="Suministro">
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;width:23%;" rowspan="2">
+                                        Concepto
+                                    </th>
+                                    <th style="text-align:center;width:15%;" nowrap rowspan="2">
+                                        Turnos
+                                    </th>
+                                    <th style="text-align:center;width:9%;" nowrap rowspan="2">
+                                        Cantidad
+                                    </th>
+                                    <th style="text-align:center;" colspan="3">Sexo</th>
+                                    <th style="text-align:center;" colspan="3">Armas</th>
+                                    <th style="text-align:center;" colspan="3">Vestuario</th>
+                                    <th style="text-align:center;" colspan="3">Equipo</th>
+                                    <th style="text-align:center;" colspan="2">Telco</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align:center;width:3%;">
+                                        H
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        M
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        I
+                                    </th>
+
+                                    <th style="text-align:center;width:3%;">
+                                        AL
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        AC
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        M
+                                    </th>
+
+                                    <th style="text-align:center;width:3%;">
+                                        U
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        VG
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        VMG
+                                    </th>
+
+                                    <th style="text-align:center;width:3%;">
+                                        T
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        A
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        TS
+                                    </th>
+
+                                    <th style="text-align:center;width:3%;">
+                                        R
+                                    </th>
+                                    <th style="text-align:center;width:3%;">
+                                        A
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><input type="number" id="SexH" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="SexM" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="SexI" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="ArmaAL" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="ArmaAC" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="ArmaM" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="VestuarioU" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="VestuarioVG" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="VestuarioVMG" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="EquipoT" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="EquipoA" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="EquipoTS" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="TelcoR" maxlength="5" style="width:98%;" /></td>
+                                    <td><input type="number" id="TelcoA" maxlength="5" style="width:98%;" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div id="Documentos">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="dvDocumentosparaintegrar" class="panel panel-default">
+                            <div class="panel-heading">
+                                Documentos para Integrar
+                            </div>
+
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;width:50%;" rowspan="2">
+                                            Documento
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            &nbsp;
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            &nbsp;
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            &nbsp;
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            &nbsp;
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            &nbsp;
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dvCargarAnexoTecnico" class="panel panel-default">
+                    <div class="panel-heading">
+                        Cargar Anexo T&eacute;cnico
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="file" id="AgregarArchivoTecnico" multiple class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="ObservacionesArchivoTecnico">Observaciones</label>
+                            <textarea id="ObservacionesArchivoTecnico" class="form-control" rows="3" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dvComplementarSignatarios" class="panel panel-default">
+                    <div class="row">
+                        <div class="col-md-12 right">
+                            <button id="ComlementarSignatarios" class="btn btn-primary right">Complementar Signatarios</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="dvSignatarios" class="panel panel-default">
+                    <div class="panel-heading">
+                        Signatarios
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="SignatarioNombreCompleto">Nombre Completo</label>
+                            <input type="text" id="SignatarioNombreCompleto" />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="SignatarioAreaFuncional">&Aacute;rea Funcional</label>
+                            <input type="text" id="SignatarioAreaFuncional" />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="SignatarioCargo">Cargo</label>
+                            <input type="text" id="SignatarioCargo" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 right">
+                            <button id="SignatariosAgregar" class="btn btn-primary right">Agregar</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="dvSiganatarios" class="col-md-7">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;width:50%;" rowspan="2">
+                                            Nombre Completo
+                                        </th>
+                                        <th style="text-align:center;width:30%;" nowrap rowspan="2">
+                                            &Aacute;rea Funcional
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            Carga
+                                        </th>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 right">
+                            <button id="SignatariosRegresar" class="btn btn-primary right">Regresar</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="dvDocumentosSoporteDocumental" class="panel panel-default">
+                    <div class="panel-heading">
+                        Documentos de Soporte Documental
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <input type="file" id="AgregarArchivo" multiple class="form-control" />
+                        </div>
+                        <div class="col-md-7">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center;width:50%;" rowspan="2">
+                                            Nombre
+                                        </th>
+                                        <th style="text-align:center;width:30%;" nowrap rowspan="2">
+                                            Formato
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            Fecha
+                                        </th>
+                                        <th style="text-align:center;width:10%;" nowrap rowspan="2">
+                                            Tamaño
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <br />
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+        <button type="button" class="btn btn-default" id="btnSave" @ViewBag.Visible>
+            <span class="glyphicon glyphicon-save"></span>Guardar
+        </button>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+}

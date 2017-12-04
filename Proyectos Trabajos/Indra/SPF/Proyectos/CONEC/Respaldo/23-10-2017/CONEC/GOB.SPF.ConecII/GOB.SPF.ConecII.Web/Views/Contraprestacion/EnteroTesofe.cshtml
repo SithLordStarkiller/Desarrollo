@@ -1,0 +1,46 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiEnteroTesofe
+
+<form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Formato de Cetes
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary" style="box-shadow: 0 0px 0 0 #1b5dab;padding: 7px 33px;">
+                        Browse&hellip; <input type="file" id="documento" name="fileUpload" style="display: none;">
+                    </span>
+                </label>
+                <input type="text" id="fileUrl" class="form-control" readonly>
+            </div>
+            <div id="enteroDocumentos"></div>
+        </div>
+        <div class="panel-body">
+            <div id="LoadingExcelData" style="display: none; text-align: center;">
+                <img src="../../Content/Conec/images/wait.gif" style="margin: 0 auto;" />
+            </div>
+            <div id="enteroList" style="display: none;"></div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            <p class="pull-left">*Campos obligatorios</p>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBack">
+                    <span class="glyphicon glyphicon-backward"></span>
+                    Cancelar
+                </button>
+
+                <button type="button" class="btn btn-default" id="btnSave">
+                    <span class="glyphicon glyphicon-upload"></span>
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    var enteroModel = function () { return @Html.Raw(Json.Encode(Model)) }();
+</script>

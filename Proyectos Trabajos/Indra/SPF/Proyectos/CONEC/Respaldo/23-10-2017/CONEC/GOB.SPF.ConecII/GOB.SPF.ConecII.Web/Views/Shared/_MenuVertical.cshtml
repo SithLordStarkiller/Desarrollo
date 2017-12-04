@@ -1,0 +1,60 @@
+﻿@using GOB.SPF.ConecII.Interfaces
+@model List<GOB.SPF.ConecII.Web.Models.Seguridad.UiModulo>
+<nav class="navbar navbar-inverse sub-navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#subenlaces">
+                <span class="sr-only">Interruptor de Navegación</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">SPF</a>
+        </div>
+        <div class="collapse navbar-collapse" id="subenlaces">
+            <ul class="nav navbar-nav navbar-left">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    foreach (var elem in Model)
+                     {
+                         <li class="dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@elem.Nombre<span class="caret"></span></a>
+                             <ul class="dropdown-menu" role="menu">
+                                 @foreach (var subelem in new List<IModulo>(elem.SubModulos))
+                                 {
+                                     var thirdelems = new List<IModulo>(subelem.SubModulos);
+                                     if (thirdelems.Count > 0)
+                                     {
+                                         <li>
+                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">@subelem.Nombre <span class="caret"></span></a>
+                                             <ul class="dropdown-menu" role="menu">
+                                                 @foreach (var thirdelem in thirdelems)
+                                                 {
+                                                     <li>
+                                                         <a href="@Url.Action(thirdelem.Accion, thirdelem.Controlador)">
+                                                             <i class="glyphicon glyphicon-minus"></i>
+                                                             <span class="collapse-in hidden-xs"> @thirdelem.Nombre </span>
+                                                         </a>
+                                                     </li>
+                                                 }
+                                             </ul>
+                                         </li>
+                                     }
+                                     else
+                                     {
+                                         <li>
+                                             <a href="@Url.Action(@subelem.Accion, @subelem.Controlador)">
+                                                 <i class="glyphicon glyphicon-minus"></i>
+                                                 <span class="collapse-in hidden-xs">@subelem.Nombre</span>
+                                             </a>
+                                         </li>
+                                     }
+                                 }
+                             </ul>
+                         </li>
+                     }
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

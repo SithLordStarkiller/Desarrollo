@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Consulta Dependencias";
+}
+
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+}
+
+@*<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Dependencias" class="active">Dependencias</a></li>
+</ol>*@
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-4 form-group">
+            <label class="control-label">Estatus:</label>
+            <div class="col-sm-12">
+                <label class="radio-inline" for="activo">
+                    <input type="radio" name="estatus" value="true" checked="checked">Activo
+                </label>
+                <label class="radio-inline" for="inactivo">
+                    <input type="radio" name="estatus" value="false">Inactivo
+                </label>
+            </div>
+        </div>
+        <div class="ui-widget col-md-3 form-group">
+            <label class="control-label">Dependencia:</label>
+            <input id="AutComD" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+        </div>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <div id="divDependencias"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+
+<input type="hidden" id="DependenciaId" />
+
+@section Scripts{
+    <script src="~/Scripts/conec/catalogo/dependencias.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+}
+

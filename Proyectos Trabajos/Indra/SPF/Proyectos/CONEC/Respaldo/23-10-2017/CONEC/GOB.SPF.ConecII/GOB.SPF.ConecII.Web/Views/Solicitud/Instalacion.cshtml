@@ -1,0 +1,723 @@
+﻿@using GOB.SPF.ConecII.Web.Models
+@model UiInstalacion
+@{
+    var listaZonas = (IEnumerable<SelectListItem>)ViewBag.ListaZonas;
+    var listaEstacion = (IEnumerable<SelectListItem>)ViewBag.ListaEstacion;
+
+    var listaEstados = (IEnumerable<SelectListItem>)ViewBag.ListaEstados;
+    var listaMunicipios = (IEnumerable<SelectListItem>)ViewBag.ListaMunicipios;
+    var listaAsentamientos = (IEnumerable<SelectListItem>)ViewBag.ListaAsentamientos;
+    var listaTiposInstalacion = (IEnumerable<SelectListItem>)ViewBag.ListaTiposInstalacion;
+
+    var disabled = (string)ViewBag.Editable;
+}
+
+@using (Html.BeginForm("Instalacion", "Solicitud", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "instalacionForm" }))
+{
+    @Html.HiddenFor(x => x.IdCliente)
+    @Html.HiddenFor(x => x.Identificador)
+
+    <h3>@ViewBag.Tittle</h3>
+    <hr class="red" />
+    <div class="row">
+        <p class="pull-left">*Campos obligatorios</p>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Datos Cliente
+        </div>
+        <div class="panel-body">
+            <div class="col-lg-12">
+                <div class="col-lg-4">
+                    <label>Razon social*:</label>
+                    <div class="">
+                        @Html.TextBoxFor(model => model.RazonSocial, new { @class = "form-control", disabled = "disable" })
+                        @Html.ValidationMessageFor(model => model.RazonSocial, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>Nombre corto del cliente*:</label>
+                    <div class="">
+                        @Html.TextBoxFor(model => model.NombreCorto, new { @class = "form-control", disabled = "disable" })
+                        @Html.ValidationMessageFor(model => model.NombreCorto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <label>RFC*:</label>
+                    <div class="">
+                        @Html.TextBoxFor(model => model.Rfc, new { @class = "form-control", disabled = "disable" })
+                        @Html.ValidationMessageFor(model => model.Rfc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                            @Html.AntiForgeryToken()
+    if (!Model.Action.Equals(UiEnumEntity.View))
+    {
+        <div>
+            @*<h3>@ViewBag.Tittle</h3>
+                <hr class="red" />
+                <div class="row">
+                    <p class="pull-left">*Campos obligatorios</p>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        Datos Cliente
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label>Razon social*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.RazonSocial, new { @class = "form-control", disabled = "disable" })
+                                    @Html.ValidationMessageFor(model => model.RazonSocial, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Nombre corto del cliente*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.NombreCorto, new { @class = "form-control", disabled = "disable" })
+                                    @Html.ValidationMessageFor(model => model.NombreCorto, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Correo electronico*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.NombreCorto, new { @class = "form-control", disabled = "disable" })
+                                    @Html.ValidationMessageFor(model => model.NombreCorto, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Datos Instalación
+                </div>
+                <div class="panel-body">
+                    <div id="divDatosInstalacion">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label>Zona*:</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.Zona.IdZona, listaZonas, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Zona.IdZona, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <Label>Estación*:</Label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.Estacion.IdEstacion, listaEstacion, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Nombre Instalación*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label>Tipos de Instalacion*:</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.TipoInstalacion.Identificador, listaTiposInstalacion, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.TipoInstalacion.Identificador, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-md-6">
+                                <h5>Teléfono</h5>
+                                <hr class="red" />
+                                <form></form>
+                                @{
+                                    if (!Model.Action.Equals(UiEnumEntity.View))
+                                    {
+                                        Html.RenderAction("TelefonosInstalacion", "Solicitud");
+                                    }
+                                }
+                                <div id="clienteContactosTelefonos"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Correos</h5>
+                                <hr class="red" />
+                                @{
+                                    if (!Model.Action.Equals(UiEnumEntity.View))
+                                    {
+                                        Html.RenderAction("CorreosInstalacion", "Solicitud");
+                                    }
+                                }
+                                <div id="clienteContactosCorreos"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="margin-top: 15px;">
+                            <div class="col-lg-4">
+                                <label class="">Fecha inicial*:</label>
+                                <div class="datepicker-group">
+                                    @Html.TextBoxFor(model => model.FechaInicio, new { @class = "form-control datepicker", @value = @Model.FechaInicio })
+                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                    @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger ", @value = @Model.FechaInicio })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Fecha Final*:</label>
+                                <div class="datepicker-group">
+                                    @Html.TextBoxFor(model => model.FechaFin, new { @class = "form-control datepicker" })
+                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                    @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger " })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Domicilio de la Instalación
+                </div>
+                <div class="panel-body">
+                    <div id="divDomicilio">
+                        <div class="col-lg-12" style="margin-top: 15px;">
+                            <div class="col-lg-4">
+                                <label>Calle*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Calle, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Calle, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Número interior*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.NumInterior, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.NumInterior, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Número exterior*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.NumExterior, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.NumExterior, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="margin-top: 15px;">
+                            <div class="col-lg-4">
+                                <label>Código postal*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Asentamiento.CodigoPostal, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Asentamiento.CodigoPostal, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Entidad federativa*:</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.Asentamiento.Estado.Identificador, listaEstados, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Asentamiento.Estado.Identificador, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Municipio/Delegación*:</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.Asentamiento.Municipio.Identificador, listaMunicipios, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Asentamiento.Municipio.Identificador, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="margin-top: 15px;">
+                            <div class="col-lg-4">
+                                <label>Colonia*:</label>
+                                <div class="">
+                                    @Html.DropDownListFor(model => model.Asentamiento.Identificador, listaAsentamientos, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Asentamiento.Identificador, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Colindancia*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Colindancia, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Colindancia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Referencia*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Referencia, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Referencia, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12" style="margin-top: 15px;">
+                            <div class="" style="margin-top: 15px;">
+                                <div class="col-lg-12">
+                                    <label>Ubicacion</label>
+                                </div>
+                                <div id="floating-panel" class="">
+                                    @if (!Model.Action.Equals(UiEnumEntity.View))
+                                    {
+                                    <div class="col-lg-8">
+                                        <input id="txbDireccion" type="text" value="" class="form-control">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <input id="btnGeo" class="btn-sm btn-default btn" type="button" onclick="maps()" value="Localizacion">
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-lg-offset-1 col-lg-10" style="margin-top: 15px;">
+                                <div class="vertical-align" id="googleMap">
+                                    <div id="mapa" style="height: 30em; width: 45em;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <label>Latitud*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Latitud, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label>Longitud*:</label>
+                                <div class="">
+                                    @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Longitud, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Datos Factores
+                </div>
+                <div class="panel-body">
+                    <div id="divFactores">
+                        <div class="col-lg-12" style="margin-top: 15px;">
+                            @if (!Model.Action.Equals(UiEnumEntity.View))
+                            {
+                            <div class="col-lg-4">
+                                Division*:
+                                @Html.DropDownListFor(m => m.Divicion.Identificador, ViewBag.Divisiones != null ? (IEnumerable<SelectListItem>)ViewBag.Divisiones : new List<SelectListItem>(),
+                                    "Seleccione", new { @class = "form-control" })
+                            </div>
+                            <div class="col-lg-4">
+                                Grupo*:
+                                @Html.DropDownListFor(m => m.Grupo.Identificador, ViewBag.Grupos != null ? (IEnumerable<SelectListItem>)ViewBag.Grupos : new List<SelectListItem>(),
+                                    "Seleccione", new { @class = "form-control" })
+                            </div>
+                            }
+                            <div class="col-lg-4">
+                                Fraccion*:
+                                @Html.DropDownListFor(m => m.Fraccion.Identificador, ViewBag.Fracciones != null ? (IEnumerable<SelectListItem>)ViewBag.Fracciones : new List<SelectListItem>(),
+                                "Seleccione", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBack">
+                    <span class="glyphicon glyphicon-backward"></span>Cancelar
+                </button>
+                @if (!Model.Action.Equals(UiEnumEntity.View))
+                {
+                <button type="button" class="btn btn-default" id="btnSave" @ViewBag.Visible>
+                    <span class="glyphicon glyphicon-save"></span>Guardar
+                </button>
+                }
+            </div>
+        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    Datos Instalación
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="divDatosInstalacion">
+                                                        <div class="col-lg-12">
+                                                            <div class="col-lg-4">
+                                                                <label>Zona*:</label>
+                                                                <div class="">
+                                                                    @Html.DropDownListFor(model => model.Zona.IdZona, listaZonas, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Zona.IdZona, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <Label>Estación*:</Label>
+                                                                <div class="">
+                                                                    @Html.DropDownListFor(model => model.Estacion.IdEstacion, listaEstacion, new { @class = "form-control", @disabled })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Nombre Instalación*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="col-lg-4">
+                                                                <label>Tipos de Instalacion*:</label>
+                                                                <div class="">
+                                                                    @Html.DropDownListFor(model => model.TipoInstalacion.Identificador, listaTiposInstalacion, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.TipoInstalacion.Identificador, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="col-md-6">
+                                                                <h5>Teléfono</h5>
+                                                                <hr class="red" />
+                                                                <form></form>
+                                                                @{
+                                                                    if (!Model.Action.Equals(UiEnumEntity.View))
+                                                                    {
+                                                                        Html.RenderAction("TelefonosInstalacion", "Solicitud");
+                                                                    }
+                                                                }
+                                                                <div id="clienteContactosTelefonos"></div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <h5>Correos</h5>
+                                                                <hr class="red" />
+                                                                @{
+                                                                    if (!Model.Action.Equals(UiEnumEntity.View))
+                                                                    {
+                                                                        Html.RenderAction("CorreosInstalacion", "Solicitud");
+                                                                    }
+                                                                }
+                                                                <div id="clienteContactosCorreos"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                                            <div class="col-lg-4">
+                                                                <label class="">Fecha inicial*:</label>
+                                                                <div class="datepicker-group">
+                                                                    @Html.TextBoxFor(model => model.FechaInicio, new { @class = "form-control datepicker", @value = @Model.FechaInicio, @disabled })
+                                                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                                    @Html.ValidationMessageFor(model => model.FechaInicio, "", new { @class = "text-danger ", @value = @Model.FechaInicio, @disabled })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Fecha Final*:</label>
+                                                                <div class="datepicker-group">
+                                                                    @Html.TextBoxFor(model => model.FechaFin, new { @class = "form-control datepicker", @disabled })
+                                                                    <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                                                    @Html.ValidationMessageFor(model => model.FechaFin, "", new { @class = "text-danger " })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    Domicilio de la Instalación
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="divDomicilio">
+                                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                                            <div class="col-lg-4">
+                                                                <label>Calle*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Calle, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Calle, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Número interior*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.NumInterior, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.NumInterior, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Número exterior*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.NumExterior, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.NumExterior, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                                            <div class="col-lg-4">
+                                                                <label>Código postal*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Asentamiento.CodigoPostal, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Asentamiento.CodigoPostal, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Entidad federativa*:</label>
+                                                                <div class="">
+                                                                    @Html.DropDownListFor(model => model.Asentamiento.Estado.Identificador, listaEstados, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Asentamiento.Estado.Identificador, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Municipio/Delegación*:</label>
+                                                                <div class="">
+                                                                    @Html.DropDownListFor(model => model.Asentamiento.Municipio.Identificador, listaMunicipios, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Asentamiento.Municipio.Identificador, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                                            <div class="col-lg-4">
+                                                                <label>Colonia*:</label>
+                                                                <div class="">
+                                                                    @Html.DropDownListFor(model => model.Asentamiento.Identificador, listaAsentamientos, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Asentamiento.Identificador, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Colindancia*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Colindancia, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Colindancia, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Referencia*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Referencia, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Referencia, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                                            <div class="" style="margin-top: 15px;">
+                                                                <div class="col-lg-12">
+                                                                    <label>Ubicacion</label>
+                                                                </div>
+                                                                <div id="floating-panel" class="">
+                                                                    @if (!Model.Action.Equals(UiEnumEntity.View))
+                                                                    {
+                                                                    <div class="col-lg-8">
+                                                                        <input id="txbDireccion" type="text" value="" class="form-control">
+                                                                    </div>
+                                                                    <div class="col-lg-4">
+                                                                        <input id="btnGeo" class="btn-sm btn-default btn" type="button" onclick="maps()" value="Localizacion">
+                                                                    </div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-offset-1 col-lg-10" style="margin-top: 15px;">
+                                                                <div class="vertical-align" id="googleMap">
+                                                                    <div id="mapa" style="height: 30em; width: 45em;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-12">
+                                                            <div class="col-lg-4">
+                                                                <label>Latitud*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Latitud, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label>Longitud*:</label>
+                                                                <div class="">
+                                                                    @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", @disabled })
+                                                                    @Html.ValidationMessageFor(model => model.Longitud, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    Datos Factores
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="divFactores">
+                                                        <div class="col-lg-12" style="margin-top: 15px;">
+                                                            @if (!Model.Action.Equals(UiEnumEntity.View))
+                                                            {
+                                                            <div class="col-lg-4">
+                                                                Division*:
+                                                                @Html.DropDownListFor(m => m.Divicion.Identificador, ViewBag.Divisiones != null ? (IEnumerable<SelectListItem>)ViewBag.Divisiones : new List<SelectListItem>(),
+                                    "Seleccione", new { @class = "form-control", @disabled })
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                Grupo*:
+                                                                @Html.DropDownListFor(m => m.Grupo.Identificador, ViewBag.Grupos != null ? (IEnumerable<SelectListItem>)ViewBag.Grupos : new List<SelectListItem>(),
+                                    "Seleccione", new { @class = "form-control", @disabled })
+                                                            </div>
+                                                            }
+                                                            <div class="col-lg-4">
+                                                                Fraccion*:
+                                                                @Html.DropDownListFor(m => m.Fraccion.Identificador, ViewBag.Fracciones != null ? (IEnumerable<SelectListItem>)ViewBag.Fracciones : new List<SelectListItem>(),
+                                "Seleccione", new { @class = "form-control", @disabled })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="pull-right">
+                                                <button type="button" class="btn btn-default" id="btnBack">
+                                                    <span class="glyphicon glyphicon-backward"></span>Cancelar
+                                                </button>
+                                                @if (!Model.Action.Equals(UiEnumEntity.View))
+                                                {
+                                                <button type="button" class="btn btn-default" id="btnSave" @ViewBag.Visible>
+                                                    <span class="glyphicon glyphicon-save"></span>Guardar
+                                                </button>
+                                                }
+                                            </div>
+                                        </div>
+                                                                        }
+                                                                    }
+<script>
+    var instalacionModel = function () { return @Html.Raw(Json.Encode(Model)) }();
+
+    function initMap() {
+        debugger;
+        var a = document.getElementById('mapa');
+
+        if (a != undefined) {
+
+            var div = document.getElementById('mapa');
+            var map = new google.maps.Map(div, {
+                zoom: 18,
+                center: { lat: 19.4326077, lng: -99.13320799999997 }
+            });
+
+            var geocoder = new google.maps.Geocoder();
+
+            var lat = $("#Latitud").val();
+            var lng = $("#Longitud").val();
+
+
+            if (lat !== "" && lng !== "") {
+                var coord = { lat: parseFloat(lat), lng: parseFloat(lng) };
+
+                map = new google.maps.Map(div, {
+                    zoom: 18,
+                    center: coord
+                });
+
+                var marker = new google.maps.Marker({
+                    position: coord,
+                    map: map
+                });
+
+                var estado = $("#Asentamiento_Estado_Identificador option:selected").text();
+                var municipio = $("#Asentamiento_Municipio_Identificador option:selected").text();
+                var colonia = $("#Asentamiento option:selected").text();
+                var cp = $("#Asentamiento_CodigoPostal").val();
+                var calle = $("#Calle").val();
+                var noExt = $("#NumExterior").val();
+
+                var address = estado + " " + municipio + " " + colonia + " " + cp + " " + calle + " " + noExt;
+
+                $("#txbDireccion").val(address);
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: '<p>Marker Location:' + marker.getPosition() + '</p>'
+                });
+
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+            }
+
+            document.getElementById('btnGeo').addEventListener('click', function () {
+                geocodeAddress(geocoder, "", map);
+            });
+        }
+    };
+
+    function geocodeAddress(geocoder, coord, resultsMap) {
+        var estado = $("#Asentamiento_Estado_Identificador option:selected").text();
+        var municipio = $("#Asentamiento_Municipio_Identificador option:selected").text();
+        var colonia = $("#Asentamiento option:selected").text();
+        var cp = $("#Asentamiento_CodigoPostal").val();
+        var calle = $("#Calle").val();
+        var noExt = $("#NumExterior").val();
+        debugger;
+        var address = estado + " " + municipio + " " + colonia + " " + cp + " " + calle + " " + noExt;
+
+        $("#txbDireccion").val(address);
+
+
+        geocoder.geocode({ 'address': address }, function (results, status) {
+            debugger;
+            if (status === 'OK') {
+                resultsMap.setCenter(results[0].geometry.location);
+
+                var marker = new google.maps.Marker({
+                    map: resultsMap,
+                    position: results[0].geometry.location
+                });
+                getLatitudeLongitude(showResult, address);
+
+            } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+            }
+        });
+
+        function showResult(result) {
+            debugger;
+            var lat = result.geometry.location.lat();
+            var lng = result.geometry.location.lng();
+            $("#Latitud").val(lat);
+            $("#Longitud").val(lng);
+        }
+
+        function getLatitudeLongitude(callback, address) {
+
+            geocoder = new google.maps.Geocoder();
+            if (geocoder) {
+                geocoder.geocode({
+                    'address': address
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        callback(results[0]);
+                    }
+                });
+            }
+        }
+
+        var button = document.getElementById('btn');
+
+        button.addEventListener("click", function () {
+            var address = document.getElementById('address').value;
+            getLatitudeLongitude(showResult, address);
+        });
+
+
+    }
+
+    $(document).ready(function () {
+        $(".datepicker").datepicker();
+        $("#FechaInicio").val("@Model.FechaInicio.ToString()");
+        $("#FechaFin").val("@Model.FechaFin.ToString()");
+        debugger;
+        $("#TipoTelefono_Identificador option[value='Selecione']").remove();
+        $("#TipoTelefono_Identificador").val(1);
+    });
+
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9u3HUcvaBZAw2HIsvKwOFOzBdO0bFb88&callback=initMap"></script>
+

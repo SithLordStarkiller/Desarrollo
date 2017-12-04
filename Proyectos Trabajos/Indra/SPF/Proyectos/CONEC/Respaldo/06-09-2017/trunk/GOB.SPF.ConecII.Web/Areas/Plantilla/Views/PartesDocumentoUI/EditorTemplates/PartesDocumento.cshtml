@@ -1,0 +1,113 @@
+﻿@model GOB.SPF.ConecII.Entities.Plantilla.PartesDocumento
+@Html.HiddenFor(model => model.IdParteDocumento)
+@{
+    GOB.SPF.ConecII.Entities.Plantilla.PartesDocumentoDtoBuscar buscar = ViewBag.Buscar;
+}
+<div id="divPartesDocumento">
+    @Html.Hidden("IdParteDocumentoBuscar", buscar.IdParteDocumentoBuscar)
+    @Html.Hidden("IdTipoDocumentoBuscar", buscar.IdTipoDocumentoBuscar)
+    @Html.Hidden("RutaLogoBuscar", buscar.RutaLogoBuscar)
+    @Html.Hidden("FolioBuscar", buscar.FolioBuscar)
+    @Html.Hidden("AsuntoBuscar", buscar.AsuntoBuscar)
+    @Html.Hidden("LugarFechaBuscar", buscar.LugarFechaBuscar)
+    @Html.Hidden("PaginadoBuscar", buscar.PaginadoBuscar)
+    @Html.Hidden("CcpBuscar", buscar.CcpBuscar)
+    @Html.Hidden("PuestoBuscar", buscar.PuestoBuscar)
+    @Html.Hidden("NombreBuscar", buscar.NombreBuscar)
+    @Html.Hidden("DireccionBuscar", buscar.DireccionBuscar)
+    @Html.Hidden("FechaInicialBuscar", buscar.FechaInicialBuscar)
+    @Html.Hidden("FechaFinalBuscar", buscar.FechaFinalBuscar)
+    @Html.Hidden("ActivoBuscar", buscar.ActivoBuscar)
+    @Html.Hidden("PageCurrent", buscar.PageCurrent)
+    @Html.Hidden("PageSize", buscar.PageSize)
+    @Html.Hidden("ItemId", buscar.ItemId)
+
+    @Html.ValidationSummary(true)
+
+    <div class="row form-group">
+        @Html.LabelFor(model => model.IdParteDocumento, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.IdParteDocumento, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IdParteDocumento)
+        </div>
+        @Html.LabelFor(model => model.RutaLogo, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.RutaLogo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.RutaLogo)
+        </div>
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.Folio, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Folio, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Folio)
+        </div>
+        @Html.LabelFor(model => model.Asunto, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Asunto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Asunto)
+        </div>
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.LugarFecha, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.LugarFecha, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.LugarFecha)
+        </div>
+        @Html.LabelFor(model => model.Paginado, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Paginado, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Paginado)
+        </div>
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.Ccp, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Ccp, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Ccp)
+        </div>
+        @Html.LabelFor(model => model.Puesto, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Puesto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Puesto)
+        </div>
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.Nombre, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nombre)
+        </div>
+        @Html.LabelFor(model => model.Direccion, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.Direccion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Direccion)
+        </div>
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.FechaInicial, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.FechaInicial, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FechaInicial)
+        </div>
+        @Html.LabelFor(model => model.FechaFinal, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.EditorFor(model => model.FechaFinal, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.FechaFinal)
+        </div>
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.Activo, new { @class = "col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1 col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.CheckBoxFor(model => model.Activo, new { @class = "form-control" } )
+            @Html.ValidationMessageFor(model => model.Activo)
+        </div>
+    </div>
+        @Html.LabelFor(model => model.IdTipoDocumento, new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+            @Html.DropDownListFor(model => model.IdTipoDocumento, new SelectList(ViewBag.lstTiposDocumento, "Id", "Valor"), "Seleccionar...", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IdTipoDocumento)
+        </div>
+    </div>
+    <br />
+</div>

@@ -1,0 +1,139 @@
+﻿@using GOB.SPF.ConecII.Web.Models
+@model UiAreasValidadoras
+@{
+    var listaTiposServicio = (IEnumerable<SelectListItem>)ViewBag.ListaTipoServicio;
+    var listaActividades = (IEnumerable<SelectListItem>)ViewBag.ListaActividades;
+    var listaAreas = (IEnumerable<SelectListItem>)ViewBag.ListaAreas;
+
+    var listaTiposServicioFiltrado = (IEnumerable<SelectListItem>)ViewBag.ListaTipoServicio;
+
+    if (Model.Action.Equals(UiEnumEntity.New))
+    {
+        var areasValidadas = (List<UiAreasValidadoras>)ViewBag.AreasValidadas;
+        if (areasValidadas.Count != 0)
+        {
+            listaTiposServicioFiltrado = listaTiposServicio.Where(a => areasValidadas.Any(x => x.IdTipoServicio != Convert.ToInt32(a.Value))).AsEnumerable();
+        }
+    }
+}
+<div>
+@using (Html.BeginForm("AreasValidadora", "Configuracion", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "referenciaForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+    <div class="row">
+        @if (Model.Action.Equals(UiEnumEntity.View))
+        {
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.TipoServicio, "Tipo de servicio:")
+                    @Html.TextBoxFor(m => m.TipoServicio, new { @class = "form-control", placeholder = "Tipo de servicio", @readonly = true, @disabled = true })
+                    @Html.DropDownListFor(m => m.IdTipoServicio, listaTiposServicio, new { @class = "form-control", placeholder = "Tipo de servicio",style="visibility: hidden" })
+                    @Html.ValidationMessageFor(m => m.TipoServicio)
+                </div>
+            </div>
+        }
+        else if (Model.Action.Equals(UiEnumEntity.Edit))
+        {
+            @Html.HiddenFor(m => m.IdAreasValidadoras)
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.TipoServicio, "Tipo de servicio:")
+                @Html.TextBoxFor(m => m.TipoServicio, new { @class = "form-control", placeholder = "Tipo de servicio", disabled = "disabled" })
+                @Html.DropDownListFor(m => m.IdTipoServicio, listaTiposServicio, new { @class = "form-control", placeholder = "Tipo de servicio", style = "visibility: hidden" })
+                @Html.ValidationMessageFor(m => m.TipoServicio)
+            </div>
+        }
+        else if (Model.Action.Equals(UiEnumEntity.New))
+        {
+            @Html.HiddenFor(m => m.IdAreasValidadoras)
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.TipoServicio, "Tipo de servicio:")
+                @Html.DropDownListFor(m => m.IdTipoServicio, listaTiposServicioFiltrado, new { @class = "form-control", placeholder = "Tipo de servicio" })
+                @Html.ValidationMessageFor(m => m.TipoServicio)
+            </div>
+        }
+    </div>
+    <br />
+    <br />
+    if (!Model.Action.Equals(UiEnumEntity.View))
+    {
+        foreach (var item in listaActividades.Where(x => x.Value != "0"))
+        {
+            <div class="row" data-idActividades="@item.Value">
+                <br />
+                <fieldset>
+                    <legend>@item.Text</legend>
+                    <input id="txtActividad_@item.Value" value="@item.Text" type="hidden" />
+                    <div class="col-lg-12" style="margin: 0 10px;">
+                        <div class="col-lg-4">
+                            <label class="control-label">Centro de costo que validara:</label>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="control-label">Obligatoriedad:</label>
+                        </div>
+                        <div class="col-lg-4"></div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <div class="">
+                                @Html.DropDownList("ddlIdCentroCosto_" + item.Value, listaAreas, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+
+                            <div class="col-sm-12">
+                                <label class="radio-inline">
+                                    <input type="radio" name="rdbObligatorio_@item.Value" value="true">Si
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="rdbObligatorio_@item.Value" value="false" checked="checked">No
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <button type="button" class="btn btn-default btn-xm pull-right areaVelidadora-add" data-id="@item.Value" id="btnAgregarArea_@item.Value">
+                                @*<span class="glyphicon glyphicon-save"></span>*@Agregar area validadora
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <br />
+            <br/>
+            <script>
+                $("#ddlIdCentroCosto_" + @item.Value).select2();
+            </script>
+        }
+    }
+    <div id="divActividadesAreas">
+        
+    </div>
+
+    <br />
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (Model.Action.Equals(UiEnumEntity.New))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+        else if (Model.Action.Equals(UiEnumEntity.Edit))
+        {
+            <button type="button" class="btn btn-default" id="btnUpdate">
+                <span class="glyphicon glyphicon-save"></span>Actualizar
+            </button>
+        }
+    </div>
+    <br />
+    <br />
+    <br />
+}
+    </div>

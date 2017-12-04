@@ -1,0 +1,104 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiDomicilio
+
+    @Html.ValidationSummary(true)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Domicilio fiscal
+        </div>
+        <div class="panel-body">
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-horizontal">
+                @if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View) || Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.Add))
+                {
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.IdEstado, "Entidad:")
+                            @Html.DisplayFor(model => model.Estado)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.IdMunicipio, "Municipio:")
+                            @Html.DisplayFor(model => model.Municipio)
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.IdAsentamiento, "Asentamiento:")
+                            @Html.DisplayFor(model => model.Asentammiento)
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.CodigoPostal, "Código Postal:")
+                            @Html.DisplayFor(model => model.CodigoPostal, new { @class = "form-control", placeholder = "Ingrese el código postal" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.Calle, "Calle:")
+                            @Html.DisplayFor(model => model.Calle)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.NoExterior, "No. Exterior:")
+                            @Html.DisplayFor(model => model.NoExterior)
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.NoInterior, "No. Interior:")
+                            @Html.DisplayFor(model => model.NoInterior)
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.CodigoPostal, "Código Postal:")
+                            @Html.TextBoxFor(model => model.CodigoPostal, new { @class = "form-control", placeholder = "Ingrese el código postal" })
+                            @Html.ValidationMessageFor(model => model.CodigoPostal, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.IdEstado, "Entidad:", htmlAttributes: new { })
+                            @Html.DropDownListFor(model => model.IdEstado, (IEnumerable<SelectListItem>)ViewBag.Estados, "Selecciona la Endidad", new { htmlAttributes = new { @class = "form-control" }, id="Estados", @class="form-control" })
+                            @Html.ValidationMessageFor(model => model.IdEstado, "", htmlAttributes: new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model.IdMunicipio, "Municipio:")
+                            @*@Html.DropDownListFor(model => model.IdMunicipio, (IEnumerable<SelectListItem>)ViewBag.MunicipiosList, "Selecciona un Municipio", new { htmlAttributes = new { @class = "form-control", id = "Municipios" } })*@
+                            <select id="Municipios" class="form-control">
+                                <option value="0">Seleccione un Municipio</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.IdMunicipio, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-4">
+                            @Html.LabelFor(model => model.IdAsentamiento, "Colonia o Asentamiento:")
+                            @*@Html.DropDownListFor(model => model.IdAsentamiento, (IEnumerable<SelectListItem>)ViewBag.AsentamientosList, "Selecciona el Asentamiento", new { htmlAttributes = new { @class = "form-control" } })*@
+                            <select id="Asentamientos" class="form-control">
+                                <option value="0">Seleccione un Asentamiento</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.IdAsentamiento, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @Html.LabelFor(model => model.Calle, "Calle:")
+                            @Html.TextBoxFor(model => model.Calle, new { @class = "form-control", placeholder = "Ingrese la calle" })
+                            @Html.ValidationMessageFor(model => model.Calle, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.NoExterior, "No. Exterior:")
+                            @Html.TextBoxFor(model => model.NoExterior, new { @class = "form-control", placeholder = "Ingrese el número exterior" })
+                            @Html.ValidationMessageFor(model => model.NoExterior, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.LabelFor(model => model.NoInterior, "No. Interior:")
+                            @Html.TextBoxFor(model => model.NoInterior, new { @class = "form-control", placeholder = "Ingrese el número exterior" })
+                            @Html.ValidationMessageFor(model => model.NoInterior, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                }
+            </div>            
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.Identificador, new { id = "IdentificadorDomicilioFiscal" })
+
+<script>
+    var domicilioFiscalModel = function () { return @Html.Raw(Json.Encode(Model)) }();
+</script>

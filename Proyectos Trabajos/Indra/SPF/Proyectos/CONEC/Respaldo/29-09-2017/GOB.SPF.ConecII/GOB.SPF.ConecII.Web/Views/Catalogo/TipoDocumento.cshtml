@@ -1,0 +1,63 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiTiposDocumento
+@using (Html.BeginForm("TipoDocumento", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "tipoDocumentoForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, "Tipo Documento*:")
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Ingresa tipo documento", @readonly = true, @disabled = true })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Confidencial, "Confidencial:")
+            @Html.CheckBoxFor(m => m.Confidencial, new {@readonly = true, @disabled = true})
+            @Html.ValidationMessageFor(m => m.Confidencial)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Descripcion, "Descripcion*:")
+            @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa descripción", @readonly = true, @disabled = true })
+            @Html.ValidationMessageFor(m => m.Descripcion)
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name, "Tipo Documento*:")
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Ingresa tipo documento" })
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Confidencial, "Confidencial:")
+            @Html.CheckBoxFor(m => m.Confidencial)
+            @Html.ValidationMessageFor(m => m.Confidencial)
+            @*@Html.LabelFor(m => m.Confidencial, "Confidencial:")
+            @Html.RadioButtonFor(m => m.Confidencial, "Si") Si
+            @Html.RadioButtonFor(m => m.Confidencial, "No") No*@
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Descripcion, "Descripcion*:")
+            @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa descripción" })
+            @Html.ValidationMessageFor(m => m.Descripcion)
+        </div>
+    }
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}

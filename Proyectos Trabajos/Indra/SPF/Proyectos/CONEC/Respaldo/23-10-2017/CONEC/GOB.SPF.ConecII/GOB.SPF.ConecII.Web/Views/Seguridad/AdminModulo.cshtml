@@ -1,0 +1,131 @@
+﻿@using GOB.SPF.ConecII.Web.Models
+@using GOB.SPF.ConecII.Web.Models.Seguridad
+@model UiModulo
+@{
+    var listaTipoControl = (IEnumerable<SelectListItem>)ViewBag.listaTipoControl;
+    var listaModulos = (IEnumerable<SelectListItem>)ViewBag.ListaModulos;
+}
+@using (Html.BeginForm("AdminModulo", "Seguridad", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "referenciaForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    <div class="panel-body">
+        @if (Model.Action.Equals(UiEnumEntity.New) || Model.Action.Equals(UiEnumEntity.Edit))
+        {
+            @Html.HiddenFor(x => x.Id)
+            <div class="col-lg-12">
+                <div class="col-lg-4">
+                    <label>Nombre*:</label>
+                    @Html.TextBoxFor(x => x.Nombre, null, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Nombre, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-lg-4">
+                    <label>Descripcion del menu*:</label>
+                    @Html.TextBoxFor(x => x.Descripcion, null, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Descripcion, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-lg-4">
+                    <label>Controlador*:</label>
+                    @Html.TextBoxFor(x => x.Controlador, null, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Controlador, "", new {@class = "text-danger"})
+                </div>
+            </div>
+            <div class="col-lg-12" style="margin-top: 20px">
+                <div class="col-lg-4">
+                    <label>Accion*:</label>
+                    @Html.TextBoxFor(x => x.Accion, null, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.Accion, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-lg-4">
+                    <label>Dependencia*:</label>
+                    @Html.DropDownListFor(x => x.IdPadre, listaModulos, new {@class = "form-control"})
+                    @Html.ValidationMessageFor(x => x.IdPadre, "", new {@class = "text-danger"})
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.HiddenFor(x => x.Id)
+            <div class="col-lg-12">
+                <div class="col-lg-4">
+                    <label>Nombre*:</label>
+                    @Html.TextBoxFor(x => x.Nombre, null, new { @class = "form-control", disabled="disabled" })
+                    @Html.ValidationMessageFor(x => x.Nombre, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-4">
+                    <label>Descripcion del menu*:</label>
+                    @Html.TextBoxFor(x => x.Descripcion, null, new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(x => x.Descripcion, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-lg-4">
+                    <label>Controlador*:</label>
+                    @Html.TextBoxFor(x => x.Controlador, null, new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(x => x.Controlador, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-lg-12" style="margin-top: 20px">
+                <div class="col-lg-4">
+                    <label>Accion*:</label>
+                    @Html.TextBoxFor(x => x.Accion, null, new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(x => x.Accion, "", new { @class = "text-danger", disabled = "disabled" })
+                </div>
+                <div class="col-lg-4">
+                    <label>Dependencia*:</label>
+                    @Html.DropDownListFor(x => x.IdPadre, listaModulos, new { @class = "form-control", disabled = "disabled" })
+                    @Html.ValidationMessageFor(x => x.IdPadre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+    </div>
+    <div class="panel-body" style="margin-top: 20px; margin-bottom: 20px;">
+        @if (Model.Action.Equals(UiEnumEntity.New) || Model.Action.Equals(UiEnumEntity.Edit))
+        {
+            <div class="top-buffer">
+                <h5>Agregar control</h5>
+                <hr class="red">
+            </div>
+            <div class="col-lg-12">
+                <div class="col-lg-4">
+                    <label>Tipo control*:</label>
+                    @Html.DropDownList("ddlTipoControlControl", listaTipoControl, new {@class = "form-control"})
+                </div>
+                <div class="col-lg-4">
+                    <label>Nombre del control*:</label>
+                    @Html.TextBox("txbNombreControl", null, new {@class = "form-control"})
+                </div>
+                <div class="col-lg-4">
+                    <label>Descripcion del control*:</label>
+                    @Html.TextBox("txbDescControl", null, new {@class = "form-control"})
+                </div>
+            </div>
+            <button type="button" class="btn btn-default pull-right btn-sm" style="margin-top: 20px; margin-bottom: 20px;" id="btnAgregarControl">
+                <span class="glyphicon glyphicon-save"></span>Agregar control
+            </button>
+        }
+        <div style="margin-top: 20px;">
+            <div id="divControles"></div>
+        </div>
+    </div>
+    <br />
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+        @if (Model.Action.Equals(UiEnumEntity.New) || Model.Action.Equals(UiEnumEntity.Edit))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}
+
+
+<script>
+    var ModuloModel = function () { return @Html.Raw(Json.Encode(Model)) }();
+</script>

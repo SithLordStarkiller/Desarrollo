@@ -1,0 +1,122 @@
+﻿
+@model GOB.SPF.ConecII.Web.Models.UiFactorEntidadFederativa
+
+@using (Html.BeginForm("FactorEntidadFederativa", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "factorEntidadFederativaForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdClasificadorFactor)
+                @Html.DropDownListFor(m => m.IdClasificadorFactor, (IEnumerable<SelectListItem>)ViewBag.Clasificaciones, "Seleccione", new
+           { @class = "form-control", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.ClasificacionesFactor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdFactor)
+                @Html.DropDownListFor(m => m.IdFactor, ViewBag.Factores != null ? (IEnumerable<SelectListItem>)ViewBag.Factores : new List<SelectListItem>(),
+                "Seleccione", new { @class = "form-control", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.IdFactor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Descripcion)
+                @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Descripcion)
+            </div>
+        </div>
+        <div class="form-group">
+            <center>
+                @Html.LabelFor(m => m.Estados)
+            </center>
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.Estados, new List<SelectListItem>(), null, new
+           {
+               @multiple = "",
+               @class = "form-control",
+               @readonly = true,
+               @disabled = true
+           })
+                @Html.ValidationMessageFor(m => m.Estados)
+            </div>
+            <div class="col-md-4 pickListButtons btn-group-vertical" role="group">
+                <button type='button' class='pAddAll btn btn-default btn-sm' readonly="true" disabled="true"> Agregar Todos </button>
+                <button type='button' class='pAdd btn btn-primary  btn-sm' readonly="true" disabled="true"> Agregar Selección </button>
+                <button type='button' class='pRemove btn btn-primary  btn-sm' readonly="true" disabled="true"> Remover Selección </button>
+                <button type='button' class='pRemoveAll btn btn-default  btn-sm' readonly="true" disabled="true"> Remover Todos </button>
+            </div>
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.EstadosDestino, ViewBag.EntidadesFederativas != null ? (IEnumerable<SelectListItem>)ViewBag.EntidadesFederativas :
+                new List<SelectListItem>(), htmlAttributes: new { @class = "form-control container-factor", @multiple = "", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.EstadosDestino)
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <fieldset>
+            <div class="form-group">
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.IdClasificadorFactor)
+                    @Html.DropDownListFor(m => m.IdClasificadorFactor, (IEnumerable<SelectListItem>)ViewBag.Clasificaciones, "Seleccione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdClasificadorFactor)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.IdFactor)
+                    @Html.DropDownListFor(m => m.IdFactor, ViewBag.Factores != null ? (IEnumerable<SelectListItem>)ViewBag.Factores : new List<SelectListItem>(),
+                "Seleccione", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdFactor)
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(m => m.Descripcion)
+                    @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", placeholder = "Ingresa Descripción" })
+                    @Html.ValidationMessageFor(m => m.Descripcion)
+                </div>
+            </div>
+            <div class="form-group">
+                <center>
+                    @Html.LabelFor(m => m.Estados)
+                </center>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(m => m.Estados, ViewBag.Estados != null ? (IEnumerable<SelectListItem>)ViewBag.Estados :
+                new List<SelectListItem>(), null, new { @multiple = "", @class = "form-control container-factor" })
+                    @Html.ValidationMessageFor(m => m.Estados)
+                </div>
+                <div class="col-md-4 pickListButtons btn-group-vertical" role="group">
+                    <button type='button' class='pAddAll btn btn-default btn-sm'> Agregar Todos </button>
+                    <button type='button' class='pAdd btn btn-primary  btn-sm'> Agregar Selección </button>
+                    <button type='button' class='pRemove btn btn-primary  btn-sm'> Remover Selección </button>
+                    <button type='button' class='pRemoveAll btn btn-default  btn-sm'> Remover Todos </button>
+                </div>
+                <div class="col-md-4">
+                    @Html.DropDownListFor(m => m.EstadosDestino, ViewBag.EntidadesFederativas != null ? (IEnumerable<SelectListItem>)ViewBag.EntidadesFederativas :
+                new List<SelectListItem>(), htmlAttributes: new { @class = "form-control container-factor", @multiple = "" })
+                    @Html.ValidationMessageFor(m => m.EstadosDestino)
+                </div>
+            </div>
+        </fieldset>
+    }
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}
+<script>
+    
+
+</script>

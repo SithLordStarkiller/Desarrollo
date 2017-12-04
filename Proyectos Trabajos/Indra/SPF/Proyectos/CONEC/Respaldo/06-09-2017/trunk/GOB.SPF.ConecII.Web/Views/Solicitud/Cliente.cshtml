@@ -1,0 +1,115 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiCliente
+
+@using (Html.BeginForm("Cliente", "Solicitud", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "clienteForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red" />
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Datos generales</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(m => m.RazonSocial, "Razón Social*:")
+                    @Html.TextBoxFor(m => m.RazonSocial, new { @class = "form-control", placeholder = "Ingresa la Razón Social" })
+                    @Html.ValidationMessageFor(m => m.RazonSocial)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-7">
+                    @Html.LabelFor(m => m.NombreCorto, "Nombre Corto*:")
+                    @Html.TextBoxFor(m => m.NombreCorto, new { @class = "form-control", placeholder = "Ingresa el Nombre corto" })
+                    @Html.ValidationMessageFor(m => m.NombreCorto)
+                </div>
+                <div class="col-md-5">
+                    @Html.LabelFor(m => m.RFC, "RFC*:")
+                    @Html.TextBoxFor(m => m.RFC, new { @class = "form-control", placeholder = "Ingresa el RFC del cliente" })
+                    @Html.ValidationMessageFor(m => m.RFC)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.IdRegimenFiscal, "Régimen fiscal*:")
+                    @Html.DropDownListFor(m => m.IdRegimenFiscal, (IEnumerable<SelectListItem>)ViewBag.RegimenFiscalList, "Selecciona el Régimen fiscal", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdRegimenFiscal)
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(m => m.IdSector, "Sector*:")
+                    @Html.DropDownListFor(m => m.IdSector, (IEnumerable<SelectListItem>)ViewBag.SectorList, "Seleccione el sector", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.IdSector)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="clienteDomicilio">
+        <div class="panel panel-default">
+            <div class="panel-heading">Domicilio fiscal</div>
+            <div class="panel-body">
+
+            </div>
+        </div>
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        @Html.HiddenFor(m => m.Identificador)
+    }
+
+    <div class="row">
+        <div id="clienteSolicitantes" class="col-sm-6">
+
+        </div>
+        <div id="clienteContactos" class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="pull-right">
+                        <a href="#" class="btn btn-default btn-xs" name="contactoNew">
+                            <i class="glyphicon glyphicon-plus"></i>
+                        </a>
+                    </span>
+                    Contactos
+                </div>
+                <div class="panel-body" style="height: 300px; overflow-x: hidden; overflow-y: scroll;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            <p class="pull-left">*Campos obligatorios</p>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBack">
+                    <span class="glyphicon glyphicon-backward"></span>
+                    Cancelar
+                </button>
+
+                @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+                {
+                <button type="button" class="btn btn-default" id="btnSave">
+                    <span class="glyphicon glyphicon-save"></span>
+                    Guardar
+                </button>
+                }
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            type: 'POST',
+            url: "/Solicitud/Solicitantes",
+            dataType: "html",
+            data: {
+                idCliente: 1
+            },
+            success: function (t) {
+                $('#clienteSolicitantes').html(t);
+            }
+        });
+    });
+
+</script>

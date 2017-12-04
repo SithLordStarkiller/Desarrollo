@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SelectListItem>
+
+@{
+    var id = (string)ViewBag.Id;
+
+}
+
+<Select id="@id" class="form-control">
+    @foreach (var item in Model)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+</Select>
+

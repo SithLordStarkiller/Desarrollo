@@ -1,0 +1,111 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiClienteContacto
+
+<form id="formContacto">
+    <div class="form-horizontal">
+        @if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.Nombre, "Nombre*:", new { @class = "control-label" })
+                    @Html.DisplayFor(model => model.Nombre)
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.ApellidoPaterno, "Apellido paterno*:", new { @class = "control-label" })
+                    @Html.DisplayFor(model => model.ApellidoPaterno)
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.ApellidoMaterno, "Apellido materno:", new { @class = "control-label" })
+                    @Html.DisplayFor(model => model.ApellidoMaterno)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.IdTipoContacto, "Tipo*:", new { @class = "control-label" })
+                    @Html.DisplayFor(model => model.TipoContacto)
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Cargo, "Cargo*:", new { @class = "control-label" })
+                    @Html.DisplayFor(model => model.Cargo)
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.Nombre, "Nombre*:", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Nombre)
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.ApellidoPaterno, "Apellido paterno*:", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ApellidoPaterno)
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(model => model.ApellidoMaterno, "Apellido materno:", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ApellidoMaterno)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.IdTipoContacto, "Tipo*:", new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.IdTipoContacto, (SelectList)ViewBag.TiposContactos, "Selecciona", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdTipoContacto)
+                </div>
+                <div class="col-md-6">
+                    @Html.LabelFor(model => model.Cargo, "Cargo*:", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Cargo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Cargo)
+                </div>
+            </div>
+        }
+    </div>
+    @Html.HiddenFor(m => m.IsActive)
+    @Html.HiddenFor(m => m.Identificador)
+</form>
+<div class="col-md-6">
+    <h5>Teléfono</h5>
+    <hr class="red" />
+    @{
+        if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            Html.RenderAction("Telefonos", "Solicitud");
+        }
+    }
+    <div id="clienteContactosTelefonos"></div>
+</div>
+<div class="col-md-6">
+    <h5>Correos</h5>
+    <hr class="red" />
+    @{
+        if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            Html.RenderAction("Correos", "Solicitud");
+        }
+    }
+    <div id="clienteContactosCorreos"></div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <p class="pull-left">*Campos obligatorios</p>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default btnBack" id="btnBackContacto">
+                <span class="glyphicon glyphicon-backward"></span>
+                Cancelar
+            </button>
+
+            @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+            {
+                <button type="button" class="btn btn-default btnSave" id="btnSaveContacto">
+                    <span class="glyphicon glyphicon-save"></span>
+                    Guardar
+                </button>
+            }
+        </div>
+    </div>
+</div>

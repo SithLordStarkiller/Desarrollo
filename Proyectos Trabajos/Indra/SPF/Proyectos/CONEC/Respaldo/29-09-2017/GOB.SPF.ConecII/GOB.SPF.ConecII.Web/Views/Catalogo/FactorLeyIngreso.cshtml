@@ -1,0 +1,75 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiFactorLeyIngreso
+
+@using (Html.BeginForm("FactorLeyIngreso", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "factorLeyIngresoForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdAnio)
+                @Html.DropDownListFor(m => m.IdAnio, ViewBag.Anios != null ? (IEnumerable<SelectListItem>)ViewBag.Anios :
+                new List<SelectListItem>(), "Seleccione", new { @class = "form-control", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.IdAnio)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdMes)
+                @Html.DropDownListFor(m => m.IdMes, ViewBag.Meses != null ? (IEnumerable<SelectListItem>)ViewBag.Meses :
+                new List<SelectListItem>(), "Seleccione", new { @class = "form-control", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.IdMes)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Factor)
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    @Html.TextBoxFor(m => m.FactorTexto, new { type = "text", value = "", min = "0", step = "any", @class = "form-control currency", @readonly = true, @disabled = true })
+                </div>
+                @Html.ValidationMessageFor(m => m.FactorTexto)
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdAnio)
+                @Html.DropDownListFor(m => m.IdAnio, ViewBag.Anios != null ? (IEnumerable<SelectListItem>)ViewBag.Anios :
+                new List<SelectListItem>(), "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdAnio)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdMes)
+                @Html.DropDownListFor(m => m.IdMes, ViewBag.Meses != null ? (IEnumerable<SelectListItem>)ViewBag.Meses :
+                new List<SelectListItem>(), "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdMes)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Factor)
+                <div class="input-group">
+                    <span class="input-group-addon">$</span>
+                    @Html.TextBoxFor(m => m.FactorTexto, new { type = "text", value = "", min = "0", step = "any", @class = "form-control currency" })
+                </div>
+                @Html.ValidationMessageFor(m => m.FactorTexto)
+            </div>
+        </div>
+    }
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+        }
+    </div>
+}

@@ -1,0 +1,117 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiTiposSeccion
+@{
+    ViewBag.Title = "Administrar Tipos Sección.";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    bool actionView = Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View);
+}
+@using (Html.BeginForm("TipoSeccion", "Plantilla", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "tipoSeccionForm" }))
+{
+    
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+
+    @Html.HiddenFor(model => model.Identificador)
+    @Html.HiddenFor(model => model.EsActivo)
+    @Html.ValidationSummary(true)
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    { 
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Nombre, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa nombre", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+   
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Descripcion, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa la descripción", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Orden, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Orden)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Numerado, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Numerado, new { htmlAttributes = new { @class = "form-control", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Numerado)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Mensaje, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa el mensaje que se visualizara si falta la sección", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Mensaje)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Etiqueta, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Etiqueta, new { htmlAttributes = new { @class = "form-control", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Etiqueta)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            @*<div class="col-md-4">
+                    @Html.LabelFor(model => model.Identificador, new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Identificador, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Identificador)
+                </div>*@
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Nombre, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa nombre" } })
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
+
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Descripcion, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa la descripción" } })
+                @Html.ValidationMessageFor(model => model.Descripcion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Orden, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Orden, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Orden)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Numerado, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Numerado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Numerado)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Mensaje, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Mensaje, new { htmlAttributes = new { @class = "form-control", placeplaceholder = "Ingresa el mensaje que se visualizara si falta la sección" } })
+                @Html.ValidationMessageFor(model => model.Mensaje)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Etiqueta, new { @class = "control-label" })
+                @Html.EditorFor(model => model.Etiqueta, new { htmlAttributes = new { @class = "form-control", @readonly = true, @disabled = true } })
+                @Html.ValidationMessageFor(model => model.Etiqueta)
+            </div>
+        </div>
+    }
+
+
+    <p class="pull-left">*Campos obligatorios</p>
+    <div class="pull-right">
+        <button type="button" class="btn btn-default" id="btnBack">
+            <span class="glyphicon glyphicon-backward"></span>Cancelar
+        </button>
+
+        @*@if (!actionView)
+        {*@
+            <button type="button" class="btn btn-default" id="btnSave">
+                <span class="glyphicon glyphicon-save"></span>Guardar
+            </button>
+         @*}*@
+    </div>
+}

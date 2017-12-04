@@ -1,0 +1,16 @@
+﻿@model  GOB.SPF.ConecII.Web.Models.UiCorreo
+<form id="formCorreo">
+    <div class="form-group">
+        @Html.LabelFor(model => model.CorreoElectronico, "Dirección:")
+        <div class="input-group">
+            @Html.TextBoxFor(model => model.CorreoElectronico, new { @class = "form-control", placeholder = "Ingrese la direccion de correo" })
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-primary btn-sm" id="btnCorreo">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                </button>
+            </span>
+        </div>
+        @Html.ValidationMessageFor(model => model.CorreoElectronico, "", new { @class = "text-danger" })
+    </div>
+</form>

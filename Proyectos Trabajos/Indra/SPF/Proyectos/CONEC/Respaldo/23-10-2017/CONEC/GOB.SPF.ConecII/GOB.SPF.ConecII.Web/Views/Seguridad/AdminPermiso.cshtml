@@ -1,0 +1,49 @@
+﻿
+@using GOB.SPF.ConecII.Web.Models
+@model UiPermisosRol
+@{
+    var listaAreas = (IEnumerable<SelectListItem>)ViewBag.ListaAreas;
+    var listaRol = (IEnumerable<SelectListItem>)ViewBag.ListaRoles;
+    var listaMenus = (IEnumerable<SelectListItem>)ViewBag.ListaMenus;
+}
+<div>
+    @using (Html.BeginForm("AdminPermiso", "Seguridad", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "referenciaForm" }))
+    {
+        @Html.ValidationSummary(true)
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <div class="col-lg-4">
+                        <label>Area*:</label>
+                        @Html.DropDownListFor(x => x.Area.Identificador, listaAreas, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Rol*:</label>
+                        @Html.DropDownListFor(x => x.Rol.Identificador, listaRol, new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Menu*:</label>
+                        @Html.DropDownListFor(x => x.Menu.Identificador, listaMenus, new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <p class="pull-left">*Campos obligatorios</p>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBack">
+                <span class="glyphicon glyphicon-backward"></span>Cancelar
+            </button>
+            @if (Model.Action.Equals(UiEnumEntity.New) || Model.Action.Equals(UiEnumEntity.Edit))
+            {
+                <button type="button" class="btn btn-default" id="btnSave">
+                    <span class="glyphicon glyphicon-save"></span>Guardar
+                </button>
+            }
+        </div>
+    }
+</div>

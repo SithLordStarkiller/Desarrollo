@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C21DE6CA-9B50-4B38-9131-467D0F46CE76}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GOB.SPF.ConecII.AccessData</RootNamespace>
+    <AssemblyName>GOB.SPF.ConecII.AccessData</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=e44a2bc38ed2c13c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BIN\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
+      <HintPath>..\BIN\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>..\BIN\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\BIN\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\BIN\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryContratantes.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryEstiquetas.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryEtiquetasParrafo.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryInstituciones.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryParrafos.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryPartesDocumento.cs" />
+    <Compile Include="Repositories\Plantilla\RepositoryTiposDocumento.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RepositoryActividades.cs" />
+    <Compile Include="Repositories\RepositoryAnios.cs" />
+    <Compile Include="Repositories\RepositoryClasificacionFactor.cs" />
+    <Compile Include="Repositories\RepositoryCliente.cs" />
+    <Compile Include="Repositories\RepositoryConfiguracionServicio.cs" />
+    <Compile Include="Repositories\RepositoryControles.cs" />
+    <Compile Include="Repositories\RepositoryCorreosAlternos.cs" />
+    <Compile Include="Repositories\RepositoryDependencias.cs" />
+    <Compile Include="Repositories\RepositoryDivision.cs" />
+    <Compile Include="Repositories\RepositoryFactores.cs" />
+    <Compile Include="Repositories\RepositoryFase.cs" />
+    <Compile Include="Repositories\RepositoryGastosInherentes.cs" />
+    <Compile Include="Repositories\RepositoryFactoresActividadEconomica.cs" />
+    <Compile Include="Repositories\RepositoryFactoresLeyIngreso.cs" />
+    <Compile Include="Repositories\RepositoryFactoresMunicipio.cs" />
+    <Compile Include="Repositories\RepositoryFactorEntidadFederativa.cs" />
+    <Compile Include="Repositories\RepositoryGruposTarifario.cs" />
+    <Compile Include="Repositories\RepositoryJerarquias.cs" />
+    <Compile Include="Repositories\RepositoryMedidasCobro.cs" />
+    <Compile Include="Repositories\RepositoryMeses.cs" />
+    <Compile Include="Repositories\RepositoryModulo.cs" />
+    <Compile Include="Repositories\RepositoryNotificacionesAlertas.cs" />
+    <Compile Include="Repositories\RepositoryPeriodo.cs" />
+    <Compile Include="Repositories\RepositoryGrupos.cs" />
+    <Compile Include="Repositories\RepositoryCuotas.cs" />
+    <Compile Include="Repositories\RepositoryFracciones.cs" />
+    <Compile Include="Repositories\RepositoryReceptoresAlertas.cs" />
+    <Compile Include="Repositories\RepositoryReferencias.cs" />
+    <Compile Include="Repositories\RepositoryRegimenFiscal.cs" />
+    <Compile Include="Repositories\RepositoryRol.cs" />
+    <Compile Include="Repositories\RepositoryRolesModulosControl.cs" />
+    <Compile Include="Repositories\RepositoryRolModulo.cs" />
+    <Compile Include="Repositories\RepositoryRolUsuario.cs" />
+    <Compile Include="Repositories\RepositoryTiposControl.cs" />
+    <Compile Include="Repositories\RepositoryTiposDocumento.cs" />
+    <Compile Include="Repositories\RepositoryTiposPago.cs" />
+    <Compile Include="Repositories\RepositoryTiposServicio.cs" />
+    <Compile Include="Repositories\RepositoryUsuario.cs" />
+    <Compile Include="RepositorySector.cs" />
+    <Compile Include="Schemas\Configuracion.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Configuracion.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\ConfiguracionServicios.Designer.cs" />
+    <Compile Include="Schemas\Seguridad.Designer.cs" />
+    <Compile Include="Schemas\Solicitud.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Solicitud.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Schemas\Usuario.Designer.cs">
+      <DependentUpon>Usuario.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Schemas\Factores.Designer.cs">
+      <DependentUpon>Factores.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Schemas\Catalogos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Catalogos.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UnitOfWorkCatalog.cs" />
+    <Compile Include="UnitOfWorkConfiguration.cs" />
+    <Compile Include="UnitOfWorkFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GOB.SPF.ConecII.Entities\GOB.SPF.ConecII.Entities.csproj">
+      <Project>{93a6fd09-867a-4445-b6fc-5892676d408d}</Project>
+      <Name>GOB.SPF.ConecII.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Schemas\Configuracion.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Configuracion.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\ConfiguracionServicios.resx" />
+    <EmbeddedResource Include="Schemas\Seguridad.resx" />
+    <EmbeddedResource Include="Schemas\Solicitud.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Solicitud.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\Usuario.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Usuario.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\Factores.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Factores.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Schemas\Catalogos.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Catalogos.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

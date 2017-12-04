@@ -1,0 +1,191 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiCuota
+@using (Html.BeginForm("Cuota", "Catalogo", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "cuotaForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red">
+    </div>
+
+
+    if (Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+    {
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.TipoServicios, "Tipo Servicio*:")
+                @Html.DropDownList("TiposServicio", null, "Selecciona Tipo Servicio", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.TipoServicios)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Referencias, "Clasificación Referencia*:")
+                @Html.DropDownList("Referencia", null, "Selecciona Referencia", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Referencias)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Dependencias, "Clasificación Dependencia*:")
+                @Html.DropDownList("Dependencia", null, "Selecciona Dependencia", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Dependencias)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Jerarquias, "Jerarquias*:")
+                @Html.DropDownList("Jerarquia", null, "Selecciona Medida Cobro", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Jerarquias)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.GrupoTarifarios, "Grupo Tarifario*:")
+                @Html.DropDownList("GrupoTarifario", null, "Selecciona Grupo Tarifario", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.GrupoTarifarios)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.MedidaCobros, "Medida Cobro*:")
+                @Html.DropDownList("MedidaCobro", null, "Selecciona Medida Cobro", htmlAttributes: new { @class = "form-control char10", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.MedidaCobros)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Concepto, "Concepto*:")
+                @Html.TextBoxFor(m => m.Concepto, new { @class = "form-control", placeholder = "Ingresa Concepto", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.Concepto)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CuotaBase, "Cuota Base*:")
+                @Html.TextBoxFor(m => m.CuotaBase, new { @class = "form-control", placeholder = "Ingresa Cuota Base", @readonly = true, @disabled = true, @type = "number" })
+                @Html.ValidationMessageFor(m => m.CuotaBase)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Iva, "Iva*:")
+                @Html.TextBoxFor(m => m.Iva, new { @class = "form-control", placeholder = "Ingresa Iva", @readonly = true, @disabled = true, @type = "number" })
+                @Html.ValidationMessageFor(m => m.Iva)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaAutorizacion, "Fecha Autorización*:")
+                @Html.TextBoxFor(m => m.FechaAutorizacion, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Ingresa Fecha Autorización", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaAutorizacion)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaEntradaVigor, "Fecha Entrada Vigor*:")
+                @Html.TextBoxFor(m => m.FechaEntradaVigor, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Ingresa Fecha Entrada Vigor", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaEntradaVigor)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaTermino, "Fecha Termino*:")
+                @Html.TextBoxFor(m => m.FechaTermino, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Ingresa Fecha Termino", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaTermino)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.FechaPublicaDof, "Fecha Publicación*:")
+                @Html.TextBoxFor(m => m.FechaPublicaDof, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "Ingresa Fecha Publicación", @readonly = true, @disabled = true })
+                @Html.ValidationMessageFor(m => m.FechaPublicaDof)
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.HiddenFor(m => m.Identificador)
+        @Html.HiddenFor(m => m.EsProducto)
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdTipoServicio, "Tipo Servicio*:")
+                @*@Html.DropDownListFor("TiposServicio", null, "Selecciona Tipo Servicio", htmlAttributes: new { @class = "form-control char10"})*@
+                @Html.DropDownListFor(m => m.IdTipoServicio, ViewBag.TiposServicio != null ? (IEnumerable<SelectListItem>)ViewBag.TiposServicio : new List<SelectListItem>(),
+                "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdTipoServicio)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdReferencia, "Clasificación Referencia*:")
+                @Html.DropDownListFor(m => m.IdReferencia, ViewBag.Referencia != null ? (IEnumerable<SelectListItem>)ViewBag.Referencia : new List<SelectListItem>(),
+                "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdReferencia)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdDependencia, "Clasificación Dependencia*:")
+                @Html.DropDownListFor(m => m.IdDependencia, ViewBag.Dependencia != null ? (IEnumerable<SelectListItem>)ViewBag.Dependencia : new List<SelectListItem>(),
+                "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdDependencia)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Jerarquias, "Jerarquias*:")
+                @Html.DropDownList("Jerarquia", null, "Selecciona Jerarquia", htmlAttributes: new { @class = "form-control char10" })
+                @Html.ValidationMessageFor(m => m.Jerarquias)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.GrupoTarifarios, "Grupo Tarifario*:")
+                @Html.DropDownList("GrupoTarifario", null, "Selecciona Grupo Tarifario", htmlAttributes: new { @class = "form-control char10" })
+                @Html.ValidationMessageFor(m => m.GrupoTarifarios)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.IdMedidaCobro, "Medida Cobro*:")
+                @Html.DropDownListFor(m => m.IdMedidaCobro, ViewBag.MedidaCobro != null ? (IEnumerable<SelectListItem>)ViewBag.MedidaCobro : new List<SelectListItem>(),
+                "Seleccione", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IdMedidaCobro)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Concepto, "Concepto*:")
+                @Html.TextBoxFor(m => m.Concepto, new { @class = "form-control", placeholder = "Ingresa Concepto" })
+                @Html.ValidationMessageFor(m => m.Concepto)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.CuotaBase, "Cuota Base*:")
+                @Html.TextBoxFor(m => m.CuotaBase, new { @class = "form-control", placeholder = "Ingresa Cuota Base", @type = "number" })
+                @Html.ValidationMessageFor(m => m.CuotaBase)
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Iva, "Iva*:")
+                @Html.TextBoxFor(m => m.Iva, new { @class = "form-control", placeholder = "Ingresa Iva", @type = "number" })
+                @Html.ValidationMessageFor(m => m.Iva)
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-4">
+                @*<div class="form-group datepicker-group">*@
+                @Html.LabelFor(m => m.FechaAutorizacion), "Fecha Autorización*:")
+                @Html.TextBoxFor(m => m.FechaAutorizacion, "{0:dd/MM/yyyy}", new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Autorización" })
+                @Html.ValidationMessageFor(m => m.FechaAutorizacion)
+                @*<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </div>*@
+            </div>
+            <div class="col-md-4">
+                @*<div class="form-group datepicker-group">*@
+                @Html.LabelFor(m => m.FechaEntradaVigor, "Fecha Entrada Vigor*:")
+                @Html.TextBoxFor(m => m.FechaEntradaVigor, "{0:dd/MM/yyyy}", new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Entrada Vigor" })
+                @Html.ValidationMessageFor(m => m.FechaEntradaVigor)
+                @*<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </div>*@
+            </div>
+            <div class="col-md-4">
+                @*<div class="form-group datepicker-group">*@
+                @Html.LabelFor(m => m.FechaTermino, "Fecha Termino*:")
+                @Html.TextBoxFor(m => m.FechaTermino, "{0:dd/MM/yyyy}", new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa Fecha Termino" })
+                @*@Html.ValidationMessageFor(m => m.FechaTermino)*@
+                @*<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </div>*@
+            </div>
+            <div class="col-md-4">
+                
+                @*<div class="form-group datepicker-group">*@
+                @Html.LabelFor(m => m.FechaPublicaDof, "Fecha Publicación*:")
+                @Html.TextBoxFor(m => m.FechaPublicaDof, new { @class = "form-control datepickerMinFechaActua", placeholder = "Ingresa  Fecha Publicacion Dof" })
+                @*@Html.ValidationMessageFor(m => m.FechaPublicaDof)*@
+                @*<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                    </div>*@
+            </div>
+ 
+            
+        </div>
+        <p class="pull-left">*Campos obligatorios</p>
+    }
+
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBack">
+                <span class="glyphicon glyphicon-backward"></span>Cancelar
+            </button>
+
+            @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+            {
+                <button type="button" class="btn btn-default" id="btnSave">
+                    <span class="glyphicon glyphicon-save"></span>Guardar
+                </button>
+            }
+        </div>
+
+    
+}

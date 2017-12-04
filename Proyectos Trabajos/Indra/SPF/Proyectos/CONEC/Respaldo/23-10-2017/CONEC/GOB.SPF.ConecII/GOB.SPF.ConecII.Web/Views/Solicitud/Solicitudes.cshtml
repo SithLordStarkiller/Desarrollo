@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "Consulta de Solicitudes";
+}
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Solicitudes</a></li>
+    <li><a href="#" class="active">Consulta</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Busqueda del solicitudes
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="control-label">Estatus:</label>
+                            <div>
+                                <label class="radio-inline" for="activo">
+                                    <input type="radio" name="estatus" value="true" checked="checked">Activo
+                                </label>
+                                <label class="radio-inline" for="inactivo">
+                                    <input type="radio" name="estatus" value="false">Inactivo
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Folio:</label>
+                            <input placeholder="Buscar por folio" class="form-control" type="text" name="folio" id="folio" for="folio">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Tipo Servicio:</label>
+                            @Html.DropDownList("Servicio", (IEnumerable<SelectListItem>)ViewBag.TipoServicio, "Seleccione", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Razón Social:</label>
+                            <input placeholder="Buscar por razón social" class="form-control" type="text" name="razon" id="razon" for="razon">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Nombre corto:</label>
+                            <input placeholder="Buscar por nombre corto" class="form-control" type="text" name="nombre" id="nombre" for="nombre">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">RFC:</label>
+                            <input placeholder="Buscar por RFC" class="form-control" type="text" name="rfc" id="rfc" for="rfc">
+                        </div>
+                        <div class="col-md-4">
+                       
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Fecha inicial:</label>
+                            <input type="text" id="datepickerIni" class="form-control" placeholder="Seleccione fecha inicial">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Fecha final:</label>
+                            <input type="text" id="datepickerFin" class="form-control" placeholder="Seleccione fecha final">
+                        </div>
+                        <div class="col-md-offset-10 panel-body col-md-1">
+                            <button type="button" class="btn btn-default" id="btnBuscar">
+                                <span class="glyphicon glyphicon-search"></span>Buscar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div id="divSolicitud"></div>
+        </div>
+    <div class="back">
+
+    </div>
+</div>
+<input type="hidden" id="IdDivision" />
+
+@section Scripts{
+    <script src="~/Scripts/Controls/chosen.jquery.js"></script>
+    <script src="~/Scripts/conec/solicitud/Solicitud.js"></script>
+}
+
+<script>
+    
+    $(document).ready(function () {
+
+       
+            $("#datepickerIni").datepicker({
+  
+            });
+
+            $("#datepickerFin").datepicker({
+
+            });
+      
+
+    });
+</script>
+
+
+
+
+

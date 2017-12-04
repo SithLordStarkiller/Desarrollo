@@ -1,0 +1,141 @@
+﻿@model GOB.SPF.ConecII.Web.Models.UiCliente
+
+@using (Html.BeginForm("Cliente", "Solicitud", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "clienteForm" }))
+{
+    @Html.ValidationSummary(true)
+    <div class="top-buffer">
+        <h3>@ViewBag.Title</h3>
+        <hr class="red" />
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Datos generales
+        </div>
+        <div class="panel-body">
+            
+        @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-7">
+                        @Html.LabelFor(m => m.RazonSocial, "Razón Social*:")
+                        @Html.TextBoxFor(m => m.RazonSocial, new { @class = "form-control", placeholder = "Ingresa la Razón Social" })
+                        @Html.ValidationMessageFor(m => m.RazonSocial, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-5">
+                        @Html.LabelFor(m => m.NombreCorto, "Nombre Corto*:")
+                        @Html.TextBoxFor(m => m.NombreCorto, new { @class = "form-control", placeholder = "Ingresa el Nombre corto" })
+                        @Html.ValidationMessageFor(m => m.NombreCorto, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.RFC, "RFC*:")
+                        @Html.TextBoxFor(m => m.RFC, new { @class = "form-control", placeholder = "Ingresa el RFC del cliente" })
+                        @Html.ValidationMessageFor(m => m.RFC, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.IdRegimenFiscal, "Régimen fiscal*:")
+                        @Html.DropDownListFor(m => m.IdRegimenFiscal, (IEnumerable<SelectListItem>)ViewBag.RegimenFiscalList, "Selecciona el Régimen fiscal", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.IdRegimenFiscal, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.IdSector, "Sector*:")
+                        @Html.DropDownListFor(m => m.IdSector, (IEnumerable<SelectListItem>)ViewBag.SectorList, "Seleccione el Sector", htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.IdSector, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-7">
+                        @Html.LabelFor(m => m.RazonSocial, "Razón Social*:")
+                        @Html.DisplayFor(m => m.RazonSocial)
+                    </div>
+                    <div class="col-md-5">
+                        @Html.LabelFor(m => m.NombreCorto, "Nombre Corto*:")
+                        @Html.DisplayFor(m => m.NombreCorto)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.RFC, "RFC*:")
+                        @Html.DisplayFor(m => m.RFC)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.IdRegimenFiscal, "Régimen fiscal*:")
+                        @Html.DisplayFor(m => m.RegimenFiscal)
+                    </div>
+                    <div class="col-md-4">
+                        @Html.LabelFor(m => m.IdSector, "Sector*:")
+                        @Html.DisplayFor(m => m.Sector)
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.Identificador)
+
+    <div id="domicilio"></div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Solicitantes
+        </div>
+        <div class="panel-body">
+            <div id="clienteSolicitantes"></div>
+            <div id="partialSolicitante" class="hide-form"></div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Contactos
+        </div>
+        <div class="panel-body">
+            <div id="clienteContactos"></div>
+            <div id="partialContacto" class="hide-form"></div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Documentos Soporte
+        </div>
+        <div class="panel-body">
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary" style="box-shadow: 0 0px 0 0 #1b5dab;padding: 7px 33px;">
+                        Browse&hellip; <input type="file" id="documento" style="display: none;" multiple>
+                    </span>
+                </label>
+                <input type="text" id="fileUrl" class="form-control" readonly>
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            <p class="pull-left">*Campos obligatorios</p>
+            <div class="pull-right">
+                <button type="button" class="btn btn-default" id="btnBack">
+                    <span class="glyphicon glyphicon-backward"></span>
+                    Cancelar
+                </button>
+
+                @if (!Model.Action.Equals(GOB.SPF.ConecII.Web.Models.UiEnumEntity.View))
+                {
+                    <button type="button" class="btn btn-default" id="btnSave">
+                        <span class="glyphicon glyphicon-save"></span>
+                        Guardar
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+}
+<script>
+    var clienteModel = function () { return @Html.Raw(Json.Encode(Model)) }();
+</script>

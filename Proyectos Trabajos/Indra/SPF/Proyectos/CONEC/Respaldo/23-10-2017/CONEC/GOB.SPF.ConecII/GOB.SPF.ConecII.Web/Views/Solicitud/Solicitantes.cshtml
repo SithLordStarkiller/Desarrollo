@@ -1,0 +1,58 @@
+﻿@model IEnumerable<GOB.SPF.ConecII.Web.Models.UiSolicitante>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span class="pull-right">
+            <a id="btnNewSolicitante" class="btn btn-default btn-xs" name="solicitanteNew">
+                <i class="glyphicon glyphicon-plus"></i>
+            </a>
+        </span>
+        Solicitantes
+    </div>
+    <div class="panel-body" >
+        <table class="table table-responsive table-condensed">
+            <tr>
+                <th>
+                    No.
+                </th>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Cargo
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                        @Html.DisplayFor(modelItem => item.ApellidoPaterno)
+                        @Html.DisplayFor(modelItem => item.ApellidoMaterno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cargo)
+                    </td>
+                    <td>
+                        <a id="btnEditSolicitante" class="btn btn-default btn-xs" name="solicitanteEdit" idCliente="@item.IdCliente" numero="@item.Numero" idSolicitante="@item.Identificador" dbSaved="@item.DbSaved">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                        </a>
+                        <a id="btnViewSolicitante" class="btn btn-default btn-xs" name="solicitanteDetail" idCliente="@item.IdCliente" numero="@item.Numero" idSolicitante="@item.Identificador" dbSaved="@item.DbSaved">
+                            <i class="glyphicon glyphicon-eye-open"></i>
+                        </a>
+                        <a id="btnStatusSolicitante" class="btn btn-default btn-xs" name="solicitanteDelete" idCliente="@item.IdCliente" numero="@item.Numero" idSolicitante="@item.Identificador" dbSaved="@item.DbSaved">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+<script>
+    var solicitantesModel = function() { return @Html.Raw(Json.Encode(Model)) }();
+</script>

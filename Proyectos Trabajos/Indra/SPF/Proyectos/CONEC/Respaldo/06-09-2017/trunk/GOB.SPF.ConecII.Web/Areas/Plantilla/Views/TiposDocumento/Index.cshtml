@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Administrar Tipos de Documento";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+   
+@Html.AntiForgeryToken()
+
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="#" class="active">Tipo Documento</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>Administrar TiposDocumento</h3>
+            <hr class="red">
+        </div>
+        <div class="row">
+            @Html.Label("Nombre", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                @Html.TextBox("NombreBuscar", null, new { id = "NombreBuscar", @class = "form-control" })
+            </div>
+            @Html.Label("Descripcion", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                @Html.TextBox("DescripcionBuscar", null, new { id = "DescripcionBuscar", @class = "form-control" })
+            </div>
+        </div>
+        <div class="row form-group">
+            @Html.Label("Activo", new { @class = "col-xs-1 col-sm-1 col-md-1 col-lg-1 control-label" })
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <select id="ActivoBuscar" name="ActivoBuscar" class="form-control">
+                    <option value="" selected="selected">Todos</option>
+                    <option value="true">Activo</option>
+                    <option value="false">Inactivo</option>
+                </select>
+            </div>
+        </div>        
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        @*Invocamos la vist parcial para visualizar los registros que hay de los TiposDocumento *@
+        <div typeof="hidden" id="divTipoDocumento"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/controls/gobGrid.js"></script>
+    <script src="~/Scripts/conec/Plantilla/tipodocumento.js"></script>
+}

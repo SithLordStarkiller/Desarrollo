@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var listaAreas = (IEnumerable<SelectListItem>)ViewBag.ListaAreas;
+    var listaRoles = (IEnumerable<SelectListItem>)ViewBag.ListaRoles;
+}
+<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Seguridad</a></li>
+    <li><a href="#" class="active">Administrar Permisos de Roles</a></li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>Administrador de permisos de roles</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-12">
+            <div class="col-lg-12" style="margin-top: 25px;">
+                <div class="col-sm-4">
+                    <label class="">Area:</label>
+                    @Html.DropDownList("ddlAreas", listaAreas, new {@class = "form-control"})
+                </div>
+                <div class="col-sm-4">
+                    <label class="">Rol:</label>
+                    @Html.DropDownList("ddlRoles", listaRoles, new {@class = "form-control"})
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label">Estatus:</label>
+                    <div class="" style="margin-top: 10px;">
+                        <label class="radio-inline">
+                            <input type="radio" name="rdbActivo" value="true" checked="checked">Si
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="rdbActivo" value="false">No
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12" style="margin-top: 25px;">
+                <div class="col-sm-4">
+                    <label class="">Menu:</label>
+                    <input placeholder="Buscar por menu" class="form-control" type="text" id="txbMenu">
+                </div>
+                <div class="col-sm-4">
+                    <label class="">Sub menu:</label>
+                    <input placeholder="Buscar por sub menu" class="form-control" type="text" Id="txbSubmenu">
+                </div>
+            </div>
+        </div>
+
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <br />
+        <div id="divPermisos" class="col-lg-12" style="margin-top: 20px;"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/conec/Seguridad/AdminPermisos.js"></script>
+}
+

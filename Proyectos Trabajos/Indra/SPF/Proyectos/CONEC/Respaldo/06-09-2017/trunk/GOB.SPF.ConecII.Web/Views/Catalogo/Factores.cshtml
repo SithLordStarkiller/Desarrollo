@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Consulta Factor";
+}
+
+@section Styles{
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+}
+
+@*<ol class="breadcrumb">
+    <li><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+    <li><a href="#">Catalogos</a></li>
+    <li><a href="~/Catalogo/Factores" class="active">Factor</a></li>
+</ol>*@
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="col-sm-3 form-group">
+            <label class="control-label">Estatus:</label>
+            <div class="col-sm-12">
+                <label class="radio-inline" for="activo">
+                    <input type="radio" name="estatus" value="true" checked="checked">Activo
+                </label>
+                <label class="radio-inline" for="inactivo">
+                    <input type="radio" name="estatus" value="false">Inactivo
+                </label>
+            </div>
+        </div>
+        <div class="ui-widget col-md-3 form-group">
+            <label class="control-label">Tipo Servicio:</label>
+            <input id="AutComTS" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+        </div>
+        <div class="ui-widget col-md-3 form-group">
+            <label class="control-label">Clasificación:</label>
+            <input id="AutComCF" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+        </div>
+        <div class="ui-widget col-md-3 form-group">
+            <label class="control-label">Factor:</label>
+            <input id="AutComF" class="form-control dropdown-toggle" placeholder="Ingresa Nombre">
+        </div>
+        <div class="pull-right">
+            <button type="button" class="btn btn-default" id="btnBuscar">
+                <span class="glyphicon glyphicon-search"></span>Buscar
+            </button>
+        </div>
+        <div id="divFactor"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+<input type="hidden" id="TipoServicioId" />
+<input type="hidden" id="ClasificacionId" />
+<input type="hidden" id="FactorId" />
+
+@section Scripts{
+
+    <script src="~/Scripts/conec/catalogo/factor.js"></script>
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+
+}
+

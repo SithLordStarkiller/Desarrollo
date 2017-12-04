@@ -1,0 +1,61 @@
+﻿@*@using System.Web.UI.WebControls
+@model List<TreeView>
+
+@section styles{
+@Styles.Render("~/Content/css/tree.css")
+}
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head"></div>
+    <div id="frm-author" class="panel-body">
+        @using (Html.BeginForm())
+        {
+
+            <div class="tree">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+
+                    <ul>
+                        <li>
+                                <a href="#">
+                                    @Html.CheckBoxFor(model => model[i].IsAuthor, new { @class = "tree-checkbox parent", @id = @Model[i].Id })
+
+                                    <label for=@i>
+                                        <strong>Author:</strong>
+                                        @Html.DisplayFor(model => model[i].Name)
+
+                                    </label>
+                                </a>
+                                <ul>
+                                    @for (int j = 0; j < Model[i].BookViewModel.Count(); j++)
+                                    {
+                                        int k = 1 + j;
+                                        @Html.HiddenFor(model => model[i].BookViewModel[j].Id)
+
+                                        <li>
+                                            <a href="#">
+                                                @Html.CheckBoxFor(model => model[i].BookViewModel[j].IsWritten, new { @class = "tree-checkbox node-item", @iid = i + "" + j })
+
+                                                <label for=@i@j>
+                                                    <strong>Book @(k):</strong> @Html.DisplayFor(model => model[i].BookViewModel[j].Title)
+                                                </label>
+                                            </a>
+                                        </li>
+
+                                    }
+
+                                </ul>
+                            </li>
+                    </ul>
+                }
+
+            </div>
+        }
+
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/Scripts/tree.js")
+}*@

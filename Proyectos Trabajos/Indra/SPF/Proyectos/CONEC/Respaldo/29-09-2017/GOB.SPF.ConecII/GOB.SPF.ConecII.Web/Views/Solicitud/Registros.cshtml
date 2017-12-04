@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Registro de Solicitud";
+}
+@section styles{
+    <link href="~/Content/Conec/Solicitud/Cliente.css" rel="stylesheet" />
+}
+
+<ol class="breadcrumb">
+    <li><a href="#"><i class="icon icon-home"></i></a></li>
+    <li><a href="~/Solicitud/Registros">Solicitud</a></li>
+    <li class="active">Registros</li>
+</ol>
+<div class="flip">
+    <div class="front">
+        <div class="top-buffer">
+            <h3>@ViewBag.Title</h3>
+            <hr class="red">
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Busqueda del cliente
+            </div>
+            <div class="panel-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <label class="control-label">Razón Social:</label>
+                            <input placeholder="Buscar por Razón Social" class="form-control" type="text" name="razonSocial" id="razonSocial" for="razonSocial">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Nombre Corto:</label>
+                            <input placeholder="Buscar por Nombre Corto" class="form-control" type="text" name="nombreCorto" id="nombreCorto" for="nombreCorto">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">RFC:</label>
+                            <input placeholder="Buscar por Nombre Corto" class="form-control" type="text" name="rfc" id="rfc" for="rfc">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Régimen fiscal:</label>
+                            @Html.DropDownList("regimenFiscal", ViewBag.RegimenFiscal != null ? (IEnumerable<SelectListItem>)ViewBag.RegimenFiscal :
+                            new List<SelectListItem>(), "Seleccione", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control-label">Sector:</label>
+                            @Html.DropDownList("sector", ViewBag.Sector != null ? (IEnumerable<SelectListItem>)ViewBag.Sector :
+                            new List<SelectListItem>(), "Seleccione", new { @class = "form-control" })
+                        </div>
+                        <div class="col-md-offset-10 panel-body col-md-1">
+                            <button type="button" class="btn btn-default" id="btnBuscar">
+                                Buscar
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divRegistros"></div>
+    </div>
+    <div class="back">
+
+    </div>
+</div>
+@section Scripts{
+    <script src="~/Scripts/jquery/jquery-ui.js"></script>
+    <script src="~/Scripts/conec/solicitud/registros.js"></script>
+    <script src="~/Scripts/conec/common/conecFunctions.js"></script>
+}
