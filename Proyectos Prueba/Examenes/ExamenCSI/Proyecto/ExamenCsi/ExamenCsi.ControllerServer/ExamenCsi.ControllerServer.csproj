@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,12 +43,52 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\UsuariosServer\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UsuariosC.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExamenCsi.Entities\ExamenCsi.Entities.csproj">
       <Project>{4447d669-a953-49ec-a6cb-b8bcd2ca9a28}</Project>
       <Name>ExamenCsi.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\UsuariosServer\Usuarios.wsdl" />
+    <None Include="Service References\UsuariosServer\Usuarios.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UsuariosServer\Usuarios1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UsuariosServer\Usuarios2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\UsuariosServer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosServer\Usuarios.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosServer\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosServer\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UsuariosServer\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

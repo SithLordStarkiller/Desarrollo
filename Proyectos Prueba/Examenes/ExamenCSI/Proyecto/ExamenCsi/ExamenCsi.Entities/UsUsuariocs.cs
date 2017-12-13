@@ -1,10 +1,17 @@
-﻿namespace ExamenCsi.Entities
+﻿using System.Runtime.Serialization;
+
+namespace ExamenCsi.Entities
 {
-    public class UsUsuariocs
+    [DataContract]
+    public class UsUsuario
     {
-        public int IdUsuarion { get; set; }
+        [DataMember]
+        public int IdUsuario { get; set; }
+        [DataMember]
         public int IdTipoUsuario { get; set; }
+        [DataMember]
         public string Usuario { get; set; }
+        [DataMember]
         public string Contrasena { get; set; }
     }
 }

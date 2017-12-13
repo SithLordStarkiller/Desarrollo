@@ -1,4 +1,6 @@
-﻿namespace ExamenCsi.DataAccess
+﻿using ExamenCsi.Entities;
+
+namespace ExamenCsi.DataAccess
 {
     using System;
     using System.Configuration;
@@ -7,7 +9,7 @@
 
     public class SqlController
     {
-        protected int Insertar(int idTipoUsuario, string usuario, string contrasena)
+        public int InsertarUsuario(UsUsuario usuario)
         {
             var id = -1;
 
@@ -17,13 +19,13 @@
 
                 using (var con = new SqlConnection(constr))
                 {
-                    using (var cmd = new SqlCommand("AddEmployeeReturnID", con))
+                    using (var cmd = new SqlCommand("Usp_UsUsuarioInsertar", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@IdTipoUsuario", SqlDbType.Int).Value = idTipoUsuario;
-                        cmd.Parameters.Add("@Usuario", SqlDbType.VarChar).Value = usuario;
-                        cmd.Parameters.Add("@Contrasena", SqlDbType.VarChar).Value = contrasena;
+                        cmd.Parameters.Add("@IdTipoUsuario", SqlDbType.Int).Value = usuario.IdTipoUsuario;
+                        cmd.Parameters.Add("@Usuario", SqlDbType.VarChar).Value = usuario.Usuario;
+                        cmd.Parameters.Add("@Contrasena", SqlDbType.VarChar).Value = usuario.Contrasena;
 
                         con.Open();
                         var o = cmd.ExecuteScalar();
