@@ -29,5 +29,7 @@ namespace ExamenCsi.Site.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<ExamenCsi.Site.Models.UsUsuarioModel> UsUsuarioModels { get; set; }
     }
 }
