@@ -20,7 +20,12 @@ namespace ExamenCsi.ControllerServer
 
         public Task<int> InsertaUsuario(UsUsuario usuario)
         {
-            return Task.Run(() => _servicio.InsertarUsuario(usuario));
+            return Task.Run(() => _servicio.InsertarUsuarioAsync(usuario));
+        }
+
+        public Task<List<UsUsuario>> UsuarioObtenerTodos()
+        {
+            return Task.Run(() => _servicio.UsuariosObtenerTodosAsync());
         }
     }
 }

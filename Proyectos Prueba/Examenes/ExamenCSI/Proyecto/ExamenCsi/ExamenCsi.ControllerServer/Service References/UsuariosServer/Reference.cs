@@ -20,6 +20,12 @@ namespace ExamenCsi.ControllerServer.UsuariosServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/InsertarUsuario", ReplyAction="http://tempuri.org/IUsuarios/InsertarUsuarioResponse")]
         System.Threading.Tasks.Task<int> InsertarUsuarioAsync(ExamenCsi.Entities.UsUsuario usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/UsuariosObtenerTodos", ReplyAction="http://tempuri.org/IUsuarios/UsuariosObtenerTodosResponse")]
+        System.Collections.Generic.List<ExamenCsi.Entities.UsUsuario> UsuariosObtenerTodos();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarios/UsuariosObtenerTodos", ReplyAction="http://tempuri.org/IUsuarios/UsuariosObtenerTodosResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<ExamenCsi.Entities.UsUsuario>> UsuariosObtenerTodosAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55,6 +61,14 @@ namespace ExamenCsi.ControllerServer.UsuariosServer {
         
         public System.Threading.Tasks.Task<int> InsertarUsuarioAsync(ExamenCsi.Entities.UsUsuario usuario) {
             return base.Channel.InsertarUsuarioAsync(usuario);
+        }
+        
+        public System.Collections.Generic.List<ExamenCsi.Entities.UsUsuario> UsuariosObtenerTodos() {
+            return base.Channel.UsuariosObtenerTodos();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<ExamenCsi.Entities.UsUsuario>> UsuariosObtenerTodosAsync() {
+            return base.Channel.UsuariosObtenerTodosAsync();
         }
     }
 }

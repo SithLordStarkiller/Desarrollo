@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExamenCsiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="UsCatTipoUsuario">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="int" Nullable="false" />
+          <Property Name="TipoUsuario" Type="varchar" MaxLength="50" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="UsUsuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoUsuario" Type="int" />
+          <Property Name="Usuario" Type="varchar" MaxLength="50" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_UsUsuario_UsCatTipoUsuario">
+          <End Role="UsCatTipoUsuario" Type="Self.UsCatTipoUsuario" Multiplicity="0..1" />
+          <End Role="UsUsuario" Type="Self.UsUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsCatTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Usp_UsUsuarioInsertar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Usuario" Type="varchar" Mode="In" />
+          <Parameter Name="Contrasena" Type="varchar" Mode="In" />
+          <Parameter Name="IdTipoUsuario" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Usp_UsUsuarioObtenerTodos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ExamenCsiModelStoreContainer">
+          <EntitySet Name="UsCatTipoUsuario" EntityType="Self.UsCatTipoUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsUsuario" EntityType="Self.UsUsuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_UsUsuario_UsCatTipoUsuario" Association="Self.FK_UsUsuario_UsCatTipoUsuario">
+            <End Role="UsCatTipoUsuario" EntitySet="UsCatTipoUsuario" />
+            <End Role="UsUsuario" EntitySet="UsUsuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamenCsiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="UsCatTipoUsuario">
+          <Key>
+            <PropertyRef Name="IdTipoUsuario" />
+          </Key>
+          <Property Name="IdTipoUsuario" Type="Int32" Nullable="false" />
+          <Property Name="TipoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UsUsuario" Relationship="Self.FK_UsUsuario_UsCatTipoUsuario" FromRole="UsCatTipoUsuario" ToRole="UsUsuario" />
+        </EntityType>
+        <EntityType Name="UsUsuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoUsuario" Type="Int32" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UsCatTipoUsuario" Relationship="Self.FK_UsUsuario_UsCatTipoUsuario" FromRole="UsUsuario" ToRole="UsCatTipoUsuario" />
+        </EntityType>
+        <Association Name="FK_UsUsuario_UsCatTipoUsuario">
+          <End Role="UsCatTipoUsuario" Type="Self.UsCatTipoUsuario" Multiplicity="0..1" />
+          <End Role="UsUsuario" Type="Self.UsUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsCatTipoUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Principal>
+            <Dependent Role="UsUsuario">
+              <PropertyRef Name="IdTipoUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamenCsiEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsCatTipoUsuario" EntityType="Self.UsCatTipoUsuario" />
+          <EntitySet Name="UsUsuario" EntityType="Self.UsUsuario" />
+          <AssociationSet Name="FK_UsUsuario_UsCatTipoUsuario" Association="Self.FK_UsUsuario_UsCatTipoUsuario">
+            <End Role="UsCatTipoUsuario" EntitySet="UsCatTipoUsuario" />
+            <End Role="UsUsuario" EntitySet="UsUsuario" />
+          </AssociationSet>
+          <FunctionImport Name="Usp_UsUsuarioInsertar" ReturnType="Collection(Decimal)">
+            <Parameter Name="Usuario" Mode="In" Type="String" />
+            <Parameter Name="Contrasena" Mode="In" Type="String" />
+            <Parameter Name="IdTipoUsuario" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Usp_UsUsuarioObtenerTodos" ReturnType="Collection(ExamenCsiModel.Usp_UsUsuarioObtenerTodos_Result)" />
+        </EntityContainer>
+        <ComplexType Name="Usp_UsUsuarioObtenerTodos_Result">
+          <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+          <Property Type="Int32" Name="IdTipoUsuario" Nullable="true" />
+          <Property Type="String" Name="Usuario" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Contrasena" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExamenCsiModelStoreContainer" CdmEntityContainer="ExamenCsiEntities">
+          <EntitySetMapping Name="UsCatTipoUsuario">
+            <EntityTypeMapping TypeName="ExamenCsiModel.UsCatTipoUsuario">
+              <MappingFragment StoreEntitySet="UsCatTipoUsuario">
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsUsuario">
+            <EntityTypeMapping TypeName="ExamenCsiModel.UsUsuario">
+              <MappingFragment StoreEntitySet="UsUsuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Usp_UsUsuarioInsertar" FunctionName="ExamenCsiModel.Store.Usp_UsUsuarioInsertar" />
+          <FunctionImportMapping FunctionImportName="Usp_UsUsuarioObtenerTodos" FunctionName="ExamenCsiModel.Store.Usp_UsUsuarioObtenerTodos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ExamenCsiModel.Usp_UsUsuarioObtenerTodos_Result">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdTipoUsuario" ColumnName="IdTipoUsuario" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

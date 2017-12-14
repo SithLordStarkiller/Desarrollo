@@ -1,0 +1,55 @@
+﻿@model List<ExamenCsi.Entities.UsUsuario>
+@{
+    ViewBag.Title = "ListaUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <h2>Lista de Usuarios</h2>
+    <div>
+        <table class="table">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Contraseña
+                </th>
+                <th>
+                    Tipo de usuario
+                </th>
+                <th>
+                    Operaciones
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.IdUsuario
+                    </td>
+                    <td>
+                        @item.Usuario
+                    </td>
+                    <td>
+                        @item.Contrasena
+                    </td>
+                    <td>
+                        @item.IdTipoUsuario
+                    </td>
+                    <td style="align-content: center;">
+                        <a id="btnEliminar" href="@Url.Action("DeleteProCatMarca", "Catalogs")" class="btn btn-default btn-sm">Elimina</a>
+                        <button name="btnEditar" class="btn btn-default btn-sm">Editar</button>
+                        <button name="btnVer" class="btn btn-default btn-sm">ver</button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div style="margin-top: 10px; float: right;" class="form-group">
+        <a id="btnNuevo" href="@Url.Action("CrearUsuario", "Usuarios")" class="btn btn-default btn-sm">Nuevo Usuario</a>
+    </div>
+</div>

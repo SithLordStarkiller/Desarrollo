@@ -17,5 +17,10 @@ namespace ExamenCsi.Server
         {
             return new UsuariosB().InsertarUsuario(usuario);
         }
+
+        public List<UsUsuario> UsuariosObtenerTodos()
+        {
+            return new UsuariosB().UsuariosObtenerTodos();
+        }
     }
 }

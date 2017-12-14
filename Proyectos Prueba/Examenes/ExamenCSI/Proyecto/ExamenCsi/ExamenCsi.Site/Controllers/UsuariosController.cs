@@ -12,7 +12,12 @@ namespace ExamenCsi.Site.Controllers
 {
     public class UsuariosController : Controller
     {
-        // GET: Usuarios
+        public async Task<ActionResult> ListaUsuarios()
+        {
+            var resultado = await new UsuariosC().UsuarioObtenerTodos();
+            return View(resultado);
+        }
+
         public ActionResult CrearUsuario()
         {
             return View();
@@ -32,7 +37,11 @@ namespace ExamenCsi.Site.Controllers
 
                 var resultado = await new UsuariosC().InsertaUsuario(inserta);
 
-                return View(resultado < 0 ? "Error" : "CrearUsuario");
+                ViewBag.Mensage = resultado > 0 ? "El usuario se guardo correctamente" : "No fue posible guardar el registro";
+
+                var lista = await new UsuariosC().UsuarioObtenerTodos();
+
+                return View(resultado < 0 ? "Error" : "ListaUsuarios", lista);
             }
             catch (Exception e)
             {

@@ -13,16 +13,35 @@
   <wsdl:message name="IUsuarios_InsertarUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarios_UsuariosObtenerTodos_InputMessage">
+    <wsdl:part name="parameters" element="tns:UsuariosObtenerTodos" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarios_UsuariosObtenerTodos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UsuariosObtenerTodosResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarios">
     <wsdl:operation name="InsertarUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarios/InsertarUsuario" message="tns:IUsuarios_InsertarUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarios/InsertarUsuarioResponse" message="tns:IUsuarios_InsertarUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UsuariosObtenerTodos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarios/UsuariosObtenerTodos" message="tns:IUsuarios_UsuariosObtenerTodos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarios/UsuariosObtenerTodosResponse" message="tns:IUsuarios_UsuariosObtenerTodos_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarios" type="tns:IUsuarios">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="InsertarUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarios/InsertarUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UsuariosObtenerTodos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarios/UsuariosObtenerTodos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

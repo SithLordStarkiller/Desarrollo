@@ -1,13 +1,14 @@
 ﻿@model ExamenCsi.Site.Models.UsUsuarioModel
 @{
     ViewBag.Title = "CrearUsuario";
+    var mensage = ViewBag.Mensage != null ? (string)ViewBag.Mensage : "";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using (Html.BeginForm("Insertar", "Usuarios", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Cree una nuevo usuario.</h4>
+    <h4>Crear un nuevo usuario.</h4>
     <hr />
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
@@ -30,7 +31,11 @@
     </div>*/
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Crear usuario" />
+            <input type="submit" class="btn btn-default" value="Crear usuario"/>
         </div>
     </div>
+
+    @Html.Label(mensage, new { @class = "col-md-12 control-label" })
 }
+
+

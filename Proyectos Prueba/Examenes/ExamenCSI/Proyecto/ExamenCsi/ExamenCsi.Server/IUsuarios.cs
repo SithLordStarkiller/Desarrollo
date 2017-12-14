@@ -14,5 +14,8 @@ namespace ExamenCsi.Server
     {
         [OperationContract]
         int InsertarUsuario(UsUsuario usuario);
+
+        [OperationContract]
+        List<UsUsuario> UsuariosObtenerTodos();
     }
 }

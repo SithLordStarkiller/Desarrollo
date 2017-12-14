@@ -14,5 +14,10 @@ namespace ExamenCsi.BusinessLogic
         {
             return new SqlController().InsertarUsuario(usuario);
         }
+
+        public List<UsUsuario> UsuariosObtenerTodos()
+        {
+            return new SqlController().UsuariosObtenerTodos();
+        }
     }
 }
