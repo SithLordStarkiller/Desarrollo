@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ExamenMvcEfModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CatTypeUser">
+          <Key>
+            <PropertyRef Name="IdTypeUser" />
+          </Key>
+          <Property Name="IdTypeUser" Type="int" Nullable="false" />
+          <Property Name="NameTypeUser" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTypeUser" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="Fk_CatTypeUser_Users">
+          <End Role="CatTypeUser" Type="Self.CatTypeUser" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeUser">
+              <PropertyRef Name="IdTypeUser" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdTypeUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamenMvcEfModelStoreContainer">
+          <EntitySet Name="CatTypeUser" EntityType="Self.CatTypeUser" Schema="Security" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="Security" store:Type="Tables" />
+          <AssociationSet Name="Fk_CatTypeUser_Users" Association="Self.Fk_CatTypeUser_Users">
+            <End Role="CatTypeUser" EntitySet="CatTypeUser" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ExamenMvcEfModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CatTypeUser">
+          <Key>
+            <PropertyRef Name="IdTypeUser" />
+          </Key>
+          <Property Name="IdTypeUser" Type="Int32" Nullable="false" />
+          <Property Name="NameTypeUser" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Self.Fk_CatTypeUser_Users" FromRole="CatTypeUser" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="IdUser" />
+          </Key>
+          <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTypeUser" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CatTypeUser" Relationship="Self.Fk_CatTypeUser_Users" FromRole="Users" ToRole="CatTypeUser" />
+        </EntityType>
+        <Association Name="Fk_CatTypeUser_Users">
+          <End Role="CatTypeUser" Type="Self.CatTypeUser" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatTypeUser">
+              <PropertyRef Name="IdTypeUser" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdTypeUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ExamenMvcEfEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CatTypeUser" EntityType="Self.CatTypeUser" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="Fk_CatTypeUser_Users" Association="Self.Fk_CatTypeUser_Users">
+            <End Role="CatTypeUser" EntitySet="CatTypeUser" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ExamenMvcEfModelStoreContainer" CdmEntityContainer="ExamenMvcEfEntities">
+          <EntitySetMapping Name="CatTypeUser">
+            <EntityTypeMapping TypeName="ExamenMvcEfModel.CatTypeUser">
+              <MappingFragment StoreEntitySet="CatTypeUser">
+                <ScalarProperty Name="IdTypeUser" ColumnName="IdTypeUser" />
+                <ScalarProperty Name="NameTypeUser" ColumnName="NameTypeUser" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ExamenMvcEfModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdTypeUser" ColumnName="IdTypeUser" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

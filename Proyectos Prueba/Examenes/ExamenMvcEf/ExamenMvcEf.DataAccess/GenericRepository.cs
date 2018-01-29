@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-
-namespace ExamenMvcEf.DataAccess
+﻿namespace ExamenMvcEf.DataAccess
 {
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Threading.Tasks;
+
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected DataContext _context;
+        protected DbContext _context;
 
-        public GenericRepository(DataContext context)
+        public GenericRepository(DbContext context)
         {
             _context = context;
         }
@@ -51,6 +51,32 @@ namespace ExamenMvcEf.DataAccess
             await _context.SaveChangesAsync();
             return t;
 
+        }
+
+        public virtual async Task<List<T>> AddManyAsyn(List<T> t)
+        {
+            foreach (var item in t)
+            {
+
+                _context.Set<T>().Add(item);
+            }
+
+            await _context.SaveChangesAsync();
+
+            return t;
+
+        }
+
+        public virtual List<T> AddMany(List<T> t)
+        {
+            foreach (var item in t)
+            {
+                _context.Set<T>().Add(item);
+            }
+
+            _context.SaveChanges();
+
+            return t;
         }
 
         public virtual T Find(Expression<Func<T, bool>> match)
@@ -109,6 +135,49 @@ namespace ExamenMvcEf.DataAccess
                 await _context.SaveChangesAsync();
             }
             return exist;
+        }
+
+        public virtual async Task<List<T>> UpdateManyAsyn(List<T> t)
+        {
+            //Parallel.ForEach(item =>
+            //{
+            //    if (item == null)
+            //    {
+            //        T exist = await _context.Set<T>().FindAsync(item);
+            //        if (exist != null)
+            //        {
+            //            _context.Entry(exist).CurrentValues.SetValues(t);
+            //        }
+            //    }
+            //});
+
+            //foreach (var item in t)
+            //{
+                
+            //}
+
+            //await _context.SaveChangesAsync();
+
+            return t;
+        }
+
+        public virtual List<T> UpdateMany(List<T> t)
+        {
+            foreach (var item in t)
+            {
+                if (item == null)
+                {
+                    T exist = _context.Set<T>().Find(item);
+                    if (exist != null)
+                    {
+                        _context.Entry(exist).CurrentValues.SetValues(t);
+                    }
+                }
+            }
+
+            _context.SaveChanges();
+
+            return t;
         }
 
         public int Count()
