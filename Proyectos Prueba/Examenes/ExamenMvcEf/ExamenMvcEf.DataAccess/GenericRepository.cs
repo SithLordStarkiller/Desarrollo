@@ -53,6 +53,18 @@
 
         }
 
+        public virtual int AddRange(IEnumerable<T> list)
+        {
+            _context.Set<T>().AddRange(list);
+            return _context.SaveChanges();
+        }
+
+        public virtual async Task<int> AddRangeAsync(IEnumerable<T> list)
+        {
+            _context.Set<T>().AddRange(list);
+            return await _context.SaveChangesAsync();
+        }
+
         public virtual async Task<List<T>> AddManyAsyn(List<T> t)
         {
             foreach (var item in t)

@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using ExamenMvcEf.Models;
+using ExamenMvcEf.DataAccess.Security;
 namespace ExamenMvcEf.BusinessLogic.Securiry
 {
-    class UsersBll
+    public class UsersBll
     {
+        public Users AddUser(Users user)
+        {
+            return new UsersDal().Add(user);
+        }
     }
 }

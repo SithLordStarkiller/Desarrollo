@@ -11,6 +11,9 @@
         T Add(T t);
         Task<T> AddAsyn(T t);
 
+        int AddRange(ICollection<T> list);
+        Task<int> AddRangeAsync(ICollection<T> list);
+
         int Count();
         Task<int> CountAsync();
 
