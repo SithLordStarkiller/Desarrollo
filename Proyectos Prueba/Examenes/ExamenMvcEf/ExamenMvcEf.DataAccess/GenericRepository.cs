@@ -7,254 +7,135 @@
     using System.Data.Entity;
     using System.Threading.Tasks;
 
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        protected DbContext _context;
+        protected readonly DbContext Context;
 
         public GenericRepository(DbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
-        public IQueryable<T> GetAll()
+        public TEntity Add(TEntity t)
         {
-            return _context.Set<T>();
+            return Context.Set<TEntity>().Add(t);
         }
 
-        public virtual async Task<ICollection<T>> GetAllAsyn()
+        public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
         {
-
-            return await _context.Set<T>().ToListAsync();
-        }
-
-        public virtual T Get(int id)
-        {
-            return _context.Set<T>().Find(id);
-        }
-
-        public virtual async Task<T> GetAsync(int id)
-        {
-            return await _context.Set<T>().FindAsync(id);
-        }
-
-        public virtual T Add(T t)
-        {
-
-            _context.Set<T>().Add(t);
-            _context.SaveChanges();
-            return t;
-        }
-
-        public virtual async Task<T> AddAsyn(T t)
-        {
-            _context.Set<T>().Add(t);
-            await _context.SaveChangesAsync();
-            return t;
-
-        }
-
-        public virtual int AddRange(IEnumerable<T> list)
-        {
-            _context.Set<T>().AddRange(list);
-            return _context.SaveChanges();
-        }
-
-        public virtual async Task<int> AddRangeAsync(IEnumerable<T> list)
-        {
-            _context.Set<T>().AddRange(list);
-            return await _context.SaveChangesAsync();
-        }
-
-        public virtual async Task<List<T>> AddManyAsyn(List<T> t)
-        {
-            foreach (var item in t)
-            {
-
-                _context.Set<T>().Add(item);
-            }
-
-            await _context.SaveChangesAsync();
-
-            return t;
-
-        }
-
-        public virtual List<T> AddMany(List<T> t)
-        {
-            foreach (var item in t)
-            {
-                _context.Set<T>().Add(item);
-            }
-
-            _context.SaveChanges();
-
-            return t;
-        }
-
-        public virtual T Find(Expression<Func<T, bool>> match)
-        {
-            return _context.Set<T>().SingleOrDefault(match);
-        }
-
-        public virtual async Task<T> FindAsync(Expression<Func<T, bool>> match)
-        {
-            return await _context.Set<T>().SingleOrDefaultAsync(match);
-        }
-
-        public ICollection<T> FindAll(Expression<Func<T, bool>> match)
-        {
-            return _context.Set<T>().Where(match).ToList();
-        }
-
-        public async Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> match)
-        {
-            return await _context.Set<T>().Where(match).ToListAsync();
-        }
-
-        public virtual void Delete(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
-        }
-
-        public virtual async Task<int> DeleteAsyn(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            return await _context.SaveChangesAsync();
-        }
-
-        public virtual T Update(T t, object key)
-        {
-            if (t == null)
-                return null;
-            T exist = _context.Set<T>().Find(key);
-            if (exist != null)
-            {
-                _context.Entry(exist).CurrentValues.SetValues(t);
-                _context.SaveChanges();
-            }
-            return exist;
-        }
-
-        public virtual async Task<T> UpdateAsyn(T t, object key)
-        {
-            if (t == null)
-                return null;
-            T exist = await _context.Set<T>().FindAsync(key);
-            if (exist != null)
-            {
-                _context.Entry(exist).CurrentValues.SetValues(t);
-                await _context.SaveChangesAsync();
-            }
-            return exist;
-        }
-
-        public virtual async Task<List<T>> UpdateManyAsyn(List<T> t)
-        {
-            //Parallel.ForEach(item =>
-            //{
-            //    if (item == null)
-            //    {
-            //        T exist = await _context.Set<T>().FindAsync(item);
-            //        if (exist != null)
-            //        {
-            //            _context.Entry(exist).CurrentValues.SetValues(t);
-            //        }
-            //    }
-            //});
-
-            //foreach (var item in t)
-            //{
-                
-            //}
-
-            //await _context.SaveChangesAsync();
-
-            return t;
-        }
-
-        public virtual List<T> UpdateMany(List<T> t)
-        {
-            foreach (var item in t)
-            {
-                if (item == null)
-                {
-                    T exist = _context.Set<T>().Find(item);
-                    if (exist != null)
-                    {
-                        _context.Entry(exist).CurrentValues.SetValues(t);
-                    }
-                }
-            }
-
-            _context.SaveChanges();
-
-            return t;
+            return Context.Set<TEntity>().AddRange(list);
         }
 
         public int Count()
         {
-            return _context.Set<T>().Count();
+            return Context.Set<TEntity>().Count();
         }
 
         public async Task<int> CountAsync()
         {
-            return await _context.Set<T>().CountAsync();
+            return await Context.Set<TEntity>().CountAsync();
         }
 
-        public virtual void Save()
+        public TEntity Remove(TEntity entity)
         {
-
-            _context.SaveChanges();
+            return Context.Set<TEntity>().Remove(entity);
         }
 
-        public async virtual Task<int> SaveAsync()
+        public TEntity Find(Expression<Func<TEntity, bool>> match)
         {
-            return await _context.SaveChangesAsync();
+            return Context.Set<TEntity>().Find(match);
         }
 
-        public virtual IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> match)
         {
-            IQueryable<T> query = _context.Set<T>().Where(predicate);
-            return query;
+            return Context.Set<TEntity>().Where(match).ToList();
         }
 
-        public virtual async Task<ICollection<T>> FindByAsyn(Expression<Func<T, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> match)
         {
-            return await _context.Set<T>().Where(predicate).ToListAsync();
+            return await Context.Set<TEntity>().Where(match).ToListAsync();
         }
 
-        public IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties)
+        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> match)
         {
+            return await Context.Set<TEntity>().FindAsync(match);
+        }
 
-            IQueryable<T> queryable = GetAll();
-            foreach (Expression<Func<T, object>> includeProperty in includeProperties)
+        public IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
+        {
+            return Context.Set<TEntity>().Where(predicate).ToList();
+        }
+
+        public async Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await Context.Set<TEntity>().Where(predicate).ToListAsync();
+        }
+
+        public TEntity Get(int id)
+        {
+            return Context.Set<TEntity>().Find(id);
+        }
+
+        public IEnumerable<TEntity> GetAll()
+        {
+            return Context.Set<TEntity>().ToList();
+        }
+
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await Context.Set<TEntity>().ToListAsync();
+        }
+
+        public IEnumerable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> queryable = Context.Set<TEntity>();
+
+            foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
             {
-
-                queryable = queryable.Include<T, object>(includeProperty);
+                queryable = queryable.Include(includeProperty);
             }
 
-            return queryable;
+            return queryable.ToList();
         }
 
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
+        public async Task<TEntity> GetAsync(int id)
         {
-            if (!disposed)
+            return await Context.Set<TEntity>().FindAsync(id);
+        }
+
+        public TEntity Update(TEntity t, object key)
+        {
+            if (t == null)
+                return null;
+
+            TEntity exist = Context.Set<TEntity>().Find(key);
+
+            if (exist != null)
             {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-                disposed = true;
+                Context.Entry(exist).CurrentValues.SetValues(t);
             }
+
+            return t;
         }
 
-        public void Dispose()
+        public async Task<TEntity> UpdateAsync(TEntity t, object key)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (t == null)
+                return null;
+
+            TEntity exist = await Context.Set<TEntity>().FindAsync(key);
+
+            if (exist != null)
+            {
+                Context.Entry(exist).CurrentValues.SetValues(t);
+            }
+
+            return t;
+        }
+
+        public IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entity)
+        {
+            return Context.Set<TEntity>().RemoveRange(entity);
         }
     }
 }

@@ -2,48 +2,37 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<TEntity> where TEntity : class
     {
-        T Add(T t);
-        Task<T> AddAsyn(T t);
-
-        int AddRange(ICollection<T> list);
-        Task<int> AddRangeAsync(ICollection<T> list);
+        TEntity Add(TEntity t);
+        IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list);
 
         int Count();
         Task<int> CountAsync();
 
-        void Delete(T entity);
-        Task<int> DeleteAsyn(T entity);
+        TEntity Remove(TEntity entity);
+        IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entity);
 
+        TEntity Find(Expression<Func<TEntity, bool>> match);
+        Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> match);
 
-        T Find(Expression<Func<T, bool>> match);
-        Task<T> FindAsync(Expression<Func<T, bool>> match);
+        IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> match);
+        Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> match);
 
-        ICollection<T> FindAll(Expression<Func<T, bool>> match);
-        Task<ICollection<T>> FindAllAsync(Expression<Func<T, bool>> match);
+        IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
+        Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate);
 
-        IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
-        Task<ICollection<T>> FindByAsyn(Expression<Func<T, bool>> predicate);
+        TEntity Get(int id);
+        Task<TEntity> GetAsync(int id);
 
-        T Get(int id);
-        Task<T> GetAsync(int id);
+        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        IEnumerable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
 
-        IQueryable<T> GetAll();
-        Task<ICollection<T>> GetAllAsyn();
-        IQueryable<T> GetAllIncluding(params Expression<Func<T, object>>[] includeProperties);
-
-
-        void Save();
-        Task<int> SaveAsync();
-
-        T Update(T t, object key);
-        Task<T> UpdateAsyn(T t, object key);
-
-        void Dispose();
+        TEntity Update(TEntity t, object key);
+        Task<TEntity> UpdateAsync(TEntity t, object key);
     }
 }
