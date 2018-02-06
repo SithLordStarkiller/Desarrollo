@@ -7,6 +7,7 @@
     [ServiceContract]
     public interface IUsersSll
     {
+        [OperationContract]
         Users AddUser(Users user);
     }
 }
