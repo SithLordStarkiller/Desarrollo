@@ -35,6 +35,16 @@
             NombreCompletoDelArchivo = UrlLog + Archivo + FechaArchivo + Extencion;
         }
 
+        public Logger()
+        {
+            UrlLog = @"C:\Desarrollo\Proyectos\Proyectos Prueba\Examenes\ExamenMvcEf\ExamenMvcEf.Services\Logs";
+            ConectionString = @"Data Source=PC-STARKILLER\MSSQLSERVER2016;Initial Catalog=ExamenMvcEf;Persist Security Info=True;User ID=sa;Password=A@141516182235";
+
+            Archivo = "LogServer";
+            FechaArchivo = DateTime.Now.ToShortDateString().Replace("/", "");
+            Extencion = ".Log";
+        }
+
         public void EscribeLog(TipoLog tipoLog, string proyecto, string clase, string metodo, string mensage, string log, Exception er, string auxiliar)
         {
             GuardaLogBaseDatos(tipoLog, proyecto, clase, metodo, mensage, log, er, auxiliar);
@@ -52,7 +62,7 @@
                 var cnn = new SqlConnection(ConectionString);
                 cnn.Open();
 
-                var sc = new SqlCommand("Usp_LogAlmacenaLog", cnn)
+                var sc = new SqlCommand("[Logs].[Usp_InsertLog]", cnn)
                 {
                     CommandType = CommandType.StoredProcedure
                 };

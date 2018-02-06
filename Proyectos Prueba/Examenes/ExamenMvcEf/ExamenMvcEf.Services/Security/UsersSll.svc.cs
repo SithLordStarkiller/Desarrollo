@@ -9,5 +9,15 @@
         {
             return new UsersBll().AddUser(user);
         }
+
+        public int GetCountUsers()
+        {
+            return new UsersBll().GetCountUsers();
+        }
+
+        public Users UpdateUser(Users user)
+        {
+            return new UsersBll().UpdateUser(user);
+        }
     }
 }

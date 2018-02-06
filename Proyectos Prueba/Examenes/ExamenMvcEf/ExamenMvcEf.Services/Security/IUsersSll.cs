@@ -9,5 +9,11 @@
     {
         [OperationContract]
         Users AddUser(Users user);
+
+        [OperationContract]
+        int GetCountUsers();
+
+        [OperationContract]
+        Users UpdateUser(Users user);
     }
 }

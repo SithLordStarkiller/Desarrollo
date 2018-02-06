@@ -14,6 +14,11 @@ namespace ExamenMvcEf.DataAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+    
+    
+    
     
     public partial class ExamenMvcEfEntities : DbContext
     {
@@ -27,7 +32,46 @@ namespace ExamenMvcEf.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<LogCatTipoLog> LogCatTipoLog { get; set; }
+        public virtual DbSet<LogLogger> LogLogger { get; set; }
         public virtual DbSet<CatTypeUser> CatTypeUser { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+    
+        public virtual ObjectResult<Nullable<decimal>> Usp_InsertLog(Nullable<int> tipoLog, string proyecto, string clase, string metodo, string mensage, string log, string excepcion, string auxiliar)
+        {
+            var tipoLogParameter = tipoLog.HasValue ?
+                new ObjectParameter("tipoLog", tipoLog) :
+                new ObjectParameter("tipoLog", typeof(int));
+    
+            var proyectoParameter = proyecto != null ?
+                new ObjectParameter("proyecto", proyecto) :
+                new ObjectParameter("proyecto", typeof(string));
+    
+            var claseParameter = clase != null ?
+                new ObjectParameter("clase", clase) :
+                new ObjectParameter("clase", typeof(string));
+    
+            var metodoParameter = metodo != null ?
+                new ObjectParameter("metodo", metodo) :
+                new ObjectParameter("metodo", typeof(string));
+    
+            var mensageParameter = mensage != null ?
+                new ObjectParameter("mensage", mensage) :
+                new ObjectParameter("mensage", typeof(string));
+    
+            var logParameter = log != null ?
+                new ObjectParameter("log", log) :
+                new ObjectParameter("log", typeof(string));
+    
+            var excepcionParameter = excepcion != null ?
+                new ObjectParameter("excepcion", excepcion) :
+                new ObjectParameter("excepcion", typeof(string));
+    
+            var auxiliarParameter = auxiliar != null ?
+                new ObjectParameter("auxiliar", auxiliar) :
+                new ObjectParameter("auxiliar", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("Usp_InsertLog", tipoLogParameter, proyectoParameter, claseParameter, metodoParameter, mensageParameter, logParameter, excepcionParameter, auxiliarParameter);
+        }
     }
 }
