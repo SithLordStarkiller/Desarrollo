@@ -16,7 +16,7 @@
 
         protected readonly DbContext Context;
 
-        public GenericRepository(DbContext context)
+        protected GenericRepository(DbContext context)
         {
             Context = context;
         }
@@ -34,7 +34,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al insertar en entityFramework", "", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -51,7 +51,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al insertar lista de objetos en entityFramework", list.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -68,7 +68,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, $"Error al realizar conteoen la tabla en entityFramework", GetType().ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -85,7 +85,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al realizar conteo de registros asincrona en entityFramework", GetType().ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -102,7 +102,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al remover objeto de la base de datos en entityFramework", entity.GetType().ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -119,7 +119,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar objeto de la base de datos en entityFramework", match.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -136,7 +136,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar lista de objeto de la base de datos en entityFramework", match.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -153,7 +153,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar lista de objeto de forma asincrona de la base de datos en entityFramework", match.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -170,7 +170,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar objeto de la base de datos en entityFramework", match.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -187,7 +187,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar lista de objetos de la base de datos en entityFramework", predicate.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -204,7 +204,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar lista de objetos asincrono de la base de datos en entityFramework", predicate.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -221,7 +221,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar objeto por id de la base de datos en entityFramework", $"Id = {id}, Objeto = {this}", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -238,7 +238,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar objeto de la base de datos en entityFramework", "", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -255,7 +255,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar lista de registros de la base de datos en entityFramework", "", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -265,10 +265,12 @@
             {
                 IQueryable<TEntity> queryable = Context.Set<TEntity>();
 
-                foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
-                {
-                    queryable = queryable.Include(includeProperty);
-                }
+                //foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
+                //{
+                //    queryable = queryable.Include(includeProperty);
+                //}
+
+                queryable = includeProperties.Aggregate(queryable, (current, includeProperty) => current.Include(includeProperty));
 
                 return queryable.ToList();
             }
@@ -279,7 +281,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar objeto por propiedades en la base de datos en entityFramework", includeProperties.ToString(), ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -296,7 +298,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar objeto asincrona de la base de datos en entityFramework", $"Id = {id}, Objeto = {this}", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -323,7 +325,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al actualizar objeto asincrona de la base de datos en entityFramework", $"Id = {key}, Objeto = {t}", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -350,7 +352,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al actualizar objeto asincrona de la base de datos en entityFramework", $"Id = {key}, Objeto = {this}", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -367,7 +369,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al remover objeto asincrona de la base de datos en entityFramework", $"Objeto = {entity}", ex, Context.ToString()));
-                throw ex;
+                throw;
             }
         }
     }

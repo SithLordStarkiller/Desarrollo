@@ -19,7 +19,7 @@
 
         public int GetCountUsers()
         {
-            int numUsers = 0;
+            int numUsers;
 
             using (var uow = new UnitOfWork(new ExamenMvcEfEntities()))
             {
@@ -36,8 +36,6 @@
             using (var uow = new UnitOfWork(new ExamenMvcEfEntities()))
             {
                 resultUsers = uow.Users.Update(user, user.IdUser);
-
-                var a = uow.CommitAsync().Result;
             }
 
             return resultUsers;

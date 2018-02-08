@@ -11,7 +11,7 @@
     {
         private readonly Logger _logLogger = new Logger();
 
-        public readonly ExamenMvcEfEntities _context;
+        private readonly ExamenMvcEfEntities _context;
 
         public UnitOfWork(ExamenMvcEfEntities dbContext)
         {
@@ -20,7 +20,7 @@
             Users = new RepositoryUsers(_context);
         }
 
-        public IRepositoryUsers Users { get; private set; }
+        public IRepositoryUsers Users { get; }
 
         public int Commit()
         {
@@ -35,7 +35,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al completar transaccion en entityFramework", "", ex, _context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -52,7 +52,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al completar transaccion asyncrona en entityFramework", "", ex, _context.ToString()));
-                throw ex;
+                throw;
             }
         }
 
@@ -69,7 +69,7 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al descartar cambios en entityFramework", "", ex, _context.ToString()));
-                throw ex;
+                throw;
             }
         }
     }
