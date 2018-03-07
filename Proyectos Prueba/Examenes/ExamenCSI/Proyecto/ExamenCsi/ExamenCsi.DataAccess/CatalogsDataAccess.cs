@@ -1,6 +1,4 @@
-﻿
-
-namespace SunCorp.DataAccessSqlServer.CatalogsDataAccess
+﻿namespace SunCorp.DataAccessSqlServer.CatalogsDataAccess
 {
     using System.Collections.Generic;
     using System.Linq;
