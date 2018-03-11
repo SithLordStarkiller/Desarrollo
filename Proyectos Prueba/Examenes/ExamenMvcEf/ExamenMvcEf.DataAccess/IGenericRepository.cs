@@ -8,29 +8,29 @@
     public interface IGenericRepository<TEntity> where TEntity : class
     {
         TEntity Add(TEntity t);
-        IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list);
+        List<TEntity> AddRange(List<TEntity> list);
 
         int Count();
         Task<int> CountAsync();
 
         TEntity Remove(TEntity entity);
-        IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entity);
+        List<TEntity> RemoveRange(List<TEntity> entity);
 
         TEntity Find(Expression<Func<TEntity, bool>> match);
         Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> match);
 
-        IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> match);
-        Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> match);
+        List<TEntity> FindAll(Expression<Func<TEntity, bool>> match);
+        Task<List<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> match);
 
-        IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
-        Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate);
+        List<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate);
+        Task<List<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate);
 
         TEntity Get(int id);
         Task<TEntity> GetAsync(int id);
 
-        IEnumerable<TEntity> GetAll();
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        IEnumerable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
+        List<TEntity> GetAll();
+        Task<List<TEntity>> GetAllAsync();
+        List<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties);
 
         TEntity Update(TEntity t, object key);
         Task<TEntity> UpdateAsync(TEntity t, object key);

@@ -18,6 +18,7 @@
 
         protected GenericRepository(DbContext context)
         {
+            context.Configuration.ProxyCreationEnabled = false;
             Context = context;
         }
 
@@ -38,11 +39,11 @@
             }
         }
 
-        public IEnumerable<TEntity> AddRange(IEnumerable<TEntity> list)
+        public List<TEntity> AddRange(List<TEntity> list)
         {
             try
             {
-                return Context.Set<TEntity>().AddRange(list);
+                return Context.Set<TEntity>().AddRange(list).ToList();
             }
             catch (Exception ex)
             {
@@ -123,7 +124,7 @@
             }
         }
 
-        public IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> match)
+        public List<TEntity> FindAll(Expression<Func<TEntity, bool>> match)
         {
             try
             {
@@ -140,7 +141,7 @@
             }
         }
 
-        public async Task<IEnumerable<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> match)
+        public async Task<List<TEntity>> FindAllAsync(Expression<Func<TEntity, bool>> match)
         {
             try
             {
@@ -174,7 +175,7 @@
             }
         }
 
-        public IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
+        public List<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
         {
             try
             {
@@ -191,7 +192,7 @@
             }
         }
 
-        public async Task<IEnumerable<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<List<TEntity>> FindByAsync(Expression<Func<TEntity, bool>> predicate)
         {
             try
             {
@@ -225,7 +226,7 @@
             }
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public List<TEntity> GetAll()
         {
             try
             {
@@ -242,7 +243,7 @@
             }
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<List<TEntity>> GetAllAsync()
         {
             try
             {
@@ -259,7 +260,7 @@
             }
         }
 
-        public IEnumerable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        public List<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             try
             {
@@ -356,11 +357,11 @@
             }
         }
 
-        public IEnumerable<TEntity> RemoveRange(IEnumerable<TEntity> entity)
+        public List<TEntity> RemoveRange(List<TEntity> entity)
         {
             try
             {
-                return Context.Set<TEntity>().RemoveRange(entity);
+                return Context.Set<TEntity>().RemoveRange(entity).ToList();
             }
             catch (Exception ex)
             {

@@ -12,6 +12,12 @@ namespace ExamenMvcEf.Models
     using System;
     using System.Collections.Generic;
     
+    using System.Runtime.Serialization;
+    
+    
+    [Serializable]
+    //[DataContract]
+    [DataContract(IsReference=true)]
     public partial class CatTypeUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,11 +26,14 @@ namespace ExamenMvcEf.Models
             this.Users = new HashSet<Users>();
         }
     
+    	[DataMember]
         public int IdTypeUser { get; set; }
+    	[DataMember]
         public string NameTypeUser { get; set; }
+    	[DataMember]
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        [DataMember]public virtual ICollection<Users> Users { get; set; }
     }
 }

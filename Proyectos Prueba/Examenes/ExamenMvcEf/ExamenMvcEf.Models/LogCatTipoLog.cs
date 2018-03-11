@@ -12,6 +12,12 @@ namespace ExamenMvcEf.Models
     using System;
     using System.Collections.Generic;
     
+    using System.Runtime.Serialization;
+    
+    
+    [Serializable]
+    //[DataContract]
+    [DataContract(IsReference=true)]
     public partial class LogCatTipoLog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,12 +26,16 @@ namespace ExamenMvcEf.Models
             this.LogLogger = new HashSet<LogLogger>();
         }
     
+    	[DataMember]
         public int IdTipoLog { get; set; }
+    	[DataMember]
         public string TipoLog { get; set; }
+    	[DataMember]
         public string Descripcion { get; set; }
+    	[DataMember]
         public Nullable<bool> Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LogLogger> LogLogger { get; set; }
+        [DataMember]public virtual ICollection<LogLogger> LogLogger { get; set; }
     }
 }

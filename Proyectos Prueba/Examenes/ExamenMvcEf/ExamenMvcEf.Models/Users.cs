@@ -12,15 +12,27 @@ namespace ExamenMvcEf.Models
     using System;
     using System.Collections.Generic;
     
+    using System.Runtime.Serialization;
+    
+    
+    [Serializable]
+    //[DataContract]
+    [DataContract(IsReference=true)]
     public partial class Users
     {
+    	[DataMember]
         public int IdUser { get; set; }
+    	[DataMember]
         public int IdTypeUser { get; set; }
+    	[DataMember]
         public string LastName { get; set; }
+    	[DataMember]
         public string FirstName { get; set; }
+    	[DataMember]
         public string Password { get; set; }
+    	[DataMember]
         public string Address { get; set; }
     
-        public virtual CatTypeUser CatTypeUser { get; set; }
+        [DataMember]public virtual CatTypeUser CatTypeUser { get; set; }
     }
 }

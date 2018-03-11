@@ -24,6 +24,12 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
     BeginNamespace(code);
 #>
 <#=codeStringGenerator.UsingDirectives(inHeader: false)#>
+using System.Runtime.Serialization;
+
+
+[Serializable]
+//[DataContract]
+[DataContract(IsReference=true)]
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 {
 <#
@@ -70,6 +76,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
         foreach (var edmProperty in simpleProperties)
         {
 #>
+	[DataMember]
     <#=codeStringGenerator.Property(edmProperty)#>
 <#
         }
@@ -308,7 +315,7 @@ public class CodeStringGenerator
     
     public string AccessibilityAndVirtual(string accessibility)
     {
-        return accessibility + (accessibility != "private" ? " virtual" : "");
+        return "[DataMember]" + accessibility + (accessibility != "private" ? " virtual" : "");
     }
     
     public string EntityClassOpening(EntityType entity)
@@ -412,6 +419,7 @@ public class CodeStringGenerator
     
     public string DbSet(EntitySet entitySet)
     {
+	
         return string.Format(
             CultureInfo.InvariantCulture,
             "{0} virtual DbSet<{1}> {2} {{ get; set; }}",

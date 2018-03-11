@@ -11,22 +11,22 @@
     {
         private readonly Logger _logLogger = new Logger();
 
-        private readonly ExamenMvcEfEntities _context;
+        public readonly ExamenMvcEfEntities Context;
 
         public UnitOfWork(ExamenMvcEfEntities dbContext)
         {
-            _context = dbContext;
-
-            Users = new RepositoryUsers(_context);
+            Context = dbContext;
+            
+            Users = new RepositoryUsers(Context);
         }
 
-        public IRepositoryUsers Users { get; }
+        public IRepositoryUsers Users { get; set; }
 
         public int Commit()
         {
             try
             {
-                return _context.SaveChanges();
+                return Context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -34,7 +34,7 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Error al completar transaccion en entityFramework", "", ex, _context.ToString()));
+                           MethodBase.GetCurrentMethod().Name, "Error al completar transaccion en entityFramework", "", ex, Context.ToString()));
                 throw;
             }
         }
@@ -43,7 +43,7 @@
         {
             try
             {
-                return await _context.SaveChangesAsync();
+                return await Context.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Error al completar transaccion asyncrona en entityFramework", "", ex, _context.ToString()));
+                           MethodBase.GetCurrentMethod().Name, "Error al completar transaccion asyncrona en entityFramework", "", ex, Context.ToString()));
                 throw;
             }
         }
@@ -60,7 +60,7 @@
         {
             try
             {
-                _context.Dispose();
+                Context.Dispose();
             }
             catch (Exception ex)
             {
@@ -68,7 +68,7 @@
                    () =>
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
-                           MethodBase.GetCurrentMethod().Name, "Error al descartar cambios en entityFramework", "", ex, _context.ToString()));
+                           MethodBase.GetCurrentMethod().Name, "Error al descartar cambios en entityFramework", "", ex, Context.ToString()));
                 throw;
             }
         }
