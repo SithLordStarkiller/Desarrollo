@@ -16,7 +16,6 @@ namespace ExamenMvcEf.Models
     
     
     [Serializable]
-    //[DataContract]
     [DataContract(IsReference=true)]
     public partial class LogLogger
     {
@@ -41,6 +40,7 @@ namespace ExamenMvcEf.Models
     	[DataMember]
         public System.DateTime FechaCreacion { get; set; }
     
-        [DataMember]public virtual LogCatTipoLog LogCatTipoLog { get; set; }
+        [DataMember]
+    	public virtual LogCatTipoLog LogCatTipoLog { get; set; }
     }
 }

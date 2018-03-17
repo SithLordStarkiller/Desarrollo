@@ -16,7 +16,6 @@ namespace ExamenMvcEf.Models
     
     
     [Serializable]
-    //[DataContract]
     [DataContract(IsReference=true)]
     public partial class Users
     {
@@ -33,6 +32,7 @@ namespace ExamenMvcEf.Models
     	[DataMember]
         public string Address { get; set; }
     
-        [DataMember]public virtual CatTypeUser CatTypeUser { get; set; }
+        [DataMember]
+    	public virtual CatTypeUser CatTypeUser { get; set; }
     }
 }

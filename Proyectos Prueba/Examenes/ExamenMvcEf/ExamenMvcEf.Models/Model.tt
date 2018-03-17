@@ -28,7 +28,6 @@ using System.Runtime.Serialization;
 
 
 [Serializable]
-//[DataContract]
 [DataContract(IsReference=true)]
 <#=codeStringGenerator.EntityClassOpening(entity)#>
 {
@@ -39,7 +38,7 @@ using System.Runtime.Serialization;
 
     if (propertiesWithDefaultValues.Any() || collectionNavigationProperties.Any() || complexProperties.Any())
     {
-#>
+#> 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
     public <#=code.Escape(entity)#>()
     {
@@ -315,7 +314,8 @@ public class CodeStringGenerator
     
     public string AccessibilityAndVirtual(string accessibility)
     {
-        return "[DataMember]" + accessibility + (accessibility != "private" ? " virtual" : "");
+		var sb = new StringBuilder();
+        return "[DataMember]" + Environment.NewLine + sb.Append("\t") + accessibility + (accessibility != "private" ? " virtual" : "");
     }
     
     public string EntityClassOpening(EntityType entity)

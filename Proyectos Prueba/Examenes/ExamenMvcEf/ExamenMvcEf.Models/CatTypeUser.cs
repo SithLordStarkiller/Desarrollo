@@ -16,10 +16,10 @@ namespace ExamenMvcEf.Models
     
     
     [Serializable]
-    //[DataContract]
     [DataContract(IsReference=true)]
     public partial class CatTypeUser
     {
+     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CatTypeUser()
         {
@@ -34,6 +34,7 @@ namespace ExamenMvcEf.Models
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [DataMember]public virtual ICollection<Users> Users { get; set; }
+        [DataMember]
+    	public virtual ICollection<Users> Users { get; set; }
     }
 }

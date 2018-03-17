@@ -16,10 +16,10 @@ namespace ExamenMvcEf.Models
     
     
     [Serializable]
-    //[DataContract]
     [DataContract(IsReference=true)]
     public partial class LogCatTipoLog
     {
+     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LogCatTipoLog()
         {
@@ -36,6 +36,7 @@ namespace ExamenMvcEf.Models
         public Nullable<bool> Borrado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [DataMember]public virtual ICollection<LogLogger> LogLogger { get; set; }
+        [DataMember]
+    	public virtual ICollection<LogLogger> LogLogger { get; set; }
     }
 }

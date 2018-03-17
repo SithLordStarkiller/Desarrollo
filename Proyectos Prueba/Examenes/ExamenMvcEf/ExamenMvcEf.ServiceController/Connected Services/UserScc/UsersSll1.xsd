@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/ExamenMvcEf.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/ExamenMvcEf.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:25251/Security/UsersSll.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfUsers">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Users" nillable="true" type="tns:Users" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUsers" nillable="true" type="tns:ArrayOfUsers" />
+  <xs:complexType name="Users">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CatTypeUser" nillable="true" type="tns:CatTypeUser" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdTypeUser" type="xs:int" />
+      <xs:element minOccurs="0" name="IdUser" type="xs:int" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Users" nillable="true" type="tns:Users" />
+  <xs:complexType name="CatTypeUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdTypeUser" type="xs:int" />
+      <xs:element minOccurs="0" name="NameTypeUser" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Users" nillable="true" type="tns:ArrayOfUsers" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="CatTypeUser" nillable="true" type="tns:CatTypeUser" />
+</xs:schema>
