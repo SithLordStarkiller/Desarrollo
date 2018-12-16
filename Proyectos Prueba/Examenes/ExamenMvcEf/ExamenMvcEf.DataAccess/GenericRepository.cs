@@ -154,7 +154,8 @@
                        _logLogger.EscribeLog(Logger.TipoLog.ErrorCritico,
                            Assembly.GetExecutingAssembly().GetName().Name, GetType().Name,
                            MethodBase.GetCurrentMethod().Name, "Error al encontrar lista de objeto de forma asincrona de la base de datos en entityFramework", match.ToString(), ex, Context.ToString()));
-                throw;
+
+                throw ex;
             }
         }
 
