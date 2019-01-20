@@ -1,0 +1,106 @@
+﻿@model BlobsUploadFiles.Site.Models.UserViewModel
+
+@{
+    ViewData["Title"] = "UserRegister";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>UserRegister</h1>
+
+<h4>UserViewModel</h4>
+<hr />
+<div class="col-md-12">
+    <form asp-action="CreateUserRegister" method="post" enctype = "multipart/form-data">
+        <div class="col-md-12 form-group">
+            <label asp-for="Name" class="custom-control-label"></label>
+            <input asp-for="Name" class="form-control" type="text" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-12 row" style="margin: 8px 0 8px 0;">
+            <div class="col-md-12 row">
+                <label asp-for="Photo" class="custom-control-label"></label>
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="col-md-3">
+                <img id="imgPhoto" width="200" />
+            </div>
+            <div class="col-md-9 input-group">
+                <input type="text" class="form-control" readonly>
+                <label class="input-group-btn align-bottom">
+                    <span class="btn btn-primary">
+                        Buscar <input asp-for="Photo" type="file" onchange="onchangeEvent(this);" class="" style="display: none;" readonly="readonly" />
+                        @*@Html.EditorFor(model => model.Photo, new { htmlAttributes = new { type = "file", onchange = "onchangeEvent(this);", style = "display: none;", @readonly = "readonly" } })*@
+                    </span>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $().ready(function () { });
+
+        function onchangeEvent(input) {
+            if (input.files && input.files[0]) {
+                var filerdr = new FileReader();
+                filerdr.onload = function (e) {
+                    $('#imgPhoto').attr('src', e.target.result);
+                }
+                filerdr.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(document).on('change', ':file', function () {
+            var input = $(this),
+                numFiles = input.get(0).files ? input.get(0).files.length : 1,
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [numFiles, label]);
+        });
+
+        $(':file').on('fileselect', function (event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+    </script>
+}
+
+<style type="text/css">
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+</style>
